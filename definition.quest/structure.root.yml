@@ -1,0 +1,100 @@
+#
+# quest structure root segment
+# 
+# (version: 17, saved: 2022-03-17 18:57:00)
+#
+---
+structure:
+  quest:
+    blocks:
+      start:
+        ".editor": [ -129.0, 220.0 ]
+        next:
+          - waituntil.3s
+          - changelayers.show_vanilla_start
+      
+      scene.new_scene:
+        ".editor":
+          pos: [ 417.0, 446.0 ]
+          in: [ Input ]
+          out: [ Output ]
+        scene: 01.player_change.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: false
+        next: ".done"
+      
+      waituntil.3s:
+        elapsed: "00:00:03"
+        ".editor":
+          pos: [ 51.0, 298.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.new_nr_notify_quest
+      
+      waituntil.new_wait_until_fact:
+        factdb: [ nr_test, ">=", 1 ]
+        ".editor":
+          pos: [ 225.1395568848, 21.7913513184 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - changelayers.show_chair_garden
+      
+      script.HelloWorld:
+        ".editor":
+          pos: [ 530.0, 178.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: radLog
+        parameter:
+          - logChannel: cname_new_quest
+          - msg: Hello World!
+        next:
+          - end
+      
+      script.new_nr_notify_quest:
+        ".editor":
+          pos: [ 191.0, 368.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Notify_Quest
+        parameter:
+          - message: "Hi! This is a dev version of \"New Player Characters\" mod."
+          - duration: 100000.0
+        next:
+          - waituntil.new_wait_until_fact
+          - scene.new_scene: Input
+      
+      changelayers.show_chair_garden:
+        ".editor":
+          pos: [ 356.0, 194.0 ]
+          hint: show-only
+          in: []
+          out: []
+        sync: true
+        purge: false
+        world: bob
+        show:
+          - vanilla_bob_corvo_chair
+        next:
+          - script.HelloWorld
+      
+      changelayers.show_vanilla_start:
+        ".editor":
+          pos: [ 57.0, 97.0 ]
+          hint: show-only
+          in: []
+          out: []
+        sync: true
+        purge: false
+        world: prologue
+        show:
+          - vanilla_encapment
+        next: ".done"
+      
+      end:
+        ".editor": [ 703.0, 96.0 ]
+        next: ".done"
+      

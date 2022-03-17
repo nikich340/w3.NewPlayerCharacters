@@ -1,0 +1,27 @@
+README.1ST
+-------------
+
+This directory is for files that should be used as is and therefore added to the
+package AFTER cooking but BEFORE packaging the *mod* part. This allows to add
+files that have to overwrite vanilla files and/or cannot be generated with the
+radish tools in the correct folder (radish tool always generates files for the
+dlc part!).
+
+
+Directory Structure
+-------------------
+
+The root folder (additional.mod.post-cook) is meant to be the root of the game,
+meaning:
+
+  additional.mod.post-cook   is treated like   /
+
+in the game. So files like
+
+  /characters/models/main_npc/ciri/c_01_wa__ciri.w2ent
+
+can be provided in a packed mod to overshadow the vanilla file.
+
+Note: in most cases it's preferable to provide all files as new files in a dlc
+and not meddle with vanilla files to prevent merge conflicts. You should know
+what you are doing!

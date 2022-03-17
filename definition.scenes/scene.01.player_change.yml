@@ -1,0 +1,26 @@
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 100
+
+  gameplay: true
+  cinematic_subtitles: true
+
+  assets:
+    actors:
+      geralt:
+        repo: "geralt"
+        by_voicetag: true
+        tags: [ "PLAYER" ]
+
+dialogscript:
+  player: "geralt"
+  actors: [ "geralt" ]
+
+  section_start:
+    - geralt: "0001028752|Smithing - pretty tiring job… Need a break, maybe, relax a bit? Play a game or two of gwent?"
+    - NEXT: section_exit
+    
+  section_exit:
+    - EXIT

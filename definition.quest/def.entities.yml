@@ -1,0 +1,1387 @@
+#
+# definition of entities
+#
+templates:
+  nr_special_int_storage:
+    entityObject:
+      ".type": NR_SpecialIntStorage
+  #    #u8: [1, 2, 3]
+  #    #u16: [1, 2, 3]
+
+  nr_scene_trigger:
+    includes:
+      - "dlc\\bob\\data\\quests\\main_quests\\quest_files\\q704_truth\\entities\\q704_trailer_doll.w2ent"
+    entityObject:
+      ".type": NR_SceneTrigger
+      isReusable: true
+      isInteractive: true
+      interactionAnim: PEA_ExamineEyeLevel
+      interactionAnimTime: 2.0
+      storyScene: "dlc/dlcnewreplacers/data/scenes/player_change.w2scene"
+
+      components:
+        SceneTriggerComp:
+          ".type": CInteractionComponent
+          transform:
+            pos: [ 0.0, 0.0, 0.15 ]
+          actionName: "Use"
+
+  nr_anims_demo:
+    entityObject:
+      ".type": NR_AnimsDemo
+      tags:
+        - NR_AnimsDemo
+
+  nr_player_manager:
+    entityObject:
+      ".type": NR_PlayerManager
+      tags:
+        - nr_player_manager
+
+  nr_replacer_witcher:
+    includes:  #array:2,0,handle:CEntityTemplate
+      - gameplay/templates/characters/player/player.w2ent
+
+    entityObject:
+      ".type": NR_ReplacerWitcher
+      tags:
+        - PLAYER
+        - nr_replacer_witcher
+      displayName: Player
+      voiceTag: GERALT
+      soundListenerOverride: "Geralt"
+      presenceInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WitcherPresence
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      slowMovementInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WitcherWalk
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      fastMovementInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WitcherRun
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      weaponDrawnInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WeaponDrawn
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      weaponDrawMomentInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WeaponDrawMoment
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      signs:  #array:2,0,SWitcherSign
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_aard.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_yrden.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_igni.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_quen.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_axii.w2ent
+          
+      medallionEntity: gameplay/medallion/witcher_medallion_test.w2ent
+      components:
+        Appearances:
+          ".type": CAppearanceComponent
+          forcedAppearance: nr_player
+          appearanceAttachments:  #array:2,0,SAppearanceAttachments
+            - ".type": SAppearanceAttachments
+              appearance: special_preorder_app__do_not_use
+              attachments:  #array:2,0,SAppearanceAttachment
+                - ".type": SAppearanceAttachment
+                  parentClass: CAnimatedComponent
+                  parentName: scabbards_skeleton
+                  childClass: CMeshComponent
+                  childName: steel_scabbard_av_01
+
+    appearances:  #array:2,0,CEntityAppearance
+      nr_player:
+        ".type": CEntityAppearance
+        voicetag: GERALT
+        appearanceParams:  #array:2,0,ptr:CEntityTemplateParam
+          - ".type": CEquipmentDefinition
+            entries:  #array:2,0,ptr:CEquipmentDefinitionEntry
+              - ".type": CEquipmentDefinitionEntry
+                category: steelsword
+              - ".type": CEquipmentDefinitionEntry
+                category: silversword
+              - ".type": CEquipmentDefinitionEntry
+                category: head
+              - ".type": CEquipmentDefinitionEntry
+                category: hair
+
+    usedAppearances:  #array:2,0,CName
+      - nr_player
+      
+    #templateParams:
+    #  - ".type": CAnimAnimsetsParam
+    #    name: "man_custom"
+    #    componentName: "man_base"
+    #    animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+    #      - dlc/dlcnewreplacers/data/animations/my_anims.w2anims
+
+  nr_replacer_witcheress:
+    includes:  #array:2,0,handle:CEntityTemplate
+      - dlc/dlcnewreplacers/data/entities/player_woman_base.w2ent
+
+    entityObject:
+      ".type": NR_ReplacerWitcheress
+      tags:
+        - PLAYER
+        - nr_replacer_witcheress
+      displayName: Player
+      voiceTag: GERALT
+      soundListenerOverride: "Geralt"
+      presenceInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WitcherPresence
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      slowMovementInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WitcherWalk
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      fastMovementInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WitcherRun
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      weaponDrawnInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WeaponDrawn
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      weaponDrawMomentInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WeaponDrawMoment
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      signs:  #array:2,0,SWitcherSign
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_aard.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_yrden.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_igni.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_quen.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_axii.w2ent
+
+      medallionEntity: gameplay/medallion/witcher_medallion_test.w2ent
+      components:
+        Appearances:
+          ".type": CAppearanceComponent
+          forcedAppearance: nr_player
+          appearanceAttachments:  #array:2,0,SAppearanceAttachments
+            - ".type": SAppearanceAttachments
+              appearance: special_preorder_app__do_not_use
+              attachments:  #array:2,0,SAppearanceAttachment
+                - ".type": SAppearanceAttachment
+                  parentClass: CAnimatedComponent
+                  parentName: scabbards_skeleton
+                  childClass: CMeshComponent
+                  childName: steel_scabbard_av_01
+
+    appearances:  #array:2,0,CEntityAppearance
+      nr_player:
+        ".type": CEntityAppearance
+        voicetag: GERALT
+        appearanceParams:  #array:2,0,ptr:CEntityTemplateParam
+          - ".type": CEquipmentDefinition
+            entries:  #array:2,0,ptr:CEquipmentDefinitionEntry
+              - ".type": CEquipmentDefinitionEntry
+                category: steelsword
+              - ".type": CEquipmentDefinitionEntry
+                category: silversword
+              - ".type": CEquipmentDefinitionEntry
+                category: head
+              - ".type": CEquipmentDefinitionEntry
+                category: hair
+
+    usedAppearances:  #array:2,0,CName
+      - nr_player
+      
+    templateParams:
+      - ".type": CAnimAnimsetsParam
+        name: "scabbards"
+        componentName: "scabbards_skeleton"
+        animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          - animations/items/weapon/witcher_scabbards.w2anims
+
+      - ".type": CAnimBehaviorsParam
+        name: "scabbards"
+        componentName: "scabbards_skeleton"
+        slots:  #array:2,0,SBehaviorGraphInstanceSlot
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: Default
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_scabbards.w2beh
+
+      - ".type": CAnimBehaviorsParam
+        name: "woman_player"
+        componentName: "woman_base"
+        slots:  #array:2,0,SBehaviorGraphInstanceSlot
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: PlayerOverlay
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_overlay.w2beh
+            alwaysOnTopOfStack: true
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: StoryScene
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_dialog.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: VehicleHorse
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_rider.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: PlayerSwimming
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_swimming.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: PlayerSailing
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_sailing.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: Gameplay
+            graph: dlc/dlcnewreplacers/data/behaviorgraph/pc_gameplay_woman.w2beh
+            #graph: gameplay/behaviors/pc/behaviorgraph/pc_gameplay.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: Inventory
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_inventory.w2beh
+
+      - ".type": CAnimAnimsetsParam
+        name: "woman_dialog"
+        componentName: "woman_base"
+        animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          - animations/woman/dialog/woman_dialog.w2anims
+          - animations/woman/dialog/woman_dialog_sitting.w2anims
+          - animations/woman/dialog/woman_dialog_standing.w2anims
+          - animations/woman/dialog/woman_dialog_standing_leaning.w2anims
+          - animations/woman/dialog/woman_dialog_sitting_leaning.w2anims
+          - animations/woman/dialog/woman_dialog_enter_exit.w2anims
+          - animations/woman/dialog/woman_dialog_additives.w2anims
+          - animations/woman/dialog/woman_dialog_lying.w2anims
+          - animations/woman/dialog/woman_dialog_sitting_ground.w2anims
+          - animations/woman/dialog/woman_dialog_standing_leaning_back.w2anims
+          - animations/woman/dialog/woman_dialog_kneeling.w2anims
+          
+          - animations/woman/dialog/woman_dialog_locomotion.w2anims
+          - animations/woman/dialog/woman_dialog_gameplay_recompress.w2anims
+          - animations/woman/dialog/ep1_woman_dialog_animation.w2anims
+          - animations/woman/quest/q602_woman_picking_flowers.w2anims
+          - animations/woman/quest/q605_shani_on_ledge.w2anims
+          - animations/woman/quest/woman_quest.w2anims
+          - animations/woman/community/woman_reaction.w2anims
+          - animations/woman/community/woman_exploration_critical_states.w2anims
+          - animations/woman/community/woman_work.w2anims
+
+          ### RETARGET - man dialog
+          # DO NOT TOUCH lookats! We have no idea how they work
+          - animations/man/dialogs/man_dialog_lookats.w2anims
+          - animations/woman/dialog/woman_dialog_lookats.w2anims
+
+          # OK (partially in woman_dialog, set them after vanilla woman w2anims! to override)
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_sitting_table1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_sitting_table2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing5.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_quest1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_quest2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_quest3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_quest4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_additives.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_gameplay_recompress.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_item_interaction.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_locomotion.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_kneeling.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_lying.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_sitting.w2anims  
+          ##       
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_sitting_ground.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing_leaning_back.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing_leaning.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing_to_standing.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/ep1_man_dialog_animations1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/ep1_man_dialog_animations2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/ep1_man_dialog_animations3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/ep1_man_dialog_animations4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work5.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work6.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work7.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work8.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work9.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work10.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work11.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/q602_geralt_salsa_dancing.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/q602_geralt_ghost.w2anims
+
+          # bob mounters - woman
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_anna_henrietta_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/noble_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_noble_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_noble_quest.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_quest.w2anims
+          
+          # bob mounters - man -> RETARGET DONE
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_regis_dialog_animation.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/geralt_custom.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_gameplay_recompress.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_quest.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_work1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_work2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_work3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_geralt_injured_movement.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/qq703_geralt_barrel.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/monster_dettlaff_vampire.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_nolwenn_dialog_animation.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/bob_horse_dialog_animations_man.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_carry_barrel_movement.w2anims
+          
+          # dlc12 mounters - man -> RETARGET DONE
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/dlc12/mq2052_man_dialog.w2anims
+          # dlc15 mounters - man -> RETARGET DONE
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/dlc15/mq1058_man_dialog.w2anims
+          # DO NOT TOUCH lookats! We have no idea how they work
+          - dlc/dlc15/data/animation/man/mq1058_man_dialog_lookats.w2anims
+      
+      - ".type": CAnimAnimsetsParam
+        name: "woman_player"
+        componentName: "woman_base"
+        animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          # partially overlapped by woman_ciri_sword -> FULL RETARGET
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_sword_locomotion1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_sword_locomotion2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_sword_locomotion3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_longsword1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_longsword2.w2anims
+
+          # mostly overlapped by woman_movement -> PARTIAL RETARGET
+          - animations/man/movement/man_geralt_movement.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_movement1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_movement2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_movement3.w2anims
+          # mostly overlapped by ciri_interaction -> PARTIAL RETARGET
+          - animations/interaction/environment/man_geralt_focus.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_focus.w2anims
+          # mostly overlapped by woman_ciri_exploration, woman_movement -> PARTIAL RETARGET
+          - animations/man/movement/man_geralt_exploration.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_exploration1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_exploration2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_exploration3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_exploration4.w2anims
+          # -> FULL RETARGET
+          ## NO PROFIT, BUGGY ITEM PLACEMENT - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_carry_item.w2anims
+          - animations/interaction/environment/man_geralt_carry_item.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_movement_prototype.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_switch.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_tornado.w2anims
+
+          - animations/interaction/boat/boat_ciri_sailor.w2anims
+          - animations/woman/combat/woman_ciri_ice_skating.w2anims
+          - animations/woman/movement/woman_movement.w2anims
+          - animations/woman/movement/woman_ciri_exploration.w2anims
+          - animations/woman/movement/woman_swimming.w2anims
+          - animations/interaction/environment/ciri_interaction.w2anims
+          - animations/woman/movement/woman_follower_movement.w2anims
+          - animations/woman/combat/woman_bow.w2anims
+          - animations/woman/combat/woman_sorceress.w2anims
+          # -> FULL RETARGET
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dismemberment.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/drinking_game.w2anims
+
+          ### RETARGET (after vanilla w2anims if additives are not retargeted) ###
+          # sword combat
+          - animations/man/combat/man_geralt_sword.w2anims
+          - animations/woman/combat/woman_ciri_sword.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword5.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword6.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_finishers.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/dlc16/man_finishers.w2anims
+          #- dlc/dlcnewreplacers/data/animations/woman_extra/woman_extra.w2anims
+          # meditation
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_meditation.w2anims
+          # fistfight
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_fistfight1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_fistfight2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_fistfight3.w2anims
+          # signs fistfight
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_signs.w2anims
+          # inventory menu
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_inventory.w2anims
+          # gabriel
+          - animations/man/combat/man_geralt_gabriel.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_gabriel_crossbow.w2anims
+          # petard
+          - animations/man/combat/man_geralt_petard.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_petard.w2anims
+          # horse ride & combat
+          - animations/man/combat/man_geralt_horse_combat.w2anims # 3 axii anims
+          - animations/interaction/horse_draft/man_horse_sword.w2anims # OK !
+          - animations/interaction/horse_draft/horse_draft_geralt_rider.w2anims # OK !
+          - animations/interaction/horse_draft/woman_horse_sword.w2anims
+          - animations/interaction/horse_draft/horse_draft_ciri_rider.w2anims
+          #- dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_draft1.w2anims
+          #- dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_draft1.w2anims
+          #- dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_draft1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_draft_filtered.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_sword_filtered.w2anims
+      
+      - ".type": CAnimMimicParam
+        animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          - animations/mimics/geralt_mimic_animation.w2anims
+          - animations/mimics/geralt_mimic_layers.w2anims
+          - animations/mimics/geralt_mimic_inventory.w2anims
+          - animations/mimics/gameplay_geralt_high_mimic_animation.w2anims
+          - animations/mimics/ep1_geralt_mimic_animation.w2anims
+          ###
+          - animations/mimics/woman_mimic_animation.w2anims
+          - animations/mimics/ciri_mimic_animation.w2anims
+          - animations/mimics/ciri_mimic_layers.w2anims
+          - animations/mimics/yennefer_mimic_animation.w2anims
+          - animations/woman/dialog/yennefer_mimic_layers.w2anims
+          - animations/mimics/gameplay_man_mimic_animation.w2anims
+        behaviorInstanceSlots:  #array:2,0,SBehaviorGraphInstanceSlot
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: mimika
+            graph: animations/mimics/mimics_behavior.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: Cutscene
+            graph: gameplay/behaviors/cutscene_graph.w2beh
+
+    slots:  #array:2,0,EntitySlot
+      vs_neck:
+        componentName: woman_base
+        boneName: neck
+
+      quen_shield:
+        transform:
+          pos: [ 0.0, 0.0, 1.086823 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+        freeRotation: false
+
+      r_foot:
+        componentName: woman_base
+        boneName: r_foot
+
+      l_foot:
+        componentName: woman_base
+        boneName: l_foot
+
+      l_hip_weapon_axe_slot:
+        componentName: scabbards_skeleton
+        boneName: steel_sword_back
+        transform:
+          pos: [ -0.01331717, 0.000809297, 0.2272896 ]
+          rot: [ 0.001765886, 358.9757, 348.5338 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      drain_energy:
+        componentName: woman_base
+        boneName: Trajectory
+        transform:
+          pos: [ 0.0, 0.5, 1.5 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      axe_back_slot:
+        componentName: scabbards_skeleton
+        boneName: steel_sword_back
+        transform:
+          pos: [ -0.01331, 0.0008, 0.2273 ]
+          rot: [ 0.00177, 359.0, 348.534 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      igni_point:
+        transform:
+          pos: [ -0.2049155, 1.577282, 1.300313 ]
+          rot: [ 0.0, 90.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      quen_sign:
+        transform:
+          pos: [ -0.05999999, 1.3, 1.3 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      fx_healing:
+        freeRotation: false
+
+      silver_sword_back_slot:
+        componentName: scabbards_skeleton
+        boneName: silver_sword_back
+
+      crossbow_back_slot:
+        componentName: scabbards_skeleton
+        boneName: crossbow_back
+
+      force:
+        transform:
+          pos: [ 0.0, 0.0, 1.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_Neck_InstantDeath:
+        componentName: woman_base
+        boneName: neck
+        transform:
+          pos: [ 0.03383386, 0.0731425, -0.01995203 ]
+          rot: [ 9.995556E-06, 2.063564E-08, 4.268868E-06 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_ArmLeftUpper_Stamina:
+        componentName: woman_base
+        boneName: l_shoulder
+        transform:
+          pos: [ 0.2780009, 0.001004726, -0.05337334 ]
+          rot: [ 5.805624E-05, 1.349029E-05, 4.676995E-06 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_TorsoLower_Bleeding:
+        componentName: woman_base
+        boneName: torso2
+        transform:
+          pos: [ -0.1081886, 0.1510969, -0.03998392 ]
+          rot: [ 3.853237E-06, 1.054548E-05, 6.403302E-06 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_BackUpper_Stamina:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 0.1045645, -0.1474987, 0.02001218 ]
+          rot: [ 359.9992, 78.80433, 0.0009333192 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_ArmRightUpper_Stamina:
+        componentName: woman_base
+        boneName: r_shoulder
+        transform:
+          pos: [ 0.2369746, 0.001907256, -0.04921818 ]
+          rot: [ 0.0, 5.904712E-06, 8.217155E-06 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      crossbow_back:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 0.361906, -0.106336, 0.168488 ]
+          rot: [ 112.127, 294.069, 308.822 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      torso3_effect:
+        componentName: woman_base
+        boneName: torso3
+
+      r_weapon_arrow:
+        componentName: woman_base
+        boneName: r_weapon
+        transform:
+          pos: [ 0.9, 0.0, 0.0 ]
+          rot: [ 0.0, 0.0, 270.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      halberd_back_slot:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 1.0, 0.0, 0.45 ]
+          rot: [ 241.9, 41.4, 31.85 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      l_hip_weapon_slot:
+        componentName: woman_base
+        boneName: pelvis
+        transform:
+          pos: [ -0.247734, -0.19208, -0.139502 ]
+          rot: [ 228.912, 55.2133, 263.339 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      shield_back_slot:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 0.0, -0.19, 0.0 ]
+          rot: [ 270.0, 359.0, 193.2 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      impact:
+        componentName: woman_base
+        transform:
+          pos: [ 0.0, -0.8, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      bow_back_slot:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 0.0572898, -0.170033, -0.0547273 ]
+          rot: [ 60.7763, 7.96067, 9.15506 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      quen_sphere:
+        transform:
+          pos: [ 0.0, 0.0, 0.8 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+        freeRotation: false
+
+      blood_back_point:
+        componentName: woman_base
+        boneName: torso
+        transform:
+          pos: [ 0.16, -0.1, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      blood_point:
+        componentName: woman_base
+        boneName: torso2
+        transform:
+          pos: [ 0.1, 0.12, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      drink_slot:
+        componentName: woman_base
+        boneName: r_ring3
+        transform:
+          pos: [ 0.01, 0.01, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      drinking_vessel:
+        componentName: woman_base
+        boneName: r_weapon
+
+      fallback_point:
+        transform:
+          pos: [ 0.0, -0.55, 0.1 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      fx:
+        componentName: woman_base
+
+      head:
+        componentName: woman_base
+        boneName: head
+        transform:
+          pos: [ -0.045, -0.035, 0 ]
+          rot: [ 90.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      l_weapon:
+        componentName: woman_base
+        boneName: l_weapon
+
+      r_weapon:
+        componentName: woman_base
+        boneName: r_weapon
+
+      sign_slot:
+        componentName: woman_base
+        boneName: l_weapon
+        transform:
+          pos: [ 0.0, 0.0, 0.0 ]
+          rot: [ 0.0, 90.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      steel_sword_back_slot:
+        componentName: scabbards_skeleton
+        boneName: steel_sword_back
+
+      throwable:
+        componentName: woman_base
+        boneName: l_weapon
+
+      vs_abdomen:
+        componentName: woman_base
+        boneName: torso
+        transform:
+          pos: [ 0.0281056, -0.0301491, -0.00565504 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      vs_bicep:
+        componentName: woman_base
+        boneName: l_bicep
+
+      vs_calf:
+        componentName: woman_base
+        boneName: r_shin
+        transform:
+          pos: [ 0.19234, 0.0, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      vs_lantern:
+        componentName: woman_base
+        boneName: pelvis
+        transform:
+          pos: [ -0.00408934, -0.0270851, -0.187406 ]
+          rot: [ 0.0, 78.8043, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+    
+  nr_replacer_sorceress:
+    includes:  #array:2,0,handle:CEntityTemplate
+      - dlc/dlcnewreplacers/data/entities/player_woman_base.w2ent
+
+    entityObject:
+      ".type": NR_ReplacerSorceress
+      tags:
+        - PLAYER
+        - nr_replacer_witcheress
+      displayName: Player
+      voiceTag: GERALT
+      soundListenerOverride: "Geralt"
+      presenceInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WitcherPresence
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      slowMovementInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WitcherWalk
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      fastMovementInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WitcherRun
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      weaponDrawnInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WeaponDrawn
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      weaponDrawMomentInterestPoint:
+        ".type": CInterestPoint
+        fieldName: WeaponDrawMoment
+        potentialField:
+          ".type": CCircularPotentialField
+          radius: 20.0
+      signs:  #array:2,0,SWitcherSign
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_aard.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_yrden.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_igni.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_quen.w2ent
+        - ".type": SWitcherSign
+          template: gameplay/templates/signs/pc_axii.w2ent
+
+      medallionEntity: gameplay/medallion/witcher_medallion_test.w2ent
+      components:
+        Appearances:
+          ".type": CAppearanceComponent
+          forcedAppearance: nr_player
+          appearanceAttachments:  #array:2,0,SAppearanceAttachments
+            - ".type": SAppearanceAttachments
+              appearance: special_preorder_app__do_not_use
+              attachments:  #array:2,0,SAppearanceAttachment
+                - ".type": SAppearanceAttachment
+                  parentClass: CAnimatedComponent
+                  parentName: scabbards_skeleton
+                  childClass: CMeshComponent
+                  childName: steel_scabbard_av_01
+
+    appearances:  #array:2,0,CEntityAppearance
+      nr_player:
+        ".type": CEntityAppearance
+        voicetag: GERALT
+        appearanceParams:  #array:2,0,ptr:CEntityTemplateParam
+          - ".type": CEquipmentDefinition
+            entries:  #array:2,0,ptr:CEquipmentDefinitionEntry
+              - ".type": CEquipmentDefinitionEntry
+                category: steelsword
+              - ".type": CEquipmentDefinitionEntry
+                category: silversword
+              - ".type": CEquipmentDefinitionEntry
+                category: head
+              - ".type": CEquipmentDefinitionEntry
+                category: hair
+
+    usedAppearances:  #array:2,0,CName
+      - nr_player
+      
+    templateParams:
+      - ".type": CAnimAnimsetsParam
+        name: "scabbards"
+        componentName: "scabbards_skeleton"
+        animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          - animations/items/weapon/witcher_scabbards.w2anims
+
+      - ".type": CAnimBehaviorsParam
+        name: "scabbards"
+        componentName: "scabbards_skeleton"
+        slots:  #array:2,0,SBehaviorGraphInstanceSlot
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: Default
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_scabbards.w2beh
+
+      - ".type": CAnimBehaviorsParam
+        name: "woman_player"
+        componentName: "woman_base"
+        slots:  #array:2,0,SBehaviorGraphInstanceSlot
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: PlayerOverlay
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_overlay.w2beh
+            alwaysOnTopOfStack: true
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: StoryScene
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_dialog.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: VehicleHorse
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_rider.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: PlayerSwimming
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_swimming.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: PlayerSailing
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_sailing.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: Gameplay
+            graph: dlc/dlcnewreplacers/data/behaviorgraph/pc_gameplay_sorceress.w2beh
+            #graph: gameplay/behaviors/pc/behaviorgraph/pc_gameplay.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: Inventory
+            graph: gameplay/behaviors/pc/behaviorgraph/pc_inventory.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: PlayerSorceress
+            graph: gameplay/behaviors/npc/behaviorgraph/npc_sorceress_combat.w2beh
+
+      - ".type": CAnimAnimsetsParam
+        name: "woman_dialog"
+        componentName: "woman_base"
+        animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          - animations/woman/dialog/woman_dialog.w2anims
+          - animations/woman/dialog/woman_dialog_sitting.w2anims
+          - animations/woman/dialog/woman_dialog_standing.w2anims
+          - animations/woman/dialog/woman_dialog_standing_leaning.w2anims
+          - animations/woman/dialog/woman_dialog_sitting_leaning.w2anims
+          - animations/woman/dialog/woman_dialog_enter_exit.w2anims
+          - animations/woman/dialog/woman_dialog_additives.w2anims
+          - animations/woman/dialog/woman_dialog_lying.w2anims
+          - animations/woman/dialog/woman_dialog_sitting_ground.w2anims
+          - animations/woman/dialog/woman_dialog_standing_leaning_back.w2anims
+          - animations/woman/dialog/woman_dialog_kneeling.w2anims
+          
+          - animations/woman/dialog/woman_dialog_locomotion.w2anims
+          - animations/woman/dialog/woman_dialog_gameplay_recompress.w2anims
+          - animations/woman/dialog/ep1_woman_dialog_animation.w2anims
+          - animations/woman/quest/q602_woman_picking_flowers.w2anims
+          - animations/woman/quest/q605_shani_on_ledge.w2anims
+          - animations/woman/quest/woman_quest.w2anims
+          - animations/woman/community/woman_reaction.w2anims
+          - animations/woman/community/woman_exploration_critical_states.w2anims
+          - animations/woman/community/woman_work.w2anims
+
+          ### RETARGET - man dialog
+          # DO NOT TOUCH lookats! We have no idea how they work
+          - animations/man/dialogs/man_dialog_lookats.w2anims
+          - animations/woman/dialog/woman_dialog_lookats.w2anims
+
+          # OK (partially in woman_dialog, set them after vanilla woman w2anims! to override)
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_sitting_table1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_sitting_table2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing5.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_quest1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_quest2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_quest3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_quest4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_additives.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_gameplay_recompress.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_item_interaction.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_locomotion.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_kneeling.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_lying.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_sitting.w2anims  
+          ##       
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_sitting_ground.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing_leaning_back.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing_leaning.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dialog_standing_to_standing.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/ep1_man_dialog_animations1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/ep1_man_dialog_animations2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/ep1_man_dialog_animations3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/ep1_man_dialog_animations4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work5.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work6.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work7.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work8.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work9.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work10.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work11.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/q602_geralt_salsa_dancing.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/q602_geralt_ghost.w2anims
+
+          # bob mounters - woman
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_anna_henrietta_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/noble_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_noble_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_noble_quest.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_quest.w2anims
+          
+          # bob mounters - man -> RETARGET DONE
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_regis_dialog_animation.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/geralt_custom.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_gameplay_recompress.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_quest.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_work1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_work2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_work3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_geralt_injured_movement.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/qq703_geralt_barrel.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/monster_dettlaff_vampire.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_nolwenn_dialog_animation.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/bob_horse_dialog_animations_man.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_carry_barrel_movement.w2anims
+          
+          # dlc12 mounters - man -> RETARGET DONE
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/dlc12/mq2052_man_dialog.w2anims
+          # dlc15 mounters - man -> RETARGET DONE
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/dlc15/mq1058_man_dialog.w2anims
+          # DO NOT TOUCH lookats! We have no idea how they work
+          - dlc/dlc15/data/animation/man/mq1058_man_dialog_lookats.w2anims
+      
+      - ".type": CAnimAnimsetsParam
+        name: "woman_player"
+        componentName: "woman_base"
+        animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          # partially overlapped by woman_ciri_sword -> FULL RETARGET
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_sword_locomotion1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_sword_locomotion2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_sword_locomotion3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_longsword1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_longsword2.w2anims
+
+          # mostly overlapped by woman_movement -> PARTIAL RETARGET
+          - animations/man/movement/man_geralt_movement.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_movement1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_movement2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_movement3.w2anims
+          # mostly overlapped by ciri_interaction -> PARTIAL RETARGET
+          - animations/interaction/environment/man_geralt_focus.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_focus.w2anims
+          # mostly overlapped by woman_ciri_exploration, woman_movement -> PARTIAL RETARGET
+          - animations/man/movement/man_geralt_exploration.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_exploration1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_exploration2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_exploration3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_exploration4.w2anims
+          # -> FULL RETARGET
+          ## NO PROFIT, BUGGY ITEM PLACEMENT - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_carry_item.w2anims
+          - animations/interaction/environment/man_geralt_carry_item.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_movement_prototype.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_switch.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_geralt_tornado.w2anims
+
+          - animations/interaction/boat/boat_ciri_sailor.w2anims
+          - animations/woman/combat/woman_ciri_ice_skating.w2anims
+          - animations/woman/movement/woman_movement.w2anims
+          - animations/woman/movement/woman_ciri_exploration.w2anims
+          - animations/woman/movement/woman_swimming.w2anims
+          - animations/interaction/environment/ciri_interaction.w2anims
+          - animations/woman/movement/woman_follower_movement.w2anims
+          - animations/woman/combat/woman_bow.w2anims
+          ## - animations/woman/combat/woman_sorceress.w2anims
+          - dlc/dlcnewreplacers/data/animations/nr_woman_sorceress1.w2anims
+          - dlc/dlcnewreplacers/data/animations/nr_woman_sorceress2.w2anims
+          # -> FULL RETARGET
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dismemberment.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/drinking_game.w2anims
+
+          ### RETARGET (after vanilla w2anims if additives are not retargeted) ###
+          # sword combat
+          - animations/man/combat/man_geralt_sword.w2anims
+          - animations/woman/combat/woman_ciri_sword.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword4.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword5.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_sword6.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_finishers.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/dlc16/man_finishers.w2anims
+          #- dlc/dlcnewreplacers/data/animations/woman_extra/woman_extra.w2anims
+          # meditation
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_meditation.w2anims
+          # fistfight
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_fistfight1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_fistfight2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_fistfight3.w2anims
+          # signs fistfight
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_signs.w2anims
+          # inventory menu
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_inventory.w2anims
+          # gabriel
+          - animations/man/combat/man_geralt_gabriel.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_gabriel_crossbow.w2anims
+          # petard
+          - animations/man/combat/man_geralt_petard.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_petard.w2anims
+          # horse ride & combat
+          - animations/man/combat/man_geralt_horse_combat.w2anims # 3 axii anims
+          - animations/interaction/horse_draft/man_horse_sword.w2anims # OK !
+          - animations/interaction/horse_draft/horse_draft_geralt_rider.w2anims # OK !
+          - animations/interaction/horse_draft/woman_horse_sword.w2anims
+          - animations/interaction/horse_draft/horse_draft_ciri_rider.w2anims
+          #- dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_draft1.w2anims
+          #- dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_draft1.w2anims
+          #- dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_draft1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_draft_filtered.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/man_horse_sword_filtered.w2anims
+      
+      - ".type": CAnimMimicParam
+        animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          - animations/mimics/geralt_mimic_animation.w2anims
+          - animations/mimics/geralt_mimic_layers.w2anims
+          - animations/mimics/geralt_mimic_inventory.w2anims
+          - animations/mimics/gameplay_geralt_high_mimic_animation.w2anims
+          - animations/mimics/ep1_geralt_mimic_animation.w2anims
+          ###
+          - animations/mimics/woman_mimic_animation.w2anims
+          - animations/mimics/ciri_mimic_animation.w2anims
+          - animations/mimics/ciri_mimic_layers.w2anims
+          - animations/mimics/yennefer_mimic_animation.w2anims
+          - animations/woman/dialog/yennefer_mimic_layers.w2anims
+          - animations/mimics/gameplay_man_mimic_animation.w2anims
+        behaviorInstanceSlots:  #array:2,0,SBehaviorGraphInstanceSlot
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: mimika
+            graph: animations/mimics/mimics_behavior.w2beh
+          - ".type": SBehaviorGraphInstanceSlot
+            instanceName: Cutscene
+            graph: gameplay/behaviors/cutscene_graph.w2beh
+
+    slots:  #array:2,0,EntitySlot
+      vs_neck:
+        componentName: woman_base
+        boneName: neck
+
+      quen_shield:
+        transform:
+          pos: [ 0.0, 0.0, 1.086823 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+        freeRotation: false
+
+      r_foot:
+        componentName: woman_base
+        boneName: r_foot
+
+      l_foot:
+        componentName: woman_base
+        boneName: l_foot
+
+      l_hip_weapon_axe_slot:
+        componentName: scabbards_skeleton
+        boneName: steel_sword_back
+        transform:
+          pos: [ -0.01331717, 0.000809297, 0.2272896 ]
+          rot: [ 0.001765886, 358.9757, 348.5338 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      drain_energy:
+        componentName: woman_base
+        boneName: Trajectory
+        transform:
+          pos: [ 0.0, 0.5, 1.5 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      axe_back_slot:
+        componentName: scabbards_skeleton
+        boneName: steel_sword_back
+        transform:
+          pos: [ -0.01331, 0.0008, 0.2273 ]
+          rot: [ 0.00177, 359.0, 348.534 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      igni_point:
+        transform:
+          pos: [ -0.2049155, 1.577282, 1.300313 ]
+          rot: [ 0.0, 90.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      quen_sign:
+        transform:
+          pos: [ -0.05999999, 1.3, 1.3 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      fx_healing:
+        freeRotation: false
+
+      silver_sword_back_slot:
+        componentName: scabbards_skeleton
+        boneName: silver_sword_back
+
+      crossbow_back_slot:
+        componentName: scabbards_skeleton
+        boneName: crossbow_back
+
+      force:
+        transform:
+          pos: [ 0.0, 0.0, 1.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_Neck_InstantDeath:
+        componentName: woman_base
+        boneName: neck
+        transform:
+          pos: [ 0.03383386, 0.0731425, -0.01995203 ]
+          rot: [ 9.995556E-06, 2.063564E-08, 4.268868E-06 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_ArmLeftUpper_Stamina:
+        componentName: woman_base
+        boneName: l_shoulder
+        transform:
+          pos: [ 0.2780009, 0.001004726, -0.05337334 ]
+          rot: [ 5.805624E-05, 1.349029E-05, 4.676995E-06 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_TorsoLower_Bleeding:
+        componentName: woman_base
+        boneName: torso2
+        transform:
+          pos: [ -0.1081886, 0.1510969, -0.03998392 ]
+          rot: [ 3.853237E-06, 1.054548E-05, 6.403302E-06 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_BackUpper_Stamina:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 0.1045645, -0.1474987, 0.02001218 ]
+          rot: [ 359.9992, 78.80433, 0.0009333192 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      VS_ArmRightUpper_Stamina:
+        componentName: woman_base
+        boneName: r_shoulder
+        transform:
+          pos: [ 0.2369746, 0.001907256, -0.04921818 ]
+          rot: [ 0.0, 5.904712E-06, 8.217155E-06 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      crossbow_back:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 0.361906, -0.106336, 0.168488 ]
+          rot: [ 112.127, 294.069, 308.822 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      torso3_effect:
+        componentName: woman_base
+        boneName: torso3
+
+      r_weapon_arrow:
+        componentName: woman_base
+        boneName: r_weapon
+        transform:
+          pos: [ 0.9, 0.0, 0.0 ]
+          rot: [ 0.0, 0.0, 270.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      halberd_back_slot:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 1.0, 0.0, 0.45 ]
+          rot: [ 241.9, 41.4, 31.85 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      l_hip_weapon_slot:
+        componentName: woman_base
+        boneName: pelvis
+        transform:
+          pos: [ -0.247734, -0.19208, -0.139502 ]
+          rot: [ 228.912, 55.2133, 263.339 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      shield_back_slot:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 0.0, -0.19, 0.0 ]
+          rot: [ 270.0, 359.0, 193.2 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      impact:
+        componentName: woman_base
+        transform:
+          pos: [ 0.0, -0.8, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      bow_back_slot:
+        componentName: woman_base
+        boneName: torso3
+        transform:
+          pos: [ 0.0572898, -0.170033, -0.0547273 ]
+          rot: [ 60.7763, 7.96067, 9.15506 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      quen_sphere:
+        transform:
+          pos: [ 0.0, 0.0, 0.8 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+        freeRotation: false
+
+      blood_back_point:
+        componentName: woman_base
+        boneName: torso
+        transform:
+          pos: [ 0.16, -0.1, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      blood_point:
+        componentName: woman_base
+        boneName: torso2
+        transform:
+          pos: [ 0.1, 0.12, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      drink_slot:
+        componentName: woman_base
+        boneName: r_ring3
+        transform:
+          pos: [ 0.01, 0.01, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      drinking_vessel:
+        componentName: woman_base
+        boneName: r_weapon
+
+      fallback_point:
+        transform:
+          pos: [ 0.0, -0.55, 0.1 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      fx:
+        componentName: woman_base
+
+      head:
+        componentName: woman_base
+        boneName: head
+        transform:
+          pos: [ -0.045, -0.035, 0 ]
+          rot: [ 90.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      l_weapon:
+        componentName: woman_base
+        boneName: l_weapon
+
+      r_weapon:
+        componentName: woman_base
+        boneName: r_weapon
+
+      sign_slot:
+        componentName: woman_base
+        boneName: l_weapon
+        transform:
+          pos: [ 0.0, 0.0, 0.0 ]
+          rot: [ 0.0, 90.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      steel_sword_back_slot:
+        componentName: scabbards_skeleton
+        boneName: steel_sword_back
+
+      throwable:
+        componentName: woman_base
+        boneName: l_weapon
+
+      vs_abdomen:
+        componentName: woman_base
+        boneName: torso
+        transform:
+          pos: [ 0.0281056, -0.0301491, -0.00565504 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      vs_bicep:
+        componentName: woman_base
+        boneName: l_bicep
+
+      vs_calf:
+        componentName: woman_base
+        boneName: r_shin
+        transform:
+          pos: [ 0.19234, 0.0, 0.0 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
+      vs_lantern:
+        componentName: woman_base
+        boneName: pelvis
+        transform:
+          pos: [ -0.00408934, -0.0270851, -0.187406 ]
+          rot: [ 0.0, 78.8043, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]

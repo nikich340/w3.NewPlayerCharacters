@@ -1,0 +1,139 @@
+#
+# definition of entities
+#
+templates:
+  # gaethan, karadin
+  nr_replacer_witcher_inv:
+    includes:  #array:2,0,handle:CEntityTemplate
+      - characters/player_entities/geralt/geralt_player.w2ent
+
+    entityObject:
+      ".type": W3PlayerWitcher
+      tags:
+        - nr_replacer_witcher_inv
+
+      displayName: Player
+      voiceTag: GERALT
+      soundListenerOverride: "Geralt"
+      components:
+        Appearances:
+          ".type": CAppearanceComponent
+          forcedAppearance: nr_player_inv
+          appearanceAttachments:  #array:2,0,SAppearanceAttachments
+            - ".type": SAppearanceAttachments
+              appearance: special_preorder_app__do_not_use
+              attachments:  #array:2,0,SAppearanceAttachment
+                - ".type": SAppearanceAttachment
+                  parentClass: CAnimatedComponent
+                  parentName: scabbards_skeleton
+                  childClass: CMeshComponent
+                  childName: steel_scabbard_av_01
+
+    appearances:  #array:2,0,CEntityAppearance
+      nr_player_inv:
+        ".type": CEntityAppearance
+        voicetag: GERALT
+        appearanceParams:  #array:2,0,ptr:CEntityTemplateParam
+          - ".type": CEquipmentDefinition
+            entries:  #array:2,0,ptr:CEquipmentDefinitionEntry
+              - ".type": CEquipmentDefinitionEntry
+                category: steelsword
+              - ".type": CEquipmentDefinitionEntry
+                category: silversword
+              - ".type": CEquipmentDefinitionEntry
+                category: head
+              - ".type": CEquipmentDefinitionEntry
+                category: hair
+
+    usedAppearances:  #array:2,0,CName
+      - nr_player_inv
+
+  nr_replacer_witcheress_inv:
+    includes:  #array:2,0,handle:CEntityTemplate
+      - dlc/dlcnewreplacers/data/entities/nr_replacer_witcheress.w2ent
+
+    entityObject:
+      ".type": W3PlayerWitcher
+      tags:
+        - nr_replacer_witcheress_inv
+
+      displayName: Player
+      voiceTag: GERALT
+      soundListenerOverride: "Geralt"
+      components:
+        Appearances:
+          ".type": CAppearanceComponent
+          forcedAppearance: nr_player_inv
+          appearanceAttachments:  #array:2,0,SAppearanceAttachments
+            - ".type": SAppearanceAttachments
+              appearance: special_preorder_app__do_not_use
+              attachments:  #array:2,0,SAppearanceAttachment
+                - ".type": SAppearanceAttachment
+                  parentClass: CAnimatedComponent
+                  parentName: scabbards_skeleton
+                  childClass: CMeshComponent
+                  childName: steel_scabbard_av_01
+
+    appearances:  #array:2,0,CEntityAppearance
+      nr_player_inv:
+        ".type": CEntityAppearance
+        voicetag: GERALT
+        appearanceParams:  #array:2,0,ptr:CEntityTemplateParam
+          - ".type": CEquipmentDefinition
+            entries:  #array:2,0,ptr:CEquipmentDefinitionEntry
+              - ".type": CEquipmentDefinitionEntry
+                category: steelsword
+              - ".type": CEquipmentDefinitionEntry
+                category: silversword
+              - ".type": CEquipmentDefinitionEntry
+                category: head
+              - ".type": CEquipmentDefinitionEntry
+                category: hair
+
+    usedAppearances:  #array:2,0,CName
+      - nr_player_inv
+
+  nr_replacer_sorceress_inv:
+    includes:  #array:2,0,handle:CEntityTemplate
+      - dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent
+
+    entityObject:
+      ".type": W3PlayerWitcher
+      tags:
+        - nr_replacer_sorceress_inv
+
+      displayName: Player
+      voiceTag: GERALT
+      soundListenerOverride: "Geralt"
+      components:
+        Appearances:
+          ".type": CAppearanceComponent
+          forcedAppearance: nr_player_inv
+          appearanceAttachments:  #array:2,0,SAppearanceAttachments
+            - ".type": SAppearanceAttachments
+              appearance: special_preorder_app__do_not_use
+              attachments:  #array:2,0,SAppearanceAttachment
+                - ".type": SAppearanceAttachment
+                  parentClass: CAnimatedComponent
+                  parentName: scabbards_skeleton
+                  childClass: CMeshComponent
+                  childName: steel_scabbard_av_01
+
+    appearances:  #array:2,0,CEntityAppearance
+      nr_player_inv:
+        ".type": CEntityAppearance
+        voicetag: GERALT
+        appearanceParams:  #array:2,0,ptr:CEntityTemplateParam
+          - ".type": CEquipmentDefinition
+            entries:  #array:2,0,ptr:CEquipmentDefinitionEntry
+              - ".type": CEquipmentDefinitionEntry
+                category: steelsword
+              - ".type": CEquipmentDefinitionEntry
+                category: silversword
+              - ".type": CEquipmentDefinitionEntry
+                category: head
+              - ".type": CEquipmentDefinitionEntry
+                category: hair
+
+    usedAppearances:  #array:2,0,CName
+      - nr_player_inv

@@ -1,0 +1,19 @@
+#
+# production settings
+# 
+# (version: 17, saved: 2022-03-17 18:57:00)
+#
+---
+production:
+  settings:
+    id: newreplacers
+    caption: New Player Characters
+    menuvisibile: true
+    enabled: true
+    storesdata: false
+    strings-idspace: 5940
+    strings-idstart: 0
+    version: 17
+    mounters:
+      - ".type": CR4ResourceDefinitionsDLCMounter
+        resourceDefinitionXmlFilePath: "dlc\\dlcnewreplacers\\data\\gameplay\\globals\\resources\\gameplay.xml"

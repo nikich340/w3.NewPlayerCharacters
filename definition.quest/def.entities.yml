@@ -17,7 +17,7 @@ templates:
       isInteractive: true
       interactionAnim: PEA_ExamineEyeLevel
       interactionAnimTime: 2.0
-      storyScene: "dlc/dlcnewreplacers/data/scenes/player_change.w2scene"
+      storyScene: "dlc/dlcnewreplacers/data/scenes/01.player_change.w2scene"
 
       components:
         SceneTriggerComp:
@@ -268,6 +268,7 @@ templates:
         name: "woman_dialog"
         componentName: "woman_base"
         animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          # woman (BEFORE RETARGET)
           - animations/woman/dialog/woman_dialog.w2anims
           - animations/woman/dialog/woman_dialog_sitting.w2anims
           - animations/woman/dialog/woman_dialog_standing.w2anims
@@ -289,6 +290,16 @@ templates:
           - animations/woman/community/woman_reaction.w2anims
           - animations/woman/community/woman_exploration_critical_states.w2anims
           - animations/woman/community/woman_work.w2anims
+
+          # bob mounters - woman (BEFORE RETARGET)
+          - dlc/bob/data/animations/animations/woman/dialogs/noble_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_noble_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_noble_quest.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_anna_henrietta_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims          
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_quest.w2anims
 
           ### RETARGET - man dialog
           # DO NOT TOUCH lookats! We have no idea how they work
@@ -336,16 +347,6 @@ templates:
           - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work11.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/q602_geralt_salsa_dancing.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/q602_geralt_ghost.w2anims
-
-          # bob mounters - woman
-          - dlc/bob/data/animations/animations/woman/dialogs/ep2_woman_dialog_animation.w2anims
-          - dlc/bob/data/animations/animations/woman/dialogs/ep2_anna_henrietta_dialog_animation.w2anims
-          - dlc/bob/data/animations/animations/woman/dialogs/noble_woman_dialog_animation.w2anims
-          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
-          - dlc/bob/data/animations/animations/woman/community/woman_noble_work.w2anims
-          - dlc/bob/data/animations/animations/woman/quest/woman_noble_quest.w2anims
-          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
-          - dlc/bob/data/animations/animations/woman/quest/woman_quest.w2anims
           
           # bob mounters - man -> RETARGET DONE
           - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation1.w2anims
@@ -461,12 +462,14 @@ templates:
       
       - ".type": CAnimMimicParam
         animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          # GERALT MIMICS
           - animations/mimics/geralt_mimic_animation.w2anims
           - animations/mimics/geralt_mimic_layers.w2anims
           - animations/mimics/geralt_mimic_inventory.w2anims
           - animations/mimics/gameplay_geralt_high_mimic_animation.w2anims
           - animations/mimics/ep1_geralt_mimic_animation.w2anims
           ###
+          # WOMAN MIMICS (Preffered, so goes after man's)
           - animations/mimics/woman_mimic_animation.w2anims
           - animations/mimics/ciri_mimic_animation.w2anims
           - animations/mimics/ciri_mimic_layers.w2anims
@@ -765,7 +768,7 @@ templates:
       ".type": NR_ReplacerSorceress
       tags:
         - PLAYER
-        - nr_replacer_witcheress
+        - nr_replacer_sorceress
       displayName: Player
       voiceTag: GERALT
       soundListenerOverride: "Geralt"
@@ -887,14 +890,15 @@ templates:
           - ".type": SBehaviorGraphInstanceSlot
             instanceName: Inventory
             graph: gameplay/behaviors/pc/behaviorgraph/pc_inventory.w2beh
-          - ".type": SBehaviorGraphInstanceSlot
-            instanceName: PlayerSorceress
-            graph: gameplay/behaviors/npc/behaviorgraph/npc_sorceress_combat.w2beh
+          #- ".type": SBehaviorGraphInstanceSlot
+          #  instanceName: PlayerSorceress
+          #  graph: gameplay/behaviors/npc/behaviorgraph/npc_sorceress_combat.w2beh
 
       - ".type": CAnimAnimsetsParam
         name: "woman_dialog"
         componentName: "woman_base"
         animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          # woman (BEFORE RETARGET)
           - animations/woman/dialog/woman_dialog.w2anims
           - animations/woman/dialog/woman_dialog_sitting.w2anims
           - animations/woman/dialog/woman_dialog_standing.w2anims
@@ -916,6 +920,16 @@ templates:
           - animations/woman/community/woman_reaction.w2anims
           - animations/woman/community/woman_exploration_critical_states.w2anims
           - animations/woman/community/woman_work.w2anims
+
+          # bob mounters - woman (BEFORE RETARGET)
+          - dlc/bob/data/animations/animations/woman/dialogs/noble_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_noble_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_noble_quest.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_anna_henrietta_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims          
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_quest.w2anims
 
           ### RETARGET - man dialog
           # DO NOT TOUCH lookats! We have no idea how they work
@@ -963,16 +977,6 @@ templates:
           - dlc/dlcnewreplacers/data/animations/woman_retarget/man_work11.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/q602_geralt_salsa_dancing.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/q602_geralt_ghost.w2anims
-
-          # bob mounters - woman
-          - dlc/bob/data/animations/animations/woman/dialogs/ep2_woman_dialog_animation.w2anims
-          - dlc/bob/data/animations/animations/woman/dialogs/ep2_anna_henrietta_dialog_animation.w2anims
-          - dlc/bob/data/animations/animations/woman/dialogs/noble_woman_dialog_animation.w2anims
-          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
-          - dlc/bob/data/animations/animations/woman/community/woman_noble_work.w2anims
-          - dlc/bob/data/animations/animations/woman/quest/woman_noble_quest.w2anims
-          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
-          - dlc/bob/data/animations/animations/woman/quest/woman_quest.w2anims
           
           # bob mounters - man -> RETARGET DONE
           - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_animation1.w2anims
@@ -1040,9 +1044,10 @@ templates:
           - animations/interaction/environment/ciri_interaction.w2anims
           - animations/woman/movement/woman_follower_movement.w2anims
           - animations/woman/combat/woman_bow.w2anims
-          ## - animations/woman/combat/woman_sorceress.w2anims
+          # NR MOD edited anims
           - dlc/dlcnewreplacers/data/animations/nr_woman_sorceress1.w2anims
           - dlc/dlcnewreplacers/data/animations/nr_woman_sorceress2.w2anims
+
           # -> FULL RETARGET
           - dlc/dlcnewreplacers/data/animations/woman_retarget/man_dismemberment.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/drinking_game.w2anims
@@ -1090,12 +1095,14 @@ templates:
       
       - ".type": CAnimMimicParam
         animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          # GERALT MIMICS
           - animations/mimics/geralt_mimic_animation.w2anims
           - animations/mimics/geralt_mimic_layers.w2anims
           - animations/mimics/geralt_mimic_inventory.w2anims
           - animations/mimics/gameplay_geralt_high_mimic_animation.w2anims
           - animations/mimics/ep1_geralt_mimic_animation.w2anims
           ###
+          # WOMAN MIMICS (Preffered, so goes after man's)
           - animations/mimics/woman_mimic_animation.w2anims
           - animations/mimics/ciri_mimic_animation.w2anims
           - animations/mimics/ciri_mimic_layers.w2anims

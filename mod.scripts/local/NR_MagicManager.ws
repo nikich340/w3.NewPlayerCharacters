@@ -42,17 +42,18 @@ struct SNR_MagicEvent {
 }
 statemachine class NR_MagicManager {
 	// set on Init
+	public var aMap		: array<NR_Map>;
+	var aCollisionGroups 	: array<name>;
 	var handFXDef 			: array<SNR_MagicDef>;
 	var teleportFXDef 		: array< array<SNR_MagicDef> >;
 	var slashAttacksDef 	: array<SNR_MagicDef>;
-	var throwAttacksDef 	: array<SNR_MagicDef>;
 	var rockAttacksDef 		: array<SNR_MagicDef>;
 	var specialAttacksDef 	: array<SNR_MagicDef>;
-	var aCollisionGroups 	: array<name>;
 
 	// shared stuff
 	var aSign 			: ESignType;
 	var aHandEffect 	: name;
+	var i, j            : int;
 	default aHandEffect = '';
 
 	// shared a(ttack) stuff
@@ -79,6 +80,7 @@ statemachine class NR_MagicManager {
 		vec.PushBack( Create_SNR_MDef(resourceName2) );
 		return vec;
 	}
+
 	function InitDefault() {
 		//aCollisionGroups.PushBack('Character');
 		//aCollisionGroups.PushBack('CommunityCollidables');
@@ -87,88 +89,98 @@ statemachine class NR_MagicManager {
 		//aCollisionGroups.PushBack('Debris');
 		aCollisionGroups.PushBack('Ragdoll');
 		aCollisionGroups.PushBack('Destructible');
-		//aCollisionGroups.PushBack('RigidBody');
-		//aCollisionGroups.PushBack('Foliage');
-		//aCollisionGroups.PushBack('Boat');
-		//aCollisionGroups.PushBack('BoatDocking');
+		aCollisionGroups.PushBack('RigidBody');
+		aCollisionGroups.PushBack('Foliage');
+		aCollisionGroups.PushBack('Boat');
+		aCollisionGroups.PushBack('BoatDocking');
 		aCollisionGroups.PushBack('Door');
-		//aCollisionGroups.PushBack('Platforms');
-		//aCollisionGroups.PushBack('Corpse');
-		//aCollisionGroups.PushBack('Fence');
+		aCollisionGroups.PushBack('Platforms');
+		aCollisionGroups.PushBack('Corpse');
+		aCollisionGroups.PushBack('Fence');
 		aCollisionGroups.PushBack('Water');
+
+		aMap.Resize(6);
+		for (i = 0; i < 6; i += 1) {
+			aMap[i] = new NR_Map in thePlayer;
+		}
 		SetSlashAttacksDef();
 		SetThrowAttacksDef();
 		SetRockAttacksDef();
 		SetHandFXDef();
 		SetTeleportFXDef();
 	}
-	function SetThrowAttacksDef(optional newTrowAttacksDef : array<SNR_MagicDef>) {
-		if (newTrowAttacksDef.Size() == 6) {
-			throwAttacksDef = newTrowAttacksDef;
-			return;
-		}
-		throwAttacksDef.PushBack( Create_SNR_MDef('fx_dummy_entity', ENR_Lightning) ); // Aard
-		throwAttacksDef.PushBack( Create_SNR_MDef('arcane_projectile', ENR_ProjectileWithPrepare) ); // Yrden
-		throwAttacksDef.PushBack( Create_SNR_MDef('sorceress_fireball', ENR_ProjectileWithPrepare) ); // Igni
-		throwAttacksDef.PushBack( Create_SNR_MDef('ice_spear', ENR_ProjectileWithPrepare) ); // Quen
-		throwAttacksDef.PushBack( Create_SNR_MDef('eredin_frost_proj', ENR_Projectile) ); // Axii
-		throwAttacksDef.PushBack( Create_SNR_MDef('fx_dummy_entity', ENR_Lightning) ); // None - for a case?
+	function SetThrowAttacksDef() {
+		aMap[ST_Aard].setI("throw_attack_type", ENR_Lightning);
+		aMap[ST_Aard].setN("lightning_fx", 'lightning_yennefer');
+		aMap[ST_Aard].setN("throw_dummy_fx", 'hit_electric');
+
+		aMap[ST_Yrden].setI("throw_attack_type", ENR_ProjectileWithPrepare);
+		aMap[ST_Yrden].setN("throw_entity", 'arcane_projectile');
+		
+		aMap[ST_Igni].setI("throw_attack_type", ENR_ProjectileWithPrepare);
+		aMap[ST_Igni].setN("throw_entity", 'sorceress_fireball');
+
+		aMap[ST_Quen].setI("throw_attack_type", ENR_Lightning);
+		aMap[ST_Quen].setN("lightning_fx", 'lightning_lynx');
+		aMap[ST_Quen].setN("throw_dummy_fx", 'hit_electric');
+
+		aMap[ST_Axii].setI("throw_attack_type", ENR_ProjectileWithPrepare);
+		aMap[ST_Axii].setN("throw_entity", 'ice_spear');
 	}
-	function SetRockAttacksDef(optional newRockAttacksDef : array<SNR_MagicDef>) {
-		if (newRockAttacksDef.Size() == 6) {
-			rockAttacksDef = newRockAttacksDef;
-			return;
-		}
-		rockAttacksDef.PushBack( Create_SNR_MDef('sorceress_stone_proj', ENR_Rock) ); // Aard
-		rockAttacksDef.PushBack( Create_SNR_MDef('troll_stone_proj', ENR_Rock) ); // Yrden
-		rockAttacksDef.PushBack( Create_SNR_MDef('witch_hand_proj', ENR_Rock) ); // Igni
-		rockAttacksDef.PushBack( Create_SNR_MDef('ep2_sorceress_stone_proj', ENR_Rock) ); // Quen
-		rockAttacksDef.PushBack( Create_SNR_MDef('sorceress_wood_proj', ENR_Rock) ); // Axii
-		rockAttacksDef.PushBack( Create_SNR_MDef('fx_dummy_entity', ENR_Rock) ); // None - for a case?
+	function SetRockAttacksDef() {
+		aMap[ST_Aard].setN("rock_proj", 'sorceress_stone_proj');
+		aMap[ST_Aard].setN("rock_push_entity", 'keira_metz_cast');
+				
+		aMap[ST_Yrden].setN("rock_proj", 'sorceress_stone_proj');
+		aMap[ST_Yrden].setN("rock_push_entity", 'keira_metz_cast');
+
+		aMap[ST_Igni].setN("rock_proj", 'ep2_sorceress_stone_proj');
+		aMap[ST_Igni].setN("rock_push_entity", 'lynx_cast');
+
+		aMap[ST_Quen].setN("rock_proj", 'ep2_sorceress_stone_proj');
+		aMap[ST_Quen].setN("rock_push_entity", 'lynx_cast');
+
+		aMap[ST_Axii].setN("rock_proj", 'sorceress_wood_proj');
+		aMap[ST_Axii].setN("rock_push_entity", 'keira_metz_cast');
 	}
-	function SetSlashAttacksDef(optional newSlashAttacksDef : array<SNR_MagicDef>) {
-		if (newSlashAttacksDef.Size() == 6) {
-			slashAttacksDef = newSlashAttacksDef;
-			return;
-		}
-		slashAttacksDef.PushBack( Create_SNR_MDef('magic_attack_lightning', ENR_Slash) ); // Aard
-		slashAttacksDef.PushBack( Create_SNR_MDef('magic_attack_arcane', ENR_Slash) ); // Yrden
-		slashAttacksDef.PushBack( Create_SNR_MDef('magic_attack_fire', ENR_Slash) ); // Igni
-		slashAttacksDef.PushBack( Create_SNR_MDef('ep2_magic_attack_lightning', ENR_Slash) ); // Quen
-		slashAttacksDef.PushBack( Create_SNR_MDef('magic_attack_lightning', ENR_Slash) ); // Axii
-		slashAttacksDef.PushBack( Create_SNR_MDef('magic_attack_lightning', ENR_Slash) ); // None - for a case?
+	function SetSlashAttacksDef() {
+		aMap[ST_Aard].setN("slash_entity", 'magic_attack_lightning');
+		aMap[ST_Yrden].setN("slash_entity", 'magic_attack_arcane');
+		aMap[ST_Igni].setN("slash_entity", 'magic_attack_fire');
+		aMap[ST_Quen].setN("slash_entity", 'ep2_magic_attack_lightning');
+		aMap[ST_Axii].setN("slash_entity", 'magic_attack_lightning');
 	}
-	function SetHandFXDef(optional newHandFXDef : array<SNR_MagicDef>) {
-		if (newHandFXDef.Size() == 6) {
-			handFXDef = newHandFXDef;
-			return;
-		}
-		handFXDef.PushBack( Create_SNR_MDef('hand_fx_yennefer') ); // Aard
-		handFXDef.PushBack( Create_SNR_MDef('hand_fx_philippa') ); // Yrden
-		handFXDef.PushBack( Create_SNR_MDef('hand_fx_triss') ); // Igni
-		handFXDef.PushBack( Create_SNR_MDef('hand_fx_keira') ); // Quen
-		handFXDef.PushBack( Create_SNR_MDef('hand_fx_keira') ); // Axii
-		handFXDef.PushBack( Create_SNR_MDef('hand_fx_keira') ); // None - for a case?
+	function SetHandFXDef() {
+		aMap[ST_Aard].setN("hand_fx", 'hand_fx_yennefer');
+		aMap[ST_Yrden].setN("hand_fx", 'hand_fx_philippa');
+		aMap[ST_Igni].setN("hand_fx", 'hand_fx_triss');
+		aMap[ST_Quen].setN("hand_fx", 'hand_fx_keira');
+		aMap[ST_Axii].setN("hand_fx", 'hand_fx_keira');
 	}
 	function SetTeleportFXDef(optional newTeleportFXDef : array< array<SNR_MagicDef> >) {
-		if (newTeleportFXDef.Size() == 6) {
-			teleportFXDef = newTeleportFXDef;
-			return;
-		}
-		teleportFXDef.PushBack( Create_SNR_MDef_2D('teleport_out_yennefer', 'teleport_in_yennefer') ); // Aard
-		teleportFXDef.PushBack( Create_SNR_MDef_2D('teleport_out_yennefer', 'teleport_in_yennefer') ); // Yrden
-		teleportFXDef.PushBack( Create_SNR_MDef_2D('teleport_out_triss', 'teleport_in_triss') ); // Igni
-		teleportFXDef.PushBack( Create_SNR_MDef_2D('teleport_out_keira', 'teleport_in_keira') ); // Quen
-		teleportFXDef.PushBack( Create_SNR_MDef_2D('teleport_out_keira', 'teleport_in_keira') ); // Axii
-		teleportFXDef.PushBack( Create_SNR_MDef_2D('teleport_out_keira', 'teleport_in_keira') ); // None - for a case?
+		aMap[ST_Aard].setN("teleport_in_fx", 'teleport_in_yennefer');
+		aMap[ST_Aard].setN("teleport_out_fx", 'teleport_out_yennefer');
+
+		aMap[ST_Yrden].setN("teleport_in_fx", 'teleport_in_triss');
+		aMap[ST_Yrden].setN("teleport_out_fx", 'teleport_out_keira');
+
+		aMap[ST_Igni].setN("teleport_in_fx", 'teleport_in_triss');
+		aMap[ST_Igni].setN("teleport_out_fx", 'teleport_out_triss');
+
+		aMap[ST_Quen].setN("teleport_in_fx", 'teleport_in_triss');
+		aMap[ST_Quen].setN("teleport_out_fx", 'teleport_out_triss');
+
+		aMap[ST_Axii].setN("teleport_in_fx", 'teleport_in_triss');
+		aMap[ST_Axii].setN("teleport_out_fx", 'teleport_out_keira');
 	}
 	function UpdateFistsLevel(id: SItemUniqueId) {
 		var playerLevel : int;
 		var i : int;
 		playerLevel = GetWitcherPlayer().GetLevel();
+		NR_Debug("UpdateFistsLevel: Player Level: " + playerLevel);
 
 		// vanilla logic from 'GenerateItemLevel', reduced to /5
-		for (i = 1; i < playerLevel / 5; i += 1) {
+		for (i = 1; i < 10; i += 1) {
 			if (FactsQuerySum("StandAloneEP1") > 0 || FactsQuerySum("NewGamePlus") > 0) {
 				NR_Notify("NewGamePlus || StandAloneEP1");
 				thePlayer.inv.AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
@@ -179,6 +191,7 @@ statemachine class NR_MagicManager {
 				thePlayer.inv.AddItemCraftedAbility(id, 'autogen_silver_dmg', true );
 			}
 		}
+		PrintItem(thePlayer.inv, id);
 	}
 	function HandFX(enable: Bool, optional onlyIfActive: Bool) {
 		var newHandEffect : name;
@@ -190,7 +203,7 @@ statemachine class NR_MagicManager {
 			return;
 		}
 
-		newHandEffect = handFXDef[aSign].resourceName;
+		newHandEffect = aMap[aSign].getN("hand_fx");
 
 		if (!enable && aHandEffect != '') {
 			thePlayer.StopEffect(aHandEffect);
@@ -217,10 +230,12 @@ statemachine class NR_MagicManager {
 			return ENR_Teleport;
 		} else if (StrStartsWith(aName, "woman_sorceress_attack_throw")) {
 			// THROW - depends on selected sign
-			return throwAttacksDef[aSign].attackType;
+			NR_Debug("throw: aSign: = " + aSign);
+			return aMap[aSign].getI("throw_attack_type", 0);
 		} else if (StrStartsWith(aName, "woman_sorceress_attack_arcane")) {
 			return ENR_ArcaneExplosion;
 		} else {
+			NR_Debug("Unknown attack: aName = " + aName);
 			return ENR_Unknown;
 		}
 	}
@@ -340,7 +355,7 @@ state MagicLoop in NR_MagicManager {
 		// update sign
 		parent.aSign = GetWitcherPlayer().GetEquippedSign();
 
-		thePlayer.PlayEffect(parent.teleportFXDef[parent.aSign][0].resourceName);
+		thePlayer.PlayEffect( parent.aMap[parent.aSign].getN("teleport_out_fx") );
 
 		shiftVec = parent.aTeleportPos - thePlayer.GetWorldPosition();
 		template = (CEntityTemplate)LoadResourceAsync("nr_static_camera");
@@ -361,7 +376,7 @@ state MagicLoop in NR_MagicManager {
 		thePlayer.TeleportWithRotation(parent.aTeleportPos, parent.aTeleportRot);
 	}
 	latent function PerformTeleport() {
-		thePlayer.PlayEffect(parent.teleportFXDef[parent.aSign][1].resourceName);
+		thePlayer.PlayEffect( parent.aMap[parent.aSign].getN("teleport_in_fx") );
 
 		if (!parent.aTeleportCamera) {
 			NR_Notify("PerformTeleport: No camera!!");
@@ -464,12 +479,6 @@ state MagicLoop in NR_MagicManager {
 		var Z						: float;
 		var newPos, normalCollision : Vector;
 		var foundDestroyable		: bool;
-		/*var aCollisionStatics 		: array<name>;
-		aCollisionStatics.PushBack('Static');
-		aCollisionStatics.PushBack('Destructible');
-		aCollisionStatics.PushBack('Terrain');
-		aCollisionStatics.PushBack('Door');
-		aCollisionStatics.PushBack('Water');*/
 
 		// calculate real target rot,pos
 		aRot = thePlayer.GetWorldRotation();
@@ -501,7 +510,7 @@ state MagicLoop in NR_MagicManager {
 				aPos.Z += staticOffsetZ;
 
 				// check where physics obstacle if needed
-				if (makeStaticTrace && theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 0.5f + Vector(0,0,1.5f), aPos, newPos, normalCollision, parent.aCollisionGroups)) {
+				if (makeStaticTrace && theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 1.f + Vector(0,0,1.5f), aPos, newPos, normalCollision, parent.aCollisionGroups)) {
 					aPos = newPos;
 				}
 			}
@@ -538,7 +547,7 @@ state MagicLoop in NR_MagicManager {
 				NR_Notify("Prepare -> ENR_Projectile");
 			case ENR_ProjectileWithPrepare:
 				NR_Notify("Prepare -> ENR_ProjectileWithPrepare");
-				resourceName = parent.throwAttacksDef[parent.aSign].resourceName;
+				resourceName = parent.aMap[parent.aSign].getN("throw_entity");
 				entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 
 				if (attackType != ENR_Lightning) {
@@ -558,6 +567,7 @@ state MagicLoop in NR_MagicManager {
 				}
 		
 				if (attackType == ENR_Lightning) {
+					entityTemplate = (CEntityTemplate)LoadResourceAsync('fx_dummy_entity');
 					// lightning can destroy clues! if no attack target //
 					CalculateTargetPlacement(true, true, 1.f, 0.f);
 					aDummyEntity = theGame.CreateEntity( entityTemplate, aPos, aRot );
@@ -569,7 +579,7 @@ state MagicLoop in NR_MagicManager {
 				}
 				break;
 			case ENR_Slash:
-				resourceName = parent.slashAttacksDef[parent.aSign].resourceName;
+				resourceName = parent.aMap[parent.aSign].getN("slash_entity");
 				entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 				CalculateTargetPlacement(true, true, 1.f, 1.f);
 				aDummyEntity = theGame.CreateEntity( entityTemplate, aPos, aRot );
@@ -584,12 +594,12 @@ state MagicLoop in NR_MagicManager {
 				break;
 			case ENR_Rock:
 				//parent.HandFX(false);
-				resourceName = parent.rockAttacksDef[parent.aSign].resourceName;
+				resourceName = parent.aMap[parent.aSign].getN("rock_proj");
 				entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
-				// BTTaskPullObjectsFromGroundAndShoot, Keira Metz //
-				numberToSpawn			= 9;
+				// BTTaskPullObjectsFromGroundAndShoot, Keira Metz & Djinni //
+				numberToSpawn			= 15;
 				numberOfCircles 		= 1;
-				spawnObjectsInConeAngle = 30.f;
+				spawnObjectsInConeAngle = 45.f;
 				numPerCircle 			= FloorF( (float) numberToSpawn / (float) numberOfCircles );
 				coneAngle 				= spawnObjectsInConeAngle / (float) numPerCircle;
 				coneWidth 				= coneAngle;
@@ -627,6 +637,7 @@ state MagicLoop in NR_MagicManager {
 		}
 	}	
 	latent function PerformMagicAttack() {
+		var effectName, effectNameSec : name;
 		var resourceName 		: name;
 		var entityTemplate 		: CEntityTemplate;
 		var entity 				: CEntity;
@@ -677,17 +688,19 @@ state MagicLoop in NR_MagicManager {
 				projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, aPos, 20.f, parent.aCollisionGroups );
 				break;
 			case ENR_Lightning:
+				effectName = parent.aMap[parent.aSign].getN("lightning_fx");
+				effectNameSec = parent.aMap[parent.aSign].getN("throw_dummy_fx");
 				if (aTarget) {
 					component = aTarget.GetComponent('torso3effect');
 					if (component) {
-						thePlayer.PlayEffect('lightning', component);
+						thePlayer.PlayEffect(effectName, component);
 					} else {
-						thePlayer.PlayEffect('lightning', aTarget);
+						thePlayer.PlayEffect(effectName, aTarget);
 					}
 
 					aTargetNPC = (CNewNPC) aTarget;
 					if ( aEffectHit != '' && (!aTargetNPC || !aTargetNPC.HasAlternateQuen()) ) {
-						aDummyEntity.PlayEffect('hit_electric');
+						aDummyEntity.PlayEffect(effectNameSec);
 					}
 					thePlayer.OnCollisionFromItem(aTarget);
 				} else if (aDestroyable) {
@@ -696,19 +709,17 @@ state MagicLoop in NR_MagicManager {
 					} else {
 						aDestroyable.OnAardHit(NULL);
 					}
-					thePlayer.PlayEffect('lightning', aDestroyable);
-					aDummyEntity.PlayEffect('hit_electric');
+					thePlayer.PlayEffect(effectName, aDestroyable);
+					aDummyEntity.PlayEffect(effectNameSec);
 				} else {
-					thePlayer.PlayEffect('lightning', aDummyEntity);
-					aDummyEntity.PlayEffect('hit_electric');
+					thePlayer.PlayEffect(effectName, aDummyEntity);
+					aDummyEntity.PlayEffect(effectNameSec);
 				}
 				break;
 			case ENR_Rock:
 				lLoopActive = false;
 				// aard effect
-				resourceName = 'keira_metz_cast';
-				resourceName = 'lynx_cast';
-				entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
+				entityTemplate = (CEntityTemplate)LoadResourceAsync( parent.aMap[parent.aSign].getN("rock_push_entity") );
 				pos = thePlayer.GetWorldPosition() + Vector(0, 0, 1.15);
 				rot = thePlayer.GetWorldRotation();
 				entity = theGame.CreateEntity( entityTemplate, pos, rot );

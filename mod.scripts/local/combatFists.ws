@@ -15,6 +15,8 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	{
 		theInput.SetContext(parent.GetCombatInputContext());
 		parent.AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
+		parent.AddAnimEventCallback('Spawn',				'OnAnimEventMagic');
+		parent.AddAnimEventCallback('Shoot',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
 		//parent.AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend');
 		parent.AddAnimEventCallback('PrepareTeleport',		'OnAnimEventMagic');
@@ -47,34 +49,19 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	{
 		if (animEventType == AET_DurationStart) {
 			// must be processed in sync to change data var
-			parent.magicMan.PreAttackEvent(GetAnimNameFromEventAnimInfo(animInfo), data);
+			parent.magicMan.OnPreAttackEvent(GetAnimNameFromEventAnimInfo(animInfo), data);
 		}
 		virtual_parent.OnPreAttackEvent(animEventName, animEventType, data, animInfo);
 	}
 
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
 	{
-		//NR_Notify("OnPerformEvade = " + playerEvadeType + ", allowed = " + parent.bIsRollAllowed);
-		/*if ( playerEvadeType == PET_Dodge )
-		{
-			//parent.bIsRollAllowed = true; do nothing
-			PerformTeleport2( playerEvadeType, playerEvadeType == PET_Roll);
-		}
-		else if ( playerEvadeType == PET_Roll )
-		{
-			PerformTeleport2( PET_Dodge, true);
-		}*/
-		PerformTeleport2( playerEvadeType, playerEvadeType == PET_Roll);
+		PerformTeleport( playerEvadeType, playerEvadeType == PET_Roll);
 		return true;
 	}
 
-	private	var ddodgeDirection 				: EPlayerEvadeDirection;
-	entry function PerformTeleport2( playerEvadeType : EPlayerEvadeType, isRolling : bool )
+	entry function PerformTeleport( playerEvadeType : EPlayerEvadeType, isRolling : bool )
 	{
-		//var rawHeading : float = parent.rawPlayerHeading;
-		//var rawHeading2 : float = parent.GetHeading();
-		//var rawHeading3 : float = theCamera.GetCameraHeading();
-		//var rawMoveHeading : float = parent.GetRawLeftJoyRot();
 		var evadeTarget 			: CActor;
 		var teleportLength : float;
 		var playerToTargetHeading : float;
@@ -84,9 +71,9 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		var predictedDodgeRot : EulerAngles;
 		var Z : float;
 
-		if (playerEvadeType == PET_Roll && parent.HasStaminaToUseAction( ESAT_Jump,,5.f )) {
+		if (playerEvadeType == PET_Roll && parent.HasStaminaToUseAction( ESAT_HeavyAttack,,1.f )) {
 			teleportLength = 15.0f;
-		} else if (parent.HasStaminaToUseAction( ESAT_Jump,,2.5f )) {
+		} else if (parent.HasStaminaToUseAction( ESAT_LightSpecial,,1.f )) {
 			teleportLength = 7.5f;
 		} else {
 			return;
@@ -105,11 +92,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + parent.GetWorldPosition();
 		predictedDodgeRot = parent.GetWorldRotation();
-		/*if (theGame.GetWorld().NavigationComputeZ(predictedDodgePos, predictedDodgePos.Z - 15.f, predictedDodgePos.Z + 15.f, Z)) {
-			predictedDodgePos.Z = Z;
-		} else {
-			// static trace?
-		}*/
+
 		predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + parent.GetWorldPosition();
 		predictedDodgeRot = parent.GetWorldRotation();
 		foundSafePoint = GetSafeTeleportPoint( predictedDodgePos );
@@ -132,8 +115,8 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 				predictedDodgeRot.Yaw = playerToTargetHeading;
 			}
 		}
-		parent.magicMan.teleportPos = predictedDodgePos;
-		parent.magicMan.teleportRot = predictedDodgeRot;
+		parent.magicMan.aTeleportPos = predictedDodgePos;
+		parent.magicMan.aTeleportRot = predictedDodgeRot;
 
 		NR_Notify("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
 		parent.SetBehaviorVariable( 'dodgeNum', 0 );
@@ -145,11 +128,14 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		if ( parent.RaiseForceEvent( 'CombatAction' ) )
 		{
-			//parent.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
+			// protect from interrupting teleport (DisallowHitAnim doesn't always help)
+			parent.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
+
+			// TODO
 			if( playerEvadeType == PET_Dodge ) {
-				parent.DrainStamina(ESAT_Jump,,,,,2.5f);
+				parent.DrainStamina(ESAT_HeavyAttack,,,,,1.f);
 			} else {
-				parent.DrainStamina(ESAT_Jump,,,,,5.f);
+				parent.DrainStamina(ESAT_LightSpecial,,,,,1.f);
 			}
 			if( parent.CanUseSkill(S_Perk_21) )
 			{
@@ -161,14 +147,11 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			}
 			virtual_parent.OnCombatActionStart();
 		}
-		//parent.SetBIsCombatActionAllowed(false);
-		//parent.TeleportWithRotation(predictedDodgePos, predictedDodgeRot);
 
-		parent.WaitForBehaviorNodeDeactivation( 'DodgeComplete', 1.25f );
-		//parent.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
+		parent.WaitForBehaviorNodeDeactivation( 'DodgeComplete', 1.5f );
 		parent.SetIsCurrentlyDodging(false);
-		//parent.SetBIsCombatActionAllowed(true);
-		//return true;
+		// it is set in magicMan on teleport end
+		//parent.SetImmortalityMode( AIM_None, AIC_Combat );
 	}
 	latent function GetSafeTeleportPoint(out tpPos : Vector) : bool {
 		var newPos : Vector;
@@ -194,110 +177,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		tpPos = newPos;
 		return true;
-	}
-	entry function PerformTeleport( playerEvadeType : EPlayerEvadeType, isRolling : bool )
-	{
-		var rawDodgeHeading				: float;
-		var predictedDodgePos			: Vector;
-		var lineWidth					: float;
-		var noCreatureOnLine			: bool;
-		
-		var tracePosFrom				: Vector;
-		var playerToTargetRot			: EulerAngles;
-		var predictedDodgePosNormal		: Vector;
-		var dodgeNum					: float;
-		var randNum						: int;
-		var randMax						: int;
-		var i							: int;
-		var submergeDepth				: float;
-	
-		var dodgeLength					: float;
-		var intersectPoint				: Vector;		
-		var intersectLength				: float;
-		var playerToPoint				: float;
-
-		var moveTargets					: array<CActor>;
-		var playerToTargetAngleDiff		: float;
-		var playerToRawAngleDiff		: float;
-		var playerToCamAngleDiff		: float;
-		
-		var targetCapsuleRadius 		: float;
-		var perkStats 					: SAbilityAttributeValue;
-		
-		NR_Notify("PerformTeleport");
-		
-		parent.ResetUninterruptedHitsCount();		
-		parent.SetIsCurrentlyDodging(true, isRolling); // isRolling = true ?
-	
-		//parent.RemoveTimer( 'UpdateDodgeInfoTimer' );
-
-		if ( parent.IsHardLockEnabled() && parent.GetTarget() )
-			evadeTarget = parent.GetTarget();
-		else
-		{
-			parent.FindMoveTarget();
-			evadeTarget = parent.moveTarget;		
-		}
-		
-		dodgeLength = 6.f;
-				
-		evadeTargetPos = evadeTarget.PredictWorldPosition( 0.5f ); 
-		ddodgeDirection = GetEvadeDirection( playerEvadeType );
-		rawDodgeHeading = GetRawDodgeHeading();
-		parent.evadeHeading = rawDodgeHeading;
-		predictedDodgePos = VecFromHeading( rawDodgeHeading ) * dodgeLength + parent.GetWorldPosition();
-		turnInPlaceBeforeDodge = false;				
-
-		parent.DrainStamina(ESAT_Dodge);
-		if( parent.CanUseSkill(S_Perk_21) )
-		{
-			GetWitcherPlayer().GainAdrenalineFromPerk21( 'dodge' );
-		}
-		
-		if ( ddodgeDirection == PED_Forward )
-		{
-			if ( evadeTarget )
-			{
-				evadeTarget.SignalGameplayEventParamInt('Time2Dodge', (int)EDT_Fear );
-				
-				// ?
-				if ( wasLockedToTarget  )
-					parent.SetUnpushableTarget( evadeTarget );
-			}
-		}
-		
-		// ?
-		if ( !theGame.GetWorld().StaticTrace( predictedDodgePos + Vector(0,0,5), predictedDodgePos + Vector(0,0,-5) , predictedDodgePos, predictedDodgePosNormal ) )
-			playerToTargetRot.Pitch = 0.f;
-		else	
-			playerToTargetRot = VecToRotation( predictedDodgePos - parent.GetWorldPosition() );
-					
-		NR_Notify("Dodge stats: dodgeNum = " + dodgeNum + ", playerEvadeDirection = " + ddodgeDirection + ", rawDodgeHeading = " + rawDodgeHeading + ", playerToTargetRot = " + playerToTargetRot.Yaw + " turnInPlaceBeforeDodge = " + turnInPlaceBeforeDodge);
-		parent.SetBehaviorVariable( 'dodgeNum', 0 );
-		parent.SetBehaviorVariable( 'combatActionType', (int)CAT_Dodge );
-		parent.SetBehaviorVariable(	'playerEvadeDirection', (int)PED_Forward ) ;
-		parent.SetBehaviorVariable(	'turnInPlaceBeforeDodge', 0.f ) ;
-		parent.SetBehaviorVariable(	'isRolling', 0 ) ;			
-		if ( parent.RaiseForceEvent( 'CombatAction' ) )
-			virtual_parent.OnCombatActionStart();
-		
-		//parent.SetCustomRotation( 'Dodge', GetDodgeHeading( playerEvadeType ), 0.0f, 0.1f, false );
-
-		
-		if ( parent.bLAxisReleased )
-			cachedRawDodgeHeading = rawDodgeHeading;
-		else
-			cachedRawDodgeHeading = GetRawDodgeHeading();
-			
-		
-		//parent.SetCustomRotation( 'Dodge', GetDodgeHeadingForMovementHeading( cachedRawDodgeHeading ), 90.0f, 0.0f, false );
-		
-		//parent.BindMovementAdjustmentToEvent( 'Dodge', 'Dodge' );
-		//parent.AddTimer( 'UpdateDodgeInfoTimer', 0, true );	
-
-		parent.WaitForBehaviorNodeDeactivation( 'DodgeComplete', 0.7f );
-		//parent.RemoveTimer( 'UpdateDodgeInfoTimer' );
-		parent.SetIsCurrentlyDodging(false);
 	}
 
 	event OnInterruptAttack() {
@@ -421,6 +300,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	
 	event OnCreateAttackAspects()
 	{
+		NR_Notify("SS: OnCreateAttackAspects()");
 		CreateAttackLightNoTargetAspect();
 		CreateAttackHeavyNoTargetAspect();
 		CreateAttackLightAspect();

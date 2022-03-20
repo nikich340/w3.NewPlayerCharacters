@@ -154,7 +154,7 @@ statemachine class NR_MagicManager {
 		aMap[ST_Aard].setN("hand_fx", 'hand_fx_yennefer');
 		aMap[ST_Yrden].setN("hand_fx", 'hand_fx_philippa');
 		aMap[ST_Igni].setN("hand_fx", 'hand_fx_triss');
-		aMap[ST_Quen].setN("hand_fx", 'hand_fx_keira');
+		aMap[ST_Quen].setN("hand_fx", 'hand_fx_lynx');
 		aMap[ST_Axii].setN("hand_fx", 'hand_fx_keira');
 	}
 	function SetTeleportFXDef(optional newTeleportFXDef : array< array<SNR_MagicDef> >) {

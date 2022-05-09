@@ -6,6 +6,17 @@ sorceress_lightingball - желтый компактный фаерболл
 snowball - снежок
 eredin_meteorite - ледяной метеорит*/
 
+// БЛОК и ОТНЯТИЕ СИЛЫ (из actor -> abilityManager)
+// DrainStamina(action, fixedCost, fixedDelay, abilityName, dt, costMult);
+// DrainStamina(action : EStaminaActionType, optional fixedCost : float, optional fixedDelay : float, 
+// optional abilityName : name, optional dt : float, optional costMult : float)
+
+//action - stamina action type
+//fixedValue - fixed value to drain, used only when ESAT_FixedValue is used
+//abilityName - name of the ability to use when passing ESAT_Ability
+//dt - if set then then stamina cost is treated as cost per second and thus multiplied by dt
+//costMult - if set (other than 0 or 1) then the actual cost is multiplied by this value
+
 enum ENR_MagicAttack {
 		// dummy - when doesn't matter
 	ENR_Unknown,
@@ -17,7 +28,7 @@ enum ENR_MagicAttack {
 	ENR_ProjectileWithPrepare,
 		// heavy
 	ENR_Rock,	
-	ENR_ArcaneExplosion,
+	ENR_BombExplosion,
 	ENR_RipApart,
 		// defense
 	ENR_CounterPush,
@@ -29,11 +40,6 @@ enum ENR_MagicAttack {
 	ENR_SpecialTornado, // aard - торнадо?
 	ENR_SpecialSphere // quen - сфера наносит урон молниями?
 }
-struct SNR_MagicDef {
-	var resourceName 	: name;
-	var attackType 		: ENR_MagicAttack;
-	// to handle attack correctly for some witcher sign: resourceName, attackType
-}
 struct SNR_MagicEvent {
 	var eventName 		: name;
 	var animName 		: name;
@@ -44,13 +50,10 @@ statemachine class NR_MagicManager {
 	// set on Init
 	public var aMap		: array<NR_Map>;
 	var aCollisionGroups 	: array<name>;
-	var handFXDef 			: array<SNR_MagicDef>;
-	var teleportFXDef 		: array< array<SNR_MagicDef> >;
-	var slashAttacksDef 	: array<SNR_MagicDef>;
-	var rockAttacksDef 		: array<SNR_MagicDef>;
-	var specialAttacksDef 	: array<SNR_MagicDef>;
 
 	// shared stuff
+	public var alternateCast : Bool;
+	
 	var aSign 			: ESignType;
 	var aHandEffect 	: name;
 	var i, j            : int;
@@ -66,27 +69,14 @@ statemachine class NR_MagicManager {
 
 	var aEventsStack 	: array<SNR_MagicEvent>;
 
-	// extra funs
-	function Create_SNR_MDef(resourceName : name, optional attackType : ENR_MagicAttack) : SNR_MagicDef {
-		var mDef : SNR_MagicDef;
-		mDef.resourceName = resourceName;
-		mDef.attackType = attackType;
-
-		return mDef;
-	}
-	function Create_SNR_MDef_2D(resourceName1, resourceName2 : name) : array<SNR_MagicDef> {
-		var vec : array<SNR_MagicDef>;
-		vec.PushBack( Create_SNR_MDef(resourceName1) );
-		vec.PushBack( Create_SNR_MDef(resourceName2) );
-		return vec;
-	}
-
 	function InitDefault() {
-		//aCollisionGroups.PushBack('Character');
+		aCollisionGroups.PushBack('Character');
 		//aCollisionGroups.PushBack('CommunityCollidables');
 		aCollisionGroups.PushBack('Terrain');
 		aCollisionGroups.PushBack('Static');
 		//aCollisionGroups.PushBack('Debris');
+		aCollisionGroups.PushBack('Projectile');		
+		aCollisionGroups.PushBack('ParticleCollider'); 
 		aCollisionGroups.PushBack('Ragdoll');
 		aCollisionGroups.PushBack('Destructible');
 		aCollisionGroups.PushBack('RigidBody');
@@ -106,12 +96,15 @@ statemachine class NR_MagicManager {
 		SetSlashAttacksDef();
 		SetThrowAttacksDef();
 		SetRockAttacksDef();
+		SetBombAttacksDef();
+		SetSpecialAttacksDef();
 		SetHandFXDef();
 		SetTeleportFXDef();
 	}
 	function SetThrowAttacksDef() {
 		aMap[ST_Aard].setI("throw_attack_type", ENR_Lightning);
 		aMap[ST_Aard].setN("lightning_fx", 'lightning_yennefer');
+		//aMap[ST_Aard].setN("lightning_fx", 'lightning_lynx');
 		aMap[ST_Aard].setN("throw_dummy_fx", 'hit_electric');
 
 		aMap[ST_Yrden].setI("throw_attack_type", ENR_ProjectileWithPrepare);
@@ -150,6 +143,20 @@ statemachine class NR_MagicManager {
 		aMap[ST_Quen].setN("slash_entity", 'ep2_magic_attack_lightning');
 		aMap[ST_Axii].setN("slash_entity", 'magic_attack_lightning');
 	}
+	function SetBombAttacksDef() {
+		aMap[ST_Aard].setN("bomb_entity", 'arcaneExplosion');
+		aMap[ST_Yrden].setN("bomb_entity", 'arcaneExplosion');
+		aMap[ST_Igni].setN("bomb_entity", 'arcaneExplosion');
+		aMap[ST_Quen].setN("bomb_entity", 'arcaneExplosion');
+		aMap[ST_Axii].setN("bomb_entity", 'arcaneExplosion');
+	}
+	function SetSpecialAttacksDef() {
+		aMap[ST_Aard].setN("meteor_entity", 'eredin_meteorite');
+		aMap[ST_Yrden].setN("meteor_entity", 'meteor_strong');
+		aMap[ST_Igni].setN("meteor_entity", 'ciri_meteor');
+		aMap[ST_Quen].setN("meteor_entity", 'ciri_meteor');
+		aMap[ST_Axii].setN("meteor_entity", 'ciri_meteor');
+	}
 	function SetHandFXDef() {
 		aMap[ST_Aard].setN("hand_fx", 'hand_fx_yennefer');
 		aMap[ST_Yrden].setN("hand_fx", 'hand_fx_philippa');
@@ -157,7 +164,7 @@ statemachine class NR_MagicManager {
 		aMap[ST_Quen].setN("hand_fx", 'hand_fx_lynx');
 		aMap[ST_Axii].setN("hand_fx", 'hand_fx_keira');
 	}
-	function SetTeleportFXDef(optional newTeleportFXDef : array< array<SNR_MagicDef> >) {
+	function SetTeleportFXDef() {
 		aMap[ST_Aard].setN("teleport_in_fx", 'teleport_in_yennefer');
 		aMap[ST_Aard].setN("teleport_out_fx", 'teleport_out_yennefer');
 
@@ -180,15 +187,17 @@ statemachine class NR_MagicManager {
 		NR_Debug("UpdateFistsLevel: Player Level: " + playerLevel);
 
 		// vanilla logic from 'GenerateItemLevel', reduced to /5
-		for (i = 1; i < 10; i += 1) {
+		for (i = 1; i < playerLevel; i += 1) {
 			if (FactsQuerySum("StandAloneEP1") > 0 || FactsQuerySum("NewGamePlus") > 0) {
 				NR_Notify("NewGamePlus || StandAloneEP1");
-				thePlayer.inv.AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
-				thePlayer.inv.AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true ); 
+				thePlayer.inv.AddItemCraftedAbility(id, 'nr_autogen_dmg', true );
+				//thePlayer.inv.AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
+				//thePlayer.inv.AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true ); 
 			} else {
 				NR_Notify("NOT NewGamePlus || StandAloneEP1");
-				thePlayer.inv.AddItemCraftedAbility(id, 'autogen_steel_dmg', true );
-				thePlayer.inv.AddItemCraftedAbility(id, 'autogen_silver_dmg', true );
+				thePlayer.inv.AddItemCraftedAbility(id, 'nr_autogen_dmg', true );
+				//thePlayer.inv.AddItemCraftedAbility(id, 'autogen_steel_dmg', true );
+				//thePlayer.inv.AddItemCraftedAbility(id, 'autogen_silver_dmg', true );
 			}
 		}
 		PrintItem(thePlayer.inv, id);
@@ -233,7 +242,11 @@ statemachine class NR_MagicManager {
 			NR_Debug("throw: aSign: = " + aSign);
 			return aMap[aSign].getI("throw_attack_type", 0);
 		} else if (StrStartsWith(aName, "woman_sorceress_attack_arcane")) {
-			return ENR_ArcaneExplosion;
+			return ENR_BombExplosion;
+		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_fireball")) {
+			return ENR_SpecialMeteor;
+		} else if (StrStartsWith(aName, "woman_sorceress_taunt_02")) { // !!! temp
+			return ENR_SpecialSphere;
 		} else {
 			NR_Debug("Unknown attack: aName = " + aName);
 			return ENR_Unknown;
@@ -314,7 +327,7 @@ state MagicLoop in NR_MagicManager {
 	entry function MainLoop() {
 		while(true) {
 			while (parent.aEventsStack.Size() > 0) {
-				NR_Debug("MAIN LOOP: event = " + parent.aEventsStack[0].eventName + ", time: " + EngineTimeToFloat(theGame.GetEngineTime()));
+				NR_Debug("MAIN LOOP: anim = " + NameToString(parent.aEventsStack[0].animName) + ", event = " + parent.aEventsStack[0].eventName + ", time: " + EngineTimeToFloat(theGame.GetEngineTime()));
 				switch (parent.aEventsStack[0].eventName) {
 					case 'Spawn':
 					case 'Prepare':
@@ -499,7 +512,8 @@ state MagicLoop in NR_MagicManager {
 				aPos.Z += 0.7f;
 			} else {
 				NR_Debug("WARNING! No target, use ground pos.");
-				aPos = thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 5.f;
+				//aPos = thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 5.f;
+				aPos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 5.f;
 				NR_Debug("Original Z = " + aPos.Z);
 
 				// correct a bit with physics raycast
@@ -530,8 +544,13 @@ state MagicLoop in NR_MagicManager {
 		var raiseObjectsHeightNoise, spawnObjectsInConeAngle, coneAngle, coneWidth, spawnRadiusMin, spawnRadiusMax, circleRadiusMin, circleRadiusMax : float;
 		var spawnPos, spawnCenter, normalCollision 	: Vector;
 		var spawnRot 				: EulerAngles;
+		var buffParams 				: SCustomEffectParams;
 
 		// new attack starts !
+		if (aActive) {
+			BreakMagicAttack();
+		}
+
 		CleanaData();
 		parent.aName = animName;
 		aActive = true;
@@ -592,6 +611,20 @@ state MagicLoop in NR_MagicManager {
 					NR_Notify("WARNING! Can't start entity effect.");
 				}
 				break;
+			case ENR_RipApart:
+				if (aTarget) {
+					buffParams.effectType = EET_Confusion;
+					buffParams.creator = thePlayer;
+					buffParams.sourceName = 'NR_ReplacerSorceress';
+					buffParams.duration = 6.f;
+					buffParams.customFXName = 'axii_slowdown';
+					aTarget.AddEffectCustom(buffParams);
+
+					entityTemplate = (CEntityTemplate)LoadResourceAsync('blood_explode');
+					CalculateTargetPlacement(false, false, 1.f, 0.f);
+					aDummyEntity = theGame.CreateEntity( entityTemplate, aPos, aRot );
+				}				
+				break;
 			case ENR_Rock:
 				//parent.HandFX(false);
 				resourceName = parent.aMap[parent.aSign].getN("rock_proj");
@@ -631,8 +664,11 @@ state MagicLoop in NR_MagicManager {
 				lPrevTime = EngineTimeToFloat(theGame.GetEngineTime());
 				parent.aEventsStack[0].eventName = 'PerformLoop';
 				parent.aEventsStack.PushBack( parent.aEventsStack[0] );
+			case ENR_SpecialSphere:
+				aActive = false;
+				break;
 			default:
-				NR_Notify("Prepare: Error! Unknown attack type!");
+				NR_Debug("Prepare: Warning! Ignoring for: " + attackType);
 				break;
 		}
 	}	
@@ -643,18 +679,22 @@ state MagicLoop in NR_MagicManager {
 		var entity 				: CEntity;
 		var aTargetNPC			: CNewNPC;
 		var projectile			: W3AdvancedProjectile;
+		var aardEntity			: NR_SorceressAard;
+		var aardProjectile		: W3AardProjectile;
+		var attackRange 		: CAIAttackRange;
 		var component 			: CComponent;
 		var collisionGroups 	: array<name>;
 		var pos					: Vector;
 		var rot 				: EulerAngles;
 		var i 					: int;
+		var buffParams 			: SCustomEffectParams;
+		var hitsWater : Bool;
 		// ROCK //
 		var shootDirectionNoise : float = 2.5f;
 		var drawSpeedLimit 		: float = 10.f;
 		var randNoise 			: float = 0.5f;
 		var range, distToTarget, distance3DToTarget, projectileFlightTime, npcToTargetAngle	: float;
 
-		aActive = false;
 		switch (parent.GetAttackType()) {
 			case ENR_Slash:
 				if (aTarget) {
@@ -667,6 +707,20 @@ state MagicLoop in NR_MagicManager {
 					if (aDestroyable.reactsToIgni) {
 						aDestroyable.OnIgniHit(NULL);
 					} else {
+						aDestroyable.OnAardHit(NULL);
+					}
+				}
+				break;
+			case ENR_RipApart:
+			// BTTaskExplodeAtDeath
+				if (aTarget) {
+					aTargetNPC = (CNewNPC) aTarget;
+
+					aDummyEntity.PlayEffect('blood_explode');
+					thePlayer.OnCollisionFromItem( aTarget );
+				} else if (aDestroyable) {
+					// ???
+					if (aDestroyable.reactsToAard) {
 						aDestroyable.OnAardHit(NULL);
 					}
 				}
@@ -755,10 +809,87 @@ state MagicLoop in NR_MagicManager {
 				}
 				//parent.HandFX(true);
 				break;
+			case ENR_BombExplosion:
+				entityTemplate = (CEntityTemplate)LoadResourceAsync( parent.aMap[parent.aSign].getN("bomb_entity") );
+				CalculateTargetPlacement(false, true, 0.f, 0.f);
+				entity = theGame.CreateEntity(entityTemplate, aPos, aRot);
+				break;
+			case ENR_SpecialMeteor:
+				resourceName = parent.aMap[parent.aSign].getN("meteor_entity");
+				entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
+
+				CalculateTargetPlacement(/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, /*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f);
+				//aPos += VecRingRand(0.f, 1.f);
+				aPos.Z += 51.f;
+				projectile = (W3AdvancedProjectile)theGame.CreateEntity(entityTemplate, aPos, aRot);
+				aPos.Z -= 51.f;
+				projectile.Init(NULL);
+				projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, aPos, 500.f, parent.aCollisionGroups );
+				break;
+			case ENR_CounterPush:
+				CalculateTargetPlacement(/*tryFindDestroyable*/ false, /*makeStaticTrace*/ false, /*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f);
+
+				aPos = thePlayer.GetWorldPosition();
+				aRot = thePlayer.GetWorldRotation();
+
+				entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_aard");
+				aardEntity = (NR_SorceressAard)theGame.CreateEntity(entityTemplate, aPos, aRot);
+				
+				if ( !aardEntity.NR_Init(NR_GetReplacerSorceress().nr_signOwner) ) {
+					NR_Notify("NO Stamina!");
+					break;
+				}
+
+				attackRange = theGame.GetAttackRangeForEntity( aardEntity, 'blast_upgrade3' );
+
+				entityTemplate = (CEntityTemplate)LoadResourceAsync("gameplay\templates\signs\pc_aard_proj_blast.w2ent", true);
+				aPos.Z -= 0.5;
+				aardProjectile = (W3AardProjectile)theGame.CreateEntity(entityTemplate, aPos, aRot);
+				
+				aardProjectile.ExtInit( NR_GetReplacerSorceress().nr_signOwner, S_Magic_1, aardEntity );	
+				aardProjectile.SetAttackRange( attackRange );
+
+				collisionGroups.Clear();
+				collisionGroups.PushBack( 'Projectile' );
+				collisionGroups.PushBack( 'Door' );
+				collisionGroups.PushBack( 'Static' );		
+				collisionGroups.PushBack( 'Character' );
+				collisionGroups.PushBack( 'ParticleCollider' );  
+				aardProjectile.SphereOverlapTest( 10.f, collisionGroups );	
+				GCameraShake(0.1f, true, aPos, 30.0f); // 0.2 cone, 0.5 blast
+
+				hitsWater = ((CMovingPhysicalAgentComponent)thePlayer.GetMovingAgentComponent()).GetSubmergeDepth() < 0;
+				aardEntity.PlayEffect( 'blast_lv3' );
+				aardEntity.PlayEffect( 'blast_lv3_damage' );
+				aardEntity.PlayEffect( 'blast_lv3_power' );
+				if(hitsWater)
+					aardEntity.PlayEffect( 'blast_water' );
+				else
+					aardEntity.PlayEffect( 'blast_ground' );
+
+				if (aTarget && RandF() > 0.5) {
+					aTarget.AddEffectDefault( EET_SlowdownFrost, aardProjectile, "Mutation 6", true );
+					aardEntity.PlayEffect( 'blast_ground_mutation_6' ); // freeze
+					thePlayer.PlayEffect( 'mutation_6_power' );
+					theGame.GetSurfacePostFX().AddSurfacePostFXGroup(aPos, 0.3f, 3.f, 2.f, attackRange.rangeMax, 0 );
+					NR_Notify("FREEZE!");
+				}
+				
+
+				//theGame.GetBehTreeReactionManager().CreateReactionEventIfPossible( thePlayer, 'CastSignAction', -1, 8.0f, -1.f, -1, true ); 
+				// v for aard
+				//theGame.GetBehTreeReactionManager().CreateReactionEventIfPossible( aardEntity, 'CastSignActionFar', -1, 30.0f, -1.f, -1, true ); 
+
+				
+				
+				//aardEntity.DestroyAfter(8.f);
+				NR_Debug("attackRange: " + attackRange.rangeMax);
+				break;
 			default:
-				NR_Notify("Prepare: Error! Unknown attack type!");
+				NR_Notify("PerformMagicAttack: Error! Perform is not set for: " + parent.GetAttackType());
 				break;
 		}
+		aActive = false;
 		// attack ends
 		//CleanaData();
 	}
@@ -891,5 +1022,7 @@ state MagicLoop in NR_MagicManager {
 		aEffect 	= A;
 		aEffectHit 	= B;
 	}
+
+	function CheckFunc() {}
 }
 // !! QuenImpulse()

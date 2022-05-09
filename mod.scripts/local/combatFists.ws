@@ -41,10 +41,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		// will be auto-processed async in next frame
 		parent.magicMan.aEventsStack.PushBack(magicEvent);
 	}
-	event OnAnimEventBlend( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
-	{
-		NR_Notify("OnAnimEventBlend:: eventName = " + animEventName + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
-	}
+	
 	event OnPreAttackEvent(animEventName : name, animEventType : EAnimationEventType, data : CPreAttackEventData, animInfo : SAnimationEventAnimInfo)
 	{
 		if (animEventType == AET_DurationStart) {
@@ -56,6 +53,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
 	{
+		NR_Notify("combatFists:: OnPerformEvade");
 		PerformTeleport( playerEvadeType, playerEvadeType == PET_Roll);
 		return true;
 	}
@@ -204,16 +202,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		//parent.SetRequiredItems('Any', 'fist' );
 		//parent.ProcessRequiredItems();
 	}
-
-	event OnAnimEventS_CombatStanceLeft( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
-	{
-		NR_Notify("animEventName = " + NameToString(animEventName) + ", animEventType = " + animEventType + " ANIM = " + NameToString(GetAnimNameFromEventAnimInfo(animInfo)) + ", LOC TIME = " + GetLocalAnimTimeFromEventAnimInfo(animInfo) );
-	}
-	event OnAnimEventS_CombatStanceRight( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
-	{
-		NR_Notify("animEventName = " + NameToString(animEventName) + ", animEventType = " + animEventType + " ANIM = " + NameToString(GetAnimNameFromEventAnimInfo(animInfo)) + ", LOC TIME = " + GetLocalAnimTimeFromEventAnimInfo(animInfo) );
-	}
-	
 	
 	event OnLeaveState( nextStateName : name )
 	{
@@ -232,7 +220,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.SetBIsCombatActionAllowed( true );
 		BuildComboPlayer();
 		parent.LockEntryFunction( false );
-	
+		NR_Notify("CombatFistsInit: " + startupAction);
 		switch( startupAction )
 		{
 			case IA_AttackLight:
@@ -300,119 +288,11 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	
 	event OnCreateAttackAspects()
 	{
-		NR_Notify("SS: OnCreateAttackAspects()");
-		CreateAttackLightNoTargetAspect();
-		CreateAttackHeavyNoTargetAspect();
 		CreateAttackLightAspect();
 		CreateAttackHeavyAspect();
-		CreateAttackLightFarAspect();
-		CreateAttackHeavyFarAspect();
-	}
-	
-	private final function CreateAttackLightNoTargetAspect()
-	{
-		var aspect 		: CComboAspect;
-		var str 		: CComboString;
-
-		aspect = comboDefinition.CreateComboAspect( 'AttackLightNoTarget' );
-		
-		{
-			str = aspect.CreateComboString( false );
-			/*str.AddDirAttack( 'woman_sorceress_attack_slash_right_rp', AD_Front, ADIST_Small );
-			str.AddDirAttack( 'woman_sorceress_attack_slash_left_rp', AD_Front, ADIST_Small );
-			str.AddDirAttack( 'woman_sorceress_attack_rp_01', AD_Front, ADIST_Small );*/
-
-			str.AddDirAttack( 'woman_sorceress_attack_slash_right_rp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_slash_left_rp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_throw_rp_01', AD_Front, ADIST_Medium );	
-			//str.AddDirAttack( 'man_fistfight_attack_fast_back_1_lh_40ms', AD_Back, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_fast_left_1_rh_40ms', AD_Left, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_fast_right_1_rh_40ms', AD_Right, ADIST_Medium );
-
-			/*str.AddAttack( 'woman_sorceress_attack_slash_right_rp', ADIST_Small );
-			str.AddAttack( 'woman_sorceress_attack_slash_left_rp', ADIST_Small );
-			str.AddAttack( 'woman_sorceress_attack_rp_01', ADIST_Small );*/
-
-			str.AddAttack( 'woman_sorceress_attack_slash_right_rp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_slash_left_rp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_throw_rp_01', ADIST_Medium );
-
-			aspect.AddLink('woman_sorceress_attack_slash_right_rp', 'woman_sorceress_attack_slash_left_rp');
-			aspect.AddLink('woman_sorceress_attack_slash_left_rp', 'woman_sorceress_attack_throw_rp_01');
-			aspect.AddLink('woman_sorceress_attack_throw_rp_01', 'woman_sorceress_attack_slash_right_rp');
-		}	
-		{
-			str = aspect.CreateComboString( true );
-			/*str.AddDirAttack( 'woman_sorceress_attack_slash_right_lp', AD_Front, ADIST_Small );
-			str.AddDirAttack( 'woman_sorceress_attack_slash_left_lp', AD_Front, ADIST_Small );
-			str.AddDirAttack( 'woman_sorceress_attack_lp_03', AD_Front, ADIST_Small );*/
-
-			str.AddDirAttack( 'woman_sorceress_attack_slash_right_lp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_slash_left_lp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_throw_lp_03', AD_Front, ADIST_Medium );	
-			//str.AddDirAttack( 'man_fistfight_attack_fast_back_1_lh_40ms', AD_Back, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_fast_left_1_rh_40ms', AD_Left, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_fast_right_1_rh_40ms', AD_Right, ADIST_Medium );
-
-			/*str.AddAttack( 'woman_sorceress_attack_slash_right_rp', ADIST_Small );
-			str.AddAttack( 'woman_sorceress_attack_slash_left_rp', ADIST_Small );
-			str.AddAttack( 'woman_sorceress_attack_lp_03', ADIST_Small );*/
-
-			str.AddAttack( 'woman_sorceress_attack_slash_right_lp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_slash_left_lp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_throw_lp_03', ADIST_Medium );
-
-			aspect.AddLink('woman_sorceress_attack_slash_right_lp', 'woman_sorceress_attack_slash_left_lp');
-			aspect.AddLink('woman_sorceress_attack_slash_left_lp', 'woman_sorceress_attack_throw_lp_03');
-			aspect.AddLink('woman_sorceress_attack_throw_lp_03', 'woman_sorceress_attack_slash_right_lp');
-		}	
-	}	
-
-	private final function CreateAttackHeavyNoTargetAspect()
-	{
-		var aspect : CComboAspect;
-		var str : CComboString;
-		
-		aspect = comboDefinition.CreateComboAspect( 'AttackHeavyNoTarget' );
-		
-		{
-			str = aspect.CreateComboString( false );
-						
-			str.AddDirAttack( 'woman_sorceress_attack_rock_rhand_rp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_arcane_rp_03', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_rock_lhand_rp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_arcane_rp_01', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_rock_bhand_rp', AD_Front, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_back_1_rh_70ms', AD_Back, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_left_1_rh_70ms', AD_Left, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_right_1_lh_70ms', AD_Right, ADIST_Medium );			
-
-			str.AddAttack( 'woman_sorceress_attack_rock_rhand_rp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_arcane_rp_03', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_rock_lhand_rp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_arcane_rp_01', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_rock_bhand_rp', ADIST_Medium );
-		}		
-		
-		
-		{
-			str = aspect.CreateComboString( true );
-						
-			str.AddDirAttack( 'woman_sorceress_attack_rock_rhand_lp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_arcane_lp_03', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_rock_lhand_lp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_arcane_lp_04', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_rock_bhand_lp', AD_Front, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_back_1_rh_70ms', AD_Back, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_left_1_rh_70ms', AD_Left, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_right_1_lh_70ms', AD_Right, ADIST_Medium );			
-
-			str.AddAttack( 'woman_sorceress_attack_rock_rhand_lp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_arcane_lp_03', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_rock_lhand_lp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_arcane_lp_04', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_rock_bhand_rp', ADIST_Medium );
-		}	
+		CreateAttackSpecialAspect();
+		CreateAttackFinisherAspect();
+		CreateAttackPushAspect();
 	}
 
 	private final function CreateAttackLightAspect()
@@ -516,98 +396,80 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			str.AddAttack( 'woman_sorceress_attack_rock_bhand_rp', ADIST_Medium );
 		}	
 	}
-	
-	private final function CreateAttackLightFarAspect()
-	{
-	
-		var aspect 		: CComboAspect;
-		var str 		: CComboString;
 
-		aspect = comboDefinition.CreateComboAspect( 'AttackLightFar' );
+	private final function CreateAttackFinisherAspect()
+	{
+		var aspect : CComboAspect;
+		var str : CComboString;
+		
+		aspect = comboDefinition.CreateComboAspect( 'AttackFinisher' );
 		
 		{
-			str = aspect.CreateComboString( false );
-			str.AddDirAttack( 'woman_sorceress_attack_slash_right_rp', AD_Front, ADIST_Large );
-			str.AddDirAttack( 'woman_sorceress_attack_slash_left_rp', AD_Front, ADIST_Large );
-			str.AddDirAttack( 'woman_sorceress_attack_throw_rp_01', AD_Front, ADIST_Large );	
-			//str.AddDirAttack( 'man_fistfight_attack_fast_back_1_lh_40ms', AD_Back, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_fast_left_1_rh_40ms', AD_Left, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_fast_right_1_rh_40ms', AD_Right, ADIST_Medium );
+			str = aspect.CreateComboString( false );	
+			str.AddDirAttack( 'woman_sorceress_rip_apart_kill_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_rip_apart_kill_rp', ADIST_Medium );
+		}		
 
-			str.AddAttack( 'woman_sorceress_attack_slash_right_rp', ADIST_Large );
-			str.AddAttack( 'woman_sorceress_attack_slash_left_rp', ADIST_Large );
-			str.AddAttack( 'woman_sorceress_attack_throw_rp_01', ADIST_Large );
-
-			aspect.AddLink('woman_sorceress_attack_slash_right_rp', 'woman_sorceress_attack_slash_left_rp');
-			aspect.AddLink('woman_sorceress_attack_slash_left_rp', 'woman_sorceress_attack_throw_rp_01');
-			aspect.AddLink('woman_sorceress_attack_throw_rp_01', 'woman_sorceress_attack_slash_right_rp');
-		}	
 		{
-			str = aspect.CreateComboString( true );
-			str.AddDirAttack( 'woman_sorceress_attack_slash_right_lp', AD_Front, ADIST_Large );
-			str.AddDirAttack( 'woman_sorceress_attack_slash_left_lp', AD_Front, ADIST_Large );
-			str.AddDirAttack( 'woman_sorceress_attack_throw_lp_03', AD_Front, ADIST_Large );	
-			//str.AddDirAttack( 'man_fistfight_attack_fast_back_1_lh_40ms', AD_Back, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_fast_left_1_rh_40ms', AD_Left, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_fast_right_1_rh_40ms', AD_Right, ADIST_Medium );
-
-			str.AddAttack( 'woman_sorceress_attack_slash_right_lp', ADIST_Large );
-			str.AddAttack( 'woman_sorceress_attack_slash_left_lp', ADIST_Large );
-			str.AddAttack( 'woman_sorceress_attack_throw_lp_03', ADIST_Large );
-
-			aspect.AddLink('woman_sorceress_attack_slash_right_lp', 'woman_sorceress_attack_slash_left_lp');
-			aspect.AddLink('woman_sorceress_attack_slash_left_lp', 'woman_sorceress_attack_throw_lp_03');
-			aspect.AddLink('woman_sorceress_attack_throw_lp_03', 'woman_sorceress_attack_slash_right_lp');
+			str = aspect.CreateComboString( true );	
+			str.AddDirAttack( 'woman_sorceress_rip_apart_kill_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_rip_apart_kill_lp', ADIST_Medium );
 		}
 	}
-	
-	private final function CreateAttackHeavyFarAspect()
-	{
-	
-		var aspect 		: CComboAspect;
-		var str 		: CComboString;
 
-		aspect = comboDefinition.CreateComboAspect( 'AttackHeavyFar' );
+	private final function CreateAttackPushAspect()
+	{
+		var aspect : CComboAspect;
+		var str : CComboString;
+		
+		aspect = comboDefinition.CreateComboAspect( 'AttackPush' );
 		
 		{
-			str = aspect.CreateComboString( false );
-						
-			str.AddDirAttack( 'woman_sorceress_attack_rock_rhand_rp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_arcane_rp_03', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_rock_lhand_rp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_arcane_rp_01', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_rock_bhand_rp', AD_Front, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_back_1_rh_70ms', AD_Back, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_left_1_rh_70ms', AD_Left, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_right_1_lh_70ms', AD_Right, ADIST_Medium );			
+			str = aspect.CreateComboString( false );	
+			str.AddDirAttack( 'woman_sorceress_attack_push_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_attack_push_rp', ADIST_Medium );
+		}		
+		
+		{
+			str = aspect.CreateComboString( true );	
+			str.AddDirAttack( 'woman_sorceress_attack_push_lp_02', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_attack_push_lp_02', ADIST_Medium );
+		}
+	}
 
-			str.AddAttack( 'woman_sorceress_attack_rock_rhand_rp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_arcane_rp_03', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_rock_lhand_rp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_arcane_rp_01', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_rock_bhand_rp', ADIST_Medium );
+	private final function CreateAttackSpecialAspect()
+	{
+		var aspect : CComboAspect;
+		var str : CComboString;
+		
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialIgni' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_special_attack_fireball_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_special_attack_fireball_rp', ADIST_Medium );
 		}		
 		
 		
 		{
-			str = aspect.CreateComboString( true );
-						
-			str.AddDirAttack( 'woman_sorceress_attack_rock_rhand_lp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_arcane_lp_03', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_rock_lhand_lp', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_arcane_lp_04', AD_Front, ADIST_Medium );
-			str.AddDirAttack( 'woman_sorceress_attack_rock_bhand_lp', AD_Front, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_back_1_rh_70ms', AD_Back, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_left_1_rh_70ms', AD_Left, ADIST_Medium );
-			//str.AddDirAttack( 'man_fistfight_attack_heavy_right_1_lh_70ms', AD_Right, ADIST_Medium );			
-
-			str.AddAttack( 'woman_sorceress_attack_rock_rhand_lp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_arcane_lp_03', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_rock_lhand_lp', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_arcane_lp_04', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_rock_bhand_rp', ADIST_Medium );
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_special_attack_fireball_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_special_attack_fireball_lp', ADIST_Medium );
 		}
-	}		
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialQuen' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_taunt_02_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_taunt_02_rp', ADIST_Medium );
+		}		
+		
+		
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_taunt_02_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_taunt_02_lp', ADIST_Medium );
+		}
+	}
 
 	event OnGuardedReleased()
 	{

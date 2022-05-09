@@ -810,7 +810,7 @@ templates:
         - ".type": SWitcherSign
           template: gameplay/templates/signs/pc_igni.w2ent
         - ".type": SWitcherSign
-          template: gameplay/templates/signs/pc_quen.w2ent
+          template: dlc/dlcnewreplacers/data/entities/nr_quen.w2ent
         - ".type": SWitcherSign
           template: gameplay/templates/signs/pc_axii.w2ent
 
@@ -1392,3 +1392,685 @@ templates:
           pos: [ -0.00408934, -0.0270851, -0.187406 ]
           rot: [ 0.0, 78.8043, 0.0 ]
           scale: [ 0.0, 0.0, 0.0 ]
+
+    effects:
+      philippa_barrier_shield:
+        ".type": CFXDefinition
+        trackGroups:  #array:2,0,ptr:CFXTrackGroup
+          audio:
+            ".type": CFXTrackGroup
+            ## name: "audio"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sfx:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.01181178
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: magic_filippa_barrier_shield_start
+                    maxDistance: 40.0
+                  #- ".type": CFXTrackItemSoundEvent
+                  #  timeBegin: 0.3814703
+                  #  ## buffername: 
+                  #  ## count: 0
+                  #  ## unk: 0
+                  #  soundEventName: sign_quen_charge_loop_stop
+                  #  maxDistance: 40.0
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.4901889
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: magic_filippa_barrier_shield_end
+                    maxDistance: 40.0
+                ## name: "sfx"
+            isExpanded: true
+            trackGroupColor: [ 222, 225, 145, 100 ]
+          fx:
+            ".type": CFXTrackGroup
+            ## name: "fx"
+            tracks:  #array:2,0,ptr:CFXTrack
+              start:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeBegin: 0.01
+                    timeDuration: 3.0
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                    particleSystem: fx/quest/q310/phillipa_shield_break.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      componentName: woman_base
+                      attach: true
+                ## name: "break"
+              break:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeBegin: 0.6109793
+                    timeDuration: 3.0
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                    particleSystem: fx/quest/q310/phillipa_shield_break.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      componentName: woman_base
+                      attach: true
+                ## name: "break"
+              shield:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeDuration: 5.0
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 0.3156185, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                    particleSystem: dlc/dlcnewreplacers/data/particles/philippa_shield.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      componentName: woman_base
+                      attach: true
+                ## name: "shield"
+            isExpanded: true
+            trackGroupColor: [ 254, 130, 209, 100 ]
+          light:
+            ".type": CFXTrackGroup
+            ## name: "light"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sad:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemDynamicLight
+                    timeBegin: 0.002558595
+                    timeDuration: 1.793042
+                    ## buffername: DynamicLight
+                    ## count: 2
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0 ]
+                      - [ 3.894134, 1.0 ]
+                      - [ 6.0, 1.0 ]
+                      - [ 6.0, 1.0 ]
+                      - [ 3.333333, 1.0 ]
+                      - [ 0.666666, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                    color: [ 255, 86, 89, 255 ]
+                    radius: 9.0
+                    brightness: 5.0
+                    lightFlickering:  #SLightFlickering
+                      flickerStrength: 0.35
+                      flickerPeriod: 0.15
+                    autoHideDistance: 45.0
+                    colorGroup: ECG_LightsDefault
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      componentName: woman_base
+                      copyRotation: false
+                      attach: true
+                ## name: "sad"
+            isExpanded: true
+            trackGroupColor: [ 149, 219, 226, 100 ]
+        length: 4.854877
+        loopStart: 0.1657426
+        loopEnd: 0.469604
+        ## name: barrier_shield
+        showDistance: 50.0
+        isLooped: true
+
+  nr_quen:
+    #includes:  #array:2,0,handle:CEntityTemplate
+    #  - gameplay/templates/signs/pc_quen.w2ent
+
+    entityObject:
+      ".type": NR_SorceressQuen
+      streamingDistance: 5
+      #entityStaticFlags: <empty value>
+      components:  #array:0,0,ptr:CComponent
+        sphere:
+          ".type": CMeshComponent
+          transform:
+            pos: [ 0.0, 0.0, 0.0 ]
+            rot: [ 270.0, 0.0, 0.0 ]
+            scale: [ 1.8, 1.8, 1.8 ]
+          ## name: "sphere"
+          isStreamed: false
+          boundingBox:  #Box
+            Min: [ -1.08, -1.08, -1.08, 1.0 ]
+            Max: [ 1.08, 1.08, 1.08, 1.0 ]
+          mesh: fx/signs/quen/ver1/quen_sphere.w2mesh
+      idTag:  07ed1689-91a2-4d74-a0ec-846b664b91d9
+
+      effectName: philippa_barrier_shield
+      alternateEffectName: default_fx_bear_abl2 # temp!!!
+      playOnOwner: true
+      hitEntityTemplate: gameplay/templates/signs/pc_quen_hit.w2ent
+      shakeStrength: 0.2
+
+      #effects:  #array:2,0,SQuenEffects
+      #  - ".type": SQuenEffects
+      #    lastingEffectUpgNone: default_fx_bear_abl2 # quen_lasting_shield_lv0
+      #    lastingEffectUpg1: default_fx_bear_abl2 # quen_lasting_shield_lv1
+      #    lastingEffectUpg2: default_fx_bear_abl2 # quen_lasting_shield_lv2
+      #    lastingEffectUpg3: default_fx_bear_abl2 # quen_lasting_shield_lv3
+      #    cameraShakeStranth: 0.2
+      #  - ".type": SQuenEffects
+      #    castEffect: default_fx
+      #    cameraShakeStranth: 0.2
+
+    effects:
+      philippa_shield:
+        ".type": CFXDefinition
+        trackGroups:  #array:2,0,ptr:CFXTrackGroup
+          Default:
+            ".type": CFXTrackGroup
+            ## name: "Default"
+            tracks:  #array:2,0,ptr:CFXTrack
+              emitter2:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeBegin: 1.0
+                    timeDuration: 3.0
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                    particleSystem: fx/cutscenes/novigrad/cs310_bringing_down_philippa/philippa_shield_cutscene_break.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      attach: true
+                      componentName: sphere
+                ## name: "emitter2"
+              light:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemDynamicLight
+                    timeDuration: 5.0
+                    ## buffername: DynamicLight
+                    ## count: 2
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0 ]
+                      - [ 1.0, 1.0 ]
+                      - [ 1.0, 1.0 ]
+                      - [ 1.0, 1.0 ]
+                      - [ 35.55555, 1.0 ]
+                      - [ 17.77778, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                    color: [ 255, 158, 128, 255 ]
+                    radius: 15.0
+                    brightness: 25.0
+                    lightFlickering:  #SLightFlickering
+                      positionOffset: 0.5
+                      flickerStrength: 0.25
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      attach: true
+                      componentName: sphere
+                ## name: "light"
+              Emitter:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeDuration: 5.0
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 0.9999999, 1.0 ]
+                      - [ 1.0, 0.3333333, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                    particleSystem: fx/cutscenes/novigrad/cs310_bringing_down_philippa/philippa_shield_cutscene.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      attach: true
+                      componentName: sphere
+                ## name: "Emitter"
+            isExpanded: true
+            trackGroupColor: [ 228, 254, 185, 100 ]
+        length: 5.0
+        loopStart: 0.8
+        ## name: philippa_shield
+        showDistance: 50.0
+        isLooped: true
+      #buffer: 2665 bytes
+      default_fx:
+        ".type": CFXDefinition
+        trackGroups:  #array:2,0,ptr:CFXTrackGroup
+          audio:
+            ".type": CFXTrackGroup
+            ## name: "audio"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sfx:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.00702605
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: sign_quen_charge_loop_start
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.08526982
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: sign_quen_charge_loop
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.3814703
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: sign_quen_charge_loop_stop
+                ## name: "sfx"
+            isExpanded: true
+            trackGroupColor: [ 149, 171, 132, 100 ]
+          light:
+            ".type": CFXTrackGroup
+            ## name: "light"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sad:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemDynamicLight
+                    timeBegin: 0.002558595
+                    timeDuration: 1.793042
+                    ## buffername: DynamicLight
+                    ## count: 2
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0 ]
+                      - [ 3.894134, 1.0 ]
+                      - [ 6.0, 1.0 ]
+                      - [ 6.0, 1.0 ]
+                      - [ 3.333333, 1.0 ]
+                      - [ 0.666666, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                    color: [ 255, 164, 88, 255 ]
+                    radius: 6.0
+                    lightFlickering:  #SLightFlickering
+                      flickerStrength: 0.35
+                      flickerPeriod: 0.15
+                    autoHideDistance: 45.0
+                    colorGroup: ECG_LightsDefault
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      componentName: sphere
+                      copyRotation: false
+                      attach: true
+                ## name: "sad"
+            isExpanded: true
+            trackGroupColor: [ 149, 219, 226, 100 ]
+          fx:
+            ".type": CFXTrackGroup
+            ## name: "fx"
+            tracks:  #array:2,0,ptr:CFXTrack
+              #fx:
+              #  ".type": CFXTrack
+              #  trackItems:  #array:2,0,ptr:CFXTrackItem
+              #    - ".type": CFXTrackItemParameterFloat
+              #      timeBegin: 0.006109089
+              #      timeDuration: 2.915762
+              #      ## buffername: 
+              #      ## count: 1
+              #      ## unk: 1
+              #      interpolation:
+              #        - 0.0
+              #        - 0.7
+              #        - 0.5833333
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #        - 0.0
+              #      parameterName: MeshEffectScalar1
+                ## name: "fx"
+              Emitter:  
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeDuration: 4.641561
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 0.9999999, 1.0 ]
+                      - [ 1.0, 0.3333333, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                    particleSystem: fx/cutscenes/novigrad/cs310_bringing_down_philippa/philippa_shield_cutscene.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      attach: true
+                      componentName: sphere
+              emitter2:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeBegin: 1.0
+                    timeDuration: 3.0
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                    particleSystem: fx/cutscenes/novigrad/cs310_bringing_down_philippa/philippa_shield_cutscene_break.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      attach: true
+                      componentName: sphere
+                ## name: "emitter2"
+            isExpanded: true
+            trackGroupColor: [ 185, 203, 195, 100 ]
+            componentName: sphere
+        length: 4.641561
+        loopStart: 0.2501136
+        loopEnd: 0.3482911
+        ## name: default_fx
+        showDistance: 33.0
+        isLooped: true
+      #buffer: 3208 bytes
+      default_fx_bear_abl2:
+        ".type": CFXDefinition
+        trackGroups:  #array:2,0,ptr:CFXTrackGroup
+          sounds:
+            ".type": CFXTrackGroup
+            ## name: "sounds"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sfx:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.0095902
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: ep2_setskill_bear_quen_big_sparks
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.2109844
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: ep2_setskill_bear_quen_big_sparks
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.287706
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: ep2_setskill_bear_quen_big_sparks
+                ## name: "sfx"
+            isExpanded: true
+            trackGroupColor: [ 217, 197, 133, 100 ]
+          fx:
+            ".type": CFXTrackGroup
+            ## name: "fx"
+            tracks:  #array:2,0,ptr:CFXTrack
+              "2":
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemDynamicLight
+                    timeBegin: 0.003776237
+                    ## buffername: DynamicLight
+                    ## count: 2
+                    ## unk: 1
+                    interpolation:
+                      - [ 0.0, 1.0 ]
+                      - [ 4.648408, 1.0 ]
+                      - [ 9.296816, 1.0 ]
+                      - [ 11.0, 1.0 ]
+                      - [ 11.0, 1.0 ]
+                      - [ 11.0, 1.0 ]
+                      - [ 11.0, 1.0 ]
+                      - [ 10.12334, 1.0 ]
+                      - [ 8.544506, 1.0 ]
+                      - [ 6.965671, 1.0 ]
+                      - [ 5.386836, 1.0 ]
+                      - [ 3.808001, 1.0 ]
+                      - [ 2.229165, 1.0 ]
+                      - [ 0.6503305, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                    color: [ 255, 142, 14, 255 ]
+                    radius: 0.7
+                    brightness: 5.0
+                    lightFlickering:  #SLightFlickering
+                      positionOffset: 0.2
+                      flickerStrength: 0.9
+                      flickerPeriod: 0.07
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      componentName: sphere
+                      attach: true
+                ## name: "2"
+              light:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemDynamicLight
+                    timeBegin: 0.0197233
+                    ## buffername: DynamicLight
+                    ## count: 2
+                    ## unk: 1
+                    interpolation:
+                      - [ 0.0, 1.0 ]
+                      - [ 4.648408, 1.0 ]
+                      - [ 9.296816, 1.0 ]
+                      - [ 11.0, 1.0 ]
+                      - [ 11.0, 1.0 ]
+                      - [ 11.0, 1.0 ]
+                      - [ 11.0, 1.0 ]
+                      - [ 10.12334, 1.0 ]
+                      - [ 8.544506, 1.0 ]
+                      - [ 6.965671, 1.0 ]
+                      - [ 5.386836, 1.0 ]
+                      - [ 3.808001, 1.0 ]
+                      - [ 2.229165, 1.0 ]
+                      - [ 0.6503305, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                    color: [ 255, 142, 14, 255 ]
+                    radius: 0.7
+                    brightness: 5.0
+                    lightFlickering:  #SLightFlickering
+                      positionOffset: 0.2
+                      flickerStrength: 0.8
+                      flickerPeriod: 0.08
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      componentName: sphere
+                      attach: true
+                ## name: "light"
+              "1":
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeBegin: 0.02557635
+                    timeDuration: 1.936713
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 0.9364268, 1.0 ]
+                      - [ 1.0, 0.1152372, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 0.0, 1.0 ]
+                    particleSystem: fx/gameplay/new_abilities/bear_set_ability_02/bear_default.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      componentName: sphere
+                      attach: true
+                ## name: "1"
+            isExpanded: true
+            trackGroupColor: [ 185, 203, 195, 100 ]
+            componentName: sphere
+        length: 4.641561
+        loopStart: 0.2501136
+        loopEnd: 0.3482911
+        ## name: default_fx_bear_abl2
+        showDistance: 33.0
+        isLooped: true
+
+  #nr_aard:
+  #  includes:  #array:2,0,handle:CEntityTemplate
+  #    - gameplay/templates/signs/pc_aard.w2ent
+  #
+  #  entityObject:
+  #    ".type": NR_SorceressAard

@@ -22,15 +22,27 @@ function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, o
 	var u : NR_Union;
 	u.key = _key;
 	u.type = _type;
-	u.valN = _valN;
-	u.valS = _valS;
-	u.valI = _valI;
-	u.valF = _valF;
+	switch (_type) {
+		case ENR_Int:
+			u.valI = _valI;
+			break;
+		case ENR_Float:
+			u.valF = _valF;
+			break;
+		case ENR_Name:
+			u.valN = _valN;
+			break;
+		case ENR_String:
+			u.valS = _valS;
+			break;
+		default:
+			break;
+	}
 	return u;
 }
 class NR_Map {
 	saved var values 	: array<NR_Union>;
-	var i 		: int;
+	var i 				: int;
 	function keyIndex(_key : String) : int {
 		for (i = 0; i < values.Size(); i += 1) {
 			if (values[i].key == _key)
@@ -55,7 +67,7 @@ class NR_Map {
 	}
 	function getI(_key : String, optional defaultValue : int) : int {
 		i = keyIndex(_key);
-		NR_Debug("getN: key = " + _key + ", defaultValue = " + defaultValue);
+		//NR_Debug("getN: key = " + _key + ", defaultValue = " + defaultValue);
 		if (i < 0)
 			return defaultValue;
 		return values[i].valI;
@@ -67,8 +79,13 @@ class NR_Map {
 		return values[i].valF;
 	}
 	function getN(_key : String, optional defaultValue : name) : name {
+		var start, end : float;
+		start = EngineTimeToFloat(theGame.GetEngineTime());
+
 		i = keyIndex(_key);
-		NR_Debug("getN: key = " + _key + ", defaultValue = " + defaultValue);
+
+		end = EngineTimeToFloat(theGame.GetEngineTime());
+		//NR_Debug("getN: key = " + _key + ", defaultValue = " + defaultValue + ", time = " + (end - start));
 		if (i < 0)
 			return defaultValue;
 		return values[i].valN;

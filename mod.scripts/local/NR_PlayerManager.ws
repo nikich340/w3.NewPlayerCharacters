@@ -847,7 +847,9 @@ exec function toScene1() {
 exec function yensc(optional input : String) {
 	playSceneF("dlc\bob\data\quests\main_quests\quest_files\q705_epilog\scenes\q705_20a_yen_visit_vineyard.w2scene");
 }
-
+exec function tosc(path : String, optional input : String) {
+	playSceneF(path, input);
+}
 /*exec function hackClass() {
 	var template : CEntityTemplate;
 	var entity   : CEntity;

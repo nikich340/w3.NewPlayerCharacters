@@ -9,12 +9,14 @@ quest function NR_Notify_Quest(message : String, optional duration : float) {
 	 NR_Notify(message, duration);
 }
 
-function NR_Debug(message : String, optional duration : float)
+function NRD(message : String)
 {
-	if (duration < 1.0)
-		duration = 5.0;
-    //theGame.GetGuiManager().ShowNotification("[NR_DEBUG] " + message, 3000.0);
     LogChannel('NR_DEBUG', message);
+}
+
+function NRE(message : String)
+{
+    LogChannel('NR_ERROR', message);
 }
 
 class NR_PlayerManager extends CPeristentEntity {
@@ -48,7 +50,7 @@ class NR_PlayerManager extends CPeristentEntity {
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
 		//spawnedTime = theGame.GetEngineTimeAsSeconds();
-		NR_Debug("wasSpawned! this: " + this);
+		NRD("wasSpawned! this: " + this);
 		AddTimer('OnPlayerSpawned', 0.2f);
 		super.OnSpawned( spawnData );
 	}
@@ -100,7 +102,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		var curPlayerName : String;
 
 		curPlayerName = GetCurrentPlayerName();
-		NR_Debug("Cur player: " + curPlayerName + ", saved player: " + savedPlayerName);
+		NRD("Cur player: " + curPlayerName + ", saved player: " + savedPlayerName);
 
 		if ( !thePlayer.HasChildAttachment( this ) )
 			CreateAttachment(thePlayer);
@@ -158,7 +160,7 @@ class NR_PlayerManager extends CPeristentEntity {
 	function NR_DebugPrintData() {
 		var i : int;
 		for (i = 0; i < geraltSavedItems.Size(); i += 1) {
-			NR_Debug("NR_SavedEquipment[" + ((EEquipmentSlots)i) + "]" + geraltSavedItems[i]);
+			NRD("NR_SavedEquipment[" + ((EEquipmentSlots)i) + "]" + geraltSavedItems[i]);
 		}
 	}
 	function LoadPlayerData() {
@@ -196,7 +198,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		/*if ( headManager.GetCurHeadName() != headName ) {
 			NR_geraltSavedHeadName = headManager.GetCurHeadName();
 		}*/
-		NR_Debug("Head Set: " + headName);
+		NRD("Head Set: " + headName);
 		thePlayer.RememberCustomHead( headName );
 		headManager.BlockGrowing( true );
 		headManager.SetCustomHead( headName );
@@ -213,7 +215,7 @@ class NR_PlayerManager extends CPeristentEntity {
 
 		inv = thePlayer.GetInventory();
 		if (!inv) {
-			NR_Debug("Restore head: NULL!");
+			NRD("Restore head: NULL!");
 		}
 		ids = inv.GetItemsByCategory( 'hair' );
 		
@@ -222,10 +224,10 @@ class NR_PlayerManager extends CPeristentEntity {
 			inv.RemoveItem(ids[i], 1);	
 		}
 
-		NR_Debug("Hair Set: " + hairstyleName);
+		NRD("Hair Set: " + hairstyleName);
 		ids = inv.AddAnItem( hairstyleName );
 		ret = inv.MountItem(ids[0]);
-		NR_Debug("Hair Mount: " + ret);
+		NRD("Hair Mount: " + ret);
 	}
 	function RestoreHead() {
 		var headManager : CHeadManagerComponent;
@@ -233,7 +235,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		headManager = (CHeadManagerComponent)(thePlayer.GetComponentByClassName( 'CHeadManagerComponent' ));
 
 		if (!headManager) {
-			NR_Debug("Restore head: NULL!");
+			NRD("Restore head: NULL!");
 			return;
 		}
 
@@ -241,7 +243,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		headManager.BlockGrowing( false );
 		//headManager.RemoveCustomHead();
 		headManager.SetCustomHead( geraltSavedItems[EES_Mask] );
-		NR_Debug("Restore head: " + geraltSavedItems[EES_Mask]);
+		NRD("Restore head: " + geraltSavedItems[EES_Mask]);
 	}
 	function RestoreHair() {
 		var inv : CInventoryComponent;
@@ -257,10 +259,10 @@ class NR_PlayerManager extends CPeristentEntity {
 			inv.RemoveItem(ids[i], 1);	
 		}
 
-		NR_Debug("Restore hair: " + geraltSavedItems[EES_Hair]);
+		NRD("Restore hair: " + geraltSavedItems[EES_Hair]);
 		ids = inv.AddAnItem( geraltSavedItems[EES_Hair] );
 		ret = inv.MountItem(ids[0]);
-		NR_Debug("Hair RMount: " + ret + ", " + inv.IsIdValid(ids[0]) + ", "  + inv.GetItemName(ids[0]));
+		NRD("Hair RMount: " + ret + ", " + inv.IsIdValid(ids[0]) + ", "  + inv.GetItemName(ids[0]));
 	}
 	function RestoreEquipment() {
 		var inv  : CInventoryComponent;
@@ -269,12 +271,12 @@ class NR_PlayerManager extends CPeristentEntity {
 		inv = thePlayer.GetInventory();
 
 		for ( i = EES_Armor; i <= EES_Gloves; i += 1 ) {
-			NR_Debug("RestoreEquipment[" + (EEquipmentSlots)i + "]" + geraltSavedItems[i]);
+			NRD("RestoreEquipment[" + (EEquipmentSlots)i + "]" + geraltSavedItems[i]);
 			id = inv.GetItemId( geraltSavedItems[i] );
 			if ( inv.IsIdValid( id ) ) {
 				inv.MountItem( id );
 			} else {
-				NR_Debug("Unable to mount gerlat item: " + geraltSavedItems[i]);
+				NRD("Unable to mount gerlat item: " + geraltSavedItems[i]);
 				id = inv.GetItemId( GetDefaultItemByCategory(CategoryBySlot((EEquipmentSlots) i)) );
 				if ( inv.IsIdValid( id ) )
 					inv.MountItem( id );
@@ -334,7 +336,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		inv = thePlayer.GetInventory();
 
 		category = inv.GetItemCategory(id);
-		NR_Debug("NR_UpdateRemoveMountedItem : " + category);
+		NRD("NR_UpdateRemoveMountedItem : " + category);
 
 		geraltSavedItems[ SlotByCategory(category) ] = GetDefaultItemByCategory(category);
 	}
@@ -348,7 +350,7 @@ class NR_PlayerManager extends CPeristentEntity {
 
 		category = inv.GetItemCategory(id);
 		itemName = inv.GetItemName(id);
-		NR_Debug("UpdateSavedItem : " + itemName);
+		NRD("UpdateSavedItem : " + itemName);
 		if ( inv.IsItemMounted(id) && (category == 'armor' || category == 'gloves' 
 			|| category == 'pants' || category == 'boots') )
 		{
@@ -368,18 +370,18 @@ class NR_PlayerManager extends CPeristentEntity {
 
 		inv = thePlayer.GetInventory();
 		inv.GetAllItems(ids);
-		NR_Debug("UnmountEquipment: inv = " + ids.Size());
+		NRD("UnmountEquipment: inv = " + ids.Size());
 
 		for (i = 0; i < ids.Size(); i += 1) {
 			if ( !inv.IsItemMounted(ids[i]) )
 				continue;
 
 			equippedOnSlot = GetWitcherPlayer().GetItemSlot( ids[i] );
-			NR_Debug("UnmountEquip: " + inv.GetItemName(ids[i]) + " slot = " + equippedOnSlot);
+			NRD("UnmountEquip: " + inv.GetItemName(ids[i]) + " slot = " + equippedOnSlot);
 
 			if ( NR_GetWitcherReplacer().NR_IsSlotDenied(equippedOnSlot) ) {
 				NR_GetWitcherReplacer().UnequipItemFromSlot( equippedOnSlot );
-				//NR_Debug("Unequip denied item: " + NR_stringById(ids[i]));
+				//NRD("Unequip denied item: " + NR_stringById(ids[i]));
 			}
 
 			if ( equippedOnSlot == EES_Armor || equippedOnSlot == EES_Gloves ||
@@ -387,7 +389,7 @@ class NR_PlayerManager extends CPeristentEntity {
 				(inv.ItemHasTag(ids[i], 'Body') && StrStartsWith(NR_stringById(ids[i]), "Body")) )
 			{
 				UpdateSavedItem( ids[i] );
-				NR_Debug("Unmount: " + NR_stringById(ids[i]));
+				NRD("Unmount: " + NR_stringById(ids[i]));
 			}
 		}
 
@@ -422,7 +424,7 @@ class NR_PlayerManager extends CPeristentEntity {
 				template = (CEntityTemplate)LoadResource( appearanceTemplates[slot], appearanceTemplateIsDepotPath[slot] );
 				if (template) {
 					appearanceComponent.ExcludeAppearanceTemplate(template);
-					NR_Debug("EXCLUDE: template: " + appearanceTemplates[slot]);
+					NRD("EXCLUDE: template: " + appearanceTemplates[slot]);
 				}
 			}
 
@@ -436,13 +438,13 @@ class NR_PlayerManager extends CPeristentEntity {
 					//template.coloringEntries[0].colorShift1.hue = u16;
 					//template.coloringEntries[0].colorShift1.luminance = u8;
 					appearanceComponent.IncludeAppearanceTemplate(template);
-					NR_Debug("INCLUDE: template: " + appearanceTemplates[slot]);
+					NRD("INCLUDE: template: " + appearanceTemplates[slot]);
 				} else {
-					NR_Debug("ERROR: can't load template: " + appearanceTemplates[slot]);
+					NRD("ERROR: can't load template: " + appearanceTemplates[slot]);
 				}
 			}
 		} else {
-			NR_Debug("ERROR: AppearanceComponent not found!");
+			NRD("ERROR: AppearanceComponent not found!");
 		}
 	}
 	function LoadAppearanceTemplates(unloadTemplates : bool) {
@@ -465,7 +467,7 @@ class NR_PlayerManager extends CPeristentEntity {
 				}
 			}
 		} else {
-			NR_Debug("ERROR: AppearanceComponent not found!");
+			NRD("ERROR: AppearanceComponent not found!");
 		}
 	}
 	function ResetAppearanceHeadHair() {
@@ -482,7 +484,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		UpdateHair('Long Loose Hairstyle');  /* set default hair */
 	}
 	timer function NR_FixReplacer( delta : float, id : int ) {
-		NR_Debug("NR_FixReplacer: Head = " + headName + ", hair name = " + hairstyleName + ", templatesN = " + IntToString(appearanceTemplates.Size()));
+		NRD("NR_FixReplacer: Head = " + headName + ", hair name = " + hairstyleName + ", templatesN = " + IntToString(appearanceTemplates.Size()));
 		UnmountEquipment();
 		UpdateHead(headName);       /* set saved head */
 		UpdateHair(hairstyleName);  /* set saved hair */
@@ -514,9 +516,9 @@ function NR_GetPlayerManager() : NR_PlayerManager
 		nrManager.appearanceTemplateIsDepotPath.Resize( EnumGetMax('EEquipmentSlots') + 1 );
 		//EntityHandleSet( nrPlayerManagerHandle, nrManager );
 
-		NR_Debug("PlayerManager created!");
+		NRD("PlayerManager created!");
 	} else {
-		NR_Debug("PlayerManager found!");
+		NRD("PlayerManager found!");
 		if ( !thePlayer.HasChildAttachment( nrManager ) )
 			nrManager.CreateAttachment(thePlayer);
 	}
@@ -863,11 +865,11 @@ exec function tosc(path : String, optional input : String) {
 		npc = (CNewNPC) entity;
 		myClass = (NR_ReplacerInventory) npc;
 		if (myClass) {
-			NR_Debug("YEAH IT FUCKING WORKS!" + myClass);
+			NRD("YEAH IT FUCKING WORKS!" + myClass);
 		} else if (npc) {
-			NR_Debug("No it doesn't work..." + npc);
+			NRD("No it doesn't work..." + npc);
 		} else {
-			NR_Debug("What the hell???");
+			NRD("What the hell???");
 		}
 	}
 }*/

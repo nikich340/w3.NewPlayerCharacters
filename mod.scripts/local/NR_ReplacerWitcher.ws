@@ -8,7 +8,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 
 	public function SetTeleportedOnBoatToOtherHUB( val : bool )
 	{
-		NR_Debug("SetTeleportedOnBoatToOtherHUB: " + val);
+		NRD("SetTeleportedOnBoatToOtherHUB: " + val);
 		super.SetTeleportedOnBoatToOtherHUB( val );
 	}
 
@@ -64,7 +64,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		//var nrPlayerManager : NR_PlayerManager;
 		//printInv();		
 
-		NR_Debug(replacerName + " onSpawned!");
+		NRD(replacerName + " onSpawned!");
 		super.OnSpawned( spawnData );
 
 		//nrPlayerManager = NR_GetPlayerManager();
@@ -110,7 +110,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		if ( IsInNonGameplayCutscene() ) {
 			nrPlayerManager.SetInStoryScene( true );
 			nrPlayerManager.AddTimer('NR_FixReplacer', 0.2f, false);
-			NR_Debug("SCENE unequip - call fix");
+			NRD("SCENE unequip - call fix");
 			return false;
 		}
 
@@ -124,7 +124,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	public function EquipItemInGivenSlot(item : SItemUniqueId, slot : EEquipmentSlots, ignoreMounting : bool, optional toHand : bool) : bool
 	{
 		var ret : Bool;
-		NR_Debug("EquipItemInGivenSlot: slot = " + slot + " ignoreMounting = " + ignoreMounting);
+		NRD("EquipItemInGivenSlot: slot = " + slot + " ignoreMounting = " + ignoreMounting);
 		if (slot == EES_Armor || slot == EES_Boots || slot == EES_Gloves || slot == EES_Pants) {
 			ignoreMounting = true;
 		}

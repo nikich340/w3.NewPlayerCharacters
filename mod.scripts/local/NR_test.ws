@@ -104,21 +104,21 @@ function PrintDamageAction( source: String, action : W3DamageAction )
 		size = action.GetEffects( effectInfos );
 		attackerPowerStatValue = action.GetPowerStatValue();
 
-		NR_Debug("[" + source + "] PrintDamageAction");
-		NR_Debug("AddEffectsFromAction(): causer = " + action.causer);
-		NR_Debug("AddEffectsFromAction(): effSize = " + size);
-		NR_Debug("AddEffectsFromAction(): attacker = " + action.attacker);
-		NR_Debug("AddEffectsFromAction(): GetBuffSourceName = " + action.GetBuffSourceName());
-		NR_Debug("AddEffectsFromAction(): attackerPowerStatValue = " + CalculateAttributeValue(attackerPowerStatValue));
+		NRD("[" + source + "] PrintDamageAction");
+		NRD("AddEffectsFromAction(): causer = " + action.causer);
+		NRD("AddEffectsFromAction(): effSize = " + size);
+		NRD("AddEffectsFromAction(): attacker = " + action.attacker);
+		NRD("AddEffectsFromAction(): GetBuffSourceName = " + action.GetBuffSourceName());
+		NRD("AddEffectsFromAction(): attackerPowerStatValue = " + CalculateAttributeValue(attackerPowerStatValue));
 			
 		for( i = 0; i < size; i += 1 )
 		{	
-			NR_Debug("AddEffectsFromAction(): effectType[" + i + "] = " + effectInfos[i].effectType);
-			NR_Debug("AddEffectsFromAction(): effectDuration[" + i + "] = " + effectInfos[i].effectDuration);
-			NR_Debug("AddEffectsFromAction(): effectCustomValue[" + i + "] = " + CalculateAttributeValue(effectInfos[i].effectCustomValue));
-			NR_Debug("AddEffectsFromAction(): effectAbilityName[" + i + "] = " + effectInfos[i].effectAbilityName, );
-			NR_Debug("AddEffectsFromAction(): customFXName[" + i + "] = " + effectInfos[i].customFXName);
-			NR_Debug("AddEffectsFromAction(): effectCustomParam[" + i + "] = " + effectInfos[i].effectCustomParam);
+			NRD("AddEffectsFromAction(): effectType[" + i + "] = " + effectInfos[i].effectType);
+			NRD("AddEffectsFromAction(): effectDuration[" + i + "] = " + effectInfos[i].effectDuration);
+			NRD("AddEffectsFromAction(): effectCustomValue[" + i + "] = " + CalculateAttributeValue(effectInfos[i].effectCustomValue));
+			NRD("AddEffectsFromAction(): effectAbilityName[" + i + "] = " + effectInfos[i].effectAbilityName, );
+			NRD("AddEffectsFromAction(): customFXName[" + i + "] = " + effectInfos[i].customFXName);
+			NRD("AddEffectsFromAction(): effectCustomParam[" + i + "] = " + effectInfos[i].effectCustomParam);
 		}
 }
 
@@ -286,9 +286,7 @@ exec function bye() {
 exec function ndrain(st : EStaminaActionType, optional mult : float) {
 	GetWitcherPlayer().DrainStamina(st,,,,,mult);
 }
-exec function ndrain2(d : int, optional mult : float) {
-	GetWitcherPlayer().DrainStamina(st,,,,,mult);
-}
+
 exec function eproj() {
 	var entityTemplate : CEntityTemplate;
 	var proj : W3AdvancedProjectile;

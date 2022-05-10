@@ -33,14 +33,14 @@ statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
 
 	event OnEquipItemRequested(item : SItemUniqueId, ignoreMount : bool)
 	{
-		NR_Debug("OnEquipItemRequested: " + inv.GetItemName(item) + ", ignoreMount = " + ignoreMount);
+		NRD("OnEquipItemRequested: " + inv.GetItemName(item) + ", ignoreMount = " + ignoreMount);
 		super.OnEquipItemRequested(item, ignoreMount);
 	}
 
 	/*public function EquipItemInGivenSlot(item : SItemUniqueId, slot : EEquipmentSlots, ignoreMounting : bool, optional toHand : bool) : bool
 	{
 		if (slot == EES_SilverSword || slot == EES_RangedWeapon) {
-			NR_Debug("Equip not allowed!: slot = " + slot);
+			NRD("Equip not allowed!: slot = " + slot);
 			return false;
 		}
 		return super.EquipItemInGivenSlot(item, slot, toHand);
@@ -152,11 +152,11 @@ statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
 	}*/
 
 	/*event OnAnimEvent_item( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo ) {
-		NR_Debug("Anim (event item): " + animEventName + ", type: " + animEventType);
+		NRD("Anim (event item): " + animEventName + ", type: " + animEventType);
 	}
 
 	event OnAnimEvent_TempWrapper( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo ) {
-		NR_Debug("Anim: " + animEventName);
+		NRD("Anim: " + animEventName);
 	}*/
 	
 	/* from Ciri replacer class - fix sliding to target */

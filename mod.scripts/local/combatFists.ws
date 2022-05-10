@@ -114,7 +114,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			}
 		}
 		parent.magicMan.aTeleportPos = predictedDodgePos;
-		parent.magicMan.aTeleportRot = predictedDodgeRot;
 
 		NR_Notify("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
 		parent.SetBehaviorVariable( 'dodgeNum', 0 );

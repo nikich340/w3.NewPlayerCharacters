@@ -67,7 +67,7 @@ class NR_Map {
 	}
 	function getI(_key : String, optional defaultValue : int) : int {
 		i = keyIndex(_key);
-		//NR_Debug("getN: key = " + _key + ", defaultValue = " + defaultValue);
+		//NRD("getN: key = " + _key + ", defaultValue = " + defaultValue);
 		if (i < 0)
 			return defaultValue;
 		return values[i].valI;
@@ -85,7 +85,7 @@ class NR_Map {
 		i = keyIndex(_key);
 
 		end = EngineTimeToFloat(theGame.GetEngineTime());
-		//NR_Debug("getN: key = " + _key + ", defaultValue = " + defaultValue + ", time = " + (end - start));
+		//NRD("getN: key = " + _key + ", defaultValue = " + defaultValue + ", time = " + (end - start));
 		if (i < 0)
 			return defaultValue;
 		return values[i].valN;

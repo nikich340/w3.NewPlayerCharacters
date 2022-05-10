@@ -27,7 +27,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
 		magicMan = new NR_MagicManager in this;
-		magicMan.InitDefault();
+		magicMan.InitDefaults();
 		magicMan.GotoState('MagicLoop');
 		//testMan = new NR_TestManager in this;
 		//testMan.GotoState('Latent');
@@ -75,7 +75,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	// tmp!
 	public function ApplyActionEffects( action : W3DamageAction ) : bool
 	{
-		NR_Debug("ApplyActionEffects: action causer = " + action.causer);
+		NRD("ApplyActionEffects: action causer = " + action.causer);
 
 		if(effectManager)
 			return effectManager.AddEffectsFromAction( action );

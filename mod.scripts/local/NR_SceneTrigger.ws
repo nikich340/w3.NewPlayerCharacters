@@ -4,9 +4,9 @@ class NR_SceneTrigger extends W3MonsterClue
 
     event OnInteraction( actionName : string, activator : CEntity  )
     {
-    	NR_Debug("OnInteraction action = " + actionName);
+    	NRD("OnInteraction action = " + actionName);
         if ( activator == thePlayer && actionName == "Use" ) {
-        	NR_Debug("scene = " + scene);
+        	NRD("scene = " + scene);
         }
     }
 }

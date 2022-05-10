@@ -38,12 +38,12 @@ statemachine class NR_SorceressAard extends W3AardEntity
 			Destroy();
 			return false;
 		}
-		NR_Debug("NR_SorceressAard StaminaCost = " + StaminaCost);
-		NR_Debug("NR_SorceressAard BCS_Stamina = " + thePlayer.GetStat( BCS_Stamina ));
-		NR_Debug("NR_SorceressAard BCS_Stamina MAX = " + thePlayer.GetStatMax( BCS_Stamina ));
+		NRD("NR_SorceressAard StaminaCost = " + StaminaCost);
+		NRD("NR_SorceressAard BCS_Stamina = " + thePlayer.GetStat( BCS_Stamina ));
+		NRD("NR_SorceressAard BCS_Stamina MAX = " + thePlayer.GetStatMax( BCS_Stamina ));
 
 		thePlayer.DrainStamina(/*type*/ ESAT_FixedValue, /*fixed cost*/ StaminaCost, /*fixed delay*/ 3.f,  /*ability name*/ 'nr_sorceress_aard');
-		NR_Debug("NR_SorceressAard BCS_Stamina 2 = " + thePlayer.GetStat( BCS_Stamina ));
+		NRD("NR_SorceressAard BCS_Stamina 2 = " + thePlayer.GetStat( BCS_Stamina ));
 		AddTimer( 'BroadcastSignCast', 0.5, false, , , true ); // makes NPC fear!
 
 		return true;
@@ -78,15 +78,15 @@ statemachine class NR_SorceressAard extends W3AardEntity
 
 		dm.GetContainedAbilities( signAbilityName, attrs );
 		size = attrs.Size();
-		NR_Debug("PUBLIC_CacheActionBuffsFromSkill: signAbilityName = " + signAbilityName + ", size = " + size);
+		NRD("PUBLIC_CacheActionBuffsFromSkill: signAbilityName = " + signAbilityName + ", size = " + size);
 		
 		for( i = 0; i < size; i += 1 )
 		{
-			NR_Debug("PUBLIC_CacheActionBuffsFromSkill: attrs[" + i + "] = " + attrs[i]);
+			NRD("PUBLIC_CacheActionBuffsFromSkill: attrs[" + i + "] = " + attrs[i]);
 			if( IsEffectNameValid(attrs[i]) )
 			{
 				EffectNameToType(attrs[i], buff.effectType, buff.effectAbilityName);
-				NR_Debug("PUBLIC_CacheActionBuffsFromSkill: buff.effectType = " + buff.effectType + ", buff.effectAbilityName = " + buff.effectAbilityName);
+				NRD("PUBLIC_CacheActionBuffsFromSkill: buff.effectType = " + buff.effectType + ", buff.effectAbilityName = " + buff.effectAbilityName);
 				actionBuffs.PushBack(buff);
 			}		
 		}

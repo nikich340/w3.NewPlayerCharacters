@@ -16,10 +16,8 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	{
 		var isAlternate		: bool;
 		var witcherOwner	: W3PlayerWitcher;
-		var sorceressOwner  : NR_ReplacerSorceress;
 		
 		witcherOwner = owner.GetPlayer();
-		sorceressOwner = (NR_ReplacerSorceress)witcherOwner;
 		// --- owner.ChangeAspect( this, S_Magic_s04 );
 		if ( theInput.GetActionValue( 'CastSignHold' ) > 0.f ) {
 			// --- signEntity.SetAlternateCast( skillEnum );
@@ -29,12 +27,9 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 			isReallyAlternate = false;
 			OnNormalCast(); // vibrate light
 		}
-		if (sorceressOwner) {
-			sorceressOwner.magicMan.alternateCast = isReallyAlternate;
-		}
 		isAlternate = IsAlternateCast(); // always false!
 		
-		if(isAlternate)
+		if(isAlternate /* false */)
 		{
 			CreateAttachment( owner.GetActor(), 'quen_sphere' );
 		}
@@ -56,14 +51,14 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		GotoState( 'QuenShield' );
 	}
 
-	protected function DoEffect(enable : bool) {
+	protected function LaunchEffect(enable : bool) {
 		var finalName : name;
 		if (isReallyAlternate)
 			finalName = alternateEffectName;
 		else
 			finalName = effectName;
 
-		NR_Notify("DoEffect: name = " + finalName + ", playOnOwner = " + playOnOwner + ", enable = " + enable);
+		NR_Notify("LaunchEffect: name = " + finalName + ", playOnOwner = " + playOnOwner + ", enable = " + enable);
 		if (playOnOwner) {
 			if ( enable )
 				owner.GetActor().PlayEffect(finalName);
@@ -121,7 +116,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 
 		caster.GetActor().GetMovingAgentComponent().SetVirtualRadius( 'QuenBubble' );
 		
-		parent.DoEffect( true );
+		parent.LaunchEffect( true );
 		
 		parent.AddTimer( 'Expire', parent.shieldDuration, false, , , true );
 		
@@ -157,7 +152,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		witcher = (W3PlayerWitcher)caster.GetActor();
 
-		parent.DoEffect( false );
+		parent.LaunchEffect( false );
 
 		if(witcher && parent == witcher.GetSignEntity(ST_Quen))
 		{

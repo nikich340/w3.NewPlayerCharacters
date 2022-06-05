@@ -106,6 +106,10 @@ function PrintDamageAction( source: String, action : W3DamageAction )
 
 		NRD("[" + source + "] PrintDamageAction");
 		NRD("AddEffectsFromAction(): causer = " + action.causer);
+		NRD("AddEffectsFromAction(): vitalityDamage = " + action.processedDmg.vitalityDamage);
+		NRD("AddEffectsFromAction(): essenceDamage = " + action.processedDmg.essenceDamage);
+		NRD("AddEffectsFromAction(): moraleDamage = " + action.processedDmg.moraleDamage);
+		NRD("AddEffectsFromAction(): staminaDamage = " + action.processedDmg.staminaDamage);
 		NRD("AddEffectsFromAction(): effSize = " + size);
 		NRD("AddEffectsFromAction(): attacker = " + action.attacker);
 		NRD("AddEffectsFromAction(): GetBuffSourceName = " + action.GetBuffSourceName());

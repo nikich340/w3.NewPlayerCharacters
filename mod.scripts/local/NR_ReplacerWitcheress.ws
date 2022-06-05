@@ -30,6 +30,37 @@ statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
 		//SetBehaviorVariable( 'test_ciri_replacer', 1.0f);
 		//theGame.GameplayFactsRemove( "PlayerIsGeralt" );
 	}
+	protected function Attack( hitTarget : CGameplayEntity, animData : CPreAttackEventData, weaponId : SItemUniqueId, parried : bool, countered : bool, parriedBy : array<CActor>, attackAnimationName : name, hitTime : float, weaponEntity : CItemEntity)
+    {
+        var action : W3Action_Attack;
+        
+        if(PrepareAttackAction(hitTarget, animData, weaponId, parried, countered, parriedBy, attackAnimationName, hitTime, weaponEntity, action))
+        {
+            theGame.damageMgr.ProcessAction(action);
+
+            LogChannel('NTR_MOD', "-----ATTACK ACTION LOG!!!-----");
+            LogChannel('NTR_MOD', "GetWeaponId: " + NR_stringById(action.GetWeaponId()) );
+            LogChannel('NTR_MOD', "IsParried: " + action.IsParried() );
+            LogChannel('NTR_MOD', "IsCountered: " + action.IsCountered() );
+            LogChannel('NTR_MOD', "WasDodged: " + action.WasDodged() );
+            LogChannel('NTR_MOD', "GetDamageDealt: " + action.GetDamageDealt() );
+            LogChannel('NTR_MOD', "GetDamageValueTotal: " + action.GetDamageValueTotal() );
+            LogChannel('NTR_MOD', "DAMAGE_NAME_DIRECT: " + action.GetDamageValue(theGame.params.DAMAGE_NAME_DIRECT) );
+            LogChannel('NTR_MOD', "DAMAGE_NAME_PHYSICAL: " + action.GetDamageValue(theGame.params.DAMAGE_NAME_PHYSICAL) );
+            LogChannel('NTR_MOD', "DAMAGE_NAME_SILVER: " + action.GetDamageValue(theGame.params.DAMAGE_NAME_SILVER) );
+            LogChannel('NTR_MOD', "DAMAGE_NAME_SLASHING: " + action.GetDamageValue(theGame.params.DAMAGE_NAME_SLASHING) );
+            LogChannel('NTR_MOD', "DAMAGE_NAME_BLUDGEONING: " + action.GetDamageValue(theGame.params.DAMAGE_NAME_BLUDGEONING) );
+            LogChannel('NTR_MOD', "GetHitTime: " + action.GetHitTime() );
+            LogChannel('NTR_MOD', "GetWeaponSlot: " + action.GetWeaponSlot() );
+            LogChannel('NTR_MOD', "GetSoundAttackType: " + action.GetSoundAttackType() );
+            LogChannel('NTR_MOD', "GetAttackName: " + action.GetAttackName() );
+            LogChannel('NTR_MOD', "GetAttackTypeName: " + action.GetAttackTypeName() );
+            LogChannel('NTR_MOD', "GetAttackAnimName: " + action.GetAttackAnimName() );
+            
+
+            delete action;
+        }
+    }
 
 	event OnEquipItemRequested(item : SItemUniqueId, ignoreMount : bool)
 	{

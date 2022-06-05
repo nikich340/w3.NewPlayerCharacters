@@ -23,8 +23,8 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		resourceName = map[sign].getN("rock_proj");
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		// BTTaskPullObjectsFromGroundAndShoot, Keira Metz & Djinni //
-		numberToSpawn			= 15;
-		numberOfCircles 		= 1;
+		numberToSpawn			= 9;
+		numberOfCircles 		= 1; // don't change this
 		spawnObjectsInConeAngle = 45.f;
 		numPerCircle 			= FloorF( (float) numberToSpawn / (float) numberOfCircles );
 		coneAngle 				= spawnObjectsInConeAngle / (float) numPerCircle;
@@ -75,7 +75,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			return onPerformed(false);
 		}
 
-		this.PopState(true);
+		PopState( true );
 		// aard effect
 		resourceName = map[sign].getN("rock_push_entity");
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
@@ -97,7 +97,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 
 			distToTarget = VecDistance2D( pos, thePlayer.GetWorldPosition() );
 			// a bit randomness
-			//pos = pos + Vector(RandRangeF(randNoise, -randNoise), RandRangeF(randNoise, -randNoise), RandRangeF(randNoise, -randNoise));
+			pos = pos + Vector(RandRangeF(randNoise, -randNoise), RandRangeF(randNoise, -randNoise), RandRangeF(randNoise, -randNoise));
 			// shooting
 			range = 100.f;
 			if (target) {
@@ -116,7 +116,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 	}
 	latent function BreakAction() {
 		super.BreakAction();
-		this.GotoState('Break');
+		GotoState('Break');
 	}
 }
 
@@ -151,7 +151,8 @@ state Loop in NR_MagicRock {
 			currentTime = EngineTimeToFloat(theGame.GetEngineTime());
 			if (currentTime - parent.lStartTime > 1.5f) {
 				NRE("LoopMove: Perform should have been received. Delay = " + (currentTime - parent.lStartTime));
-				this.GotoState('Break');
+				parent.GotoState('Break');
+				return;
 			}
 
 			deltaTime = EngineTimeToFloat(theGame.GetEngineTime()) - parent.lPrevTime;
@@ -208,14 +209,13 @@ state Break in NR_MagicRock {
 		var projectile	: W3AdvancedProjectile;
 		var spawnPos 	: Vector;
 
-		this.PopState(true);
 		for ( i = parent.lProjectiles.Size() - 1 ; i >= 0 ; i -= 1 ) 
 		{
 			projectile = parent.lProjectiles.PopBack();
 			parent.lStartPositions.PopBack();
 			parent.lFinalPositions.PopBack();
-			parent.projectile.Init( thePlayer );
-			parent.projectile.StopEffect( 'glow' );
+			projectile.Init( thePlayer );
+			projectile.StopEffect( 'glow' );
 			
 			// dropping
 			range = RandRangeF( 1, 0 );

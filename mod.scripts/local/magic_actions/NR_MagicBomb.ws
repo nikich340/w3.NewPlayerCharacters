@@ -6,7 +6,7 @@ class NR_MagicBomb extends NR_MagicAction {
 		super.onPrepare();
 
 		resourceName = map[sign].getN("bomb_entity");
-		entityTemplate = (CEntityTemplate)LoadResourceAsync( map[sign].getN("bomb_entity") );
+		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 
 		return onPrepared(true);
 	}
@@ -30,6 +30,9 @@ class NR_MagicBomb extends NR_MagicAction {
 		return onPerformed(true);
 	}
 	latent function BreakAction() {
+		if (isPerformed) // bomb is independent from caster
+			return;
+
 		super.BreakAction();
 		if (bombEntity) {
 			bombEntity.Destroy();

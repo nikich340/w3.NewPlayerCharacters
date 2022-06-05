@@ -13,7 +13,7 @@ abstract statemachine class NR_MagicAction {
 
 	public var map 			: array<NR_Map>;
 	public var actionType 	: ENR_MagicAction;
-	public var isPrepared		: bool;
+	public var isPrepared	: bool;
 	public var isPerformed	: bool;
 	public var isBroken		: bool;
 

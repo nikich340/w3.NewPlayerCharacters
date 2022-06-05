@@ -127,6 +127,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		{
 			// protect from interrupting teleport (DisallowHitAnim doesn't always help)
 			parent.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
+			parent.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
 
 			// TODO
 			if( playerEvadeType == PET_Dodge ) {
@@ -149,6 +150,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.SetIsCurrentlyDodging(false);
 		// it is set in magicMan on teleport end
 		//parent.SetImmortalityMode( AIM_None, AIC_Combat );
+		//parent.SetImmortalityMode( AIM_None, AIC_Default );
 	}
 	latent function GetSafeTeleportPoint(out tpPos : Vector) : bool {
 		var newPos : Vector;

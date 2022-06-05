@@ -29,7 +29,8 @@ class NR_MagicTeleport extends NR_MagicAction {
 		// ? Sleep(0.2f); // wait for effect a bit
 		thePlayer.SetGameplayVisibility(false);
 		thePlayer.SetVisibility(false);
-		thePlayer.TeleportWithRotation(teleportPos, thePlayer.GetWorldRotation());
+		// camera auto-rotates to player heading, so set it to camera rotation to make it smooththeCamera
+		thePlayer.TeleportWithRotation(teleportPos, theCamera.GetCameraRotation());
 
 		return onPrepared(true);
 	}
@@ -54,15 +55,21 @@ class NR_MagicTeleport extends NR_MagicAction {
 		teleportCamera.DestroyAfter(5.f);
 		// ready for new hits
 		thePlayer.SetImmortalityMode( AIM_None, AIC_Combat );
+		thePlayer.SetImmortalityMode( AIM_None, AIC_Default );
 
 		return onPerformed(true);
 	}
 	latent function BreakAction() {
+		// do not break if player is invulnerable
+		if (isPrepared) {
+			return;
+		}
 		super.BreakAction();
 		if (teleportCamera) {
 			thePlayer.SetGameplayVisibility(true);
 			thePlayer.SetVisibility(true);
 			thePlayer.SetImmortalityMode( AIM_None, AIC_Combat );
+			thePlayer.SetImmortalityMode( AIM_None, AIC_Default );
 			teleportCamera.Stop();
 			teleportCamera.Destroy();
 		}

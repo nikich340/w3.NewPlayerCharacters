@@ -474,7 +474,7 @@ state MagicLoop in NR_MagicManager {
 				//mAction = new NR_MagicSpecialMeteor in thePlayer;
 				break;
 			case ENR_SpecialGolem:
-				//mAction = new NR_MagicSpecialMeteor in thePlayer;
+				mAction = new NR_MagicSpecialGolem in thePlayer;
 				break;
 			case ENR_SpecialMeteor:
 				mAction = new NR_MagicSpecialMeteor in thePlayer;

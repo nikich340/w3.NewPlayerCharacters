@@ -1,6 +1,7 @@
 class NR_MagicBomb extends NR_MagicAction {
 	var bombEntity : CMagicBombEntity;
 	default actionType = ENR_BombExplosion;
+	default actionName 	= 'AttackHeavy';
 	
 	latent function onPrepare() : bool {
 		super.onPrepare();
@@ -11,7 +12,6 @@ class NR_MagicBomb extends NR_MagicAction {
 		return onPrepared(true);
 	}
 	latent function onPerform() : bool {
-		var targetNPC : CNewNPC;
 		var super_ret : bool;
 		super_ret = super.onPerform();
 		if (!super_ret) {

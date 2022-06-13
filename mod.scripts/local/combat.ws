@@ -671,7 +671,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	event OnPerformGuard()
 	{			
 		OnInterruptAttack();
-		NR_Notify("combat:: OnPerformGuard");
+		NRD("combat:: OnPerformGuard");
 		OnPerformAttack('attack_magic_push');
 	}
 	
@@ -680,7 +680,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
 	{		
-		NR_Notify("combat:: OnPerformEvade: " + playerEvadeType);
+		NRD("combat:: OnPerformEvade: " + playerEvadeType);
 		if ( playerEvadeType == PET_Dodge )
 		{
 			parent.bIsRollAllowed = true;
@@ -1358,7 +1358,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			LogChannel( 'ComboNode', "Error: BuildCombo" );	
 		}
 		
-		NR_Notify("SS: BuildCombo()");
+		NRD("SS: BuildCombo()");
 		comboPlayer.SetDurationBlend( 0.5f );
 		
 		
@@ -1376,7 +1376,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var aiStorageObject	: IScriptable;
 		var newTarget : CActor;
 	
-		NR_Notify("OnPerformAttack: " + playerAttackType);
+		NRD("OnPerformAttack: " + playerAttackType);
 		if ( parent.DisableManualCameraControlStackHasSource('Finisher') )
 			return false;
 		
@@ -1449,7 +1449,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		actor = (CActor)parent.slideTarget;
 		npc = (CNewNPC)parent.slideTarget;
 		
-		NR_Notify("ProcessAttackApproach: " + playerAttackType);
+		NRD("ProcessAttackApproach: " + playerAttackType);
 		FactsAdd("ach_attack", 1, 4 );
 		theGame.GetGamerProfile().CheckLearningTheRopes();
 		if ( actor && ( !npc || npc.GetCurrentStance() != NS_Fly ) )
@@ -1600,6 +1600,25 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			ProcessAttack( cachedPlayerAttackType, true );
 		}
 	}
+
+	public function CanPerformFinisherOnAliveTarget( actorVictim : CActor ) : bool
+	{
+		return actorVictim.IsHuman()
+		&& actorVictim.IsAlive()
+		// ? && ( actorVictim.HasBuff(EET_Confusion) || actorVictim.HasBuff(EET_AxiiGuardMe) )
+		&& actorVictim.IsVulnerable()
+		&& !actorVictim.HasAbility('DisableFinisher')
+		&& !actorVictim.HasAbility('InstantKillImmune');
+	}
+
+	// if stamina is not enough, then "nullify" attack will be performed
+	latent function TryPeformMagicAttack( attackName : name ) {
+		if ( parent.magicMan.HasStaminaForAction(attackName) ) {
+			comboPlayer.PlayAttack( attackName );
+		} else {
+			comboPlayer.PlayAttack( 'AttackNoStamina' );
+		}
+	}
 	
 	var enableSoftLock	: bool; 
 	entry function ProcessAttack( playerAttackType : name, performApproachAttack : bool )
@@ -1626,7 +1645,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.RemoveTimer( 'ProcessAttackTimer' );
 		parent.RemoveTimer( 'AttackTimerEnd' );
 		npc = (CNewNPC)parent.slideTarget;
-		NR_Notify("ProcessAttack: playerAttackType = " + playerAttackType + ", performApproachAttack = " + performApproachAttack);
+		NRD("ProcessAttack: playerAttackType = " + playerAttackType + ", performApproachAttack = " + performApproachAttack);
 		
 		if(npc)
 		{
@@ -1715,10 +1734,13 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				playerToTargetVec = parent.GetWorldPosition() - noSlideTargetPos;
 			}			
 			
-			if ( parent.slideTarget && attackTarget && parent.IsThreat(attackTarget) && attackTarget.GetHealthPercents() < 0.2 )
+			/* TRY FINISHER */
+			if ( parent.slideTarget && attackTarget && parent.IsThreat(attackTarget) && CanPerformFinisherOnAliveTarget(attackTarget)
+				&& attackTarget.GetHealthPercents() <= parent.magicMan.GetMaxHealthPercForFinisher()
+					&& RandRange(100) <= parent.magicMan.GetChancePercForFinisher() )
 			{
-				// TODO!
-				comboPlayer.PlayAttack( 'AttackFinisher' );
+					TryPeformMagicAttack( 'AttackFinisher' );
+					virtual_parent.OnCombatActionStart();
 			}
 			else if( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )
 			{
@@ -1728,9 +1750,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				// used for magic v
 				if ( parent.GetCurrentStateName() == 'CombatFists' )
 				{
-					comboPlayer.PlayAttack( 'AttackLight' );
+					TryPeformMagicAttack( 'AttackLight' );
 				}
-				else
+				/*else
 				{	
 					if ( npc && npc.IsUsingHorse() )
 						comboPlayer.PlayAttack('AttackLightVsRider');
@@ -1762,7 +1784,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 						else
 							comboPlayer.PlayAttack( 'AttackLight' );
 					}
-				}
+				}*/
 				
 				virtual_parent.OnCombatActionStart();
 			}
@@ -1773,9 +1795,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			
 				if ( parent.GetCurrentStateName() == 'CombatFists' )
 				{
-					comboPlayer.PlayAttack( 'AttackHeavy' );
+					TryPeformMagicAttack( 'AttackHeavy' );
 				}			
-				else
+				/*else
 				{
 					if ( npc && npc.IsUsingHorse() )
 						comboPlayer.PlayAttack('AttackHeavyVsRider');
@@ -1792,36 +1814,46 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 						
 							comboPlayer.PlayAttack( 'AttackHeavy' );
 					}
-				}
+				}*/
 				
 				virtual_parent.OnCombatActionStart();
 			}
 			else if ( playerAttackType == 'attack_magic_push' )
 			{
-				NR_Notify("Play special attack push!");
 				//thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );				
 				if ( parent.GetCurrentStateName() == 'CombatFists' )
 				{
-					comboPlayer.PlayAttack( 'AttackPush' );
+					TryPeformMagicAttack( 'AttackPush' );
 				}
+				virtual_parent.OnCombatActionStart();
 			}
-			// --- made in w2beh ?
+			// --- Quen is made via w2beh (Anims are played by sign entity)
 			else if ( playerAttackType == 'attack_magic_special' )
 			{
-				NR_Notify("Play special attack igni");
+				NRD("Play special attack igni");
 				//thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );				
 				if ( parent.GetCurrentStateName() == 'CombatFists' )
 				{
 					switch ( parent.GetEquippedSign() ) {
-						case ST_Igni:
-							comboPlayer.PlayAttack( 'AttackSpecialIgni' );
+						case ST_Aard:
+							TryPeformMagicAttack( 'AttackSpecialAard' );
 							break;
-
+						case ST_Yrden:
+							TryPeformMagicAttack( 'AttackSpecialYrden' );
+							break;
+						case ST_Axii:
+							TryPeformMagicAttack( 'AttackSpecialAxii' );
+							break;
+						case ST_Igni:
+							TryPeformMagicAttack( 'AttackSpecialIgni' );
+							break;
 						default:
-							comboPlayer.PlayAttack( 'AttackSpecialIgni' );
+							NRE("attack_magic_special: Unknown sign value = " + parent.GetEquippedSign());
+							TryPeformMagicAttack( 'AttackLight' );
 							break;
 					}
 				}
+				virtual_parent.OnCombatActionStart();
 			}
 			else
 				LogChannel( 'PlayerAttackType', "sorceress: playerAttackType does not exist!" );	

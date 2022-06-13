@@ -139,3 +139,10 @@ function NR_GetReplacerSorceress() : NR_ReplacerSorceress
 {
 	return (NR_ReplacerSorceress)thePlayer;
 }
+
+function NR_GetMagicManager() : NR_MagicManager
+{
+	var sorceress : NR_ReplacerSorceress;
+	sorceress = NR_GetReplacerSorceress();
+	return sorceress.magicMan;
+}

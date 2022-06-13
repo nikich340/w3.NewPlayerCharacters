@@ -1,6 +1,7 @@
 class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 	var projectile 		: W3AdvancedProjectile;
 	default actionType = ENR_ProjectileWithPrepare;
+	default actionName 	= 'AttackHeavy';
 
 	latent function onPrepare() : bool {
 		super.onPrepare();

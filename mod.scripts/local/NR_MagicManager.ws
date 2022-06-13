@@ -11,11 +11,19 @@ eredin_meteorite - ледяной метеорит*/
 // DrainStamina(action : EStaminaActionType, optional fixedCost : float, optional fixedDelay : float, 
 // optional abilityName : name, optional dt : float, optional costMult : float)
 
+// DrainStamina(ESAT_FixedValue, costPerc * thePlayer.GetStatMax(BCS_Stamina), delay);
 //action - stamina action type
 //fixedValue - fixed value to drain, used only when ESAT_FixedValue is used
 //abilityName - name of the ability to use when passing ESAT_Ability
 //dt - if set then then stamina cost is treated as cost per second and thus multiplied by dt
 //costMult - if set (other than 0 or 1) then the actual cost is multiplied by this value
+
+// generic_spell_rh, keira.SetAutoEffect( 'magic_light' );, anims: woman_work_stand_praying_start + woman_work_stand_praying_stop
+
+//Persistent 'breathing', ManageBuffImmunities (PLAYER, [EET_AirDrainDive, EET_AirDrain, EET_Drowning], false), 
+//effect 'mind_control' -> q203_geralt_head (SpawnAndAttachEntity(quests\part_1\quest_files\q203_him\entities\q203_geralt_head_component.w2ent, PLAYER, head, PM_DontPersist, 0))
+//? StaticShooter ability to Yen
+
 
 enum ENR_MagicSkill {
 	ENR_SkillUnknown, 		// 0
@@ -56,6 +64,7 @@ struct SNR_MagicEvent {
 statemachine class NR_MagicManager {
 	// set on Init
 	protected var sMap		: array<NR_Map>;
+	const var ST_Universal	: int;
 
 	// shared stuff
 	public var aEventsStack 	: array<SNR_MagicEvent>;
@@ -66,14 +75,17 @@ statemachine class NR_MagicManager {
 	protected var aHandEffect 	: name;
 	protected var i            	: int;
 	protected var aName 			: String;
+
+	default ST_Universal = 5; // EnumGetMax(ESignType); 
 	default aHandEffect = '';
 	default aName = "";
 	
 	function InitDefaults() {
 		sMap.Resize(6);
-		for (i = 0; i < 6; i += 1) {
+		for (i = 0; i <= ST_Universal; i += 1) {
 			sMap[i] = new NR_Map in thePlayer;
 		}
+		SetStaminaCost();
 		SetSlashAttacksDef();
 		SetThrowAttacksDef();
 		SetRockAttacksDef();
@@ -81,6 +93,39 @@ statemachine class NR_MagicManager {
 		SetSpecialAttacksDef();
 		SetHandFXDef();
 		SetTeleportFXDef();
+	}
+	function SetStaminaCost() {
+		// cost_<AttackType> in % of total stamina
+		// delay_<AttackType> in milliseconds
+		sMap[ST_Universal].setF("cost_AttackNoStamina", 0.0f);
+		sMap[ST_Universal].setF("delay_AttackNoStamina", 0.0f);
+
+		sMap[ST_Universal].setF("cost_AttackLight", 0.1f);
+		sMap[ST_Universal].setF("delay_AttackLight", 0.0f);
+
+		sMap[ST_Universal].setF("cost_AttackHeavy", 0.2f);
+		sMap[ST_Universal].setF("delay_AttackHeavy", 0.25f);
+
+		sMap[ST_Universal].setF("cost_AttackFinisher", 0.25f);
+		sMap[ST_Universal].setF("delay_AttackFinisher", 0.5f);
+
+		sMap[ST_Universal].setF("cost_AttackPush", 0.25f);
+		sMap[ST_Universal].setF("delay_AttackPush", 1.0f);	
+
+		sMap[ST_Universal].setF("cost_AttackSpecialAard", 0.5f);
+		sMap[ST_Universal].setF("delay_AttackSpecialAard", 1.5f);	
+
+		sMap[ST_Universal].setF("cost_AttackSpecialYrden", 0.5f);
+		sMap[ST_Universal].setF("delay_AttackSpecialYrden", 1.5f);
+
+		sMap[ST_Universal].setF("cost_AttackSpecialAxii", 0.5f);
+		sMap[ST_Universal].setF("delay_AttackSpecialAxii", 1.5f);
+
+		sMap[ST_Universal].setF("cost_AttackSpecialQuen", 0.5f);
+		sMap[ST_Universal].setF("delay_AttackSpecialQuen", 1.5f);
+
+		sMap[ST_Universal].setF("cost_AttackSpecialIgni", 0.5f);
+		sMap[ST_Universal].setF("delay_AttackSpecialIgni", 1.5f);
 	}
 	function SetThrowAttacksDef() {
 		sMap[ST_Aard].setI("throw_attack_type", ENR_Lightning);
@@ -131,11 +176,16 @@ statemachine class NR_MagicManager {
 		sMap[ST_Axii].setN("bomb_entity", 'arcaneExplosion');
 	}
 	function SetSpecialAttacksDef() {
+		sMap[ST_Aard].setN("tornado_entity", 'nr_tornado');
+
 		sMap[ST_Aard].setN("meteor_entity", 'eredin_meteorite');
 		sMap[ST_Yrden].setN("meteor_entity", 'meteor_strong');
 		sMap[ST_Igni].setN("meteor_entity", 'ciri_meteor');
-		sMap[ST_Quen].setN("meteor_entity", 'ciri_meteor');
-		sMap[ST_Axii].setN("meteor_entity", 'ciri_meteor');
+
+		sMap[ST_Yrden].setN("golem_fx_entity", 'nr_fx_golem1');
+		sMap[ST_Yrden].setN("golem_entity1", 'nr_golem1');
+		sMap[ST_Yrden].setN("golem_entity2", 'nr_golem2');
+		sMap[ST_Yrden].setN("golem_entity3", 'nr_golem3');
 	}
 	function SetHandFXDef() {
 		sMap[ST_Aard].setN("hand_fx", 'hand_fx_yennefer');
@@ -187,9 +237,8 @@ statemachine class NR_MagicManager {
 		}
 	}
 	function GetActionType() : ENR_MagicAction {
-		var sign : ESignType;
+		var sign : ESignType = GetWitcherPlayer().GetEquippedSign();
 
-		sign = GetWitcherPlayer().GetEquippedSign();
 		if (StrStartsWith(aName, "woman_sorceress_attack_slash")) {
 			return ENR_Slash;
 		} else if (StrStartsWith(aName, "woman_sorceress_attack_rock")) {
@@ -202,14 +251,19 @@ statemachine class NR_MagicManager {
 			return ENR_Teleport;
 		} else if (StrStartsWith(aName, "woman_sorceress_attack_throw")) {
 			// THROW - depends on selected sign
-			NRD("throw: sign: = " + sign);
 			return sMap[sign].getI("throw_attack_type", (int)ENR_Lightning);
 		} else if (StrStartsWith(aName, "woman_sorceress_attack_arcane")) {
-			return ENR_SpecialTornado; // temp: bomb!
+			return ENR_BombExplosion;
 		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_fireball")) {
 			return ENR_SpecialMeteor;
-		} else if (StrStartsWith(aName, "woman_sorceress_taunt_02")) { // !!! temp
+		} else if (StrStartsWith(aName, "woman_sorceress_special_quen")) {
 			return ENR_SpecialSphere;
+		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_tornado")) {
+			return ENR_SpecialTornado;
+		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_control")) {
+			return ENR_SpecialControl;
+		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_golem")) {
+			return ENR_SpecialGolem;
 		} else {
 			NRD("Unknown attack: aName = " + aName);
 			return ENR_Unknown;
@@ -230,6 +284,11 @@ statemachine class NR_MagicManager {
 			data.hitParriedFX 		= 'hit_electric_quen';
 			data.hitBackFX 			= 'hit_electric_quen';
 			data.hitBackParriedFX 	= 'hit_electric_quen';
+		} else if (sign == ST_Yrden) {
+			data.hitFX 				= 'yrden_shock';
+			data.hitParriedFX 		= 'yrden_shock';
+			data.hitBackFX 			= 'yrden_shock';
+			data.hitBackParriedFX 	= 'yrden_shock';
 		} else {
 			data.hitFX 				= 'hit_electric';
 			data.hitParriedFX 		= 'hit_electric';
@@ -239,7 +298,39 @@ statemachine class NR_MagicManager {
 		aData = data;
 	}
 
-	// DAMAGE & SKILLS
+	/* STAMINA */
+	private function GetStaminaValuesForAction(actionName : name, out costPerc : float, out delay : float) {
+		var skillLevel : int = GetSkillLevel();
+		var reduceBySkill : float = 1.f + ((float)skillLevel - 1.f) / 2.f; // [1.0 - 3.0]
+		var actionString : String = NameToString(actionName);
+
+		// basic values
+		costPerc = sMap[ST_Universal].getF("cost_" + actionString, 0.1f);
+		delay = sMap[ST_Universal].getF("delay_" + actionString, 0.0f);
+
+		// magic skill bonus
+		costPerc = costPerc / reduceBySkill;
+		delay = delay / reduceBySkill;
+
+		// TODO: Fact-based extra skills to reduce stamina
+	}
+	public function HasStaminaForAction(actionName : name) : bool {
+		var costPerc 		: float;
+		var delay 			: float;
+		var playerStamina 	: float = thePlayer.GetStaminaPercents(); // [0.0 - 1.0]
+
+		GetStaminaValuesForAction(actionName, costPerc, delay);
+		return playerStamina >= costPerc;
+	}
+	public function DrainStaminaForAction(actionName : name) {
+		var costPerc 		: float;
+		var delay 			: float;
+
+		GetStaminaValuesForAction(actionName, costPerc, delay);
+		thePlayer.DrainStamina(ESAT_FixedValue, costPerc * thePlayer.GetStatMax(BCS_Stamina), delay);
+	}
+
+	/* DAMAGE & SKILLS */
 	public function GetSkillLevel() : ENR_MagicSkill
 	{
 		var playerLevel : int;
@@ -248,7 +339,7 @@ statemachine class NR_MagicManager {
 		playerMax = GetWitcherPlayer().GetMaxLevel();
 		if ( FactsQuerySum("NewGamePlus") <= 0 ) {
 			playerMax = playerMax / 2;
-			// ? playerMax = theGame.params.NEW_GAME_PLUS_MIN_LEVEL;
+			// ? theGame.params.NEW_GAME_PLUS_MIN_LEVEL;
 		}
 
 		if (playerLevel >= FloorF(playerMax * 80 / 100)) {
@@ -263,12 +354,25 @@ statemachine class NR_MagicManager {
 			return ENR_SkillBasic;
 		}
 	}
+	public function GetMaxHealthPercForFinisher() : float {
+		// TODO!
+		return 0.1f;
+	}
+	// [0 .. chance] -> finisher available
+	public function GetChancePercForFinisher() : float {
+		// TODO?
+		var chance : float = theGame.params.FINISHER_ON_DEATH_CHANCE;
+
+		return chance;
+	}
 	public function UpdateFistsLevel(id: SItemUniqueId) {
 		var playerLevel, levelDiff : int;
+		var inv : CInventoryComponent;
 		var i : int;
 
 		NR_Notify("GetSkillLevel = " + GetSkillLevel());
 		playerLevel = GetWitcherPlayer().GetLevel();
+		inv = thePlayer.GetInventory();
 		// vanilla logic from 'GenerateItemLevel'
 		//AddItemCraftedAbility(id, 'autogen_steel_base' );
 		//AddItemCraftedAbility(id, 'autogen_silver_base' ); 
@@ -276,17 +380,17 @@ statemachine class NR_MagicManager {
 		// ^ NR magic fists _Stats
 
 		// STEEL & SILVER & ELEMENTAL
-		for( i=0; i < playerLevel; i+=1 ) 
+		for( i = 0; i < playerLevel; i += 1 ) 
 		{
 			if ( FactsQuerySum("NewGamePlus") > 0 || FactsQuerySum("StandAloneEP1") > 0) {
-				AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
-				AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true );
-				AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
+				inv.AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
+				inv.AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true );
+				inv.AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
 			}
 			else {
-				AddItemCraftedAbility(id, 'autogen_steel_dmg', true ); 
-				AddItemCraftedAbility(id, 'autogen_silver_dmg', true );
-				AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
+				//inv.AddItemCraftedAbility(id, 'autogen_steel_dmg', true ); 
+				inv.AddItemCraftedAbility(id, 'autogen_silver_dmg', true );
+				//inv.AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
 			}
 		}
 
@@ -294,23 +398,24 @@ statemachine class NR_MagicManager {
 		if (FactsQuerySum("NewGamePlus") > 0)
 		{
 			levelDiff = theGame.params.NewGamePlusLevelDifference();
-			for( i=0; i<diff; i+=1 ) 
+			for( i = 0; i < levelDiff; i += 1 ) 
 			{
-				AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
-				AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
-				AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true ); 
+				inv.AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
+				inv.AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
+				inv.AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true ); 
 			}
-			SetItemModifierInt(id, 'NGPItemAdjusted', 1);
+			inv.SetItemModifierInt(id, 'NGPItemAdjusted', 1);
 		}
 
 		// BONUS GIFT
-		if (GetSkillLevel() >= ENR_Superior) {
-			AddItemCraftedAbility(id, theGame.params.GetRandomMasterworkWeaponAbility(), true);
+		if (GetSkillLevel() >= ENR_SkillSuperior) {
+			inv.AddItemCraftedAbility(id, theGame.params.GetRandomMasterworkWeaponAbility(), true);
 		}
 	}
 }
 state MagicLoop in NR_MagicManager {
-	var mAction : NR_MagicAction;
+	var mAction 		: NR_MagicAction;
+	var cachedActions 	: array<NR_MagicAction>;
 
 	event OnEnterState( prevStateName : name )
 	{
@@ -332,6 +437,7 @@ state MagicLoop in NR_MagicManager {
 	latent function PrepareMagicAction(animName : String) {
 		var type : ENR_MagicAction;
 
+		cachedActions.PushBack(mAction);
 		mAction = NULL;
 
 		parent.aName = animName;
@@ -374,7 +480,7 @@ state MagicLoop in NR_MagicManager {
 				mAction = new NR_MagicSpecialMeteor in thePlayer;
 				break;
 			case ENR_SpecialTornado:
-				//mAction = new NR_MagicSpecialMeteor in thePlayer;
+				mAction = new NR_MagicSpecialTornado in thePlayer;
 				break;
 			case ENR_SpecialSphere:
 				mAction = new NR_MagicSpecialSphere in thePlayer;

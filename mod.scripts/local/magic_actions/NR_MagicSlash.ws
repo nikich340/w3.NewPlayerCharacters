@@ -1,6 +1,7 @@
 class NR_MagicSlash extends NR_MagicAction {
 	var swingType, swingDir	: int; 
 	default actionType = ENR_Slash;
+	default actionName 	= 'AttackLight';
 
 	latent function SetSwingData(newSwingType : int, newSwingDir : int) {
 		swingType = newSwingType;

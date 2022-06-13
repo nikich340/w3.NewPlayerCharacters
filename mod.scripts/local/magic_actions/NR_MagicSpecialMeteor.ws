@@ -1,6 +1,7 @@
 class NR_MagicSpecialMeteor extends NR_MagicAction {
 	var projectile 		: W3AdvancedProjectile;
 	default actionType = ENR_SpecialMeteor;
+	default actionName 	= 'AttackSpecialIgni';
 
 	latent function onPrepare() : bool {
 		super.onPrepare();

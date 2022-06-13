@@ -12,12 +12,70 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 
 	default skillEnum = S_Magic_4;
 
+	public function Init( inOwner : W3SignOwner, prevInstance : W3SignEntity, optional skipCastingAnimation : bool, optional notPlayerCast : bool ) : bool
+	{
+		var player : CR4Player;
+		var focus : SAbilityAttributeValue;
+		var witcher: W3PlayerWitcher;
+		var sorceress : NR_ReplacerSorceress;
+		
+		owner = inOwner;
+		fireMode = 0;
+		GetSignStats();
+
+		sorceress = NR_GetReplacerSorceress();
+		if ( sorceress && !sorceress.magicMan.HasStaminaForAction('AttackSpecialQuen') ) {
+			sorceress.SoundEvent( "gui_ingame_low_stamina_warning" );
+			CleanUp();
+			Destroy();
+			return false;
+		}
+		
+		if ( skipCastingAnimation || owner.InitCastSign( this ) )
+		{
+			if(!notPlayerCast)
+			{
+				owner.SetCurrentlyCastSign( GetSignType(), this );				
+				CacheActionBuffsFromSkill();
+			}
+			
+			if ( !skipCastingAnimation )
+			{
+				AddTimer( 'BroadcastSignCast', 0.8, false, , , true );
+			}
+			
+			player = (CR4Player)owner.GetPlayer();
+			if(player && !notPlayerCast && player.CanUseSkill(S_Perk_10))
+			{
+				focus = player.GetAttributeValue('focus_gain');
+				
+				if ( player.CanUseSkill(S_Sword_s20) )
+				{
+					focus += player.GetSkillAttributeValue(S_Sword_s20, 'focus_gain', false, true) * player.GetSkillLevel(S_Sword_s20);
+				}
+				player.GainStat(BCS_Focus, 0.1f * (1 + CalculateAttributeValue(focus)) );	
+			}
+			
+ 			return true;
+		}
+		else
+		{
+			owner.GetActor().SoundEvent( "gui_ingame_low_stamina_warning" );
+			CleanUp();
+			Destroy();
+			return false;
+		}
+	}
 	event OnStarted() 
 	{
 		var isAlternate		: bool;
-		var witcherOwner	: W3PlayerWitcher;
+		var magicManager		: NR_MagicManager;
 		
-		witcherOwner = owner.GetPlayer();
+		magicManager = NR_GetMagicManager();
+		if (magicManager) {
+			magicManager.DrainStaminaForAction('AttackSpecialQuen');
+		}
+
 		// --- owner.ChangeAspect( this, S_Magic_s04 );
 		if ( theInput.GetActionValue( 'CastSignHold' ) > 0.f ) {
 			// --- signEntity.SetAlternateCast( skillEnum );
@@ -39,10 +97,11 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 			// --- super.OnStarted();
 		}
 		
-		
-		if(owner.GetActor() == thePlayer && ShouldProcessTutorial('TutorialSelectQuen'))
+		if(owner.GetActor() == thePlayer)
 		{
-			FactsAdd("tutorial_quen_cast");
+			if ( ShouldProcessTutorial('TutorialSelectQuen') ) {
+				FactsAdd("tutorial_quen_cast");
+			}
 		}
 		
 		if((CPlayer)owner.GetActor())
@@ -58,7 +117,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		else
 			finalName = effectName;
 
-		NR_Notify("LaunchEffect: name = " + finalName + ", playOnOwner = " + playOnOwner + ", enable = " + enable);
+		NRD("LaunchEffect: name = " + finalName + ", playOnOwner = " + playOnOwner + ", enable = " + enable);
 		if (playOnOwner) {
 			if ( enable )
 				owner.GetActor().PlayEffect(finalName);

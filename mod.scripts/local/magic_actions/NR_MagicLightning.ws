@@ -1,6 +1,7 @@
 class NR_MagicLightning extends NR_MagicAction {
 	var dummyEffectName 	: name;
 	default actionType = ENR_Lightning;
+	default actionName 	= 'AttackLight';
 	
 	latent function onPrepare() : bool {
 		super.onPrepare();

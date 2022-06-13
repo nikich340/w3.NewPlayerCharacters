@@ -1,5 +1,6 @@
 class NR_MagicRipApart extends NR_MagicAction {
 	default actionType = ENR_RipApart;
+	default actionName 	= 'AttackFinisher';
 
 	latent function onPrepare() : bool {
 		var buffParams : SCustomEffectParams;
@@ -8,8 +9,8 @@ class NR_MagicRipApart extends NR_MagicAction {
 		if (target) {
 			buffParams.effectType = EET_Confusion;
 			buffParams.creator = thePlayer;
-			buffParams.sourceName = 'NR_ReplacerSorceress';
-			buffParams.duration = 6.f;
+			buffParams.sourceName = 'NR_MagicAction';
+			buffParams.duration = 5.f;
 			buffParams.customFXName = 'axii_slowdown';
 			target.AddEffectCustom(buffParams);
 

@@ -30,14 +30,14 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		var magicEvent : SNR_MagicEvent;
 
 		if (animEventType != AET_Tick) {
-			NR_Notify("ERROR! Wrong animEventType: " + animEventType);
+			NRD("ERROR! Wrong animEventType: " + animEventType);
 			return false;
 		}
 		magicEvent.eventName = animEventName;
 		magicEvent.animName = GetAnimNameFromEventAnimInfo(animInfo);
 		magicEvent.animTime = GetLocalAnimTimeFromEventAnimInfo(animInfo);
 		//magicEvent.eventDuration = GetEventDurationFromEventAnimInfo(animInfo);
-		NR_Notify("OnAnimEventMagic:: eventName = " + magicEvent.eventName + ", type = " + animEventType + ", animName = " + magicEvent.animName);
+		NRD("OnAnimEventMagic:: eventName = " + magicEvent.eventName + ", type = " + animEventType + ", animName = " + magicEvent.animName);
 		// will be auto-processed async in next frame
 		parent.magicMan.aEventsStack.PushBack(magicEvent);
 	}
@@ -53,7 +53,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
 	{
-		NR_Notify("combatFists:: OnPerformEvade");
+		NRD("combatFists:: OnPerformEvade");
 		PerformTeleport( playerEvadeType, playerEvadeType == PET_Roll);
 		return true;
 	}
@@ -69,10 +69,10 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		var predictedDodgeRot : EulerAngles;
 		var Z : float;
 
-		if (playerEvadeType == PET_Roll && parent.HasStaminaToUseAction( ESAT_HeavyAttack,,1.f )) {
-			teleportLength = 15.0f;
-		} else if (parent.HasStaminaToUseAction( ESAT_LightSpecial,,1.f )) {
-			teleportLength = 7.5f;
+		if ( playerEvadeType == PET_Roll && parent.magicMan.HasStaminaForAction( 'TeleportFar' ) ) {
+			teleportLength = 16.0f;
+		} else if ( parent.magicMan.HasStaminaForAction( 'TeleportClose' ) ) {
+			teleportLength = 8.0f;
 		} else {
 			return;
 		}
@@ -103,7 +103,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + parent.GetWorldPosition();
 			foundSafePoint = GetSafeTeleportPoint( predictedDodgePos );
 		}
-		NR_Notify("Found safe tp pos with length: " + teleportLength + ", pos: " + VecToString(predictedDodgePos) + ", playerPos: " + VecToString(parent.GetWorldPosition()));
+		NRD("Found safe tp pos with length: " + teleportLength + ", pos: " + VecToString(predictedDodgePos) + ", playerPos: " + VecToString(parent.GetWorldPosition()));
 
 		if (evadeTarget) {
 			playerToTargetHeading = VecHeading( evadeTarget.GetWorldPosition() - predictedDodgePos );
@@ -115,7 +115,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		}
 		parent.magicMan.aTeleportPos = predictedDodgePos;
 
-		NR_Notify("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
+		NRD("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
 		parent.SetBehaviorVariable( 'dodgeNum', 0 );
 		parent.SetBehaviorVariable( 'combatActionType', (int)CAT_Dodge );
 		parent.SetBehaviorVariable(	'playerEvadeDirection', (int)PED_Forward ) ;
@@ -129,12 +129,13 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			parent.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
 			parent.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
 
-			// TODO
-			if( playerEvadeType == PET_Dodge ) {
-				parent.DrainStamina(ESAT_HeavyAttack,,,,,1.f);
+			if( teleportLength > 8.f ) {
+				parent.magicMan.DrainStaminaForAction( 'TeleportFar' );
 			} else {
-				parent.DrainStamina(ESAT_LightSpecial,,,,,1.f);
+				parent.magicMan.DrainStaminaForAction( 'TeleportClose' );
 			}
+
+			// Perk 21 - all defensive actions generate adrenaline
 			if( parent.CanUseSkill(S_Perk_21) )
 			{
 				if( playerEvadeType == PET_Dodge ) {
@@ -179,7 +180,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	}
 
 	event OnInterruptAttack() {
-		NR_Notify("OnInterruptAttack!");
+		NRD("OnInterruptAttack!");
 		return virtual_parent.OnInterruptAttack();
 	}
 
@@ -221,7 +222,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.SetBIsCombatActionAllowed( true );
 		BuildComboPlayer();
 		parent.LockEntryFunction( false );
-		NR_Notify("CombatFistsInit: " + startupAction);
+		NRD("CombatFistsInit: " + startupAction);
 		switch( startupAction )
 		{
 			case IA_AttackLight:
@@ -289,6 +290,8 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	
 	event OnCreateAttackAspects()
 	{
+		CreateAttackNoStaminaAspect();
+
 		CreateAttackLightAspect();
 		CreateAttackHeavyAspect();
 		CreateAttackSpecialAspect();
@@ -296,6 +299,27 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		CreateAttackPushAspect();
 	}
 
+	private final function CreateAttackNoStaminaAspect()
+	{
+		var aspect 		: CComboAspect;
+		var str 		: CComboString;
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackNoStamina' );
+		
+		{
+			str = aspect.CreateComboString( false );
+
+			str.AddDirAttack( 'woman_sorceress_effect_immobile_nulify', AD_Front, ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_effect_immobile_nulify', ADIST_Medium );
+		}	
+		{
+			str = aspect.CreateComboString( true );
+
+			str.AddDirAttack( 'woman_sorceress_effect_immobile_nulify', AD_Front, ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_effect_immobile_nulify', ADIST_Medium );
+		}
+	}
+	
 	private final function CreateAttackLightAspect()
 	{
 		var aspect 		: CComboAspect;
@@ -375,9 +399,13 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			str.AddAttack( 'woman_sorceress_attack_rock_lhand_rp', ADIST_Medium );
 			str.AddAttack( 'woman_sorceress_attack_arcane_rp_01', ADIST_Medium );
 			str.AddAttack( 'woman_sorceress_attack_rock_bhand_rp', ADIST_Medium );
-		}		
-		
-		
+
+			aspect.AddLink('woman_sorceress_attack_rock_rhand_rp', 'woman_sorceress_attack_arcane_rp_03');
+			aspect.AddLink('woman_sorceress_attack_arcane_rp_03', 'woman_sorceress_attack_rock_lhand_rp');
+			aspect.AddLink('woman_sorceress_attack_rock_lhand_rp', 'woman_sorceress_attack_arcane_rp_01');
+			aspect.AddLink('woman_sorceress_attack_arcane_rp_01', 'woman_sorceress_attack_rock_bhand_rp');
+			aspect.AddLink('woman_sorceress_attack_rock_bhand_rp', 'woman_sorceress_attack_rock_rhand_rp');
+		}			
 		{
 			str = aspect.CreateComboString( true );
 						
@@ -394,7 +422,13 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			str.AddAttack( 'woman_sorceress_attack_arcane_lp_03', ADIST_Medium );
 			str.AddAttack( 'woman_sorceress_attack_rock_lhand_lp', ADIST_Medium );
 			str.AddAttack( 'woman_sorceress_attack_arcane_lp_04', ADIST_Medium );
-			str.AddAttack( 'woman_sorceress_attack_rock_bhand_rp', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_attack_rock_bhand_lp', ADIST_Medium );
+
+			aspect.AddLink('woman_sorceress_attack_rock_rhand_lp', 'woman_sorceress_attack_arcane_lp_03');
+			aspect.AddLink('woman_sorceress_attack_arcane_lp_03', 'woman_sorceress_attack_rock_lhand_lp');
+			aspect.AddLink('woman_sorceress_attack_rock_lhand_lp', 'woman_sorceress_attack_arcane_lp_04');
+			aspect.AddLink('woman_sorceress_attack_arcane_lp_04', 'woman_sorceress_attack_rock_bhand_lp');
+			aspect.AddLink('woman_sorceress_attack_rock_bhand_lp', 'woman_sorceress_attack_rock_rhand_lp');
 		}	
 	}
 
@@ -442,34 +476,82 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	{
 		var aspect : CComboAspect;
 		var str : CComboString;
-		
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialAard' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_special_attack_tornado_bhand_rp', AD_Front, ADIST_Medium );		
+			str.AddDirAttack( 'woman_sorceress_special_attack_tornado_rhand_rp', AD_Front, ADIST_Medium );		
+			str.AddDirAttack( 'woman_sorceress_special_attack_tornado_lhand_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_special_attack_tornado_bhand_rp', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_special_attack_tornado_rhand_rp', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_special_attack_tornado_lhand_rp', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_special_attack_tornado_bhand_lp', AD_Front, ADIST_Medium );	
+			str.AddDirAttack( 'woman_sorceress_special_attack_tornado_rhand_lp', AD_Front, ADIST_Medium );	
+			str.AddDirAttack( 'woman_sorceress_special_attack_tornado_lhand_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_special_attack_tornado_bhand_lp', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_special_attack_tornado_rhand_lp', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_special_attack_tornado_lhand_lp', ADIST_Medium );
+		}
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialYrden' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_special_attack_golem_bhand_rp', AD_Front, ADIST_Medium );		
+			str.AddDirAttack( 'woman_sorceress_special_attack_golem_rhand_rp', AD_Front, ADIST_Medium );		
+			str.AddDirAttack( 'woman_sorceress_special_attack_golem_lhand_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_special_attack_golem_bhand_rp', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_special_attack_golem_rhand_rp', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_special_attack_golem_lhand_rp', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_special_attack_golem_bhand_lp', AD_Front, ADIST_Medium );	
+			str.AddDirAttack( 'woman_sorceress_special_attack_golem_rhand_lp', AD_Front, ADIST_Medium );	
+			str.AddDirAttack( 'woman_sorceress_special_attack_golem_lhand_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_special_attack_golem_bhand_lp', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_special_attack_golem_rhand_lp', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_special_attack_golem_lhand_lp', ADIST_Medium );
+		}
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialAxii' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_special_attack_control_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_special_attack_control_rp', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_special_attack_control_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_special_attack_control_lp', ADIST_Medium );
+		}
+
 		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialIgni' );
 		{
 			str = aspect.CreateComboString( false );
 			str.AddDirAttack( 'woman_sorceress_special_attack_fireball_rp', AD_Front, ADIST_Medium );		
 			str.AddAttack( 'woman_sorceress_special_attack_fireball_rp', ADIST_Medium );
-		}		
-		
-		
+		}			
 		{
 			str = aspect.CreateComboString( true );		
 			str.AddDirAttack( 'woman_sorceress_special_attack_fireball_lp', AD_Front, ADIST_Medium );	
 			str.AddAttack( 'woman_sorceress_special_attack_fireball_lp', ADIST_Medium );
 		}
 
-		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialQuen' );
+		/*aspect = comboDefinition.CreateComboAspect( 'AttackSpecialQuen' );
 		{
 			str = aspect.CreateComboString( false );
-			str.AddDirAttack( 'woman_sorceress_taunt_02_rp', AD_Front, ADIST_Medium );		
-			str.AddAttack( 'woman_sorceress_taunt_02_rp', ADIST_Medium );
+			str.AddDirAttack( 'woman_sorceress_special_quen_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_special_quen_rp', ADIST_Medium );
 		}		
-		
-		
 		{
 			str = aspect.CreateComboString( true );		
-			str.AddDirAttack( 'woman_sorceress_taunt_02_lp', AD_Front, ADIST_Medium );	
-			str.AddAttack( 'woman_sorceress_taunt_02_lp', ADIST_Medium );
-		}
+			str.AddDirAttack( 'woman_sorceress_special_quen_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_special_quen_lp', ADIST_Medium );
+		}*/
 	}
 
 	event OnGuardedReleased()

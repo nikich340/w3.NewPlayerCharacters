@@ -9,6 +9,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 	var lLoopActive		: bool;
 
 	default actionType = ENR_Rock;
+	default actionName 	= 'AttackHeavy';
 	
 	latent function onPrepare() : bool {
 		var i, numberOfCircles, numberToSpawn, numPerCircle : int;
@@ -87,6 +88,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		dummyEntity.PlayEffect( 'cone' ); // 'blast' 'cone'
 		dummyEntity.DestroyAfter(5.f);
 
+		NRD("rock: onPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
 		for ( i = lProjectiles.Size() - 1 ; i >= 0 ; i -= 1 ) 
 		{
 			projectile = lProjectiles.PopBack();
@@ -150,9 +152,9 @@ state Loop in NR_MagicRock {
 		while (true) {
 			currentTime = EngineTimeToFloat(theGame.GetEngineTime());
 			if (currentTime - parent.lStartTime > 1.5f) {
-				NRE("LoopMove: Perform should have been received. Delay = " + (currentTime - parent.lStartTime));
-				parent.GotoState('Break');
-				return;
+				NRE("LoopMove: Perform should have been received? Delay = " + (currentTime - parent.lStartTime));
+				//parent.GotoState('Break');
+				//return;
 			}
 
 			deltaTime = EngineTimeToFloat(theGame.GetEngineTime()) - parent.lPrevTime;

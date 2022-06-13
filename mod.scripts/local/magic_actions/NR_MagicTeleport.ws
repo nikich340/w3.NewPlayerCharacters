@@ -2,6 +2,8 @@ class NR_MagicTeleport extends NR_MagicAction {
 	protected var teleportCamera 	: CStaticCamera;
 	protected var teleportPos 	: Vector;
 	default actionType = ENR_Teleport;	
+	default actionName 	= 'TeleportFar';
+	default drainStaminaOnPerform = false; // drained in state Combat
 
 	latent function SetTeleportPos(pos : Vector) {
 		teleportPos = pos;

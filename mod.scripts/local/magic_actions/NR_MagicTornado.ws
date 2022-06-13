@@ -1,6 +1,7 @@
 class NR_MagicSpecialTornado extends NR_MagicAction {
 	var tornadoEntity : NR_TornadoEntity;
 	default actionType = ENR_SpecialTornado;
+	default actionName 	= 'AttackSpecialAard';
 	
 	latent function onPrepare() : bool {
 		super.onPrepare();

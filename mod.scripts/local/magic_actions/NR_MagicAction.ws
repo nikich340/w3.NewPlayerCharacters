@@ -9,18 +9,23 @@ abstract statemachine class NR_MagicAction {
 	var pos 			: Vector;
 	var rot 			: EulerAngles;
 	var sign 			: ESignType;
+	var    i 			: int;
 	var standartCollisions 	: array<name>;
 
 	public var map 			: array<NR_Map>;
 	public var actionType 	: ENR_MagicAction;
+	public var actionName	: name; // comboPlayer aspect name
 	public var isPrepared	: bool;
 	public var isPerformed	: bool;
 	public var isBroken		: bool;
+	public var drainStaminaOnPerform : bool;
 
 	default actionType 	= ENR_Unknown;
+	default actionName 	= '';
 	default isPrepared 	= false;
 	default isPerformed = false;
 	default isBroken	= false;
+	default drainStaminaOnPerform = true;
 
 	latent function onPrepare() : bool {
 		// load and calculate data
@@ -56,7 +61,14 @@ abstract statemachine class NR_MagicAction {
 		return isPrepared && !isBroken;
 	}
 	function onPerformed(result : bool) : bool {
+		var magicMan : NR_MagicManager;
+
 		isPerformed = result;
+		if (drainStaminaOnPerform) {
+			magicMan = NR_GetMagicManager();
+			if (magicMan)
+				magicMan.DrainStaminaForAction(actionName);
+		}
 		return result;
 	}
 	latent function BreakAction() {

@@ -2,6 +2,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 	var aardEntity		: NR_SorceressAard;
 	var aardProjectile 	: W3AardProjectile;
 	default actionType = ENR_CounterPush;
+	default actionName 	= 'AttackPush';
 
 	latent function onPrepare() : bool {
 		super.onPrepare();

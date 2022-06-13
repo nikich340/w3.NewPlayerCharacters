@@ -107,6 +107,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 		switch (sign) {
 			case ST_Quen:
+				SetBehaviorVariable('NR_isMagicAttack', 1) ;
 				return super.CastSign();
 			default:
 				return OnPerformAttack('attack_magic_special');

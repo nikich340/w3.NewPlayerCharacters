@@ -13,7 +13,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		//super.SetGuarded(flag);
 	}
 
-	public function ProcessCombatActionBuffer() : bool
+	/*public function ProcessCombatActionBuffer() : bool
 	{
 		var action	 			: EBufferActionType			= this.BufferCombatAction;
 		var stage	 			: EButtonStage 				= this.BufferButtonStage;		
@@ -22,7 +22,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		
 		NR_Notify("ProcessCombatActionBuffer:: action = " + action + ", stage = " + stage);
 		return super.ProcessCombatActionBuffer();
-	}
+	}*/
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
@@ -45,21 +45,25 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	}
 	event OnAnimEventBlend( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
 	{
-		//NR_Notify("OnAnimEventBlend:: eventName = " + animEventName + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
+		NR_Notify("OnAnimEventBlend:: eventName = " + animEventName + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
 	}
 
 	public function ReactToBeingHit(damageAction : W3DamageAction, optional buffNotApplied : bool) : bool {
 		var magicEvent : SNR_MagicEvent;
-		magicEvent.eventName = 'BreakMagicAttack';
-        magicMan.aEventsStack.PushBack(magicEvent);
+		var effectInfos : array< SEffectInfo >;
 
+        if (damageAction.GetEffects( effectInfos ) > 0 || damageAction.DealsAnyDamage()) {
+        	magicEvent.eventName = 'BreakMagicAttack';
+        	magicMan.aEventsStack.PushBack(magicEvent);
+        	PrintDamageAction("ReactToBeingHit", damageAction);
+        }
         NR_Notify("ReactToBeingHit, damage = " + damageAction.DealsAnyDamage());
         
-        return super.ReactToBeingHit(damageAction, buffNotApplied);
+        return super.ReactToBeingHit(damageAction);
 	}
 	public function ReactToReflectedAttack( target : CGameplayEntity)
 	{
-		NR_Notify("BLOCK ReactToReflectedAttack!");
+		NRD("BLOCK ReactToReflectedAttack!");
 		// --- super.ReactToReflectedAttack(target);
 	}
 
@@ -73,7 +77,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	}
 
 	// tmp!
-	public function ApplyActionEffects( action : W3DamageAction ) : bool
+	/*public function ApplyActionEffects( action : W3DamageAction ) : bool
 	{
 		NRD("ApplyActionEffects: action causer = " + action.causer);
 
@@ -81,9 +85,9 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 			return effectManager.AddEffectsFromAction( action );
 			
 		return false;
-	}
+	}*/
 
-	protected function pareAttackAction( hitTarget : CGameplayEntity, animData : CPreAttackEventData, weaponId : SItemUniqueId, parried : bool, countered : bool, parriedBy : array<CActor>, attackAnimationName : name, hitTime : float, weaponEntity : CItemEntity, out attackAction : W3Action_Attack) : bool
+	/*protected function prepareAttackAction( hitTarget : CGameplayEntity, animData : CPreAttackEventData, weaponId : SItemUniqueId, parried : bool, countered : bool, parriedBy : array<CActor>, attackAnimationName : name, hitTime : float, weaponEntity : CItemEntity, out attackAction : W3Action_Attack) : bool
 	{
 		var ret : Bool;
 		ret = super.PrepareAttackAction(hitTarget, animData, weaponId, parried, countered, parriedBy, 
@@ -92,7 +96,8 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		// Avoid reflecting damage (it's not really fistfight)
 		attackAction.SetCannotReturnDamage( true );
 		return ret;
-	}
+	}*/
+
 	function CastSign() : bool
 	{
 		var sign : ESignType;
@@ -107,57 +112,12 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 				return OnPerformAttack('attack_magic_special');
 		}
 	}
-	/*event OnRaiseSignEvent()
-	{
-		var castHold 	: float;
-		var newSignEnt 	: W3SignEntity;
-		var eqSign 		: ESignType = GetEquippedSign();
 
-		//castHold = theInput.GetActionValue( 'CastSignHold' );
-		//NR_Notify("OnRaiseSignEvent: " + theInput.GetActionValue( 'CastSignHold' ));
-		if (theInput.GetActionValue( 'CastSignHold' ) > 0) {
-			NR_Notify("OnRaiseSignEvent: 1");
-			// go into combat mode
-			//GotoCombatStateWithAction( IA_None );
-			//((W3PlayerWitcherStateCombatFists) GetState('CombatFists')).SetupState( IA_None );
-			//GoToStateIfNew( 'CombatFists' );
-
-			return this.OnPerformAttack('attack_magic_special');
-		} else {
-			NR_Notify("OnRaiseSignEvent: 0");
-			return super.OnRaiseSignEvent();
-		}
-	}*/
-
-	/*timer function checkHold (delta : float , id : int) {
-		var castHold 	: float;
-		var newSignEnt 	: W3SignEntity;
-		var eqSign 		: ESignType = GetEquippedSign();
-
-		castHold = theInput.GetActionValue( 'CastSignHold' );
-		if (castHold > 0.f) {
-			// go into combat mode
-			GotoCombatStateWithAction( IA_None );
-			//((W3PlayerWitcherStateCombatFists) GetState('CombatFists')).SetupState( IA_None );
-			//GoToStateIfNew( 'CombatFists' );
-
-			if (eqSign == ST_Quen) {
-				newSignEnt = (W3SignEntity)theGame.CreateEntity( signs[eqSign].template, GetWorldPosition(), GetWorldRotation() );
-				newSignEnt.Init( ssignOwner, signs[eqSign].entity );
-			}
-			
-			this.OnPerformAttack('attack_magic_special');
-		} else {
-			this.CastSign();
-		}
-		NR_Notify("checkHold: " + theInput.GetActionValue( 'CastSignHold' ));
-
-	}*/
-	public function QuenImpulse( isAlternate : bool, signEntity : W3QuenEntity, source : string, optional forceSkillLevel : int )
+	/*public function QuenImpulse( isAlternate : bool, signEntity : W3QuenEntity, source : string, optional forceSkillLevel : int )
 	{
 		NR_Notify("QuenImpulse: source = " + source);
 		super.QuenImpulse(isAlternate, signEntity, source, forceSkillLevel);
-	}
+	}*/
 
 	public function CanUseSkill(skill : ESkill) : bool
 	{
@@ -178,13 +138,4 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 function NR_GetReplacerSorceress() : NR_ReplacerSorceress
 {
 	return (NR_ReplacerSorceress)thePlayer;
-}
-
-exec function sw() {
-	var ids : array<SItemUniqueId>;
-	ids = thePlayer.GetInventory().AddAnItem('fists_fire', 1, true, true, false);
-	NR_Notify("Mount: " + thePlayer.GetInventory().MountItem( ids[0] ));
-}
-exec function scheck() {
-	NR_Notify("State: " + NameToString(thePlayer.GetCurrentStateName()));
 }

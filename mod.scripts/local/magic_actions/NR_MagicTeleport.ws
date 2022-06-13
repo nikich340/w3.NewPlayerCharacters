@@ -32,7 +32,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		thePlayer.SetGameplayVisibility(false);
 		thePlayer.SetVisibility(false);
 		// camera auto-rotates to player heading, so set it to camera rotation to make it smooththeCamera
-		thePlayer.TeleportWithRotation(teleportPos, theCamera.GetCameraRotation());
+		thePlayer.TeleportWithRotation( teleportPos, VecToRotation(theCamera.GetCameraForwardOnHorizontalPlane()) );
 
 		return onPrepared(true);
 	}

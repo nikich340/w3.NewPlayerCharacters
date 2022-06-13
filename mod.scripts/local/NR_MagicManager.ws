@@ -17,6 +17,14 @@ eredin_meteorite - ледяной метеорит*/
 //dt - if set then then stamina cost is treated as cost per second and thus multiplied by dt
 //costMult - if set (other than 0 or 1) then the actual cost is multiplied by this value
 
+enum ENR_MagicSkill {
+	ENR_SkillUnknown, 		// 0
+	ENR_SkillBasic, 		// 1
+	ENR_SkillEnhanced, 		// 2
+	ENR_SkillSuperior,		// 3
+	ENR_SkillMistress,		// 4
+	ENR_SkillArchMistress	// 5
+}
 enum ENR_MagicAction {
 		// unknown
 	ENR_Unknown,
@@ -152,28 +160,7 @@ statemachine class NR_MagicManager {
 		sMap[ST_Axii].setN("teleport_in_fx", 'teleport_out_keira');
 		sMap[ST_Axii].setN("teleport_out_fx", 'teleport_out_keira');
 	}
-	function UpdateFistsLevel(id: SItemUniqueId) {
-		var playerLevel : int;
-		var i : int;
-		playerLevel = GetWitcherPlayer().GetLevel();
-		NRD("UpdateFistsLevel: Player Level: " + playerLevel);
 
-		// vanilla logic from 'GenerateItemLevel', reduced to /5
-		for (i = 1; i < playerLevel; i += 1) {
-			if (FactsQuerySum("StandAloneEP1") > 0 || FactsQuerySum("NewGamePlus") > 0) {
-				NR_Notify("NewGamePlus || StandAloneEP1");
-				thePlayer.inv.AddItemCraftedAbility(id, 'nr_autogen_dmg', true );
-				//thePlayer.inv.AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
-				//thePlayer.inv.AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true ); 
-			} else {
-				NR_Notify("NOT NewGamePlus || StandAloneEP1");
-				thePlayer.inv.AddItemCraftedAbility(id, 'nr_autogen_dmg', true );
-				//thePlayer.inv.AddItemCraftedAbility(id, 'autogen_steel_dmg', true );
-				//thePlayer.inv.AddItemCraftedAbility(id, 'autogen_silver_dmg', true );
-			}
-		}
-		PrintItem(thePlayer.inv, id);
-	}
 	function HandFX(enable: Bool, optional onlyIfActive: Bool) {
 		var newHandEffect 	: name;
 		var sign 			: ESignType;
@@ -218,7 +205,7 @@ statemachine class NR_MagicManager {
 			NRD("throw: sign: = " + sign);
 			return sMap[sign].getI("throw_attack_type", (int)ENR_Lightning);
 		} else if (StrStartsWith(aName, "woman_sorceress_attack_arcane")) {
-			return ENR_BombExplosion;
+			return ENR_SpecialTornado; // temp: bomb!
 		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_fireball")) {
 			return ENR_SpecialMeteor;
 		} else if (StrStartsWith(aName, "woman_sorceress_taunt_02")) { // !!! temp
@@ -251,6 +238,76 @@ statemachine class NR_MagicManager {
 		}
 		aData = data;
 	}
+
+	// DAMAGE & SKILLS
+	public function GetSkillLevel() : ENR_MagicSkill
+	{
+		var playerLevel : int;
+		var playerMax	: int;
+		playerLevel = GetWitcherPlayer().GetLevel();
+		playerMax = GetWitcherPlayer().GetMaxLevel();
+		if ( FactsQuerySum("NewGamePlus") <= 0 ) {
+			playerMax = playerMax / 2;
+			// ? playerMax = theGame.params.NEW_GAME_PLUS_MIN_LEVEL;
+		}
+
+		if (playerLevel >= FloorF(playerMax * 80 / 100)) {
+			return ENR_SkillArchMistress;
+		} else if (playerLevel >= FloorF(playerMax * 60 / 100)) {
+			return ENR_SkillMistress;
+		} else if (playerLevel >= FloorF(playerMax * 40 / 100)) {
+			return ENR_SkillSuperior;
+		} else if (playerLevel >= FloorF(playerMax * 20 / 100)) {
+			return ENR_SkillEnhanced;
+		} else {
+			return ENR_SkillBasic;
+		}
+	}
+	public function UpdateFistsLevel(id: SItemUniqueId) {
+		var playerLevel, levelDiff : int;
+		var i : int;
+
+		NR_Notify("GetSkillLevel = " + GetSkillLevel());
+		playerLevel = GetWitcherPlayer().GetLevel();
+		// vanilla logic from 'GenerateItemLevel'
+		//AddItemCraftedAbility(id, 'autogen_steel_base' );
+		//AddItemCraftedAbility(id, 'autogen_silver_base' ); 
+		//AddItemCraftedAbility(id, 'nr_autogen_elemental_base' ); 
+		// ^ NR magic fists _Stats
+
+		// STEEL & SILVER & ELEMENTAL
+		for( i=0; i < playerLevel; i+=1 ) 
+		{
+			if ( FactsQuerySum("NewGamePlus") > 0 || FactsQuerySum("StandAloneEP1") > 0) {
+				AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
+				AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true );
+				AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
+			}
+			else {
+				AddItemCraftedAbility(id, 'autogen_steel_dmg', true ); 
+				AddItemCraftedAbility(id, 'autogen_silver_dmg', true );
+				AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
+			}
+		}
+
+		// NGP
+		if (FactsQuerySum("NewGamePlus") > 0)
+		{
+			levelDiff = theGame.params.NewGamePlusLevelDifference();
+			for( i=0; i<diff; i+=1 ) 
+			{
+				AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
+				AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
+				AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true ); 
+			}
+			SetItemModifierInt(id, 'NGPItemAdjusted', 1);
+		}
+
+		// BONUS GIFT
+		if (GetSkillLevel() >= ENR_Superior) {
+			AddItemCraftedAbility(id, theGame.params.GetRandomMasterworkWeaponAbility(), true);
+		}
+	}
 }
 state MagicLoop in NR_MagicManager {
 	var mAction : NR_MagicAction;
@@ -265,6 +322,11 @@ state MagicLoop in NR_MagicManager {
 	latent function PerformMagicAction() {
 		if (mAction) {
 			mAction.onPerform();
+		}
+	}
+	latent function BreakMagicAction() {
+		if (mAction) {
+			mAction.BreakAction();
 		}
 	}
 	latent function PrepareMagicAction(animName : String) {
@@ -344,6 +406,9 @@ state MagicLoop in NR_MagicManager {
 					case 'PerformTeleport':
 						PerformMagicAction();
 						break;
+					case 'BreakMagicAttack':
+						BreakMagicAction();
+						break;
 					default:
 						NR_Notify("Unknown magic event! event = " + parent.aEventsStack[0].eventName + ", anim = " + parent.aEventsStack[0].animName);
 						break;
@@ -354,6 +419,5 @@ state MagicLoop in NR_MagicManager {
 			SleepOneFrame();
 		}
 	}
-
 }
 // !! QuenImpulse()

@@ -3,8 +3,8 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 	default actionType = ENR_ProjectileWithPrepare;
 	default actionName 	= 'AttackHeavy';
 
-	latent function onPrepare() : bool {
-		super.onPrepare();
+	latent function OnPrepare() : bool {
+		super.OnPrepare();
 
 		resourceName = map[sign].getN("throw_entity");
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
@@ -18,7 +18,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		projectile = (W3AdvancedProjectile)theGame.CreateEntity( entityTemplate, pos, rot );
 		if (!projectile) {
 			NRE("NR_MagicProjectileWithPrepare:: No valid projectile.");
-			return onPrepared(false);
+			return OnPrepared(false);
 		}
 		projectile.Init(thePlayer);
 		projectile.CreateAttachment( thePlayer, 'r_weapon' );
@@ -26,17 +26,17 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ false, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
 
-		return onPrepared(true);
+		return OnPrepared(true);
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		var super_ret : bool;
-		super_ret = super.onPerform();
+		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 		projectile.BreakAttachment();
 		projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, 20.f, standartCollisions );
-		return onPerformed(true);
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		var normal : Vector;

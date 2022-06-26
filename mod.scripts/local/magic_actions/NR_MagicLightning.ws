@@ -2,9 +2,25 @@ class NR_MagicLightning extends NR_MagicAction {
 	var dummyEffectName 	: name;
 	default actionType = ENR_Lightning;
 	default actionName 	= 'AttackLight';
-	
-	latent function onPrepare() : bool {
-		super.onPrepare();
+
+	latent function OnInit() : bool {
+		var phraseInputs : array<int>;
+		var phraseChance : int;
+
+		phraseChance = map[ST_Universal].getI("s_voicelineChance", 20);
+		NRD("phraseChance = " + phraseChance);
+		if ( phraseChance >= RandRange(100) + 1 ) {
+			NRD("PlayScene!");
+			phraseInputs.PushBack(3);
+			phraseInputs.PushBack(4);
+			phraseInputs.PushBack(5);
+			PlayScene( phraseInputs );
+		}
+
+		return true;
+	}
+	latent function OnPrepare() : bool {
+		super.OnPrepare();
 
 		entityTemplate = (CEntityTemplate)LoadResourceAsync("fx_dummy_entity");
 		// lightning can destroy clues! if no attack target //
@@ -13,21 +29,21 @@ class NR_MagicLightning extends NR_MagicAction {
 		dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
 		if (!dummyEntity) {
 			NRE("DummyEntity is invalid.");
-			return onPrepared(false);
+			return OnPrepared(false);
 		}
 		((CGameplayEntity)dummyEntity).AddTag( 'nr_lightning_dummy_entity' );
 		dummyEntity.DestroyAfter( 3.f );
 
-		return onPrepared(true);
+		return OnPrepared(true);
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		var targetNPC : CNewNPC;
 		var component : CComponent;
 
 		var super_ret : bool;
-		super_ret = super.onPerform();
+		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 
 		effectName = map[sign].getN("lightning_fx");
@@ -58,7 +74,7 @@ class NR_MagicLightning extends NR_MagicAction {
 			dummyEntity.PlayEffect(effectHitName);
 		}
 
-		return onPerformed(true);
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		super.BreakAction();

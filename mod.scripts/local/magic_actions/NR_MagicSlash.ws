@@ -7,33 +7,33 @@ class NR_MagicSlash extends NR_MagicAction {
 		swingType = newSwingType;
 		swingDir = newSwingDir;
 	}
-	latent function onPrepare() : bool {
-		super.onPrepare();
+	latent function OnPrepare() : bool {
+		super.OnPrepare();
 
 		resourceName = map[sign].getN("slash_entity");
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
 		dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
-		onPrepare_GetSlashEffectNames();
+		OnPrepare_GetSlashEffectNames();
 
 		if (dummyEntity && effectName != '') {
 			dummyEntity.PlayEffect(effectName);
 			dummyEntity.DestroyAfter(5.f);
 		} else {
 			NRE("DummyEntity or effectName is invalid.");
-			return onPrepared(false);
+			return OnPrepared(false);
 		}
 
-		return onPrepared(true);
+		return OnPrepared(true);
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		var targetNPC : CNewNPC;
 
 		var super_ret : bool;
-		super_ret = super.onPerform();
+		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 		if (target) {
 			targetNPC = (CNewNPC) target;
@@ -49,7 +49,7 @@ class NR_MagicSlash extends NR_MagicAction {
 			}
 		}
 
-		return onPerformed(true);
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		super.BreakAction();
@@ -57,7 +57,7 @@ class NR_MagicSlash extends NR_MagicAction {
 			dummyEntity.Destroy();
 		}
 	}
-	latent function onPrepare_GetSlashEffectNames() 
+	latent function OnPrepare_GetSlashEffectNames() 
 	{
 		var A, B : name;
 		switch ( swingType ) {

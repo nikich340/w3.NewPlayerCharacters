@@ -56,6 +56,38 @@ enum ENR_MagicAction {
 			// teleport
 	ENR_Teleport
 }
+function ENR_MagicActionToString(action : ENR_MagicAction) : String {
+	switch (action) {
+		case ENR_Slash:
+			return "ENR_Slash";
+		case ENR_Lightning:
+			return "ENR_Lightning";
+		case ENR_Projectile:
+			return "ENR_Projectile";
+		case ENR_ProjectileWithPrepare:
+			return "ENR_ProjectileWithPrepare";
+		case ENR_Rock:
+			return "ENR_Rock";
+		case ENR_BombExplosion:
+			return "ENR_BombExplosion";
+		case ENR_RipApart:
+			return "ENR_RipApart";
+		case ENR_CounterPush:
+			return "ENR_CounterPush";
+		case ENR_SpecialControl:
+			return "ENR_SpecialControl";
+		case ENR_SpecialGolem:
+			return "ENR_SpecialGolem";
+		case ENR_SpecialMeteor:
+			return "ENR_SpecialMeteor";
+		case ENR_SpecialTornado:
+			return "ENR_SpecialTornado";
+		case ENR_SpecialSphere:
+			return "ENR_SpecialSphere";
+		default:
+			return "ENR_Unknown";
+	}
+}
 struct SNR_MagicEvent {
 	var eventName 		: name;
 	var animName 		: name;
@@ -69,6 +101,9 @@ statemachine class NR_MagicManager {
 	// shared stuff
 	public var aEventsStack 	: array<SNR_MagicEvent>;
 	public var aData 			: CPreAttackEventData;
+	protected var cachedActions 	: array<NR_MagicAction>;
+	protected var cursedActions 	: array<NR_MagicAction>;
+
 	public var aIsAlternate 	: Bool;
 	public var aTeleportPos		: Vector;
 	
@@ -178,8 +213,8 @@ statemachine class NR_MagicManager {
 	function SetSpecialAttacksDef() {
 		sMap[ST_Aard].setN("tornado_entity", 'nr_tornado');
 
-		sMap[ST_Aard].setN("meteor_entity", 'eredin_meteorite');
-		sMap[ST_Yrden].setN("meteor_entity", 'meteor_strong');
+		//sMap[ST_Aard].setN("meteor_entity", 'eredin_meteorite');
+		//sMap[ST_Yrden].setN("meteor_entity", 'meteor_strong');
 		sMap[ST_Igni].setN("meteor_entity", 'ciri_meteor');
 
 		sMap[ST_Yrden].setN("golem_fx_entity", 'nr_fx_golem1');
@@ -356,7 +391,7 @@ statemachine class NR_MagicManager {
 	}
 	public function GetMaxHealthPercForFinisher() : float {
 		// TODO!
-		return 0.1f;
+		return 0.1f; // [0.0 - 1.0]
 	}
 	// [0 .. chance] -> finisher available
 	public function GetChancePercForFinisher() : float {
@@ -415,7 +450,6 @@ statemachine class NR_MagicManager {
 }
 state MagicLoop in NR_MagicManager {
 	var mAction 		: NR_MagicAction;
-	var cachedActions 	: array<NR_MagicAction>;
 
 	event OnEnterState( prevStateName : name )
 	{
@@ -424,66 +458,52 @@ state MagicLoop in NR_MagicManager {
 	event OnLeaveState( nextStateName : name )
 	{
 	}
-	latent function PerformMagicAction() {
-		if (mAction) {
-			mAction.onPerform();
-		}
-	}
-	latent function BreakMagicAction() {
-		if (mAction) {
-			mAction.BreakAction();
-		}
-	}
-	latent function PrepareMagicAction(animName : String) {
+	latent function InitMagicAction(animName : String) {
 		var type : ENR_MagicAction;
-
-		cachedActions.PushBack(mAction);
-		mAction = NULL;
+		var    i : int;
 
 		parent.aName = animName;
 		type = parent.GetActionType();
 		switch(type) {
 			case ENR_Slash:
-				mAction = new NR_MagicSlash in thePlayer;
-				((NR_MagicSlash)mAction).SetSwingData(parent.aData.swingType, parent.aData.swingDir);
+				mAction = new NR_MagicSlash in this;
 				break;
 			case ENR_Lightning:
-				mAction = new NR_MagicLightning in thePlayer;
+				mAction = new NR_MagicLightning in this;
 				break;
 			case ENR_Projectile:
 			case ENR_ProjectileWithPrepare:
-				mAction = new NR_MagicProjectileWithPrepare in thePlayer;
+				mAction = new NR_MagicProjectileWithPrepare in this;
 				break;
 			case ENR_Rock:
-				mAction = new NR_MagicRock in thePlayer;
+				mAction = new NR_MagicRock in this;
 				break;
 			case ENR_BombExplosion:
-				mAction = new NR_MagicBomb in thePlayer;
+				mAction = new NR_MagicBomb in this;
 				break;
 			case ENR_RipApart:
-				mAction = new NR_MagicRipApart in thePlayer;
+				mAction = new NR_MagicRipApart in this;
 				break;
 			case ENR_CounterPush:
-				mAction = new NR_MagicCounterPush in thePlayer;
+				mAction = new NR_MagicCounterPush in this;
 				break;
 			case ENR_Teleport:
-				mAction = new NR_MagicTeleport in thePlayer;
-				((NR_MagicTeleport)mAction).SetTeleportPos(parent.aTeleportPos);
+				mAction = new NR_MagicTeleport in this;
 				break;
 			case ENR_SpecialControl:
-				//mAction = new NR_MagicSpecialMeteor in thePlayer;
+				mAction = new NR_MagicSpecialControl in this;
 				break;
 			case ENR_SpecialGolem:
-				mAction = new NR_MagicSpecialGolem in thePlayer;
+				mAction = new NR_MagicSpecialGolem in this;
 				break;
 			case ENR_SpecialMeteor:
-				mAction = new NR_MagicSpecialMeteor in thePlayer;
+				mAction = new NR_MagicSpecialMeteor in this;
 				break;
 			case ENR_SpecialTornado:
-				mAction = new NR_MagicSpecialTornado in thePlayer;
+				mAction = new NR_MagicSpecialTornado in this;
 				break;
 			case ENR_SpecialSphere:
-				mAction = new NR_MagicSpecialSphere in thePlayer;
+				mAction = new NR_MagicSpecialSphere in this;
 				break;
 			default:
 				NRE("Unknown attack type: " + type);
@@ -491,21 +511,94 @@ state MagicLoop in NR_MagicManager {
 		}
 
 		if (!mAction) {
-			NRE("No valid mAction created.");
+			NRE("No valid mAction created. animName = " + animName);
 			return;
 		}
-		mAction.map = parent.sMap;
-		mAction.onPrepare();
+		mAction.map 		= parent.sMap;
+		mAction.magicSkill 	= parent.GetSkillLevel();
+		mAction.OnInit();
+
+		// protect new action from deleting by RAM cleaner
+		parent.cachedActions.PushBack( mAction );
 	}
+	latent function PrepareMagicAction() {
+		if (mAction) {
+			if ( mAction.actionType == ENR_Slash ) {
+				((NR_MagicSlash)mAction).SetSwingData(parent.aData.swingType, parent.aData.swingDir);
+			} else if ( mAction.actionType == ENR_Teleport ) {
+				((NR_MagicTeleport)mAction).SetTeleportPos(parent.aTeleportPos);
+			}
+			mAction.OnPrepare();
+		} else {
+			NRE("MM: PrepareMagicAction: NULL mAction!");
+		}
+	}
+	latent function PerformMagicAction() {
+		var sameActions 	: array<NR_MagicSpecialAction>;
+		var maxActionCnt 	: int;
+		var    i : int;
+
+		if (mAction) {
+			mAction.OnPerform();
+		} else {
+			NRE("MM: PerformMagicAction: NULL mAction!");
+		}
+
+		NRD("check max count: " + "s_maxCount_" + mAction.actionType);
+
+		// check if any of "cursed" finished
+		for ( i = parent.cursedActions.Size() - 1; i >= 0; i -= 1 ) {
+			if ( !parent.cursedActions[i].inPostState ) {
+				parent.cursedActions.Erase( i );
+			}
+		}
+		// check if any of "cached" stopped or finished
+		for ( i = parent.cachedActions.Size() - 1; i >= 0; i -= 1 ) {
+			if ( !parent.cachedActions[i].inPostState ) {
+				parent.cachedActions.Erase( i );
+			}
+			else if ( parent.cachedActions[i].isCursed ) 
+			{
+				parent.cursedActions.PushBack( parent.cachedActions[i] );
+				parent.cachedActions.Erase( i );
+			}
+			else if ( parent.cachedActions[i].actionType == mAction.actionType 
+					&& ((NR_MagicSpecialAction)parent.cachedActions[i]) && parent.cachedActions[i] != mAction )
+			{
+				// adding special actions with the same type, excluding mAction
+				sameActions.PushBack( (NR_MagicSpecialAction)parent.cachedActions[i] );
+			}
+		}
+
+		// check if new action is special and stop old ones if limit is exceed
+		maxActionCnt = parent.sMap[parent.ST_Universal].getI("s_" + mAction.actionType + "_maxCount", 1);
+		while (sameActions.Size() + 1 > maxActionCnt) {
+			NRD("Stopping special action: maxActionCnt = " + maxActionCnt + ", sameActions.Size() = " + sameActions.Size());
+			// from front - older actions
+			sameActions[0].StopAction();
+			sameActions.Erase( 0 );
+		}
+	}
+	latent function BreakMagicAction() {
+		if (mAction) {
+			mAction.BreakAction();
+		} else {
+			NRE("MM: BreakMagicAction: NULL mAction!");
+		}
+	}
+	
 	entry function MainLoop() {
 		while(true) {
 			while (parent.aEventsStack.Size() > 0) {
 				NRD("MAIN LOOP: anim = " + NameToString(parent.aEventsStack[0].animName) + ", event = " + parent.aEventsStack[0].eventName + ", time: " + EngineTimeToFloat(theGame.GetEngineTime()));
 				switch (parent.aEventsStack[0].eventName) {
+					case 'InitAction':
+						InitMagicAction( NameToString(parent.aEventsStack[0].animName) );
+						break;
 					case 'Spawn':
 					case 'Prepare':
 					case 'PrepareTeleport':
-						PrepareMagicAction( NameToString(parent.aEventsStack[0].animName) );
+						PrepareMagicAction();
 						break;
 					case 'Shoot':
 					case 'PerformMagicAttack':

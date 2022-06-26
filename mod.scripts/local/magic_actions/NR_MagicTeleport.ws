@@ -8,11 +8,11 @@ class NR_MagicTeleport extends NR_MagicAction {
 	latent function SetTeleportPos(pos : Vector) {
 		teleportPos = pos;
 	}
-	latent function onPrepare() : bool {
+	latent function OnPrepare() : bool {
 		var template : CEntityTemplate;
 		var shiftVec  : Vector;
 
-		super.onPrepare();
+		super.OnPrepare();
 
 		thePlayer.PlayEffect( map[sign].getN("teleport_out_fx") );
 
@@ -22,7 +22,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		teleportCamera = (CStaticCamera)theGame.CreateEntity( template, theCamera.GetCameraPosition() + shiftVec, theCamera.GetCameraRotation() );
 		if ( !teleportCamera ) {
 			NRE("Prepare: No valid teleport camera.");
-			return onPrepared(false);
+			return OnPrepared(false);
 		}
 		//parent.aTeleportCamera.activationDuration = 0.5f; // in w2ent already
 		//parent.aTeleportCamera.deactivationDuration = 0.5f; // in w2ent already
@@ -34,19 +34,19 @@ class NR_MagicTeleport extends NR_MagicAction {
 		// camera auto-rotates to player heading, so set it to camera rotation to make it smooththeCamera
 		thePlayer.TeleportWithRotation( teleportPos, VecToRotation(theCamera.GetCameraForwardOnHorizontalPlane()) );
 
-		return onPrepared(true);
+		return OnPrepared(true);
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		var super_ret : bool;
-		super_ret = super.onPerform();
+		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 
 		thePlayer.PlayEffect( map[sign].getN("teleport_in_fx") );
 		if ( !teleportCamera ) {
 			NRE("Perform: No valid teleport camera.");
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 		Sleep(0.2f);  // wait for effect a bit
 		thePlayer.SetGameplayVisibility(true);
@@ -59,7 +59,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		thePlayer.SetImmortalityMode( AIM_None, AIC_Combat );
 		thePlayer.SetImmortalityMode( AIM_None, AIC_Default );
 
-		return onPerformed(true);
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		// do not break if player is invulnerable

@@ -4,8 +4,8 @@ class NR_MagicCounterPush extends NR_MagicAction {
 	default actionType = ENR_CounterPush;
 	default actionName 	= 'AttackPush';
 
-	latent function onPrepare() : bool {
-		super.onPrepare();
+	latent function OnPrepare() : bool {
+		super.OnPrepare();
 
 		pos = thePlayer.GetWorldPosition();
 		rot = thePlayer.GetWorldRotation();
@@ -15,32 +15,32 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		aardEntity = (NR_SorceressAard)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!aardEntity) {
 			NRE("aardEntity is not valid.");
-			return onPrepared(false);
+			return OnPrepared(false);
 		}
 
 		entityTemplate = (CEntityTemplate)LoadResourceAsync("gameplay\templates\signs\pc_aard_proj_blast.w2ent", true);
 		aardProjectile = (W3AardProjectile)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!aardProjectile) {
 			NRE("aardProjectile is not valid.");
-			return onPrepared(false);
+			return OnPrepared(false);
 		}
 
-		return onPrepared(true);
+		return OnPrepared(true);
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		var attackRange : CAIAttackRange;
 		var aardstandartCollisions : array<name>;
 		var hitsWater : bool;
 
 		var super_ret : bool;
-		super_ret = super.onPerform();
+		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 		
 		if ( !aardEntity.NR_Init(NR_GetReplacerSorceress().nr_signOwner) ) {
 			NRD("Not enough stamina for action: " + actionType);
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 		attackRange = theGame.GetAttackRangeForEntity( aardEntity, 'blast_upgrade3' );
 		aardstandartCollisions.PushBack( 'Projectile' );
@@ -73,7 +73,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		aardProjectile.DestroyAfter(10.f);
 		aardEntity.DestroyAfter(10.f);
 
-		return onPerformed(true);
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		super.BreakAction();

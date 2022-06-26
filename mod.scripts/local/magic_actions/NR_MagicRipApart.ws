@@ -2,9 +2,24 @@ class NR_MagicRipApart extends NR_MagicAction {
 	default actionType = ENR_RipApart;
 	default actionName 	= 'AttackFinisher';
 
-	latent function onPrepare() : bool {
+	latent function OnInit() : bool {
+		var phraseInputs : array<int>;
+		var phraseChance : int;
+
+		phraseChance = map[ST_Universal].getI("s_voicelineChance", 40);
+		NRD("phraseChance = " + phraseChance);
+		if ( phraseChance >= RandRange(100) + 1 ) {
+			NRD("PlayScene!");
+			phraseInputs.PushBack(6);
+			phraseInputs.PushBack(7);
+			PlayScene( phraseInputs );
+		}
+
+		return true;
+	}
+	latent function OnPrepare() : bool {
 		var buffParams : SCustomEffectParams;
-		super.onPrepare();
+		super.OnPrepare();
 
 		if (target) {
 			buffParams.effectType = EET_Confusion;
@@ -20,17 +35,17 @@ class NR_MagicRipApart extends NR_MagicAction {
 			dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
 		}
 
-		return onPrepared(true);
+		return OnPrepared(true);
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		var dismembermentComp 	: CDismembermentComponent;
 		var wounds				: array< name >;
 		var usedWound			: name;
 
 		var super_ret : bool;
-		super_ret = super.onPerform();
+		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 
 		if (target) {
@@ -52,7 +67,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 			//target.Kill('NR_ReplacerSorceress');
 		}
 
-		return onPerformed(true);
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		super.BreakAction();

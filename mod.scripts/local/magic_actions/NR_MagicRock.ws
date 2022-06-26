@@ -11,14 +11,30 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 	default actionType = ENR_Rock;
 	default actionName 	= 'AttackHeavy';
 	
-	latent function onPrepare() : bool {
+	latent function OnInit() : bool {
+		var phraseInputs : array<int>;
+		var phraseChance : int;
+
+		phraseChance = map[ST_Universal].getI("s_voicelineChance", 30);
+		NRD("phraseChance = " + phraseChance);
+		if ( phraseChance >= RandRange(100) + 1 ) {
+			NRD("PlayScene!");
+			phraseInputs.PushBack(3);
+			phraseInputs.PushBack(4);
+			phraseInputs.PushBack(5);
+			PlayScene( phraseInputs );
+		}
+
+		return true;
+	}
+	latent function OnPrepare() : bool {
 		var i, numberOfCircles, numberToSpawn, numPerCircle : int;
 		var startTime				: float;
 		var raiseObjectsHeightNoise, spawnObjectsInConeAngle, coneAngle, coneWidth, spawnRadiusMin, spawnRadiusMax, circleRadiusMin, circleRadiusMax : float;
 		var spawnPos, spawnCenter, normalCollision 	: Vector;
 		var spawnRot 				: EulerAngles;
 
-		super.onPrepare();
+		super.OnPrepare();
 
 		//parent.HandFX(false);
 		resourceName = map[sign].getN("rock_proj");
@@ -58,10 +74,11 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		lStartTime = EngineTimeToFloat(theGame.GetEngineTime());
 		lPrevTime = EngineTimeToFloat(theGame.GetEngineTime());
 
+		inPostState = true;
 		this.GotoState('Loop');
-		return onPrepared(true);
+		return OnPrepared(true);
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		var i 					: int;
 		var shootDirectionNoise : float = 2.5f;
 		var drawSpeedLimit 		: float = 10.f;
@@ -71,9 +88,9 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		var spawnRot			: EulerAngles;
 
 		var super_ret : bool;
-		super_ret = super.onPerform();
+		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 
 		PopState( true );
@@ -88,7 +105,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		dummyEntity.PlayEffect( 'cone' ); // 'blast' 'cone'
 		dummyEntity.DestroyAfter(5.f);
 
-		NRD("rock: onPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
+		NRD("rock: OnPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
 		for ( i = lProjectiles.Size() - 1 ; i >= 0 ; i -= 1 ) 
 		{
 			projectile = lProjectiles.PopBack();
@@ -113,8 +130,8 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, range, standartCollisions );
 			projectile.DestroyAfter(10.f);
 		}
-
-		return onPerformed(true);
+		inPostState = false;
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		super.BreakAction();
@@ -225,5 +242,6 @@ state Break in NR_MagicRock {
 			projectile.ShootProjectileAtPosition( projectile.projAngle, 5, spawnPos, range, parent.standartCollisions );
 			projectile.DestroyAfter(10.f);
 		}
+		parent.inPostState = false;
 	}
 }

@@ -1,0 +1,148 @@
+repository:
+  actors:
+    sorceress:
+      template: "dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent"
+      #appearance: [ "nr_player" ]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 50
+
+  gameplay: true
+  cinematic_subtitles: true
+
+  assets:
+    actors:
+      sorceress:
+        repo: "sorceress"
+        by_voicetag: false
+        tags: [ "PLAYER" ]
+
+dialogscript:
+  player: "sorceress"
+  actors: [ "sorceress" ]
+
+  # LIGHT
+  section_start_spell_1: # philippa [LIGHT]
+    - sorceress: "[2.2037]2115940050|Arha'an_lumar!"
+    - NEXT: section_exit
+
+  section_start_spell_2: # keira [LIGHT]
+    - sorceress: "[1.9311147]0000590061|Gvella, glan!"
+    - NEXT: section_exit
+    
+
+  # HEAVY
+  section_start_spell_3: # keira [HEAVY]
+    - sorceress: "[2.877833]0000554637|Da'arian annoi!"
+    - NEXT: section_exit
+    
+  section_start_spell_4: # keira [HEAVY]
+    - sorceress: "[2.4462798]0000558043|Bhain'ne calar!"
+    - NEXT: section_exit
+    
+  section_start_spell_5: # keira [HEAVY]
+    - sorceress: "[1.9448]0001059707|Ann Gal Scam'Hanach!"
+    - NEXT: section_exit
+
+  # FINISHER
+  section_start_spell_6: # keira [FINISHER]
+    - sorceress: "[3.3444164]0000575674|Azar! Anatha! Vellos!"
+    - NEXT: section_exit
+    
+  section_start_spell_7: # yen [FINISHER] 
+    - sorceress: "[2.4119]2115940058|Agored, teirgane!" # 3.3
+    - NEXT: section_exit
+
+
+  # CONTROL
+  section_start_spell_8: # yen [CONTROL] 
+    - sorceress: "[1.7281864]0000535277|Oesi, caefyn!" # 3.3
+    - NEXT: section_exit
+
+  section_start_spell_9: # triss [CONTROL]
+    - sorceress: "[3.1225584]0000491076|Faeren, angau."
+    - NEXT: section_exit
+
+  section_start_spell_10: # triss [CONTROL]
+    - sorceress: "[3.729113]0000491085|Caesle, angaef."
+    - NEXT: section_exit
+
+  # SUMMON
+  section_start_spell_11: # yen [SUMMON]
+    - sorceress: "[2.1508]2115940052|Gveryd me cassel!"
+    - NEXT: section_exit
+
+  section_start_spell_12: # yen [SUMMON]
+    - sorceress: "[2.3495]2115940057|Nevid! Ariva!"
+    - NEXT: section_exit
+
+  section_start_spell_13: # triss [SUMMON]
+    - sorceress: "[3.1330]2115940054|Rhobeir'me gelle!"
+    - NEXT: section_exit
+
+  # TORNADO
+  section_start_spell_14: # yen [TORNADO] 
+    - sorceress: "[3.0662212]0001017544|Esad eich crydae rhythaun!"
+    - NEXT: section_exit
+
+  section_start_spell_15: # yen [TORNADO] 
+    - sorceress: "[3.1461468]0000517311|Geata'ar ligen!" # 3.3
+    - NEXT: section_exit
+
+  section_start_spell_16: # triss [TORNADO]
+    - sorceress: "[2.0387]2115940053|Greame et dwyr!"
+    - NEXT: section_exit
+
+  section_start_spell_17: # triss [TORNADO]
+    - sorceress: "[2.4270]2115940055|Greame et dwyr!"
+    - NEXT: section_exit
+
+  # METEOR
+  section_start_spell_18: # yen [METEOR]
+    - sorceress: "[2.711253]0000478916|Celain, celain, deffraen!"
+    - NEXT: section_exit
+
+  section_start_spell_19: # yen [METEOR]
+    - sorceress: "[2.6896303]0000478924|Celain, celain, davedar!"
+    - NEXT: section_exit
+
+  section_start_spell_20: # triss [METEOR]
+    - sorceress: "[3.9608212]0000447749|Tan, marvorae, cynnaeu!"
+    - NEXT: section_exit
+
+  section_start_spell_21: # triss [METEOR]
+    - sorceress: "[2.666]2115940056|Ess pyr'shena a et cleytte!"
+    - NEXT: section_exit
+
+  # SHIELD
+  section_start_spell_22: # philippa [SHIELD]
+    - sorceress: "[3.3040667]0001000967|Byc'hane, gvyn, caeffyl!"
+    - NEXT: section_exit
+
+  section_start_spell_23: # yen [SHIELD]
+    - sorceress: "[1.9636]2115940051|Cais'te aet disgleir!"
+    - NEXT: section_exit
+
+  section_start_spell_24: # yen [SHIELD] 
+    - sorceress: "[1.7780458]0000570855|Nevid, cyvir!"
+    - NEXT: section_exit
+    
+  section_start_spell_25: # yen [SHIELD] 
+    - sorceress: "[2.3715]2115940059|Vryff cais'te aem gyhar!"
+    - NEXT: section_exit
+
+
+  # OTHER
+  section_start_spell_26: # yen [UNDERWATER]
+    - sorceress: "[4.4652452]0001008186|Eys'u failte beydem aen eich'te llyvaid."
+    - NEXT: section_exit
+
+  section_start_spell_27: # yen [? too loud] 
+    - sorceress: "[2.8037143]0000593451|Radhee vulten imho adenn!"
+    - NEXT: section_exit
+    
+  section_exit:
+    - EXIT

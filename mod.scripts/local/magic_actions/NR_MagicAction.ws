@@ -11,13 +11,17 @@ abstract statemachine class NR_MagicAction {
 	var sign 			: ESignType;
 	var    i 			: int;
 	var standartCollisions 	: array<name>;
+	const var ST_Universal	: int;
 
 	public var map 			: array<NR_Map>;
+	public var magicSkill	: ENR_MagicSkill;
 	public var actionType 	: ENR_MagicAction;
 	public var actionName	: name; // comboPlayer aspect name
 	public var isPrepared	: bool;
 	public var isPerformed	: bool;
 	public var isBroken		: bool;
+	public var inPostState	: bool;
+	public var isCursed		: bool;
 	public var drainStaminaOnPerform : bool;
 
 	default actionType 	= ENR_Unknown;
@@ -25,9 +29,45 @@ abstract statemachine class NR_MagicAction {
 	default isPrepared 	= false;
 	default isPerformed = false;
 	default isBroken	= false;
-	default drainStaminaOnPerform = true;
+	default inPostState	= false;
+	default isCursed 	= false;
+	default drainStaminaOnPerform 	= true;
+	default ST_Universal 			= 5; // EnumGetMax(ESignType); 
 
-	latent function onPrepare() : bool {
+	latent function OnInit() : bool {
+		/*
+		var phraseInputs : array<int>;
+		var phraseChance : int = 60;
+
+		phraseInputs.PushBack(1);
+		...
+		if ( phraseChance >= RandRange(100) + 1 )
+			PlayScene( phraseInputs);
+		*/
+		return true;
+	}
+	latent function PlayScene(inputs : array<int>) : bool {
+		var scene : CStoryScene;
+		var path : String;
+		var input_index : int;
+
+		if (inputs.Size() == 0) {
+			NRD("action = " + actionType + ": No scene inputs");
+			return false;
+		}
+		path = "dlc/dlcnewreplacers/data/scenes/02.magic_actions.w2scene";
+		scene = (CStoryScene)LoadResource(path, true);
+		if (!scene) {
+			NRE("PlayScene: NULL scene!");
+			return false;
+		}
+		input_index = inputs[ RandRange( inputs.Size() ) ];
+		//NR_Notify("Play scene: [" + "spell_" + IntToString(input_index) + "]");
+
+		theGame.GetStorySceneSystem().PlayScene(scene, "spell_" + IntToString(input_index));
+		return true;
+	}
+	latent function OnPrepare() : bool {
 		// load and calculate data
 		target 		= thePlayer.GetTarget();
 		sign 		= GetWitcherPlayer().GetEquippedSign();
@@ -52,19 +92,19 @@ abstract statemachine class NR_MagicAction {
 
 		return !isBroken;
 	}
-	function onPrepared(result : bool) : bool {
+	function OnPrepared(result : bool) : bool {
 		isPrepared = result;
 		return result;
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		// perform action, fx
 		return isPrepared && !isBroken;
 	}
-	function onPerformed(result : bool) : bool {
+	function OnPerformed(result : bool) : bool {
 		var magicMan : NR_MagicManager;
 
 		isPerformed = result;
-		if (drainStaminaOnPerform) {
+		if (result && drainStaminaOnPerform) {
 			magicMan = NR_GetMagicManager();
 			if (magicMan)
 				magicMan.DrainStaminaForAction(actionName);
@@ -157,6 +197,20 @@ abstract statemachine class NR_MagicAction {
 			return false;
 		} else {
 			return true;
+		}
+	}
+	// [playerLevel - 2step, playerLevel - step, playerLevel, playerLevel + step, playerLevel + 2step]
+	latent function NR_AdjustMinionLevel(npc : CNewNPC, optional step : int) {
+		var newLevel : int;
+
+		if (!step) {
+			step = 3;
+		}
+		newLevel = GetWitcherPlayer().GetLevel() - 2 * step;
+		newLevel += step * ((int)magicSkill - (int)ENR_SkillBasic);
+		if (npc) {
+			NRD("Set level (" + newLevel + ") to: " + npc);
+			npc.SetLevel(newLevel);
 		}
 	}
 	function NR_IsAlternateSignCast() : bool {

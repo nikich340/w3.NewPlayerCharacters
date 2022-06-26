@@ -46,6 +46,8 @@ exec function sspawn(id : int, optional hostile : Bool, optional immortal : Bool
 	}
 	else if (id == 25) {
 		template = (CEntityTemplate)LoadResource("dlc\bob\data\living_world\enemy_templates\wyvern.w2ent", true);
+	}	else if (id == 31) {
+		template = (CEntityTemplate)LoadResource("nr_golem2");
 	}
 	else if (id == 26) {
 		template = (CEntityTemplate)LoadResource("dlc\bob\data\quests\main_npcs\dettlaff_van_eretein_vampire.w2ent", true);
@@ -164,6 +166,25 @@ exec function dao4() {
 	inv = GetWitcherPlayer().GetAssociatedInventory();
 	LogItems("DAO3: " + inv.GetItemQuantityByName('mh306_dao_trophy'));
 }
+
+exec function spell_scene(inp : int) {
+		var scene : CStoryScene;
+		var path : String;
+		var play_index : int;
+		var min_index : int = 1;
+		var max_index : int = 5;
+
+		path = "dlc/dlcnewreplacers/data/scenes/02.magic_actions.w2scene";
+		//path = "dlc\dlcntr\data\scenes\03.geralt_oneliners.w2scene";
+		scene = (CStoryScene)LoadResource(path, true);
+		if (!scene)
+			NRE("NULL scene!");
+		play_index = inp;//RandRange(max_index + 1, min_index);
+		NR_Notify("Play scene: [" + "spell_" + IntToString(play_index) + "]");
+
+		theGame.GetStorySceneSystem().PlayScene(scene, "spell_" + IntToString(play_index));
+		//theGame.GetStorySceneSystem().PlayScene(scene, "hag_wall");
+	}
 
 /*exec function checkSlot() {
 	var template : CEntityTemplate;

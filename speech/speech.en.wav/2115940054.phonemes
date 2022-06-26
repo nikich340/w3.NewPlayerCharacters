@@ -1,0 +1,23 @@
+;meta[language=en]
+;meta[version=2]
+;meta[text=Rhobeir'me gelle!]
+;meta[translation=ɹˈəʊbɜːm dʒˈɛl]
+;meta[audio-hypothesis=SIL N R OW V IY EY AY M N D IH K HH +NSN+ SIL]
+;
+;auto-matched phoneme translation (eSpeak) with timings (pocketsphinx):
+;
+;phoneme|start|  end|weight| score| status     | match + pocketsphinx timing
+;_       |  150|  175|  1.00| -1.00| <- VERIFY! | _  d  N  [  150 -  175]
+------------------------------------------------------------------------
+ɹ       |  175|  370|  1.00|  2.00| ok         | ɹ  ~  R  [  175 -  315]
+əʊ      |  370|  475|  1.15|  2.00| ok         | əʊ ~  OW [  315 -  395]
+;_       |  475|  595|  1.00| -1.00| <- VERIFY! | _  d  V  [  395 -  465]
+b       |  595|  720|  1.00| -1.00| <- VERIFY! | b  ~  IY [  465 -  555]
+ɜ       |  720|  960|  1.00|  0.01| ok         | ɜ  ~  EY [  555 -  705]
+;_       |  960|  960|  1.00| -1.00| <- VERIFY! | _  d  AY [  705 -  855]
+m       |  960| 1095|  1.00|  1.00| ok         | m  ~> M  [  855 - 1025] + N  [ 1025 - 1055]
+------------------------------------------------------------------------
+dʒ      | 1285| 1405|  1.00| -1.00| <- VERIFY! | dʒ ~  D  [ 1055 - 1135]
+ɛ       | 1405| 1690|  1.15|  0.01| ok         | ɛ  ~  IH [ 1135 - 1165]
+;_       | 1690| 1700|  1.00| -1.00| <- VERIFY! | _  d  K  [ 1165 - 1305]
+l       | 1700| 1790|  1.00| -1.00| <- VERIFY! | l  ~  HH [ 1305 - 1695]

@@ -1,0 +1,4 @@
+;meta[language=en]
+; id      |key(hex)|key(str)| text
+2115940100|00000000|nr_slot_denied|<font color='#8B0000'>Not allowed to equip items in slot: </font>
+2115940101|00000000||Witcheress

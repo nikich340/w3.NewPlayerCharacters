@@ -1613,12 +1613,15 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 	// if stamina is not enough, then "nullify" attack will be performed
 	latent function TryPeformMagicAttack( attackName : name ) {
+		ResetTimeToEndCombat();
+
 		if ( parent.magicMan.HasStaminaForAction(attackName) ) {
 			comboPlayer.PlayAttack( attackName );
+			NRD("TryPeformMagicAttack: " + attackName);
 		} else {
 			comboPlayer.PlayAttack( 'AttackNoStamina' );
+			NRD("TryPeformMagicAttack: No stamina for: " + attackName);
 		}
-		NRD("TryPeformMagicAttack = " + attackName);
 		virtual_parent.OnCombatActionStart();
 	}
 	
@@ -1832,7 +1835,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			// --- Quen is made via w2beh (Anims are played by sign entity)
 			else if ( playerAttackType == 'attack_magic_special' )
 			{
-				NRD("Play special attack igni");
 				//thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );				
 				if ( parent.GetCurrentStateName() == 'CombatFists' )
 				{
@@ -1845,25 +1847,25 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 					switch ( parent.GetEquippedSign() ) {
 						case ST_Aard:
 							if (isAlternateSign)
-								TryPeformMagicAttack( 'AttackSpecialIgni' );
+								TryPeformMagicAttack( 'AttackSpecialLongAard' );
 							else
 								TryPeformMagicAttack( 'AttackSpecialAard' );
 							break;
 						case ST_Yrden:
 							if (isAlternateSign)
-								TryPeformMagicAttack( 'AttackSpecialIgni' );
+								TryPeformMagicAttack( 'AttackSpecialLongYrden' );
 							else
 								TryPeformMagicAttack( 'AttackSpecialYrden' );
 							break;
 						case ST_Axii:
 							if (isAlternateSign)
-								TryPeformMagicAttack( 'AttackSpecialIgni' );
+								TryPeformMagicAttack( 'AttackSpecialLongAxii' );
 							else
 								TryPeformMagicAttack( 'AttackSpecialAxii' );
 							break;
 						case ST_Igni:
 							if (isAlternateSign)
-								TryPeformMagicAttack( 'AttackSpecialYrden' );
+								TryPeformMagicAttack( 'AttackSpecialLongIgni' );
 							else
 								TryPeformMagicAttack( 'AttackSpecialIgni' );
 							break;

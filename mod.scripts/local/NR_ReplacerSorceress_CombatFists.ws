@@ -66,6 +66,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		var playerToTargetHeading : float;
 
 		var foundSafePoint 		: bool;
+		var attempsToFindPoint	: int;
 		var predictedDodgePos : Vector;
 		var predictedDodgeRot : EulerAngles;
 		var Z : float;
@@ -94,10 +95,18 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + parent.GetWorldPosition();
 		predictedDodgeRot = parent.GetWorldRotation();
+		NRD("foundSafePoint");
 		foundSafePoint = GetSafeTeleportPoint( predictedDodgePos );
+		attempsToFindPoint = 5;
 
 		// binary decrease teleportLength
 		while (!foundSafePoint) {
+			if (!attempsToFindPoint) {
+				predictedDodgePos = parent.GetWorldPosition();
+				break;
+			}
+			NRD("foundSafePoint: left " + attempsToFindPoint);
+			attempsToFindPoint -= 1;
 			playerEvadeType = PET_Dodge; // since we decreased length to 6.0 or less
 
 			teleportLength = teleportLength / 2.f;
@@ -119,10 +128,10 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		NRD("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
 		parent.SetBehaviorVariable( 'dodgeNum', 0 );
 		parent.SetBehaviorVariable( 'combatActionType', (int)CAT_Dodge );
-		parent.SetBehaviorVariable(	'playerEvadeDirection', (int)PED_Forward ) ;
-		parent.SetBehaviorVariable(	'turnInPlaceBeforeDodge', 0.f ) ;
-		parent.SetBehaviorVariable(	'isRolling', 0 ) ;
-		parent.SetBehaviorVariable(	'NR_isMagicAttack', 1 ) ;
+		parent.SetBehaviorVariable(	'playerEvadeDirection', (int)PED_Forward );
+		parent.SetBehaviorVariable(	'turnInPlaceBeforeDodge', 0.f );
+		parent.SetBehaviorVariable(	'isRolling', 0 );
+		parent.SetBehaviorVariable(	'NR_isMagicAttack', 1 );
 
 		if ( parent.RaiseForceEvent( 'CombatAction' ) )
 		{

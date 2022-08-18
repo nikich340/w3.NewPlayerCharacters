@@ -1,0 +1,69 @@
+README.1ST
+-------------
+
+This directory is for textures that need to be imported with wcc (converted to
+xbm).
+
+
+Directory Structure
+-------------------
+
+The root folder (textures.import) is meant to be the root of the dlc owned
+data, meaning:
+
+  textures.import   is treated like   dlc/dlc<modid>/
+
+Imported textures are always "uncooked" and will be placed into subfolders of
+
+  <projectdir>/uncooked.textures/
+
+
+Adding new Texture to be Imported
+---------------------------------
+
+Every texture to be imported needs to placed into the textures.import directory
+and the cmd to import it needs to be defined in the file "texture.imports.bat"
+like this (see also comments in texture.imports.bat):
+
+%BIN_IMPORT_TEXTURE% <srcimage> <targetpath>.xbm <optional texturegroup>
+
+Example:
+
+%BIN_IMPORT_TEXTURE% data/entities/meshes/ciri_hw_density.png data/entities/meshes/ciri_hw_density.xbm
+
+The subfolder structure in uncooked.textures will reflect the subfolders of
+texture.import but will prepend to dlc paths "dlc/dlc<modid>/". So the above
+imported "ciri_hw_density.png" will be placed in
+
+  <projectdir>/uncooked.textures/dlc/dlc<modid>/data/entities/meshes/ciri_hw_density.xbm
+
+The project build pipeline ensures that all textures in the uncooked.textures
+directory will be cooked automatically. Also the texture cache will be generated
+automatically and placed into the final dlc folder of the game installation.
+
+
+Referencing Textures in Entities
+---------------------------------
+
+The imported and cooked textures can be referenced in entities with the absolute
+dlc path. For the above example this would be:
+
+  dlc/dlc<modid>/data/entities/meshes/ciri_hw_density.xbm
+
+
+Adding Textures that do NOT need be imported
+--------------------------------------------
+
+Some textures (e.g. icons, maps, minimaps, ...) do not need to be converted to
+xbm and can be used in the jpg/png formats. Nevertheless the texture cache needs
+to contains the data. These textures can be directly put into the appropriate
+subfolders of
+
+  <projectdir>/uncooked.textures/dlc/dlc<modid>/
+
+e.g.
+
+  <projectdir>/uncooked.textures/dlc/dlchubtest/data/gameplay/gui_new/minimaps/hubtest/tile3x3.jpg
+
+Note: some textures require additional mounter definitions, e.g.
+CR4ScaleformContentDLCMounter for minimap textures.

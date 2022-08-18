@@ -48,13 +48,19 @@ enum ENR_MagicAction {
 	ENR_RipApart,
 	ENR_CounterPush,
 		// special attack
-	ENR_SpecialControl, // axii - временный контроль, помеченный соперник(и) восстают после смерти за тебя? Zombie
+	ENR_SpecialControl, // axii - временный контроль
 	ENR_SpecialGolem,   // yrden - призыв случайного голема
 	ENR_SpecialMeteor,   // igni - метеорит
-	ENR_SpecialTornado, // aard - торнадо?
+	ENR_SpecialTornado, // aard - торнадо
 	ENR_SpecialSphere, // quen - защитная сфера
-			// teleport
-	ENR_Teleport
+
+	ENR_SpecialLongTransform, 	// quen long - котик
+	ENR_SpecialLongMeteors, 	// igni long - дождь метеоров
+	ENR_SpecialLongLightnings, 	// aard long - дождь молний
+	ENR_SpecialLongLumos, 	  	// yrden long - свечка над головой + igni totus
+	ENR_SpecialLongAxii, 	  		// axii long - ?
+
+	ENR_Teleport   // teleport
 }
 function ENR_MagicActionToString(action : ENR_MagicAction) : String {
 	switch (action) {
@@ -128,6 +134,7 @@ statemachine class NR_MagicManager {
 		SetSpecialAttacksDef();
 		SetHandFXDef();
 		SetTeleportFXDef();
+		NRD("MagicManager: InitDefaults");
 	}
 	function SetStaminaCost() {
 		// cost_<AttackType> in % of total stamina
@@ -218,9 +225,9 @@ statemachine class NR_MagicManager {
 		sMap[ST_Igni].setN("meteor_entity", 'ciri_meteor');
 
 		sMap[ST_Yrden].setN("golem_fx_entity", 'nr_fx_golem1');
-		sMap[ST_Yrden].setN("golem_entity1", 'nr_golem1');
-		sMap[ST_Yrden].setN("golem_entity2", 'nr_golem2');
-		sMap[ST_Yrden].setN("golem_entity3", 'nr_golem3');
+		sMap[ST_Yrden].setN("golem_entity1", 'nr_golem3');
+		sMap[ST_Yrden].setN("golem_entity2", 'nr_golem1');
+		sMap[ST_Yrden].setN("golem_entity3", 'nr_golem2');
 	}
 	function SetHandFXDef() {
 		sMap[ST_Aard].setN("hand_fx", 'hand_fx_yennefer');
@@ -302,6 +309,18 @@ statemachine class NR_MagicManager {
 		} else {
 			NRD("Unknown attack: aName = " + aName);
 			return ENR_Unknown;
+		}
+	}
+	public function DEV_AddActionCustom( action : NR_MagicAction, optional isCursed : bool ) {
+		if (!action) {
+			return;
+		}
+		action.map 			= sMap;
+		action.magicSkill 	= GetSkillLevel();
+		if (isCursed) {
+			cursedActions.PushBack(action);
+		} else {
+			cachedActions.PushBack(action);
 		}
 	}
 	function OnPreAttackEvent(animName : name, out data : CPreAttackEventData)

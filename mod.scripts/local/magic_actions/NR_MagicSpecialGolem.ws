@@ -3,19 +3,35 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 	var golemsAmount 		: int;
 	default actionType 		= ENR_SpecialGolem;
 	default actionName 	= 'AttackSpecialYrden';
-	default golemsAmount 	= 3;
+	default golemsAmount 	= 1;
 	
-	latent function onPrepare() : bool {
+	latent function OnInit() : bool {
+		var phraseInputs : array<int>;
+		var phraseChance : int;
+
+		phraseChance = map[ST_Universal].getI("s_voicelineChance", 40);
+		NRD("phraseChance = " + phraseChance);
+		if ( phraseChance >= RandRange(100) + 1 ) {
+			NRD("PlayScene!");
+			phraseInputs.PushBack(11);
+			phraseInputs.PushBack(12);
+			phraseInputs.PushBack(13);
+			PlayScene( phraseInputs );
+		}
+
+		return true;
+	}
+	latent function OnPrepare() : bool {
 		var i 			: int;
 
-		super.onPrepare();
+		super.OnPrepare();
 
 		resourceName = map[sign].getN("golem_fx_entity");
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 
-		return onPrepared(true);
+		return OnPrepared(true);
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		var golemNPC 				: CNewNPC;
 		var golemPositions 			: array<Vector>;
 		var fxEntity				: CEntity;
@@ -23,9 +39,9 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 		var aiTree 					: CAIFollowSideBySideAction;
 		var i 						: int;
 		var super_ret : bool;
-		super_ret = super.onPerform();
+		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 
 		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
@@ -43,7 +59,7 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 			fxEntity = (CEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 			if (!fxEntity) {
 				NRE("golem_fx_entity is invalid.");
-				return onPrepared(false);
+				return OnPrepared(false);
 			}
 			fxEntity.PlayEffect('spawn');
 			fxEntity.DestroyAfter(5.f);
@@ -59,11 +75,12 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 			golemNPC = (CNewNPC)theGame.CreateEntity(entityTemplate, golemPositions[i - 1], rot);
 			if (!golemNPC) {
 				NRE("golem_entity is invalid.");
-				return onPerformed(false);
+				return OnPerformed(false);
 			}
 
+			NR_AdjustMinionLevel( golemNPC, 1 );
 			golemNPC.SetTemporaryAttitudeGroup( 'player', AGP_Default );
-			golemNPC.SetAttitude( thePlayer, AIA_Friendly );
+			golemNPC.SetAttitude( thePlayer, AIA_Friendly ); // shouldn't become hostile on accident
 			// TODO: Hostile with some chance?
 			// TODO: Hostile after some time?
 			// TODO: Dies after some time?
@@ -74,11 +91,11 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 			// Follower
 			aiTree = new CAIFollowSideBySideAction in golemNPC; // Initialize follower behavior
 			aiTree.OnCreated(); // Once we're done initializing behavior tree
-			aiTree.params.moveType = MT_Sprint;
-			golemNPC.ForceAIBehavior( aiTree, BTAP_AboveEmergency2 );
+			aiTree.params.moveType = MT_Run;
+			golemNPC.ForceAIBehavior( aiTree, BTAP_AboveEmergency );
 		}
 		
-		return onPerformed(true);
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		if (isPerformed) // golem is independent from caster

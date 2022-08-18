@@ -27,7 +27,7 @@ class NR_MagicTransform extends NR_MagicSpecialAction {
 		super.OnPrepare();
 
 		// load data from map
-		s_specialLifetime = map[ST_Universal].getI("s_transformLifetime", 30);
+		s_specialLifetime = map[ST_Universal].getI("s_transformLifetime", 60);
 
 		resourceName = map[sign].getN("transform_entity", resName);
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
@@ -64,11 +64,7 @@ class NR_MagicTransform extends NR_MagicSpecialAction {
 		thePlayer.SetTemporaryAttitudeGroup('animals_peacefull', AGP_Default);
 		thePlayer.GotoState('NR_TransformIdle');
 
-		/*aiTree = new CAIIdleTree in thePlayer;
-        aiTree.OnCreated();
-        idleActionId = thePlayer.ForceAIBehavior(aiTree, BTAP_AboveEmergency2);
-        NR_Notify("idleActionId = " + idleActionId);*/
-		// TODO! GotoState('RunWait');
+		GotoState('RunWait');
 		return OnPerformed(true);
 	}
 	latent function BreakAction() {
@@ -87,16 +83,6 @@ state RunWait in NR_MagicTransform {
 		RunWait();		
 	}
 	entry function RunWait() {
-		///var startTime : float;
-		
-		// TODO: remov this simulating
-		parent.OnInit();
-		Sleep(0.2f);
-		parent.OnPrepare();
-		Sleep(0.2f);
-		parent.OnPerform();
-
-		///startTime = theGame.GetEngineTimeAsSeconds();
 		Sleep( parent.s_specialLifetime );
 
 		NRD("StopAction: " + this);
@@ -110,12 +96,10 @@ state RunWait in NR_MagicTransform {
 state Stop in NR_MagicTransform {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("OnEnterState: " + this);
 		parent.inPostState = true;
 		Stop();
 	}
 	entry function Stop() {
-		NR_Notify("context = " + theInput.GetContext());
 		parent.transformNPC.PlayEffect('disappear');
 		Sleep(0.5f);
 		parent.transformNPC.ResetTemporaryAttitudeGroup(AGP_Default);
@@ -128,7 +112,6 @@ state Stop in NR_MagicTransform {
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("OnLeaveState: " + this);
 		// can be removed from cached/cursed actions
 		parent.inPostState = false;
 	}
@@ -136,7 +119,6 @@ state Stop in NR_MagicTransform {
 state Cursed in NR_MagicTransform {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("OnEnterState: " + this);
 		parent.inPostState = true;
 		Curse();
 	}

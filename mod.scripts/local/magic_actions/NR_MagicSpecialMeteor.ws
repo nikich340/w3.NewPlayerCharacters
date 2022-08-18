@@ -3,19 +3,36 @@ class NR_MagicSpecialMeteor extends NR_MagicAction {
 	default actionType = ENR_SpecialMeteor;
 	default actionName 	= 'AttackSpecialIgni';
 
-	latent function onPrepare() : bool {
-		super.onPrepare();
+	latent function OnInit() : bool {
+		var phraseInputs : array<int>;
+		var phraseChance : int;
 
-		resourceName = map[sign].getN("meteor_entity");
+		phraseChance = map[ST_Universal].getI("s_voicelineChance", 40);
+		NRD("phraseChance = " + phraseChance);
+		if ( phraseChance >= RandRange(100) + 1 ) {
+			NRD("PlayScene!");
+			phraseInputs.PushBack(18);
+			phraseInputs.PushBack(19);
+			phraseInputs.PushBack(20);
+			phraseInputs.PushBack(21);
+			PlayScene( phraseInputs );
+		}
+
+		return true;
+	}
+	latent function OnPrepare() : bool {
+		super.OnPrepare();
+
+		resourceName = map[sign].getN("meteor_entity", 'eredin_meteorite');
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 
-		return onPrepared(true);
+		return OnPrepared(true);
 	}
-	latent function onPerform() : bool {
+	latent function OnPerform() : bool {
 		var super_ret : bool;
-		super_ret = super.onPerform();
+		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return onPerformed(false);
+			return OnPerformed(false);
 		}
 
 		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
@@ -30,7 +47,7 @@ class NR_MagicSpecialMeteor extends NR_MagicAction {
 		projectile.Init(NULL);
 		projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, 500.f, standartCollisions );
 
-		return onPerformed(true);
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		super.BreakAction();

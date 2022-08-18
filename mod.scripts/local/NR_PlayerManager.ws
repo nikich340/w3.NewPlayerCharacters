@@ -1,8 +1,8 @@
 function NR_Notify(message : String, optional duration : float)
 {
-	if (duration < 1.0)
-		duration = 5.0;
-    theGame.GetGuiManager().ShowNotification(message, 3000.0);
+	if (duration < 1.f || duration > 10.f)
+		duration = 3.f;
+    theGame.GetGuiManager().ShowNotification(message, duration * 1000.f);
     LogChannel('NR_MOD', message);
 }
 quest function NR_Notify_Quest(message : String, optional duration : float) {
@@ -16,7 +16,18 @@ function NRD(message : String)
 
 function NRE(message : String)
 {
+    theGame.GetGuiManager().ShowNotification(message, 3000.0);
     LogChannel('NR_ERROR', message);
+}
+
+function NR_stringById(itemId : SItemUniqueId) : String {
+	var inv : CInventoryComponent;
+	inv = thePlayer.GetInventory();
+
+	if ( inv.IsIdValid(itemId) )
+		return NameToString( inv.GetItemName(itemId) );
+	else
+		return "<invalid>";
 }
 
 class NR_PlayerManager extends CPeristentEntity {
@@ -31,17 +42,16 @@ class NR_PlayerManager extends CPeristentEntity {
 	default headName = 'head_0';
 	default hairstyleName = 'Long Loose Hairstyle';
 
-	//public var spawnedTime					: float;
 	public saved var geraltSavedItems  : array<name>;
+	public saved var geraltDataSaved : Bool;
+	default          geraltDataSaved = false;
 
+	public var stringsStorage : NR_LocalizedStringStorage;
 	public var inStoryScene : Bool;
 	default    inStoryScene = false;
 
 	public var playerChangeRequested : Bool;
 	default    playerChangeRequested = false;
-
-	public saved var geraltDataSaved : Bool;
-	default          geraltDataSaved = false;
 
 	//private var sceneChoices : array<int>;
 	//private var  currentChoice : int;
@@ -49,8 +59,16 @@ class NR_PlayerManager extends CPeristentEntity {
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
+		var template : CEntityTemplate;
+
 		//spawnedTime = theGame.GetEngineTimeAsSeconds();
 		NRD("wasSpawned! this: " + this);
+		template = (CEntityTemplate) LoadResource("nr_strings_storage");
+		stringsStorage = (NR_LocalizedStringStorage)theGame.CreateEntity(template, thePlayer.GetWorldPosition());
+		if (!stringsStorage) {
+			NRE("!stringsStorage");
+		}
+
 		AddTimer('OnPlayerSpawned', 0.2f);
 		super.OnSpawned( spawnData );
 	}
@@ -147,15 +165,6 @@ class NR_PlayerManager extends CPeristentEntity {
 	}
 	function SetInStoryScene(val : Bool) {
 		inStoryScene = val;
-	}
-	function NR_stringById(itemId : SItemUniqueId) : String {
-		var inv : CInventoryComponent;
-		inv = thePlayer.GetInventory();
-
-		if ( inv.IsIdValid(itemId) )
-			return NameToString( inv.GetItemName(itemId) );
-		else
-			return "<invalid>";
 	}
 	function NR_DebugPrintData() {
 		var i : int;
@@ -484,6 +493,15 @@ class NR_PlayerManager extends CPeristentEntity {
 		UpdateHair('Long Loose Hairstyle');  /* set default hair */
 	}
 	timer function NR_FixReplacer( delta : float, id : int ) {
+		var witcher : NR_ReplacerWitcher;
+		// change displayName hack
+		witcher = NR_GetWitcherReplacer();
+		if (stringsStorage) {
+			//witcher.displayName = stringsStorage.GetLocalizedStringByKey(witcher.replacerName);
+		} else {
+			NRE("NR_FixReplacer: !stringsStorage");
+		}
+
 		NRD("NR_FixReplacer: Head = " + headName + ", hair name = " + hairstyleName + ", templatesN = " + IntToString(appearanceTemplates.Size()));
 		UnmountEquipment();
 		UpdateHead(headName);       /* set saved head */
@@ -608,29 +626,25 @@ function NR_ChangePlayer(playerName : String) {
 
 	if (playerName == "Geralt") {
 		theGame.ChangePlayer( "Geralt" );
-		thePlayer.Debug_ReleaseCriticalStateSaveLocks();
 
 	} else if (playerName == "Ciri") {
 		theGame.ChangePlayer( "Ciri" );
-		thePlayer.Debug_ReleaseCriticalStateSaveLocks();
 
 	} else if (playerName == "nr_replacer_witcher") {
 		theGame.ChangePlayer( "nr_replacer_witcher" );
-		thePlayer.Debug_ReleaseCriticalStateSaveLocks();
 
 	} else if (playerName == "nr_replacer_witcheress") {
 		theGame.ChangePlayer( "nr_replacer_witcheress" );
-		thePlayer.Debug_ReleaseCriticalStateSaveLocks();
 
 	} else if (playerName == "nr_replacer_sorceress") {
 		theGame.ChangePlayer( "nr_replacer_sorceress" );
-		thePlayer.Debug_ReleaseCriticalStateSaveLocks();
 
 	} else {
 		NR_Notify("ERROR! unknown player name: " + playerName);
-		//theGame.ChangePlayer( playerName );
-		//thePlayer.Debug_ReleaseCriticalStateSaveLocks();
+		return;
 	}
+	thePlayer.abilityManager.RestoreStat(BCS_Vitality);
+	thePlayer.Debug_ReleaseCriticalStateSaveLocks();
 }
 
 exec function toApp(app : name) {
@@ -800,6 +814,16 @@ exec function toTrisss() {
 		manager.UpdateHair('NR Triss Hairstyle DLC');
 		manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlc6\data\characters\models\main_npc\triss\b_01_wa__triss_dlc.w2ent", /*slot*/ EES_Armor, /*isDepotPath*/ true);
 		//manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlc6\data\characters\models\main_npc\triss\c_01_wa__triss_dlc.w2ent", /*slot*/ EES_Hair, /*isDepotPath*/ true);
+		NR_ChangePlayer("nr_replacer_sorceress"); // change player type in the last queue
+	}
+}
+exec function toTrisss2() {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+		manager.ResetAppearanceHeadHair();
+		manager.UpdateHead('nr_head_triss');
+		manager.UpdateHair('NR Triss Hairstyle');
+		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\triss\body_01_wa__triss.w2ent", /*slot*/ EES_Armor, /*isDepotPath*/ true);
 		NR_ChangePlayer("nr_replacer_sorceress"); // change player type in the last queue
 	}
 }

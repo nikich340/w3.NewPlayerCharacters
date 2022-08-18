@@ -880,6 +880,12 @@ class CR4InventoryMenu extends CR4MenuBase
 			
 			
 			templateFilename             = "GeraltForUI";
+			
+			/* v NR_MOD v */
+			if ( NR_GetWitcherReplacer() ) {
+				templateFilename = NR_GetWitcherReplacer().inventoryTemplate;
+			}
+			/* ^ NR_MOD ^ */
 			appearance                   = '';
 			environmentSunRotation.Yaw   = 0;
 			environmentSunRotation.Pitch = 0;
@@ -2056,6 +2062,14 @@ class CR4InventoryMenu extends CR4MenuBase
 		
 		OnSlot = false;
 		itemAlreadyEuipped = false;
+
+		/* v NR_MOD v */
+		if ( NR_GetWitcherReplacer() && NR_GetWitcherReplacer().NR_IsSlotDenied(slot) ) {
+			showNotification( "<font color='#00008B'>(" + GetLocStringById(NR_GetWitcherReplacer().GetNameID()) + ")</font>" + GetLocStringByKeyExt("nr_slot_denied") + SlotEnumToName(slot) );
+			OnPlaySoundEvent("gui_global_denied");
+			return false;
+		}
+		/* ^ NR_MOD ^ */
 		
 		if( _currentInv == _containerInv )
 		{

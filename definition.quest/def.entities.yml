@@ -2,9 +2,18 @@
 # definition of entities
 #
 templates:
-  nr_special_int_storage:
-    entityObject:
-      ".type": NR_SpecialIntStorage
+  #nr_localizedstrings_storage:
+  #  entityObject:
+  #    ".type": NR_LocalizedStringStorage
+  #    #stringValues:
+  #    #  - 318188
+  #    stringKeys:
+  #      - "witcher_test_key"
+  #    stringIds:
+  #      - 318188
+  #nr_special_int_storage:
+  #  entityObject:
+  #    ".type": NR_SpecialIntStorage
   #    #u8: [1, 2, 3]
   #    #u16: [1, 2, 3]
 
@@ -17,7 +26,8 @@ templates:
       isInteractive: true
       interactionAnim: PEA_ExamineEyeLevel
       interactionAnimTime: 2.0
-      storyScene: "dlc/dlcnewreplacers/data/scenes/01.player_change.w2scene"
+      storyScene: "dlc/dlcnewreplacers/data/scenes/02.magic_actions.w2scene"
+      #storyScene: "dlc/dlcnewreplacers/data/scenes/01.player_change.w2scene"
 
       components:
         SceneTriggerComp:
@@ -25,6 +35,225 @@ templates:
           transform:
             pos: [ 0.0, 0.0, 0.15 ]
           actionName: "Use"
+  
+  nr_tornado:
+    entityObject:
+      ".type": NR_TornadoEntity
+      tags:
+        - nr_tornado
+    effects:
+      tornado_sand:
+        ".type": CFXDefinition
+        trackGroups:  #array:2,0,ptr:CFXTrackGroup
+          fx:
+            ".type": CFXTrackGroup
+            ## name: "fx"
+            tracks:  #array:2,0,ptr:CFXTrack
+              debris:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeBegin: 0.01339972
+                    timeDuration: 4.555641
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 0.6266659, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                    particleSystem: dlc/ep1/data/fx/characters/hakland_mage/tornado/hakland_tornado_fx1.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      attach: true
+                      componentName: tornado_slot
+                ## name: "debris"
+              asd:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeBegin: 0.0
+                    timeDuration: 4.515266
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 0.6208314, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                    particleSystem: dlc/ep1/data/fx/characters/hakland_mage/tornado/hakland_tornado_fx2.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      attach: true
+                      componentName: tornado_slot
+                ## name: "asd"
+            isExpanded: true
+            trackGroupColor: [ 227, 210, 246, 100 ]
+          SFX:
+            ".type": CFXTrackGroup
+            ## name: "SFX"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sfx_start_stop:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.01
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: magic_man_tornado_loop_start
+                    stopFadeTime: 4.0
+                    maxDistance: 40.0
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.8224852
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: magic_man_tornado_loop_stop
+                    maxDistance: 40.0
+                ## name: "sfx_start_stop"
+            isExpanded: true
+            trackGroupColor: [ 194, 230, 235, 100 ]
+        length: 4.515266
+        loopStart: 0.4656312
+        loopEnd: 0.7065618
+        ## name: tornado_sand
+        showDistance: 35.0
+        isLooped: true
+      tornado_sand_red:
+        ".type": CFXDefinition
+        trackGroups:  #array:2,0,ptr:CFXTrackGroup
+          fx:
+            ".type": CFXTrackGroup
+            ## name: "fx"
+            tracks:  #array:2,0,ptr:CFXTrack
+              debris:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeBegin: 0.01339972
+                    timeDuration: 4.555641
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 0.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 0.6266659, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                    particleSystem: dlc/dlcnewreplacers/data/particles/hakland_tornado_fx1_red.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      attach: true
+                      componentName: tornado_slot
+                ## name: "debris"
+              asd:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParticles
+                    timeBegin: 0.0
+                    timeDuration: 4.515266
+                    ## buffername: Particles
+                    ## count: 3
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 1.0, 1.0, 1.0 ]
+                      - [ 0.6208314, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                      - [ 0.0, 1.0, 1.0 ]
+                    particleSystem: dlc/ep1/data/fx/characters/hakland_mage/tornado/hakland_tornado_fx2.w2p
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      attach: true
+                      componentName: tornado_slot
+                ## name: "asd"
+            isExpanded: true
+            trackGroupColor: [ 227, 210, 246, 100 ]
+          SFX:
+            ".type": CFXTrackGroup
+            ## name: "SFX"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sfx_start_stop:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.01
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: magic_man_tornado_loop_start
+                    stopFadeTime: 4.0
+                    maxDistance: 40.0
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.8224852
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: magic_man_tornado_loop_stop
+                    maxDistance: 40.0
+                ## name: "sfx_start_stop"
+            isExpanded: true
+            trackGroupColor: [ 194, 230, 235, 100 ]
+        length: 4.515266
+        loopStart: 0.4656312
+        loopEnd: 0.7065618
+        ## name: tornado_sand
+        showDistance: 35.0
+        isLooped: true
+
+    slots:  #array:2,0,EntitySlot
+      tornado_slot:
+        freeRotation: false
 
   nr_anims_demo:
     entityObject:
@@ -47,7 +276,7 @@ templates:
       tags:
         - PLAYER
         - nr_replacer_witcher
-      displayName: Player
+      displayName: "452675|Witcher"
       voiceTag: GERALT
       soundListenerOverride: "Geralt"
       presenceInterestPoint:
@@ -142,7 +371,7 @@ templates:
       tags:
         - PLAYER
         - nr_replacer_witcheress
-      displayName: Player
+      displayName: "2115940101|Witcheress"
       voiceTag: GERALT
       soundListenerOverride: "Geralt"
       presenceInterestPoint:
@@ -769,7 +998,15 @@ templates:
       tags:
         - PLAYER
         - nr_replacer_sorceress
-      displayName: Player
+      displayName: "358190|Sorceress"
+      deniedInventorySlots:
+        - EES_SilverSword
+        - EES_SteelSword
+        - EES_Potion1
+        - EES_Potion2
+        - EES_Potion3
+        - EES_Potion4
+        
       voiceTag: GERALT
       soundListenerOverride: "Geralt"
       presenceInterestPoint:
@@ -1580,6 +1817,140 @@ templates:
         loopEnd: 0.469604
         ## name: barrier_shield
         showDistance: 50.0
+        isLooped: true
+
+  nr_breathing_bubble: # dlc/dlcnewreplacers/data/entities/nr_breathing_bubble.w2ent:breathing_bubble
+    entityObject:
+      ".type": NR_BreathingBubble
+      streamingDistance: 15
+      components:  #array:0,0,ptr:CComponent
+        bubble:
+          ".type": CMeshComponent
+          transform:
+            pos: [ 0.0, 0.0, 0.0 ]
+            rot: [ 0.0, 0.0, 0.0 ]
+            scale: [ 1.0, 1.0, 1.0 ]
+          ## name: "sphere"
+          isStreamed: false
+          boundingBox:  #Box
+            Min: [ -1.0, -1.0, -1.0, 1.0 ]
+            Max: [ 1.0, 1.0, 1.0, 1.0 ]
+          mesh: dlc/dlcnewreplacers/data/meshes/breathing_bubble.w2mesh
+      #idTag:  07ed1689-91a2-4d74-a0ec-846b664b91d9
+    effects:
+      # edited pc_quen.w2ent:shield
+      breathing_bubble:
+        ".type": CFXDefinition
+        trackGroups:  #array:2,0,ptr:CFXTrackGroup
+          audio:
+            ".type": CFXTrackGroup
+            ## name: "audio"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sfx:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.007275209
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: sign_quen_charge_loop_start
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.08551899
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: sign_quen_charge_loop
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.3817194
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: sign_quen_charge_loop_stop
+                ## name: "sfx"
+            isExpanded: true
+            trackGroupColor: [ 150, 161, 254, 100 ]
+          light:
+            ".type": CFXTrackGroup
+            ## name: "light"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sad:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemDynamicLight
+                    timeBegin: 0.02115734
+                    timeDuration: 1.793042
+                    ## buffername: DynamicLight
+                    ## count: 2
+                    ## unk: 1
+                    interpolation:
+                      - [ 1.0, 1.0 ]
+                      - [ 7.291653, 1.0 ]
+                      - [ 16.44767, 1.0 ]
+                      - [ 25.60369, 1.0 ]
+                      - [ 33.0, 1.0 ]
+                      - [ 33.0, 1.0 ]
+                      - [ 33.0, 1.0 ]
+                      - [ 33.0, 1.0 ]
+                      - [ 33.0, 1.0 ]
+                      - [ 33.0, 1.0 ]
+                      - [ 30.14171, 1.0 ]
+                      - [ 24.11337, 1.0 ]
+                      - [ 18.08503, 1.0 ]
+                      - [ 12.05669, 1.0 ]
+                      - [ 6.028341, 1.0 ]
+                      - [ 0.0, 1.0 ]
+                    color: [ 255, 164, 88, 255 ]
+                    radius: 8.0
+                    autoHideDistance: 45.0
+                    spawner:
+                      ".type": CFXSpawnerComponent
+                      componentName: CEffectDummyComponent1
+                      copyRotation: false
+                      attach: true
+                ## name: "sad"
+            isExpanded: true
+            trackGroupColor: [ 149, 219, 226, 100 ]
+          fx:
+            ".type": CFXTrackGroup
+            ## name: "fx"
+            tracks:  #array:2,0,ptr:CFXTrack
+              fx:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemParameterFloat
+                    timeBegin: 0.006109089
+                    timeDuration: 2.915762
+                    ## buffername: 
+                    ## count: 1
+                    ## unk: 1
+                    interpolation:
+                      - 0.001
+                      - 1.0
+                      - 0.95
+                      - 0.7
+                      - 0.4
+                      - 0.2
+                      - 0.001
+                      - 0.001
+                      - 0.001
+                      - 0.001
+                      - 0.001
+                      - 0.001
+                      - 0.001
+                      - 0.001
+                      - 0.001
+                      - 0.001
+                    parameterName: MeshEffectScalar2
+                ## name: "fx"
+            isExpanded: true
+            trackGroupColor: [ 185, 203, 195, 100 ]
+            componentName: bubble
+        length: 4.641561
+        loopStart: 0.2501136
+        loopEnd: 0.3482911
+        ## name: shield
+        showDistance: 222.0
         isLooped: true
 
   nr_quen:

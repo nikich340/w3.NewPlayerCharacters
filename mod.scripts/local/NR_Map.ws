@@ -1,14 +1,22 @@
 /* Map structure based on array struct (we have no other choice), so O(N) and no templating 
 	Stores primitive type (Int, Float, String or Name) under key-String */
-
-
+/*
+ Example usage:
+	var map : NR_Map;
+	map = new NR_Map in thePlayer;
+	map.setI("some integer", 10);
+	map.setS("some string", "my_str");
+	map.setN("some name", 'my_name');
+	map.setF("some float", 0.5f);
+	LogChannel('DEBUG', "map[some name] = " + map.getN("some name"));
+	LogChannel('DEBUG', "map[non existing name] = " + map.getN("non existing name", 'default_value'));
+*/
 enum ENR_UnionType {
 	ENR_NULL,
 	ENR_Name,
 	ENR_String,
 	ENR_Int,
 	ENR_Float
-	//ENR_Vector ?
 }
 struct NR_Union {
 	var type : ENR_UnionType;
@@ -41,8 +49,8 @@ function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, o
 	return u;
 }
 class NR_Map {
-	saved var values 	: array<NR_Union>;
-	var i 				: int;
+	protected var values 	: array<NR_Union>;
+	protected var i 				: int;
 	function keyIndex(_key : String) : int {
 		for (i = 0; i < values.Size(); i += 1) {
 			if (values[i].key == _key)
@@ -67,7 +75,6 @@ class NR_Map {
 	}
 	function getI(_key : String, optional defaultValue : int) : int {
 		i = keyIndex(_key);
-		//NRD("getN: key = " + _key + ", defaultValue = " + defaultValue);
 		if (i < 0)
 			return defaultValue;
 		return values[i].valI;
@@ -79,13 +86,7 @@ class NR_Map {
 		return values[i].valF;
 	}
 	function getN(_key : String, optional defaultValue : name) : name {
-		var start, end : float;
-		start = EngineTimeToFloat(theGame.GetEngineTime());
-
 		i = keyIndex(_key);
-
-		end = EngineTimeToFloat(theGame.GetEngineTime());
-		//NRD("getN: key = " + _key + ", defaultValue = " + defaultValue + ", time = " + (end - start));
 		if (i < 0)
 			return defaultValue;
 		return values[i].valN;

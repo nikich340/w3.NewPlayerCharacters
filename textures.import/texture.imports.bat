@@ -26,6 +26,8 @@ EXIT /B 1
 ::
 :: %BIN_IMPORT_TEXTURE% <srctexture.png> /data/textures/<targetname>.xbm WorldDiffuseWithAlpha
 :: dlc/dlcnewreplacers/data/particles
+%BIN_IMPORT_TEXTURE% data/particles/smoke_tileable_red.png data/particles/smoke_tileable_red.xbm ParticlesWithoutAlpha
+%BIN_IMPORT_TEXTURE% data/particles/puffy_smoke_8x8_red.png data/particles/puffy_smoke_8x8_red.xbm Particles
 
 ::
 :: default texturegroup is: WorldDiffuse

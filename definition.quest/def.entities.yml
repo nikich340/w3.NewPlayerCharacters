@@ -585,10 +585,10 @@ templates:
           - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_regis_dialog_animation.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/geralt_custom.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/ep2_man_dialog_gameplay_recompress.w2anims
-          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_quest.w2anims
-          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_work1.w2anims
-          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_work2.w2anims
-          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_work3.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/bob_man_quest.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/bob_man_work1.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/bob_man_work2.w2anims
+          - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/bob_man_work3.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/man_geralt_injured_movement.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/qq703_geralt_barrel.w2anims
           - dlc/dlcnewreplacers/data/animations/woman_retarget/bob/monster_dettlaff_vampire.w2anims

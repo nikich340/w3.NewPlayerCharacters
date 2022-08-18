@@ -198,6 +198,19 @@ class CR4GuiSceneController
 	public function SetEntityTemplate( entityTemplateAlias : string )
 	{
 		var templateResource : CEntityTemplate;
+		/* v NR_MOD */
+		var extraTemplateResources : array<CEntityTemplate>;
+		var nr_manager : NR_PlayerManager = NR_GetPlayerManager();
+		var       i, j : int;
+
+		if ( nr_manager && nr_manager.IsReplacerActive() ) {
+			for (i = 0; i < nr_manager.appearanceTemplates.Size(); i += 1) {
+				templateResource = (CEntityTemplate) LoadResource( nr_manager.appearanceTemplates[i], nr_manager.appearanceTemplateIsDepotPath[i] );
+				if (templateResource)
+					extraTemplateResources.PushBack(templateResource);
+			}
+		}
+		/* ^ NR_MOD */
 
 		if ( _isEntitySpawning )
 		{
@@ -208,6 +221,13 @@ class CR4GuiSceneController
 			templateResource = ( CEntityTemplate )LoadResource( entityTemplateAlias );
 			if ( templateResource )
 			{
+				/* v NR_MOD */
+				for (i = 0; i < extraTemplateResources.Size(); i += 1) {
+					for (j = 0; j < templateResource.appearances.Size(); j += 1) {
+						templateResource.appearances[j].includedTemplates.PushBack(extraTemplateResources[i]);
+					}
+				}
+				/* ^ NR_MOD */
 				_isEntitySpawning = true;
 				theGame.GetGuiManager().SetSceneEntityTemplate( templateResource );
 			}

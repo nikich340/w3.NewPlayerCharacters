@@ -222,6 +222,18 @@ import class CScriptSoundSystem extends CObject
 		return false;
 	}
 	
+	/* v NR_MOD */
+	function NR_EnterGameState( gameState : ESoundGameState ) : bool
+	{
+		if( currentGameState != gameState )
+		{
+			SoundGameStateChange( gameState );
+			return true;
+		}
+		return false;
+	}
+	/* ^ NR_MOD */
+
 	function LeaveGameState( gameState : ESoundGameState ) : bool
 	{
 		if( currentGameState != gameState )

@@ -101,6 +101,10 @@ class CR4HudModuleDialog extends CR4HudModuleBase
 		LogChannel('DIALOG', "OnDialogOptionSelected " + index );
 		LogChannel('DIALOG', "***************************" );
 		system.SendSignal( SSST_Highlight, index );
+
+		/* v NR_MOD */
+		NR_GetPlayerManager().OnDialogOptionSignal( SSST_Highlight, index );
+		/* ^ NR_MOD */
 	}
 
 	event  OnDialogOptionAccepted( index : int )
@@ -122,6 +126,10 @@ class CR4HudModuleDialog extends CR4HudModuleBase
 			
 			m_guiManager.RequestMouseCursor(false);
 			theGame.ForceUIAnalog(false);
+
+			/* v NR_MOD */
+			NR_GetPlayerManager().OnDialogOptionSignal( SSST_Accept, index );
+			/* ^ NR_MOD */
 		}
 		else
 		{

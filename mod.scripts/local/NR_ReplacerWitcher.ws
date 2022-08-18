@@ -134,7 +134,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	public function SetupCombatAction( action : EBufferActionType, stage : EButtonStage )
 	{
 		NRD("NR_ReplacerWitcher: SetupCombatAction: " + action + ", stage: " + stage);
-		if ( !IsInState('NR_TransformIdle') ) {
+		if ( !IsInState('NR_Transformed') ) {
 			super.SetupCombatAction(action, stage);
 		}
 	}

@@ -62,7 +62,7 @@ class NR_MagicTransform extends NR_MagicSpecialAction {
 
 		thePlayer.CreateAttachment(transformNPC);
 		thePlayer.SetTemporaryAttitudeGroup('animals_peacefull', AGP_Default);
-		thePlayer.GotoState('NR_TransformIdle');
+		thePlayer.GotoState('NR_Transformed');
 
 		GotoState('RunWait');
 		return OnPerformed(true);

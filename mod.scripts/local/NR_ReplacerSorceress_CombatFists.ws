@@ -1,13 +1,4 @@
-/*enum EInitialAction
-{
-	IA_None,
-	IA_AttackLight,
-	IA_AttackHeavy,
-	IA_CastSign,
-	IA_ThrowItem,
-	IA_CriticalState,
-}*/
-
+/* State is overwritten for 2 purposes: to add custom combo aspects, and to handle anim events */
 
 state CombatFists in NR_ReplacerSorceress extends Combat
 {

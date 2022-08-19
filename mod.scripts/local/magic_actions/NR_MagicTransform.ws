@@ -57,11 +57,9 @@ class NR_MagicTransform extends NR_MagicSpecialAction {
 		}
 
 		transformNPC.AddTag('NR_TRANSFORM_NPC');
-		//transformNPC.SetTemporaryAttitudeGroup('player', AGP_Default);
 		transformNPC.SetAttitude( thePlayer, AIA_Friendly );
 
 		thePlayer.CreateAttachment(transformNPC);
-		thePlayer.SetTemporaryAttitudeGroup('animals_peacefull', AGP_Default);
 		thePlayer.GotoState('NR_Transformed');
 
 		GotoState('RunWait');
@@ -102,7 +100,7 @@ state Stop in NR_MagicTransform {
 	entry function Stop() {
 		parent.transformNPC.PlayEffect('disappear');
 		Sleep(0.5f);
-		parent.transformNPC.ResetTemporaryAttitudeGroup(AGP_Default);
+		//parent.transformNPC.ResetTemporaryAttitudeGroup(AGP_Default);
 		thePlayer.BreakAttachment();
 
 		thePlayer.PlayEffect('teleport_appear');

@@ -452,8 +452,12 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		thePlayer.EnableCollisions(enable);
 		thePlayer.SetGameplayVisibility(enable);
 		thePlayer.SetVisibility(enable);
-		thePlayer.ResetTemporaryAttitudeGroup( AGP_Default );
 		thePlayer.SetManualControl(enable, enable);
+		
+		if (enable)
+			thePlayer.SetTemporaryAttitudeGroup('animals_peacefull', AGP_Default);
+		else
+			thePlayer.ResetTemporaryAttitudeGroup( AGP_Default );
 	}
 
 	event OnLeaveState( nextStateName : name )

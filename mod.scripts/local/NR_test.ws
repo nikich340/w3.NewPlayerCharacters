@@ -356,6 +356,7 @@ exec function tp1() {
 	pos.X += 1;
 	thePlayer.TeleportWithRotation(pos, rot);
 }
+/*
 exec function eff(eName : name, optional disable : bool) {
 	if (disable) {
 		thePlayer.StopEffect(eName);
@@ -363,6 +364,7 @@ exec function eff(eName : name, optional disable : bool) {
 		thePlayer.PlayEffect(eName);
 	}
 }
+*/
 function EulerToString(euler: EulerAngles) : String {
 	return "[" + FloatToStringPrec(euler.Pitch,3) + ", " + FloatToStringPrec(euler.Yaw,3) + ", " + FloatToStringPrec(euler.Roll,3) + "]";
 }

@@ -1612,16 +1612,19 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	}
 
 	// if stamina is not enough, then "nullify" attack will be performed
-	latent function TryPeformMagicAttack( attackName : name ) {
+	latent function TryPeformMagicAttack( aspectName : name, actionType : ENR_MagicAction ) {
 		ResetTimeToEndCombat();
 
-		if ( parent.magicManager.HasStaminaForAction(attackName) ) {
-			attackName = parent.magicManager.GetFinalAttackName(attackName);
-			comboPlayer.PlayAttack( attackName );
-			NRD("Combat.TryPeformMagicAttack: " + attackName);
+		if ( parent.magicManager.HasStaminaForAction(aspectName) ) {
+			aspectName = parent.magicManager.CorrectAspectName( aspectName );
+			actionType = parent.magicManager.CorrectActionType( actionType, aspectName );
+			parent.magicManager.SetActionType( actionType );
+			comboPlayer.PlayAttack( aspectName );
+			NRD("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
 		} else {
+			parent.magicManager.SetActionType( ENR_Unknown );
 			comboPlayer.PlayAttack( 'AttackNoStamina' );
-			NRD("Combat.TryPeformMagicAttack: No stamina for: " + attackName);
+			NRD("Combat.TryPeformMagicAttack: No stamina for: " + aspectName);
 		}
 		virtual_parent.OnCombatActionStart();
 	}
@@ -1652,7 +1655,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.RemoveTimer( 'ProcessAttackTimer' );
 		parent.RemoveTimer( 'AttackTimerEnd' );
 		npc = (CNewNPC)parent.slideTarget;
-		NRD("ProcessAttack: playerAttackType = " + playerAttackType + ", performApproachAttack = " + performApproachAttack);
+		NRD("ProcessAttack: playerAttackType = " + playerAttackType + ", time = " + theGame.GetEngineTimeAsSeconds());
 			
 		parent.GetMovingAgentComponent().GetMovementAdjustor().CancelAll();
 
@@ -1701,53 +1704,60 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			&& attackTarget.GetHealthPercents() <= parent.magicManager.GetMaxHealthPercForFinisher()
 				&& RandRange(100) <= parent.magicManager.GetChancePercForFinisher() )
 			{
-					TryPeformMagicAttack( 'AttackFinisher' );
+					TryPeformMagicAttack( 'AttackFinisher', ENR_RipApart );
 			} else if( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )
 			{
 				if (npc)
 					npc.SignalGameplayEventParamInt('Time2DodgeFast', (int)EDT_Attack_Light );
-				TryPeformMagicAttack( 'AttackLight' );
+				TryPeformMagicAttack( 'AttackLight', ENR_LightAbstract );
 			} else if ( playerAttackType == theGame.params.ATTACK_NAME_HEAVY )
 			{
 				//thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );		
-				TryPeformMagicAttack( 'AttackHeavy' );
+				TryPeformMagicAttack( 'AttackHeavy', ENR_HeavyAbstract );
 			} else if ( playerAttackType == 'attack_magic_push' )
 			{
-				TryPeformMagicAttack( 'AttackPush' );
+				TryPeformMagicAttack( 'AttackPush', ENR_CounterPush );
 			} else if ( playerAttackType == 'attack_magic_special' )
 			{
 				ResetTimeToEndCombat();
-				Sleep(0.2f);
+				Sleep(0.22f);
 				isAlternateAttack = (theInput.GetActionValue( 'CastSignHold' ) > 0.f);
 				NRD("ProcessAttack: isAlternate = " + isAlternateAttack);
 				switch ( parent.GetEquippedSign() ) {
 					case ST_Aard:
 						if (isAlternateAttack)
-							TryPeformMagicAttack( 'AttackSpecialLongAard' );
+							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialLightningFall );
 						else
-							TryPeformMagicAttack( 'AttackSpecialAard' );
+							TryPeformMagicAttack( 'AttackHeavyRock', ENR_SpecialTornado );
 						break;
 					case ST_Yrden:
 						if (isAlternateAttack)
-							TryPeformMagicAttack( 'AttackSpecialLongYrden' );
+							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialTransform ); // TODO: taunt
 						else
-							TryPeformMagicAttack( 'AttackSpecialYrden' );
+							TryPeformMagicAttack( 'AttackHeavyRock', ENR_SpecialGolem );
 						break;
 					case ST_Axii:
 						if (isAlternateAttack)
-							TryPeformMagicAttack( 'AttackSpecialLongAxii' );
+							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialAxiiAlternate );
 						else
-							TryPeformMagicAttack( 'AttackSpecialAxii' );
+							TryPeformMagicAttack( 'AttackSpecialFireball', ENR_SpecialControl );
 						break;
 					case ST_Igni:
 						if (isAlternateAttack)
-							TryPeformMagicAttack( 'AttackSpecialLongIgni' );
+							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialMeteorFall );
 						else
-							TryPeformMagicAttack( 'AttackSpecialIgni' );
+							TryPeformMagicAttack( 'AttackSpecialFireball', ENR_SpecialMeteor );
 						break;
+					case ST_Quen:
+						if (isAlternateAttack) {
+							// TODO: AttackSpecialLumos : woman_work_stand_praying_start + woman_work_stand_praying_stop
+							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialLumos );
+							break;
+						}
+						/* non-alternative quen must be handled by w2beh */
 					default:
 						NRE("Process attack: attack_magic_special: Unknown sign value = " + parent.GetEquippedSign());
-						TryPeformMagicAttack( 'AttackLight' );
+						//TryPeformMagicAttack( 'AttackLight' );
 						break;
 				}
 			}

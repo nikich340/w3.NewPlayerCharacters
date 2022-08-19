@@ -37,12 +37,13 @@ enum ENR_MagicAction {
 		// unknown
 	ENR_Unknown,
 		// light attack
+	ENR_LightAbstract,
 	ENR_Slash,
-		// light "throw" attack
 	ENR_Lightning,
 	ENR_Projectile,
 	ENR_ProjectileWithPrepare,
 		// heavy attack
+	ENR_HeavyAbstract,
 	ENR_Rock,	
 	ENR_BombExplosion,
 	ENR_RipApart,
@@ -53,12 +54,12 @@ enum ENR_MagicAction {
 	ENR_SpecialMeteor,   // igni - метеорит
 	ENR_SpecialTornado, // aard - торнадо
 	ENR_SpecialSphere, // quen - защитная сфера
-
-	ENR_SpecialLongTransform, 	// quen long - котик
-	ENR_SpecialLongMeteors, 	// igni long - дождь метеоров
-	ENR_SpecialLongLightnings, 	// aard long - дождь молний
-	ENR_SpecialLongLumos, 	  	// yrden long - свечка над головой + igni totus
-	ENR_SpecialLongAxii, 	  		// axii long - ?
+		// special attack (alternative)
+	ENR_SpecialTransform, 	// yrden long - котик
+	ENR_SpecialMeteorFall, 	// igni long - дождь метеоров
+	ENR_SpecialLightningFall, 	// aard long - дождь молний
+	ENR_SpecialLumos, 	  	// quen long - свечка над головой + igni totus
+	ENR_SpecialAxiiAlternate,  // axii long - ?
 
 	ENR_Teleport   // teleport
 }
@@ -105,6 +106,7 @@ statemachine class NR_MagicManager {
 	const var ST_Universal	: int;
 
 	// shared stuff
+	protected var aActionType 		: ENR_MagicAction;
 	public var aEventsStack 	: array<SNR_MagicEvent>;
 	public var aData 			: CPreAttackEventData;
 	protected var cachedActions 	: array<NR_MagicAction>;
@@ -112,7 +114,7 @@ statemachine class NR_MagicManager {
 
 	public var aIsAlternate 	: Bool;
 	public var aTeleportPos		: Vector;
-	public var aSelectorLight, aSelectorHeavy : NR_MagicAttackSelector;
+	public var aSelectorLight, aSelectorHeavy : NR_MagicAspectSelector;
 	
 	protected var aHandEffect 	: name;
 	protected var i            	: int;
@@ -127,8 +129,8 @@ statemachine class NR_MagicManager {
 		for (i = 0; i <= ST_Universal; i += 1) {
 			sMap[i] = new NR_Map in thePlayer;
 		}
-		aSelectorLight = new NR_MagicAttackSelector in this;
-		aSelectorHeavy = new NR_MagicAttackSelector in this;
+		aSelectorLight = new NR_MagicAspectSelector in this;
+		aSelectorHeavy = new NR_MagicAspectSelector in this;
 		SetStaminaCost();
 		SetAspectsSelectionDef();
 		SetSlashAttacksDef();
@@ -147,10 +149,10 @@ statemachine class NR_MagicManager {
 
 		aSelectorHeavy.Reset();
 		aSelectorHeavy.AddAttack('AttackHeavyRock', 	2);
-		aSelectorHeavy.AddAttack('AttackHeavyArcane', 	1);
+		aSelectorHeavy.AddAttack('AttackHeavyThrow', 	1);
 	}
-	public function GetFinalAttackName(attackName : name) : name {
-		switch (attackName) {
+	public function CorrectAspectName(aspectName : name) : name {
+		switch (aspectName) {
 			case 'AttackLight':
 				return aSelectorLight.SelectAttack();
 				break;
@@ -158,13 +160,35 @@ statemachine class NR_MagicManager {
 				return aSelectorHeavy.SelectAttack();
 				break;
 			default:
-				return attackName;
+				return aspectName;
 				break;
 		}
+	}
+	public function CorrectActionType(actionType : ENR_MagicAction, aspectName : name) : ENR_MagicAction {
+		var sign : ESignType = GetWitcherPlayer().GetEquippedSign();
+
+		if (actionType == ENR_LightAbstract) {
+			if (aspectName == 'AttackLightSlash')
+				actionType = ENR_Slash;
+			else
+				actionType = sMap[sign].getI("throw_attack_type", (int)ENR_Lightning);
+		} else if (actionType == ENR_HeavyAbstract) {
+			if (aspectName == 'AttackHeavyRock')
+				actionType = ENR_Rock;
+			else
+				actionType = ENR_BombExplosion;
+		}
+		return actionType;
 	}
 	function SetStaminaCost() {
 		// cost_<AttackType> in [0, 1] of total stamina
 		// delay_<AttackType> in milliseconds
+		sMap[ST_Universal].setF("cost_TeleportFar", 0.2f);
+		sMap[ST_Universal].setF("delay_TeleportFar", 50.f);
+
+		sMap[ST_Universal].setF("cost_TeleportClose", 0.1f);
+		sMap[ST_Universal].setF("delay_TeleportClose", 0.5f);
+
 		sMap[ST_Universal].setF("cost_AttackNoStamina", 0.0f);
 		sMap[ST_Universal].setF("delay_AttackNoStamina", 0.0f);
 
@@ -304,38 +328,11 @@ statemachine class NR_MagicManager {
 			aHandEffect = newHandEffect;
 		}
 	}
-	function GetActionType() : ENR_MagicAction {
-		var sign : ESignType = GetWitcherPlayer().GetEquippedSign();
-
-		if (StrStartsWith(aName, "woman_sorceress_attack_slash")) {
-			return ENR_Slash;
-		} else if (StrStartsWith(aName, "woman_sorceress_attack_rock")) {
-			return ENR_Rock;
-		} else if (StrStartsWith(aName, "woman_sorceress_attack_push")) {
-			return ENR_CounterPush;
-		} else if (StrStartsWith(aName, "woman_sorceress_rip_apart")) {
-			return ENR_RipApart;
-		} else if (StrStartsWith(aName, "woman_sorceress_teleport")) {
-			return ENR_Teleport;
-		} else if (StrStartsWith(aName, "woman_sorceress_attack_throw")) {
-			// THROW - depends on selected sign
-			return sMap[sign].getI("throw_attack_type", (int)ENR_Lightning);
-		} else if (StrStartsWith(aName, "woman_sorceress_attack_arcane")) {
-			return ENR_BombExplosion;
-		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_fireball")) {
-			return ENR_SpecialMeteor;
-		} else if (StrStartsWith(aName, "woman_sorceress_special_quen")) {
-			return ENR_SpecialSphere;
-		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_tornado")) {
-			return ENR_SpecialTornado;
-		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_control")) {
-			return ENR_SpecialControl;
-		} else if (StrStartsWith(aName, "woman_sorceress_special_attack_golem")) {
-			return ENR_SpecialGolem;
-		} else {
-			NRD("Unknown attack: aName = " + aName);
-			return ENR_Unknown;
-		}
+	public function SetActionType(type : ENR_MagicAction) {
+		aActionType = type;
+	}
+	public function GetActionType() : ENR_MagicAction {
+		return aActionType;
 	}
 	public function DEV_AddActionCustom( action : NR_MagicAction, optional isCursed : bool ) {
 		if (!action) {
@@ -503,12 +500,15 @@ state MagicLoop in NR_MagicManager {
 	event OnLeaveState( nextStateName : name )
 	{
 	}
+	/* Creates instance of new magic action, when 'InitAction' event from anim received */
 	latent function InitMagicAction(animName : String) {
 		var type : ENR_MagicAction;
 		var    i : int;
 
+		mAction = NULL;
 		parent.aName = animName;
 		type = parent.GetActionType();
+		NRD("InitMagicAction: type = " + type);
 		switch(type) {
 			case ENR_Slash:
 				mAction = new NR_MagicSlash in this;
@@ -550,6 +550,15 @@ state MagicLoop in NR_MagicManager {
 			case ENR_SpecialSphere:
 				mAction = new NR_MagicSpecialSphere in this;
 				break;
+			case ENR_SpecialTransform:
+				mAction = new NR_MagicSpecialTransform in this;
+				break;
+			case ENR_SpecialMeteorFall:
+			case ENR_SpecialLightningFall:
+			case ENR_SpecialLumos:
+			case ENR_SpecialAxiiAlternate:
+				NRE("Not implemented attack type: " + type);
+				break;
 			default:
 				NRE("Unknown attack type: " + type);
 				break;
@@ -568,6 +577,7 @@ state MagicLoop in NR_MagicManager {
 	}
 	latent function PrepareMagicAction() {
 		if (mAction) {
+			NRD("PrepareMagicAction: type = " + mAction.actionType);
 			if ( mAction.actionType == ENR_Slash ) {
 				((NR_MagicSlash)mAction).SetSwingData(parent.aData.swingType, parent.aData.swingDir);
 			} else if ( mAction.actionType == ENR_Teleport ) {
@@ -584,6 +594,7 @@ state MagicLoop in NR_MagicManager {
 		var    i : int;
 
 		if (mAction) {
+			NRD("PerformMagicAction: type = " + mAction.actionType);
 			mAction.OnPerform();
 		} else {
 			NRE("MM: PerformMagicAction: NULL mAction!");

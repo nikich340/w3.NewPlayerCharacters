@@ -1658,7 +1658,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		if ( !comboPlayer )
 		{
 			BuildComboPlayer();
-		}		
+		}
 
 		enableSoftLock = true;
 		if ( parent.IsInCombat() 
@@ -1694,7 +1694,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			playerToTargetVec = parent.GetWorldPosition() - noSlideTargetPos;
 		}			
 		
-		
 		if ( parent.IsInState('CombatFists') ) {
 			/* CHECK IF FINISHER POSSIBLE */
 			if ( parent.slideTarget && attackTarget && parent.IsThreat(attackTarget) && CanPerformFinisherOnAliveTarget(attackTarget)
@@ -1709,7 +1708,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				TryPeformMagicAttack( 'AttackLight' );
 			} else if ( playerAttackType == theGame.params.ATTACK_NAME_HEAVY )
 			{
-				
 				//thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );		
 				TryPeformMagicAttack( 'AttackHeavy' );
 			} else if ( playerAttackType == 'attack_magic_push' )
@@ -1717,40 +1715,39 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				TryPeformMagicAttack( 'AttackPush' );
 			} else if ( playerAttackType == 'attack_magic_special' )
 			{
-					ResetTimeToEndCombat();
-					Sleep(0.2f);
-					isAlternateAttack = (theInput.GetActionValue( 'CastSignHold' ) > 0.f);
-					NRD("ProcessAttack: isAlternate = " + isAlternateAttack);
-					switch ( parent.GetEquippedSign() ) {
-						case ST_Aard:
-							if (isAlternateAttack)
-								TryPeformMagicAttack( 'AttackSpecialLongAard' );
-							else
-								TryPeformMagicAttack( 'AttackSpecialAard' );
-							break;
-						case ST_Yrden:
-							if (isAlternateAttack)
-								TryPeformMagicAttack( 'AttackSpecialLongYrden' );
-							else
-								TryPeformMagicAttack( 'AttackSpecialYrden' );
-							break;
-						case ST_Axii:
-							if (isAlternateAttack)
-								TryPeformMagicAttack( 'AttackSpecialLongAxii' );
-							else
-								TryPeformMagicAttack( 'AttackSpecialAxii' );
-							break;
-						case ST_Igni:
-							if (isAlternateAttack)
-								TryPeformMagicAttack( 'AttackSpecialLongIgni' );
-							else
-								TryPeformMagicAttack( 'AttackSpecialIgni' );
-							break;
-						default:
-							NRE("Process attack: attack_magic_special: Unknown sign value = " + parent.GetEquippedSign());
-							TryPeformMagicAttack( 'AttackLight' );
-							break;
-					}
+				ResetTimeToEndCombat();
+				Sleep(0.2f);
+				isAlternateAttack = (theInput.GetActionValue( 'CastSignHold' ) > 0.f);
+				NRD("ProcessAttack: isAlternate = " + isAlternateAttack);
+				switch ( parent.GetEquippedSign() ) {
+					case ST_Aard:
+						if (isAlternateAttack)
+							TryPeformMagicAttack( 'AttackSpecialLongAard' );
+						else
+							TryPeformMagicAttack( 'AttackSpecialAard' );
+						break;
+					case ST_Yrden:
+						if (isAlternateAttack)
+							TryPeformMagicAttack( 'AttackSpecialLongYrden' );
+						else
+							TryPeformMagicAttack( 'AttackSpecialYrden' );
+						break;
+					case ST_Axii:
+						if (isAlternateAttack)
+							TryPeformMagicAttack( 'AttackSpecialLongAxii' );
+						else
+							TryPeformMagicAttack( 'AttackSpecialAxii' );
+						break;
+					case ST_Igni:
+						if (isAlternateAttack)
+							TryPeformMagicAttack( 'AttackSpecialLongIgni' );
+						else
+							TryPeformMagicAttack( 'AttackSpecialIgni' );
+						break;
+					default:
+						NRE("Process attack: attack_magic_special: Unknown sign value = " + parent.GetEquippedSign());
+						TryPeformMagicAttack( 'AttackLight' );
+						break;
 				}
 			}
 			else

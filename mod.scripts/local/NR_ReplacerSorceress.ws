@@ -1,6 +1,6 @@
 statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	public var testMan 	 	: NR_TestManager;
-	public var magicMan 	 : NR_MagicManager;
+	public var magicManager 	 : NR_MagicManager;
 	public var nr_signOwner : W3SignOwnerPlayer;
 
 	default replacerName      = "nr_replacer_sorceress";
@@ -19,9 +19,9 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
-		magicMan = new NR_MagicManager in this;
-		magicMan.InitDefaults();
-		magicMan.GotoState('MagicLoop');
+		magicManager = new NR_MagicManager in this;
+		magicManager.InitDefaults();
+		magicManager.GotoState('MagicLoop');
 
 		super.OnSpawned( spawnData );
 		AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend'); // TODO: Remove this later!!
@@ -50,7 +50,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
         if (damageAction.GetEffects( effectInfos ) > 0 || damageAction.DealsAnyDamage()) {
         	magicEvent.eventName = 'BreakMagicAttack';
-        	magicMan.aEventsStack.PushBack(magicEvent);
+        	magicManager.aEventsStack.PushBack(magicEvent);
         	PrintDamageAction("ReactToBeingHit", damageAction);
         }
         NR_Notify("ReactToBeingHit, damage = " + damageAction.DealsAnyDamage());
@@ -68,7 +68,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	function SetEquippedSign( signType : ESignType )
 	{
 		super.SetEquippedSign(signType);
-		magicMan.HandFX(true, true);
+		magicManager.HandFX(true, true);
 	}
 
 	/* Wrapper: call fistfight attack on everything except Quen */
@@ -115,5 +115,5 @@ function NR_GetMagicManager() : NR_MagicManager
 {
 	var sorceress : NR_ReplacerSorceress;
 	sorceress = NR_GetReplacerSorceress();
-	return sorceress.magicMan;
+	return sorceress.magicManager;
 }

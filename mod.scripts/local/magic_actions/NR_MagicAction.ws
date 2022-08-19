@@ -101,13 +101,13 @@ abstract statemachine class NR_MagicAction {
 		return isPrepared && !isBroken;
 	}
 	function OnPerformed(result : bool) : bool {
-		var magicMan : NR_MagicManager;
+		var magicManager : NR_MagicManager;
 
 		isPerformed = result;
 		if (result && drainStaminaOnPerform) {
-			magicMan = NR_GetMagicManager();
-			if (magicMan)
-				magicMan.DrainStaminaForAction(actionName);
+			magicManager = NR_GetMagicManager();
+			if (magicManager)
+				magicManager.DrainStaminaForAction(actionName);
 		}
 		return result;
 	}

@@ -40,14 +40,14 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		//magicEvent.eventDuration = GetEventDurationFromEventAnimInfo(animInfo);
 		NRD("OnAnimEventMagic:: eventName = " + magicEvent.eventName + ", type = " + animEventType + ", animName = " + magicEvent.animName);
 		// will be auto-processed async in next frame
-		parent.magicMan.aEventsStack.PushBack(magicEvent);
+		parent.magicManager.aEventsStack.PushBack(magicEvent);
 	}
 	
 	event OnPreAttackEvent(animEventName : name, animEventType : EAnimationEventType, data : CPreAttackEventData, animInfo : SAnimationEventAnimInfo)
 	{
 		if (animEventType == AET_DurationStart) {
 			// must be processed in sync to change data var
-			parent.magicMan.OnPreAttackEvent(GetAnimNameFromEventAnimInfo(animInfo), data);
+			parent.magicManager.OnPreAttackEvent(GetAnimNameFromEventAnimInfo(animInfo), data);
 		}
 		virtual_parent.OnPreAttackEvent(animEventName, animEventType, data, animInfo);
 	}
@@ -71,9 +71,9 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		var predictedDodgeRot : EulerAngles;
 		var Z : float;
 
-		if ( playerEvadeType == PET_Roll && parent.magicMan.HasStaminaForAction( 'TeleportFar' ) ) {
+		if ( playerEvadeType == PET_Roll && parent.magicManager.HasStaminaForAction( 'TeleportFar' ) ) {
 			teleportLength = 16.0f;
-		} else if ( parent.magicMan.HasStaminaForAction( 'TeleportClose' ) ) {
+		} else if ( parent.magicManager.HasStaminaForAction( 'TeleportClose' ) ) {
 			teleportLength = 8.0f;
 		} else {
 			return;
@@ -123,7 +123,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 				predictedDodgeRot.Yaw = playerToTargetHeading;
 			}
 		}
-		parent.magicMan.aTeleportPos = predictedDodgePos;
+		parent.magicManager.aTeleportPos = predictedDodgePos;
 
 		NRD("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
 		parent.SetBehaviorVariable( 'dodgeNum', 0 );
@@ -140,9 +140,9 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			parent.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
 
 			if( teleportLength > 8.f ) {
-				parent.magicMan.DrainStaminaForAction( 'TeleportFar' );
+				parent.magicManager.DrainStaminaForAction( 'TeleportFar' );
 			} else {
-				parent.magicMan.DrainStaminaForAction( 'TeleportClose' );
+				parent.magicManager.DrainStaminaForAction( 'TeleportClose' );
 			}
 
 			// Perk 21 - all defensive actions generate adrenaline
@@ -159,7 +159,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		parent.WaitForBehaviorNodeDeactivation( 'DodgeComplete', 1.5f );
 		parent.SetIsCurrentlyDodging(false);
-		// it is set in magicMan on teleport end
+		// it is set in magicManager on teleport end
 		//parent.SetImmortalityMode( AIM_None, AIC_Combat );
 		//parent.SetImmortalityMode( AIM_None, AIC_Default );
 	}
@@ -199,14 +199,14 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		thePlayer.inv.RemoveItemByCategory('fist', -1);
 
 		ids = thePlayer.inv.AddAnItem('nr_fists', 1, true, true, false);
-		parent.magicMan.UpdateFistsLevel( ids[0] );
+		parent.magicManager.UpdateFistsLevel( ids[0] );
 
 		parent.SetRequiredItems('Any', 'fist' );
 		parent.ProcessRequiredItems();
-		parent.magicMan.HandFX(true);
+		parent.magicManager.HandFX(true);
 	}
 	latent function NR_UnequipMagicFists() {
-		parent.magicMan.HandFX(false);
+		parent.magicManager.HandFX(false);
 		thePlayer.inv.RemoveItemByCategory('fist', -1);
 		thePlayer.inv.AddAnItem( 'Geralt fists', 1, true, true, false );
 

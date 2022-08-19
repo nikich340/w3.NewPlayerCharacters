@@ -1615,7 +1615,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	latent function TryPeformMagicAttack( attackName : name ) {
 		ResetTimeToEndCombat();
 
-		if ( parent.magicMan.HasStaminaForAction(attackName) ) {
+		if ( parent.magicManager.HasStaminaForAction(attackName) ) {
 			comboPlayer.PlayAttack( attackName );
 			NRD("TryPeformMagicAttack: " + attackName);
 		} else {
@@ -1697,8 +1697,8 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		if ( parent.IsInState('CombatFists') ) {
 			/* CHECK IF FINISHER POSSIBLE */
 			if ( parent.slideTarget && attackTarget && parent.IsThreat(attackTarget) && CanPerformFinisherOnAliveTarget(attackTarget)
-			&& attackTarget.GetHealthPercents() <= parent.magicMan.GetMaxHealthPercForFinisher()
-				&& RandRange(100) <= parent.magicMan.GetChancePercForFinisher() )
+			&& attackTarget.GetHealthPercents() <= parent.magicManager.GetMaxHealthPercForFinisher()
+				&& RandRange(100) <= parent.magicManager.GetChancePercForFinisher() )
 			{
 					TryPeformMagicAttack( 'AttackFinisher' );
 			} else if( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )

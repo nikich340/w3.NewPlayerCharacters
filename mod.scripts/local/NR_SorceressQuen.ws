@@ -24,7 +24,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		GetSignStats();
 
 		sorceress = NR_GetReplacerSorceress();
-		if ( sorceress && !sorceress.magicMan.HasStaminaForAction('AttackSpecialQuen') ) {
+		if ( sorceress && !sorceress.magicManager.HasStaminaForAction('AttackSpecialQuen') ) {
 			sorceress.SoundEvent( "gui_ingame_low_stamina_warning" );
 			CleanUp();
 			Destroy();
@@ -69,11 +69,11 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	event OnStarted() 
 	{
 		var isAlternate		: bool;
-		var magicManager		: NR_MagicManager;
+		var magicManagerager		: NR_MagicManager;
 		
-		magicManager = NR_GetMagicManager();
-		if (magicManager) {
-			magicManager.DrainStaminaForAction('AttackSpecialQuen');
+		magicManagerager = NR_GetMagicManager();
+		if (magicManagerager) {
+			magicManagerager.DrainStaminaForAction('AttackSpecialQuen');
 		}
 
 		// --- owner.ChangeAspect( this, S_Magic_s04 );

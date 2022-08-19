@@ -1646,240 +1646,120 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var comp					: CComponent;
 		var compEnabled				: bool;
 		var useNormalAttack 		: bool;
-		var isAlternateSign	 		: bool;
+		var isAlternateAttack 		: bool;
 
 		parent.RemoveTimer( 'ProcessAttackTimer' );
 		parent.RemoveTimer( 'AttackTimerEnd' );
 		npc = (CNewNPC)parent.slideTarget;
 		NRD("ProcessAttack: playerAttackType = " + playerAttackType + ", performApproachAttack = " + performApproachAttack);
+			
+		parent.GetMovingAgentComponent().GetMovementAdjustor().CancelAll();
+
+		if ( !comboPlayer )
+		{
+			BuildComboPlayer();
+		}		
+
+		enableSoftLock = true;
+		if ( parent.IsInCombat() 
+			&& thePlayer.IsSprintActionPressed()
+			&& !parent.bLAxisReleased
+			&& !parent.IsActorLockedToTarget()
+			&& parent.GetForceDisableUpdatePosition() )
+			enableSoftLock = false;
 		
-		if(npc)
+		updatePosition = true;
+		if ( !enableSoftLock )
+			updatePosition = false;
+		
+		attackTarget = (CActor)parent.slideTarget;
+		npcAttackTarget = (CNewNPC)attackTarget;
+
+		if (attackTarget)
 		{
-			comp = npc.GetComponent("Finish");
-			compEnabled = comp.IsEnabled();
+			attackTarget.SetUnpushableTarget( parent );
+			parent.SetUnpushableTarget(attackTarget);
 		}
-		isDeadlySwordHeld = parent.IsDeadlySwordHeld();
-		if ( npc 
-			&& compEnabled
-			&& ( VecDistance( parent.GetWorldPosition(), npc.GetNearestPointInBothPersonalSpaces( parent.GetWorldPosition() ) ) < 1.5f || !isDeadlySwordHeld ) )
-		{
-			if ( !isDeadlySwordHeld )
-			{
-				if ( parent.IsWeaponHeld( 'fist' ))
-					parent.SetBehaviorVariable( 'combatTauntType', 1.f );
-				else
-					parent.SetBehaviorVariable( 'combatTauntType', 0.f );
-					
-				if ( parent.RaiseEvent( 'CombatTaunt' ) )
-					parent.PlayBattleCry( 'BattleCryTaunt', 1.f, true, true );		
-			}
-			else if ( parent.IsWeaponHeld( 'steelsword' ) || parent.IsWeaponHeld( 'silversword' ) )
-			{
-				if ( !theGame.GetWorld().NavigationLineTest( parent.GetWorldPosition(), npc.GetWorldPosition(), 0.4f ) ) 
-				{
-					useNormalAttack = true;
-					comp.SetEnabled( false );
-				}
-				else if ( !parent.isInFinisher )
-				{	
-					npc.SignalGameplayEvent( 'Finisher' );
-					parent.AddTimer( 'AttackTimerEnd', 0.2f );
-				}
-			}
-			else
-			{
-				parent.SetBehaviorVariable( 'combatTauntType', 0.f );
-				
-				if ( parent.RaiseEvent( 'CombatTaunt' ) )
-					parent.PlayBattleCry( 'BattleCryTaunt', 1.f, true, true );
-			}	
-		}
+		parent.SetBehaviorVariable( 'combatActionType', (int)CAT_Attack );
+		
+		if ( parent.slideTarget )
+			playerToTargetVec = parent.slideTarget.GetWorldPosition() - parent.GetWorldPosition();
 		else
-			useNormalAttack = true;
+		{
+			tempPos1 = parent.GetWorldPosition() + parent.GetHeadingVector() * 4;
+			tempPos1.Z += 10.f;
+			tempPos2 = tempPos1;
+			tempPos2.Z -= 20.f;
+			theGame.GetWorld().StaticTrace( tempPos1, tempPos2, noSlideTargetPos, noSlideTargetNormal );
+			playerToTargetVec = parent.GetWorldPosition() - noSlideTargetPos;
+		}			
 		
-		if ( useNormalAttack )
-		{		
-			parent.GetMovingAgentComponent().GetMovementAdjustor().CancelAll();
-
-			if ( !comboPlayer )
-			{
-				BuildComboPlayer();
-			}		
-
-			enableSoftLock = true;
-			if ( parent.IsInCombat() 
-				&& thePlayer.IsSprintActionPressed()
-				&& !parent.bLAxisReleased
-				&& !parent.IsActorLockedToTarget()
-				&& parent.GetForceDisableUpdatePosition() )
-				enableSoftLock = false;
-			
-			updatePosition = true;
-			if ( !enableSoftLock )
-				updatePosition = false;
-			
-			attackTarget = (CActor)parent.slideTarget;
-			npcAttackTarget = (CNewNPC)attackTarget;
-
-			if(attackTarget)
-			{
-				attackTarget.SetUnpushableTarget( parent );
-				parent.SetUnpushableTarget(attackTarget);
-			}
-			parent.SetBehaviorVariable( 'combatActionType', (int)CAT_Attack );
-			
-			if ( parent.slideTarget )
-				playerToTargetVec = parent.slideTarget.GetWorldPosition() - parent.GetWorldPosition();
-			else
-			{
-				tempPos1 = parent.GetWorldPosition() + parent.GetHeadingVector() * 4;
-				tempPos1.Z += 10.f;
-				tempPos2 = tempPos1;
-				tempPos2.Z -= 20.f;
-				theGame.GetWorld().StaticTrace( tempPos1, tempPos2, noSlideTargetPos, noSlideTargetNormal );
-				playerToTargetVec = parent.GetWorldPosition() - noSlideTargetPos;
-			}			
-			
-			/* TRY FINISHER */
+		
+		if ( parent.IsInState('CombatFists') ) {
+			/* CHECK IF FINISHER POSSIBLE */
 			if ( parent.slideTarget && attackTarget && parent.IsThreat(attackTarget) && CanPerformFinisherOnAliveTarget(attackTarget)
-				&& attackTarget.GetHealthPercents() <= parent.magicMan.GetMaxHealthPercForFinisher()
-					&& RandRange(100) <= parent.magicMan.GetChancePercForFinisher() )
+			&& attackTarget.GetHealthPercents() <= parent.magicMan.GetMaxHealthPercForFinisher()
+				&& RandRange(100) <= parent.magicMan.GetChancePercForFinisher() )
 			{
 					TryPeformMagicAttack( 'AttackFinisher' );
-			}
-			else if( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )
+			} else if( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )
 			{
 				if (npc)
 					npc.SignalGameplayEventParamInt('Time2DodgeFast', (int)EDT_Attack_Light );
-				
-				// used for magic v
-				if ( parent.GetCurrentStateName() == 'CombatFists' )
-				{
-					TryPeformMagicAttack( 'AttackLight' );
-				}
-				/*else
-				{	
-					if ( npc && npc.IsUsingHorse() )
-						comboPlayer.PlayAttack('AttackLightVsRider');
-					else if  ( !parent.IsInShallowWater() && npc && ( npc.GetCurrentStance() == NS_Fly || npc.IsInAir() ) ) 
-					{
-						if ( playerToTargetVec.Z >= 0.f )
-							comboPlayer.PlayAttack( 'AttackLightFlying' );
-						else
-							comboPlayer.PlayAttack( 'AttackLightSlopeDown' );
-					}
-					else
-					{	
-						if (attackTarget)
-							targetCapsuleHeight = ((CMovingPhysicalAgentComponent)attackTarget.GetMovingAgentComponent()).GetCapsuleHeight();
-						else
-							targetCapsuleHeight = 0;
-							
-						playerToTargetRot = VecToRotation( playerToTargetVec );
-						
-						 if ( ( playerToTargetVec.Z > 0.4f && AbsF( playerToTargetRot.Pitch ) > 12.f ) || parent.IsInShallowWater() )
-							comboPlayer.PlayAttack( 'AttackLightSlopeUp' );						
-						else if ( playerToTargetVec.Z < -0.35f && AbsF( playerToTargetRot.Pitch ) > 12.f  )
-							comboPlayer.PlayAttack( 'AttackLightSlopeDown' );
-						
-						else if ( !parent.slideTarget )
-							comboPlayer.PlayAttack( 'AttackLight' );
-						else if ( targetCapsuleHeight < 1.5 )
-							comboPlayer.PlayAttack( 'AttackLightCapsuleShort' );
-						else
-							comboPlayer.PlayAttack( 'AttackLight' );
-					}
-				}
-				
-				virtual_parent.OnCombatActionStart();*/
-			}
-			else if ( playerAttackType == theGame.params.ATTACK_NAME_HEAVY )
+				TryPeformMagicAttack( 'AttackLight' );
+			} else if ( playerAttackType == theGame.params.ATTACK_NAME_HEAVY )
 			{
 				
-				thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );				
-			
-				if ( parent.GetCurrentStateName() == 'CombatFists' )
-				{
-					TryPeformMagicAttack( 'AttackHeavy' );
-				}			
-				/*else
-				{
-					if ( npc && npc.IsUsingHorse() )
-						comboPlayer.PlayAttack('AttackHeavyVsRider');
-					else if ( parent.slideTarget )
-					{
-						 if(npc && ( npc.GetCurrentStance() == NS_Fly || npc.IsInAir() ) ) 
-							comboPlayer.PlayAttack( 'AttackHeavyFlying' );
-						
-						else
-							comboPlayer.PlayAttack( 'AttackHeavy' );
-					}
-					else
-					{
-						
-							comboPlayer.PlayAttack( 'AttackHeavy' );
-					}
-				}
-				
-				virtual_parent.OnCombatActionStart();*/
-			}
-			else if ( playerAttackType == 'attack_magic_push' )
+				//thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );		
+				TryPeformMagicAttack( 'AttackHeavy' );
+			} else if ( playerAttackType == 'attack_magic_push' )
 			{
-				//thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );				
-				if ( parent.GetCurrentStateName() == 'CombatFists' )
-				{
-					TryPeformMagicAttack( 'AttackPush' );
-				}
-				//virtual_parent.OnCombatActionStart();
-			}
-			// --- Quen is made via w2beh (Anims are played by sign entity)
-			else if ( playerAttackType == 'attack_magic_special' )
+				TryPeformMagicAttack( 'AttackPush' );
+			} else if ( playerAttackType == 'attack_magic_special' )
 			{
-				//thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );				
-				if ( parent.GetCurrentStateName() == 'CombatFists' )
-				{
-					NRD("timeToCheckCombatEndCur = " + timeToCheckCombatEndCur);
 					ResetTimeToEndCombat();
 					Sleep(0.2f);
-					NRD("2 timeToCheckCombatEndCur = " + timeToCheckCombatEndCur);
-					isAlternateSign = (theInput.GetActionValue( 'CastSignHold' ) > 0.f);
-					NRD("isAlternateSign = " + isAlternateSign);
+					isAlternateAttack = (theInput.GetActionValue( 'CastSignHold' ) > 0.f);
+					NRD("ProcessAttack: isAlternate = " + isAlternateAttack);
 					switch ( parent.GetEquippedSign() ) {
 						case ST_Aard:
-							if (isAlternateSign)
+							if (isAlternateAttack)
 								TryPeformMagicAttack( 'AttackSpecialLongAard' );
 							else
 								TryPeformMagicAttack( 'AttackSpecialAard' );
 							break;
 						case ST_Yrden:
-							if (isAlternateSign)
+							if (isAlternateAttack)
 								TryPeformMagicAttack( 'AttackSpecialLongYrden' );
 							else
 								TryPeformMagicAttack( 'AttackSpecialYrden' );
 							break;
 						case ST_Axii:
-							if (isAlternateSign)
+							if (isAlternateAttack)
 								TryPeformMagicAttack( 'AttackSpecialLongAxii' );
 							else
 								TryPeformMagicAttack( 'AttackSpecialAxii' );
 							break;
 						case ST_Igni:
-							if (isAlternateSign)
+							if (isAlternateAttack)
 								TryPeformMagicAttack( 'AttackSpecialLongIgni' );
 							else
 								TryPeformMagicAttack( 'AttackSpecialIgni' );
 							break;
 						default:
-							NRE("attack_magic_special: Unknown sign value = " + parent.GetEquippedSign());
+							NRE("Process attack: attack_magic_special: Unknown sign value = " + parent.GetEquippedSign());
 							TryPeformMagicAttack( 'AttackLight' );
 							break;
 					}
 				}
-				//virtual_parent.OnCombatActionStart();
 			}
 			else
-				LogChannel( 'PlayerAttackType', "sorceress: playerAttackType does not exist!" );	
-		}	
+			{
+				LogChannel( 'PlayerAttackType', "sorceress: playerAttackType is unknown: " + playerAttackType );
+			}
+		} else {
+			NRE("ProcessAttack: unexpected state: " + parent.GetCurrentStateName() );
+		}
 	}
 
 	timer function SpecialAttackHeavyAllowedTimer( time : float , id : int)

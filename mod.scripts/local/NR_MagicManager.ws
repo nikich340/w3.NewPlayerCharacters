@@ -112,6 +112,7 @@ statemachine class NR_MagicManager {
 
 	public var aIsAlternate 	: Bool;
 	public var aTeleportPos		: Vector;
+	public var aSelectorLight, aSelectorHeavy : NR_MagicAttackSelector;
 	
 	protected var aHandEffect 	: name;
 	protected var i            	: int;
@@ -121,12 +122,15 @@ statemachine class NR_MagicManager {
 	default aHandEffect = '';
 	default aName = "";
 	
-	function InitDefaults() {
+	public function InitDefaults() {
 		sMap.Resize(6);
 		for (i = 0; i <= ST_Universal; i += 1) {
 			sMap[i] = new NR_Map in thePlayer;
 		}
+		aSelectorLight = new NR_MagicAttackSelector in this;
+		aSelectorHeavy = new NR_MagicAttackSelector in this;
 		SetStaminaCost();
+		SetAspectsSelectionDef();
 		SetSlashAttacksDef();
 		SetThrowAttacksDef();
 		SetRockAttacksDef();
@@ -136,8 +140,30 @@ statemachine class NR_MagicManager {
 		SetTeleportFXDef();
 		NRD("MagicManager: InitDefaults");
 	}
+	public function SetAspectsSelectionDef() {
+		aSelectorLight.Reset();
+		aSelectorLight.AddAttack('AttackLightSlash', 	2);
+		aSelectorLight.AddAttack('AttackLightThrow', 	1);
+
+		aSelectorHeavy.Reset();
+		aSelectorHeavy.AddAttack('AttackHeavyRock', 	2);
+		aSelectorHeavy.AddAttack('AttackHeavyArcane', 	1);
+	}
+	public function GetFinalAttackName(attackName : name) : name {
+		switch (attackName) {
+			case 'AttackLight':
+				return aSelectorLight.SelectAttack();
+				break;
+			case 'AttackHeavy':
+				return aSelectorHeavy.SelectAttack();
+				break;
+			default:
+				return attackName;
+				break;
+		}
+	}
 	function SetStaminaCost() {
-		// cost_<AttackType> in % of total stamina
+		// cost_<AttackType> in [0, 1] of total stamina
 		// delay_<AttackType> in milliseconds
 		sMap[ST_Universal].setF("cost_AttackNoStamina", 0.0f);
 		sMap[ST_Universal].setF("delay_AttackNoStamina", 0.0f);

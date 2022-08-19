@@ -1616,11 +1616,12 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		ResetTimeToEndCombat();
 
 		if ( parent.magicManager.HasStaminaForAction(attackName) ) {
+			attackName = parent.magicManager.GetFinalAttackName(attackName);
 			comboPlayer.PlayAttack( attackName );
-			NRD("TryPeformMagicAttack: " + attackName);
+			NRD("Combat.TryPeformMagicAttack: " + attackName);
 		} else {
 			comboPlayer.PlayAttack( 'AttackNoStamina' );
-			NRD("TryPeformMagicAttack: No stamina for: " + attackName);
+			NRD("Combat.TryPeformMagicAttack: No stamina for: " + attackName);
 		}
 		virtual_parent.OnCombatActionStart();
 	}

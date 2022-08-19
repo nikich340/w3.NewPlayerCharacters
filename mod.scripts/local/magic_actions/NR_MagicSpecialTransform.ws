@@ -1,10 +1,9 @@
-class NR_MagicTransform extends NR_MagicSpecialAction {
+class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 	var transformNPC 	: CNewNPC;
 	var idleActionId 	: int;
-	var resName 	: name;
-	var appName 	: name;
+	var appearanceName 	: name;
 
-	default actionType = ENR_SpecialLongTransform;
+	default actionType = ENR_SpecialTransform;
 	default actionName = 'AttackHeavy';
 	
 	latent function OnInit() : bool {
@@ -24,13 +23,30 @@ class NR_MagicTransform extends NR_MagicSpecialAction {
 		return true;
 	}
 	latent function OnPrepare() : bool {
+		var appNames 	: array<name>;
 		super.OnPrepare();
 
 		// load data from map
 		s_specialLifetime = map[ST_Universal].getI("s_transformLifetime", 60);
 
-		resourceName = map[sign].getN("transform_entity", resName);
+		resourceName = map[ST_Universal].getN("s_transformEntity", 'nr_transform_cat');
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
+
+		if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
+			appearanceName = map[ST_Universal].getN("s_transformAppearance", 'cat_20');
+		else
+			appearanceName = map[ST_Universal].getN("s_transformAppearance", 'cat_vanilla_01');
+
+		if ( map[ST_Universal].getI("s_transformAppearanceRandom", 1) > 0 ) {
+			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
+				GetAppearanceNames( entityTemplate, appNames );
+			} else {
+				appNames.PushBack('cat_vanilla_01');
+				appNames.PushBack('cat_vanilla_02');
+				appNames.PushBack('cat_vanilla_03');
+			}
+			appearanceName = appNames[ RandRange(appNames.Size(), 0) ];
+		}
 
 		return OnPrepared(true);
 	}
@@ -47,15 +63,12 @@ class NR_MagicTransform extends NR_MagicSpecialAction {
 		pos = thePlayer.GetWorldPosition();
 		rot = thePlayer.GetWorldRotation();
 		transformNPC = (CNewNPC)theGame.CreateEntity(entityTemplate, pos, rot);
-		transformNPC.PlayEffect('appear');
 		if (!transformNPC) {
 			NRE("transformNPC is invalid.");
 			return OnPerformed(false);
 		}
-		if (IsNameValid(appName)) {
-			transformNPC.ApplyAppearance(appName);
-		}
-
+		transformNPC.PlayEffect('appear');
+		transformNPC.ApplyAppearance( appearanceName );
 		transformNPC.AddTag('NR_TRANSFORM_NPC');
 		transformNPC.SetAttitude( thePlayer, AIA_Friendly );
 
@@ -73,7 +86,7 @@ class NR_MagicTransform extends NR_MagicSpecialAction {
 		GotoState('Stop');
 	}
 }
-state RunWait in NR_MagicTransform {
+state RunWait in NR_MagicSpecialTransform {
 	event OnEnterState( prevStateName : name )
 	{
 		NRD("OnEnterState: " + this);
@@ -91,7 +104,7 @@ state RunWait in NR_MagicTransform {
 		NRD("OnLeaveState: " + this);
 	}
 }
-state Stop in NR_MagicTransform {
+state Stop in NR_MagicSpecialTransform {
 	event OnEnterState( prevStateName : name )
 	{
 		parent.inPostState = true;
@@ -114,7 +127,7 @@ state Stop in NR_MagicTransform {
 		parent.inPostState = false;
 	}
 }
-state Cursed in NR_MagicTransform {
+state Cursed in NR_MagicSpecialTransform {
 	event OnEnterState( prevStateName : name )
 	{
 		parent.inPostState = true;

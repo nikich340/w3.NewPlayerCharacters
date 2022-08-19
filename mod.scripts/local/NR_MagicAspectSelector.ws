@@ -7,7 +7,7 @@
 	selector.SelectAttack();
 */
 
-class NR_MagicAttackSelector {
+class NR_MagicAspectSelector {
 	private var attackNames 	: array<name>;
 	private var attackCounts 	: array<int>;
 

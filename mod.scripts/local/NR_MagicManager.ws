@@ -608,7 +608,8 @@ state MagicLoop in NR_MagicManager {
 	
 	entry function MainLoop() {
 		while(true) {
-			while (parent.aEventsStack.Size() > 0) {
+			SleepOneFrame();
+			if (parent.aEventsStack.Size() > 0) {
 				NRD("MAIN LOOP: anim = " + NameToString(parent.aEventsStack[0].animName) + ", event = " + parent.aEventsStack[0].eventName + ", time: " + EngineTimeToFloat(theGame.GetEngineTime()));
 				switch (parent.aEventsStack[0].eventName) {
 					case 'InitAction':
@@ -634,7 +635,6 @@ state MagicLoop in NR_MagicManager {
 				// pop front - processed
 				parent.aEventsStack.Erase(0);
 			}
-			SleepOneFrame();
 		}
 	}
 }

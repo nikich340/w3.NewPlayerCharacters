@@ -328,7 +328,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		lEditor_MovementRotation 	= 0.f;
 
 		while (true) {
-			SleepOneFrame(); // in case something will do "continue"
+			SleepOneFrame();
 
 			frameTime = theGame.GetEngineTimeAsSeconds();
 			if (!transformNPC.IsAlive()) {

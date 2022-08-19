@@ -167,6 +167,7 @@ state Loop in NR_MagicRock {
 		var spawnRot 						: EulerAngles;
 
 		while (true) {
+			SleepOneFrame();
 			currentTime = EngineTimeToFloat(theGame.GetEngineTime());
 			if (currentTime - parent.lStartTime > 1.5f) {
 				NRE("LoopMove: Perform should have been received? Delay = " + (currentTime - parent.lStartTime));
@@ -205,8 +206,6 @@ state Loop in NR_MagicRock {
 					parent.lProjectiles[i].TeleportWithRotation( spawnPos, spawnRot );
 				}
 			}
-
-			SleepOneFrame();
 		}
 	}
 }

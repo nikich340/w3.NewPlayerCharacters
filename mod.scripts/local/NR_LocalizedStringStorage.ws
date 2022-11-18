@@ -11,11 +11,10 @@ class NR_LocalizedStringStorage extends CEntity {
 			return null;
 		for (i = 0; i < stringKeys.Size(); i += 1) {
 			if (stringKeys[i] == key) {
-				NRD("NR_LocalizedStringStorage Key found: " + key);
 				return stringValues[i];
 			}
 		}
-		NRD("NR_LocalizedStringStorage Key NOT found: " + key);
+		NRD("NR_LocalizedStringStorage: Key NOT found: " + key);
 		return null;
 	}
 	public function GetLocalizedStringById(id : int) : LocalizedString {
@@ -29,6 +28,7 @@ class NR_LocalizedStringStorage extends CEntity {
 				return stringValues[i];
 			}
 		}
+		NRD("NR_LocalizedStringStorage: id NOT found: " + IntToString(id));
 		return null;
 	}
 }

@@ -41,6 +41,7 @@ class NR_MagicSlash extends NR_MagicAction {
 				dummyEntity.PlayEffect(effectHitName);
 			}
 			thePlayer.OnCollisionFromItem( target );
+			targetNPC.NoticeActor( thePlayer );
 		} else if (destroyable) {
 			if (destroyable.reactsToIgni) {
 				destroyable.OnIgniHit(NULL);

@@ -63,6 +63,24 @@ enum ENR_MagicAction {
 
 	ENR_Teleport   // teleport
 }
+enum ENR_MagicColor {
+	ENR_ColorDefault,	// 0
+	ENR_ColorBlack,		// 1
+	ENR_ColorGrey,		// 2
+	ENR_ColorWhite,		// 3
+	ENR_ColorYellow,	// 4
+	ENR_ColorOrange,	// 5
+	ENR_ColorRed,		// 6
+	ENR_ColorPink,		// 7
+	ENR_ColorViolet,	// 8
+	ENR_ColorBlue,		// 9
+	ENR_ColorSeagreen,	// 10
+	ENR_ColorGreen,		// 11
+	    // reserved
+	ENR_ColorSpecial_1,	// 12
+	ENR_ColorSpecial_2,	// 13
+	ENR_ColorSpecial_3	// 14
+}
 function ENR_MagicActionToString(action : ENR_MagicAction) : String {
 	switch (action) {
 		case ENR_Slash:
@@ -106,7 +124,8 @@ statemachine class NR_MagicManager {
 	const var ST_Universal	: int;
 
 	// shared stuff
-	protected var aActionType 		: ENR_MagicAction;
+	protected var mLumosAction 	: NR_MagicSpecialLumos;
+	protected var aActionType 	: ENR_MagicAction;
 	public var aEventsStack 	: array<SNR_MagicEvent>;
 	public var aData 			: CPreAttackEventData;
 	protected var cachedActions 	: array<NR_MagicAction>;
@@ -268,16 +287,49 @@ statemachine class NR_MagicManager {
 		sMap[ST_Axii].setN("bomb_entity", 'arcaneExplosion');
 	}
 	function SetSpecialAttacksDef() {
+		var factValue : int;
+
 		sMap[ST_Aard].setN("tornado_entity", 'nr_tornado');
 
 		//sMap[ST_Aard].setN("meteor_entity", 'eredin_meteorite');
 		//sMap[ST_Yrden].setN("meteor_entity", 'meteor_strong');
 		sMap[ST_Igni].setN("meteor_entity", 'ciri_meteor');
 
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorDefault), 	'lumos_white');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorWhite), 	'lumos_white');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorYellow), 	'lumos_yellow');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorOrange), 	'lumos_orange');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorRed), 		'lumos_red');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorPink), 	'lumos_pink');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorViolet), 	'lumos_violet');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorBlue), 	'lumos_blue');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorSeagreen), 'lumos_seagreen');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorGreen), 	'lumos_green');
+		sMap[ST_Quen].setN("lumos_color_" + IntToString(ENR_ColorSpecial_1),'lumos_multicolor1');
+
+		factValue = FactsQuerySum("nr_lumos_fx");
+
+		switch ( factValue ) {
+			case ENR_ColorDefault:
+			case ENR_ColorWhite:
+				sMap[ST_Quen].setN("lumos_color", 'lumos_white');
+				break;
+			case ENR_ColorYellow:
+				sMap[ST_Quen].setN("lumos_color", 'lumos_yellow');
+				break;
+			case ENR_ColorOrange:
+				sMap[ST_Quen].setN("lumos_color", 'lumos_orange');
+			case ENR_ColorRed:
+				sMap[ST_Quen].setN("lumos_color", 'lumos_red');
+				break;
+		}
+
+		sMap[ST_Quen].setN("lumos_fx", 'lumos_white');
+
 		sMap[ST_Yrden].setN("golem_fx_entity", 'nr_fx_golem1');
-		sMap[ST_Yrden].setN("golem_entity1", 'nr_golem3');
+		/*sMap[ST_Yrden].setN("golem_entity1", 'nr_golem3');
 		sMap[ST_Yrden].setN("golem_entity2", 'nr_golem1');
-		sMap[ST_Yrden].setN("golem_entity3", 'nr_golem2');
+		sMap[ST_Yrden].setN("golem_entity3", 'nr_golem2');*/
 	}
 	function SetHandFXDef() {
 		sMap[ST_Aard].setN("hand_fx", 'hand_fx_yennefer');
@@ -303,7 +355,28 @@ statemachine class NR_MagicManager {
 		sMap[ST_Axii].setN("teleport_out_fx", 'teleport_out_keira');
 	}
 
-	function HandFX(enable: Bool, optional onlyIfActive: Bool) {
+	/* THE ONLY manual way to enable/disable/change color for lumos - don't manipulate effect outside! */
+	public function LumosFX(enable : bool, optional reload : bool) {
+		var      i : int;
+
+		if (!enable || reload) {
+			if (mLumosAction) {
+				mLumosAction.BreakActionSync();
+			}
+		}
+
+		if (enable) {
+			if (!mLumosAction) {
+				mLumosAction = new NR_MagicSpecialLumos in this;
+			}
+			mLumosAction.map 			= sMap;
+			mLumosAction.magicSkill 	= GetSkillLevel();
+
+			//mLumosAction.OnInit();
+			mLumosAction.OnPerformSync();
+		}
+	}
+	public function HandFX(enable: Bool, optional onlyIfActive: Bool) {
 		var newHandEffect 	: name;
 		var sign 			: ESignType;
 
@@ -391,13 +464,16 @@ statemachine class NR_MagicManager {
 
 		// TODO: Fact-based extra skills to reduce stamina
 	}
-	public function HasStaminaForAction(actionName : name) : bool {
-		var costPerc 		: float;
-		var delay 			: float;
-		var playerStamina 	: float = thePlayer.GetStaminaPercents(); // [0.0 - 1.0]
+	public function HasStaminaForAction(actionName : name, optional dontInformGUI : bool) : bool {
+		var costPerc 			: float;
+		var delay 				: float;
+		var playerStaminaPerc 	: float = thePlayer.GetStaminaPercents(); // [0.0 - 1.0]
 
 		GetStaminaValuesForAction(actionName, costPerc, delay);
-		return playerStamina >= costPerc;
+		if (playerStaminaPerc < costPerc && !dontInformGUI) {
+			thePlayer.SetShowToLowStaminaIndication( thePlayer.GetStatMax(BCS_Stamina) * costPerc );
+		}
+		return playerStaminaPerc >= costPerc;
 	}
 	public function DrainStaminaForAction(actionName : name) {
 		var costPerc 		: float;
@@ -485,9 +561,9 @@ statemachine class NR_MagicManager {
 		}
 
 		// BONUS GIFT
-		if (GetSkillLevel() >= ENR_SkillSuperior) {
+		/*if (GetSkillLevel() >= ENR_SkillSuperior) {
 			inv.AddItemCraftedAbility(id, theGame.params.GetRandomMasterworkWeaponAbility(), true);
-		}
+		}*/
 	}
 }
 state MagicLoop in NR_MagicManager {
@@ -535,6 +611,11 @@ state MagicLoop in NR_MagicManager {
 			case ENR_Teleport:
 				mAction = new NR_MagicTeleport in this;
 				break;
+			case ENR_SpecialLumos:
+				if (!parent.mLumosAction)
+					parent.mLumosAction = new NR_MagicSpecialLumos in this;
+				mAction = parent.mLumosAction;
+				break;
 			case ENR_SpecialControl:
 				mAction = new NR_MagicSpecialControl in this;
 				break;
@@ -555,7 +636,6 @@ state MagicLoop in NR_MagicManager {
 				break;
 			case ENR_SpecialMeteorFall:
 			case ENR_SpecialLightningFall:
-			case ENR_SpecialLumos:
 			case ENR_SpecialAxiiAlternate:
 				NRE("Not implemented attack type: " + type);
 				break;
@@ -671,8 +751,39 @@ state MagicLoop in NR_MagicManager {
 				}
 				// pop front - processed
 				parent.aEventsStack.Erase(0);
+			} else {
+				if ( thePlayer.GetCurrentStateName() == 'Exploration' && theInput.IsActionJustPressed( 'SwordSheathe' ) ) {
+					PerformExplorationTeleport();
+				} else if ( thePlayer.GetCurrentStateName() == 'Swimming' && theInput.IsActionJustPressed( 'Ignite' ) ) {
+					PerformDivingAttack();
+				}
 			}
 		}
 	}
+
+	latent function PerformExplorationTeleport() {
+		var startTime : float;
+
+		startTime = theGame.GetEngineTimeAsSeconds();
+		while (theGame.GetEngineTimeAsSeconds() - startTime < 0.2f) {
+			SleepOneFrame();
+			if ( !theInput.IsActionPressed( 'SwordSheathe' ) )
+				break;
+		}
+		NRE("State = " + thePlayer.GetCurrentStateName());
+		if ( theInput.GetLastActivationTime( 'SwordSheathe' ) < 0.2f ) {
+			NRD("PerformExplorationTeleport: EBAT_Dodge");
+			NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Dodge );
+		} else {
+			NRD("PerformExplorationTeleport: EBAT_Roll");
+			NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Roll );
+		}
+	}
+
+	latent function PerformDivingAttack() {
+		NRE("PerformDivingAttack!");
+	}
+	// horse: thePlayer.GetUsedHorseComponent().GetUserCombatManager()
+	//                   W3HorseComponent         
 }
 // !! QuenImpulse()

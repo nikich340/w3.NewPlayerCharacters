@@ -9,6 +9,7 @@ abstract statemachine class NR_MagicAction {
 	var pos 			: Vector;
 	var rot 			: EulerAngles;
 	var sign 			: ESignType;
+	var effectColor 	: ENR_MagicColor;
 	var    i 			: int;
 	var standartCollisions 	: array<name>;
 	const var ST_Universal	: int;
@@ -25,6 +26,7 @@ abstract statemachine class NR_MagicAction {
 	public var drainStaminaOnPerform : bool;
 
 	default actionType 	= ENR_Unknown;
+	default effectColor = ENR_ColorDefault;
 	default actionName 	= '';
 	default isPrepared 	= false;
 	default isPerformed = false;
@@ -212,9 +214,5 @@ abstract statemachine class NR_MagicAction {
 			NRD("Set level (" + newLevel + ") to: " + npc);
 			npc.SetLevel(newLevel);
 		}
-	}
-	function NR_IsAlternateSignCast() : bool {
-		// is correct only after 0.2s of anim start!
-		return theInput.GetActionValue( 'CastSignHold' ) > 0.f;
 	}
 }

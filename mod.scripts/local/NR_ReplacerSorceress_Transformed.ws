@@ -118,7 +118,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 				NRD("GetCurrentGameState: " + theSound.GetCurrentGameState());
 				NRD("GetDefaultGameState: " + theSound.GetCurrentGameState());
 				MAC.SetDiving(true);
-				theSound.NR_EnterGameState( ESGS_Underwater );
+				theSound.EnterGameState( ESGS_Underwater );
 				theSound.SoundEvent("fx_underwater_on");
 			}
 			IN_WATER = true;

@@ -1,4 +1,4 @@
-class NR_MagicSpecialMeteor extends NR_MagicAction {
+class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 	var projectile 		: W3AdvancedProjectile;
 	default actionType = ENR_SpecialMeteor;
 	default actionName 	= 'AttackSpecialIgni';

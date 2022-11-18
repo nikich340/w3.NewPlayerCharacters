@@ -490,6 +490,19 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			str.AddAttack( 'woman_sorceress_special_attack_electricity_lp', ADIST_Medium );
 		}
 
+		/* 2.8 (1.66) */
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialPray' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_pray_cast_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_pray_cast_rp', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_pray_cast_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_pray_cast_lp', ADIST_Medium );
+		}
+
 		/* 3.33 (1.1974) */
 		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialFireball' );
 		{

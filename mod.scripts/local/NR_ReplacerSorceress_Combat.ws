@@ -451,7 +451,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			return;
 		}
 	
-		parent.findMoveTargetDistMin = 10.f;
+		parent.findMoveTargetDistMin = parent.nr_targetDist;
 		moveTargetNPC = (CNewNPC)(parent.moveTarget);
 		if ( virtual_parent.GetPlayerCombatStance() == PCS_AlertNear || virtual_parent.GetPlayerCombatStance() == PCS_Guarded )
 			parent.findMoveTargetDist = parent.findMoveTargetDistMax;
@@ -476,7 +476,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 					targetCapsuleHeight = ( (CMovingPhysicalAgentComponent)parent.moveTarget.GetMovingAgentComponent() ).GetCapsuleHeight();
 					if ( targetCapsuleHeight > 2.f )  
 					{
-						parent.findMoveTargetDistMin = 15.f;
+						parent.findMoveTargetDistMin = parent.nr_targetDist + 5.f;
 						parent.findMoveTargetDist = parent.findMoveTargetDistMin;
 						
 						if ( playerToTargetDist <= parent.findMoveTargetDist )
@@ -1720,9 +1720,8 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			} else if ( playerAttackType == 'attack_magic_special' )
 			{
 				ResetTimeToEndCombat();
-				Sleep(0.22f);
-				isAlternateAttack = (theInput.GetActionValue( 'CastSignHold' ) > 0.f);
-				NRD("ProcessAttack: isAlternate = " + isAlternateAttack);
+				isAlternateAttack = CheckIsAlternateAttack( 0.2f );
+				NRD("Combat.ProcessAttack: isAlternate = " + isAlternateAttack);
 				switch ( parent.GetEquippedSign() ) {
 					case ST_Aard:
 						if (isAlternateAttack)
@@ -1750,10 +1749,11 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 						break;
 					case ST_Quen:
 						if (isAlternateAttack) {
-							// TODO: AttackSpecialLumos : woman_work_stand_praying_start + woman_work_stand_praying_stop
-							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialLumos );
-							break;
+							TryPeformMagicAttack( 'AttackSpecialPray', ENR_SpecialLumos );
+						} else {
+							parent.CastQuen();
 						}
+						break;
 						/* non-alternative quen must be handled by w2beh */
 					default:
 						NRE("Process attack: attack_magic_special: Unknown sign value = " + parent.GetEquippedSign());
@@ -1768,6 +1768,21 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		} else {
 			NRE("ProcessAttack: unexpected state: " + parent.GetCurrentStateName() );
 		}
+	}
+
+	latent function CheckIsAlternateAttack(minHoldTime : float) : bool {
+		var startTime : float;
+
+		startTime = theGame.GetEngineTimeAsSeconds();
+
+		while (theGame.GetEngineTimeAsSeconds() - startTime < minHoldTime) {
+			SleepOneFrame();
+			if ( !theInput.IsActionPressed( 'CastSign' ) ) {
+				NR_Notify("Hold time: " + FloatToStringPrec(theGame.GetEngineTimeAsSeconds() - startTime, 5));
+				return false;
+			}
+		}
+		return true;
 	}
 
 	timer function SpecialAttackHeavyAllowedTimer( time : float , id : int)

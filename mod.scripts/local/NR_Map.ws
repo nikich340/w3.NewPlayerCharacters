@@ -73,6 +73,10 @@ class NR_Map {
 		values.Erase(i);
 		return true;
 	}
+	function hasKey(_key : String) : bool {
+		i = keyIndex(_key);
+		return (i >= 0);
+	}
 	function getI(_key : String, optional defaultValue : int) : int {
 		i = keyIndex(_key);
 		if (i < 0)

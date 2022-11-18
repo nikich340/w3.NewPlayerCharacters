@@ -124,6 +124,7 @@ state Stop in NR_MagicSpecialTransform {
 	event OnLeaveState( nextStateName : name )
 	{
 		// can be removed from cached/cursed actions
+		NRD("NR_MagicSpecialTransform: Stop: OnLeaveState");
 		parent.inPostState = false;
 	}
 }
@@ -134,7 +135,7 @@ state Cursed in NR_MagicSpecialTransform {
 		Curse();
 	}
 	entry function Curse() {
-		// TODO ? Sleep( parent.s_specialLifetime );
+		// TODO ?
 		// do nothing atm
 		parent.StopAction();
 	}

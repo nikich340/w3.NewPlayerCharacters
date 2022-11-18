@@ -1,9 +1,11 @@
 statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
-	public var testMan 	 	: NR_TestManager;
-	public var magicManager 	 : NR_MagicManager;
-	public var nr_signOwner : W3SignOwnerPlayer;
+	public var magicManager 	: NR_MagicManager;
+	public var nr_signOwner 	: W3SignOwnerPlayer;
+	protected saved var nr_lumosActive	: bool;
+	protected var nr_targetDist : float;
 
-	default replacerName      = "nr_replacer_sorceress";
+	default nr_lumosActive 	  = false;
+	default m_replacerType    = ENR_PlayerSorceress;
 	default inventoryTemplate = "nr_replacer_sorceress_inv";
 
 	/* Remove guarded stance - sorceress never use real fistfight */
@@ -22,6 +24,9 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		magicManager = new NR_MagicManager in this;
 		magicManager.InitDefaults();
 		magicManager.GotoState('MagicLoop');
+		NR_Notify("nr_lumosActive = " + nr_lumosActive);
+		if (nr_lumosActive)
+			magicManager.LumosFX(true);
 
 		super.OnSpawned( spawnData );
 		AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend'); // TODO: Remove this later!!
@@ -35,12 +40,26 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		// signOwner is private in W3PlayerWitcher.. add our own!
 		nr_signOwner = new W3SignOwnerPlayer in this;
 		nr_signOwner.Init( this );
+
+		NR_SetTargetDist( 0.0, 0 );
+		softLockDist = nr_targetDist * 1.25;
+		findMoveTargetDistMax = nr_targetDist + 10.f;
+	}
+
+	function SetLumosActive(active : bool) {
+		nr_lumosActive = active;
+	}
+
+	timer function NR_SetTargetDist( delta : float, id : int ) {
+		nr_targetDist = 17.f; // TODO: use settings value
+		findMoveTargetDistMin = nr_targetDist;
+		NRD("NR_SetTargetDist");
 	}
 	
 	// TODO: Remove this later!!
 	event OnAnimEventBlend( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
 	{
-		NR_Notify("OnAnimEventBlend:: eventName = " + animEventName + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
+		//NR_Notify("OnAnimEventBlend:: eventName = " + animEventName + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
 	}
 
 	/* Break current magic attack, if it's in process */
@@ -71,21 +90,27 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		magicManager.HandFX(true, true);
 	}
 
-	/* Wrapper: call fistfight attack on everything except Quen */
+	public function GotoCombatStateWithDodge( bufferAction : EBufferActionType )
+	{
+		thePlayer.GotoCombatStateWithAction( IA_None );
+		thePlayer.EvadePressed(EBAT_Dodge);
+	}
+
+	/* Function to really cast Quen (when we are sure that attack is not alternate) */
+	public function CastQuen() : bool
+	{
+		NRD("CastQuen()");
+		/* make standart Quen launching to use vanilla logic */
+		SetBehaviorVariable('NR_isMagicAttack', 1) ;
+		return super.CastSign();
+	}
+
+	/* Wrapper: call fistfight attack */
 	function CastSign() : bool
 	{
-		var sign : ESignType;
-		sign = GetWitcherPlayer().GetEquippedSign();
+		NRD("CastSign()");
 		GotoCombatStateWithAction( IA_None );
-
-		switch (sign) {
-			case ST_Quen:
-				/* make standart Quen launching to use vanilla logic */
-				SetBehaviorVariable('NR_isMagicAttack', 1) ;
-				return super.CastSign();
-			default:
-				return OnPerformAttack('attack_magic_special');
-		}
+		return OnPerformAttack('attack_magic_special');
 	}
 
 	// TODO: Why is it here?

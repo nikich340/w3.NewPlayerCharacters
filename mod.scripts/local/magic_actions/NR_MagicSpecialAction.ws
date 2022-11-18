@@ -26,7 +26,7 @@ abstract statemachine class NR_MagicSpecialAction extends NR_MagicAction {
 	}
 }
 /*
-state Run in NR_MagicSpecialAction {
+state RunWait in NR_MagicSpecialAction {
 	event OnEnterState( prevStateName : name )
 	{		
 	}

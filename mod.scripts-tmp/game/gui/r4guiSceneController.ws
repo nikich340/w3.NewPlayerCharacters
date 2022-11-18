@@ -204,8 +204,8 @@ class CR4GuiSceneController
 		var       i, j : int;
 
 		if ( nr_manager && nr_manager.IsReplacerActive() ) {
-			for (i = 0; i < nr_manager.appearanceTemplates.Size(); i += 1) {
-				templateResource = (CEntityTemplate) LoadResource( nr_manager.appearanceTemplates[i], nr_manager.appearanceTemplateIsDepotPath[i] );
+			for (i = 0; i < nr_manager.m_appearanceTemplates.Size(); i += 1) {
+				templateResource = (CEntityTemplate) LoadResource( nr_manager.m_appearanceTemplates[i], nr_manager.m_appearanceTemplateIsDepotPath[i] );
 				if (templateResource)
 					extraTemplateResources.PushBack(templateResource);
 			}

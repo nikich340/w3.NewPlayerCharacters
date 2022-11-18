@@ -184,8 +184,20 @@ exec function spell_scene(inp : int) {
 
 		theGame.GetStorySceneSystem().PlayScene(scene, "spell_" + IntToString(play_index));
 		//theGame.GetStorySceneSystem().PlayScene(scene, "hag_wall");
-	}
+}
 
+exec function player_scene() {
+		var scene : CStoryScene;
+		var path : String;
+
+		path = "dlc/dlcnewreplacers/data/scenes/01.player_change.w2scene";
+		//path = "dlc\dlcntr\data\scenes\03.geralt_oneliners.w2scene";
+		scene = (CStoryScene)LoadResource(path, true);
+		if (!scene)
+			NRE("NULL scene!");
+
+		theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+	}
 /*exec function checkSlot() {
 	var template : CEntityTemplate;
 	var slot : EntitySlot;
@@ -209,14 +221,22 @@ exec function spell_scene(inp : int) {
 */
 
 //characters\npc_entities\monsters\wolf_lvl1.w2ent
-exec function pspawn(path : string) {
+exec function pspawn(path : string, optional app : string) {
 	var template : CEntityTemplate;
+	var entity : CEntity;
 	var npc : CNewNPC;
 	var pos : Vector;
 
 	template = (CEntityTemplate)LoadResource(path, true);
 	pos = thePlayer.GetWorldPosition() + VecRingRand(1.f,2.f);
-	theGame.CreateEntity(template, pos);
+	entity = theGame.CreateEntity(template, pos);
+	entity.AddTag('NR_TEMP');
+	if (app != "") {
+		npc = (CNewNPC)entity;
+		if (npc) {
+			npc.ApplyAppearance(app);
+		}
+	}
 }
 
 class NR_TestManager {
@@ -614,6 +634,9 @@ exec function getInRange(range : float, optional makeFriendly : bool) {
         
     for (i = 0; i < entities.Size(); i += 1) {
         LogChannel('getInRange', "entity: " + entities[i]);
+        LogChannel('getInRange', "   " + entities[i]);
+        LogChannel('getInRange', "   - pos: " + VecToString(entities[i].GetWorldPosition()));
+           LogChannel('getInRange', "   - rot: " + EulerToString(entities[i].GetWorldRotation()));
         tags = entities[i].GetTags();
 
         for (t = 0; t < tags.Size(); t += 1) {

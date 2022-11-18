@@ -1,6 +1,6 @@
 statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
-	default replacerName      = "nr_replacer_witcheress";
-	default inventoryTemplate = "nr_replacer_witcheress_inv";
+	default m_replacerType      = ENR_PlayerWitcheress;
+	default inventoryTemplate 	= "nr_replacer_witcheress_inv";
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{

@@ -1,11 +1,206 @@
+repository:
+  actors:
+    geralt:
+      template: "gameplay\\templates\\characters\\player\\player.w2ent"
+
+    ciri:
+      template: "characters\\npc_entities\\main_npc\\ciri.w2ent"
+      appearance: [ "ciri" ]
+
+    rosa_var_attre:
+      template: "characters\\npc_entities\\secondary_npc\\rosa_var_attre.w2ent"
+      appearance: [ "rosa_fancing" ]
+
+    eskel:
+      template: "characters\\npc_entities\\main_npc\\eskel.w2ent"
+      appearance: [ "eskel" ]
+
+    yennefer:
+      template: "characters\\npc_entities\\main_npc\\yennefer.w2ent"
+      appearance: [ "yennefer_travel_outfit" ]
+
+  actor.poses:
+    pose_2124_High_Standing_Ready_Combat:
+      name: "Standing Ready"
+      emotional_state: "Combat"
+      status: "High"
+      idle_anim: "dialogue_witcher_combat_pose_ready"
+
+    pose_2125_High_Standing_Relaxed_Combat:
+      name: "Standing Relaxed"
+      emotional_state: "Combat"
+      status: "High"
+      idle_anim: "dialogue_witcher_combat_pose_relaxed"
+
+    pose_0_woman_sorceress_idle_lp_01:
+      idle_anim: "woman_sorceress_idle_lp_01"
+
+    pose_0_high_standing_determined_idle:
+      idle_anim: "high_standing_determined_idle"
+
+  cameras:
+    cam_1_Shot_cam_type:
+      fov: 40.0
+      transform:
+        pos: [ 0.5884552598, 3.5039258003, 1.5065231323 ]
+        rot: [ 0.0, 355.9250183105, 221.9091033936 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.8297445774, 4.8297443390 ]
+        focus: [ 2.3297445774, 3.3297445774 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_2_Shot_cam_hair1:
+      fov: 30.0
+      transform:
+        pos: [ 1.4421076775, 2.6529774666, 1.7315254211 ]
+        rot: [ 0.0, 358.9250183105, 232.9591674805 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.1162800789, 4.1162800789 ]
+        focus: [ 1.6162800789, 2.6162800789 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_3_Shot_cam_hair2:
+      fov: 30.0
+      transform:
+        pos: [ 1.1573910713, 1.9765069485, 1.7315254211 ]
+        rot: [ 0.0, 358.8250122070, 267.6091613770 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.1988117695, 4.1988115311 ]
+        focus: [ 1.6988117695, 2.6988117695 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_4_Shot_cam_body1:
+      fov: 35.0
+      transform:
+        pos: [ 0.4778848886, 3.1361451149, 1.3565216064 ]
+        rot: [ 0.0, 358.5250244141, 231.9341735840 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.6634736061, 4.6634736061 ]
+        focus: [ 2.1634736061, 3.1634736061 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_5_Shot_cam_body2:
+      fov: 35.0
+      transform:
+        pos: [ 0.3434577584, 1.2887669802, 1.3565216064 ]
+        rot: [ 0.0, 359.0500183105, 278.8841552734 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.6708073616, 4.6708073616 ]
+        focus: [ 2.1708073616, 3.1708073616 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_6_Shot_cam_hands1:
+      fov: 30.0
+      transform:
+        pos: [ 1.2264637947, 2.5469331741, 0.8315162659 ]
+        rot: [ 0.0, 9.3000125885, 229.1841735840 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 0.5996035337, 3.5996036530 ]
+        focus: [ 1.0996035337, 2.0996036530 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_7_Shot_cam_hands2:
+      fov: 30.0
+      transform:
+        pos: [ 1.0118670464, 1.7680970430, 0.9065170288 ]
+        rot: [ 0.0, 6.9250135422, 266.5841674805 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 0.7745701075, 3.7745699883 ]
+        focus: [ 1.2745701075, 2.2745699883 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_8_Shot_cam_feet1:
+      fov: 30.0
+      transform:
+        pos: [ 1.2264637947, 2.5469331741, 0.6815147400 ]
+        rot: [ 0.0, 339.9500122070, 239.9091796875 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 0.5266947746, 3.5266947746 ]
+        focus: [ 1.0266947746, 2.0266947746 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_9_Shot_cam_feet2:
+      fov: 30.0
+      transform:
+        pos: [ 1.0129871368, 1.5483723879, 0.6815147400 ]
+        rot: [ 0.0, 341.8000183105, 278.3591613770 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 0.7228487730, 3.7228488922 ]
+        focus: [ 1.2228487730, 2.2228488922 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_10_Shot_cam_main:
+      fov: 40.0
+      transform:
+        pos: [ -0.5251377821, 4.0943279266, 1.5065231323 ]
+        rot: [ 0.0, 356.0500183105, 225.4091033936 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.9442839622, 5.9442839622 ]
+        focus: [ 3.4442839622, 4.4442839622 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
 production:
   settings:
     sceneid: 1
     strings-idspace: 5940
-    strings-idstart: 100
+    strings-idstart: 150
+    #find_safe_placement: false
+    #snap_to_terrain: false
 
-  gameplay: true
-  cinematic_subtitles: true
+  placement: "PLAYER"
+    # INFO: world coordinates of used origin:
+      #pos: [ 1088.7259521484, -853.7511596680, 22.4313697815 ]
+      #rot: [ 0.0, 150.3841247559, 0.0 ]
 
   assets:
     actors:
@@ -14,13 +209,356 @@ production:
         by_voicetag: true
         tags: [ "PLAYER" ]
 
-dialogscript:
-  player: "geralt"
-  actors: [ "geralt" ]
+      ciri:
+        repo: "ciri"
+        by_voicetag: false
+        appearance: "ciri"
+        tags: [ "temp_ciri" ]
+
+      rosa_var_attre:
+        repo: "rosa_var_attre"
+        by_voicetag: false
+        appearance: "rosa_fancing"
+        tags: [ "temp_rosa_var_attre" ]
+
+      eskel:
+        repo: "eskel"
+        by_voicetag: false
+        appearance: "eskel"
+        tags: [ "temp_eskel" ]
+
+      yennefer:
+        repo: "yennefer"
+        by_voicetag: false
+        appearance: "yennefer_travel_outfit"
+        tags: [ "temp_yennefer" ]
+
+    cameras:
+      cam_1_Shot_cam_type:
+        repo: "cam_1_Shot_cam_type"
+
+      cam_2_Shot_cam_hair1:
+        repo: "cam_2_Shot_cam_hair1"
+
+      cam_3_Shot_cam_hair2:
+        repo: "cam_3_Shot_cam_hair2"
+
+      cam_4_Shot_cam_body1:
+        repo: "cam_4_Shot_cam_body1"
+
+      cam_5_Shot_cam_body2:
+        repo: "cam_5_Shot_cam_body2"
+
+      cam_6_Shot_cam_hands1:
+        repo: "cam_6_Shot_cam_hands1"
+
+      cam_7_Shot_cam_hands2:
+        repo: "cam_7_Shot_cam_hands2"
+
+      cam_8_Shot_cam_feet1:
+        repo: "cam_8_Shot_cam_feet1"
+
+      cam_9_Shot_cam_feet2:
+        repo: "cam_9_Shot_cam_feet2"
+
+      cam_10_Shot_cam_main:
+        repo: "cam_10_Shot_cam_main"
+
+    actor.poses:
+      geralt_High_Standing_Ready_Combat:
+        actor: "geralt"
+        repo: "pose_2124_High_Standing_Ready_Combat"
+
+      geralt_High_Standing_Relaxed_Combat:
+        actor: "geralt"
+        repo: "pose_2125_High_Standing_Relaxed_Combat"
+
+      ciri_High_Standing_Relaxed_Combat:
+        actor: "ciri"
+        repo: "pose_2125_High_Standing_Relaxed_Combat"
+
+      rosa_var_attre_High_Standing_Relaxed_Combat:
+        actor: "rosa_var_attre"
+        repo: "pose_2125_High_Standing_Relaxed_Combat"
+
+      eskel_High_Standing_Ready_Combat:
+        actor: "eskel"
+        repo: "pose_2124_High_Standing_Ready_Combat"
+
+      yennefer_woman_sorceress_idle_lp_01:
+        actor: "yennefer"
+        repo: "pose_0_woman_sorceress_idle_lp_01"
+
+      geralt_high_standing_determined_idle:
+        actor: "geralt"
+        repo: "pose_0_high_standing_determined_idle"
+
+storyboard:
+  defaults:
+    placement:
+      geralt: [[ 2.5051448345, 2.0706367493, -0.0032577515 ], [ 0.0, 0.0, 34.0841674805 ]]
+      ciri: [[ 2.5555322170, 1.9719058275, -0.0269756317 ], [ 0.0, 0.0, 53.7841186523 ]]
+      rosa_var_attre: [[ 2.5616869926, 1.9661554098, -0.0491619110 ], [ 0.0, 0.0, 52.0841217041 ]]
+      eskel: [[ 2.5286481380, 2.0884389877, -0.0176792145 ], [ 0.0, 0.0, 45.8841094971 ]]
+      yennefer: [[ 2.4674539566, 2.1866998672, -0.0257472992 ], [ 0.0, 0.0, 11.8841400146 ]]
+
+    actor.pose:
+      geralt: geralt_high_standing_determined_idle
+      ciri: ciri_High_Standing_Relaxed_Combat
+      rosa_var_attre: rosa_var_attre_High_Standing_Relaxed_Combat
+      eskel: eskel_High_Standing_Ready_Combat
+      yennefer: yennefer_woman_sorceress_idle_lp_01
 
   section_start:
-    - geralt: "0001028752|Smithing - pretty tiring job… Need a break, maybe, relax a bit? Play a game or two of gwent?"
+    shot_0:
+      - actor.hide: [0.0, ciri]
+      - actor.hide: [0.0, rosa_var_attre]
+      - actor.hide: [0.0, eskel]
+      - actor.hide: [0.0, yennefer]
+      - actor.equip.right: [0.0, geralt, steelsword]
+      - actor.equip.right: [0.0, ciri, silversword]
+      - actor.equip.right: [0.0, eskel, silversword]
+      - actor.equip.right: [0.0, rosa_var_attre, silversword]
+      #- cam.blend.start: [0.0, cam_1_Shot_cam_type]
+      - cam: [0.0, cam_10_Shot_cam_main]
+      - fade.in: [0.0, 0.5]
+
+  section_choice_main:
+    # shot Shot cam type
+    CHOICE_1:
+      - actor.hide: [0.0, ciri]
+      - actor.hide: [0.0, rosa_var_attre]
+      - actor.hide: [0.0, eskel]
+      - actor.hide: [0.0, yennefer]
+      #- actor.effect.start: [0.0, yennefer, gravity_cast]
+      #- actor.effect.stop: [1.0, yennefer, gravity_cast]
+      - cam: [0.0, cam_1_Shot_cam_type]
+
+  section_main_to_type:
+    shot_main_to_type:
+      - actor.hide: [0.0, ciri]
+      - actor.hide: [0.0, rosa_var_attre]
+      - actor.hide: [0.0, eskel]
+      - actor.hide: [0.0, yennefer]
+      - cam.blend.start: [0.0, cam_10_Shot_cam_main]
+      - cam.blend.end: [0.999, cam_1_Shot_cam_type]
+      - actor.pose: [0.999, geralt_High_Standing_Relaxed_Combat]
+      - actor.anim: 
+          actor: geralt
+          .@pos: [0.0, anim_12892_dialogue_witcher_combat_pose_relaxed]
+          blendin: 0.4
+          blendout: 0.3
+          clipend: 0.7
+
+  section_type_to_main:
+    shot_type_to_main:
+      - actor.hide: [0.0, ciri]
+      - actor.hide: [0.0, rosa_var_attre]
+      - actor.hide: [0.0, eskel]
+      - actor.hide: [0.0, yennefer]
+      - cam.blend.start: [0.0, cam_1_Shot_cam_type]
+      - cam.blend.end: [0.999, cam_10_Shot_cam_main]
+      - actor.pose: [0.999, geralt_high_standing_determined_idle]
+      - actor.anim: 
+          actor: geralt
+          .@pos: [0.0, anim_12892_dialogue_witcher_combat_pose_relaxed]
+          blendin: 0.3
+          blendout: 0.4
+          clipend: 0.7
+
+  section_choice_type:
+    # shot Shot cam hair1
+    CHOICE_1:
+      - actor.hide: [0.0, ciri]
+      - actor.hide: [0.0, rosa_var_attre]
+      - actor.hide: [0.0, eskel]
+      - actor.hide: [0.0, yennefer]
+      - actor.pose: [0.0, geralt_High_Standing_Relaxed_Combat]
+      - cam: [0.0, cam_1_Shot_cam_type]
+
+    # shot Shot cam hair2
+    #shot_3:
+    #  - cam: [0.0, cam_3_Shot_cam_hair2]
+
+    # shot Shot cam body1
+    #shot_4:
+    #  - cam: [0.0, cam_4_Shot_cam_body1]
+
+    # shot Shot cam body2
+    #shot_5:
+    #  - cam: [0.0, cam_5_Shot_cam_body2]
+
+    # shot Shot cam hands1
+    #shot_6:
+    #  - cam: [0.0, cam_6_Shot_cam_hands1]
+
+    # shot Shot cam hands2
+    #shot_7:
+    #  - cam: [0.0, cam_7_Shot_cam_hands2]
+
+    # shot Shot cam feet1
+    #shot_8:
+    #  - cam: [0.0, cam_8_Shot_cam_feet1]
+
+    # shot Shot cam feet2
+    #shot_9:
+    #  - cam: [0.0, cam_9_Shot_cam_feet2]
+
+  section_blend_exit:
+    shot_blend_togame:
+      - actor.hide: [0.0, ciri]
+      - actor.hide: [0.0, rosa_var_attre]
+      - actor.hide: [0.0, eskel]
+      - actor.hide: [0.0, yennefer]
+      - cam.blend.togame: [0.0, cam_10_Shot_cam_main]
+
+  section_fadeout_exit:
+    shot_fadeout_exit:
+      - actor.hide: [0.0, ciri]
+      - actor.hide: [0.0, rosa_var_attre]
+      - actor.hide: [0.0, eskel]
+      - actor.hide: [0.0, yennefer]
+      - cam: [0.0, cam_10_Shot_cam_main]
+      - fade.out: [0.0, 0.5]
+
+dialogscript:
+  player: "geralt"
+  actors: [ "geralt", "ciri", "rosa_var_attre", "eskel", "yennefer" ]
+
+  section_start:
+    - CUE: shot_0
+    - PAUSE: 0.5
+    - NEXT: script_enter_state
+
+  script_enter_state:
+      - SCRIPT:
+          function: NR_EnterScenePreviewState_S
+      - NEXT: section_choice_main
+
+  section_choice_main:
+    - CHOICE:
+        - choice: ["Change player type", section_main_to_type, pay, 50]
+          emphasize: true
+        - choice: ["Change hair", script_exit_state]
+          emphasize: true
+        - choice: ["Change head", script_exit_state]
+          emphasize: true
+        - choice: ["Change hands", script_exit_state]
+          emphasize: true
+        - choice: ["Change main body parts", script_exit_state]
+          emphasize: true
+        - choice: ["Change feet", script_exit_state]
+          emphasize: true
+        - choice: ["[EXIT]", script_exit_state_blend, exit]
+          emphasize: true
+        #- TIME_LIMIT: 7
+
+  section_main_to_type:
+    - CUE: shot_main_to_type
+    - PAUSE: 0.7
+    - NEXT: section_choice_type
+
+  section_choice_type:
+    - CHOICE:
+        - choice: ["Geralt (vanilla)", script_set_geralt]
+          condition: [ nr_player_type, "!=", 1 ]
+          emphasize: true
+        - choice: ["Ciri (vanilla)", script_set_ciri]
+          condition: [ nr_player_type, "!=", 2 ]
+          emphasize: true
+        - choice: ["Witcher", script_set_witcher]
+          condition: [ nr_player_type, "!=", 3 ]
+          emphasize: true
+        - choice: ["Witcheress", script_set_witcheress]
+          condition: [ nr_player_type, "!=", 4 ]
+          emphasize: true
+        - choice: ["Sorceress", script_set_sorceress]
+          condition: [ nr_player_type, "!=", 5 ]
+          emphasize: true
+        - choice: ["[BACK]", section_type_to_main, exit]
+          emphasize: true
+
+  section_type_to_main:
+    - CUE: shot_type_to_main
+    - PAUSE: 0.7
+    - NEXT: section_choice_main
+
+  script_set_geralt:
+      - SCRIPT:
+          function: AddFact_S
+          parameter:
+              - factName: nr_scene_player_change_type
+              - value: 1  # casted to ENR_PlayerType in scripts
+      - NEXT: section_fadeout_exit
+
+  script_set_ciri:
+      - SCRIPT:
+          function: AddFact_S
+          parameter:
+              - factName: nr_scene_player_change_type
+              - value: 2
+      - NEXT: section_fadeout_exit
+
+  script_set_witcher:
+      - SCRIPT:
+          function: AddFact_S
+          parameter:
+              - factName: nr_scene_player_change_type
+              - value: 3
+      - NEXT: section_fadeout_exit
+
+  script_set_witcheress:
+      - SCRIPT:
+          function: AddFact_S
+          parameter:
+              - factName: nr_scene_player_change_type
+              - value: 4
+      - NEXT: section_fadeout_exit
+
+  script_set_sorceress:
+      - SCRIPT:
+          function: AddFact_S
+          parameter:
+              - factName: nr_scene_player_change_type
+              - value: 5
+      - NEXT: section_fadeout_exit
+
+  section_fadeout_exit:
+    - CUE: shot_fadeout_exit
+    - PAUSE: 0.5
+    - NEXT: script_set_change_requested
+
+  script_set_change_requested:
+      - SCRIPT:
+          function: AddFact_S
+          parameter:
+              - factName: nr_scene_player_change_requested
+              - value: 1
+      - NEXT: script_exit_state_blackscreen
+
+  script_exit_state_blackscreen:
+      - SCRIPT:
+          function: NR_ExitScenePreviewState_S
+      - NEXT: section_exit_blackscreen
+
+  script_exit_state_blend:
+      - SCRIPT:
+          function: NR_ExitScenePreviewState_S
+      - NEXT: section_blend_exit
+
+  script_exit_state:
+      - SCRIPT:
+          function: NR_ExitScenePreviewState_S
+      - NEXT: section_exit
+
+  section_blend_exit:
+    - CUE: shot_blend_togame
+    - PAUSE: 1.0
     - NEXT: section_exit
-    
+
+  section_exit_blackscreen:
+    - BLACKSCREEN: true
+    - EXIT
+
   section_exit:
     - EXIT

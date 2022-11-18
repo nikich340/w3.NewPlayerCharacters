@@ -1,11 +1,11 @@
 statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	import var displayName : LocalizedString;
-	public  var replacerName         : String;
-	public  var inventoryTemplate    : String;
-	private editable var deniedInventorySlots : array<name>;
+	protected var m_replacerType         : ENR_PlayerType;
+	public var inventoryTemplate   		 : String;
+	protected editable var deniedInventorySlots : array<name>;
 	
-	default replacerName      = "nr_replacer_witcher";
-	default inventoryTemplate = "nr_replacer_witcher_inv";
+	default m_replacerType      = ENR_PlayerWitcher;
+	default inventoryTemplate 	= "nr_replacer_witcher_inv";
 
 	// TODO: remove this!
 	public function SetTeleportedOnBoatToOtherHUB( val : bool )
@@ -17,6 +17,10 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	public function GetNameID() : int {
 		//displayName = 318188;
 		return 452675;   // 0000452675|70994a4f|-1.000|Witcher
+	}
+
+	public function GetReplacerType() : ENR_PlayerType {
+		return m_replacerType;
 	}
 
 	public function NR_IsSlotDenied(slot : EEquipmentSlots) : bool
@@ -68,7 +72,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	}
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
-		NRD("OnSpawned: " + replacerName);
+		NRD("OnSpawned: " + m_replacerType);
 		super.OnSpawned( spawnData );
 	}
 

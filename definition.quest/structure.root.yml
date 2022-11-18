@@ -1,89 +1,124 @@
 #
 # quest structure root segment
 # 
-# (version: 17, saved: 2022-03-17 18:57:00)
+# (version: 24, saved: 2022-11-18 18:59:52)
 #
 ---
 structure:
   quest:
     blocks:
       start:
-        ".editor": [ -129.0, 220.0 ]
+        ".editor": [ -359.0, 175.0 ]
         next:
           - waituntil.3s
           - changelayers.show_vanilla_start
       
-      scene.new_scene:
+      scene.Relaunch_scene:
         ".editor":
-          pos: [ 417.0, 446.0 ]
+          pos: [ 762.0, -80.0 ]
           in: [ Input ]
           out: [ Output ]
         scene: 01.player_change.yml
         placement: ~PLAYER
         interruptable: true
-        _fadein: false
-        next: ".done"
+        _fadein: true
+        next.Output:
+          - waituntil.Scene_type_change_request
       
       waituntil.3s:
         elapsed: "00:00:03"
         ".editor":
-          pos: [ 51.0, 298.0 ]
+          pos: [ -168.0, 327.0 ]
           in: [ In ]
           out: [ Out ]
         next:
-          - script.new_nr_notify_quest
+          - script.InitPlayerManager
       
-      waituntil.new_wait_until_fact:
-        factdb: [ nr_test, ">=", 1 ]
+      waituntil.Never_happen_fact:
+        factdb: [ nr_never_happen, ">=", 1 ]
         ".editor":
-          pos: [ 225.1395568848, 21.7913513184 ]
+          pos: [ 467.0, 300.0 ]
           in: [ In ]
           out: [ Out ]
-        next:
-          - changelayers.show_chair_garden
-      
-      script.HelloWorld:
-        ".editor":
-          pos: [ 530.0, 178.0 ]
-          in: [ In ]
-          out: [ Out ]
-        function: radLog
-        parameter:
-          - logChannel: cname_new_quest
-          - msg: Hello World!
         next:
           - end
       
+      waituntil.Scene_type_change_request:
+        factdb: [ nr_scene_player_change_requested, ">=", 1 ]
+        ".editor":
+          pos: [ 485.0, 53.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.wait_200_ms
+      
+      script.ChangePlayer_Q:
+        ".editor":
+          pos: [ 288.0, -227.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_ChangePlayer_Q
+        next:
+          - script.Remove_scene_type_change_fact
+      
+      script.InitPlayerManager:
+        ".editor":
+          pos: [ 4.0, 254.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_InitPlayerManager_Q
+        next:
+          - script.new_nr_notify_quest
+      
+      script.Remove_scene_type_change_fact:
+        ".editor":
+          pos: [ 445.0, -80.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: RemoveFactQuest
+        parameter:
+          - factId: cname_nr_scene_player_change_requested
+        next:
+          - script.wait_1000_ms
+      
       script.new_nr_notify_quest:
         ".editor":
-          pos: [ 191.0, 368.0 ]
+          pos: [ 193.0, 363.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_Notify_Quest
         parameter:
           - message: "Hi! This is a dev version of \"New Player Characters\" mod."
-          - duration: 100000.0
+          - duration: 1000.0
         next:
-          - waituntil.new_wait_until_fact
-          - scene.new_scene: Input
+          - waituntil.Never_happen_fact
+          - waituntil.Scene_type_change_request
       
-      changelayers.show_chair_garden:
+      script.wait_1000_ms:
         ".editor":
-          pos: [ 356.0, 194.0 ]
-          hint: show-only
-          in: []
-          out: []
-        sync: true
-        purge: false
-        world: bob
-        show:
-          - vanilla_bob_corvo_chair
+          pos: [ 603.0, -198.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 1.0
         next:
-          - script.HelloWorld
+          - scene.Relaunch_scene: Input
+      
+      script.wait_200_ms:
+        ".editor":
+          pos: [ 139.0, -63.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 0.200000003
+        next:
+          - script.ChangePlayer_Q
       
       changelayers.show_vanilla_start:
         ".editor":
-          pos: [ 57.0, 97.0 ]
+          pos: [ -120.0, 44.0 ]
           hint: show-only
           in: []
           out: []
@@ -95,6 +130,6 @@ structure:
         next: ".done"
       
       end:
-        ".editor": [ 703.0, 96.0 ]
+        ".editor": [ 684.0, 333.0 ]
         next: ".done"
       

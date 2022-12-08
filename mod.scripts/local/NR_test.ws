@@ -97,6 +97,24 @@ exec function sspawn(id : int, optional hostile : Bool, optional immortal : Bool
 	}
 }
 
+exec function scene1m() {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene", true);
+	if (!scene)
+		NRE("NULL scene!");
+
+	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function scene1f() {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene", true);
+	if (!scene)
+		NRE("NULL scene!");
+
+	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
 function PrintDamageAction( source: String, action : W3DamageAction )
 {
 		var i, size : int;
@@ -660,4 +678,114 @@ exec function getInRange(range : float, optional makeFriendly : bool) {
                 actor.SetTemporaryAttitudeGroup( 'friendly_to_player', AGP_Default );
         }
     }
+}
+
+exec function ep2logo( show : bool, fadeInterval : float, x : int, y : int )
+{
+	var overlayPopupRef : CR4OverlayPopup;
+	
+	overlayPopupRef = (CR4OverlayPopup) theGame.GetGuiManager().GetPopup('OverlayPopup');
+	if ( overlayPopupRef )
+	{
+		overlayPopupRef.ShowEP2Logo( show, fadeInterval, x, y );
+	}
+}
+
+/*					case 0: PlayHeadEffect('toxic_000_025'); break;
+					case 1: PlayHeadEffect('toxic_025_050'); break;
+					case 2: HeadEffect(toxic_050_075); break;
+					case 3: HeadEffect(toxic_075_100)  ; break;*/
+exec function testh1() 
+{
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+			manager.UpdateHead('nr_h_01_wa__syanna');
+	}
+}
+exec function teste1(num : int, optional stop : bool) 
+{
+	if (num == 0) {
+		PlayHeadEffect('toxic_000_025', stop); // black h_
+	} else if (num == 1) {
+		PlayHeadEffect('toxic_025_050', stop); // black h_ + he_
+	} else if (num == 2) {
+		PlayHeadEffect('toxic_050_075', stop); // nothing change (non existing)
+	} else if (num == 3) {
+		PlayHeadEffect('toxic_075_100', stop); // OK triss toxic
+	} else if (num == 4) {
+		PlayHeadEffect('toxic_100_075', stop); // OK triss toxic
+	}
+}
+exec function testh2() 
+{
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+			manager.UpdateHead('nr_h_02_wa__vivienne');
+	}
+}
+exec function testh3() 
+{
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+			manager.UpdateHead('nr_h_01_ma__udalryk');
+	}
+}
+exec function testh4() 
+{
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+			manager.UpdateHead('nr_h_01_wa__ves');
+	}
+}
+
+exec function HeadEffect( effect : name, optional stop : bool ) {
+	PlayHeadEffect(effect, stop);
+}
+function PlayHeadEffect( effect : name, optional stop : bool )
+{
+	var inv : CInventoryComponent;
+	var headIds : array<SItemUniqueId>;
+	var headId : SItemUniqueId;
+	var head : CItemEntity;
+	var i : int;
+	
+	inv = thePlayer.GetInventory();
+	headIds = inv.GetItemsByCategory('head');
+	
+	for ( i = 0; i < headIds.Size(); i+=1 )
+	{
+		if ( !inv.IsItemMounted( headIds[i] ) )
+		{
+			continue;
+		}
+		
+		headId = headIds[i];
+				
+		if(!inv.IsIdValid( headId ))
+		{
+			NR_Notify("W3Effect_Toxicity : Can't find head item");
+			return;
+		}
+		
+		head = inv.GetItemEntityUnsafe( headId );
+		
+		if( !head )
+		{
+			NR_Notify("W3Effect_Toxicity : head item is null");
+			return;
+		}
+
+		if ( stop )
+		{
+			if (!head.HasEffect(effect))
+				NR_Notify("W3Effect_Toxicity : head item has no effect: " + effect);
+			head.StopEffect( effect );
+		}
+		else
+		{
+			if (!head.HasEffect(effect))
+				NR_Notify("W3Effect_Toxicity : head item has no effect: " + effect);
+			head.PlayEffectSingle( effect );
+		}
+	}
 }

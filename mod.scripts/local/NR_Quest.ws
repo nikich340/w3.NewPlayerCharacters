@@ -22,3 +22,7 @@ quest function NR_ChangePlayer_Q() {
 	NR_ChangePlayer(newPlayerType);
 	FactsRemove("nr_scene_player_change_type");	
 }
+
+quest function NR_IsPlayerFemale_Q() : bool {
+	return NR_GetPlayerManager().IsFemale();
+}

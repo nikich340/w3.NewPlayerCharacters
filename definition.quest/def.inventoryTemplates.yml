@@ -63,7 +63,7 @@ templates:
       components:
         Appearances:
           ".type": CAppearanceComponent
-          forcedAppearance: nr_player_inv
+          forcedAppearance: nr_player
           appearanceAttachments:  #array:2,0,SAppearanceAttachments
             - ".type": SAppearanceAttachments
               appearance: special_preorder_app__do_not_use
@@ -75,7 +75,7 @@ templates:
                   childName: steel_scabbard_av_01
 
     appearances:  #array:2,0,CEntityAppearance
-      nr_player_inv:
+      nr_player:
         ".type": CEntityAppearance
         voicetag: GERALT
         appearanceParams:  #array:2,0,ptr:CEntityTemplateParam
@@ -91,7 +91,7 @@ templates:
                 category: hair
 
     usedAppearances:  #array:2,0,CName
-      - nr_player_inv
+      - nr_player
 
   nr_replacer_sorceress_inv:
     includes:  #array:2,0,handle:CEntityTemplate

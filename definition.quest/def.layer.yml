@@ -1,3 +1,37 @@
 layers: 
   vanilla_encapment: prologue:quests\q001_beggining\encampment
   vanilla_bob_corvo_chair: levels\bob\locations\vineyards\east\corvo_bianco\q705_epilog\garden_chair
+  
+  tree_layer: 
+    world: "bob"
+    #context: ""
+
+    statics: 
+      custom_tree: 
+        template: "CEntity:dlc\\bob\\data\\environment\\vegetation\\giant_castle_ent\\dry_tree_big.w2ent"
+        pos: [ 869.7175292969, -2293.0566406250, 6.3524169922 ]
+        rot: [ 0.0, 0.0, 0.0 ]
+
+  bob_scenetriggers: 
+    world: "bob"
+    #context: ""
+
+    scenepoints: 
+      scenepoint1: [ 1088.633667, -853.812561, 22.517338, 130.0 ]
+
+    waypoints:
+      test_point: [1090.9785156250, -856.0631103516, 22.4583454132, 97.0]
+
+    statics: 
+      trigger1:
+        .type: "NR_SceneTrigger"
+        template: "dlc/dlcnewreplacers/data/entities/nr_scene_trigger.w2ent"
+        #playerPos: [ 1088.855469, -853.623840, 22.404493, 1.0 ]
+        playerPos: [ 1090.9785156250, -856.0631103516, 22.4583454132, 1.0 ]
+        playerRot:
+          Pitch: 0.0
+          Yaw: 96.6000061035
+          Roll: 0.0
+        transform:
+          pos: [ 1090.9785156250, -856.0631103516, 22.4583454132 ]
+          rot: [ 0.0, 0.0, 96.6000061035 ]

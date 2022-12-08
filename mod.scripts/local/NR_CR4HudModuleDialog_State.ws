@@ -8,6 +8,12 @@ state NR_ScenePreview_DialogState in CR4HudModuleDialog {
         parent.OnDialogOptionSelected( index );
         NR_GetPlayerManager().OnDialogOptionSelected(index);
     }
+    
+    event OnDialogOptionAccepted( index : int )
+    {
+        parent.OnDialogOptionAccepted( index );
+        NR_GetPlayerManager().OnDialogOptionAccepted(index);
+    }
 
     event OnLeaveState( nextStateName : name )
     {
@@ -51,10 +57,12 @@ function NR_ExitScenePreviewState()
     }
 }
 
-storyscene function NR_EnterScenePreviewState_S(player: CStoryScenePlayer){
+storyscene function NR_EnterScenePreviewState_S(player: CStoryScenePlayer) {
 	NR_EnterScenePreviewState();
+    NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
-storyscene function NR_ExitScenePreviewState_S(player: CStoryScenePlayer){
+storyscene function NR_ExitScenePreviewState_S(player: CStoryScenePlayer) {
 	NR_ExitScenePreviewState();
+    NR_GetPlayerManager().HideAppearanceInfo();
 }

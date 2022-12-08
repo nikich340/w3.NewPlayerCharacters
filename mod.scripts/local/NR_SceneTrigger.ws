@@ -1,9 +1,10 @@
 class NR_SceneTrigger extends W3MonsterClue
 {
-    protected var inUse     : Bool;
-    editable var playerPos  : Vector;
-    editable var playerRot  : EulerAngles;
-    editable var scene      : CStoryScene;
+    protected var inUse         : Bool;
+    editable var playerPos      : Vector;
+    editable var playerRot      : EulerAngles;
+    editable var sceneMale      : CStoryScene;
+    editable var sceneFemale    : CStoryScene;
 
     event OnInteraction( actionName : string, activator : CEntity  )
     {
@@ -31,7 +32,10 @@ class NR_SceneTrigger extends W3MonsterClue
 
     timer function TimerPlayScene( td : float , id : int) {
         NRD("New2 pos: " + VecToString(thePlayer.GetWorldPosition()));
-        theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+        if (NR_GetPlayerManager().IsFemale())
+            theGame.GetStorySceneSystem().PlayScene(sceneMale, "Input");
+        else
+            theGame.GetStorySceneSystem().PlayScene(sceneFemale, "Input");
         inUse = false;
     }
 }

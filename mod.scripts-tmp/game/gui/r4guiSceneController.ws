@@ -201,14 +201,29 @@ class CR4GuiSceneController
 		/* v NR_MOD */
 		var extraTemplateResources : array<CEntityTemplate>;
 		var nr_manager : NR_PlayerManager = NR_GetPlayerManager();
-		var       i, j : int;
+		var      nr_i, nr_j : int;
+		/* ^ NR_MOD */
 
+		/* v NR_MOD */
 		if ( nr_manager && nr_manager.IsReplacerActive() ) {
-			for (i = 0; i < nr_manager.m_appearanceTemplates.Size(); i += 1) {
-				templateResource = (CEntityTemplate) LoadResource( nr_manager.m_appearanceTemplates[i], nr_manager.m_appearanceTemplateIsDepotPath[i] );
+			for (nr_i = ENR_RSlotHair; nr_i < ENR_RSlotMisc; nr_i += 1) {
+				if (nr_manager.m_appearanceTemplates[nr_i] == "")
+					continue;
+				templateResource = (CEntityTemplate) LoadResource( nr_manager.m_appearanceTemplates[nr_i], nr_manager.m_appearanceTemplateIsDepotPath[nr_i] );
 				if (templateResource)
 					extraTemplateResources.PushBack(templateResource);
 			}
+			for (nr_i = 0; nr_i < nr_manager.m_appearanceItems.Size(); nr_i += 1) {
+				if (nr_manager.m_appearanceItems[nr_i] == "")
+					continue;
+				templateResource = (CEntityTemplate) LoadResource( nr_manager.m_appearanceItems[nr_i], nr_manager.m_appearanceItemIsDepotPath[nr_i] );
+				if (templateResource)
+					extraTemplateResources.PushBack(templateResource);
+			}
+			// DEBUG TODO
+			/*for (nr_i = 0; nr_i < extraTemplateResources.Size(); nr_i += 1) {
+				NRD("SetEntityTemplate extra[" + nr_i + "] = " + extraTemplateResources[nr_i]);
+			}*/
 		}
 		/* ^ NR_MOD */
 
@@ -222,10 +237,15 @@ class CR4GuiSceneController
 			if ( templateResource )
 			{
 				/* v NR_MOD */
-				for (i = 0; i < extraTemplateResources.Size(); i += 1) {
-					for (j = 0; j < templateResource.appearances.Size(); j += 1) {
-						templateResource.appearances[j].includedTemplates.PushBack(extraTemplateResources[i]);
+				for (nr_i = 0; nr_i < templateResource.appearances.Size(); nr_i += 1) {
+					// clear old templates - because CEntityTemplate seems to be cached
+					templateResource.appearances[nr_i].includedTemplates.Clear();
+					for (nr_j = 0; nr_j < extraTemplateResources.Size(); nr_j += 1) {
+						templateResource.appearances[nr_i].includedTemplates.PushBack(extraTemplateResources[nr_j]);
 					}
+					/*for (nr_j = 0; nr_j < templateResource.appearances[nr_i].includedTemplates.Size(); nr_j += 1) {
+						NRD("SetEntityTemplate appearances[" + nr_i + "], template[" + nr_j + "] = " + templateResource.appearances[nr_i].includedTemplates[nr_j]);
+					}*/
 				}
 				/* ^ NR_MOD */
 				_isEntitySpawning = true;

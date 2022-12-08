@@ -1,7 +1,7 @@
 #
 # quest structure root segment
 # 
-# (version: 24, saved: 2022-11-18 18:59:52)
+# (version: 29, saved: 2022-12-02 19:21:21)
 #
 ---
 structure:
@@ -10,15 +10,27 @@ structure:
       start:
         ".editor": [ -359.0, 175.0 ]
         next:
-          - waituntil.3s
+          - changeworld.test_tp
           - changelayers.show_vanilla_start
       
-      scene.Relaunch_scene:
+      scene.Relaunch_female_scene:
         ".editor":
-          pos: [ 762.0, -80.0 ]
+          pos: [ 924.0, 18.0 ]
           in: [ Input ]
           out: [ Output ]
-        scene: 01.player_change.yml
+        scene: 01.player_change_female.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: true
+        next.Output:
+          - waituntil.Scene_type_change_request
+      
+      scene.Relaunch_male_scene:
+        ".editor":
+          pos: [ 893.0, -170.0 ]
+          in: [ Input ]
+          out: [ Output ]
+        scene: 01.player_change_male.yml
         placement: ~PLAYER
         interruptable: true
         _fadein: true
@@ -81,6 +93,17 @@ structure:
         next:
           - script.wait_1000_ms
       
+      script.check_if_female:
+        ".editor":
+          pos: [ 672.5845947266, -92.0834655762 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_IsPlayerFemale_Q
+        next.False:
+          - scene.Relaunch_male_scene: Input
+        next.True:
+          - scene.Relaunch_female_scene: Input
+      
       script.new_nr_notify_quest:
         ".editor":
           pos: [ 193.0, 363.0 ]
@@ -89,7 +112,7 @@ structure:
         function: NR_Notify_Quest
         parameter:
           - message: "Hi! This is a dev version of \"New Player Characters\" mod."
-          - duration: 1000.0
+          - seconds: 30.0
         next:
           - waituntil.Never_happen_fact
           - waituntil.Scene_type_change_request
@@ -102,8 +125,7 @@ structure:
         function: NR_Wait_Q
         parameter:
           - sec: 1.0
-        next:
-          - scene.Relaunch_scene: Input
+        next: ".done"
       
       script.wait_200_ms:
         ".editor":
@@ -128,6 +150,12 @@ structure:
         show:
           - vanilla_encapment
         next: ".done"
+      
+      changeworld.test_tp:
+        ".editor": [ -187.0, 176.0 ]
+        destination: bob/test_point
+        next:
+          - waituntil.3s
       
       end:
         ".editor": [ 684.0, 333.0 ]

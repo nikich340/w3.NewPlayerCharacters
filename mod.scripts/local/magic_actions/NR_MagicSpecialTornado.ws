@@ -2,9 +2,7 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 	var tornadoEntity 			: NR_TornadoEntity;
 	var s_tornadoPursue 		: bool;
 	var s_tornadoRespectCaster	: bool;
-
 	default actionType = ENR_SpecialTornado;
-	default actionName 	= 'AttackSpecialAard';
 	
 	latent function OnInit() : bool {
 		var phraseInputs : array<int>;
@@ -23,21 +21,23 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 
 		return true;
 	}
+
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
-		// load data from map
 		s_specialLifetime = map[ST_Universal].getI("s_tornadoLifetime", 15);
 		s_tornadoPursue = (bool)map[ST_Universal].getI("s_tornadoPursue", 1);
 		s_tornadoRespectCaster = (bool)map[ST_Universal].getI("s_tornadoRespectCaster", 1);
 		NRD("onPrepare: s_specialLifetime = " + s_specialLifetime + ", s_tornadoPursue = " + s_tornadoPursue + ", s_tornadoRespectCaster = " + s_tornadoRespectCaster);
 
 		// load action-specific resources
-		resourceName = map[sign].getN("tornado_entity");
+		m_fxNameMain = TornadoFxName();
+		resourceName = 'nr_tornado';
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 
 		return OnPrepared(true);
 	}
+
 	latent function OnPerform() : bool {
 		var caster 		: CActor;
 		var super_ret 	: bool;
@@ -50,7 +50,7 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );
 		pos += VecRingRand(1.0f, 2.0f);
 		tornadoEntity = (NR_TornadoEntity)theGame.CreateEntity(entityTemplate, pos, rot);
-		tornadoEntity.AddTag('NR_TORNADO');
+		
 		if (!tornadoEntity) {
 			NRE("tornadoEntity is invalid!");
 			return OnPerformed(false);
@@ -61,6 +61,8 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 			caster = thePlayer;
 		}
 		NRD("onPerform: Init tornado!");
+
+		tornadoEntity.AddTag('NR_TORNADO');
 		tornadoEntity.Init(caster, target, pos, s_tornadoPursue, 'tornado_sand');
 		GotoState('RunWait');
 
@@ -73,6 +75,42 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 
 		super.BreakAction();
 		GotoState('Stop');
+	}
+
+	latent function TornadoFxName() : name {
+		var color : ENR_MagicColor = NR_GetActionColor();
+
+		switch (color) {
+			//case ENR_ColorBlack:
+			//	return 'black';
+			case ENR_ColorWhite:
+				return 'tornado_sand_white';
+			case ENR_ColorYellow:
+				return 'tornado_sand_yellow';
+			case ENR_ColorOrange:
+				return 'tornado_sand_orange';
+			case ENR_ColorRed:
+				return 'tornado_sand_red';
+			case ENR_ColorPink:
+				return 'tornado_sand_pink';
+			case ENR_ColorViolet:
+				return 'tornado_sand_violet';
+			case ENR_ColorBlue:
+				return 'tornado_sand_blue';
+			case ENR_ColorSeagreen:
+				return 'tornado_sand_seagreen';
+			case ENR_ColorGreen:
+				return 'tornado_sand_green';
+			//case ENR_ColorSpecial1:
+			//	return 'special1';
+			//case ENR_ColorSpecial2:
+			//	return 'special2';
+			//case ENR_ColorSpecial3:
+			//	return 'special3';
+			case ENR_ColorGrey:
+			default:
+				return 'tornado_sand_grey';
+		}
 	}
 }
 state RunWait in NR_MagicSpecialTornado {

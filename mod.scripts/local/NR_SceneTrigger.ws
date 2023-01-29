@@ -33,9 +33,9 @@ class NR_SceneTrigger extends W3MonsterClue
     timer function TimerPlayScene( td : float , id : int) {
         NRD("New2 pos: " + VecToString(thePlayer.GetWorldPosition()));
         if (NR_GetPlayerManager().IsFemale())
-            theGame.GetStorySceneSystem().PlayScene(sceneMale, "Input");
-        else
             theGame.GetStorySceneSystem().PlayScene(sceneFemale, "Input");
+        else
+            theGame.GetStorySceneSystem().PlayScene(sceneMale, "Input");
         inUse = false;
     }
 }

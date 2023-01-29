@@ -85,6 +85,10 @@ class NR_PlayerManager extends CPeristentEntity {
 	protected var    			m_appearancePreviewItems : array<String>;
 	//public 		var m_appearanceTemplatesPreviewTemp : array<String>;
 
+	protected saved	var m_magicDataMaps : array<NR_Map>;
+	const 			var ST_Universal	: int;
+	default 			ST_Universal 	= 5; // EnumGetMax(ESignType); 
+
 	default m_headPreviewName = '';
 	default 	   m_headName = 'head_0';
 	//default m_hairstyleName = 'Long Loose Hairstyle';
@@ -114,11 +118,15 @@ class NR_PlayerManager extends CPeristentEntity {
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
 		var template : CEntityTemplate;
+
 		NRD("OnSpawned: " + this);
 		// scene stuff //
 		m_appearancePreviewTemplates.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 		//m_appearanceTemplatesPreviewTemp.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 		template = (CEntityTemplate)LoadResource("nr_scene_selector");
+		if (!template) {
+			NRE("!m_sceneSelector template");
+		}
 		m_sceneSelector = (NR_SceneSelector)theGame.CreateEntity(template, thePlayer.GetWorldPosition());
 		if ( !m_sceneSelector ) {
 			NRE("!m_sceneSelector");
@@ -133,6 +141,25 @@ class NR_PlayerManager extends CPeristentEntity {
 		AddTimer('OnPlayerSpawned', 0.2f);
 		super.OnSpawned( spawnData );
 	}
+
+	// return map containing saved magic setups //
+	public function GetMagicDataMaps(out map : array<NR_Map>, out wasLoaded : bool) {
+		var 	   i : int;
+
+		NRD("GetMagicDataMaps: " + m_magicDataMaps.Size());
+		wasLoaded = true;
+		if (m_magicDataMaps.Size() < 6) {
+			NRD("Init m_magicDataMaps");
+			// init maps //
+			m_magicDataMaps.Resize(6);
+			for (i = 0; i <= ST_Universal; i += 1) {
+				m_magicDataMaps[i] = new NR_Map in this;
+			}
+			wasLoaded = false;
+		}
+		map = m_magicDataMaps;
+	}
+
 	// makes manager know that player change was initiated //
 	public function SetPlayerChangeRequested(isRequested : bool) {
 		m_playerChangeRequested = isRequested;
@@ -140,18 +167,20 @@ class NR_PlayerManager extends CPeristentEntity {
 
 	// scene (preview) stuff functions //
 	public function OnDialogOptionSelected(index : int) {
-		var 		i : int;
-		var 	 slot : int;
-		var   changes : bool = false;
+		var 			i : int;
+		var 		 slot : int;
+		var 	  changes : bool = false;
+		var	  forceUnload : bool = false;
 
-		// unload all preview templates
+		// unload all preview templates & items
 		ResetAllAppearancePreviewTemplates();
-
-		m_sceneSelector.GetTemplatesToUpdate(index - 2, IsFemale(), m_appearancePreviewTemplates, m_appearancePreviewItems, m_headPreviewName);
+		NRD("OnDialogOptionSelected: index = " + index + ", dataIndex = " + m_sceneSelector.GetPreviewDataIndex());
+		m_sceneSelector.GetTemplatesToUpdate(index, IsFemale(), m_appearancePreviewTemplates, m_appearancePreviewItems, m_headPreviewName);
+		forceUnload = m_sceneSelector.ForceUnloadSlotTemplates(index, IsFemale());
 		// unload saved and load preview
 		for (slot = ENR_RSlotHair; slot < ENR_RSlotMisc; slot += 1) {
 			NRD("OnDialogOptionSelected: slot = " + slot + ", preview = [" + m_appearancePreviewTemplates[slot] + "]");
-			if (m_appearancePreviewTemplates[slot] != "") {
+			if (m_appearancePreviewTemplates[slot] != "" || forceUnload) {
 				NRD("OnDialogOptionSelected: load preview[" + slot + "] = " + m_appearancePreviewTemplates[slot]);
 				if (m_appearanceTemplateIsLoaded[slot]) {
 					// unload saved
@@ -170,13 +199,17 @@ class NR_PlayerManager extends CPeristentEntity {
 			}
 			// else do nothing
 		}
+		// load preview items
 		for (i = 0; i < m_appearancePreviewItems.Size(); i += 1) {
 			changes = true;
 			IncludeAppearanceTemplate(m_appearancePreviewItems[i], true);
 		}
+		// load preview head
 		if (IsNameValid(m_headPreviewName)) {
+			NRD("OnDialogOptionSelected: load preview HEAD = " + NameToString(m_headPreviewName));
 			changes = true;
 			LoadHead(m_headPreviewName);
+		// or load saved if no valid preview head and loaded != saved
 		} else if (thePlayer.GetRememberedCustomHead() != m_headName) {
 			changes = true;
 			LoadHead(m_headName);
@@ -195,18 +228,19 @@ class NR_PlayerManager extends CPeristentEntity {
 		var 	i : int;
 
 		NRD("OnDialogOptionAccepted: " + index);
-		m_sceneSelector.ResetPreviewDataIndex();
-		// TODO: check index!
-		if (m_sceneSelector.SaveOnAccept(index - 1, IsFemale())) {
+		if (m_sceneSelector.SaveOnAccept(index, IsFemale())) {
+			NRD("Accept: save");
 			// put preview to saved
 			if (SaveAllAppearancePreviewTemplates()) {
 				ShowAppearanceInfo();
 			}
 		}
+
+		m_sceneSelector.ResetPreviewDataIndex();
 	}
 	// scene (preview) stuff functions //
-	public function SetPreviewDataIndex(data_index : int) {
-		m_sceneSelector.SetPreviewDataIndex(data_index);
+	public function SetPreviewDataIndex(data_index : int, choice_offset : int) {
+		m_sceneSelector.SetPreviewDataIndex(data_index, choice_offset);
 	}
 
 	// scene (preview) stuff functions //
@@ -263,7 +297,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		BR = "<br>";
 		NBSP = "&nbsp;";
 		SLOT_STR = GetLocStringById(2115940105);
-		text = "<font color = '22'>";
+		text = "<font color = '22'>" + GetLocStringById(2115940117) + ":" + NBSP + GetCurrentPlayerTypeName() + BR;
 		text += "<font color='#000080'>(" + GetLocStringById(2115940106) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotBody]) + BR; 
 		text += "<font color='#000080'>(" + GetLocStringById(2115940107) + ")</font>" + NBSP + "=" + NBSP + NameToString(m_headName) + BR; 
 		text += "<font color='#000080'>(" + GetLocStringById(2115940108) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotHair]) + BR; 
@@ -326,6 +360,19 @@ class NR_PlayerManager extends CPeristentEntity {
 			return ENR_PlayerCiri;
 		} else {
 			return ENR_PlayerGeralt;
+		}
+	}
+	// Helper function //
+	function GetCurrentPlayerTypeName() : String {
+		var replacer : NR_ReplacerWitcher;
+
+		replacer = NR_GetWitcherReplacer();
+		if ( replacer ) {
+			return GetLocStringById( replacer.GetNameID() );
+		} else if ( (W3ReplacerCiri)thePlayer ) {
+			return GetLocStringById( 488030 );  // 320820
+		} else {
+			return GetLocStringById( 1085744 );
 		}
 	}
 	// False if vanilla Geralt/Ciri player template is used, True otherwise //
@@ -1081,6 +1128,7 @@ exec function toTriss() {
 		manager.UpdateHead('nr_head_triss');
 		manager.RemoveHair();
 		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\triss\body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\triss\c_01_wa__triss.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 }
@@ -1196,7 +1244,7 @@ exec function toRosa() {
 		manager.UpdateHead('nr_head_rosa');
 		//manager.RemoveHair(); -> not required!
 		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/h_00_mg__rosa.w2ent", /*slot*/ ENR_GSlotHead, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/h_00_mg__rosa.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/bob/data/characters/models/main_npc/oriana/body_01_wa__oriana.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
 		manager.UpdateAppearanceTemplate(/*path*/ "dlc/ep1/data/characters/models/secondary_npc/shani/c_01_wa__shani_hair.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
 		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/common/woman_average/body/a2g_02_wa__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
 		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/torso/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
@@ -1211,6 +1259,33 @@ exec function toRosa() {
 	}
 }
 
+exec function toDress(num : int) {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (!manager) {
+		NRE("No manager!");
+		return;
+	}
+	if (num == 1) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_03_wa__bob_woman_noble.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_03_wa__bob_woman_noble_px.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+	} else if (num == 2) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+	} else if (num == 3) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p01.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p01.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+	} else if (num == 4) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p02.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p02.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+	} else if (num == 5) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p03.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p03.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+	} else if (num == 6) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/body_01_wa__oriana.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/body_01_wa__oriana.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+	}
+}
+
 exec function toRosa2() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
 	if (manager) {
@@ -1218,7 +1293,7 @@ exec function toRosa2() {
 		manager.UpdateHead('nr_head_rosa');
 		//manager.UpdateHair('');
 		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/ep1/data/characters/models/secondary_npc/shani/c_01_wa__shani.w2ent", /*slot*/ ENR_RSlotMisc3, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/common/woman_average/body/a2g_02_wa__body.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/bob/data/characters/models/main_npc/vivienne_de_tabris/vivienne_de_tabris.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
 		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/torso/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
 		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_GSlotArmor, /*isDepotPath*/ true);
 		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/nr_rosa_body_test.w2ent", /*slot*/ ENR_GSlotArmor, /*isDepotPath*/ true);

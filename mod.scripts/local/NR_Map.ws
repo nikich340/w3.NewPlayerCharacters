@@ -48,6 +48,7 @@ function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, o
 	}
 	return u;
 }
+
 class NR_Map {
 	protected var values 	: array<NR_Union>;
 	protected var i 				: int;
@@ -65,7 +66,7 @@ class NR_Map {
 
 		return values[i].type;
 	}
-	function keyRemove(_key : String) : bool {
+	function removeKey(_key : String) : bool {
 		i = keyIndex(_key);
 		if (i < 0)
 			return false;

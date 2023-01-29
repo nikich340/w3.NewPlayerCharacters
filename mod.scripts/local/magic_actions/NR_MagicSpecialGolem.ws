@@ -2,7 +2,6 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 	var golemEntities 		: array<CNewNPC>;
 	var golemsAmount 		: int;
 	default actionType 		= ENR_SpecialGolem;
-	default actionName 	= 'AttackSpecialYrden';
 	default golemsAmount 	= 1;
 	
 	latent function OnInit() : bool {
@@ -21,23 +20,30 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 
 		return true;
 	}
+
 	latent function OnPrepare() : bool {
 		var i 			: int;
 
 		super.OnPrepare();
 
-		resourceName = map[sign].getN("golem_fx_entity");
-		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
+		entityTemplate = (CEntityTemplate)LoadResourceAsync( 'nr_golem_spawn_fx' );
+		dummyEntity = (CEntity)theGame.CreateEntity(entityTemplate, pos, rot);
+		if (!dummyEntity) {
+			NRE("golem_fx_entity is invalid.");
+			return OnPrepared(false);
+		}
 
 		return OnPrepared(true);
 	}
+
 	latent function OnPerform() : bool {
 		var golemNPC 				: CNewNPC;
 		var golemPositions 			: array<Vector>;
-		var fxEntity				: CEntity;
+		var dummyEntity				: CEntity;
 		var newPos, normalCollision : Vector;
 		var aiTree 					: CAIFollowSideBySideAction;
 		var i 						: int;
+		var    			  depotPath : String;
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
@@ -56,20 +62,16 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 			}
 			golemPositions.PushBack(pos);
 
-			fxEntity = (CEntity)theGame.CreateEntity(entityTemplate, pos, rot);
-			if (!fxEntity) {
-				NRE("golem_fx_entity is invalid.");
-				return OnPrepared(false);
-			}
-			fxEntity.PlayEffect('spawn');
-			fxEntity.DestroyAfter(5.f);
+			m_fxNameMain = SpawnFxName();
+			dummyEntity.PlayEffect(m_fxNameMain);
+			dummyEntity.DestroyAfter(5.f);
 		}
 
 		Sleep(0.25f);
 
 		for ( i = 1; i <= golemsAmount; i += 1 ) {
-			resourceName = map[sign].getN( "golem_entity" + IntToString(i) );
-			entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
+			depotPath = map[sign].getS("entity" + IntToString(i) + "_" + ENR_MAToName(actionType));
+			entityTemplate = (CEntityTemplate)LoadResourceAsync( depotPath, true );
 
 			// use fx pos
 			golemNPC = (CNewNPC)theGame.CreateEntity(entityTemplate, golemPositions[i - 1], rot);
@@ -91,16 +93,53 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 			// Follower
 			aiTree = new CAIFollowSideBySideAction in golemNPC; // Initialize follower behavior
 			aiTree.OnCreated(); // Once we're done initializing behavior tree
-			aiTree.params.moveType = MT_Run;
+			aiTree.params.moveType = MT_Walk;
 			golemNPC.ForceAIBehavior( aiTree, BTAP_AboveEmergency );
 		}
 		
 		return OnPerformed(true);
 	}
+
 	latent function BreakAction() {
 		if (isPerformed) // golem is independent from caster
 			return;
 
 		super.BreakAction();
+	}
+
+	latent function SpawnFxName() : name {
+		var color : ENR_MagicColor = NR_GetActionColor();
+
+		switch (color) {
+			//case ENR_ColorBlack:
+			//	return 'black';
+			//case ENR_ColorGrey:
+			//	return 'grey';
+			case ENR_ColorWhite:
+				return 'spawn_white';
+			case ENR_ColorYellow:
+				return 'spawn_yellow';
+			case ENR_ColorOrange:
+				return 'spawn_orange';
+			case ENR_ColorRed:
+				return 'spawn_red';
+			case ENR_ColorPink:
+				return 'spawn_pink';
+			case ENR_ColorBlue:
+				return 'spawn_blue';
+			case ENR_ColorSeagreen:
+				return 'spawn_seagreen';
+			case ENR_ColorGreen:
+				return 'spawn_green';
+			//case ENR_ColorSpecial1:
+			//	return 'special1';
+			//case ENR_ColorSpecial2:
+			//	return 'special2';
+			//case ENR_ColorSpecial3:
+			//	return 'special3';
+			case ENR_ColorViolet:
+			default:
+				return 'spawn_violet';
+		}
 	}
 }

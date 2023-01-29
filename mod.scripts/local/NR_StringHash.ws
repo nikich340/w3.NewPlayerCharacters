@@ -169,17 +169,17 @@ function NR_Uint64ToString(value : Uint64) : String {
 // uses simple polynomial rolling algo to get uint64 hash
 function NR_PolyRollHash(text : String) : Uint64 {
 	var P, PPow, MOD, hash : Uint64;
-	var i : int;
+	var i, code : int;
 
 	hash = IntToUint64(0);
 	P = IntToUint64(1);
 	PPow = IntToUint64(67);
 	// 2^57 - 13 == 2^29 * 2^28 - 13
 	MOD = IntToUint64(536870912) * IntToUint64(268435456) - IntToUint64(13);
-	NRD("BIG MOD1: " + Uint64ToString(MOD));
 
 	for (i = 0; i < StrLen(text); i += 1) {
-		hash = NR_ModuloUint64(hash + IntToUint64(NR_CharCode(StrMid(text, i, 1))) * P, MOD);
+		code = NR_CharCode(StrMid(text, i, 1));
+		hash = NR_ModuloUint64(hash + IntToUint64(code) * P, MOD);
 		P = NR_ModuloUint64(P * PPow, MOD);
 	}
 
@@ -196,7 +196,6 @@ function NR_PolyRollHash2(text : String) : Uint64 {
 	PPow = IntToUint64(67);
 	// 2^57 - 25 == 2^29 * 2^28 - 25
 	MOD = IntToUint64(536870912) * IntToUint64(268435456) - IntToUint64(25);
-	NRD("BIG MOD2: " + Uint64ToString(MOD));
 
 	for (i = 0; i < StrLen(text); i += 1) {
 		code = NR_CharCode(StrMid(text, i, 1));

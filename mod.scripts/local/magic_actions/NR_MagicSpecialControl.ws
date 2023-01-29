@@ -5,9 +5,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 	var isControlled	: bool;
 	var s_controlNecroProb 	: int;
 	var s_controlEffect 	: EEffectType;
-
 	default actionType 	= ENR_SpecialControl;
-	default actionName 	= 'AttackSpecialAxii';
 	default wasHostile 	= false;
 	default isControlled= false;
 	
@@ -27,6 +25,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 
 		return true;
 	}
+
 	latent function OnPrepare() : bool {
 		var actors : array <CActor>;
 		var targetIdx 	: int;
@@ -81,6 +80,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 
 		return OnPrepared(true);
 	}
+
 	latent function OnPerform() : bool {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
@@ -115,6 +115,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		
 		return OnPerformed(true);
 	}
+
 	latent function BreakAction() {
 		if (isPerformed) // entities are controlled and it shouldn't be changed on hit
 			return;
@@ -122,6 +123,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		super.BreakAction();
 		GotoState('Stop');
 	}
+
 	latent function TakeControl(npc : CNewNPC, bonuses : bool) {
 		var bonusAbilityName : name;
 
@@ -160,6 +162,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		npc.AddTag('NR_SpecialControl');
 		npc.PlayEffect('axii_guardian');
 	}
+	
 	latent function StopControl(npc : CNewNPC) {
 		var bonusAbilityName : name;
 

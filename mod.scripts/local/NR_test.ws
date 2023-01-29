@@ -97,6 +97,34 @@ exec function sspawn(id : int, optional hostile : Bool, optional immortal : Bool
 	}
 }
 
+exec function testl1() {
+	thePlayer.PlayLine(1088526, true);
+}
+exec function testl21() {
+	thePlayer.PlayLine(2115940050, true);
+}
+exec function testl22() {
+	thePlayer.PlayLine(2115940058, true);
+}
+exec function testl23() {
+	thePlayer.PlayLine(2115940052, true);
+}
+exec function testl24() {
+	thePlayer.PlayLine(2115940057, true);
+}
+exec function testl25() {
+	thePlayer.PlayLine(2115940054, true);
+}
+exec function testl26() {
+	thePlayer.PlayLine(2115940055, true);
+}
+exec function testl27() {
+	thePlayer.PlayLine(2115940059, true);
+}
+exec function testl3() {
+	thePlayer.PlayLine(1000015, true);
+}
+
 exec function scene1m() {
 	var scene      : CStoryScene;
 	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene", true);
@@ -113,6 +141,68 @@ exec function scene1f() {
 		NRE("NULL scene!");
 
 	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function scene1s() {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/03.player_change_sorceress.w2scene", true);
+	if (!scene)
+		NRE("NULL scene!");
+
+	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function anim1a(slotNum : int) {
+	var slotName : name;
+	var ret : bool;
+	var mac : CMovingPhysicalAgentComponent;
+
+	mac = (CMovingPhysicalAgentComponent) thePlayer.GetComponentByClassName( 'CMovingPhysicalAgentComponent' );
+	if (!mac) {
+		NR_Notify("!mac");
+		return;
+	}
+	if (slotNum == 1)
+		slotName = 'MIXER_SLOT';
+	else if (slotNum == 2)
+		slotName = 'PLAYER_SLOT';
+	else if (slotNum == 3)
+		slotName = 'GAMEPLAY_SLOT';
+	else if (slotNum == 4)
+		slotName = 'HIT';
+	else if (slotNum == 5)
+		slotName = 'TAKEDOWN';
+	else if (slotNum == 6)
+		slotName = 'EXP_SLOT';
+	else if (slotNum == 7)
+		slotName = 'PlayerActionSlot';
+	else if (slotNum == 8)
+		slotName = 'PLAYER_ACTION_SLOT';
+	else if (slotNum == 9)
+		slotName = 'UPPER_BODY_ANIM_SLOT';
+	else if (slotNum == 10)
+		slotName = 'FinisherSlot';
+	else if (slotNum == 11)
+		slotName = 'ComboSlot';
+	else if (slotNum == 12)
+		slotName = 'FinisherSlot';
+	else if (slotNum == 13)
+		slotName = 'FinisherSlot';
+
+		
+	ret = mac.PlaySlotAnimationAsync( 'woman_sorceress_attack_rock_bhand_rp', slotName );
+	NR_Notify("A Slot: " + slotName + " = " + ret);
+}
+
+exec function anim1b() {
+	var ret : bool;
+		
+	ret = (thePlayer.GetMovingAgentComponent()).PlaySkeletalAnimationAsync( 'woman_sorceress_attack_rock_bhand_rp', true );
+	NR_Notify("B = " + ret);
+}
+
+exec function pstate() {
+	NR_Notify("Player state = " + thePlayer.GetCurrentStateName());
 }
 
 function PrintDamageAction( source: String, action : W3DamageAction )
@@ -192,7 +282,7 @@ exec function spell_scene(inp : int) {
 		var min_index : int = 1;
 		var max_index : int = 5;
 
-		path = "dlc/dlcnewreplacers/data/scenes/02.magic_actions.w2scene";
+		path = "dlc/dlcnewreplacers/data/scenes/02.magic_lines.w2scene";
 		//path = "dlc\dlcntr\data\scenes\03.geralt_oneliners.w2scene";
 		scene = (CStoryScene)LoadResource(path, true);
 		if (!scene)

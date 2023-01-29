@@ -3,7 +3,7 @@ statemachine class NR_TornadoEntity extends CEntity {
 	public var m_target 				: CActor;
 	public var m_targetPos				: Vector;
 	public var m_tornadoPursue			: bool;
-	public var m_effectName				: name;
+	public var m_fxName				: name;
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
@@ -14,7 +14,7 @@ statemachine class NR_TornadoEntity extends CEntity {
 		m_target = target;
 		m_targetPos = targetPos;
 		m_tornadoPursue = tornadoPursue;
-		m_effectName = effectName;
+		m_fxName = effectName;
 		GotoState('Active');
 	}
 	public function Stop() {
@@ -47,7 +47,7 @@ state Active in NR_TornadoEntity {
 	event OnEnterState( prevStateName : name )
 	{
 		NRD("Active: OnEnterState");
-		parent.PlayEffect( parent.m_effectName );
+		parent.PlayEffect( parent.m_fxName );
 		MainLoop();
 	}
 	event OnLeaveState( nextStateName : name )
@@ -56,7 +56,7 @@ state Active in NR_TornadoEntity {
 		var i, j					: int;
 
 		NRD("Active: OnLeaveState");
-		parent.StopEffect( parent.m_effectName );
+		parent.StopEffect( parent.m_fxName );
 		for ( i = 0 ; i < affectedEntities.Size() ; i += 1 )
 		{
 			actorVictim = (CActor)affectedEntities[i];

@@ -17,30 +17,19 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		super.OnEnterState(prevStateName);
 		this.CombatFistsInit( prevStateName );		
 	}
-	event OnAnimEventMagic( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
-	{
-		var magicEvent : SNR_MagicEvent;
 
-		if (animEventType != AET_Tick) {
-			NRD("ERROR! Wrong animEventType: " + animEventType);
-			return false;
-		}
-		magicEvent.eventName = animEventName;
-		magicEvent.animName = GetAnimNameFromEventAnimInfo(animInfo);
-		magicEvent.animTime = GetLocalAnimTimeFromEventAnimInfo(animInfo);
-		//magicEvent.eventDuration = GetEventDurationFromEventAnimInfo(animInfo);
-		NRD("OnAnimEventMagic:: eventName = " + magicEvent.eventName + ", type = " + animEventType + ", animName = " + magicEvent.animName);
-		// will be auto-processed async in next frame
-		parent.magicManager.aEventsStack.PushBack(magicEvent);
-	}
-	
-	event OnPreAttackEvent(animEventName : name, animEventType : EAnimationEventType, data : CPreAttackEventData, animInfo : SAnimationEventAnimInfo)
-	{
-		if (animEventType == AET_DurationStart) {
-			// must be processed in sync to change data var
-			parent.magicManager.OnPreAttackEvent(GetAnimNameFromEventAnimInfo(animInfo), data);
-		}
-		virtual_parent.OnPreAttackEvent(animEventName, animEventType, data, animInfo);
+	event OnLeaveState( nextStateName : name ) {
+		parent.RemoveAnimEventCallback('InitAction');
+		parent.RemoveAnimEventCallback('Prepare');
+		parent.RemoveAnimEventCallback('Spawn');
+		parent.RemoveAnimEventCallback('Shoot');
+		parent.RemoveAnimEventCallback('PerformMagicAttack');
+		parent.RemoveAnimEventCallback('PrepareTeleport');
+		parent.RemoveAnimEventCallback('PerformTeleport');
+
+		startupAction = IA_None;
+		this.CombatFistsDone( nextStateName );
+		super.OnLeaveState(nextStateName);		
 	}
 
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
@@ -205,15 +194,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		// needed?
 		//parent.SetRequiredItems('Any', 'fist' );
 		//parent.ProcessRequiredItems();
-	}
-	
-	event OnLeaveState( nextStateName : name )
-	{
-		startupAction = IA_None;
-
-		this.CombatFistsDone( nextStateName );
-		
-		super.OnLeaveState(nextStateName);		
 	}
 	
 	
@@ -475,7 +455,13 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		/* AARD, YRDEN == HeavyThrow */
 		/* QUEN handled by w2beh (have separate anims with special events == edited taunts)
-			quen_lp == taunt_02_lp, quen_rp == taunt_02_rp */
+			woman_sorceress_special_quen_lp == taunt_02_lp, 
+			woman_sorceress_special_quen_rp == taunt_02_rp 
+		*/
+		// taunt_01_rp == "heal"
+		// taunt_02_rp == "shield"
+		// taunt_03_rp == ?"transform"
+		// electricity_lp == "cast" / ?"transform"
 
 		/* 3.33 (1.7) */
 		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialElectricity' );
@@ -514,6 +500,32 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			str = aspect.CreateComboString( true );		
 			str.AddDirAttack( 'woman_sorceress_special_attack_fireball_lp', AD_Front, ADIST_Medium );	
 			str.AddAttack( 'woman_sorceress_special_attack_fireball_lp', ADIST_Medium );
+		}
+
+		/* 3.0 (2.0) */
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialHeal' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_heal_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_heal_rp', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_heal_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_heal_lp', ADIST_Medium );
+		}
+
+		/* 4.166 (3.0) */
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialTransform' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_transform_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_transform_rp', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_transform_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_transform_lp', ADIST_Medium );
 		}
 	}
 

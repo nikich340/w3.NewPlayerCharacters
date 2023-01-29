@@ -1615,9 +1615,8 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	latent function TryPeformMagicAttack( aspectName : name, actionType : ENR_MagicAction ) {
 		ResetTimeToEndCombat();
 
+		parent.magicManager.CorrectAspectAction( actionType, aspectName );
 		if ( parent.magicManager.HasStaminaForAction(aspectName) ) {
-			aspectName = parent.magicManager.CorrectAspectName( aspectName );
-			actionType = parent.magicManager.CorrectActionType( actionType, aspectName );
 			parent.magicManager.SetActionType( actionType );
 			comboPlayer.PlayAttack( aspectName );
 			NRD("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
@@ -1711,8 +1710,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 					npc.SignalGameplayEventParamInt('Time2DodgeFast', (int)EDT_Attack_Light );
 				TryPeformMagicAttack( 'AttackLight', ENR_LightAbstract );
 			} else if ( playerAttackType == theGame.params.ATTACK_NAME_HEAVY )
-			{
-				//thePlayer.PlayBattleCry( 'BattleCryAttack', 0.1f );		
+			{	
 				TryPeformMagicAttack( 'AttackHeavy', ENR_HeavyAbstract );
 			} else if ( playerAttackType == 'attack_magic_push' )
 			{
@@ -1722,44 +1720,16 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				ResetTimeToEndCombat();
 				isAlternateAttack = CheckIsAlternateAttack( 0.2f );
 				NRD("Combat.ProcessAttack: isAlternate = " + isAlternateAttack);
-				switch ( parent.GetEquippedSign() ) {
-					case ST_Aard:
-						if (isAlternateAttack)
-							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialLightningFall );
-						else
-							TryPeformMagicAttack( 'AttackHeavyRock', ENR_SpecialTornado );
-						break;
-					case ST_Yrden:
-						if (isAlternateAttack)
-							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialTransform ); // TODO: taunt
-						else
-							TryPeformMagicAttack( 'AttackHeavyRock', ENR_SpecialGolem );
-						break;
-					case ST_Axii:
-						if (isAlternateAttack)
-							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialAxiiAlternate );
-						else
-							TryPeformMagicAttack( 'AttackSpecialFireball', ENR_SpecialControl );
-						break;
-					case ST_Igni:
-						if (isAlternateAttack)
-							TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialMeteorFall );
-						else
-							TryPeformMagicAttack( 'AttackSpecialFireball', ENR_SpecialMeteor );
-						break;
-					case ST_Quen:
-						if (isAlternateAttack) {
-							TryPeformMagicAttack( 'AttackSpecialPray', ENR_SpecialLumos );
-						} else {
-							parent.CastQuen();
-						}
-						break;
-						/* non-alternative quen must be handled by w2beh */
-					default:
-						NRE("Process attack: attack_magic_special: Unknown sign value = " + parent.GetEquippedSign());
-						//TryPeformMagicAttack( 'AttackLight' );
-						break;
+
+				if (parent.GetEquippedSign() == ST_Quen && !isAlternateAttack) {
+					parent.CastQuen();
+					return;
 				}
+				
+				if (isAlternateAttack)
+					TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialAbstractAlt );
+				else
+					TryPeformMagicAttack( 'AttackHeavyRock', ENR_SpecialAbstract );				
 			}
 			else
 			{

@@ -1,6 +1,5 @@
 class NR_MagicRipApart extends NR_MagicAction {
 	default actionType = ENR_RipApart;
-	default actionName 	= 'AttackFinisher';
 
 	latent function OnInit() : bool {
 		var phraseInputs : array<int>;
@@ -24,7 +23,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 		if (target) {
 			buffParams.effectType = EET_Confusion;
 			buffParams.creator = thePlayer;
-			buffParams.sourceName = 'NR_MagicAction';
+			buffParams.sourceName = 'NR_MagicRipApart';
 			buffParams.duration = 5.f;
 			buffParams.customFXName = 'axii_slowdown';
 			target.AddEffectCustom(buffParams);
@@ -64,7 +63,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 
 			dummyEntity.PlayEffect('blood_explode');
 			dummyEntity.DestroyAfter(5.f);
-			//target.Kill('NR_ReplacerSorceress');
+			target.Kill('NR_ReplacerSorceress', false, thePlayer);
 		}
 
 		return OnPerformed(true);

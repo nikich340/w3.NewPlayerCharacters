@@ -2,7 +2,6 @@ class NR_MagicCounterPush extends NR_MagicAction {
 	var aardEntity		: NR_SorceressAard;
 	var aardProjectile 	: W3AardProjectile;
 	default actionType = ENR_CounterPush;
-	default actionName 	= 'AttackPush';
 
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
@@ -19,7 +18,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		}
 
 		entityTemplate = (CEntityTemplate)LoadResourceAsync("gameplay\templates\signs\pc_aard_proj_blast.w2ent", true);
-		aardProjectile = (W3AardProjectile)theGame.CreateEntity(entityTemplate, pos, rot);
+		aardProjectile = (W3AardProjectile)theGame.CreateEntity(entityTemplate, pos - thePlayer.GetHeadingVector() * 0.7, rot);
 		if (!aardProjectile) {
 			NRE("aardProjectile is not valid.");
 			return OnPrepared(false);
@@ -29,7 +28,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 	}
 	latent function OnPerform() : bool {
 		var attackRange : CAIAttackRange;
-		var aardstandartCollisions : array<name>;
+		var aardStandartCollisions : array<name>;
 		var hitsWater : bool;
 
 		var super_ret : bool;
@@ -43,22 +42,22 @@ class NR_MagicCounterPush extends NR_MagicAction {
 			return OnPerformed(false);
 		}
 		attackRange = theGame.GetAttackRangeForEntity( aardEntity, 'blast_upgrade3' );
-		aardstandartCollisions.PushBack( 'Projectile' );
-		aardstandartCollisions.PushBack( 'Door' );
-		aardstandartCollisions.PushBack( 'Static' );		
-		aardstandartCollisions.PushBack( 'Character' );
-		aardstandartCollisions.PushBack( 'ParticleCollider' );
+		aardStandartCollisions.PushBack( 'Projectile' );
+		aardStandartCollisions.PushBack( 'Door' );
+		aardStandartCollisions.PushBack( 'Static' );		
+		aardStandartCollisions.PushBack( 'Character' );
+		aardStandartCollisions.PushBack( 'ParticleCollider' );
 
 		aardProjectile.ExtInit( NR_GetReplacerSorceress().nr_signOwner, S_Magic_1, aardEntity );
 		aardProjectile.SetAttackRange( attackRange );
-		aardProjectile.SphereOverlapTest( 10.f, aardstandartCollisions );	
-		GCameraShake(0.1f, true, pos, 30.0f); // 0.2 cone, 0.5 blast
+		aardProjectile.SphereOverlapTest( 10.f, aardStandartCollisions );	
+		GCameraShake(0.2f, true, pos, 30.0f); // 0.2 cone, 0.5 blast
 
 		hitsWater = ((CMovingPhysicalAgentComponent)thePlayer.GetMovingAgentComponent()).GetSubmergeDepth() < 0;
 		aardEntity.PlayEffect( 'blast_lv3' );
 		aardEntity.PlayEffect( 'blast_lv3_damage' );
 		aardEntity.PlayEffect( 'blast_lv3_power' );
-		if(hitsWater)
+		if (hitsWater)
 			aardEntity.PlayEffect( 'blast_water' );
 		else
 			aardEntity.PlayEffect( 'blast_ground' );

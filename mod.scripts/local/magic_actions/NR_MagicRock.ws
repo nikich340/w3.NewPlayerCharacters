@@ -7,9 +7,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 	var lStartTime 		: float;
 	var lPrevTime 		: float;
 	var lLoopActive		: bool;
-
 	default actionType = ENR_Rock;
-	default actionName 	= 'AttackHeavy';
 	
 	latent function OnInit() : bool {
 		var phraseInputs : array<int>;
@@ -27,6 +25,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 
 		return true;
 	}
+
 	latent function OnPrepare() : bool {
 		var i, numberOfCircles, numberToSpawn, numPerCircle : int;
 		var startTime				: float;
@@ -36,8 +35,11 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 
 		super.OnPrepare();
 
+		m_fxNameMain = GlowFxName();
+		m_fxNameExtra = PushFxName();
+
 		//parent.HandFX(false);
-		resourceName = map[sign].getN("rock_proj");
+		resourceName = map[sign].getN("entity_" + ENR_MAToName(actionType) );
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		// BTTaskPullObjectsFromGroundAndShoot, Keira Metz & Djinni //
 		numberToSpawn			= 9;
@@ -59,7 +61,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			spawnRot = VecToRotation( thePlayer.GetWorldPosition() - spawnPos);
 			
 			projectile = (W3AdvancedProjectile)theGame.CreateEntity( entityTemplate, spawnPos + Vector(0,0,0.3f), spawnRot );
-			projectile.PlayEffect('glow');
+			projectile.PlayEffect( m_fxNameMain );
 			lStartPositions.PushBack( spawnPos );
 			lProjectiles.PushBack(projectile);
 
@@ -74,10 +76,10 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		lStartTime = EngineTimeToFloat(theGame.GetEngineTime());
 		lPrevTime = EngineTimeToFloat(theGame.GetEngineTime());
 
-		inPostState = true;
 		this.GotoState('Loop');
 		return OnPrepared(true);
 	}
+
 	latent function OnPerform() : bool {
 		var i 					: int;
 		var shootDirectionNoise : float = 2.5f;
@@ -93,26 +95,28 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			return OnPerformed(false);
 		}
 
+		// stop rotating
 		PopState( true );
-		// aard effect
-		resourceName = map[sign].getN("rock_push_entity");
+		// "aard" push effect
+		resourceName = 'keira_metz_cast'; // lynx_cast ?
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 		spawnPos = thePlayer.GetWorldPosition() + Vector(0, 0, 1.15);
 		spawnRot = thePlayer.GetWorldRotation();
 		dummyEntity = theGame.CreateEntity( entityTemplate, spawnPos, spawnRot );
 
 		dummyEntity.CreateAttachment( thePlayer );
-		dummyEntity.PlayEffect( 'cone' ); // 'blast' 'cone'
+		dummyEntity.PlayEffect( m_fxNameExtra ); // 'blast' 'cone'
 		dummyEntity.DestroyAfter(5.f);
 
 		NRD("rock: OnPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
+		// shoot projectiles
 		for ( i = lProjectiles.Size() - 1 ; i >= 0 ; i -= 1 ) 
 		{
 			projectile = lProjectiles.PopBack();
 			lStartPositions.PopBack();
 			lFinalPositions.PopBack();
 			projectile.Init( thePlayer );
-			projectile.StopEffect( 'glow' );
+			projectile.StopEffect( m_fxNameMain );
 
 			distToTarget = VecDistance2D( pos, thePlayer.GetWorldPosition() );
 			// a bit randomness
@@ -130,12 +134,84 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, range, standartCollisions );
 			projectile.DestroyAfter(10.f);
 		}
-		inPostState = false;
 		return OnPerformed(true);
 	}
+
 	latent function BreakAction() {
 		super.BreakAction();
 		GotoState('Break');
+	}
+
+	latent function GlowFxName() : name {
+		var color : ENR_MagicColor = NR_GetActionColor();
+
+		switch (color) {
+			//case ENR_ColorBlack:
+			//	return 'black';
+			//case ENR_ColorGrey:
+			//	return 'grey';
+			case ENR_ColorYellow:
+				return 'cone_yellow';
+			case ENR_ColorOrange:
+				return 'cone_orange';
+			case ENR_ColorRed:
+				return 'cone_red';
+			case ENR_ColorPink:
+				return 'cone_pink';
+			case ENR_ColorViolet:
+				return 'cone_violet';
+			case ENR_ColorBlue:
+				return 'cone_blue';
+			case ENR_ColorSeagreen:
+				return 'cone_seagreen';
+			case ENR_ColorGreen:
+				return 'cone_green';
+			//case ENR_ColorSpecial1:
+			//	return 'special1';
+			//case ENR_ColorSpecial2:
+			//	return 'special2';
+			//case ENR_ColorSpecial3:
+			//	return 'special3';
+			case ENR_ColorWhite:
+			default:
+				return 'cone_white';
+		}
+	}
+
+	latent function PushFxName() : name {
+		var color : ENR_MagicColor = NR_GetActionColor();
+
+		switch (color) {
+			//case ENR_ColorBlack:
+			//	return 'black';
+			//case ENR_ColorGrey:
+			//	return 'grey';
+			case ENR_ColorYellow:
+				return 'cone_yellow';
+			case ENR_ColorOrange:
+				return 'cone_orange';
+			case ENR_ColorRed:
+				return 'cone_red';
+			case ENR_ColorPink:
+				return 'cone_pink';
+			case ENR_ColorViolet:
+				return 'cone_violet';
+			case ENR_ColorBlue:
+				return 'cone_blue';
+			case ENR_ColorSeagreen:
+				return 'cone_seagreen';
+			case ENR_ColorGreen:
+				return 'cone_green';
+			//case ENR_ColorSpecial1:
+			//	return 'special1';
+			//case ENR_ColorSpecial2:
+			//	return 'special2';
+			//case ENR_ColorSpecial3:
+			//	return 'special3';
+			case ENR_ColorWhite:
+			default:
+				return 'cone_white';
+		}
 	}
 }
 
@@ -143,12 +219,16 @@ state Loop in NR_MagicRock {
 	event OnEnterState( prevStateName : name )
 	{		
 		parent.lLoopActive = true;
+		parent.inPostState = true;
 		LoopMove();
 	}
+
 	event OnLeaveState( nextStateName : name )
 	{		
 		parent.lLoopActive = false;
-	}		
+		parent.inPostState = false;
+	}	
+
 	entry function LoopMove()
 	{	
 		var speed, prevSpeed, deltaTime		: float;
@@ -166,13 +246,13 @@ state Loop in NR_MagicRock {
 		var spawnPos 						: Vector;
 		var spawnRot 						: EulerAngles;
 
-		while (true) {
+		while (!parent.isBroken && !parent.isPerformed) {
 			SleepOneFrame();
 			currentTime = EngineTimeToFloat(theGame.GetEngineTime());
 			if (currentTime - parent.lStartTime > 1.5f) {
 				NRE("LoopMove: Perform should have been received? Delay = " + (currentTime - parent.lStartTime));
-				//parent.GotoState('Break');
-				//return;
+				parent.GotoState('Break');
+				return;
 			}
 
 			deltaTime = EngineTimeToFloat(theGame.GetEngineTime()) - parent.lPrevTime;
@@ -216,11 +296,15 @@ state Break in NR_MagicRock {
 		parent.isPrepared = true;
 		parent.isPerformed = true;
 		parent.lLoopActive = false;
+		parent.inPostState = true;
 		BreakMove();
 	}
+
 	event OnLeaveState( nextStateName : name )
 	{
+		parent.inPostState = false;
 	}
+
 	entry function BreakMove() {
 		var range		: float;
 		var i			: int;
@@ -233,7 +317,7 @@ state Break in NR_MagicRock {
 			parent.lStartPositions.PopBack();
 			parent.lFinalPositions.PopBack();
 			projectile.Init( thePlayer );
-			projectile.StopEffect( 'glow' );
+			projectile.StopEffect( parent.m_fxNameMain );
 			
 			// dropping
 			range = RandRangeF( 1, 0 );

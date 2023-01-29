@@ -21,16 +21,12 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
-		magicManager = new NR_MagicManager in this;
-		magicManager.InitDefaults();
-		magicManager.GotoState('MagicLoop');
-		NR_Notify("nr_lumosActive = " + nr_lumosActive);
-		if (nr_lumosActive)
-			magicManager.LumosFX(true);
-
 		super.OnSpawned( spawnData );
-		AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend'); // TODO: Remove this later!!
 
+		magicManager = new NR_MagicManager in this;
+		AddTimer('NR_LaunchMagicManager', 0.25f);  // post-pone to let player manager load
+
+		AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend'); // TODO: Remove this later!!
 		// no swords
 		BlockAction( EIAB_DrawWeapon, 'NR_ReplacerSorceress' );
 		
@@ -46,7 +42,16 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		findMoveTargetDistMax = nr_targetDist + 10.f;
 	}
 
+	timer function NR_LaunchMagicManager( delta : float, id : int) {
+		magicManager.Init();
+		magicManager.GotoState('MagicLoop');
+		// launch lumos fx if was active
+		if (nr_lumosActive)
+			magicManager.LumosFX(/*enable*/ true, /*reload*/ true);
+	}
+
 	function SetLumosActive(active : bool) {
+		NR_Notify("SetLumosActive: " + active);
 		nr_lumosActive = active;
 	}
 
@@ -55,12 +60,38 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		findMoveTargetDistMin = nr_targetDist;
 		NRD("NR_SetTargetDist");
 	}
+
+	event OnAnimEventMagic( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
+	{
+		var magicEvent : SNR_MagicEvent;
+
+		if (animEventType != AET_Tick) {
+			NRD("ERROR! Wrong animEventType: " + animEventType);
+			return false;
+		}
+		magicEvent.eventName = animEventName;
+		magicEvent.animName = GetAnimNameFromEventAnimInfo(animInfo);
+		magicEvent.animTime = GetLocalAnimTimeFromEventAnimInfo(animInfo);
+		//magicEvent.eventDuration = GetEventDurationFromEventAnimInfo(animInfo);
+		NRD("OnAnimEventMagic:: eventName = " + magicEvent.eventName + ", type = " + animEventType + ", animName = " + magicEvent.animName);
+		// will be auto-processed async in next frame
+		magicManager.aEventsStack.PushBack(magicEvent);
+	}
+
+	event OnPreAttackEvent(animEventName : name, animEventType : EAnimationEventType, data : CPreAttackEventData, animInfo : SAnimationEventAnimInfo)
+	{
+		if (animEventType == AET_DurationStart) {
+			// must be processed in sync to change data var
+			magicManager.OnPreAttackEvent(GetAnimNameFromEventAnimInfo(animInfo), data);
+		}
+		super.OnPreAttackEvent(animEventName, animEventType, data, animInfo);
+	}
 	
 	// TODO: Remove this later!!
-	event OnAnimEventBlend( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
-	{
+	//event OnAnimEventBlend( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
+	//{
 		//NR_Notify("OnAnimEventBlend:: eventName = " + animEventName + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
-	}
+	//}
 
 	/* Break current magic attack, if it's in process */
 	public function ReactToBeingHit(damageAction : W3DamageAction, optional buffNotApplied : bool) : bool {
@@ -141,4 +172,12 @@ function NR_GetMagicManager() : NR_MagicManager
 	var sorceress : NR_ReplacerSorceress;
 	sorceress = NR_GetReplacerSorceress();
 	return sorceress.magicManager;
+}
+
+exec function reset_magic() {
+	var manager : NR_MagicManager = NR_GetMagicManager();
+	if (!manager) {
+		NRE("!magicManager");
+	}
+	manager.Init(/*forceReset*/ true);
 }

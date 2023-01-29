@@ -34,16 +34,19 @@ class NR_MagicAspectSelector {
 			NRE("NR_MagicAttackSelector.SelectAttack(): empty currentAttackCounts!");
 			return '';
 		}
-		if (currentAttackCounts[currentAttackIndex] == 0) {
+		while (currentAttackCounts[currentAttackIndex] == 0) {
 			/* Use next attack */
 			currentAttackIndex += 1;
-		}
-		if (currentAttackIndex >= currentAttackCounts.Size()) {
-			/* Start again from first attack */
-			RefillCurrent();
+			if (currentAttackIndex >= currentAttackCounts.Size()) {
+				/* Start again from first attack */
+				RefillCurrent();
+			}
 		}
 		/* Decrease left attacks count and return name */
 		currentAttackCounts[currentAttackIndex] -= 1;
+		if (currentAttackIndex >= attackNames.Size() || currentAttackIndex < 0)
+			NRE("NR_MagicAspectSelector::SelectAttack -> invalid index");
+
 		return attackNames[currentAttackIndex];
 	}
 }

@@ -2,9 +2,7 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 	var transformNPC 	: CNewNPC;
 	var idleActionId 	: int;
 	var appearanceName 	: name;
-
 	default actionType = ENR_SpecialTransform;
-	default actionName = 'AttackHeavy';
 	
 	latent function OnInit() : bool {
 		var phraseInputs : array<int>;
@@ -22,6 +20,7 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 
 		return true;
 	}
+
 	latent function OnPrepare() : bool {
 		var appNames 	: array<name>;
 		super.OnPrepare();
@@ -50,6 +49,7 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 
 		return OnPrepared(true);
 	}
+
 	latent function OnPerform() : bool {
 		var aiTree 		: CAIIdleTree;
 		var super_ret 	: bool;
@@ -78,6 +78,7 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 		GotoState('RunWait');
 		return OnPerformed(true);
 	}
+	
 	latent function BreakAction() {
 		if (isPerformed) // don't react
 			return;

@@ -1,33 +1,32 @@
 abstract statemachine class NR_MagicAction {
-	var resourceName 	: String;
-	var entityTemplate 	: CEntityTemplate;
-	var destroyable		: W3DestroyableClue;
-	var dummyEntity 	: CEntity;
-	var effectName 		: name;
-	var effectHitName	: name;
-	var target			: CActor;
-	var pos 			: Vector;
-	var rot 			: EulerAngles;
-	var sign 			: ESignType;
-	var effectColor 	: ENR_MagicColor;
-	var    i 			: int;
-	var standartCollisions 	: array<name>;
-	const var ST_Universal	: int;
+	protected var resourceName 	: String;
+	protected var entityTemplate 	: CEntityTemplate;
+	protected var destroyable		: W3DestroyableClue;
+	protected var dummyEntity 	: CEntity;
+	protected var pos 			: Vector;
+	protected var rot 			: EulerAngles;
+	protected var m_effectColor : ENR_MagicColor;
+	protected var    	  i, j 	: int;
+	protected var standartCollisions : array<name>;
+	protected var m_fxNameMain   : name;
+	protected var m_fxNameExtra  : name;
 
+
+	public var m_fxNameHit	: name;
+	public var sign 			: ESignType;
+	public var target			: CActor;  // == Willey when in scene
 	public var map 			: array<NR_Map>;
 	public var magicSkill	: ENR_MagicSkill;
 	public var actionType 	: ENR_MagicAction;
-	public var actionName	: name; // comboPlayer aspect name
 	public var isPrepared	: bool;
 	public var isPerformed	: bool;
 	public var isBroken		: bool;
 	public var inPostState	: bool;
 	public var isCursed		: bool;
 	public var drainStaminaOnPerform : bool;
+	const  var ST_Universal	 : int;
 
 	default actionType 	= ENR_Unknown;
-	default effectColor = ENR_ColorDefault;
-	default actionName 	= '';
 	default isPrepared 	= false;
 	default isPerformed = false;
 	default isBroken	= false;
@@ -57,7 +56,7 @@ abstract statemachine class NR_MagicAction {
 			NRD("action = " + actionType + ": No scene inputs");
 			return false;
 		}
-		path = "dlc/dlcnewreplacers/data/scenes/02.magic_actions.w2scene";
+		path = "dlc/dlcnewreplacers/data/scenes/02.magic_lines.w2scene";
 		scene = (CStoryScene)LoadResource(path, true);
 		if (!scene) {
 			NRE("PlayScene: NULL scene!");
@@ -71,8 +70,10 @@ abstract statemachine class NR_MagicAction {
 	}
 	latent function OnPrepare() : bool {
 		// load and calculate data
-		target 		= thePlayer.GetTarget();
-		sign 		= GetWitcherPlayer().GetEquippedSign();
+		if (!IsInSetupScene()) {
+			target 	= thePlayer.GetTarget();
+			//sign 	= GetWitcherPlayer().GetEquippedSign();
+		}
 		//standartCollisions.PushBack('Debris');
 		standartCollisions.PushBack('Character');
 		standartCollisions.PushBack('CommunityCollidables');
@@ -108,8 +109,9 @@ abstract statemachine class NR_MagicAction {
 		isPerformed = result;
 		if (result && drainStaminaOnPerform) {
 			magicManager = NR_GetMagicManager();
-			if (magicManager)
-				magicManager.DrainStaminaForAction(actionName);
+			// TODO with actionType
+			//if (magicManager)
+			//	magicManager.DrainStaminaForAction(actionName);
 		}
 		return result;
 	}
@@ -161,6 +163,7 @@ abstract statemachine class NR_MagicAction {
 			}
 		}
 	}
+
 	latent function NR_FindDestroyableTarget() : bool 
 	{
 		var ents 	: array<CGameplayEntity>;
@@ -214,5 +217,17 @@ abstract statemachine class NR_MagicAction {
 			NRD("Set level (" + newLevel + ") to: " + npc);
 			npc.SetLevel(newLevel);
 		}
+	}
+
+	function IsInSetupScene() : bool {
+		return map[ST_Universal].getI("setup_scene_active", 0);
+	}
+
+	// get action color enum for current action type
+	function NR_GetActionColor(optional isUniversal : bool) : ENR_MagicColor {
+		if (isUniversal)
+			return (ENR_MagicColor)map[ST_Universal].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite);
+		
+		return (ENR_MagicColor)map[sign].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite);
 	}
 }

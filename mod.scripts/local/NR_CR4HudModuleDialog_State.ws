@@ -1,4 +1,4 @@
-state NR_ScenePreview_DialogState in CR4HudModuleDialog {
+state NR_ScenePreviewAppearance_DialogState in CR4HudModuleDialog {
 	event OnEnterState( prevStateName : name )
     {
     }
@@ -30,7 +30,7 @@ state NR_SceneDefault_DialogState in CR4HudModuleDialog {
     }
 }
 
-function NR_EnterScenePreviewState()
+function NR_EnterScenePreviewState(stateName : name)
 {
     var hud : CR4ScriptedHud;
     var dialogModule : CR4HudModuleDialog;
@@ -40,7 +40,7 @@ function NR_EnterScenePreviewState()
     if (hud)
     {
         dialogModule = hud.GetDialogModule();
-        dialogModule.GotoState('NR_ScenePreview_DialogState');
+        dialogModule.GotoState(stateName);
     }
 }
 function NR_ExitScenePreviewState()
@@ -53,12 +53,12 @@ function NR_ExitScenePreviewState()
     if (hud)
     {
         dialogModule = hud.GetDialogModule();
-        dialogModule.GotoState('NR_SceneDefault_DialogState');
+        dialogModule.GotoState('NR_EnterScenePreviewState');
     }
 }
 
-storyscene function NR_EnterScenePreviewState_S(player: CStoryScenePlayer) {
-	NR_EnterScenePreviewState();
+storyscene function NR_EnterScenePreviewState_S(player: CStoryScenePlayer, stateName : name) {
+	NR_EnterScenePreviewState(stateName);
     NR_GetPlayerManager().ShowAppearanceInfo();
 }
 

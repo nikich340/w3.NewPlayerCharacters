@@ -23,34 +23,72 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 
 		return OnPrepared(true);
 	}*/
+
 	/* Non-latent version */
 	public function OnPerformSync() : bool {
+		NR_Notify("NR_MagicSpecialLumos::OnPerformSync, isActive = " + isActive);
 		if (isActive) {
 			BreakActionSync();
 			return true;
 		}
 
 		s_specialLifetime = map[ST_Universal].getI("s_controlLifetime", 60);
-		if ( FactsDoesExist("nr_lumos_fx") )
-			effectColor = FactsQuerySum("nr_lumos_fx");
+		m_fxNameMain = LumosFxName();
 
-		if ( map[ST_Quen].hasKey("lumos_color_" + IntToString(effectColor)) ) {
-			NR_GetReplacerSorceress().PlayEffect( map[ST_Quen].getN("lumos_color_" + IntToString(effectColor)) );
-		} else {
-			return false;
-		}
+		NR_Notify("NR_MagicSpecialLumos::OnPerformSync, effectColor = " + m_effectColor);
+
+		NR_GetReplacerSorceress().PlayEffect( m_fxNameMain );
 		GotoState('RunWait');
 		return true;
 	}
+
 	latent function OnPerform() : bool {
 		return OnPerformed( OnPerformSync() );
 	}
+
 	/* Non-latent version */
-	public function BreakActionSync() {
+	function BreakActionSync() {
 		GotoState('Stop');
 	}
+
 	latent function BreakAction() {
 		BreakActionSync();
+	}
+
+	function LumosFxName() : name {
+		var color : ENR_MagicColor = NR_GetActionColor();
+
+		switch (color) {
+			//case ENR_ColorBlack:
+			//	return 'black';
+			//case ENR_ColorGrey:
+			//	return 'grey';
+			case ENR_ColorYellow:
+				return 'lumos_yellow';
+			case ENR_ColorOrange:
+				return 'lumos_orange';
+			case ENR_ColorRed:
+				return 'lumos_red';
+			case ENR_ColorPink:
+				return 'lumos_pink';
+			case ENR_ColorViolet:
+				return 'lumos_violet';
+			case ENR_ColorBlue:
+				return 'lumos_blue';
+			case ENR_ColorSeagreen:
+				return 'lumos_seagreen';
+			case ENR_ColorGreen:
+				return 'lumos_green';
+			//case ENR_ColorSpecial1:
+			//	return 'special1';
+			//case ENR_ColorSpecial2:
+			//	return 'special2';
+			//case ENR_ColorSpecial3:
+			//	return 'special3';
+			case ENR_ColorWhite:
+			default:
+				return 'lumos_white';
+		}
 	}
 }
 
@@ -79,13 +117,9 @@ state Stop in NR_MagicSpecialLumos {
 		Stop();
 	}
 	entry function Stop() {
-		/*for (i = 0; i <= EnumGetMax('ENR_MagicColor'); i += 1) {
-			if ( map[ST_Quen].hasKey("lumos_color_" + IntToString(i)) )
-				NR_GetReplacerSorceress().StopEffect( map[ST_Quen].getN("lumos_color_" + IntToString(i)) );
-		}*/
 		NR_GetReplacerSorceress().SetLumosActive(false);
 		parent.isActive = false;
-		NR_GetReplacerSorceress().StopEffect( parent.map[ST_Quen].getN("lumos_color_" + IntToString(parent.effectColor)) );
+		NR_GetReplacerSorceress().StopEffect( parent.m_fxNameMain );
 	}
 	event OnLeaveState( nextStateName : name )
 	{
@@ -100,8 +134,7 @@ state Curse in NR_MagicSpecialLumos {
 		Curse();
 	}
 	entry function Curse() {
-		// TODO ?
-		// do nothing atm
+		// do nothing
 		parent.StopAction();
 	}
 	event OnLeaveState( nextStateName : name )

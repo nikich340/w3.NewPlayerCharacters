@@ -1,32 +1,33 @@
 class NR_MagicSlash extends NR_MagicAction {
 	var swingType, swingDir	: int; 
 	default actionType = ENR_Slash;
-	default actionName 	= 'AttackLight';
 
 	latent function SetSwingData(newSwingType : int, newSwingDir : int) {
 		swingType = newSwingType;
 		swingDir = newSwingDir;
 	}
+
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
-		resourceName = map[sign].getN("slash_entity");
+		resourceName = map[sign].getN("entity_" + ENR_MAToName(actionType));
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
 		dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
-		OnPrepare_GetSlashEffectNames();
+		m_fxNameMain = SlashFxName();
 
-		if (dummyEntity && effectName != '') {
-			dummyEntity.PlayEffect(effectName);
+		if (dummyEntity && m_fxNameMain != '') {
+			dummyEntity.PlayEffect(m_fxNameMain);
 			dummyEntity.DestroyAfter(5.f);
 		} else {
-			NRE("DummyEntity or effectName is invalid.");
+			NRE("DummyEntity or m_fxNameMain is invalid.");
 			return OnPrepared(false);
 		}
 
 		return OnPrepared(true);
 	}
+
 	latent function OnPerform() : bool {
 		var targetNPC : CNewNPC;
 
@@ -37,8 +38,8 @@ class NR_MagicSlash extends NR_MagicAction {
 		}
 		if (target) {
 			targetNPC = (CNewNPC) target;
-			if ( effectHitName != '' && (!targetNPC || !targetNPC.HasAlternateQuen()) ) {
-				dummyEntity.PlayEffect(effectHitName);
+			if ( m_fxNameHit != '' && (!targetNPC || !targetNPC.HasAlternateQuen()) ) {
+				dummyEntity.PlayEffect(m_fxNameHit);
 			}
 			thePlayer.OnCollisionFromItem( target );
 			targetNPC.NoticeActor( thePlayer );
@@ -52,55 +53,102 @@ class NR_MagicSlash extends NR_MagicAction {
 
 		return OnPerformed(true);
 	}
+
 	latent function BreakAction() {
 		super.BreakAction();
 		if (dummyEntity) {
 			dummyEntity.Destroy();
 		}
 	}
-	latent function OnPrepare_GetSlashEffectNames() 
+	
+	latent function SlashFxName() : name 
 	{
-		var A, B : name;
-		switch ( swingType ) {
-			case AST_Horizontal: {
-				switch ( swingDir ) {
-					case ASD_LeftRight: A = 'left';	B = 'blood_left';	break;
-					case ASD_RightLeft: A = 'right'; B = 'blood_right'; 	break;
-					default: break;
-				}
-				break;
-			}
-			case AST_Vertical: {
-				switch ( swingDir ) {
-					case ASD_UpDown: A = 'down';	B = 'blood_down';	break;
-					case ASD_DownUp: A = 'up';		B = 'blood_up';		break;
-					default: break;
-				}
-				break;
-			}
-			case AST_DiagonalUp: {
-				switch ( swingDir ) {
-					case ASD_LeftRight:	A = 'diagonal_up_left';		B = 'blood_diagonal_up_left'; 	break;
-					case ASD_RightLeft:	A = 'diagonal_up_right';	B = 'blood_diagonal_up_right'; 	break;
-					default: break;
-				}
-				break;
-			}
-			case AST_DiagonalDown: {
-				switch ( swingDir ) {
-					case ASD_LeftRight:	A = 'diagonal_down_left';	B = 'blood_diagonal_down_left';		break;
-					case ASD_RightLeft:	A = 'diagonal_down_right';	B = 'blood_diagonal_down_right';	break;
-					default: break;
-				}
-				break;
-			}
-			default: 	A = ''; 	break;
-		}
+		var color : ENR_MagicColor = NR_GetActionColor();
 		
-		if( sign == ST_Yrden ) // philippa - TODO!!!
-			A = 'cast_line';
-
-		effectName 	  = A;
-		effectHitName = B;
+		switch (color) {
+			//case ENR_ColorBlack:
+			//	return 'ENR_ColorBlack';
+			//case ENR_ColorGrey:
+			//	return 'ENR_ColorGrey';
+			case ENR_ColorYellow:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'diagonal_down_left_yellow';
+					case ASD_RightLeft:
+					default:
+						return 'diagonal_down_right_yellow';
+				}
+			case ENR_ColorOrange:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'diagonal_down_left_orange';
+					case ASD_RightLeft:
+					default:
+						return 'diagonal_down_right_orangee';
+				}
+			case ENR_ColorRed:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'diagonal_down_left_red';
+					case ASD_RightLeft:
+					default:
+						return 'diagonal_down_right_red';
+				}
+			case ENR_ColorPink:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'diagonal_down_left_pink';
+					case ASD_RightLeft:
+					default:
+						return 'diagonal_down_right_pink';
+				}
+			case ENR_ColorViolet:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'diagonal_down_left_violet';
+					case ASD_RightLeft:
+					default:
+						return 'diagonal_down_right_violet';
+				}
+			case ENR_ColorBlue:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'diagonal_down_left_blue';
+					case ASD_RightLeft:
+					default:
+						return 'diagonal_down_right_blue';
+				}
+			case ENR_ColorSeagreen:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'diagonal_down_left_seagreen';
+					case ASD_RightLeft:
+					default:
+						return 'diagonal_down_right_seagreen';
+				}
+			case ENR_ColorGreen:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'diagonal_down_left_green';
+					case ASD_RightLeft:
+					default:
+						return 'diagonal_down_right_green';
+				}
+			//case ENR_ColorSpecial1:
+			//	return 'special1';
+			//case ENR_ColorSpecial2:
+			//	return 'special2';
+			//case ENR_ColorSpecial3:
+			//	return 'special3';
+			case ENR_ColorWhite:
+			default:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'diagonal_down_left_white';
+					case ASD_RightLeft:
+					default:
+						return 'diagonal_down_right_white';
+				}
+		}
 	}
 }

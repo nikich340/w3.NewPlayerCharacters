@@ -1,6 +1,5 @@
 class NR_MagicSpecialSphere extends NR_MagicAction {
 	default actionType = ENR_SpecialSphere;
-	default actionName 	= 'AttackSpecialQuen';
 	default drainStaminaOnPerform = false; // drained in NR_SorceressQuen
 
 	latent function OnInit() : bool {
@@ -20,10 +19,12 @@ class NR_MagicSpecialSphere extends NR_MagicAction {
 
 		return true;
 	}
+
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 		return OnPrepared(true);
 	}
+	
 	latent function OnPerform() : bool {
 		return OnPerformed(true);
 	}

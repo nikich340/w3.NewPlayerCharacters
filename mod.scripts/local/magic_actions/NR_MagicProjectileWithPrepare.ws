@@ -7,7 +7,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		var fireballProjectile 	: W3FireballProjectile;
 		super.OnPrepare();
 
-		resourceName = map[sign].getN("entity_" + ENR_MAToName(actionType));
+		resourceName = ProjectileEntityName();
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		rot = thePlayer.GetWorldRotation();
 		pos = thePlayer.GetWorldPosition();
@@ -27,6 +27,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 			spearProjectile.initFxName = InitFxName();
 			spearProjectile.onCollisionFxName = CollisionFxName();
 			spearProjectile.onCollisionVictimFxName = m_fxNameHit;
+			NRE("spearProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName() + ", m_fxNameHit = " + m_fxNameHit);
 		} else if (fireballProjectile) {
 			fireballProjectile.initFxName = InitFxName();
 			fireballProjectile.onCollisionFxName = CollisionFxName();
@@ -66,8 +67,22 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		}
 	}
 
+	latent function ProjectileEntityName() : String
+	{
+		var typeName : name = map[sign].getN("style_" + ENR_MAToName(actionType));
+		switch (typeName) {
+			case 'philippa':
+				return "nr_philippa_missile";
+			case 'caranthir':
+				return "nr_caranthir_icespear";
+			case 'triss':
+			default:
+				return "nr_triss_fireball";
+		}
+	}
+
 	latent function InitFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor();
+		var color : ENR_MagicColor = NR_GetActionColor(ENR_ThrowAbstract);
 
 		switch (color) {
 			//case ENR_ColorBlack:
@@ -103,7 +118,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 	}
 	
 	latent function CollisionFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor();
+		var color : ENR_MagicColor = NR_GetActionColor(ENR_ThrowAbstract);
 
 		switch (color) {
 			//case ENR_ColorBlack:

@@ -212,7 +212,7 @@ abstract statemachine class NR_MagicAction {
 			step = 3;
 		}
 		newLevel = GetWitcherPlayer().GetLevel() - 2 * step;
-		newLevel += step * ((int)magicSkill - (int)ENR_SkillBasic);
+		newLevel += step * ((int)magicSkill - (int)ENR_SkillNovice);
 		if (npc) {
 			NRD("Set level (" + newLevel + ") to: " + npc);
 			npc.SetLevel(newLevel);
@@ -224,9 +224,9 @@ abstract statemachine class NR_MagicAction {
 	}
 
 	// get action color enum for current action type
-	function NR_GetActionColor(optional isUniversal : bool) : ENR_MagicColor {
-		if (isUniversal)
-			return (ENR_MagicColor)map[ST_Universal].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite);
+	function NR_GetActionColor(optional customActionType : ENR_MagicAction) : ENR_MagicColor {
+		if (customActionType != ENR_Unknown)
+			return (ENR_MagicColor)map[sign].getI("color_" + ENR_MAToName(customActionType), ENR_ColorWhite);
 		
 		return (ENR_MagicColor)map[sign].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite);
 	}

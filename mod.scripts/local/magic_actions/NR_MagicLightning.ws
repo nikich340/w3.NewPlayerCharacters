@@ -21,7 +21,7 @@ class NR_MagicLightning extends NR_MagicAction {
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
-		entityTemplate = (CEntityTemplate)LoadResourceAsync("fx_dummy_entity");
+		entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_dummy_hit_fx");
 		// lightning can destroy clues //
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 0.f );
@@ -47,7 +47,8 @@ class NR_MagicLightning extends NR_MagicAction {
 		}
 
 		m_fxNameMain = LightningFxName();
-		// m_fxNameHit = set from MagicManager
+		m_fxNameHit = HitFxName(); // use dummy entity - more hit fx options
+		NR_Notify("m_fxNameMain = " + m_fxNameMain + ", m_fxNameHit = " + m_fxNameHit);
 		if (target) {
 			component = target.GetComponent('torso3effect');
 			if (component) {
@@ -84,9 +85,45 @@ class NR_MagicLightning extends NR_MagicAction {
 		}
 	}
 
+	latent function HitFxName() : name {
+		var color : ENR_MagicColor = NR_GetActionColor(ENR_ThrowAbstract);
+
+		switch (color) {
+			//case ENR_ColorBlack:
+			//	return 'black';
+			//case ENR_ColorGrey:
+			//	return 'grey';
+			case ENR_ColorYellow:
+				return 'hit_electric_yellow';
+			case ENR_ColorOrange:
+				return 'hit_electric_orange';
+			case ENR_ColorRed:
+				return 'hit_electric_red';
+			case ENR_ColorPink:
+				return 'hit_electric_pink';
+			case ENR_ColorViolet:
+				return 'hit_electric_violet';
+			case ENR_ColorBlue:
+				return 'hit_electric_blue';
+			case ENR_ColorSeagreen:
+				return 'hit_electric_seagreen';
+			case ENR_ColorGreen:
+				return 'hit_electric_green';
+			//case ENR_ColorSpecial1:
+			//	return 'special1';
+			//case ENR_ColorSpecial2:
+			//	return 'special2';
+			//case ENR_ColorSpecial3:
+			//	return 'special3';
+			case ENR_ColorWhite:
+			default:
+				return 'hit_electric_white';
+		}
+	}
+
 	latent function LightningFxName() : name {
-		var color 	: ENR_MagicColor = NR_GetActionColor();
-		var fx_type : name			 = map[sign].getN("fx_type_" + ENR_MAToName(actionType));
+		var color 	: ENR_MagicColor = NR_GetActionColor(ENR_ThrowAbstract);
+		var fx_type : name			 = map[sign].getN("style_" + ENR_MAToName(actionType));
 		switch (color) {
 			//case ENR_ColorBlack:
 			//	return 'ENR_ColorBlack';
@@ -96,65 +133,65 @@ class NR_MagicLightning extends NR_MagicAction {
 				switch (fx_type) {
 					case 'lynx':
 						return 'lightning_lynx_yellow';
-					case 'yennefer':
+					case 'keira':
 					default:
-						return 'lightning_yennefer_yellow';
+						return 'lightning_keira_yellow';
 				}
 			case ENR_ColorOrange:
 				switch (fx_type) {
 					case 'lynx':
 						return 'lightning_lynx_orange';
-					case 'yennefer':
+					case 'keira':
 					default:
-						return 'lightning_yennefer_orange';
+						return 'lightning_keira_orange';
 				}
 			case ENR_ColorRed:
 				switch (fx_type) {
 					case 'lynx':
 						return 'lightning_lynx_red';
-					case 'yennefer':
+					case 'keira':
 					default:
-						return 'lightning_yennefer_red';
+						return 'lightning_keira_red';
 				}
 			case ENR_ColorPink:
 				switch (fx_type) {
 					case 'lynx':
 						return 'lightning_lynx_pink';
-					case 'yennefer':
+					case 'keira':
 					default:
-						return 'lightning_yennefer_pink';
+						return 'lightning_keira_pink';
 				}
 			case ENR_ColorViolet:
 				switch (fx_type) {
 					case 'lynx':
 						return 'lightning_lynx_violet';
-					case 'yennefer':
+					case 'keira':
 					default:
-						return 'lightning_yennefer_violet';
+						return 'lightning_keira_violet';
 				}
 			case ENR_ColorBlue:
 				switch (fx_type) {
 					case 'lynx':
 						return 'lightning_lynx_blue';
-					case 'yennefer':
+					case 'keira':
 					default:
-						return 'lightning_yennefer_blue';
+						return 'lightning_keira_blue';
 				}
 			case ENR_ColorSeagreen:
 				switch (fx_type) {
 					case 'lynx':
 						return 'lightning_lynx_seagreen';
-					case 'yennefer':
+					case 'keira':
 					default:
-						return 'lightning_yennefer_seagreen';
+						return 'lightning_keira_seagreen';
 				}
 			case ENR_ColorGreen:
 				switch (fx_type) {
 					case 'lynx':
 						return 'lightning_lynx_green';
-					case 'yennefer':
+					case 'keira':
 					default:
-						return 'lightning_yennefer_green';
+						return 'lightning_keira_green';
 				}
 			//case ENR_ColorSpecial1:
 			//	return 'ENR_ColorSpecial1';
@@ -167,9 +204,9 @@ class NR_MagicLightning extends NR_MagicAction {
 				switch (fx_type) {
 					case 'lynx':
 						return 'lightning_lynx_white';
-					case 'yennefer':
+					case 'keira':
 					default:
-						return 'lightning_yennefer_white';
+						return 'lightning_keira_white';
 				}
 		}
 	}

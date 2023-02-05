@@ -341,8 +341,8 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		}
 		{
 			str = aspect.CreateComboString( true );
-			str.AddDirAttack( 'woman_sorceress_attack_throw_lp_03', AD_Front, ADIST_Medium );	
-			str.AddAttack( 'woman_sorceress_attack_throw_lp_03', ADIST_Medium );
+			str.AddDirAttack( 'woman_sorceress_attack_throw_lp_04', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_attack_throw_lp_04', ADIST_Medium );
 		}
 	}
 	

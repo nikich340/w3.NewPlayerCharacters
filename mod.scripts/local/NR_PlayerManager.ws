@@ -32,7 +32,7 @@ function NR_Notify(message : String, optional seconds : float)
 {
 	if (seconds < 1.f)
 		seconds = 3.f;
-    theGame.GetGuiManager().ShowNotification(message, seconds * 1000.f);
+    theGame.GetGuiManager().ShowNotification(message, seconds * 1000.f, false);
     LogChannel('NR_MOD', message);
 }
 quest function NR_Notify_Quest(message : String, optional seconds : float) {
@@ -558,8 +558,6 @@ class NR_PlayerManager extends CPeristentEntity {
 	}
 	// Updates saved replacer head item and load it //
 	function UpdateHead(newHeadName : name) {
-		var headManager : CHeadManagerComponent;
-
 		m_headName = newHeadName;
 		if (!IsReplacerActive())
 			return;

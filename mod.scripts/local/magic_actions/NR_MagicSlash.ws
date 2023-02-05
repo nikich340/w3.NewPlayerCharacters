@@ -10,7 +10,7 @@ class NR_MagicSlash extends NR_MagicAction {
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
-		resourceName = map[sign].getN("entity_" + ENR_MAToName(actionType));
+		resourceName = SlashEntityName();
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
@@ -21,7 +21,7 @@ class NR_MagicSlash extends NR_MagicAction {
 			dummyEntity.PlayEffect(m_fxNameMain);
 			dummyEntity.DestroyAfter(5.f);
 		} else {
-			NRE("DummyEntity or m_fxNameMain is invalid.");
+			NRE("DummyEntity (" + resourceName + ", " + entityTemplate + ", " + dummyEntity + ") or m_fxNameMain (" + m_fxNameMain + ") is invalid.");
 			return OnPrepared(false);
 		}
 
@@ -60,11 +60,26 @@ class NR_MagicSlash extends NR_MagicAction {
 			dummyEntity.Destroy();
 		}
 	}
+
+	latent function SlashEntityName() : String
+	{
+		var typeName : name = map[sign].getN("style_" + ENR_MAToName(actionType));
+		switch (typeName) {
+			case 'triss':
+				return "nr_triss_slash";
+			case 'philippa':
+				return "nr_philippa_slash";
+			case 'lynx':
+				return "nr_lynx_slash";
+			case 'yennefer':
+			default:
+				return "nr_yennefer_slash";
+		}
+	}
 	
 	latent function SlashFxName() : name 
 	{
 		var color : ENR_MagicColor = NR_GetActionColor();
-		
 		switch (color) {
 			//case ENR_ColorBlack:
 			//	return 'ENR_ColorBlack';
@@ -73,69 +88,75 @@ class NR_MagicSlash extends NR_MagicAction {
 			case ENR_ColorYellow:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'diagonal_down_left_yellow';
+						return 'down_left_yellow';
 					case ASD_RightLeft:
 					default:
-						return 'diagonal_down_right_yellow';
+						return 'down_right_yellow';
 				}
 			case ENR_ColorOrange:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'diagonal_down_left_orange';
+						return 'down_left_orange';
 					case ASD_RightLeft:
 					default:
-						return 'diagonal_down_right_orangee';
+						return 'down_right_orangee';
 				}
 			case ENR_ColorRed:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'diagonal_down_left_red';
+						return 'down_left_red';
 					case ASD_RightLeft:
 					default:
-						return 'diagonal_down_right_red';
+						return 'down_right_red';
 				}
 			case ENR_ColorPink:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'diagonal_down_left_pink';
+						return 'down_left_pink';
 					case ASD_RightLeft:
 					default:
-						return 'diagonal_down_right_pink';
+						return 'down_right_pink';
 				}
 			case ENR_ColorViolet:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'diagonal_down_left_violet';
+						return 'down_left_violet';
 					case ASD_RightLeft:
 					default:
-						return 'diagonal_down_right_violet';
+						return 'down_right_violet';
 				}
 			case ENR_ColorBlue:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'diagonal_down_left_blue';
+						return 'down_left_blue';
 					case ASD_RightLeft:
 					default:
-						return 'diagonal_down_right_blue';
+						return 'down_right_blue';
 				}
 			case ENR_ColorSeagreen:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'diagonal_down_left_seagreen';
+						return 'down_left_seagreen';
 					case ASD_RightLeft:
 					default:
-						return 'diagonal_down_right_seagreen';
+						return 'down_right_seagreen';
 				}
 			case ENR_ColorGreen:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'diagonal_down_left_green';
+						return 'down_left_green';
 					case ASD_RightLeft:
 					default:
-						return 'diagonal_down_right_green';
+						return 'down_right_green';
 				}
-			//case ENR_ColorSpecial1:
-			//	return 'special1';
+			case ENR_ColorSpecial1:
+				switch ( swingDir ) {
+					case ASD_LeftRight:
+						return 'down_left_special1';
+					case ASD_RightLeft:
+					default:
+						return 'down_right_special1';
+				}
 			//case ENR_ColorSpecial2:
 			//	return 'special2';
 			//case ENR_ColorSpecial3:
@@ -144,10 +165,10 @@ class NR_MagicSlash extends NR_MagicAction {
 			default:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'diagonal_down_left_white';
+						return 'down_left_white';
 					case ASD_RightLeft:
 					default:
-						return 'diagonal_down_right_white';
+						return 'down_right_white';
 				}
 		}
 	}

@@ -27,9 +27,9 @@ eredin_meteorite - ледяной метеорит*/
 
 enum ENR_MagicSkill {
 	ENR_SkillUnknown, 		// 0
-	ENR_SkillBasic, 		// 1
-	ENR_SkillEnhanced, 		// 2
-	ENR_SkillSuperior,		// 3
+	ENR_SkillNovice, 		// 1
+	ENR_SkillApprentice, 		// 2
+	ENR_SkillExperienced,		// 3
 	ENR_SkillMistress,		// 4
 	ENR_SkillArchMistress	// 5
 }
@@ -118,7 +118,9 @@ function ENR_MAToName(action : ENR_MagicAction) : name {
 		case ENR_CounterPush:
 			return 'ENR_CounterPush';
 		case ENR_SpecialAbstract:
-			return 'ENR_SpecialAbstract';
+			return 'ENR_SpecialAbstract';		
+		case ENR_SpecialAbstractAlt:
+			return 'ENR_SpecialAbstractAlt';
 		case ENR_SpecialControl:
 			return 'ENR_SpecialControl';
 		case ENR_SpecialGolem:
@@ -129,7 +131,12 @@ function ENR_MAToName(action : ENR_MagicAction) : name {
 			return 'ENR_SpecialTornado';
 		case ENR_SpecialSphere:
 			return 'ENR_SpecialSphere';
+		case ENR_Teleport:
+			return 'ENR_Teleport';
+		case ENR_HandFx:
+			return 'ENR_HandFx';
 		default:
+			NR_Notify("ENR_NameToMA: action = " + action);
 			return 'ENR_Unknown';
 	}
 }
@@ -159,6 +166,8 @@ function ENR_NameToMA(actionName : name) : ENR_MagicAction {
 			return ENR_CounterPush;
 		case 'ENR_SpecialAbstract':
 			return ENR_SpecialAbstract;
+		case 'ENR_SpecialAbstractAlt':
+			return ENR_SpecialAbstractAlt;
 		case 'ENR_SpecialControl':
 			return ENR_SpecialControl;
 		case 'ENR_SpecialGolem':
@@ -169,7 +178,12 @@ function ENR_NameToMA(actionName : name) : ENR_MagicAction {
 			return ENR_SpecialTornado;
 		case 'ENR_SpecialSphere':
 			return ENR_SpecialSphere;
+		case 'ENR_Teleport':
+			return ENR_Teleport;
+		case 'ENR_HandFx':
+			return ENR_HandFx;
 		default:
+			NR_Notify("ENR_NameToMA: name = " + actionName);
 			return ENR_Unknown;
 	}
 }
@@ -259,7 +273,7 @@ statemachine class NR_MagicManager {
 	protected var cachedActions : array<NR_MagicAction>;
 	protected var cursedActions : array<NR_MagicAction>;
 	protected var willeyVictim 	: CActor;
-	protected var eqSign 	: ESignType;
+	protected var eqSign 		: ESignType;
 
 	public var aIsAlternate 	: Bool; // remove?
 	public var aTeleportPos		: Vector;
@@ -267,7 +281,7 @@ statemachine class NR_MagicManager {
 	
 	protected var aHandEffect 	: name;
 	protected var i            	: int;
-	protected var aName 			: String;
+	protected var aName 		: String;
 
 	default ST_Universal 	= 5; // EnumGetMax(ESignType); 
 	default aHandEffect 	= '';
@@ -323,7 +337,9 @@ statemachine class NR_MagicManager {
 
 	public function CorrectAspectAction(out actionType : ENR_MagicAction, out aspectName : name) {
 		UpdateEquippedSign();
+		NRD("CorrectAspectAction: (before) actionType = " + ENR_MAToName(actionType) + ", aspectName = " + aspectName);
 
+		// select aspect name for light/heavy
 		switch (aspectName) {
 			case 'AttackLight':
 				aspectName = aSelectorLight.SelectAttack();
@@ -335,6 +351,7 @@ statemachine class NR_MagicManager {
 				break;
 		}
 
+		// select action type based on aspect (light/heavy) and selected action type (heavy throw/special attacks)
 		switch (actionType) {
 			case ENR_LightAbstract:
 				if (aspectName == 'AttackLightSlash')
@@ -351,44 +368,45 @@ statemachine class NR_MagicManager {
 				break;
 			case ENR_SpecialAbstract:
 				actionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_SpecialAbstract));
-				switch (actionType) {
-					case ENR_SpecialTornado:
-						aspectName = 'AttackHeavyRock';
-						break;
-					case ENR_SpecialHeal:
-						aspectName = 'AttackSpecialHeal';
-						break;
-					case ENR_SpecialMeteor:
-						aspectName = 'AttackSpecialFireball';
-						break;
-					// case ENR_SpecialSphere:
-					// handled in Combat
-					case ENR_SpecialGolem:
-						aspectName = 'AttackHeavyRock';
-						break;
-				}
 				break;
 			case ENR_SpecialAbstractAlt:
 				actionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt));
-				switch (actionType) {
-					case ENR_SpecialLightningFall:
-						aspectName = 'AttackSpecialElectricity';
-						break;
-					case ENR_SpecialControl:
-						aspectName = 'AttackSpecialFireball';
-						break;
-					case ENR_SpecialMeteorFall:
-						aspectName = 'AttackSpecialFireball';
-						break;
-					case ENR_SpecialLumos:
-						aspectName = 'AttackSpecialPray';
-						break;
-					case ENR_SpecialTransform:
-						aspectName = 'AttackSpecialTransform';
-						break;
-				}
 				break;
 		}
+
+		// select aspect name based on final type (special attacks)
+		switch (actionType) {
+			case ENR_SpecialTornado:
+				aspectName = 'AttackHeavyRock';
+				break;
+			case ENR_SpecialHeal:
+				aspectName = 'AttackSpecialHeal';
+				break;
+			case ENR_SpecialMeteor:
+				aspectName = 'AttackSpecialFireball';
+				break;
+			// case ENR_SpecialSphere:
+			// handled in Combat
+			case ENR_SpecialGolem:
+				aspectName = 'AttackHeavyRock';
+				break;
+			case ENR_SpecialLightningFall:
+				aspectName = 'AttackSpecialElectricity';
+				break;
+			case ENR_SpecialControl:
+				aspectName = 'AttackSpecialFireball';
+				break;
+			case ENR_SpecialMeteorFall:
+				aspectName = 'AttackSpecialFireball';
+				break;
+			case ENR_SpecialLumos:
+				aspectName = 'AttackSpecialPray';
+				break;
+			case ENR_SpecialTransform:
+				aspectName = 'AttackSpecialTransform';
+				break;
+		}
+		NRD("CorrectAspectAction: (after) actionType = " + ENR_MAToName(actionType) + ", aspectName = " + aspectName);
 	}
 
 	public function UpdateEquippedSign() {
@@ -399,7 +417,6 @@ statemachine class NR_MagicManager {
 	/* Function for scene setup - should not be called during combat! */
 	public function SetParamInt(signName : name, varName : String, varValue : int) {
 		var signInt : int = (int)SignNameToEnum(signName);
-		NRD("SetParamInt: varName = " + varName + ", signName = " + signName + ", signInt = " + signInt);
 		sMap[signInt].setI(varName, varValue);
 	}
 	public function SetParamFloat(signName : name, varName : String, varValue : float) {
@@ -414,6 +431,185 @@ statemachine class NR_MagicManager {
 		var signInt : int = (int)SignNameToEnum(signName);
 		sMap[signInt].setN(varName, varValue);
 	}
+
+	public function HideMagicInfo() {
+		theGame.GetGuiManager().ShowNotification("", 1.f);
+	}
+	public function SignLocId(sign : ESignType) : int {
+		switch (sign) {
+			case ST_Aard:
+				return 1061945;
+			case ST_Axii:
+				return 1066290;
+			case ST_Igni:
+				return 1066291;
+			case ST_Quen:
+				return 1066292;
+			case ST_Yrden:
+				return 1066293;
+			default:
+				return 147158; // Error
+		}
+	}
+	public function ColorLocId(color : ENR_MagicColor) : int {
+		switch (color) {
+			case ENR_ColorBlack:
+				return 2115940124;
+			case ENR_ColorGrey:
+				return 2115940125;
+			case ENR_ColorYellow:
+				return 2115940127;
+			case ENR_ColorOrange:
+				return 2115940128;
+			case ENR_ColorRed:
+				return 2115940129;
+			case ENR_ColorPink:
+				return 2115940130;
+			case ENR_ColorViolet:
+				return 2115940131;
+			case ENR_ColorBlue:
+				return 2115940132;
+			case ENR_ColorSeagreen:
+				return 2115940133;
+			case ENR_ColorGreen:
+				return 2115940134;
+			case ENR_ColorSpecial1:
+				return 2115940135;
+			case ENR_ColorSpecial2:
+				return 2115940136;
+			case ENR_ColorSpecial3:
+				return 2115940137;
+			case ENR_ColorWhite:
+			default:
+				return 2115940126;
+		}
+	}
+	public function ColorHexStr(color : ENR_MagicColor) : String {
+		switch (color) {
+			case ENR_ColorBlack:
+				return "#000000";
+			case ENR_ColorGrey:
+				return "#666666";
+			case ENR_ColorYellow:
+				return "#AAAA00";
+			case ENR_ColorOrange:
+				return "#CC5500";
+			case ENR_ColorRed:
+				return "#CC0000";
+			case ENR_ColorPink:
+				return "#CC0088";
+			case ENR_ColorViolet:
+				return "#8800CC";
+			case ENR_ColorBlue:
+				return "#0000CC";
+			case ENR_ColorSeagreen:
+				return "#00AF92";
+			case ENR_ColorGreen:
+				return "#00AD00";
+			case ENR_ColorSpecial1:
+				return "#440000";
+			case ENR_ColorSpecial2:
+				return "#004400";
+			case ENR_ColorSpecial3:
+				return "#000044";
+			case ENR_ColorWhite:
+			default:
+				return "#FFFFFF";
+		}
+	}
+	protected function ColorFormattedValue(valueId : int, color : ENR_MagicColor) : String {
+		return "<font color = '" + ColorHexStr(color) + "'>" + GetLocStringById(valueId) + "</font>";
+	}
+	public function MageLocId(characterName : name) : int {
+		switch (characterName) {
+			case 'yennefer':
+				return 162823;
+			case 'keira':
+				return 334714;
+			case 'triss':
+				return 162822;
+			case 'lynx':
+				return 1157557;
+			case 'philippa':
+				return 300169;
+			case 'caranthir':
+				return 335803;
+			case 'eredin':
+				return 335796;
+			default:
+				return 147158; // Error
+		}
+	}
+
+	public function ShowMagicInfo(sectionName : name) {
+		var 		s, i : int;
+		var 	NBSP, BR : String;
+		var 	text : String;
+		var styleName : name;
+		var typeId, styleId, color : int;
+
+		sMap[ST_Universal].setN("setup_scene_section", sectionName);
+		// <img src='img://" + GetItemIconPathByName + "' height='" + GetNotificationFontSize() + "' width='" + GetNotificationFontSize() + "' vspace='-10' />&nbsp;
+		BR = "<br>";
+		NBSP = "&nbsp;";
+		text = "";
+
+		if (sectionName == 'main') {
+			// light attacks
+			text += "<font color='#000145'>[{358190}]</font>{ }{539939}:{ }" + GetSkillLevelLocStr() + "{ } (" + IntToString(GetSkillLevel()) + ")";
+			
+		} else if (sectionName == 'hand') {
+			// light attacks
+			text += "<font color='#3a0045'>[{2115940144}]</font><br>";
+			text += "{2115940119}{ }={ }" + sMap[ST_Universal].getI("light_slash_amount", 2) + ":" + sMap[ST_Universal].getI("light_throw_amount", 1) + BR;
+			for (s = ST_Aard; s < ST_Universal; s += 1) {
+				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_HandFx), 'keira') );
+				color = sMap[s].getI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite);
+				if (eqSign == s) {
+					text += "> ";
+				}
+				text += "({" + SignLocId(s) + "}){ }" + ColorFormattedValue(styleId, color) + BR;
+				// else {
+				//	text += ",{ }{147158}/{147158}";
+				//}
+			}
+		} else if (sectionName == 'light') {
+			// light attacks
+			text += "<font color='#004e01'>[{2115940118}]</font><br>";
+			text += "{2115940119}{ }={ }" + sMap[ST_Universal].getI("light_slash_amount", 2) + ":" + sMap[ST_Universal].getI("light_throw_amount", 1) + BR;
+			for (s = ST_Aard; s < ST_Universal; s += 1) {
+				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Slash), 'yennefer') );
+				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorWhite);
+				if (eqSign == s) {
+					text += "> ";
+				}
+				text += "({" + SignLocId(s) + "}){ }{2115940123}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
+				
+				typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_ThrowAbstract), ENR_Lightning);
+				color = sMap[s].getI("color_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorWhite);
+				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName((ENR_MagicAction)typeId), 'yennefer') );
+				if (typeId == ENR_Lightning) {
+					text += "{2115940140}:{ }" + ColorFormattedValue(styleId, color) + "";
+				} else if (typeId == ENR_ProjectileWithPrepare) {
+					text += "{2115940141}:{ }" + ColorFormattedValue(styleId, color) + "";
+				}
+				text += BR;
+				// else {
+				//	text += ",{ }{147158}/{147158}";
+				//}
+			}
+		}
+
+		text = NR_FormatLocString(text);
+		theGame.GetGuiManager().ShowNotification(text, 600 * 1000.f, false);
+	}
+
+	public function UpdateMagicInfo() {
+		if (IsInSetupScene()) {
+			ShowMagicInfo(sMap[ST_Universal].getN("setup_scene_section", 'main'));
+		}
+	}
+
 
 	function SetDefaults_StaminaCost() {
 		// cost_<AttackType> in [0, 1] of total stamina
@@ -456,69 +652,64 @@ statemachine class NR_MagicManager {
 	}
 
 	function SetDefaults_LightSlash() {
-		sMap[ST_Aard].setN("entity_" + ENR_MAToName(ENR_Slash), 'magic_attack_lightning');
+		sMap[ST_Aard].setI("type_" + ENR_MAToName(ENR_Slash), 162823);
 		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorWhite);
 
-		sMap[ST_Axii].setN("entity_" + ENR_MAToName(ENR_Slash), 'magic_attack_lightning');
+		sMap[ST_Axii].setI("type_" + ENR_MAToName(ENR_Slash), 162823);
 		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorSeagreen);
 
-		sMap[ST_Igni].setN("entity_" + ENR_MAToName(ENR_Slash), 'magic_attack_fire');
+		sMap[ST_Igni].setI("type_" + ENR_MAToName(ENR_Slash), 162822);
 		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorOrange);
 
-		sMap[ST_Quen].setN("entity_" + ENR_MAToName(ENR_Slash), 'ep2_magic_attack_lightning');
+		sMap[ST_Quen].setI("type_" + ENR_MAToName(ENR_Slash), 1157557);
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorYellow);
 
-		sMap[ST_Yrden].setN("entity_" + ENR_MAToName(ENR_Slash), 'magic_attack_arcane');
+		sMap[ST_Yrden].setI("type_" + ENR_MAToName(ENR_Slash), 300169);
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorViolet);
 	}
 
 	function SetDefaults_LightThrow() {
 		sMap[ST_Aard].setI("type_" + ENR_MAToName(ENR_ThrowAbstract), ENR_Lightning);
-		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_Lightning), ENR_ColorWhite);
-		sMap[ST_Aard].setN("fx_type_" + ENR_MAToName(ENR_Lightning), 'yennefer');
-		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_ProjectileWithPrepare), ENR_ColorWhite);
-		sMap[ST_Aard].setN("entity_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'sorceress_fireball');
+		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorWhite);
+		sMap[ST_Aard].setN("style_" + ENR_MAToName(ENR_Lightning), 'keira');
+		sMap[ST_Aard].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'triss');
 
 		sMap[ST_Axii].setI("type_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ProjectileWithPrepare);
-		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_Lightning), ENR_ColorSeagreen);
-		sMap[ST_Axii].setN("fx_type_" + ENR_MAToName(ENR_Lightning), 'yennefer');
-		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_ProjectileWithPrepare), ENR_ColorSeagreen);
-		sMap[ST_Axii].setN("entity_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'ice_spear');
+		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorSeagreen);
+		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_Lightning), 'keira');
+		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'caranthir');
 
 		sMap[ST_Igni].setI("type_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ProjectileWithPrepare);
-		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_Lightning), ENR_ColorOrange);
-		sMap[ST_Igni].setN("fx_type_" + ENR_MAToName(ENR_Lightning), 'yennefer');
-		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_ProjectileWithPrepare), ENR_ColorOrange);
-		sMap[ST_Igni].setN("entity_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'sorceress_fireball');
+		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorOrange);
+		sMap[ST_Igni].setN("style_" + ENR_MAToName(ENR_Lightning), 'keira');
+		sMap[ST_Igni].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'triss');
 
 		sMap[ST_Quen].setI("type_" + ENR_MAToName(ENR_ThrowAbstract), ENR_Lightning);
-		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_Lightning), ENR_ColorYellow);
-		sMap[ST_Quen].setN("fx_type_" + ENR_MAToName(ENR_Lightning), 'lynx');
-		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_ProjectileWithPrepare), ENR_ColorYellow);
-		sMap[ST_Quen].setN("entity_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'arcane_projectile');
+		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorYellow);
+		sMap[ST_Quen].setN("style_" + ENR_MAToName(ENR_Lightning), 'lynx');
+		sMap[ST_Quen].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'philippa');
 
 		sMap[ST_Yrden].setI("type_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ProjectileWithPrepare);
-		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_Lightning), ENR_ColorViolet);
-		sMap[ST_Yrden].setN("fx_type_" + ENR_MAToName(ENR_Lightning), 'lynx');
-		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_ProjectileWithPrepare), ENR_ColorViolet);
-		sMap[ST_Yrden].setN("entity_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'arcane_projectile');
+		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorViolet);
+		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_Lightning), 'lynx');
+		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'philippa');
 	}
 
 	function SetDefaults_HeavyRock() {
 		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorWhite);
-		sMap[ST_Aard].setN("entity_" + ENR_MAToName(ENR_Rock), 'sorceress_stone_proj');
+		sMap[ST_Aard].setN("style_" + ENR_MAToName(ENR_Rock), 'keira');
 		
 		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorSeagreen);
-		sMap[ST_Axii].setN("entity_" + ENR_MAToName(ENR_Rock), 'sorceress_wood_proj');
+		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_Rock), 'djinn');
 
 		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorOrange);
-		sMap[ST_Igni].setN("entity_" + ENR_MAToName(ENR_Rock), 'ep2_sorceress_stone_proj');
+		sMap[ST_Igni].setN("style_" + ENR_MAToName(ENR_Rock), 'lynx');
 
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorYellow);
-		sMap[ST_Quen].setN("entity_" + ENR_MAToName(ENR_Rock), 'ep2_sorceress_stone_proj');
+		sMap[ST_Quen].setN("style_" + ENR_MAToName(ENR_Rock), 'lynx');
 
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorViolet);
-		sMap[ST_Yrden].setN("entity_" + ENR_MAToName(ENR_Rock), 'sorceress_wood_proj');
+		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_Rock), 'djinn');
 	}
 
 	function SetDefaults_HeavyBomb() {
@@ -600,7 +791,7 @@ statemachine class NR_MagicManager {
 		sMap[ST_Igni].setN("fx_type_" + ENR_MAToName(ENR_HandFx), 'triss');
 
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorYellow);
-		sMap[ST_Quen].setN("fx_type_" + ENR_MAToName(ENR_HandFx), 'lynx');
+		sMap[ST_Quen].setN("fx_type_" + ENR_MAToName(ENR_HandFx), 'keira');
 
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorViolet);
 		sMap[ST_Yrden].setN("fx_type_" + ENR_MAToName(ENR_HandFx), 'philippa');
@@ -686,6 +877,7 @@ statemachine class NR_MagicManager {
 		}
 
 		newHandEffect = HandFxName();
+		NRD("HandFX (enable = " + enable + "), fx = " + newHandEffect);
 
 		if (!enable && aHandEffect != '') {
 			thePlayer.StopEffect(aHandEffect);
@@ -701,11 +893,20 @@ statemachine class NR_MagicManager {
 	}
 	// SetSceneSign first if needed
 	public function SetActionType(type : ENR_MagicAction) {
-		if (aActionType == ENR_ThrowAbstract) {
-			aActionType = (ENR_MagicAction)sMap[eqSign].getI("throw_type", (int)ENR_Lightning);
+		switch (type) {
+			case ENR_ThrowAbstract:
+				aActionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_ThrowAbstract), (int)ENR_Lightning);
+				break;
+			case ENR_SpecialAbstract:
+				aActionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_SpecialAbstract));
+				break;
+			case ENR_SpecialAbstractAlt:
+				aActionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt));
+				break;
+			default:
+				aActionType = type;
+				break; 
 		}
-		// TODO: Heavy, Special
-		aActionType = type;
 	}
 	// manually update eqSign without changing real equipped sign
 	public function SetSceneSign(sign : ESignType) {
@@ -731,8 +932,37 @@ statemachine class NR_MagicManager {
 		}
 	}
 
+	public function CreateFastTravelTeleport(pinTag : name, areaId : EAreaName, currentAreaId : EAreaName) : bool
+	{
+		NR_Notify("Magic FT: pinTag = " + pinTag + ", areaId = " + AreaTypeToName(areaId)
+		 + ", currentArea = " + AreaTypeToName(currentAreaId), 15);
+		return true;
+	}
+
 	public function GetActionColor() : ENR_MagicColor {
-		return sMap[eqSign].getI("color_" + ENR_MAToName(GetActionType()), ENR_ColorWhite);
+		var actionType : ENR_MagicAction = GetActionType();
+
+		switch (actionType) {
+			case ENR_Lightning:
+			case ENR_ProjectileWithPrepare:
+				actionType = ENR_ThrowAbstract;
+				break;
+			case ENR_SpecialTornado:
+			case ENR_SpecialControl:
+			case ENR_SpecialMeteor:
+			case ENR_SpecialSphere:
+			case ENR_SpecialGolem:
+				actionType = ENR_SpecialAbstract;
+				break;
+			case ENR_SpecialLightningFall:
+			case ENR_SpecialHeal:
+			case ENR_SpecialMeteorFall:
+			case ENR_SpecialLumos:
+			case ENR_SpecialTransform:
+				actionType = ENR_SpecialAbstractAlt;
+				break;
+		}
+		return sMap[eqSign].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite);
 	}
 
 	public function GetHitFXName(color : ENR_MagicColor) : name {
@@ -824,13 +1054,31 @@ statemachine class NR_MagicManager {
 		} else if (playerLevel >= FloorF(playerMax * 60 / 100)) {
 			return ENR_SkillMistress;
 		} else if (playerLevel >= FloorF(playerMax * 40 / 100)) {
-			return ENR_SkillSuperior;
+			return ENR_SkillExperienced;
 		} else if (playerLevel >= FloorF(playerMax * 20 / 100)) {
-			return ENR_SkillEnhanced;
+			return ENR_SkillApprentice;
 		} else {
-			return ENR_SkillBasic;
+			return ENR_SkillNovice;
 		}
 	}
+
+	public function GetSkillLevelLocStr() : String
+	{
+		var skillLevel : ENR_MagicSkill = GetSkillLevel();
+		switch (skillLevel) {
+			case ENR_SkillNovice:
+				return GetLocStringById(2115940147);
+			case ENR_SkillApprentice:
+				return GetLocStringById(2115940148);
+			case ENR_SkillExperienced:
+				return GetLocStringById(2115940149);
+			case ENR_SkillMistress:
+				return GetLocStringById(2115940150);
+			case ENR_SkillArchMistress:
+				return GetLocStringById(2115940151);
+		}
+	}
+
 	public function GetMaxHealthPercForFinisher() : float {
 		// TODO!
 		return 0.1f; // [0.0 - 1.0]
@@ -885,26 +1133,35 @@ statemachine class NR_MagicManager {
 		}
 
 		// BONUS GIFT
-		/*if (GetSkillLevel() >= ENR_SkillSuperior) {
+		/*if (GetSkillLevel() >= ENR_SkillExperienced) {
 			inv.AddItemCraftedAbility(id, theGame.params.GetRandomMasterworkWeaponAbility(), true);
 		}*/
 	}
 
 	public function HandFxName() : name {
 		var color 	: ENR_MagicColor = sMap[eqSign].getI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite);
-		var fx_type : name			 = sMap[eqSign].getN("fx_type_" + ENR_MAToName(ENR_HandFx), 'keira');
+		var fx_type : name			 = sMap[eqSign].getN("style_" + ENR_MAToName(ENR_HandFx), 'keira');
 
 		switch (color) {
 			//case ENR_ColorBlack:
-			//case ENR_ColorGrey:
+			case ENR_ColorGrey:
+				switch (fx_type) {
+					case 'yennefer':
+						return 'hand_fx_yennefer_grey';
+					case 'triss':
+						return 'hand_fx_triss_grey';
+					case 'philippa':
+						return 'hand_fx_philippa_grey';
+					case 'keira':
+					default:
+						return 'hand_fx_keira_grey';
+				}
 			case ENR_ColorYellow:
 				switch (fx_type) {
 					case 'yennefer':
 						return 'hand_fx_yennefer_yellow';
 					case 'triss':
 						return 'hand_fx_triss_yellow';
-					case 'lynx':
-						return 'hand_fx_lynx_yellow';
 					case 'philippa':
 						return 'hand_fx_philippa_yellow';
 					case 'keira':
@@ -917,8 +1174,6 @@ statemachine class NR_MagicManager {
 						return 'hand_fx_yennefer_orange';
 					case 'triss':
 						return 'hand_fx_triss_orange';
-					case 'lynx':
-						return 'hand_fx_lynx_orange';
 					case 'philippa':
 						return 'hand_fx_philippa_orange';
 					case 'keira':
@@ -931,8 +1186,6 @@ statemachine class NR_MagicManager {
 						return 'hand_fx_yennefer_red';
 					case 'triss':
 						return 'hand_fx_triss_red';
-					case 'lynx':
-						return 'hand_fx_lynx_red';
 					case 'philippa':
 						return 'hand_fx_philippa_red';
 					case 'keira':
@@ -945,8 +1198,6 @@ statemachine class NR_MagicManager {
 						return 'hand_fx_yennefer_pink';
 					case 'triss':
 						return 'hand_fx_triss_pink';
-					case 'lynx':
-						return 'hand_fx_lynx_pink';
 					case 'philippa':
 						return 'hand_fx_philippa_pink';
 					case 'keira':
@@ -959,8 +1210,6 @@ statemachine class NR_MagicManager {
 						return 'hand_fx_yennefer_violet';
 					case 'triss':
 						return 'hand_fx_triss_violet';
-					case 'lynx':
-						return 'hand_fx_lynx_violet';
 					case 'philippa':
 						return 'hand_fx_philippa_violet';
 					case 'keira':
@@ -973,8 +1222,6 @@ statemachine class NR_MagicManager {
 						return 'hand_fx_yennefer_blue';
 					case 'triss':
 						return 'hand_fx_triss_blue';
-					case 'lynx':
-						return 'hand_fx_lynx_blue';
 					case 'philippa':
 						return 'hand_fx_philippa_blue';
 					case 'keira':
@@ -987,8 +1234,6 @@ statemachine class NR_MagicManager {
 						return 'hand_fx_yennefer_seagreen';
 					case 'triss':
 						return 'hand_fx_triss_seagreen';
-					case 'lynx':
-						return 'hand_fx_lynx_seagreen';
 					case 'philippa':
 						return 'hand_fx_philippa_seagreen';
 					case 'keira':
@@ -1001,8 +1246,6 @@ statemachine class NR_MagicManager {
 						return 'hand_fx_yennefer_green';
 					case 'triss':
 						return 'hand_fx_triss_green';
-					case 'lynx':
-						return 'hand_fx_lynx_green';
 					case 'philippa':
 						return 'hand_fx_philippa_green';
 					case 'keira':
@@ -1019,14 +1262,43 @@ statemachine class NR_MagicManager {
 						return 'hand_fx_yennefer_white';
 					case 'triss':
 						return 'hand_fx_triss_white';
-					case 'lynx':
-						return 'hand_fx_lynx_white';
 					case 'philippa':
 						return 'hand_fx_philippa_white';
 					case 'keira':
 					default:
 						return 'hand_fx_keira_white';
 				}
+		}
+	}
+
+	public function SphereFxName() : name {
+		var color 	: ENR_MagicColor = sMap[eqSign].getI("color_" + ENR_MAToName(ENR_SpecialSphere), ENR_ColorYellow);
+
+		switch (color) {
+			//case ENR_ColorBlack:
+			//case ENR_ColorGrey:
+			case ENR_ColorWhite:
+				return 'ashield_white';
+			case ENR_ColorOrange:
+				return 'shield_orange';
+			case ENR_ColorRed:
+				return 'shield_red';
+			case ENR_ColorPink:
+				return 'shield_pink';
+			case ENR_ColorViolet:
+				return 'shield_violet';
+			case ENR_ColorBlue:
+				return 'shield_blue';
+			case ENR_ColorSeagreen:
+				return 'shield_seagreen';
+			case ENR_ColorGreen:
+				return 'shield_white';
+			// case ENR_ColorSpecial1:
+			// case ENR_ColorSpecial2:
+			// case ENR_ColorSpecial3:
+			case ENR_ColorYellow:
+			default:
+				return 'shield_yellow';
 		}
 	}
 }

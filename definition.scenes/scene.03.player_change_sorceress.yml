@@ -1,0 +1,5164 @@
+repository:
+  actors:
+    sorceress:
+      template: "dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent"
+      appearance: ["nr_player"]
+      mimic:
+        emotional_state: "Focused"
+        eyes: "Focused"
+        pose: "Focused"
+        weight: 0.6
+        anim: "Confident"
+
+    willey:
+      template: "quests\\main_npcs\\cyprian_willey.w2ent"
+      appearance: ["cyprian_willey"]
+      mimic:
+        emotional_state: "Very afraid"
+        eyes: "Very afraid"
+        pose: "Very afraid"
+        weight: 0.8
+        anim: "Very afraid"
+
+  animations:
+    # SORCERESS ANIMS
+    woman_sorceress_attack_slash_right_lp:
+      animation: "woman_sorceress_attack_slash_right_lp"
+      frames: 70
+      #duration 8.6 sec
+
+    woman_sorceress_attack_slash_left_lp:
+      animation: "woman_sorceress_attack_slash_left_lp"
+      frames: 70
+      #duration 8 sec
+    woman_sorceress_attack_throw_lp_03:
+      animation: "woman_sorceress_attack_throw_lp_03"
+      frames: 61
+      #duration 8.6 sec
+    woman_sorceress_attack_throw_lp_04:
+      animation: "woman_sorceress_attack_throw_lp_04"
+      frames: 61
+      #duration 8 sec
+    woman_sorceress_attack_push_lp_02:
+      animation: "woman_sorceress_attack_push_lp_02"
+      frames: 22
+      #duration 8 sec
+    woman_sorceress_attack_rock_lhand_lp:
+      animation: "woman_sorceress_attack_rock_lhand_lp"
+      frames: 91
+      #duration 8 sec
+    woman_sorceress_special_quen_lp:
+      animation: "woman_sorceress_special_quen_lp"
+      frames: 91
+      #duration 8 sec
+
+    woman_sorceress_teleport_lp:
+      animation: "woman_sorceress_teleport_lp"
+      frames: 76
+      #duration 8 sec
+
+    woman_sorceress_special_attack_fireball_lp:
+      animation: "woman_sorceress_special_attack_fireball_lp"
+      frames: 91
+      #duration 8 sec
+
+    woman_sorceress_pray_cast_lp:
+      animation: "woman_sorceress_pray_cast_lp"
+      frames: 84
+      #duration 8 sec
+
+    # SBUI ANIMS
+    anim_100013_woman_sorceress_attack_slash_left_lp:
+      animation: "woman_sorceress_attack_slash_left_lp"
+      frames: 70
+
+    anim_12153_man_geralt_sword_hit_front_up_rp_01:
+      animation: "man_geralt_sword_hit_front_up_rp_01"
+      frames: 45
+
+    anim_100015_woman_sorceress_attack_slash_right_lp:
+      animation: "woman_sorceress_attack_slash_right_lp"
+      frames: 70
+
+    anim_12151_man_geralt_sword_hit_front_right_up_rp_01:
+      animation: "man_geralt_sword_hit_front_right_up_rp_01"
+      frames: 45
+
+    anim_12147_man_geralt_sword_hit_front_left_up_lp_01:
+      animation: "man_geralt_sword_hit_front_left_up_lp_01"
+      frames: 45
+
+    anim_12146_man_geralt_sword_hit_front_left_lp_01:
+      animation: "man_geralt_sword_hit_front_left_lp_01"
+      frames: 45
+
+    anim_12124_man_ger_sword_death_1:
+      animation: "man_ger_sword_death_1"
+      frames: 72
+
+    anim_100007_woman_sorceress_attack_rock_bhand_lp:
+      animation: "woman_sorceress_attack_rock_bhand_lp"
+      frames: 91
+
+    anim_100009_woman_sorceress_attack_rock_lhand_lp:
+      animation: "woman_sorceress_attack_rock_lhand_lp"
+      frames: 91
+
+    anim_100011_woman_sorceress_attack_rock_rhand_lp:
+      animation: "woman_sorceress_attack_rock_rhand_lp"
+      frames: 91
+
+    anim_100005_woman_sorceress_attack_push_lp_02:
+      animation: "woman_sorceress_attack_push_lp_02"
+      frames: 22
+
+    anim_100047_woman_sorceress_rip_apart_kill_lp:
+      animation: "woman_sorceress_rip_apart_kill_lp"
+      frames: 136
+
+    anim_100051_woman_sorceress_special_attack_electricity_lp:
+      animation: "woman_sorceress_special_attack_electricity_lp"
+      frames: 101
+
+    anim_100052_woman_sorceress_special_attack_electricity_rp:
+      animation: "woman_sorceress_special_attack_electricity_rp"
+      frames: 101
+
+    anim_100053_woman_sorceress_special_attack_fireball_lp:
+      animation: "woman_sorceress_special_attack_fireball_lp"
+      frames: 91
+
+    anim_100054_woman_sorceress_special_attack_fireball_rp:
+      animation: "woman_sorceress_special_attack_fireball_rp"
+      frames: 101
+
+    anim_100060_woman_sorceress_taunt_02_rp:
+      animation: "woman_sorceress_taunt_02_rp"
+      frames: 121
+
+    anim_100063_woman_sorceress_teleport_lp:
+      animation: "woman_sorceress_teleport_lp"
+      frames: 76
+
+  actor.poses:
+    pose_0_woman_sorceress_idle_lp_01:
+      idle_anim: "woman_sorceress_idle_lp_01"
+
+    pose_1365_man_npc_sword_2hand_hypnotized_loop:
+      idle_anim: "man_npc_sword_2hand_hypnotized_loop"
+
+    pose_2212_Low_Standing_Paralyzed:
+      name: "Standing"
+      emotional_state: "Paralyzed"
+      status: "Low"
+      idle_anim: "low_standing_paralyzed_idle"
+
+  cameras:
+    cam_1_main:
+      fov: 45.0
+      transform:
+        pos: [1.2041639090, 4.0112276077, 1.4373098612]
+        rot: [0.0, 356.3999938965, 135.6750946045]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_2_back:
+      fov: 45.0
+      transform:
+        pos: [1.1215848923, -0.8087373972, 1.4873099327]
+        rot: [0.0, 352.3999938965, 25.5500640869]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 650
+
+  placement: "sorceress"
+    # INFO: world coordinates of used origin:
+      #pos: [ -182.6020812988, 722.4972534180, 0.8355712891 ]
+      #rot: [ 0.0, -2.8434293270, 0.0 ]
+
+  assets:
+    actors:
+      sorceress:
+        repo: "sorceress"
+        #by_voicetag: true
+        appearance: "sorceress"
+        tags: ["PLAYER"]
+
+      willey:
+        repo: "willey"
+        #by_voicetag: true
+        appearance: "cyprian_willey"
+        tags: ["willey"]
+
+    cameras:
+      cam_1_main:
+        repo: "cam_1_main"
+      cam_2_back:
+        repo: "cam_2_back"
+
+    animations:
+      sorceress_woman_sorceress_attack_slash_left_lp:
+        actor: "sorceress"
+        repo: "anim_100013_woman_sorceress_attack_slash_left_lp"
+        #duration: 2.3333332539
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      willey_man_geralt_sword_hit_front_up_rp_01:
+        actor: "willey"
+        repo: "anim_12153_man_geralt_sword_hit_front_up_rp_01"
+        #duration: 1.5000000000
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_attack_slash_right_lp:
+        actor: "sorceress"
+        repo: "anim_100015_woman_sorceress_attack_slash_right_lp"
+        #duration: 2.3333332539
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      willey_man_geralt_sword_hit_front_right_up_rp_01:
+        actor: "willey"
+        repo: "anim_12151_man_geralt_sword_hit_front_right_up_rp_01"
+        #duration: 1.5000000000
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      willey_man_geralt_sword_hit_front_left_up_lp_01:
+        actor: "willey"
+        repo: "anim_12147_man_geralt_sword_hit_front_left_up_lp_01"
+        #duration: 1.5000000000
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      willey_man_geralt_sword_hit_front_left_lp_01:
+        actor: "willey"
+        repo: "anim_12146_man_geralt_sword_hit_front_left_lp_01"
+        #duration: 1.5000000000
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      willey_man_ger_sword_death_1:
+        actor: "willey"
+        repo: "anim_12124_man_ger_sword_death_1"
+        #duration: 2.4000000954
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_attack_rock_bhand_lp:
+        actor: "sorceress"
+        repo: "anim_100007_woman_sorceress_attack_rock_bhand_lp"
+        #duration: 3.0333333015
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_attack_rock_lhand_lp:
+        actor: "sorceress"
+        repo: "anim_100009_woman_sorceress_attack_rock_lhand_lp"
+        #duration: 3.0333333015
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_attack_rock_rhand_lp:
+        actor: "sorceress"
+        repo: "anim_100011_woman_sorceress_attack_rock_rhand_lp"
+        #duration: 3.0333333015
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_attack_push_lp_02:
+        actor: "sorceress"
+        repo: "anim_100005_woman_sorceress_attack_push_lp_02"
+        #duration: 0.7333333492
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_rip_apart_kill_lp:
+        actor: "sorceress"
+        repo: "anim_100047_woman_sorceress_rip_apart_kill_lp"
+        #duration: 4.5333333015
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_special_attack_electricity_lp:
+        actor: "sorceress"
+        repo: "anim_100051_woman_sorceress_special_attack_electricity_lp"
+        #duration: 3.3666665554
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_special_attack_electricity_rp:
+        actor: "sorceress"
+        repo: "anim_100052_woman_sorceress_special_attack_electricity_rp"
+        #duration: 3.3666665554
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_special_attack_fireball_lp:
+        actor: "sorceress"
+        repo: "anim_100053_woman_sorceress_special_attack_fireball_lp"
+        #duration: 3.0333333015
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_special_attack_fireball_rp:
+        actor: "sorceress"
+        repo: "anim_100054_woman_sorceress_special_attack_fireball_rp"
+        #duration: 3.3666665554
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_taunt_02_rp:
+        actor: "sorceress"
+        repo: "anim_100060_woman_sorceress_taunt_02_rp"
+        #duration: 4.0333333015
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_teleport_lp:
+        actor: "sorceress"
+        repo: "anim_100063_woman_sorceress_teleport_lp"
+        #duration: 2.5333333015
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+    actor.poses:
+      sorceress_woman_sorceress_idle_lp_01:
+        actor: "sorceress"
+        repo: "pose_0_woman_sorceress_idle_lp_01"
+
+      willey_man_npc_sword_2hand_hypnotized_loop:
+        actor: "willey"
+        repo: "pose_1365_man_npc_sword_2hand_hypnotized_loop"
+
+      willey_Low_Standing_Paralyzed:
+        actor: "willey"
+        repo: "pose_2212_Low_Standing_Paralyzed"
+
+storyboard:
+  defaults:
+    placement:
+      sorceress: [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+      willey: [[-2.9197058678, 2.8727548122, 1.0761384964], [355.5000305176, 318.0999450684, 217.2999420166]]
+      #willey: [[ -1.0872966051, 2.2326247692, 1.0343935490 ], [ 44.5000000000, 358.1000061035, 276.5997314453 ]]
+
+    actor.pose:
+      sorceress: sorceress_woman_sorceress_idle_lp_01
+      willey: willey_Low_Standing_Paralyzed
+      #willey: willey_man_npc_sword_2hand_hypnotized_loop
+
+
+  section_start:
+    shot_fadein:
+      - actor.effect.start: [0.0, willey, axii_slowdown]
+      - actor.lookat: [0.0, sorceress, willey]
+      - fade.in: [0.0, 0.5]
+      - cam: [0.0, cam_1_main]
+
+  #section_choice_main:
+  #  CHOICE_1:
+  #    - cam: [0.0, cam_2_rock1_lh]
+
+  section_fadeout_exit_back:
+    shot_fadeout_exit_back:
+      - fade.out: [0.0, 0.5]
+
+  section_blend_exit:
+    shot_blend_togame:
+      - actor.hide: [0.0, willey]
+      - cam.blend.togame: [0.0, cam_2_back]
+
+  section_preview_light_aard_slash_type:
+    shot_preview_light_aard_slash_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_aard_slash_color:
+    shot_preview_light_aard_slash_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_aard_throw_type:
+    shot_preview_light_aard_throw_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_aard_throw_color:
+    shot_preview_light_aard_throw_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_axii_slash_type:
+    shot_preview_light_axii_slash_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_axii_slash_color:
+    shot_preview_light_axii_slash_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_axii_throw_type:
+    shot_preview_light_axii_throw_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_axii_throw_color:
+    shot_preview_light_axii_throw_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_igni_slash_type:
+    shot_preview_light_igni_slash_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_igni_slash_color:
+    shot_preview_light_igni_slash_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_igni_throw_type:
+    shot_preview_light_igni_throw_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_igni_throw_color:
+    shot_preview_light_igni_throw_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_quen_slash_type:
+    shot_preview_light_quen_slash_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_quen_slash_color:
+    shot_preview_light_quen_slash_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_quen_throw_type:
+    shot_preview_light_quen_throw_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_quen_throw_color:
+    shot_preview_light_quen_throw_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_yrden_slash_type:
+    shot_preview_light_yrden_slash_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_yrden_slash_color:
+    shot_preview_light_yrden_slash_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_slash_left_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.25000000000000006, anim_7613_low_standing_paralyzed_gesture_question_01]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.5999999999999996
+      - actor.anim.mimic:
+          .@pos: [0.25000000000000006, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_yrden_throw_type:
+    shot_preview_light_yrden_throw_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_light_yrden_throw_color:
+    shot_preview_light_yrden_throw_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_04]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+dialogscript:
+  player: "sorceress"
+  actors: ["sorceress", "willey"]
+
+  section_start:
+    - CUE: shot_fadein
+    - PAUSE: 0.5
+    - NEXT: script_add_scene_callbacks
+
+  script_add_scene_callbacks:
+    - SCRIPT:
+        function: NR_SetMagicInSetupScene_S
+        parameter:
+          - inSetupScene: true
+    - NEXT: script_info_main
+
+  script_info_main:
+    - SCRIPT:
+        function: NR_ShowMagicInfo_S
+        parameter:
+          - sectionName: CNAME_main
+    - NEXT: section_choice_main
+
+  section_choice_main:
+    - CHOICE:
+        - choice: ["[EXIT] dev", script_remove_scene_callbacks_blend, exit]
+          emphasize: true
+        - choice: ["2115940103|[BACK]", script_remove_scene_callbacks_back, exit]
+          emphasize: true
+        - choice: ["Hand effect", script_info_hand, axii]
+          emphasize: true
+        - choice: ["Light attacks", script_info_light, axii]
+          emphasize: true
+        - choice: ["Heavy attacks", section_fadeout_exit_back, axii]
+          emphasize: true
+        - choice: ["Teleport spell", section_fadeout_exit_back, axii]
+          emphasize: true
+        - choice: ["Special spells", section_fadeout_exit_back, axii]
+          emphasize: true
+
+  section_light_ratio_entry:
+    - PAUSE: 0.0
+    - NEXT: section_choice_light_ratio
+
+  # LIGHT: RATIO
+  section_choice_light_ratio:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light, exit]
+          emphasize: true
+        - choice: ["0:1 (only throw attacks)", script_light_ratio_0_1, exit]
+          emphasize: true
+        - choice: ["1:4", script_light_ratio_1_4, exit]
+          emphasize: true
+        - choice: ["1:3", script_light_ratio_1_3, exit]
+          emphasize: true
+        - choice: ["1:2", script_light_ratio_1_2, exit]
+          emphasize: true
+        - choice: ["1:1", script_light_ratio_1_1, exit]
+          emphasize: true
+        - choice: ["2:1", script_light_ratio_2_1, exit]
+          emphasize: true
+        - choice: ["3:1", script_light_ratio_3_1, exit]
+          emphasize: true
+        - choice: ["4:1", script_light_ratio_4_1, exit]
+          emphasize: true
+        - choice: ["1:0 (only slash attacks)", script_light_ratio_1_0, exit]
+          emphasize: true
+
+  script_light_ratio_0_1:
+    - SCRIPT:
+        function: NR_SetMagicLightRatio_S
+        parameter:
+          - slashNum: 0
+          - throwNum: 1
+    - NEXT: section_light_ratio_entry
+
+  script_light_ratio_1_4:
+    - SCRIPT:
+        function: NR_SetMagicLightRatio_S
+        parameter:
+          - slashNum: 1
+          - throwNum: 4
+    - NEXT: section_light_ratio_entry
+
+  script_light_ratio_1_3:
+    - SCRIPT:
+        function: NR_SetMagicLightRatio_S
+        parameter:
+          - slashNum: 1
+          - throwNum: 3
+    - NEXT: section_light_ratio_entry
+
+  script_light_ratio_1_2:
+    - SCRIPT:
+        function: NR_SetMagicLightRatio_S
+        parameter:
+          - slashNum: 1
+          - throwNum: 2
+    - NEXT: section_light_ratio_entry
+
+  script_light_ratio_1_1:
+    - SCRIPT:
+        function: NR_SetMagicLightRatio_S
+        parameter:
+          - slashNum: 1
+          - throwNum: 1
+    - NEXT: section_light_ratio_entry
+
+  script_light_ratio_2_1:
+    - SCRIPT:
+        function: NR_SetMagicLightRatio_S
+        parameter:
+          - slashNum: 2
+          - throwNum: 1
+    - NEXT: section_light_ratio_entry
+
+  script_light_ratio_3_1:
+    - SCRIPT:
+        function: NR_SetMagicLightRatio_S
+        parameter:
+          - slashNum: 3
+          - throwNum: 1
+    - NEXT: section_light_ratio_entry
+
+  script_light_ratio_4_1:
+    - SCRIPT:
+        function: NR_SetMagicLightRatio_S
+        parameter:
+          - slashNum: 4
+          - throwNum: 1
+    - NEXT: section_light_ratio_entry
+
+  script_light_ratio_1_0:
+    - SCRIPT:
+        function: NR_SetMagicLightRatio_S
+        parameter:
+          - slashNum: 1
+          - throwNum: 0
+    - NEXT: section_light_ratio_entry
+
+  # EXIT: BACK
+  script_remove_scene_callbacks_back:
+    - SCRIPT:
+        function: NR_SetMagicInSetupScene_S
+        parameter:
+          - inSetupScene: false
+    - NEXT: section_fadeout_exit_back
+
+  section_fadeout_exit_back:
+    - CUE: shot_fadeout_exit_back
+    - PAUSE: 0.5
+    - NEXT: section_exit_back
+
+  section_exit_back:
+    - OUTPUT: Back
+    - BLACKSCREEN: true
+    - EXIT
+
+  # EXIT: BLEND
+  script_remove_scene_callbacks_blend:
+    - SCRIPT:
+        function: NR_SetMagicInSetupScene_S
+        parameter:
+          - inSetupScene: false
+    - NEXT: section_blend_exit
+
+  section_blend_exit:
+    - CUE: shot_blend_togame
+    - PAUSE: 1.0
+    - NEXT: section_exit
+
+  section_exit:
+    - EXIT
+
+  section_choice_hand:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", script_info_main, exit]
+          emphasize: true
+        - choice: ["0001061945|Aard", script_set_hand_sign_aard]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940144}: '
+        - choice: ["0001066290|Axii", script_set_hand_sign_axii]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940144}: '
+        - choice: ["0001066291|Igni", script_set_hand_sign_igni]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940144}: '
+        - choice: ["0001066292|Quen", script_set_hand_sign_quen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940144}: '
+        - choice: ["0001066293|Yrden", script_set_hand_sign_yrden]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940144}: '
+
+  script_info_hand:
+    - SCRIPT:
+        function: NR_ShowMagicInfo_S
+        parameter:
+          - sectionName: CNAME_hand
+    - NEXT: section_choice_hand
+
+  script_set_hand_sign_aard:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Aard
+    - NEXT: section_choice_hand_aard
+
+  section_choice_hand_aard:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand, exit]
+          emphasize: true
+        - choice: ["2115940145|Hand effect type", section_choice_hand_aard_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+        - choice: ["2115940146|Hand effect color", section_choice_hand_aard_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+
+  section_choice_hand_aard_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_aard, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_hand_aard_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940145}: '
+        - choice: ["0000334714|Keira Metz", script_hand_aard_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940145}: '
+        - choice: ["0000162822|Triss", script_hand_aard_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940145}: '
+        - choice: ["0000300169|Philippa Eilhart", script_hand_aard_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940145}: '
+
+  section_entry_hand_aard_type:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_aard_type
+
+  script_hand_aard_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_aard_type_yennefer_upd
+
+  script_hand_aard_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_keira
+    - NEXT: script_hand_aard_type_keira_upd
+
+  script_hand_aard_type_keira_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_triss
+    - NEXT: script_hand_aard_type_triss_upd
+
+  script_hand_aard_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_philippa
+    - NEXT: script_hand_aard_type_philippa_upd
+
+  script_hand_aard_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  section_choice_hand_aard_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_aard, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_hand_aard_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940146}: '
+        - choice: ["2115940127|Yellow", script_hand_aard_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940146}: '
+        - choice: ["2115940128|Orange", script_hand_aard_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940146}: '
+        - choice: ["2115940129|Red", script_hand_aard_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940146}: '
+        - choice: ["2115940130|Pink", script_hand_aard_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940146}: '
+        - choice: ["2115940131|Violet", script_hand_aard_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940146}: '
+        - choice: ["2115940132|Blue", script_hand_aard_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940146}: '
+        - choice: ["2115940133|Seagreen", script_hand_aard_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940146}: '
+        - choice: ["2115940134|Green", script_hand_aard_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940146}: '
+
+  section_entry_hand_aard_color:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_aard_color
+
+  script_hand_aard_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_HandFx
+          - varValue: 2
+    - NEXT: script_hand_aard_color_white_upd
+
+  script_hand_aard_color_white_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_color
+
+  script_hand_aard_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_HandFx
+          - varValue: 3
+    - NEXT: script_hand_aard_color_yellow_upd
+
+  script_hand_aard_color_yellow_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_color
+
+  script_hand_aard_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_HandFx
+          - varValue: 4
+    - NEXT: script_hand_aard_color_orange_upd
+
+  script_hand_aard_color_orange_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_color
+
+  script_hand_aard_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_HandFx
+          - varValue: 5
+    - NEXT: script_hand_aard_color_red_upd
+
+  script_hand_aard_color_red_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_color
+
+  script_hand_aard_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_HandFx
+          - varValue: 6
+    - NEXT: script_hand_aard_color_pink_upd
+
+  script_hand_aard_color_pink_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_color
+
+  script_hand_aard_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_HandFx
+          - varValue: 7
+    - NEXT: script_hand_aard_color_violet_upd
+
+  script_hand_aard_color_violet_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_color
+
+  script_hand_aard_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_HandFx
+          - varValue: 8
+    - NEXT: script_hand_aard_color_blue_upd
+
+  script_hand_aard_color_blue_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_color
+
+  script_hand_aard_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_HandFx
+          - varValue: 9
+    - NEXT: script_hand_aard_color_seagreen_upd
+
+  script_hand_aard_color_seagreen_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_color
+
+  script_hand_aard_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_HandFx
+          - varValue: 10
+    - NEXT: script_hand_aard_color_green_upd
+
+  script_hand_aard_color_green_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_color
+
+  script_set_hand_sign_axii:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Axii
+    - NEXT: section_choice_hand_axii
+
+  section_choice_hand_axii:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand, exit]
+          emphasize: true
+        - choice: ["2115940145|Hand effect type", section_choice_hand_axii_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+        - choice: ["2115940146|Hand effect color", section_choice_hand_axii_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+
+  section_choice_hand_axii_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_axii, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_hand_axii_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940145}: '
+        - choice: ["0000334714|Keira Metz", script_hand_axii_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940145}: '
+        - choice: ["0000162822|Triss", script_hand_axii_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940145}: '
+        - choice: ["0000300169|Philippa Eilhart", script_hand_axii_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940145}: '
+
+  section_entry_hand_axii_type:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_axii_type
+
+  script_hand_axii_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_axii_type_yennefer_upd
+
+  script_hand_axii_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_keira
+    - NEXT: script_hand_axii_type_keira_upd
+
+  script_hand_axii_type_keira_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_triss
+    - NEXT: script_hand_axii_type_triss_upd
+
+  script_hand_axii_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_philippa
+    - NEXT: script_hand_axii_type_philippa_upd
+
+  script_hand_axii_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  section_choice_hand_axii_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_axii, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_hand_axii_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940146}: '
+        - choice: ["2115940127|Yellow", script_hand_axii_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940146}: '
+        - choice: ["2115940128|Orange", script_hand_axii_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940146}: '
+        - choice: ["2115940129|Red", script_hand_axii_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940146}: '
+        - choice: ["2115940130|Pink", script_hand_axii_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940146}: '
+        - choice: ["2115940131|Violet", script_hand_axii_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940146}: '
+        - choice: ["2115940132|Blue", script_hand_axii_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940146}: '
+        - choice: ["2115940133|Seagreen", script_hand_axii_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940146}: '
+        - choice: ["2115940134|Green", script_hand_axii_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940146}: '
+
+  section_entry_hand_axii_color:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_axii_color
+
+  script_hand_axii_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_HandFx
+          - varValue: 2
+    - NEXT: script_hand_axii_color_white_upd
+
+  script_hand_axii_color_white_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_color
+
+  script_hand_axii_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_HandFx
+          - varValue: 3
+    - NEXT: script_hand_axii_color_yellow_upd
+
+  script_hand_axii_color_yellow_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_color
+
+  script_hand_axii_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_HandFx
+          - varValue: 4
+    - NEXT: script_hand_axii_color_orange_upd
+
+  script_hand_axii_color_orange_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_color
+
+  script_hand_axii_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_HandFx
+          - varValue: 5
+    - NEXT: script_hand_axii_color_red_upd
+
+  script_hand_axii_color_red_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_color
+
+  script_hand_axii_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_HandFx
+          - varValue: 6
+    - NEXT: script_hand_axii_color_pink_upd
+
+  script_hand_axii_color_pink_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_color
+
+  script_hand_axii_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_HandFx
+          - varValue: 7
+    - NEXT: script_hand_axii_color_violet_upd
+
+  script_hand_axii_color_violet_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_color
+
+  script_hand_axii_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_HandFx
+          - varValue: 8
+    - NEXT: script_hand_axii_color_blue_upd
+
+  script_hand_axii_color_blue_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_color
+
+  script_hand_axii_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_HandFx
+          - varValue: 9
+    - NEXT: script_hand_axii_color_seagreen_upd
+
+  script_hand_axii_color_seagreen_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_color
+
+  script_hand_axii_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_HandFx
+          - varValue: 10
+    - NEXT: script_hand_axii_color_green_upd
+
+  script_hand_axii_color_green_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_color
+
+  script_set_hand_sign_igni:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Igni
+    - NEXT: section_choice_hand_igni
+
+  section_choice_hand_igni:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand, exit]
+          emphasize: true
+        - choice: ["2115940145|Hand effect type", section_choice_hand_igni_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+        - choice: ["2115940146|Hand effect color", section_choice_hand_igni_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+
+  section_choice_hand_igni_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_igni, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_hand_igni_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940145}: '
+        - choice: ["0000334714|Keira Metz", script_hand_igni_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940145}: '
+        - choice: ["0000162822|Triss", script_hand_igni_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940145}: '
+        - choice: ["0000300169|Philippa Eilhart", script_hand_igni_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940145}: '
+
+  section_entry_hand_igni_type:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_igni_type
+
+  script_hand_igni_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_igni_type_yennefer_upd
+
+  script_hand_igni_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_keira
+    - NEXT: script_hand_igni_type_keira_upd
+
+  script_hand_igni_type_keira_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_triss
+    - NEXT: script_hand_igni_type_triss_upd
+
+  script_hand_igni_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_philippa
+    - NEXT: script_hand_igni_type_philippa_upd
+
+  script_hand_igni_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  section_choice_hand_igni_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_igni, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_hand_igni_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940146}: '
+        - choice: ["2115940127|Yellow", script_hand_igni_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940146}: '
+        - choice: ["2115940128|Orange", script_hand_igni_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940146}: '
+        - choice: ["2115940129|Red", script_hand_igni_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940146}: '
+        - choice: ["2115940130|Pink", script_hand_igni_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940146}: '
+        - choice: ["2115940131|Violet", script_hand_igni_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940146}: '
+        - choice: ["2115940132|Blue", script_hand_igni_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940146}: '
+        - choice: ["2115940133|Seagreen", script_hand_igni_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940146}: '
+        - choice: ["2115940134|Green", script_hand_igni_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940146}: '
+
+  section_entry_hand_igni_color:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_igni_color
+
+  script_hand_igni_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_HandFx
+          - varValue: 2
+    - NEXT: script_hand_igni_color_white_upd
+
+  script_hand_igni_color_white_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_color
+
+  script_hand_igni_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_HandFx
+          - varValue: 3
+    - NEXT: script_hand_igni_color_yellow_upd
+
+  script_hand_igni_color_yellow_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_color
+
+  script_hand_igni_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_HandFx
+          - varValue: 4
+    - NEXT: script_hand_igni_color_orange_upd
+
+  script_hand_igni_color_orange_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_color
+
+  script_hand_igni_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_HandFx
+          - varValue: 5
+    - NEXT: script_hand_igni_color_red_upd
+
+  script_hand_igni_color_red_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_color
+
+  script_hand_igni_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_HandFx
+          - varValue: 6
+    - NEXT: script_hand_igni_color_pink_upd
+
+  script_hand_igni_color_pink_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_color
+
+  script_hand_igni_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_HandFx
+          - varValue: 7
+    - NEXT: script_hand_igni_color_violet_upd
+
+  script_hand_igni_color_violet_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_color
+
+  script_hand_igni_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_HandFx
+          - varValue: 8
+    - NEXT: script_hand_igni_color_blue_upd
+
+  script_hand_igni_color_blue_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_color
+
+  script_hand_igni_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_HandFx
+          - varValue: 9
+    - NEXT: script_hand_igni_color_seagreen_upd
+
+  script_hand_igni_color_seagreen_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_color
+
+  script_hand_igni_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_HandFx
+          - varValue: 10
+    - NEXT: script_hand_igni_color_green_upd
+
+  script_hand_igni_color_green_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_color
+
+  script_set_hand_sign_quen:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Quen
+    - NEXT: section_choice_hand_quen
+
+  section_choice_hand_quen:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand, exit]
+          emphasize: true
+        - choice: ["2115940145|Hand effect type", section_choice_hand_quen_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+        - choice: ["2115940146|Hand effect color", section_choice_hand_quen_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+
+  section_choice_hand_quen_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_quen, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_hand_quen_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940145}: '
+        - choice: ["0000334714|Keira Metz", script_hand_quen_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940145}: '
+        - choice: ["0000162822|Triss", script_hand_quen_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940145}: '
+        - choice: ["0000300169|Philippa Eilhart", script_hand_quen_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940145}: '
+
+  section_entry_hand_quen_type:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_quen_type
+
+  script_hand_quen_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_quen_type_yennefer_upd
+
+  script_hand_quen_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_keira
+    - NEXT: script_hand_quen_type_keira_upd
+
+  script_hand_quen_type_keira_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_triss
+    - NEXT: script_hand_quen_type_triss_upd
+
+  script_hand_quen_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_philippa
+    - NEXT: script_hand_quen_type_philippa_upd
+
+  script_hand_quen_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  section_choice_hand_quen_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_quen, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_hand_quen_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940146}: '
+        - choice: ["2115940127|Yellow", script_hand_quen_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940146}: '
+        - choice: ["2115940128|Orange", script_hand_quen_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940146}: '
+        - choice: ["2115940129|Red", script_hand_quen_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940146}: '
+        - choice: ["2115940130|Pink", script_hand_quen_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940146}: '
+        - choice: ["2115940131|Violet", script_hand_quen_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940146}: '
+        - choice: ["2115940132|Blue", script_hand_quen_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940146}: '
+        - choice: ["2115940133|Seagreen", script_hand_quen_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940146}: '
+        - choice: ["2115940134|Green", script_hand_quen_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940146}: '
+
+  section_entry_hand_quen_color:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_quen_color
+
+  script_hand_quen_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_HandFx
+          - varValue: 2
+    - NEXT: script_hand_quen_color_white_upd
+
+  script_hand_quen_color_white_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_color
+
+  script_hand_quen_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_HandFx
+          - varValue: 3
+    - NEXT: script_hand_quen_color_yellow_upd
+
+  script_hand_quen_color_yellow_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_color
+
+  script_hand_quen_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_HandFx
+          - varValue: 4
+    - NEXT: script_hand_quen_color_orange_upd
+
+  script_hand_quen_color_orange_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_color
+
+  script_hand_quen_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_HandFx
+          - varValue: 5
+    - NEXT: script_hand_quen_color_red_upd
+
+  script_hand_quen_color_red_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_color
+
+  script_hand_quen_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_HandFx
+          - varValue: 6
+    - NEXT: script_hand_quen_color_pink_upd
+
+  script_hand_quen_color_pink_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_color
+
+  script_hand_quen_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_HandFx
+          - varValue: 7
+    - NEXT: script_hand_quen_color_violet_upd
+
+  script_hand_quen_color_violet_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_color
+
+  script_hand_quen_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_HandFx
+          - varValue: 8
+    - NEXT: script_hand_quen_color_blue_upd
+
+  script_hand_quen_color_blue_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_color
+
+  script_hand_quen_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_HandFx
+          - varValue: 9
+    - NEXT: script_hand_quen_color_seagreen_upd
+
+  script_hand_quen_color_seagreen_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_color
+
+  script_hand_quen_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_HandFx
+          - varValue: 10
+    - NEXT: script_hand_quen_color_green_upd
+
+  script_hand_quen_color_green_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_color
+
+  script_set_hand_sign_yrden:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Yrden
+    - NEXT: section_choice_hand_yrden
+
+  section_choice_hand_yrden:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand, exit]
+          emphasize: true
+        - choice: ["2115940145|Hand effect type", section_choice_hand_yrden_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+        - choice: ["2115940146|Hand effect color", section_choice_hand_yrden_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+
+  section_choice_hand_yrden_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_yrden, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_hand_yrden_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940145}: '
+        - choice: ["0000334714|Keira Metz", script_hand_yrden_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940145}: '
+        - choice: ["0000162822|Triss", script_hand_yrden_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940145}: '
+        - choice: ["0000300169|Philippa Eilhart", script_hand_yrden_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940145}: '
+
+  section_entry_hand_yrden_type:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_yrden_type
+
+  script_hand_yrden_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_yrden_type_yennefer_upd
+
+  script_hand_yrden_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_keira
+    - NEXT: script_hand_yrden_type_keira_upd
+
+  script_hand_yrden_type_keira_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_triss
+    - NEXT: script_hand_yrden_type_triss_upd
+
+  script_hand_yrden_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_HandFx
+          - varValue: CNAME_philippa
+    - NEXT: script_hand_yrden_type_philippa_upd
+
+  script_hand_yrden_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  section_choice_hand_yrden_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_hand_yrden, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_hand_yrden_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940146}: '
+        - choice: ["2115940127|Yellow", script_hand_yrden_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940146}: '
+        - choice: ["2115940128|Orange", script_hand_yrden_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940146}: '
+        - choice: ["2115940129|Red", script_hand_yrden_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940146}: '
+        - choice: ["2115940130|Pink", script_hand_yrden_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940146}: '
+        - choice: ["2115940131|Violet", script_hand_yrden_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940146}: '
+        - choice: ["2115940132|Blue", script_hand_yrden_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940146}: '
+        - choice: ["2115940133|Seagreen", script_hand_yrden_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940146}: '
+        - choice: ["2115940134|Green", script_hand_yrden_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940146}: '
+
+  section_entry_hand_yrden_color:
+    - PAUSE: 0.0
+    - NEXT: section_choice_hand_yrden_color
+
+  script_hand_yrden_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_HandFx
+          - varValue: 2
+    - NEXT: script_hand_yrden_color_white_upd
+
+  script_hand_yrden_color_white_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_color
+
+  script_hand_yrden_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_HandFx
+          - varValue: 3
+    - NEXT: script_hand_yrden_color_yellow_upd
+
+  script_hand_yrden_color_yellow_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_color
+
+  script_hand_yrden_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_HandFx
+          - varValue: 4
+    - NEXT: script_hand_yrden_color_orange_upd
+
+  script_hand_yrden_color_orange_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_color
+
+  script_hand_yrden_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_HandFx
+          - varValue: 5
+    - NEXT: script_hand_yrden_color_red_upd
+
+  script_hand_yrden_color_red_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_color
+
+  script_hand_yrden_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_HandFx
+          - varValue: 6
+    - NEXT: script_hand_yrden_color_pink_upd
+
+  script_hand_yrden_color_pink_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_color
+
+  script_hand_yrden_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_HandFx
+          - varValue: 7
+    - NEXT: script_hand_yrden_color_violet_upd
+
+  script_hand_yrden_color_violet_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_color
+
+  script_hand_yrden_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_HandFx
+          - varValue: 8
+    - NEXT: script_hand_yrden_color_blue_upd
+
+  script_hand_yrden_color_blue_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_color
+
+  script_hand_yrden_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_HandFx
+          - varValue: 9
+    - NEXT: script_hand_yrden_color_seagreen_upd
+
+  script_hand_yrden_color_seagreen_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_color
+
+  script_hand_yrden_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_HandFx
+          - varValue: 10
+    - NEXT: script_hand_yrden_color_green_upd
+
+  script_hand_yrden_color_green_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_color
+
+  section_choice_light:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", script_info_main, exit]
+          emphasize: true
+        - choice: ["2115940119|Slash/Throw ratio", section_light_ratio_entry]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940118}: '
+        - choice: ["0001061945|Aard", script_set_light_sign_aard]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940118}: '
+        - choice: ["0001066290|Axii", script_set_light_sign_axii]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940118}: '
+        - choice: ["0001066291|Igni", script_set_light_sign_igni]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940118}: '
+        - choice: ["0001066292|Quen", script_set_light_sign_quen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940118}: '
+        - choice: ["0001066293|Yrden", script_set_light_sign_yrden]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940118}: '
+
+  script_info_light:
+    - SCRIPT:
+        function: NR_ShowMagicInfo_S
+        parameter:
+          - sectionName: CNAME_light
+    - NEXT: section_choice_light
+
+  script_set_light_sign_aard:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Aard
+    - NEXT: section_choice_light_aard
+
+  section_choice_light_aard:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light, exit]
+          emphasize: true
+        - choice: ["2115940121|Slash type", section_choice_light_aard_slash_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+        - choice: ["2115940122|Slash color", section_choice_light_aard_slash_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+        - choice: ["2115940138|", section_choice_light_aard_throw_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+        - choice: ["2115940139|Throw color", section_choice_light_aard_throw_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+
+  section_choice_light_aard_slash_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_aard, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_light_aard_slash_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940121}: '
+        - choice: ["0000162822|Triss", script_light_aard_slash_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940121}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_aard_slash_type_lynx]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940121}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_aard_slash_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940121}: '
+
+  script_preview_light_aard_slash_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_aard_slash_type
+
+
+  section_preview_light_aard_slash_type:
+    - CUE: shot_preview_light_aard_slash_type
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_aard_slash_type
+
+  script_light_aard_slash_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Slash
+          - varValue: CNAME_yennefer
+    - NEXT: script_preview_light_aard_slash_type
+
+  script_light_aard_slash_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Slash
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_aard_slash_type
+
+  script_light_aard_slash_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Slash
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_aard_slash_type
+
+  script_light_aard_slash_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Slash
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_aard_slash_type
+
+  section_choice_light_aard_slash_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_aard, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_aard_slash_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940122}: '
+        - choice: ["2115940127|Yellow", script_light_aard_slash_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940122}: '
+        - choice: ["2115940128|Orange", script_light_aard_slash_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940122}: '
+        - choice: ["2115940129|Red", script_light_aard_slash_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940122}: '
+        - choice: ["2115940130|Pink", script_light_aard_slash_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940122}: '
+        - choice: ["2115940131|Violet", script_light_aard_slash_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940122}: '
+        - choice: ["2115940132|Blue", script_light_aard_slash_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940122}: '
+        - choice: ["2115940133|Seagreen", script_light_aard_slash_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940122}: '
+        - choice: ["2115940134|Green", script_light_aard_slash_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940122}: '
+
+  script_preview_light_aard_slash_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_aard_slash_color
+
+
+  section_preview_light_aard_slash_color:
+    - CUE: shot_preview_light_aard_slash_color
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_aard_slash_color
+
+  script_light_aard_slash_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Slash
+          - varValue: 2
+    - NEXT: script_preview_light_aard_slash_color
+
+  script_light_aard_slash_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Slash
+          - varValue: 3
+    - NEXT: script_preview_light_aard_slash_color
+
+  script_light_aard_slash_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Slash
+          - varValue: 4
+    - NEXT: script_preview_light_aard_slash_color
+
+  script_light_aard_slash_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Slash
+          - varValue: 5
+    - NEXT: script_preview_light_aard_slash_color
+
+  script_light_aard_slash_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Slash
+          - varValue: 6
+    - NEXT: script_preview_light_aard_slash_color
+
+  script_light_aard_slash_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Slash
+          - varValue: 7
+    - NEXT: script_preview_light_aard_slash_color
+
+  script_light_aard_slash_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Slash
+          - varValue: 8
+    - NEXT: script_preview_light_aard_slash_color
+
+  script_light_aard_slash_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Slash
+          - varValue: 9
+    - NEXT: script_preview_light_aard_slash_color
+
+  script_light_aard_slash_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Slash
+          - varValue: 10
+    - NEXT: script_preview_light_aard_slash_color
+
+  section_choice_light_aard_throw_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_aard, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_light_aard_throw_type_lightning_keira_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940140}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_aard_throw_type_lightning_lynx_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940140}: '
+        - choice: ["0000162822|Triss", script_light_aard_throw_type_projectile_triss_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940141}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_aard_throw_type_projectile_philippa_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940141}: '
+        - choice: ["0000335803|Caranthir", script_light_aard_throw_type_projectile_caranthir_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940141}: '
+
+  script_preview_light_aard_throw_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_aard_throw_type
+
+
+  section_preview_light_aard_throw_type:
+    - CUE: shot_preview_light_aard_throw_type
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_aard_throw_type
+
+  script_light_aard_throw_type_lightning_keira_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_aard_throw_type_lightning_keira_2
+
+  script_light_aard_throw_type_lightning_keira_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_keira
+    - NEXT: script_preview_light_aard_throw_type
+
+  script_light_aard_throw_type_lightning_lynx_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_aard_throw_type_lightning_lynx_2
+
+  script_light_aard_throw_type_lightning_lynx_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_aard_throw_type
+
+  script_light_aard_throw_type_projectile_triss_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_aard_throw_type_projectile_triss_2
+
+  script_light_aard_throw_type_projectile_triss_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_aard_throw_type
+
+  script_light_aard_throw_type_projectile_philippa_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_aard_throw_type_projectile_philippa_2
+
+  script_light_aard_throw_type_projectile_philippa_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_aard_throw_type
+
+  script_light_aard_throw_type_projectile_caranthir_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_aard_throw_type_projectile_caranthir_2
+
+  script_light_aard_throw_type_projectile_caranthir_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_caranthir
+    - NEXT: script_preview_light_aard_throw_type
+
+  section_choice_light_aard_throw_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_aard, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_aard_throw_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940139}: '
+        - choice: ["2115940127|Yellow", script_light_aard_throw_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940139}: '
+        - choice: ["2115940128|Orange", script_light_aard_throw_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940139}: '
+        - choice: ["2115940129|Red", script_light_aard_throw_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940139}: '
+        - choice: ["2115940130|Pink", script_light_aard_throw_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940139}: '
+        - choice: ["2115940131|Violet", script_light_aard_throw_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940139}: '
+        - choice: ["2115940132|Blue", script_light_aard_throw_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940139}: '
+        - choice: ["2115940133|Seagreen", script_light_aard_throw_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940139}: '
+        - choice: ["2115940134|Green", script_light_aard_throw_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940139}: '
+
+  script_preview_light_aard_throw_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_aard_throw_color
+
+
+  section_preview_light_aard_throw_color:
+    - CUE: shot_preview_light_aard_throw_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_aard_throw_color
+
+  script_light_aard_throw_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 2
+    - NEXT: script_preview_light_aard_throw_color
+
+  script_light_aard_throw_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 3
+    - NEXT: script_preview_light_aard_throw_color
+
+  script_light_aard_throw_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_preview_light_aard_throw_color
+
+  script_light_aard_throw_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 5
+    - NEXT: script_preview_light_aard_throw_color
+
+  script_light_aard_throw_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_preview_light_aard_throw_color
+
+  script_light_aard_throw_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 7
+    - NEXT: script_preview_light_aard_throw_color
+
+  script_light_aard_throw_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 8
+    - NEXT: script_preview_light_aard_throw_color
+
+  script_light_aard_throw_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 9
+    - NEXT: script_preview_light_aard_throw_color
+
+  script_light_aard_throw_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 10
+    - NEXT: script_preview_light_aard_throw_color
+
+  script_set_light_sign_axii:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Axii
+    - NEXT: section_choice_light_axii
+
+  section_choice_light_axii:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light, exit]
+          emphasize: true
+        - choice: ["2115940121|Slash type", section_choice_light_axii_slash_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+        - choice: ["2115940122|Slash color", section_choice_light_axii_slash_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+        - choice: ["2115940138|", section_choice_light_axii_throw_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+        - choice: ["2115940139|Throw color", section_choice_light_axii_throw_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+
+  section_choice_light_axii_slash_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_axii, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_light_axii_slash_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940121}: '
+        - choice: ["0000162822|Triss", script_light_axii_slash_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940121}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_axii_slash_type_lynx]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940121}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_axii_slash_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940121}: '
+
+  script_preview_light_axii_slash_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_axii_slash_type
+
+
+  section_preview_light_axii_slash_type:
+    - CUE: shot_preview_light_axii_slash_type
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_axii_slash_type
+
+  script_light_axii_slash_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Slash
+          - varValue: CNAME_yennefer
+    - NEXT: script_preview_light_axii_slash_type
+
+  script_light_axii_slash_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Slash
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_axii_slash_type
+
+  script_light_axii_slash_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Slash
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_axii_slash_type
+
+  script_light_axii_slash_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Slash
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_axii_slash_type
+
+  section_choice_light_axii_slash_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_axii, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_axii_slash_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940122}: '
+        - choice: ["2115940127|Yellow", script_light_axii_slash_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940122}: '
+        - choice: ["2115940128|Orange", script_light_axii_slash_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940122}: '
+        - choice: ["2115940129|Red", script_light_axii_slash_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940122}: '
+        - choice: ["2115940130|Pink", script_light_axii_slash_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940122}: '
+        - choice: ["2115940131|Violet", script_light_axii_slash_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940122}: '
+        - choice: ["2115940132|Blue", script_light_axii_slash_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940122}: '
+        - choice: ["2115940133|Seagreen", script_light_axii_slash_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940122}: '
+        - choice: ["2115940134|Green", script_light_axii_slash_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940122}: '
+
+  script_preview_light_axii_slash_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_axii_slash_color
+
+
+  section_preview_light_axii_slash_color:
+    - CUE: shot_preview_light_axii_slash_color
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_axii_slash_color
+
+  script_light_axii_slash_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Slash
+          - varValue: 2
+    - NEXT: script_preview_light_axii_slash_color
+
+  script_light_axii_slash_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Slash
+          - varValue: 3
+    - NEXT: script_preview_light_axii_slash_color
+
+  script_light_axii_slash_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Slash
+          - varValue: 4
+    - NEXT: script_preview_light_axii_slash_color
+
+  script_light_axii_slash_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Slash
+          - varValue: 5
+    - NEXT: script_preview_light_axii_slash_color
+
+  script_light_axii_slash_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Slash
+          - varValue: 6
+    - NEXT: script_preview_light_axii_slash_color
+
+  script_light_axii_slash_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Slash
+          - varValue: 7
+    - NEXT: script_preview_light_axii_slash_color
+
+  script_light_axii_slash_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Slash
+          - varValue: 8
+    - NEXT: script_preview_light_axii_slash_color
+
+  script_light_axii_slash_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Slash
+          - varValue: 9
+    - NEXT: script_preview_light_axii_slash_color
+
+  script_light_axii_slash_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Slash
+          - varValue: 10
+    - NEXT: script_preview_light_axii_slash_color
+
+  section_choice_light_axii_throw_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_axii, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_light_axii_throw_type_lightning_keira_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940140}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_axii_throw_type_lightning_lynx_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940140}: '
+        - choice: ["0000162822|Triss", script_light_axii_throw_type_projectile_triss_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940141}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_axii_throw_type_projectile_philippa_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940141}: '
+        - choice: ["0000335803|Caranthir", script_light_axii_throw_type_projectile_caranthir_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940141}: '
+
+  script_preview_light_axii_throw_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_axii_throw_type
+
+
+  section_preview_light_axii_throw_type:
+    - CUE: shot_preview_light_axii_throw_type
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_axii_throw_type
+
+  script_light_axii_throw_type_lightning_keira_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_axii_throw_type_lightning_keira_2
+
+  script_light_axii_throw_type_lightning_keira_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_keira
+    - NEXT: script_preview_light_axii_throw_type
+
+  script_light_axii_throw_type_lightning_lynx_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_axii_throw_type_lightning_lynx_2
+
+  script_light_axii_throw_type_lightning_lynx_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_axii_throw_type
+
+  script_light_axii_throw_type_projectile_triss_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_axii_throw_type_projectile_triss_2
+
+  script_light_axii_throw_type_projectile_triss_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_axii_throw_type
+
+  script_light_axii_throw_type_projectile_philippa_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_axii_throw_type_projectile_philippa_2
+
+  script_light_axii_throw_type_projectile_philippa_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_axii_throw_type
+
+  script_light_axii_throw_type_projectile_caranthir_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_axii_throw_type_projectile_caranthir_2
+
+  script_light_axii_throw_type_projectile_caranthir_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_caranthir
+    - NEXT: script_preview_light_axii_throw_type
+
+  section_choice_light_axii_throw_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_axii, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_axii_throw_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940139}: '
+        - choice: ["2115940127|Yellow", script_light_axii_throw_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940139}: '
+        - choice: ["2115940128|Orange", script_light_axii_throw_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940139}: '
+        - choice: ["2115940129|Red", script_light_axii_throw_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940139}: '
+        - choice: ["2115940130|Pink", script_light_axii_throw_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940139}: '
+        - choice: ["2115940131|Violet", script_light_axii_throw_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940139}: '
+        - choice: ["2115940132|Blue", script_light_axii_throw_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940139}: '
+        - choice: ["2115940133|Seagreen", script_light_axii_throw_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940139}: '
+        - choice: ["2115940134|Green", script_light_axii_throw_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940139}: '
+
+  script_preview_light_axii_throw_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_axii_throw_color
+
+
+  section_preview_light_axii_throw_color:
+    - CUE: shot_preview_light_axii_throw_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_axii_throw_color
+
+  script_light_axii_throw_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 2
+    - NEXT: script_preview_light_axii_throw_color
+
+  script_light_axii_throw_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 3
+    - NEXT: script_preview_light_axii_throw_color
+
+  script_light_axii_throw_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_preview_light_axii_throw_color
+
+  script_light_axii_throw_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 5
+    - NEXT: script_preview_light_axii_throw_color
+
+  script_light_axii_throw_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_preview_light_axii_throw_color
+
+  script_light_axii_throw_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 7
+    - NEXT: script_preview_light_axii_throw_color
+
+  script_light_axii_throw_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 8
+    - NEXT: script_preview_light_axii_throw_color
+
+  script_light_axii_throw_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 9
+    - NEXT: script_preview_light_axii_throw_color
+
+  script_light_axii_throw_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 10
+    - NEXT: script_preview_light_axii_throw_color
+
+  script_set_light_sign_igni:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Igni
+    - NEXT: section_choice_light_igni
+
+  section_choice_light_igni:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light, exit]
+          emphasize: true
+        - choice: ["2115940121|Slash type", section_choice_light_igni_slash_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+        - choice: ["2115940122|Slash color", section_choice_light_igni_slash_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+        - choice: ["2115940138|", section_choice_light_igni_throw_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+        - choice: ["2115940139|Throw color", section_choice_light_igni_throw_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+
+  section_choice_light_igni_slash_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_igni, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_light_igni_slash_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940121}: '
+        - choice: ["0000162822|Triss", script_light_igni_slash_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940121}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_igni_slash_type_lynx]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940121}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_igni_slash_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940121}: '
+
+  script_preview_light_igni_slash_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_igni_slash_type
+
+
+  section_preview_light_igni_slash_type:
+    - CUE: shot_preview_light_igni_slash_type
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_igni_slash_type
+
+  script_light_igni_slash_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Slash
+          - varValue: CNAME_yennefer
+    - NEXT: script_preview_light_igni_slash_type
+
+  script_light_igni_slash_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Slash
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_igni_slash_type
+
+  script_light_igni_slash_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Slash
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_igni_slash_type
+
+  script_light_igni_slash_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Slash
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_igni_slash_type
+
+  section_choice_light_igni_slash_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_igni, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_igni_slash_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940122}: '
+        - choice: ["2115940127|Yellow", script_light_igni_slash_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940122}: '
+        - choice: ["2115940128|Orange", script_light_igni_slash_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940122}: '
+        - choice: ["2115940129|Red", script_light_igni_slash_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940122}: '
+        - choice: ["2115940130|Pink", script_light_igni_slash_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940122}: '
+        - choice: ["2115940131|Violet", script_light_igni_slash_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940122}: '
+        - choice: ["2115940132|Blue", script_light_igni_slash_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940122}: '
+        - choice: ["2115940133|Seagreen", script_light_igni_slash_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940122}: '
+        - choice: ["2115940134|Green", script_light_igni_slash_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940122}: '
+
+  script_preview_light_igni_slash_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_igni_slash_color
+
+
+  section_preview_light_igni_slash_color:
+    - CUE: shot_preview_light_igni_slash_color
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_igni_slash_color
+
+  script_light_igni_slash_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Slash
+          - varValue: 2
+    - NEXT: script_preview_light_igni_slash_color
+
+  script_light_igni_slash_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Slash
+          - varValue: 3
+    - NEXT: script_preview_light_igni_slash_color
+
+  script_light_igni_slash_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Slash
+          - varValue: 4
+    - NEXT: script_preview_light_igni_slash_color
+
+  script_light_igni_slash_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Slash
+          - varValue: 5
+    - NEXT: script_preview_light_igni_slash_color
+
+  script_light_igni_slash_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Slash
+          - varValue: 6
+    - NEXT: script_preview_light_igni_slash_color
+
+  script_light_igni_slash_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Slash
+          - varValue: 7
+    - NEXT: script_preview_light_igni_slash_color
+
+  script_light_igni_slash_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Slash
+          - varValue: 8
+    - NEXT: script_preview_light_igni_slash_color
+
+  script_light_igni_slash_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Slash
+          - varValue: 9
+    - NEXT: script_preview_light_igni_slash_color
+
+  script_light_igni_slash_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Slash
+          - varValue: 10
+    - NEXT: script_preview_light_igni_slash_color
+
+  section_choice_light_igni_throw_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_igni, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_light_igni_throw_type_lightning_keira_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940140}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_igni_throw_type_lightning_lynx_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940140}: '
+        - choice: ["0000162822|Triss", script_light_igni_throw_type_projectile_triss_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940141}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_igni_throw_type_projectile_philippa_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940141}: '
+        - choice: ["0000335803|Caranthir", script_light_igni_throw_type_projectile_caranthir_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940141}: '
+
+  script_preview_light_igni_throw_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_igni_throw_type
+
+
+  section_preview_light_igni_throw_type:
+    - CUE: shot_preview_light_igni_throw_type
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_igni_throw_type
+
+  script_light_igni_throw_type_lightning_keira_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_igni_throw_type_lightning_keira_2
+
+  script_light_igni_throw_type_lightning_keira_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_keira
+    - NEXT: script_preview_light_igni_throw_type
+
+  script_light_igni_throw_type_lightning_lynx_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_igni_throw_type_lightning_lynx_2
+
+  script_light_igni_throw_type_lightning_lynx_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_igni_throw_type
+
+  script_light_igni_throw_type_projectile_triss_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_igni_throw_type_projectile_triss_2
+
+  script_light_igni_throw_type_projectile_triss_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_igni_throw_type
+
+  script_light_igni_throw_type_projectile_philippa_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_igni_throw_type_projectile_philippa_2
+
+  script_light_igni_throw_type_projectile_philippa_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_igni_throw_type
+
+  script_light_igni_throw_type_projectile_caranthir_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_igni_throw_type_projectile_caranthir_2
+
+  script_light_igni_throw_type_projectile_caranthir_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_caranthir
+    - NEXT: script_preview_light_igni_throw_type
+
+  section_choice_light_igni_throw_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_igni, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_igni_throw_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940139}: '
+        - choice: ["2115940127|Yellow", script_light_igni_throw_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940139}: '
+        - choice: ["2115940128|Orange", script_light_igni_throw_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940139}: '
+        - choice: ["2115940129|Red", script_light_igni_throw_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940139}: '
+        - choice: ["2115940130|Pink", script_light_igni_throw_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940139}: '
+        - choice: ["2115940131|Violet", script_light_igni_throw_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940139}: '
+        - choice: ["2115940132|Blue", script_light_igni_throw_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940139}: '
+        - choice: ["2115940133|Seagreen", script_light_igni_throw_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940139}: '
+        - choice: ["2115940134|Green", script_light_igni_throw_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940139}: '
+
+  script_preview_light_igni_throw_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_igni_throw_color
+
+
+  section_preview_light_igni_throw_color:
+    - CUE: shot_preview_light_igni_throw_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_igni_throw_color
+
+  script_light_igni_throw_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 2
+    - NEXT: script_preview_light_igni_throw_color
+
+  script_light_igni_throw_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 3
+    - NEXT: script_preview_light_igni_throw_color
+
+  script_light_igni_throw_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_preview_light_igni_throw_color
+
+  script_light_igni_throw_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 5
+    - NEXT: script_preview_light_igni_throw_color
+
+  script_light_igni_throw_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_preview_light_igni_throw_color
+
+  script_light_igni_throw_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 7
+    - NEXT: script_preview_light_igni_throw_color
+
+  script_light_igni_throw_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 8
+    - NEXT: script_preview_light_igni_throw_color
+
+  script_light_igni_throw_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 9
+    - NEXT: script_preview_light_igni_throw_color
+
+  script_light_igni_throw_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 10
+    - NEXT: script_preview_light_igni_throw_color
+
+  script_set_light_sign_quen:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Quen
+    - NEXT: section_choice_light_quen
+
+  section_choice_light_quen:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light, exit]
+          emphasize: true
+        - choice: ["2115940121|Slash type", section_choice_light_quen_slash_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+        - choice: ["2115940122|Slash color", section_choice_light_quen_slash_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+        - choice: ["2115940138|", section_choice_light_quen_throw_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+        - choice: ["2115940139|Throw color", section_choice_light_quen_throw_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+
+  section_choice_light_quen_slash_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_quen, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_light_quen_slash_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940121}: '
+        - choice: ["0000162822|Triss", script_light_quen_slash_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940121}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_quen_slash_type_lynx]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940121}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_quen_slash_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940121}: '
+
+  script_preview_light_quen_slash_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_quen_slash_type
+
+
+  section_preview_light_quen_slash_type:
+    - CUE: shot_preview_light_quen_slash_type
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_quen_slash_type
+
+  script_light_quen_slash_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Slash
+          - varValue: CNAME_yennefer
+    - NEXT: script_preview_light_quen_slash_type
+
+  script_light_quen_slash_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Slash
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_quen_slash_type
+
+  script_light_quen_slash_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Slash
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_quen_slash_type
+
+  script_light_quen_slash_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Slash
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_quen_slash_type
+
+  section_choice_light_quen_slash_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_quen, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_quen_slash_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940122}: '
+        - choice: ["2115940127|Yellow", script_light_quen_slash_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940122}: '
+        - choice: ["2115940128|Orange", script_light_quen_slash_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940122}: '
+        - choice: ["2115940129|Red", script_light_quen_slash_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940122}: '
+        - choice: ["2115940130|Pink", script_light_quen_slash_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940122}: '
+        - choice: ["2115940131|Violet", script_light_quen_slash_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940122}: '
+        - choice: ["2115940132|Blue", script_light_quen_slash_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940122}: '
+        - choice: ["2115940133|Seagreen", script_light_quen_slash_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940122}: '
+        - choice: ["2115940134|Green", script_light_quen_slash_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940122}: '
+
+  script_preview_light_quen_slash_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_quen_slash_color
+
+
+  section_preview_light_quen_slash_color:
+    - CUE: shot_preview_light_quen_slash_color
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_quen_slash_color
+
+  script_light_quen_slash_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Slash
+          - varValue: 2
+    - NEXT: script_preview_light_quen_slash_color
+
+  script_light_quen_slash_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Slash
+          - varValue: 3
+    - NEXT: script_preview_light_quen_slash_color
+
+  script_light_quen_slash_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Slash
+          - varValue: 4
+    - NEXT: script_preview_light_quen_slash_color
+
+  script_light_quen_slash_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Slash
+          - varValue: 5
+    - NEXT: script_preview_light_quen_slash_color
+
+  script_light_quen_slash_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Slash
+          - varValue: 6
+    - NEXT: script_preview_light_quen_slash_color
+
+  script_light_quen_slash_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Slash
+          - varValue: 7
+    - NEXT: script_preview_light_quen_slash_color
+
+  script_light_quen_slash_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Slash
+          - varValue: 8
+    - NEXT: script_preview_light_quen_slash_color
+
+  script_light_quen_slash_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Slash
+          - varValue: 9
+    - NEXT: script_preview_light_quen_slash_color
+
+  script_light_quen_slash_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Slash
+          - varValue: 10
+    - NEXT: script_preview_light_quen_slash_color
+
+  section_choice_light_quen_throw_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_quen, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_light_quen_throw_type_lightning_keira_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940140}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_quen_throw_type_lightning_lynx_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940140}: '
+        - choice: ["0000162822|Triss", script_light_quen_throw_type_projectile_triss_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940141}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_quen_throw_type_projectile_philippa_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940141}: '
+        - choice: ["0000335803|Caranthir", script_light_quen_throw_type_projectile_caranthir_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940141}: '
+
+  script_preview_light_quen_throw_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_quen_throw_type
+
+
+  section_preview_light_quen_throw_type:
+    - CUE: shot_preview_light_quen_throw_type
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_quen_throw_type
+
+  script_light_quen_throw_type_lightning_keira_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_quen_throw_type_lightning_keira_2
+
+  script_light_quen_throw_type_lightning_keira_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_keira
+    - NEXT: script_preview_light_quen_throw_type
+
+  script_light_quen_throw_type_lightning_lynx_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_quen_throw_type_lightning_lynx_2
+
+  script_light_quen_throw_type_lightning_lynx_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_quen_throw_type
+
+  script_light_quen_throw_type_projectile_triss_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_quen_throw_type_projectile_triss_2
+
+  script_light_quen_throw_type_projectile_triss_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_quen_throw_type
+
+  script_light_quen_throw_type_projectile_philippa_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_quen_throw_type_projectile_philippa_2
+
+  script_light_quen_throw_type_projectile_philippa_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_quen_throw_type
+
+  script_light_quen_throw_type_projectile_caranthir_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_quen_throw_type_projectile_caranthir_2
+
+  script_light_quen_throw_type_projectile_caranthir_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_caranthir
+    - NEXT: script_preview_light_quen_throw_type
+
+  section_choice_light_quen_throw_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_quen, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_quen_throw_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940139}: '
+        - choice: ["2115940127|Yellow", script_light_quen_throw_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940139}: '
+        - choice: ["2115940128|Orange", script_light_quen_throw_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940139}: '
+        - choice: ["2115940129|Red", script_light_quen_throw_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940139}: '
+        - choice: ["2115940130|Pink", script_light_quen_throw_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940139}: '
+        - choice: ["2115940131|Violet", script_light_quen_throw_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940139}: '
+        - choice: ["2115940132|Blue", script_light_quen_throw_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940139}: '
+        - choice: ["2115940133|Seagreen", script_light_quen_throw_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940139}: '
+        - choice: ["2115940134|Green", script_light_quen_throw_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940139}: '
+
+  script_preview_light_quen_throw_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_quen_throw_color
+
+
+  section_preview_light_quen_throw_color:
+    - CUE: shot_preview_light_quen_throw_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_quen_throw_color
+
+  script_light_quen_throw_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 2
+    - NEXT: script_preview_light_quen_throw_color
+
+  script_light_quen_throw_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 3
+    - NEXT: script_preview_light_quen_throw_color
+
+  script_light_quen_throw_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_preview_light_quen_throw_color
+
+  script_light_quen_throw_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 5
+    - NEXT: script_preview_light_quen_throw_color
+
+  script_light_quen_throw_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_preview_light_quen_throw_color
+
+  script_light_quen_throw_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 7
+    - NEXT: script_preview_light_quen_throw_color
+
+  script_light_quen_throw_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 8
+    - NEXT: script_preview_light_quen_throw_color
+
+  script_light_quen_throw_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 9
+    - NEXT: script_preview_light_quen_throw_color
+
+  script_light_quen_throw_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 10
+    - NEXT: script_preview_light_quen_throw_color
+
+  script_set_light_sign_yrden:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Yrden
+    - NEXT: section_choice_light_yrden
+
+  section_choice_light_yrden:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light, exit]
+          emphasize: true
+        - choice: ["2115940121|Slash type", section_choice_light_yrden_slash_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+        - choice: ["2115940122|Slash color", section_choice_light_yrden_slash_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+        - choice: ["2115940138|", section_choice_light_yrden_throw_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+        - choice: ["2115940139|Throw color", section_choice_light_yrden_throw_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+
+  section_choice_light_yrden_slash_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_yrden, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_light_yrden_slash_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940121}: '
+        - choice: ["0000162822|Triss", script_light_yrden_slash_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940121}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_yrden_slash_type_lynx]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940121}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_yrden_slash_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940121}: '
+
+  script_preview_light_yrden_slash_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_yrden_slash_type
+
+
+  section_preview_light_yrden_slash_type:
+    - CUE: shot_preview_light_yrden_slash_type
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_yrden_slash_type
+
+  script_light_yrden_slash_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Slash
+          - varValue: CNAME_yennefer
+    - NEXT: script_preview_light_yrden_slash_type
+
+  script_light_yrden_slash_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Slash
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_yrden_slash_type
+
+  script_light_yrden_slash_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Slash
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_yrden_slash_type
+
+  script_light_yrden_slash_type_philippa:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Slash
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_yrden_slash_type
+
+  section_choice_light_yrden_slash_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_yrden, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_yrden_slash_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940122}: '
+        - choice: ["2115940127|Yellow", script_light_yrden_slash_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940122}: '
+        - choice: ["2115940128|Orange", script_light_yrden_slash_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940122}: '
+        - choice: ["2115940129|Red", script_light_yrden_slash_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940122}: '
+        - choice: ["2115940130|Pink", script_light_yrden_slash_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940122}: '
+        - choice: ["2115940131|Violet", script_light_yrden_slash_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940122}: '
+        - choice: ["2115940132|Blue", script_light_yrden_slash_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940122}: '
+        - choice: ["2115940133|Seagreen", script_light_yrden_slash_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940122}: '
+        - choice: ["2115940134|Green", script_light_yrden_slash_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940122}: '
+
+  script_preview_light_yrden_slash_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 2
+    - NEXT: section_preview_light_yrden_slash_color
+
+
+  section_preview_light_yrden_slash_color:
+    - CUE: shot_preview_light_yrden_slash_color
+    - PAUSE: 2.8
+    - NEXT: section_choice_light_yrden_slash_color
+
+  script_light_yrden_slash_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Slash
+          - varValue: 2
+    - NEXT: script_preview_light_yrden_slash_color
+
+  script_light_yrden_slash_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Slash
+          - varValue: 3
+    - NEXT: script_preview_light_yrden_slash_color
+
+  script_light_yrden_slash_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Slash
+          - varValue: 4
+    - NEXT: script_preview_light_yrden_slash_color
+
+  script_light_yrden_slash_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Slash
+          - varValue: 5
+    - NEXT: script_preview_light_yrden_slash_color
+
+  script_light_yrden_slash_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Slash
+          - varValue: 6
+    - NEXT: script_preview_light_yrden_slash_color
+
+  script_light_yrden_slash_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Slash
+          - varValue: 7
+    - NEXT: script_preview_light_yrden_slash_color
+
+  script_light_yrden_slash_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Slash
+          - varValue: 8
+    - NEXT: script_preview_light_yrden_slash_color
+
+  script_light_yrden_slash_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Slash
+          - varValue: 9
+    - NEXT: script_preview_light_yrden_slash_color
+
+  script_light_yrden_slash_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Slash
+          - varValue: 10
+    - NEXT: script_preview_light_yrden_slash_color
+
+  section_choice_light_yrden_throw_type:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_yrden, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_light_yrden_throw_type_lightning_keira_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940140}: '
+        - choice: ["0001157557|Witch of Lynx Crag", script_light_yrden_throw_type_lightning_lynx_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940140}: '
+        - choice: ["0000162822|Triss", script_light_yrden_throw_type_projectile_triss_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940141}: '
+        - choice: ["0000300169|Philippa Eilhart", script_light_yrden_throw_type_projectile_philippa_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940141}: '
+        - choice: ["0000335803|Caranthir", script_light_yrden_throw_type_projectile_caranthir_1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940141}: '
+
+  script_preview_light_yrden_throw_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_yrden_throw_type
+
+
+  section_preview_light_yrden_throw_type:
+    - CUE: shot_preview_light_yrden_throw_type
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_yrden_throw_type
+
+  script_light_yrden_throw_type_lightning_keira_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_yrden_throw_type_lightning_keira_2
+
+  script_light_yrden_throw_type_lightning_keira_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_keira
+    - NEXT: script_preview_light_yrden_throw_type
+
+  script_light_yrden_throw_type_lightning_lynx_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_light_yrden_throw_type_lightning_lynx_2
+
+  script_light_yrden_throw_type_lightning_lynx_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Lightning
+          - varValue: CNAME_lynx
+    - NEXT: script_preview_light_yrden_throw_type
+
+  script_light_yrden_throw_type_projectile_triss_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_yrden_throw_type_projectile_triss_2
+
+  script_light_yrden_throw_type_projectile_triss_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_triss
+    - NEXT: script_preview_light_yrden_throw_type
+
+  script_light_yrden_throw_type_projectile_philippa_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_yrden_throw_type_projectile_philippa_2
+
+  script_light_yrden_throw_type_projectile_philippa_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_philippa
+    - NEXT: script_preview_light_yrden_throw_type
+
+  script_light_yrden_throw_type_projectile_caranthir_1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: type_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_light_yrden_throw_type_projectile_caranthir_2
+
+  script_light_yrden_throw_type_projectile_caranthir_2:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_ProjectileWithPrepare
+          - varValue: CNAME_caranthir
+    - NEXT: script_preview_light_yrden_throw_type
+
+  section_choice_light_yrden_throw_color:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_light_yrden, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_yrden_throw_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940139}: '
+        - choice: ["2115940127|Yellow", script_light_yrden_throw_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940139}: '
+        - choice: ["2115940128|Orange", script_light_yrden_throw_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940139}: '
+        - choice: ["2115940129|Red", script_light_yrden_throw_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940139}: '
+        - choice: ["2115940130|Pink", script_light_yrden_throw_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940139}: '
+        - choice: ["2115940131|Violet", script_light_yrden_throw_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940139}: '
+        - choice: ["2115940132|Blue", script_light_yrden_throw_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940139}: '
+        - choice: ["2115940133|Seagreen", script_light_yrden_throw_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940139}: '
+        - choice: ["2115940134|Green", script_light_yrden_throw_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940139}: '
+
+  script_preview_light_yrden_throw_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 3
+    - NEXT: section_preview_light_yrden_throw_color
+
+
+  section_preview_light_yrden_throw_color:
+    - CUE: shot_preview_light_yrden_throw_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_light_yrden_throw_color
+
+  script_light_yrden_throw_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 2
+    - NEXT: script_preview_light_yrden_throw_color
+
+  script_light_yrden_throw_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 3
+    - NEXT: script_preview_light_yrden_throw_color
+
+  script_light_yrden_throw_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 4
+    - NEXT: script_preview_light_yrden_throw_color
+
+  script_light_yrden_throw_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 5
+    - NEXT: script_preview_light_yrden_throw_color
+
+  script_light_yrden_throw_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 6
+    - NEXT: script_preview_light_yrden_throw_color
+
+  script_light_yrden_throw_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 7
+    - NEXT: script_preview_light_yrden_throw_color
+
+  script_light_yrden_throw_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 8
+    - NEXT: script_preview_light_yrden_throw_color
+
+  script_light_yrden_throw_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 9
+    - NEXT: script_preview_light_yrden_throw_color
+
+  script_light_yrden_throw_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_ThrowAbstract
+          - varValue: 10
+    - NEXT: script_preview_light_yrden_throw_color

@@ -46,22 +46,47 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 		thePlayer.RemoveAnimEventCallback('Spawn');
 		thePlayer.RemoveAnimEventCallback('Shoot');
 		thePlayer.RemoveAnimEventCallback('PerformMagicAttack');
+		magicManager.HideMagicInfo();
 	}
 }
 
-storyscene function NR_SetMagicSignName_S(player: CStoryScenePlayer, signName : name) {
+// Magic stuff
+storyscene function NR_ShowMagicInfo_S(player: CStoryScenePlayer, sectionName : name) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
 	if (!magicManager) {
 		NRE("NR_SetMagicInSetupScene_S: NULL magicManager!");
 		return;
 	}
+	magicManager.ShowMagicInfo(sectionName);
+}
+
+storyscene function NR_SetMagicSignName_S(player: CStoryScenePlayer, signName : name) {
+	var magicManager : NR_MagicManager = NR_GetMagicManager();
+
+	NR_Notify("NR_SetMagicSignName_S: signName = " + signName);
+	if (!magicManager) {
+		NRE("NR_SetMagicInSetupScene_S: NULL magicManager!");
+		return;
+	}
 	magicManager.SetSceneSign(SignNameToEnum(signName));
+	magicManager.UpdateMagicInfo();
+}
+
+storyscene function NR_SetMagicUpdateHandFx_S(player: CStoryScenePlayer) {
+	var magicManager : NR_MagicManager = NR_GetMagicManager();
+
+	if (!magicManager) {
+		NRE("NR_SetMagicInSetupScene_S: NULL magicManager!");
+		return;
+	}
+	magicManager.HandFX(true);
 }
 
 storyscene function NR_SetMagicActionType_S(player: CStoryScenePlayer, actionType : int) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
+	NRD("NR_SetMagicActionType_S: actionType = " + ENR_MAToName((ENR_MagicAction)actionType));
 	if (!magicManager) {
 		NRE("NR_SetMagicInSetupScene_S: NULL magicManager!");
 		return;
@@ -71,6 +96,8 @@ storyscene function NR_SetMagicActionType_S(player: CStoryScenePlayer, actionTyp
 
 storyscene function NR_SetMagicLightRatio_S(player: CStoryScenePlayer, slashNum : int, throwNum : int) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
+
+	NRD("NR_SetMagicLightRatio_S: slashNum = " + slashNum + ", throwNum = " + throwNum);
 	if (!magicManager) {
 		NRE("NR_SetMagicSettingInt_S: NULL magicManager!");
 		return;
@@ -78,51 +105,53 @@ storyscene function NR_SetMagicLightRatio_S(player: CStoryScenePlayer, slashNum 
 	magicManager.SetParamInt('universal', "light_slash_amount", slashNum);
 	magicManager.SetParamInt('universal', "light_throw_amount", throwNum);
 	magicManager.InitAspectsSelectors();
-}
-
-storyscene function NR_SetMagicLightSlashEffects_S(player: CStoryScenePlayer, signName : name, slashLeft : name, slashRight : name, colorInt : int) {
-	var magicManager : NR_MagicManager = NR_GetMagicManager();
-	if (!magicManager) {
-		NRE("NR_SetMagicSettingInt_S: NULL magicManager!");
-		return;
-	}
-	magicManager.SetParamName(signName, "fxL_" + ENR_MAToName(ENR_Slash), slashLeft);
-	magicManager.SetParamName(signName, "fxR_" + ENR_MAToName(ENR_Slash), slashRight);
-	magicManager.SetParamInt(signName, "color_" + ENR_MAToName(ENR_Slash), colorInt);
+	magicManager.UpdateMagicInfo();
 }
 
 storyscene function NR_SetMagicParamInt_S(player: CStoryScenePlayer, signName : name, varName : String, varValue : int) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
+
+	NRD("NR_SetMagicParamInt_S: [" + signName + "] (" + varName + ") = " + varValue);
 	if (!magicManager) {
 		NRE("NR_SetMagicSettingInt_S: NULL magicManager!");
 		return;
 	}
 	magicManager.SetParamInt(signName, varName, varValue);
+	magicManager.UpdateMagicInfo();
 }
 
 storyscene function NR_SetMagicParamFloat_S(player: CStoryScenePlayer, signName : name, varName : String, varValue : float) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
+	
+	NRD("NR_SetMagicParamFloat_S: [" + signName + "] (" + varName + ") = " + varValue);
 	if (!magicManager) {
 		NRE("NR_SetMagicSettingFloat_S: NULL magicManager!");
 		return;
 	}
 	magicManager.SetParamFloat(signName, varName, varValue);
+	magicManager.UpdateMagicInfo();
 }
 
 storyscene function NR_SetMagicParamString_S(player: CStoryScenePlayer, signName : name, varName : String, varValue : String) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
+
+	NRD("NR_SetMagicParamString_S: [" + signName + "] (" + varName + ") = " + varValue);
 	if (!magicManager) {
 		NRE("NR_SetMagicSettingString_S: NULL magicManager!");
 		return;
 	}
 	magicManager.SetParamString(signName, varName, varValue);
+	magicManager.UpdateMagicInfo();
 }
 
 storyscene function NR_SetMagicParamName_S(player: CStoryScenePlayer, signName : name, varName : String, varValue : name) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
+	
+	NRD("NR_SetMagicParamName_S: [" + signName + "] (" + varName + ") = " + varValue);
 	if (!magicManager) {
 		NRE("NR_SetMagicSettingName_S: NULL magicManager!");
 		return;
 	}
 	magicManager.SetParamName(signName, varName, varValue);
+	magicManager.UpdateMagicInfo();
 }

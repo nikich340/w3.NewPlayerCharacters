@@ -53,7 +53,7 @@ function NR_ExitScenePreviewState()
     if (hud)
     {
         dialogModule = hud.GetDialogModule();
-        dialogModule.GotoState('NR_EnterScenePreviewState');
+        dialogModule.GotoState('NR_SceneDefault_DialogState');
     }
 }
 

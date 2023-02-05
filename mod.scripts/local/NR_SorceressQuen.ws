@@ -1,12 +1,9 @@
 statemachine class NR_SorceressQuen extends W3QuenEntity
 {
 	// change mode on holding button, but don't allow the game to change beh var
-	var isReallyAlternate : Bool;
-
-	// make data simpler
-	var effectName, alternateEffectName : name;
-	var playOnOwner : Bool;
-	var shakeStrength : float;
+	editable var isReallyAlternate : Bool;
+	editable var playOnOwner : Bool;
+	editable var shakeStrength : float;
 	default playOnOwner = false;
 	default shakeStrength = 0.2f;
 
@@ -16,7 +13,6 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	{
 		var player : CR4Player;
 		var focus : SAbilityAttributeValue;
-		var witcher: W3PlayerWitcher;
 		var sorceress : NR_ReplacerSorceress;
 		
 		owner = inOwner;
@@ -24,7 +20,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		GetSignStats();
 
 		sorceress = NR_GetReplacerSorceress();
-		if ( sorceress && !sorceress.magicManager.HasStaminaForAction('AttackSpecialQuen') ) {
+		if ( sorceress && !sorceress.magicManager.HasStaminaForAction('TODO') ) {
 			sorceress.SoundEvent( "gui_ingame_low_stamina_warning" );
 			CleanUp();
 			Destroy();
@@ -110,12 +106,32 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		GotoState( 'QuenShield' );
 	}
 
+	public function LastingShieldFxName() : name {
+		return 'quen_lasting_shield_hit';
+	}
+
+	public function LastingImpulseFxName() : name {
+		return 'lasting_shield_impulse';
+	}
+
+	public function DischargeFxName() : name {
+		return 'quen_force_discharge';
+	}
+
+	public function FxName() : name {
+		return NR_GetMagicManager().SphereFxName();
+	}
+
+	public function FxAltName() : name {
+		return NR_GetMagicManager().SphereFxName();
+	}
+
 	protected function LaunchEffect(enable : bool) {
 		var finalName : name;
 		if (isReallyAlternate)
-			finalName = alternateEffectName;
+			finalName = FxAltName();
 		else
-			finalName = effectName;
+			finalName = FxName();
 
 		NRD("LaunchEffect: name = " + finalName + ", playOnOwner = " + playOnOwner + ", enable = " + enable);
 		if (playOnOwner) {
@@ -131,6 +147,8 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 				StopEffect(finalName);
 		}
 	}
+
+
 }
 
 state Expired in NR_SorceressQuen
@@ -140,7 +158,7 @@ state Expired in NR_SorceressQuen
 		parent.shieldHealth = 0;
 		
 		//if(parent.showForceFinishedFX)
-		//	parent.owner.GetActor().PlayEffect('quen_lasting_shield_hit');
+		//	parent.owner.GetActor().PlayEffect( parent.LastingShieldFxName(0) );
 			
 		parent.DestroyAfter( 1.f );		
 		
@@ -294,7 +312,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		if(!damageData.IsDoTDamage())
 		{
-			casterActor.PlayEffect( 'quen_lasting_shield_hit' );	
+			casterActor.PlayEffect( parent.LastingShieldFxName() );	
 
 			GCameraShake( parent.shakeStrength, true, parent.GetWorldPosition(), 30.0f );
 		}
@@ -345,7 +363,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 				delete action;
 				
 				
-				casterActor.PlayEffect('quen_force_discharge');
+				casterActor.PlayEffect( parent.DischargeFxName() );
 			}			
 		}
 		
@@ -360,7 +378,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		{
 			if ( parent.owner.CanUseSkill(S_Magic_s13) )
 			{				
-				casterActor.PlayEffect( 'lasting_shield_impulse' );
+				casterActor.PlayEffect( parent.LastingImpulseFxName() );
 				caster.GetPlayer().QuenImpulse( false, parent, "quen_impulse" );
 			}
 			

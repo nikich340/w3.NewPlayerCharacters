@@ -39,7 +39,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		m_fxNameExtra = PushFxName();
 
 		//parent.HandFX(false);
-		resourceName = map[sign].getN("entity_" + ENR_MAToName(actionType) );
+		resourceName = RockEntityName();
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		// BTTaskPullObjectsFromGroundAndShoot, Keira Metz & Djinni //
 		numberToSpawn			= 9;
@@ -140,6 +140,20 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 	latent function BreakAction() {
 		super.BreakAction();
 		GotoState('Break');
+	}
+
+	latent function RockEntityName() : String
+	{
+		var typeName : name = map[sign].getN("style_" + ENR_MAToName(actionType));
+		switch (typeName) {
+			case 'djinn':
+				return "sorceress_wood_proj";
+			case 'lynx':
+				return "ep2_sorceress_stone_proj";
+			case 'keira':
+			default:
+				return "sorceress_stone_proj";
+		}
 	}
 
 	latent function GlowFxName() : name {

@@ -9,17 +9,15 @@ class NR_MagicTeleport extends NR_MagicAction {
 	}
 
 	latent function OnPrepare() : bool {
-		var template : CEntityTemplate;
 		var shiftVec  : Vector;
 
 		super.OnPrepare();
-
 		thePlayer.PlayEffect( TeleportOutFxName() );
 
 		shiftVec = teleportPos - thePlayer.GetWorldPosition();
-		template = (CEntityTemplate)LoadResourceAsync("nr_static_camera");
+		entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_static_camera");
 		// YEAH, that simple!
-		teleportCamera = (CStaticCamera)theGame.CreateEntity( template, theCamera.GetCameraPosition() + shiftVec, theCamera.GetCameraRotation() );
+		teleportCamera = (CStaticCamera)theGame.CreateEntity( entityTemplate, theCamera.GetCameraPosition() + shiftVec, theCamera.GetCameraRotation() );
 		if ( !teleportCamera ) {
 			NRE("Prepare: No valid teleport camera.");
 			return OnPrepared(false);
@@ -82,6 +80,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 	latent function TeleportOutFxName() : name {
 		var color 	: ENR_MagicColor = NR_GetActionColor();
 		var fx_type : name			 = map[sign].getN("fx_type_" + ENR_MAToName(actionType));
+		return 'teleport_out_triss';
 		switch (color) {
 			//case ENR_ColorBlack:
 			//	return 'ENR_ColorBlack';
@@ -172,6 +171,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 	latent function TeleportInFxName() : name {
 		var color 	: ENR_MagicColor = NR_GetActionColor();
 		var fx_type : name			 = map[sign].getN("fx_type_" + ENR_MAToName(actionType));
+		return 'teleport_in_triss';
 		switch (color) {
 			//case ENR_ColorBlack:
 			//	return 'ENR_ColorBlack';

@@ -108,7 +108,7 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 	}
 
 	latent function SpawnFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor();
+		var color : ENR_MagicColor = NR_GetActionColor(ENR_SpecialAbstract);
 
 		switch (color) {
 			//case ENR_ColorBlack:

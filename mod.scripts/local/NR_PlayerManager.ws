@@ -1123,7 +1123,7 @@ exec function toTriss() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
 	if (manager) {
 		manager.ResetAllAppearanceHeadHair();
-		manager.UpdateHead('nr_head_triss');
+		manager.UpdateHead('nr_h_01_wa__triss');
 		manager.RemoveHair();
 		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\triss\body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
 		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\triss\c_01_wa__triss.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
@@ -1217,7 +1217,7 @@ exec function toTrisss() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
 	if (manager) {
 		manager.ResetAllAppearanceHeadHair();
-		manager.UpdateHead('nr_head_triss_dlc');
+		manager.UpdateHead('nr_h_01_wa__triss');
 		//manager.UpdateHair('NR Triss Hairstyle DLC');
 		manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlc6\data\characters\models\main_npc\triss\b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
 		//manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlc6\data\characters\models\main_npc\triss\c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair, /*isDepotPath*/ true);

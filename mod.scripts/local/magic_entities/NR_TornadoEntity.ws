@@ -7,6 +7,7 @@ statemachine class NR_TornadoEntity extends CEntity {
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
+		super.OnSpawned(spawnData);
 	}
 	// if target is NULL, then static pos is used
 	public function Init(caster : CActor, target : CActor, targetPos : Vector, tornadoPursue : bool, effectName : name) {

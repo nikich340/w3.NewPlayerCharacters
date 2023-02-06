@@ -78,7 +78,7 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 	}
 
 	latent function TornadoFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor();
+		var color : ENR_MagicColor = NR_GetActionColor(ENR_SpecialAbstract);
 
 		switch (color) {
 			//case ENR_ColorBlack:

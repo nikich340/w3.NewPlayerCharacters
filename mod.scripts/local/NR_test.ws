@@ -7,59 +7,59 @@ exec function sspawn(id : int, optional hostile : Bool, optional immortal : Bool
 	if (id == 1) {
 		template = (CEntityTemplate)LoadResource("characters/npc_entities/main_npc/triss.w2ent", true);
 	} else if (id == 2) {
-		template = (CEntityTemplate)LoadResource("quests\main_npcs\yennefer.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/main_npcs/yennefer.w2ent", true);
 	} else if (id == 3) {
-		template = (CEntityTemplate)LoadResource("quests\secondary_npcs\philippa_eilhart.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/secondary_npcs/philippa_eilhart.w2ent", true);
 	} else if (id == 4) {
-		template = (CEntityTemplate)LoadResource("quests\secondary_npcs\keira_metz.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/secondary_npcs/keira_metz.w2ent", true);
 	} else if (id == 5) {
-		template = (CEntityTemplate)LoadResource("quests\part_1\quest_files\q104_mine\characters\q104_evil_keira.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/part_1/quest_files/q104_mine/characters/q104_evil_keira.w2ent", true);
 	} else if (id == 6) {
-		template = (CEntityTemplate)LoadResource("quests\secondary_npcs\margarita.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/secondary_npcs/margarita.w2ent", true);
 	} else if (id == 7) {
-		template = (CEntityTemplate)LoadResource("quests\secondary_npcs\fringilla_vigo.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/secondary_npcs/fringilla_vigo.w2ent", true);
 	} else if (id == 8) {
-		template = (CEntityTemplate)LoadResource("dlc\bob\data\quests\minor_quests\quest_files\mq7004_bleeding_tree\characters\mq7004_witch.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/quests/minor_quests/quest_files/mq7004_bleeding_tree/characters/mq7004_witch.w2ent", true);
 
 	} else if (id == 11) {
-		template = (CEntityTemplate)LoadResource("quests\main_npcs\avallach.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/main_npcs/avallach.w2ent", true);
 	} else if (id == 12) {
-		template = (CEntityTemplate)LoadResource("dlc\ep1\data\quests\quest_files\q601_intro\characters\q601_ofir_mage.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/ep1/data/quests/quest_files/q601_intro/characters/q601_ofir_mage.w2ent", true);
 	} else if (id == 13) {
-		template = (CEntityTemplate)LoadResource("dlc\bob\data\quests\main_quests\quest_files\q701_wine_festival\characters\q701_00_nml_bandit_1h_sword_02_leader.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/quests/main_quests/quest_files/q701_wine_festival/characters/q701_00_nml_bandit_1h_sword_02_leader.w2ent", true);
 	} else if (id == 14) {
-		template = (CEntityTemplate)LoadResource("dlc\ep1\data\quests\main_npcs\olgierd.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/ep1/data/quests/main_npcs/olgierd.w2ent", true);
 	} else if (id == 15) {
-		template = (CEntityTemplate)LoadResource("dlc\bob\data\characters\npc_entities\secondary_npc\q703_mage.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/characters/npc_entities/secondary_npc/q703_mage.w2ent", true);
 	
 	} else if (id == 21) {
-		template = (CEntityTemplate)LoadResource("dlc\bob\data\living_world\enemy_templates\water_hag_late.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/living_world/enemy_templates/water_hag_late.w2ent", true);
 	}
 	else if (id == 22) {
-		template = (CEntityTemplate)LoadResource("dlc\bob\data\living_world\enemy_templates\wraith_late.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/living_world/enemy_templates/wraith_late.w2ent", true);
 	}
 	else if (id == 23) {
-		template = (CEntityTemplate)LoadResource("dlc\bob\data\living_world\enemy_templates\alghoul.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/living_world/enemy_templates/alghoul.w2ent", true);
 	}
 	else if (id == 24) {
-		template = (CEntityTemplate)LoadResource("characters\npc_entities\monsters\wolf_lvl1.w2ent", true);
+		template = (CEntityTemplate)LoadResource("characters/npc_entities/monsters/wolf_lvl1.w2ent", true);
 	}
 	else if (id == 25) {
-		template = (CEntityTemplate)LoadResource("dlc\bob\data\living_world\enemy_templates\wyvern.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/living_world/enemy_templates/wyvern.w2ent", true);
 	}	else if (id == 31) {
 		template = (CEntityTemplate)LoadResource("nr_golem2");
 	}
 	else if (id == 26) {
-		template = (CEntityTemplate)LoadResource("dlc\bob\data\quests\main_npcs\dettlaff_van_eretein_vampire.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/quests/main_npcs/dettlaff_van_eretein_vampire.w2ent", true);
 	}
 	else if (id == 27) {
-		template = (CEntityTemplate)LoadResource("dlc\bob\data\quests\main_npcs\dettlaff_van_eretein_monster.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/quests/main_npcs/dettlaff_van_eretein_monster.w2ent", true);
 	}
 	else if (id == 99) {
-		template = (CEntityTemplate)LoadResource("quests\main_npcs\radovid.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/main_npcs/radovid.w2ent", true);
 	}
 	else if (id == 98) {
-		template = (CEntityTemplate)LoadResource("quests\main_npcs\emhyr.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/main_npcs/emhyr.w2ent", true);
 	}
 	else if (id == 101) {
 		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_scene_trigger.w2ent", true);
@@ -236,6 +236,22 @@ function PrintDamageAction( source: String, action : W3DamageAction )
 		}
 }
 
+exec function castquen() {
+	NR_GetReplacerSorceress().CastQuen();
+}
+
+exec function handkeira(color : int) {
+	NR_GetMagicManager().SetParamName('Aard', "fx_type_" + ENR_MAToName(ENR_HandFx), 'keira');
+	NR_GetMagicManager().SetParamInt('Aard', "color_" + ENR_MAToName(ENR_HandFx), color);
+	NR_GetMagicManager().HandFX(true);
+	NR_Notify("Set [" + "color_" + ENR_MAToName(ENR_HandFx) + "] = " + ENR_MCToName(color));
+}
+
+exec function handkeira2() {
+	NR_GetMagicManager().SetParamName('Aard', "fx_type_" + ENR_MAToName(ENR_HandFx), 'keira');
+	NR_GetMagicManager().SetParamInt('Aard', "color_" + ENR_MAToName(ENR_HandFx), ENR_ColorYellow);
+}
+
 exec function dao() {
 	var inv : CInventoryComponent;
 	var ids : array<SItemUniqueId>;
@@ -283,7 +299,7 @@ exec function spell_scene(inp : int) {
 		var max_index : int = 5;
 
 		path = "dlc/dlcnewreplacers/data/scenes/02.magic_lines.w2scene";
-		//path = "dlc\dlcntr\data\scenes\03.geralt_oneliners.w2scene";
+		//path = "dlc/dlcntr/data/scenes/03.geralt_oneliners.w2scene";
 		scene = (CStoryScene)LoadResource(path, true);
 		if (!scene)
 			NRE("NULL scene!");
@@ -299,7 +315,7 @@ exec function player_scene() {
 		var path : String;
 
 		path = "dlc/dlcnewreplacers/data/scenes/01.player_change.w2scene";
-		//path = "dlc\dlcntr\data\scenes\03.geralt_oneliners.w2scene";
+		//path = "dlc/dlcntr/data/scenes/03.geralt_oneliners.w2scene";
 		scene = (CStoryScene)LoadResource(path, true);
 		if (!scene)
 			NRE("NULL scene!");
@@ -328,7 +344,7 @@ exec function player_scene() {
           scale: [ 0.0, 0.0, 0.0 ]
 */
 
-//characters\npc_entities\monsters\wolf_lvl1.w2ent
+//characters/npc_entities/monsters/wolf_lvl1.w2ent
 exec function pspawn(path : string, optional app : string) {
 	var template : CEntityTemplate;
 	var entity : CEntity;
@@ -362,51 +378,51 @@ state Latent in NR_TestManager {
 		var ent : CEntity;
 
 			
-			ents.PushBack("characters\npc_entities\main_npc\crach_an_craite.w2ent");
-			ents.PushBack("characters\npc_entities\monsters\gryphon_lvl3__volcanic.w2ent");
-			ents.PushBack("characters\npc_entities\monsters\gryphon_mh__volcanic.w2ent");
-			ents.PushBack("characters\npc_entities\monsters\hag_grave_lvl1.w2ent");
-			ents.PushBack("characters\npc_entities\monsters\hag_grave_lvl1__barons_wife.w2ent");
-			ents.PushBack("characters\npc_entities\monsters\hag_grave__mh.w2ent");
-			ents.PushBack("characters\npc_entities\monsters\hag_water_lvl1.w2ent");
-			ents.PushBack("characters\npc_entities\monsters\hag_water_lvl2.w2ent");
-			ents.PushBack("characters\npc_entities\monsters\hag_water_mh.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\fogling_lvl1.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\fogling_lvl2.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\fogling_mh.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\cyclop_lvl1.w2ent");
-		ents.PushBack("characters\npc_entities\animals\horse\horse_background.w2ent");
-		ents.PushBack("characters\npc_entities\animals\horse\horse_background_no_saddle.w2ent");
-		ents.PushBack("characters\npc_entities\animals\horse\horse_racing_fast.w2ent");
-		ents.PushBack("characters\npc_entities\animals\horse\horse_racing_slow.w2ent");
-		ents.PushBack("characters\npc_entities\animals\horse\horse_vehicle.w2ent");
-		ents.PushBack("characters\npc_entities\animals\horse\horse_wild_regular.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\fugas_lvl1.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\fugas_lvl2.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\_quest__godling.w2ent");
-		ents.PushBack("characters\npc_entities\crowd_npc\succubus\succubus.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\bear_berserker_lvl1.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\bear_lvl1__black.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\bear_lvl2__grizzly.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\bear_lvl3__white.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\bies_lvl1.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\bies_lvl2.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\bies_mh.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\czart_lvl1.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\czart_mh.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\ice_giant.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\vampire_ekima_lvl1.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\vampire_ekima_mh.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\vampire_katakan_lvl1.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\vampire_katakan_mh.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\wolf_lvl1.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\wolf_lvl1__summon.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\wolf_lvl1__summon_were.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\wolf_lvl2__alpha.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\wolf_white_lvl2.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\wolf_white_lvl3__alpha.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\wyvern_lvl2.w2ent");
-		ents.PushBack("characters\npc_entities\monsters\wyvern_mh.w2ent");
+			ents.PushBack("characters/npc_entities/main_npc/crach_an_craite.w2ent");
+			ents.PushBack("characters/npc_entities/monsters/gryphon_lvl3__volcanic.w2ent");
+			ents.PushBack("characters/npc_entities/monsters/gryphon_mh__volcanic.w2ent");
+			ents.PushBack("characters/npc_entities/monsters/hag_grave_lvl1.w2ent");
+			ents.PushBack("characters/npc_entities/monsters/hag_grave_lvl1__barons_wife.w2ent");
+			ents.PushBack("characters/npc_entities/monsters/hag_grave__mh.w2ent");
+			ents.PushBack("characters/npc_entities/monsters/hag_water_lvl1.w2ent");
+			ents.PushBack("characters/npc_entities/monsters/hag_water_lvl2.w2ent");
+			ents.PushBack("characters/npc_entities/monsters/hag_water_mh.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/fogling_lvl1.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/fogling_lvl2.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/fogling_mh.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/cyclop_lvl1.w2ent");
+		ents.PushBack("characters/npc_entities/animals/horse/horse_background.w2ent");
+		ents.PushBack("characters/npc_entities/animals/horse/horse_background_no_saddle.w2ent");
+		ents.PushBack("characters/npc_entities/animals/horse/horse_racing_fast.w2ent");
+		ents.PushBack("characters/npc_entities/animals/horse/horse_racing_slow.w2ent");
+		ents.PushBack("characters/npc_entities/animals/horse/horse_vehicle.w2ent");
+		ents.PushBack("characters/npc_entities/animals/horse/horse_wild_regular.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/fugas_lvl1.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/fugas_lvl2.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/_quest__godling.w2ent");
+		ents.PushBack("characters/npc_entities/crowd_npc/succubus/succubus.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/bear_berserker_lvl1.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/bear_lvl1__black.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/bear_lvl2__grizzly.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/bear_lvl3__white.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/bies_lvl1.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/bies_lvl2.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/bies_mh.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/czart_lvl1.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/czart_mh.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/ice_giant.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/vampire_ekima_lvl1.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/vampire_ekima_mh.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/vampire_katakan_lvl1.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/vampire_katakan_mh.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/wolf_lvl1.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/wolf_lvl1__summon.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/wolf_lvl1__summon_were.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/wolf_lvl2__alpha.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/wolf_white_lvl2.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/wolf_white_lvl3__alpha.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/wyvern_lvl2.w2ent");
+		ents.PushBack("characters/npc_entities/monsters/wyvern_mh.w2ent");
 
 		for (i = 6; i > 1; i -= 1) {
 			theGame.GetGuiManager().ShowNotification(i, 1000);
@@ -484,15 +500,15 @@ exec function tp1() {
 	pos.X += 1;
 	thePlayer.TeleportWithRotation(pos, rot);
 }
-/*
-exec function eff(eName : name, optional disable : bool) {
+
+exec function effect(eName : name, optional disable : bool) {
 	if (disable) {
 		thePlayer.StopEffect(eName);
 	} else {
 		thePlayer.PlayEffect(eName);
 	}
 }
-*/
+
 function EulerToString(euler: EulerAngles) : String {
 	return "[" + FloatToStringPrec(euler.Pitch,3) + ", " + FloatToStringPrec(euler.Yaw,3) + ", " + FloatToStringPrec(euler.Roll,3) + "]";
 }

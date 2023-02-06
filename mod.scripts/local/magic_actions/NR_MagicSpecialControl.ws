@@ -147,7 +147,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 
 		if (bonuses) {
 			bonusAbilityName = thePlayer.GetSkillAbilityName(S_Magic_s05);
-			if (magicSkill >= ENR_SkillEnhanced) {
+			if (magicSkill >= ENR_SkillApprentice) {
 				npc.AddAbility(bonusAbilityName, true); // 1st bonus
 			}
 			if (magicSkill >= ENR_SkillMistress) {
@@ -221,7 +221,7 @@ state RunWait in NR_MagicSpecialControl {
 
 				if (parent.magicSkill >= ENR_SkillMistress) {
 					parent.wraithEntity.SetAppearance('wraith_03');
-				} else if (parent.magicSkill >= ENR_SkillEnhanced) {
+				} else if (parent.magicSkill >= ENR_SkillApprentice) {
 					parent.wraithEntity.SetAppearance('wraith_02');
 				}
 				parent.NR_AdjustMinionLevel( parent.wraithEntity, 1 );

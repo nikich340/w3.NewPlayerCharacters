@@ -65,7 +65,7 @@ class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 	}
 
 	latent function MarkerDepotPath() : String {
-		var color : ENR_MagicColor = NR_GetActionColor();
+		var color : ENR_MagicColor = NR_GetActionColor(ENR_SpecialAbstract);
 
 		switch (color) {
 			//case ENR_ColorBlack:
@@ -101,7 +101,7 @@ class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 	}
 
 	latent function InitFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor();
+		var color : ENR_MagicColor = NR_GetActionColor(ENR_SpecialAbstract);
 
 		switch (color) {
 			//case ENR_ColorBlack:
@@ -137,7 +137,7 @@ class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 	}
 
 	latent function CollisionFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor();
+		var color : ENR_MagicColor = NR_GetActionColor(ENR_SpecialAbstract);
 
 		switch (color) {
 			//case ENR_ColorBlack:
@@ -171,7 +171,7 @@ class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 	}
 
 	latent function CollisionWaterFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor();
+		var color : ENR_MagicColor = NR_GetActionColor(ENR_SpecialAbstract);
 
 		switch (color) {
 			//case ENR_ColorBlack:

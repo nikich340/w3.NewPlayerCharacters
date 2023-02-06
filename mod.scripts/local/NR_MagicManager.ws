@@ -66,7 +66,8 @@ enum ENR_MagicAction {
 	ENR_SpecialHeal,  			// axii long - heal?
 
 	ENR_Teleport,   // teleport
-	ENR_HandFx   	// hand fx
+	ENR_HandFx,   	// hand fx
+	ENR_FastTravelTeleport
 }
 enum ENR_MagicColor {
 	ENR_ColorBlack,		// 0
@@ -135,6 +136,8 @@ function ENR_MAToName(action : ENR_MagicAction) : name {
 			return 'ENR_Teleport';
 		case ENR_HandFx:
 			return 'ENR_HandFx';
+		case ENR_FastTravelTeleport:
+			return 'ENR_FastTravelTeleport';
 		default:
 			NR_Notify("ENR_NameToMA: action = " + action);
 			return 'ENR_Unknown';
@@ -182,6 +185,8 @@ function ENR_NameToMA(actionName : name) : ENR_MagicAction {
 			return ENR_Teleport;
 		case 'ENR_HandFx':
 			return ENR_HandFx;
+		case 'ENR_FastTravelTeleport':
+			return ENR_FastTravelTeleport;
 		default:
 			NR_Notify("ENR_NameToMA: name = " + actionName);
 			return ENR_Unknown;
@@ -268,13 +273,16 @@ statemachine class NR_MagicManager {
 	// shared stuff
 	protected var mLumosAction 	: NR_MagicSpecialLumos;
 	protected var aActionType 	: ENR_MagicAction;
-	public var aEventsStack 	: array<SNR_MagicEvent>;
-	public var aData 			: CPreAttackEventData;
 	protected var cachedActions : array<NR_MagicAction>;
 	protected var cursedActions : array<NR_MagicAction>;
 	protected var willeyVictim 	: CActor;
 	protected var eqSign 		: ESignType;
 
+	public var aEventsStack 	: array<SNR_MagicEvent>;
+	public var aData 			: CPreAttackEventData;
+	public var aTargetPinTag 	: name;
+	public var aTargetAreaId 	: EAreaName;
+	public var aCurrentAreaId 	: EAreaName;
 	public var aIsAlternate 	: Bool; // remove?
 	public var aTeleportPos		: Vector;
 	public var aSelectorLight, aSelectorHeavy : NR_MagicAspectSelector;
@@ -934,8 +942,13 @@ statemachine class NR_MagicManager {
 
 	public function CreateFastTravelTeleport(pinTag : name, areaId : EAreaName, currentAreaId : EAreaName) : bool
 	{
-		NR_Notify("Magic FT: pinTag = " + pinTag + ", areaId = " + AreaTypeToName(areaId)
-		 + ", currentArea = " + AreaTypeToName(currentAreaId), 15);
+		if (areaId == -1)
+			areaId = currentAreaId;
+
+		aTargetPinTag = pinTag;
+		aTargetAreaId = areaId;
+		aCurrentAreaId = currentAreaId;
+		NR_GetReplacerSorceress().GotoCombatStateWithAttack( 'attack_magic_ftteleport' );
 		return true;
 	}
 
@@ -1349,6 +1362,9 @@ state MagicLoop in NR_MagicManager {
 			case ENR_Teleport:
 				mAction = new NR_MagicTeleport in this;
 				break;
+			case ENR_FastTravelTeleport:
+				mAction = new NR_MagicFastTravelTeleport in this;
+				break;
 			case ENR_SpecialLumos:
 				if (!parent.mLumosAction)
 					parent.mLumosAction = new NR_MagicSpecialLumos in this;
@@ -1406,6 +1422,8 @@ state MagicLoop in NR_MagicManager {
 				((NR_MagicSlash)mAction).SetSwingData(parent.aData.swingType, parent.aData.swingDir);
 			} else if ( mAction.actionType == ENR_Teleport ) {
 				((NR_MagicTeleport)mAction).SetTeleportPos(parent.aTeleportPos);
+			} else if ( mAction.actionType == ENR_FastTravelTeleport ) {
+				((NR_MagicFastTravelTeleport)mAction).SetTravelData(parent.aTargetPinTag, parent.aTargetAreaId, parent.aCurrentAreaId);
 			}
 			mAction.OnPrepare();
 		} else {

@@ -157,7 +157,8 @@ abstract statemachine class NR_MagicAction {
 				pos.Z += staticOffsetZ;
 
 				// check where physics obstacle if needed
-				if (makeStaticTrace && theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 1.f + Vector(0,0,1.5f), pos, newPos, normalCollision, standartCollisions)) {
+				//if (makeStaticTrace && theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 1.f + Vector(0,0,1.5f), pos, newPos, normalCollision, standartCollisions)) {
+				if (makeStaticTrace && theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.f + Vector(0,0,1.5f), pos, newPos, normalCollision, standartCollisions)) {
 					pos = newPos;
 				}
 			}
@@ -204,6 +205,18 @@ abstract statemachine class NR_MagicAction {
 			return true;
 		}
 	}
+
+	latent function TraceToPoint(from : Vector, to : Vector) : Vector
+	{
+		var resultPos, normal : Vector;
+
+		if ( theGame.GetWorld().StaticTrace(from, to, resultPos, normal, standartCollisions) ) {
+			return resultPos;
+		} else {
+			return to;
+		}
+	}
+
 	// [playerLevel - 2step, playerLevel - step, playerLevel, playerLevel + step, playerLevel + 2step]
 	latent function NR_AdjustMinionLevel(npc : CNewNPC, optional step : int) {
 		var newLevel : int;

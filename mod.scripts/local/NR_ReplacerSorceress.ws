@@ -124,7 +124,13 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	public function GotoCombatStateWithDodge( bufferAction : EBufferActionType )
 	{
 		thePlayer.GotoCombatStateWithAction( IA_None );
-		thePlayer.EvadePressed(EBAT_Dodge);
+		thePlayer.EvadePressed( bufferAction );
+	}
+
+	public function GotoCombatStateWithAttack( attackName : name )
+	{
+		thePlayer.GotoCombatStateWithAction( IA_None );
+		OnPerformAttack( attackName );
 	}
 
 	/* Function to really cast Quen (when we are sure that attack is not alternate) */

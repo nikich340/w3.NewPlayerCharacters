@@ -1730,6 +1730,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 					TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialAbstractAlt );
 				else
 					TryPeformMagicAttack( 'AttackHeavyRock', ENR_SpecialAbstract );				
+			} else if ( playerAttackType == 'attack_magic_ftteleport' )
+			{
+				TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_FastTravelTeleport );
 			}
 			else
 			{

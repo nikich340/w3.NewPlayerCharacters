@@ -47,6 +47,14 @@ repository:
       animation: "woman_sorceress_attack_rock_lhand_lp"
       frames: 91
       #duration 8 sec
+    woman_sorceress_attack_rock_rhand_lp:
+      animation: "woman_sorceress_attack_rock_rhand_lp"
+      frames: 91
+      #duration 8 sec
+    woman_sorceress_attack_rock_bhand_lp:
+      animation: "woman_sorceress_attack_rock_bhand_lp"
+      frames: 91
+      #duration 8 sec
     woman_sorceress_special_quen_lp:
       animation: "woman_sorceress_special_quen_lp"
       frames: 91
@@ -188,7 +196,10 @@ production:
   settings:
     sceneid: 1
     strings-idspace: 5940
-    strings-idstart: 650
+    strings-idstart: 200
+
+  safe_placement: false
+  snap_to_terrain: true
 
   placement: "sorceress"
     # INFO: world coordinates of used origin:
@@ -840,6 +851,456 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
+  section_preview_heavy_aard_rocks_type:
+    shot_preview_heavy_aard_rocks_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_aard_rocks_color:
+    shot_preview_heavy_aard_rocks_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_aard_rocks_cone:
+    shot_preview_heavy_aard_rocks_cone:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_aard_bomb_color:
+    shot_preview_heavy_aard_bomb_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_03]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_axii_rocks_type:
+    shot_preview_heavy_axii_rocks_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_axii_rocks_color:
+    shot_preview_heavy_axii_rocks_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_axii_rocks_cone:
+    shot_preview_heavy_axii_rocks_cone:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_axii_bomb_color:
+    shot_preview_heavy_axii_bomb_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_03]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_igni_rocks_type:
+    shot_preview_heavy_igni_rocks_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_igni_rocks_color:
+    shot_preview_heavy_igni_rocks_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_igni_rocks_cone:
+    shot_preview_heavy_igni_rocks_cone:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_igni_bomb_color:
+    shot_preview_heavy_igni_bomb_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_03]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_quen_rocks_type:
+    shot_preview_heavy_quen_rocks_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_quen_rocks_color:
+    shot_preview_heavy_quen_rocks_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_quen_rocks_cone:
+    shot_preview_heavy_quen_rocks_cone:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_quen_bomb_color:
+    shot_preview_heavy_quen_bomb_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_03]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_yrden_rocks_type:
+    shot_preview_heavy_yrden_rocks_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_yrden_rocks_color:
+    shot_preview_heavy_yrden_rocks_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_yrden_rocks_cone:
+    shot_preview_heavy_yrden_rocks_cone:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_rock_rhand_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.5142857142857142, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 2.2
+      - actor.anim.mimic:
+          .@pos: [0.5142857142857142, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_heavy_yrden_bomb_color:
+    shot_preview_heavy_yrden_bomb_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_throw_lp_03]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+      - actor.anim:
+          .@pos: [0.43999999999999995, anim_7608_low_standing_paralyzed_die_to_low_lying_dead]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+          clipfront: 0.5
+          clipend: 1.9000000000000001
+      - actor.anim.mimic:
+          .@pos: [0.43999999999999995, mimicsanim_168_geralt_reaction_pain_face]
+          actor: willey
+          blendin: 0.4
+          blendout: 0.4
+  section_preview_teleport_aard_type:
+    shot_preview_teleport_aard_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+  section_preview_teleport_aard_color:
+    shot_preview_teleport_aard_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+  section_preview_teleport_axii_type:
+    shot_preview_teleport_axii_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+  section_preview_teleport_axii_color:
+    shot_preview_teleport_axii_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+  section_preview_teleport_igni_type:
+    shot_preview_teleport_igni_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+  section_preview_teleport_igni_color:
+    shot_preview_teleport_igni_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+  section_preview_teleport_quen_type:
+    shot_preview_teleport_quen_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+  section_preview_teleport_quen_color:
+    shot_preview_teleport_quen_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+  section_preview_teleport_yrden_type:
+    shot_preview_teleport_yrden_type:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
+  section_preview_teleport_yrden_color:
+    shot_preview_teleport_yrden_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_teleport_lp]
+          actor: sorceress
+          blendin: 0.5
+          blendout: 0.5
 dialogscript:
   player: "sorceress"
   actors: ["sorceress", "willey"]
@@ -866,25 +1327,26 @@ dialogscript:
   section_choice_main:
     - CHOICE:
         - choice: ["[EXIT] dev", script_remove_scene_callbacks_blend, exit]
+          condition: ["nr_dev", ">=", 1]
           emphasize: true
         - choice: ["2115940103|[BACK]", script_remove_scene_callbacks_back, exit]
           emphasize: true
         - choice: ["Hand effect", script_info_hand, axii]
           emphasize: true
+        - choice: ["Teleport effect", script_info_teleport, axii]
+          emphasize: true
         - choice: ["Light attacks", script_info_light, axii]
           emphasize: true
-        - choice: ["Heavy attacks", section_fadeout_exit_back, axii]
-          emphasize: true
-        - choice: ["Teleport spell", section_fadeout_exit_back, axii]
+        - choice: ["Heavy attacks", script_info_heavy, axii]
           emphasize: true
         - choice: ["Special spells", section_fadeout_exit_back, axii]
           emphasize: true
 
+  # LIGHT: RATIO
   section_light_ratio_entry:
     - PAUSE: 0.0
     - NEXT: section_choice_light_ratio
 
-  # LIGHT: RATIO
   section_choice_light_ratio:
     - CHOICE:
         - choice: ["2115940103|[BACK]", section_choice_light, exit]
@@ -979,6 +1441,108 @@ dialogscript:
           - slashNum: 1
           - throwNum: 0
     - NEXT: section_light_ratio_entry
+
+
+  # HEAVY: RATIO
+  section_heavy_ratio_entry:
+    - PAUSE: 0.0
+    - NEXT: section_choice_heavy_ratio
+
+  section_choice_heavy_ratio:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_heavy, exit]
+          emphasize: true
+        - choice: ["0:1 (only bomb attacks)", script_heavy_ratio_0_1, exit]
+          emphasize: true
+        - choice: ["1:4", script_heavy_ratio_1_4, exit]
+          emphasize: true
+        - choice: ["1:3", script_heavy_ratio_1_3, exit]
+          emphasize: true
+        - choice: ["1:2", script_heavy_ratio_1_2, exit]
+          emphasize: true
+        - choice: ["1:1", script_heavy_ratio_1_1, exit]
+          emphasize: true
+        - choice: ["2:1", script_heavy_ratio_2_1, exit]
+          emphasize: true
+        - choice: ["3:1", script_heavy_ratio_3_1, exit]
+          emphasize: true
+        - choice: ["4:1", script_heavy_ratio_4_1, exit]
+          emphasize: true
+        - choice: ["1:0 (only rocks attacks)", script_heavy_ratio_1_0, exit]
+          emphasize: true
+
+  script_heavy_ratio_0_1:
+    - SCRIPT:
+        function: NR_SetMagicHeavyRatio_S
+        parameter:
+          - rocksNum: 0
+          - bombNum: 1
+    - NEXT: section_heavy_ratio_entry
+
+  script_heavy_ratio_1_4:
+    - SCRIPT:
+        function: NR_SetMagicHeavyRatio_S
+        parameter:
+          - rocksNum: 1
+          - bombNum: 4
+    - NEXT: section_heavy_ratio_entry
+
+  script_heavy_ratio_1_3:
+    - SCRIPT:
+        function: NR_SetMagicHeavyRatio_S
+        parameter:
+          - rocksNum: 1
+          - bombNum: 3
+    - NEXT: section_heavy_ratio_entry
+
+  script_heavy_ratio_1_2:
+    - SCRIPT:
+        function: NR_SetMagicHeavyRatio_S
+        parameter:
+          - rocksNum: 1
+          - bombNum: 2
+    - NEXT: section_heavy_ratio_entry
+
+  script_heavy_ratio_1_1:
+    - SCRIPT:
+        function: NR_SetMagicHeavyRatio_S
+        parameter:
+          - rocksNum: 1
+          - bombNum: 1
+    - NEXT: section_heavy_ratio_entry
+
+  script_heavy_ratio_2_1:
+    - SCRIPT:
+        function: NR_SetMagicHeavyRatio_S
+        parameter:
+          - rocksNum: 2
+          - bombNum: 1
+    - NEXT: section_heavy_ratio_entry
+
+  script_heavy_ratio_3_1:
+    - SCRIPT:
+        function: NR_SetMagicHeavyRatio_S
+        parameter:
+          - rocksNum: 3
+          - bombNum: 1
+    - NEXT: section_heavy_ratio_entry
+
+  script_heavy_ratio_4_1:
+    - SCRIPT:
+        function: NR_SetMagicHeavyRatio_S
+        parameter:
+          - rocksNum: 4
+          - bombNum: 1
+    - NEXT: section_heavy_ratio_entry
+
+  script_heavy_ratio_1_0:
+    - SCRIPT:
+        function: NR_SetMagicHeavyRatio_S
+        parameter:
+          - rocksNum: 1
+          - bombNum: 0
+    - NEXT: section_heavy_ratio_entry
+
 
   # EXIT: BACK
   script_remove_scene_callbacks_back:
@@ -5162,3 +5726,3997 @@ dialogscript:
           - varName: color_ENR_ThrowAbstract
           - varValue: 10
     - NEXT: script_preview_light_yrden_throw_color
+
+  section_choice_heavy:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", script_info_main, exit]
+          emphasize: true
+        - choice: ["2115940152|Rocks/Bomb ratio", section_heavy_ratio_entry]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940152}: '
+        - choice: ["0001061945|Aard", script_set_heavy_sign_aard]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940152}: '
+        - choice: ["0001066290|Axii", script_set_heavy_sign_axii]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940152}: '
+        - choice: ["0001066291|Igni", script_set_heavy_sign_igni]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940152}: '
+        - choice: ["0001066292|Quen", script_set_heavy_sign_quen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940152}: '
+        - choice: ["0001066293|Yrden", script_set_heavy_sign_yrden]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940152}: '
+
+  script_info_heavy:
+    - SCRIPT:
+        function: NR_ShowMagicInfo_S
+        parameter:
+          - sectionName: CNAME_heavy
+    - NEXT: section_choice_heavy
+
+  script_set_heavy_sign_aard:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Aard
+    - NEXT: section_choice_heavy_aard
+
+  section_choice_heavy_aard:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_heavy, exit]
+          emphasize: true
+        - choice: ["2115940155|", section_choice_heavy_aard_rocks_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+        - choice: ["2115940156|", section_choice_heavy_aard_rocks_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+        - choice: ["2115940160|", section_choice_heavy_aard_rocks_cone]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+        - choice: ["2115940159|", section_choice_heavy_aard_bomb_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+
+  section_choice_heavy_aard_rocks_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_aard, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_heavy_aard_rocks_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+        - choice: ["0000583032|Djinn", script_heavy_aard_rocks_type_djinn]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+
+  script_preview_heavy_aard_rocks_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_aard_rocks_type
+
+
+  section_preview_heavy_aard_rocks_type:
+    - CUE: shot_preview_heavy_aard_rocks_type
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_aard_rocks_type
+
+  script_heavy_aard_rocks_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Rock
+          - varValue: CNAME_keira
+    - NEXT: script_preview_heavy_aard_rocks_type
+
+  script_heavy_aard_rocks_type_djinn:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Rock
+          - varValue: CNAME_djinn
+    - NEXT: script_preview_heavy_aard_rocks_type
+
+  section_choice_heavy_aard_rocks_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_aard, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_aard_rocks_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+        - choice: ["2115940127|Yellow", script_heavy_aard_rocks_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+        - choice: ["2115940128|Orange", script_heavy_aard_rocks_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+        - choice: ["2115940129|Red", script_heavy_aard_rocks_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+        - choice: ["2115940130|Pink", script_heavy_aard_rocks_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+        - choice: ["2115940131|Violet", script_heavy_aard_rocks_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+        - choice: ["2115940132|Blue", script_heavy_aard_rocks_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+        - choice: ["2115940133|Seagreen", script_heavy_aard_rocks_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+        - choice: ["2115940134|Green", script_heavy_aard_rocks_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940154}: '
+
+  script_preview_heavy_aard_rocks_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_aard_rocks_color
+
+
+  section_preview_heavy_aard_rocks_color:
+    - CUE: shot_preview_heavy_aard_rocks_color
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_aard_rocks_color
+
+  script_heavy_aard_rocks_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_aard_rocks_color
+
+  script_heavy_aard_rocks_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_aard_rocks_color
+
+  script_heavy_aard_rocks_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_aard_rocks_color
+
+  script_heavy_aard_rocks_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_aard_rocks_color
+
+  script_heavy_aard_rocks_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_aard_rocks_color
+
+  script_heavy_aard_rocks_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_aard_rocks_color
+
+  script_heavy_aard_rocks_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_aard_rocks_color
+
+  script_heavy_aard_rocks_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_aard_rocks_color
+
+  script_heavy_aard_rocks_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_aard_rocks_color
+
+  section_choice_heavy_aard_rocks_cone:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_aard, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_aard_rocks_cone_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940160}: '
+        - choice: ["2115940127|Yellow", script_heavy_aard_rocks_cone_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940160}: '
+        - choice: ["2115940128|Orange", script_heavy_aard_rocks_cone_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940160}: '
+        - choice: ["2115940129|Red", script_heavy_aard_rocks_cone_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940160}: '
+        - choice: ["2115940130|Pink", script_heavy_aard_rocks_cone_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940160}: '
+        - choice: ["2115940131|Violet", script_heavy_aard_rocks_cone_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940160}: '
+        - choice: ["2115940132|Blue", script_heavy_aard_rocks_cone_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940160}: '
+        - choice: ["2115940133|Seagreen", script_heavy_aard_rocks_cone_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940160}: '
+        - choice: ["2115940134|Green", script_heavy_aard_rocks_cone_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940160}: '
+
+  script_preview_heavy_aard_rocks_cone:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_aard_rocks_cone
+
+
+  section_preview_heavy_aard_rocks_cone:
+    - CUE: shot_preview_heavy_aard_rocks_cone
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_aard_rocks_cone
+
+  script_heavy_aard_rocks_cone_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_cone_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_aard_rocks_cone
+
+  script_heavy_aard_rocks_cone_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_cone_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_aard_rocks_cone
+
+  script_heavy_aard_rocks_cone_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_cone_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_aard_rocks_cone
+
+  script_heavy_aard_rocks_cone_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_cone_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_aard_rocks_cone
+
+  script_heavy_aard_rocks_cone_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_cone_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_aard_rocks_cone
+
+  script_heavy_aard_rocks_cone_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_cone_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_aard_rocks_cone
+
+  script_heavy_aard_rocks_cone_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_cone_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_aard_rocks_cone
+
+  script_heavy_aard_rocks_cone_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_cone_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_aard_rocks_cone
+
+  script_heavy_aard_rocks_cone_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_cone_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_aard_rocks_cone
+
+  section_choice_heavy_aard_bomb_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_aard, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_aard_bomb_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940157}: '
+        - choice: ["2115940127|Yellow", script_heavy_aard_bomb_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940157}: '
+        - choice: ["2115940128|Orange", script_heavy_aard_bomb_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940157}: '
+        - choice: ["2115940129|Red", script_heavy_aard_bomb_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940157}: '
+        - choice: ["2115940130|Pink", script_heavy_aard_bomb_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940157}: '
+        - choice: ["2115940131|Violet", script_heavy_aard_bomb_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940157}: '
+        - choice: ["2115940132|Blue", script_heavy_aard_bomb_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940157}: '
+        - choice: ["2115940133|Seagreen", script_heavy_aard_bomb_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940157}: '
+        - choice: ["2115940134|Green", script_heavy_aard_bomb_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940157}: '
+
+  script_preview_heavy_aard_bomb_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 9
+    - NEXT: section_preview_heavy_aard_bomb_color
+
+
+  section_preview_heavy_aard_bomb_color:
+    - CUE: shot_preview_heavy_aard_bomb_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_heavy_aard_bomb_color
+
+  script_heavy_aard_bomb_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_BombExplosion
+          - varValue: 2
+    - NEXT: script_preview_heavy_aard_bomb_color
+
+  script_heavy_aard_bomb_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_BombExplosion
+          - varValue: 3
+    - NEXT: script_preview_heavy_aard_bomb_color
+
+  script_heavy_aard_bomb_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_BombExplosion
+          - varValue: 4
+    - NEXT: script_preview_heavy_aard_bomb_color
+
+  script_heavy_aard_bomb_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_BombExplosion
+          - varValue: 5
+    - NEXT: script_preview_heavy_aard_bomb_color
+
+  script_heavy_aard_bomb_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_BombExplosion
+          - varValue: 6
+    - NEXT: script_preview_heavy_aard_bomb_color
+
+  script_heavy_aard_bomb_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_BombExplosion
+          - varValue: 7
+    - NEXT: script_preview_heavy_aard_bomb_color
+
+  script_heavy_aard_bomb_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_BombExplosion
+          - varValue: 8
+    - NEXT: script_preview_heavy_aard_bomb_color
+
+  script_heavy_aard_bomb_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_BombExplosion
+          - varValue: 9
+    - NEXT: script_preview_heavy_aard_bomb_color
+
+  script_heavy_aard_bomb_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_BombExplosion
+          - varValue: 10
+    - NEXT: script_preview_heavy_aard_bomb_color
+
+  script_set_heavy_sign_axii:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Axii
+    - NEXT: section_choice_heavy_axii
+
+  section_choice_heavy_axii:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_heavy, exit]
+          emphasize: true
+        - choice: ["2115940155|", section_choice_heavy_axii_rocks_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+        - choice: ["2115940156|", section_choice_heavy_axii_rocks_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+        - choice: ["2115940160|", section_choice_heavy_axii_rocks_cone]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+        - choice: ["2115940159|", section_choice_heavy_axii_bomb_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+
+  section_choice_heavy_axii_rocks_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_axii, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_heavy_axii_rocks_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+        - choice: ["0000583032|Djinn", script_heavy_axii_rocks_type_djinn]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+
+  script_preview_heavy_axii_rocks_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_axii_rocks_type
+
+
+  section_preview_heavy_axii_rocks_type:
+    - CUE: shot_preview_heavy_axii_rocks_type
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_axii_rocks_type
+
+  script_heavy_axii_rocks_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Rock
+          - varValue: CNAME_keira
+    - NEXT: script_preview_heavy_axii_rocks_type
+
+  script_heavy_axii_rocks_type_djinn:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Rock
+          - varValue: CNAME_djinn
+    - NEXT: script_preview_heavy_axii_rocks_type
+
+  section_choice_heavy_axii_rocks_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_axii, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_axii_rocks_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+        - choice: ["2115940127|Yellow", script_heavy_axii_rocks_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+        - choice: ["2115940128|Orange", script_heavy_axii_rocks_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+        - choice: ["2115940129|Red", script_heavy_axii_rocks_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+        - choice: ["2115940130|Pink", script_heavy_axii_rocks_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+        - choice: ["2115940131|Violet", script_heavy_axii_rocks_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+        - choice: ["2115940132|Blue", script_heavy_axii_rocks_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+        - choice: ["2115940133|Seagreen", script_heavy_axii_rocks_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+        - choice: ["2115940134|Green", script_heavy_axii_rocks_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940154}: '
+
+  script_preview_heavy_axii_rocks_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_axii_rocks_color
+
+
+  section_preview_heavy_axii_rocks_color:
+    - CUE: shot_preview_heavy_axii_rocks_color
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_axii_rocks_color
+
+  script_heavy_axii_rocks_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_axii_rocks_color
+
+  script_heavy_axii_rocks_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_axii_rocks_color
+
+  script_heavy_axii_rocks_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_axii_rocks_color
+
+  script_heavy_axii_rocks_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_axii_rocks_color
+
+  script_heavy_axii_rocks_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_axii_rocks_color
+
+  script_heavy_axii_rocks_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_axii_rocks_color
+
+  script_heavy_axii_rocks_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_axii_rocks_color
+
+  script_heavy_axii_rocks_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_axii_rocks_color
+
+  script_heavy_axii_rocks_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_axii_rocks_color
+
+  section_choice_heavy_axii_rocks_cone:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_axii, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_axii_rocks_cone_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940160}: '
+        - choice: ["2115940127|Yellow", script_heavy_axii_rocks_cone_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940160}: '
+        - choice: ["2115940128|Orange", script_heavy_axii_rocks_cone_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940160}: '
+        - choice: ["2115940129|Red", script_heavy_axii_rocks_cone_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940160}: '
+        - choice: ["2115940130|Pink", script_heavy_axii_rocks_cone_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940160}: '
+        - choice: ["2115940131|Violet", script_heavy_axii_rocks_cone_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940160}: '
+        - choice: ["2115940132|Blue", script_heavy_axii_rocks_cone_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940160}: '
+        - choice: ["2115940133|Seagreen", script_heavy_axii_rocks_cone_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940160}: '
+        - choice: ["2115940134|Green", script_heavy_axii_rocks_cone_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940160}: '
+
+  script_preview_heavy_axii_rocks_cone:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_axii_rocks_cone
+
+
+  section_preview_heavy_axii_rocks_cone:
+    - CUE: shot_preview_heavy_axii_rocks_cone
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_axii_rocks_cone
+
+  script_heavy_axii_rocks_cone_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_cone_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_axii_rocks_cone
+
+  script_heavy_axii_rocks_cone_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_cone_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_axii_rocks_cone
+
+  script_heavy_axii_rocks_cone_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_cone_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_axii_rocks_cone
+
+  script_heavy_axii_rocks_cone_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_cone_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_axii_rocks_cone
+
+  script_heavy_axii_rocks_cone_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_cone_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_axii_rocks_cone
+
+  script_heavy_axii_rocks_cone_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_cone_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_axii_rocks_cone
+
+  script_heavy_axii_rocks_cone_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_cone_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_axii_rocks_cone
+
+  script_heavy_axii_rocks_cone_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_cone_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_axii_rocks_cone
+
+  script_heavy_axii_rocks_cone_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_cone_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_axii_rocks_cone
+
+  section_choice_heavy_axii_bomb_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_axii, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_axii_bomb_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940157}: '
+        - choice: ["2115940127|Yellow", script_heavy_axii_bomb_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940157}: '
+        - choice: ["2115940128|Orange", script_heavy_axii_bomb_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940157}: '
+        - choice: ["2115940129|Red", script_heavy_axii_bomb_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940157}: '
+        - choice: ["2115940130|Pink", script_heavy_axii_bomb_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940157}: '
+        - choice: ["2115940131|Violet", script_heavy_axii_bomb_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940157}: '
+        - choice: ["2115940132|Blue", script_heavy_axii_bomb_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940157}: '
+        - choice: ["2115940133|Seagreen", script_heavy_axii_bomb_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940157}: '
+        - choice: ["2115940134|Green", script_heavy_axii_bomb_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940157}: '
+
+  script_preview_heavy_axii_bomb_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 9
+    - NEXT: section_preview_heavy_axii_bomb_color
+
+
+  section_preview_heavy_axii_bomb_color:
+    - CUE: shot_preview_heavy_axii_bomb_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_heavy_axii_bomb_color
+
+  script_heavy_axii_bomb_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_BombExplosion
+          - varValue: 2
+    - NEXT: script_preview_heavy_axii_bomb_color
+
+  script_heavy_axii_bomb_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_BombExplosion
+          - varValue: 3
+    - NEXT: script_preview_heavy_axii_bomb_color
+
+  script_heavy_axii_bomb_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_BombExplosion
+          - varValue: 4
+    - NEXT: script_preview_heavy_axii_bomb_color
+
+  script_heavy_axii_bomb_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_BombExplosion
+          - varValue: 5
+    - NEXT: script_preview_heavy_axii_bomb_color
+
+  script_heavy_axii_bomb_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_BombExplosion
+          - varValue: 6
+    - NEXT: script_preview_heavy_axii_bomb_color
+
+  script_heavy_axii_bomb_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_BombExplosion
+          - varValue: 7
+    - NEXT: script_preview_heavy_axii_bomb_color
+
+  script_heavy_axii_bomb_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_BombExplosion
+          - varValue: 8
+    - NEXT: script_preview_heavy_axii_bomb_color
+
+  script_heavy_axii_bomb_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_BombExplosion
+          - varValue: 9
+    - NEXT: script_preview_heavy_axii_bomb_color
+
+  script_heavy_axii_bomb_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_BombExplosion
+          - varValue: 10
+    - NEXT: script_preview_heavy_axii_bomb_color
+
+  script_set_heavy_sign_igni:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Igni
+    - NEXT: section_choice_heavy_igni
+
+  section_choice_heavy_igni:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_heavy, exit]
+          emphasize: true
+        - choice: ["2115940155|", section_choice_heavy_igni_rocks_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+        - choice: ["2115940156|", section_choice_heavy_igni_rocks_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+        - choice: ["2115940160|", section_choice_heavy_igni_rocks_cone]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+        - choice: ["2115940159|", section_choice_heavy_igni_bomb_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+
+  section_choice_heavy_igni_rocks_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_igni, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_heavy_igni_rocks_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+        - choice: ["0000583032|Djinn", script_heavy_igni_rocks_type_djinn]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+
+  script_preview_heavy_igni_rocks_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_igni_rocks_type
+
+
+  section_preview_heavy_igni_rocks_type:
+    - CUE: shot_preview_heavy_igni_rocks_type
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_igni_rocks_type
+
+  script_heavy_igni_rocks_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Rock
+          - varValue: CNAME_keira
+    - NEXT: script_preview_heavy_igni_rocks_type
+
+  script_heavy_igni_rocks_type_djinn:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Rock
+          - varValue: CNAME_djinn
+    - NEXT: script_preview_heavy_igni_rocks_type
+
+  section_choice_heavy_igni_rocks_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_igni, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_igni_rocks_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+        - choice: ["2115940127|Yellow", script_heavy_igni_rocks_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+        - choice: ["2115940128|Orange", script_heavy_igni_rocks_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+        - choice: ["2115940129|Red", script_heavy_igni_rocks_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+        - choice: ["2115940130|Pink", script_heavy_igni_rocks_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+        - choice: ["2115940131|Violet", script_heavy_igni_rocks_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+        - choice: ["2115940132|Blue", script_heavy_igni_rocks_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+        - choice: ["2115940133|Seagreen", script_heavy_igni_rocks_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+        - choice: ["2115940134|Green", script_heavy_igni_rocks_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940154}: '
+
+  script_preview_heavy_igni_rocks_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_igni_rocks_color
+
+
+  section_preview_heavy_igni_rocks_color:
+    - CUE: shot_preview_heavy_igni_rocks_color
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_igni_rocks_color
+
+  script_heavy_igni_rocks_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_igni_rocks_color
+
+  script_heavy_igni_rocks_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_igni_rocks_color
+
+  script_heavy_igni_rocks_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_igni_rocks_color
+
+  script_heavy_igni_rocks_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_igni_rocks_color
+
+  script_heavy_igni_rocks_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_igni_rocks_color
+
+  script_heavy_igni_rocks_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_igni_rocks_color
+
+  script_heavy_igni_rocks_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_igni_rocks_color
+
+  script_heavy_igni_rocks_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_igni_rocks_color
+
+  script_heavy_igni_rocks_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_igni_rocks_color
+
+  section_choice_heavy_igni_rocks_cone:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_igni, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_igni_rocks_cone_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940160}: '
+        - choice: ["2115940127|Yellow", script_heavy_igni_rocks_cone_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940160}: '
+        - choice: ["2115940128|Orange", script_heavy_igni_rocks_cone_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940160}: '
+        - choice: ["2115940129|Red", script_heavy_igni_rocks_cone_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940160}: '
+        - choice: ["2115940130|Pink", script_heavy_igni_rocks_cone_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940160}: '
+        - choice: ["2115940131|Violet", script_heavy_igni_rocks_cone_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940160}: '
+        - choice: ["2115940132|Blue", script_heavy_igni_rocks_cone_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940160}: '
+        - choice: ["2115940133|Seagreen", script_heavy_igni_rocks_cone_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940160}: '
+        - choice: ["2115940134|Green", script_heavy_igni_rocks_cone_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940160}: '
+
+  script_preview_heavy_igni_rocks_cone:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_igni_rocks_cone
+
+
+  section_preview_heavy_igni_rocks_cone:
+    - CUE: shot_preview_heavy_igni_rocks_cone
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_igni_rocks_cone
+
+  script_heavy_igni_rocks_cone_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_cone_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_igni_rocks_cone
+
+  script_heavy_igni_rocks_cone_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_cone_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_igni_rocks_cone
+
+  script_heavy_igni_rocks_cone_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_cone_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_igni_rocks_cone
+
+  script_heavy_igni_rocks_cone_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_cone_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_igni_rocks_cone
+
+  script_heavy_igni_rocks_cone_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_cone_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_igni_rocks_cone
+
+  script_heavy_igni_rocks_cone_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_cone_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_igni_rocks_cone
+
+  script_heavy_igni_rocks_cone_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_cone_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_igni_rocks_cone
+
+  script_heavy_igni_rocks_cone_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_cone_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_igni_rocks_cone
+
+  script_heavy_igni_rocks_cone_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_cone_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_igni_rocks_cone
+
+  section_choice_heavy_igni_bomb_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_igni, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_igni_bomb_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940157}: '
+        - choice: ["2115940127|Yellow", script_heavy_igni_bomb_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940157}: '
+        - choice: ["2115940128|Orange", script_heavy_igni_bomb_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940157}: '
+        - choice: ["2115940129|Red", script_heavy_igni_bomb_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940157}: '
+        - choice: ["2115940130|Pink", script_heavy_igni_bomb_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940157}: '
+        - choice: ["2115940131|Violet", script_heavy_igni_bomb_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940157}: '
+        - choice: ["2115940132|Blue", script_heavy_igni_bomb_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940157}: '
+        - choice: ["2115940133|Seagreen", script_heavy_igni_bomb_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940157}: '
+        - choice: ["2115940134|Green", script_heavy_igni_bomb_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940157}: '
+
+  script_preview_heavy_igni_bomb_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 9
+    - NEXT: section_preview_heavy_igni_bomb_color
+
+
+  section_preview_heavy_igni_bomb_color:
+    - CUE: shot_preview_heavy_igni_bomb_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_heavy_igni_bomb_color
+
+  script_heavy_igni_bomb_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_BombExplosion
+          - varValue: 2
+    - NEXT: script_preview_heavy_igni_bomb_color
+
+  script_heavy_igni_bomb_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_BombExplosion
+          - varValue: 3
+    - NEXT: script_preview_heavy_igni_bomb_color
+
+  script_heavy_igni_bomb_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_BombExplosion
+          - varValue: 4
+    - NEXT: script_preview_heavy_igni_bomb_color
+
+  script_heavy_igni_bomb_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_BombExplosion
+          - varValue: 5
+    - NEXT: script_preview_heavy_igni_bomb_color
+
+  script_heavy_igni_bomb_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_BombExplosion
+          - varValue: 6
+    - NEXT: script_preview_heavy_igni_bomb_color
+
+  script_heavy_igni_bomb_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_BombExplosion
+          - varValue: 7
+    - NEXT: script_preview_heavy_igni_bomb_color
+
+  script_heavy_igni_bomb_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_BombExplosion
+          - varValue: 8
+    - NEXT: script_preview_heavy_igni_bomb_color
+
+  script_heavy_igni_bomb_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_BombExplosion
+          - varValue: 9
+    - NEXT: script_preview_heavy_igni_bomb_color
+
+  script_heavy_igni_bomb_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_BombExplosion
+          - varValue: 10
+    - NEXT: script_preview_heavy_igni_bomb_color
+
+  script_set_heavy_sign_quen:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Quen
+    - NEXT: section_choice_heavy_quen
+
+  section_choice_heavy_quen:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_heavy, exit]
+          emphasize: true
+        - choice: ["2115940155|", section_choice_heavy_quen_rocks_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+        - choice: ["2115940156|", section_choice_heavy_quen_rocks_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+        - choice: ["2115940160|", section_choice_heavy_quen_rocks_cone]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+        - choice: ["2115940159|", section_choice_heavy_quen_bomb_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+
+  section_choice_heavy_quen_rocks_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_quen, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_heavy_quen_rocks_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+        - choice: ["0000583032|Djinn", script_heavy_quen_rocks_type_djinn]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+
+  script_preview_heavy_quen_rocks_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_quen_rocks_type
+
+
+  section_preview_heavy_quen_rocks_type:
+    - CUE: shot_preview_heavy_quen_rocks_type
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_quen_rocks_type
+
+  script_heavy_quen_rocks_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Rock
+          - varValue: CNAME_keira
+    - NEXT: script_preview_heavy_quen_rocks_type
+
+  script_heavy_quen_rocks_type_djinn:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Rock
+          - varValue: CNAME_djinn
+    - NEXT: script_preview_heavy_quen_rocks_type
+
+  section_choice_heavy_quen_rocks_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_quen, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_quen_rocks_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+        - choice: ["2115940127|Yellow", script_heavy_quen_rocks_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+        - choice: ["2115940128|Orange", script_heavy_quen_rocks_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+        - choice: ["2115940129|Red", script_heavy_quen_rocks_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+        - choice: ["2115940130|Pink", script_heavy_quen_rocks_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+        - choice: ["2115940131|Violet", script_heavy_quen_rocks_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+        - choice: ["2115940132|Blue", script_heavy_quen_rocks_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+        - choice: ["2115940133|Seagreen", script_heavy_quen_rocks_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+        - choice: ["2115940134|Green", script_heavy_quen_rocks_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940154}: '
+
+  script_preview_heavy_quen_rocks_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_quen_rocks_color
+
+
+  section_preview_heavy_quen_rocks_color:
+    - CUE: shot_preview_heavy_quen_rocks_color
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_quen_rocks_color
+
+  script_heavy_quen_rocks_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_quen_rocks_color
+
+  script_heavy_quen_rocks_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_quen_rocks_color
+
+  script_heavy_quen_rocks_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_quen_rocks_color
+
+  script_heavy_quen_rocks_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_quen_rocks_color
+
+  script_heavy_quen_rocks_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_quen_rocks_color
+
+  script_heavy_quen_rocks_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_quen_rocks_color
+
+  script_heavy_quen_rocks_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_quen_rocks_color
+
+  script_heavy_quen_rocks_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_quen_rocks_color
+
+  script_heavy_quen_rocks_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_quen_rocks_color
+
+  section_choice_heavy_quen_rocks_cone:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_quen, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_quen_rocks_cone_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940160}: '
+        - choice: ["2115940127|Yellow", script_heavy_quen_rocks_cone_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940160}: '
+        - choice: ["2115940128|Orange", script_heavy_quen_rocks_cone_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940160}: '
+        - choice: ["2115940129|Red", script_heavy_quen_rocks_cone_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940160}: '
+        - choice: ["2115940130|Pink", script_heavy_quen_rocks_cone_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940160}: '
+        - choice: ["2115940131|Violet", script_heavy_quen_rocks_cone_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940160}: '
+        - choice: ["2115940132|Blue", script_heavy_quen_rocks_cone_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940160}: '
+        - choice: ["2115940133|Seagreen", script_heavy_quen_rocks_cone_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940160}: '
+        - choice: ["2115940134|Green", script_heavy_quen_rocks_cone_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940160}: '
+
+  script_preview_heavy_quen_rocks_cone:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_quen_rocks_cone
+
+
+  section_preview_heavy_quen_rocks_cone:
+    - CUE: shot_preview_heavy_quen_rocks_cone
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_quen_rocks_cone
+
+  script_heavy_quen_rocks_cone_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_cone_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_quen_rocks_cone
+
+  script_heavy_quen_rocks_cone_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_cone_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_quen_rocks_cone
+
+  script_heavy_quen_rocks_cone_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_cone_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_quen_rocks_cone
+
+  script_heavy_quen_rocks_cone_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_cone_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_quen_rocks_cone
+
+  script_heavy_quen_rocks_cone_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_cone_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_quen_rocks_cone
+
+  script_heavy_quen_rocks_cone_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_cone_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_quen_rocks_cone
+
+  script_heavy_quen_rocks_cone_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_cone_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_quen_rocks_cone
+
+  script_heavy_quen_rocks_cone_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_cone_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_quen_rocks_cone
+
+  script_heavy_quen_rocks_cone_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_cone_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_quen_rocks_cone
+
+  section_choice_heavy_quen_bomb_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_quen, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_quen_bomb_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940157}: '
+        - choice: ["2115940127|Yellow", script_heavy_quen_bomb_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940157}: '
+        - choice: ["2115940128|Orange", script_heavy_quen_bomb_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940157}: '
+        - choice: ["2115940129|Red", script_heavy_quen_bomb_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940157}: '
+        - choice: ["2115940130|Pink", script_heavy_quen_bomb_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940157}: '
+        - choice: ["2115940131|Violet", script_heavy_quen_bomb_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940157}: '
+        - choice: ["2115940132|Blue", script_heavy_quen_bomb_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940157}: '
+        - choice: ["2115940133|Seagreen", script_heavy_quen_bomb_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940157}: '
+        - choice: ["2115940134|Green", script_heavy_quen_bomb_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940157}: '
+
+  script_preview_heavy_quen_bomb_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 9
+    - NEXT: section_preview_heavy_quen_bomb_color
+
+
+  section_preview_heavy_quen_bomb_color:
+    - CUE: shot_preview_heavy_quen_bomb_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_heavy_quen_bomb_color
+
+  script_heavy_quen_bomb_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_BombExplosion
+          - varValue: 2
+    - NEXT: script_preview_heavy_quen_bomb_color
+
+  script_heavy_quen_bomb_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_BombExplosion
+          - varValue: 3
+    - NEXT: script_preview_heavy_quen_bomb_color
+
+  script_heavy_quen_bomb_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_BombExplosion
+          - varValue: 4
+    - NEXT: script_preview_heavy_quen_bomb_color
+
+  script_heavy_quen_bomb_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_BombExplosion
+          - varValue: 5
+    - NEXT: script_preview_heavy_quen_bomb_color
+
+  script_heavy_quen_bomb_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_BombExplosion
+          - varValue: 6
+    - NEXT: script_preview_heavy_quen_bomb_color
+
+  script_heavy_quen_bomb_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_BombExplosion
+          - varValue: 7
+    - NEXT: script_preview_heavy_quen_bomb_color
+
+  script_heavy_quen_bomb_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_BombExplosion
+          - varValue: 8
+    - NEXT: script_preview_heavy_quen_bomb_color
+
+  script_heavy_quen_bomb_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_BombExplosion
+          - varValue: 9
+    - NEXT: script_preview_heavy_quen_bomb_color
+
+  script_heavy_quen_bomb_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_BombExplosion
+          - varValue: 10
+    - NEXT: script_preview_heavy_quen_bomb_color
+
+  script_set_heavy_sign_yrden:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Yrden
+    - NEXT: section_choice_heavy_yrden
+
+  section_choice_heavy_yrden:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_heavy, exit]
+          emphasize: true
+        - choice: ["2115940155|", section_choice_heavy_yrden_rocks_type]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+        - choice: ["2115940156|", section_choice_heavy_yrden_rocks_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+        - choice: ["2115940160|", section_choice_heavy_yrden_rocks_cone]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+        - choice: ["2115940159|", section_choice_heavy_yrden_bomb_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+
+  section_choice_heavy_yrden_rocks_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_yrden, exit]
+          emphasize: true
+        - choice: ["0000334714|Keira Metz", script_heavy_yrden_rocks_type_keira]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+        - choice: ["0000583032|Djinn", script_heavy_yrden_rocks_type_djinn]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+
+  script_preview_heavy_yrden_rocks_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_yrden_rocks_type
+
+
+  section_preview_heavy_yrden_rocks_type:
+    - CUE: shot_preview_heavy_yrden_rocks_type
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_yrden_rocks_type
+
+  script_heavy_yrden_rocks_type_keira:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Rock
+          - varValue: CNAME_keira
+    - NEXT: script_preview_heavy_yrden_rocks_type
+
+  script_heavy_yrden_rocks_type_djinn:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Rock
+          - varValue: CNAME_djinn
+    - NEXT: script_preview_heavy_yrden_rocks_type
+
+  section_choice_heavy_yrden_rocks_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_yrden, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_yrden_rocks_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+        - choice: ["2115940127|Yellow", script_heavy_yrden_rocks_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+        - choice: ["2115940128|Orange", script_heavy_yrden_rocks_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+        - choice: ["2115940129|Red", script_heavy_yrden_rocks_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+        - choice: ["2115940130|Pink", script_heavy_yrden_rocks_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+        - choice: ["2115940131|Violet", script_heavy_yrden_rocks_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+        - choice: ["2115940132|Blue", script_heavy_yrden_rocks_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+        - choice: ["2115940133|Seagreen", script_heavy_yrden_rocks_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+        - choice: ["2115940134|Green", script_heavy_yrden_rocks_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940154}: '
+
+  script_preview_heavy_yrden_rocks_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_yrden_rocks_color
+
+
+  section_preview_heavy_yrden_rocks_color:
+    - CUE: shot_preview_heavy_yrden_rocks_color
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_yrden_rocks_color
+
+  script_heavy_yrden_rocks_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_yrden_rocks_color
+
+  script_heavy_yrden_rocks_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_yrden_rocks_color
+
+  script_heavy_yrden_rocks_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_yrden_rocks_color
+
+  script_heavy_yrden_rocks_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_yrden_rocks_color
+
+  script_heavy_yrden_rocks_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_yrden_rocks_color
+
+  script_heavy_yrden_rocks_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_yrden_rocks_color
+
+  script_heavy_yrden_rocks_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_yrden_rocks_color
+
+  script_heavy_yrden_rocks_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_yrden_rocks_color
+
+  script_heavy_yrden_rocks_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_yrden_rocks_color
+
+  section_choice_heavy_yrden_rocks_cone:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_yrden, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_yrden_rocks_cone_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940160}: '
+        - choice: ["2115940127|Yellow", script_heavy_yrden_rocks_cone_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940160}: '
+        - choice: ["2115940128|Orange", script_heavy_yrden_rocks_cone_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940160}: '
+        - choice: ["2115940129|Red", script_heavy_yrden_rocks_cone_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940160}: '
+        - choice: ["2115940130|Pink", script_heavy_yrden_rocks_cone_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940160}: '
+        - choice: ["2115940131|Violet", script_heavy_yrden_rocks_cone_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940160}: '
+        - choice: ["2115940132|Blue", script_heavy_yrden_rocks_cone_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940160}: '
+        - choice: ["2115940133|Seagreen", script_heavy_yrden_rocks_cone_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940160}: '
+        - choice: ["2115940134|Green", script_heavy_yrden_rocks_cone_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940160}: '
+
+  script_preview_heavy_yrden_rocks_cone:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 8
+    - NEXT: section_preview_heavy_yrden_rocks_cone
+
+
+  section_preview_heavy_yrden_rocks_cone:
+    - CUE: shot_preview_heavy_yrden_rocks_cone
+    - PAUSE: 3.5
+    - NEXT: section_choice_heavy_yrden_rocks_cone
+
+  script_heavy_yrden_rocks_cone_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_cone_ENR_Rock
+          - varValue: 2
+    - NEXT: script_preview_heavy_yrden_rocks_cone
+
+  script_heavy_yrden_rocks_cone_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_cone_ENR_Rock
+          - varValue: 3
+    - NEXT: script_preview_heavy_yrden_rocks_cone
+
+  script_heavy_yrden_rocks_cone_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_cone_ENR_Rock
+          - varValue: 4
+    - NEXT: script_preview_heavy_yrden_rocks_cone
+
+  script_heavy_yrden_rocks_cone_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_cone_ENR_Rock
+          - varValue: 5
+    - NEXT: script_preview_heavy_yrden_rocks_cone
+
+  script_heavy_yrden_rocks_cone_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_cone_ENR_Rock
+          - varValue: 6
+    - NEXT: script_preview_heavy_yrden_rocks_cone
+
+  script_heavy_yrden_rocks_cone_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_cone_ENR_Rock
+          - varValue: 7
+    - NEXT: script_preview_heavy_yrden_rocks_cone
+
+  script_heavy_yrden_rocks_cone_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_cone_ENR_Rock
+          - varValue: 8
+    - NEXT: script_preview_heavy_yrden_rocks_cone
+
+  script_heavy_yrden_rocks_cone_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_cone_ENR_Rock
+          - varValue: 9
+    - NEXT: script_preview_heavy_yrden_rocks_cone
+
+  script_heavy_yrden_rocks_cone_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_cone_ENR_Rock
+          - varValue: 10
+    - NEXT: script_preview_heavy_yrden_rocks_cone
+
+  section_choice_heavy_yrden_bomb_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_heavy_yrden, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_heavy_yrden_bomb_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940157}: '
+        - choice: ["2115940127|Yellow", script_heavy_yrden_bomb_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940157}: '
+        - choice: ["2115940128|Orange", script_heavy_yrden_bomb_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940157}: '
+        - choice: ["2115940129|Red", script_heavy_yrden_bomb_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940157}: '
+        - choice: ["2115940130|Pink", script_heavy_yrden_bomb_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940157}: '
+        - choice: ["2115940131|Violet", script_heavy_yrden_bomb_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940157}: '
+        - choice: ["2115940132|Blue", script_heavy_yrden_bomb_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940157}: '
+        - choice: ["2115940133|Seagreen", script_heavy_yrden_bomb_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940157}: '
+        - choice: ["2115940134|Green", script_heavy_yrden_bomb_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940157}: '
+
+  script_preview_heavy_yrden_bomb_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 9
+    - NEXT: section_preview_heavy_yrden_bomb_color
+
+
+  section_preview_heavy_yrden_bomb_color:
+    - CUE: shot_preview_heavy_yrden_bomb_color
+    - PAUSE: 2.5
+    - NEXT: section_choice_heavy_yrden_bomb_color
+
+  script_heavy_yrden_bomb_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_BombExplosion
+          - varValue: 2
+    - NEXT: script_preview_heavy_yrden_bomb_color
+
+  script_heavy_yrden_bomb_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_BombExplosion
+          - varValue: 3
+    - NEXT: script_preview_heavy_yrden_bomb_color
+
+  script_heavy_yrden_bomb_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_BombExplosion
+          - varValue: 4
+    - NEXT: script_preview_heavy_yrden_bomb_color
+
+  script_heavy_yrden_bomb_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_BombExplosion
+          - varValue: 5
+    - NEXT: script_preview_heavy_yrden_bomb_color
+
+  script_heavy_yrden_bomb_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_BombExplosion
+          - varValue: 6
+    - NEXT: script_preview_heavy_yrden_bomb_color
+
+  script_heavy_yrden_bomb_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_BombExplosion
+          - varValue: 7
+    - NEXT: script_preview_heavy_yrden_bomb_color
+
+  script_heavy_yrden_bomb_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_BombExplosion
+          - varValue: 8
+    - NEXT: script_preview_heavy_yrden_bomb_color
+
+  script_heavy_yrden_bomb_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_BombExplosion
+          - varValue: 9
+    - NEXT: script_preview_heavy_yrden_bomb_color
+
+  script_heavy_yrden_bomb_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_BombExplosion
+          - varValue: 10
+    - NEXT: script_preview_heavy_yrden_bomb_color
+
+  section_choice_teleport:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", script_info_main, exit]
+          emphasize: true
+        - choice: ["0001061945|Aard", script_set_teleport_sign_aard]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940161}: '
+        - choice: ["0001066290|Axii", script_set_teleport_sign_axii]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940161}: '
+        - choice: ["0001066291|Igni", script_set_teleport_sign_igni]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940161}: '
+        - choice: ["0001066292|Quen", script_set_teleport_sign_quen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940161}: '
+        - choice: ["0001066293|Yrden", script_set_teleport_sign_yrden]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{2115940161}: '
+
+  script_info_teleport:
+    - SCRIPT:
+        function: NR_ShowMagicInfo_S
+        parameter:
+          - sectionName: CNAME_teleport
+    - NEXT: section_choice_teleport
+
+  script_set_teleport_sign_aard:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Aard
+    - NEXT: section_choice_teleport_aard
+
+  section_choice_teleport_aard:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_teleport, exit]
+          emphasize: true
+        - choice: ["2115940162|", section_choice_teleport_aard_type]
+          emphasize: true
+          condition: [nr_denied_type_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+        - choice: ["2115940163|", section_choice_teleport_aard_color]
+          emphasize: true
+          condition: [nr_denied_color_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: '
+
+  section_choice_teleport_aard_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_aard, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_teleport_aard_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["0000162822|Triss", script_teleport_aard_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["0001105972|Ofieri Mage", script_teleport_aard_type_ofieri]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["0001119070|Hermit", script_teleport_aard_type_hermit]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+
+  script_preview_teleport_aard_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_aard_type
+
+
+  section_preview_teleport_aard_type:
+    - CUE: shot_preview_teleport_aard_type
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_aard_type
+
+  script_teleport_aard_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_yennefer
+    - NEXT: script_teleport_aard_type_yennefer_2
+
+  script_teleport_aard_type_yennefer_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_aard_type
+
+  script_teleport_aard_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_triss
+    - NEXT: script_teleport_aard_type_triss_2
+
+  script_teleport_aard_type_triss_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_aard_type
+
+  script_teleport_aard_type_ofieri:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_ofieri
+    - NEXT: script_teleport_aard_type_ofieri_2
+
+  script_teleport_aard_type_ofieri_2:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_denied_color_ENR_Teleport
+          - value: 1
+          - validFor: -1
+          - telemetryEvent: false
+    - NEXT: script_preview_teleport_aard_type
+
+  script_teleport_aard_type_hermit:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_hermit
+    - NEXT: script_teleport_aard_type_hermit_2
+
+  script_teleport_aard_type_hermit_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_aard_type
+
+  section_choice_teleport_aard_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_aard, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_teleport_aard_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["2115940127|Yellow", script_teleport_aard_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["2115940128|Orange", script_teleport_aard_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["2115940129|Red", script_teleport_aard_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["2115940130|Pink", script_teleport_aard_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["2115940131|Violet", script_teleport_aard_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["2115940132|Blue", script_teleport_aard_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["2115940133|Seagreen", script_teleport_aard_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+        - choice: ["2115940134|Green", script_teleport_aard_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940161}: '
+
+  script_preview_teleport_aard_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_aard_color
+
+
+  section_preview_teleport_aard_color:
+    - CUE: shot_preview_teleport_aard_color
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_aard_color
+
+  script_teleport_aard_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Teleport
+          - varValue: 2
+    - NEXT: script_preview_teleport_aard_color
+
+  script_teleport_aard_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Teleport
+          - varValue: 3
+    - NEXT: script_preview_teleport_aard_color
+
+  script_teleport_aard_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Teleport
+          - varValue: 4
+    - NEXT: script_preview_teleport_aard_color
+
+  script_teleport_aard_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Teleport
+          - varValue: 5
+    - NEXT: script_preview_teleport_aard_color
+
+  script_teleport_aard_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Teleport
+          - varValue: 6
+    - NEXT: script_preview_teleport_aard_color
+
+  script_teleport_aard_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Teleport
+          - varValue: 7
+    - NEXT: script_preview_teleport_aard_color
+
+  script_teleport_aard_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Teleport
+          - varValue: 8
+    - NEXT: script_preview_teleport_aard_color
+
+  script_teleport_aard_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Teleport
+          - varValue: 9
+    - NEXT: script_preview_teleport_aard_color
+
+  script_teleport_aard_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_Teleport
+          - varValue: 10
+    - NEXT: script_preview_teleport_aard_color
+
+  script_set_teleport_sign_axii:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Axii
+    - NEXT: section_choice_teleport_axii
+
+  section_choice_teleport_axii:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_teleport, exit]
+          emphasize: true
+        - choice: ["2115940162|", section_choice_teleport_axii_type]
+          emphasize: true
+          condition: [nr_denied_type_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+        - choice: ["2115940163|", section_choice_teleport_axii_color]
+          emphasize: true
+          condition: [nr_denied_color_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: '
+
+  section_choice_teleport_axii_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_axii, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_teleport_axii_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["0000162822|Triss", script_teleport_axii_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["0001105972|Ofieri Mage", script_teleport_axii_type_ofieri]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["0001119070|Hermit", script_teleport_axii_type_hermit]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+
+  script_preview_teleport_axii_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_axii_type
+
+
+  section_preview_teleport_axii_type:
+    - CUE: shot_preview_teleport_axii_type
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_axii_type
+
+  script_teleport_axii_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_yennefer
+    - NEXT: script_teleport_axii_type_yennefer_2
+
+  script_teleport_axii_type_yennefer_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_axii_type
+
+  script_teleport_axii_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_triss
+    - NEXT: script_teleport_axii_type_triss_2
+
+  script_teleport_axii_type_triss_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_axii_type
+
+  script_teleport_axii_type_ofieri:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_ofieri
+    - NEXT: script_teleport_axii_type_ofieri_2
+
+  script_teleport_axii_type_ofieri_2:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_denied_color_ENR_Teleport
+          - value: 1
+          - validFor: -1
+          - telemetryEvent: false
+    - NEXT: script_preview_teleport_axii_type
+
+  script_teleport_axii_type_hermit:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_hermit
+    - NEXT: script_teleport_axii_type_hermit_2
+
+  script_teleport_axii_type_hermit_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_axii_type
+
+  section_choice_teleport_axii_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_axii, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_teleport_axii_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["2115940127|Yellow", script_teleport_axii_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["2115940128|Orange", script_teleport_axii_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["2115940129|Red", script_teleport_axii_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["2115940130|Pink", script_teleport_axii_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["2115940131|Violet", script_teleport_axii_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["2115940132|Blue", script_teleport_axii_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["2115940133|Seagreen", script_teleport_axii_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+        - choice: ["2115940134|Green", script_teleport_axii_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940161}: '
+
+  script_preview_teleport_axii_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_axii_color
+
+
+  section_preview_teleport_axii_color:
+    - CUE: shot_preview_teleport_axii_color
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_axii_color
+
+  script_teleport_axii_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Teleport
+          - varValue: 2
+    - NEXT: script_preview_teleport_axii_color
+
+  script_teleport_axii_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Teleport
+          - varValue: 3
+    - NEXT: script_preview_teleport_axii_color
+
+  script_teleport_axii_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Teleport
+          - varValue: 4
+    - NEXT: script_preview_teleport_axii_color
+
+  script_teleport_axii_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Teleport
+          - varValue: 5
+    - NEXT: script_preview_teleport_axii_color
+
+  script_teleport_axii_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Teleport
+          - varValue: 6
+    - NEXT: script_preview_teleport_axii_color
+
+  script_teleport_axii_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Teleport
+          - varValue: 7
+    - NEXT: script_preview_teleport_axii_color
+
+  script_teleport_axii_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Teleport
+          - varValue: 8
+    - NEXT: script_preview_teleport_axii_color
+
+  script_teleport_axii_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Teleport
+          - varValue: 9
+    - NEXT: script_preview_teleport_axii_color
+
+  script_teleport_axii_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_Teleport
+          - varValue: 10
+    - NEXT: script_preview_teleport_axii_color
+
+  script_set_teleport_sign_igni:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Igni
+    - NEXT: section_choice_teleport_igni
+
+  section_choice_teleport_igni:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_teleport, exit]
+          emphasize: true
+        - choice: ["2115940162|", section_choice_teleport_igni_type]
+          emphasize: true
+          condition: [nr_denied_type_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+        - choice: ["2115940163|", section_choice_teleport_igni_color]
+          emphasize: true
+          condition: [nr_denied_color_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: '
+
+  section_choice_teleport_igni_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_igni, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_teleport_igni_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["0000162822|Triss", script_teleport_igni_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["0001105972|Ofieri Mage", script_teleport_igni_type_ofieri]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["0001119070|Hermit", script_teleport_igni_type_hermit]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+
+  script_preview_teleport_igni_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_igni_type
+
+
+  section_preview_teleport_igni_type:
+    - CUE: shot_preview_teleport_igni_type
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_igni_type
+
+  script_teleport_igni_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_yennefer
+    - NEXT: script_teleport_igni_type_yennefer_2
+
+  script_teleport_igni_type_yennefer_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_igni_type
+
+  script_teleport_igni_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_triss
+    - NEXT: script_teleport_igni_type_triss_2
+
+  script_teleport_igni_type_triss_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_igni_type
+
+  script_teleport_igni_type_ofieri:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_ofieri
+    - NEXT: script_teleport_igni_type_ofieri_2
+
+  script_teleport_igni_type_ofieri_2:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_denied_color_ENR_Teleport
+          - value: 1
+          - validFor: -1
+          - telemetryEvent: false
+    - NEXT: script_preview_teleport_igni_type
+
+  script_teleport_igni_type_hermit:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_hermit
+    - NEXT: script_teleport_igni_type_hermit_2
+
+  script_teleport_igni_type_hermit_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_igni_type
+
+  section_choice_teleport_igni_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_igni, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_teleport_igni_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["2115940127|Yellow", script_teleport_igni_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["2115940128|Orange", script_teleport_igni_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["2115940129|Red", script_teleport_igni_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["2115940130|Pink", script_teleport_igni_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["2115940131|Violet", script_teleport_igni_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["2115940132|Blue", script_teleport_igni_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["2115940133|Seagreen", script_teleport_igni_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+        - choice: ["2115940134|Green", script_teleport_igni_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940161}: '
+
+  script_preview_teleport_igni_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_igni_color
+
+
+  section_preview_teleport_igni_color:
+    - CUE: shot_preview_teleport_igni_color
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_igni_color
+
+  script_teleport_igni_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Teleport
+          - varValue: 2
+    - NEXT: script_preview_teleport_igni_color
+
+  script_teleport_igni_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Teleport
+          - varValue: 3
+    - NEXT: script_preview_teleport_igni_color
+
+  script_teleport_igni_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Teleport
+          - varValue: 4
+    - NEXT: script_preview_teleport_igni_color
+
+  script_teleport_igni_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Teleport
+          - varValue: 5
+    - NEXT: script_preview_teleport_igni_color
+
+  script_teleport_igni_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Teleport
+          - varValue: 6
+    - NEXT: script_preview_teleport_igni_color
+
+  script_teleport_igni_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Teleport
+          - varValue: 7
+    - NEXT: script_preview_teleport_igni_color
+
+  script_teleport_igni_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Teleport
+          - varValue: 8
+    - NEXT: script_preview_teleport_igni_color
+
+  script_teleport_igni_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Teleport
+          - varValue: 9
+    - NEXT: script_preview_teleport_igni_color
+
+  script_teleport_igni_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_Teleport
+          - varValue: 10
+    - NEXT: script_preview_teleport_igni_color
+
+  script_set_teleport_sign_quen:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Quen
+    - NEXT: section_choice_teleport_quen
+
+  section_choice_teleport_quen:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_teleport, exit]
+          emphasize: true
+        - choice: ["2115940162|", section_choice_teleport_quen_type]
+          emphasize: true
+          condition: [nr_denied_type_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+        - choice: ["2115940163|", section_choice_teleport_quen_color]
+          emphasize: true
+          condition: [nr_denied_color_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: '
+
+  section_choice_teleport_quen_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_quen, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_teleport_quen_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["0000162822|Triss", script_teleport_quen_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["0001105972|Ofieri Mage", script_teleport_quen_type_ofieri]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["0001119070|Hermit", script_teleport_quen_type_hermit]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+
+  script_preview_teleport_quen_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_quen_type
+
+
+  section_preview_teleport_quen_type:
+    - CUE: shot_preview_teleport_quen_type
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_quen_type
+
+  script_teleport_quen_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_yennefer
+    - NEXT: script_teleport_quen_type_yennefer_2
+
+  script_teleport_quen_type_yennefer_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_quen_type
+
+  script_teleport_quen_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_triss
+    - NEXT: script_teleport_quen_type_triss_2
+
+  script_teleport_quen_type_triss_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_quen_type
+
+  script_teleport_quen_type_ofieri:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_ofieri
+    - NEXT: script_teleport_quen_type_ofieri_2
+
+  script_teleport_quen_type_ofieri_2:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_denied_color_ENR_Teleport
+          - value: 1
+          - validFor: -1
+          - telemetryEvent: false
+    - NEXT: script_preview_teleport_quen_type
+
+  script_teleport_quen_type_hermit:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_hermit
+    - NEXT: script_teleport_quen_type_hermit_2
+
+  script_teleport_quen_type_hermit_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_quen_type
+
+  section_choice_teleport_quen_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_quen, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_teleport_quen_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["2115940127|Yellow", script_teleport_quen_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["2115940128|Orange", script_teleport_quen_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["2115940129|Red", script_teleport_quen_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["2115940130|Pink", script_teleport_quen_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["2115940131|Violet", script_teleport_quen_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["2115940132|Blue", script_teleport_quen_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["2115940133|Seagreen", script_teleport_quen_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+        - choice: ["2115940134|Green", script_teleport_quen_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940161}: '
+
+  script_preview_teleport_quen_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_quen_color
+
+
+  section_preview_teleport_quen_color:
+    - CUE: shot_preview_teleport_quen_color
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_quen_color
+
+  script_teleport_quen_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Teleport
+          - varValue: 2
+    - NEXT: script_preview_teleport_quen_color
+
+  script_teleport_quen_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Teleport
+          - varValue: 3
+    - NEXT: script_preview_teleport_quen_color
+
+  script_teleport_quen_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Teleport
+          - varValue: 4
+    - NEXT: script_preview_teleport_quen_color
+
+  script_teleport_quen_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Teleport
+          - varValue: 5
+    - NEXT: script_preview_teleport_quen_color
+
+  script_teleport_quen_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Teleport
+          - varValue: 6
+    - NEXT: script_preview_teleport_quen_color
+
+  script_teleport_quen_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Teleport
+          - varValue: 7
+    - NEXT: script_preview_teleport_quen_color
+
+  script_teleport_quen_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Teleport
+          - varValue: 8
+    - NEXT: script_preview_teleport_quen_color
+
+  script_teleport_quen_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Teleport
+          - varValue: 9
+    - NEXT: script_preview_teleport_quen_color
+
+  script_teleport_quen_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_Teleport
+          - varValue: 10
+    - NEXT: script_preview_teleport_quen_color
+
+  script_set_teleport_sign_yrden:
+    - SCRIPT:
+        function: NR_SetMagicSignName_S
+        parameter:
+          - signName: CNAME_Yrden
+    - NEXT: section_choice_teleport_yrden
+
+  section_choice_teleport_yrden:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_teleport, exit]
+          emphasize: true
+        - choice: ["2115940162|", section_choice_teleport_yrden_type]
+          emphasize: true
+          condition: [nr_denied_type_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+        - choice: ["2115940163|", section_choice_teleport_yrden_color]
+          emphasize: true
+          condition: [nr_denied_color_ENR_Teleport, <, 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: '
+
+  section_choice_teleport_yrden_type:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_yrden, exit]
+          emphasize: true
+        - choice: ["0000162823|Yennefer", script_teleport_yrden_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["0000162822|Triss", script_teleport_yrden_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["0001105972|Ofieri Mage", script_teleport_yrden_type_ofieri]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["0001119070|Hermit", script_teleport_yrden_type_hermit]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+
+  script_preview_teleport_yrden_type:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_yrden_type
+
+
+  section_preview_teleport_yrden_type:
+    - CUE: shot_preview_teleport_yrden_type
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_yrden_type
+
+  script_teleport_yrden_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_yennefer
+    - NEXT: script_teleport_yrden_type_yennefer_2
+
+  script_teleport_yrden_type_yennefer_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_yrden_type
+
+  script_teleport_yrden_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_triss
+    - NEXT: script_teleport_yrden_type_triss_2
+
+  script_teleport_yrden_type_triss_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_yrden_type
+
+  script_teleport_yrden_type_ofieri:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_ofieri
+    - NEXT: script_teleport_yrden_type_ofieri_2
+
+  script_teleport_yrden_type_ofieri_2:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_denied_color_ENR_Teleport
+          - value: 1
+          - validFor: -1
+          - telemetryEvent: false
+    - NEXT: script_preview_teleport_yrden_type
+
+  script_teleport_yrden_type_hermit:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: style_ENR_Teleport
+          - varValue: CNAME_hermit
+    - NEXT: script_teleport_yrden_type_hermit_2
+
+  script_teleport_yrden_type_hermit_2:
+    - SCRIPT:
+        function: RemoveFact_S
+        parameter:
+          - factId: nr_denied_color_ENR_Teleport
+    - NEXT: script_preview_teleport_yrden_type
+
+  section_choice_teleport_yrden_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_teleport_yrden, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_teleport_yrden_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["2115940127|Yellow", script_teleport_yrden_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["2115940128|Orange", script_teleport_yrden_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["2115940129|Red", script_teleport_yrden_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["2115940130|Pink", script_teleport_yrden_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["2115940131|Violet", script_teleport_yrden_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["2115940132|Blue", script_teleport_yrden_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["2115940133|Seagreen", script_teleport_yrden_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+        - choice: ["2115940134|Green", script_teleport_yrden_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940161}: '
+
+  script_preview_teleport_yrden_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 24
+    - NEXT: section_preview_teleport_yrden_color
+
+
+  section_preview_teleport_yrden_color:
+    - CUE: shot_preview_teleport_yrden_color
+    - PAUSE: 3.0
+    - NEXT: section_choice_teleport_yrden_color
+
+  script_teleport_yrden_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Teleport
+          - varValue: 2
+    - NEXT: script_preview_teleport_yrden_color
+
+  script_teleport_yrden_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Teleport
+          - varValue: 3
+    - NEXT: script_preview_teleport_yrden_color
+
+  script_teleport_yrden_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Teleport
+          - varValue: 4
+    - NEXT: script_preview_teleport_yrden_color
+
+  script_teleport_yrden_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Teleport
+          - varValue: 5
+    - NEXT: script_preview_teleport_yrden_color
+
+  script_teleport_yrden_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Teleport
+          - varValue: 6
+    - NEXT: script_preview_teleport_yrden_color
+
+  script_teleport_yrden_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Teleport
+          - varValue: 7
+    - NEXT: script_preview_teleport_yrden_color
+
+  script_teleport_yrden_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Teleport
+          - varValue: 8
+    - NEXT: script_preview_teleport_yrden_color
+
+  script_teleport_yrden_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Teleport
+          - varValue: 9
+    - NEXT: script_preview_teleport_yrden_color
+
+  script_teleport_yrden_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_Teleport
+          - varValue: 10
+    - NEXT: script_preview_teleport_yrden_color

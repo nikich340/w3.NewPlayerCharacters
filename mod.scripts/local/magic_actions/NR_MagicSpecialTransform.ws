@@ -5,17 +5,15 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 	default actionType = ENR_SpecialTransform;
 	
 	latent function OnInit() : bool {
-		var phraseInputs : array<int>;
-		var phraseChance : int;
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
-		phraseChance = map[ST_Universal].getI("s_voicelineChance", 30);
-		NRD("phraseChance = " + phraseChance);
-		if ( phraseChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= RandRange(100) + 1 ) {
 			NRD("PlayScene!");
-			phraseInputs.PushBack(11);
-			phraseInputs.PushBack(12);
-			phraseInputs.PushBack(13);
-			PlayScene( phraseInputs );
+			sceneInputs.PushBack(11);
+			sceneInputs.PushBack(12);
+			sceneInputs.PushBack(13);
+			PlayScene( sceneInputs );
 		}
 
 		return true;
@@ -80,7 +78,7 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 	}
 	
 	latent function BreakAction() {
-		if (isPerformed) // don't react
+		if (isPerformed)
 			return;
 
 		super.BreakAction();

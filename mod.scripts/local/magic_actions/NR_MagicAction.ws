@@ -3,6 +3,8 @@ abstract statemachine class NR_MagicAction {
 	protected var entityTemplate 	: CEntityTemplate;
 	protected var destroyable		: W3DestroyableClue;
 	protected var dummyEntity 	: CEntity;
+	protected var damage 		: W3DamageAction;
+	protected var damageVal 	: float;
 	protected var pos 			: Vector;
 	protected var rot 			: EulerAngles;
 	protected var m_effectColor : ENR_MagicColor;
@@ -10,7 +12,6 @@ abstract statemachine class NR_MagicAction {
 	protected var standartCollisions : array<name>;
 	protected var m_fxNameMain   : name;
 	protected var m_fxNameExtra  : name;
-
 
 	public var m_fxNameHit	: name;
 	public var sign 			: ESignType;
@@ -109,9 +110,8 @@ abstract statemachine class NR_MagicAction {
 		isPerformed = result;
 		if (result && drainStaminaOnPerform) {
 			magicManager = NR_GetMagicManager();
-			// TODO with actionType
-			//if (magicManager)
-			//	magicManager.DrainStaminaForAction(actionName);
+			if (magicManager)
+				magicManager.DrainStaminaForAction(actionType);
 		}
 		return result;
 	}
@@ -120,6 +120,7 @@ abstract statemachine class NR_MagicAction {
 		// makes cleanup if action was interrupted
 		isBroken = true;
 	}
+
 	latent function NR_CalculateTarget(tryFindDestroyable : bool, makeStaticTrace : bool, targetOffsetZ : float, staticOffsetZ : float)
 	{
 		var Z						: float;
@@ -177,7 +178,7 @@ abstract statemachine class NR_MagicAction {
 			dEnt = (W3DestroyableClue)ents[i];
 			// destroyable, not destroyed, reacts to aard or igni, is on line of sight, is in FOV
 			if (dEnt && dEnt.destroyable && !dEnt.destroyed && (dEnt.reactsToAard || dEnt.reactsToIgni) && AbsF(theCamera.GetCameraHeading() - dEnt.GetHeading()) < 90) {
-				onLine = NR_OnLineOfSight(dEnt, 1.5f);
+				onLine = NR_OnLineOfSight(thePlayer, dEnt, 1.5f);
 				// there must be no static obstacles
 				if (onLine) {
 					destroyable = dEnt;
@@ -187,16 +188,21 @@ abstract statemachine class NR_MagicAction {
 		}
 		return false;
 	}
-	latent function NR_OnLineOfSight(node : CNode, zOffset : float) : bool
+
+	latent function NR_OnLineOfSight(nodeA : CNode, nodeB : CNode, zOffset : float) : bool
 	{
-		var traceStartPos, traceEndPos, traceStopPos, normal : Vector;
+		var traceStartPos, traceEndPos, traceStopPos, normal, traceDiff : Vector;
 		
-		traceStartPos = thePlayer.GetWorldPosition();
-		traceEndPos = node.GetWorldPosition();
+		traceStartPos = nodeA.GetWorldPosition();
+		traceEndPos = nodeB.GetWorldPosition();
+		traceDiff = VecNormalize(traceEndPos - traceStartPos);
+		traceStartPos += traceDiff * 1.f;
+		traceEndPos -= traceDiff * 1.f;
 		
 		traceStartPos.Z += zOffset; // 1.8f for usual head height
 		traceEndPos.Z += zOffset;
 		if ( theGame.GetWorld().StaticTrace(traceStartPos, traceEndPos, traceStopPos, normal, standartCollisions) ) {
+			NRD("NR_OnLineOfSight: start = " + VecToString(traceStartPos) + ", end = " + VecToString(traceEndPos) + ", stop = " + VecToString(traceStopPos));
 			if( traceEndPos == traceStopPos ) {
 				return true;
 			}
@@ -215,6 +221,58 @@ abstract statemachine class NR_MagicAction {
 		} else {
 			return to;
 		}
+	}
+
+	latent function SnapToGround(pos : Vector) : Vector
+	{
+		var groundZ : float;
+		if ( theGame.GetWorld().PhysicsCorrectZ(pos, groundZ) ) {
+			pos.Z = groundZ;
+		}
+		
+		return pos;
+	}
+
+	latent function GetDamage(minPerc : float, maxPerc : float, basicVitality : float, addVitality : float, basicEssence : float, addEssence : float, optional randMin : float, optional randMax : float, optional customTarget : CActor) : float {
+		var damageTarget : CActor;
+		var damage, maxDamage, minDamage : float;
+		var levelDiff : float;
+
+		if (customTarget) {
+			damageTarget = customTarget;
+		} else if (target) {
+			damageTarget = target;
+		}
+
+		if (randMin < 0.1) {
+			randMin = 0.9;
+		}
+		if (randMax < 0.1) {
+			randMax = 1.1;
+		}
+
+		if (damageTarget) {
+			levelDiff = thePlayer.GetLevel() - damageTarget.GetLevel();
+			maxDamage = damageTarget.GetMaxHealth() * maxPerc / 100.f + levelDiff * 1.f;
+			minDamage = MaxF(damageTarget.GetMaxHealth() * 0.5f / 100.f, damageTarget.GetMaxHealth() * minPerc / 100.f + levelDiff * 0.1f);
+		} else {
+			levelDiff = 0;
+		}
+
+		if (damageTarget.UsesVitality()) {
+			damage = basicVitality + addVitality * thePlayer.GetLevel();
+		} else {
+			damage = basicEssence + addEssence * thePlayer.GetLevel();
+		}
+		damage = damage * RandRangeF(randMax, randMin);
+
+		if (damageTarget) {
+			damage = MinF(maxDamage, damage);
+			damage = MaxF(minDamage, damage);
+		}
+		NRD("GetDamage: action = " + ENR_MAToName(actionType) + ", target = " + damageTarget + " lvl diff = " + levelDiff + ", max health = " + damageTarget.GetMaxHealth());
+		NRD("GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
+		return damage;
 	}
 
 	// [playerLevel - 2step, playerLevel - step, playerLevel, playerLevel + step, playerLevel + 2step]

@@ -163,8 +163,8 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		if (skill == S_Magic_4 || skill == S_Magic_s14 || skill == S_Magic_s13 || skill == S_Magic_s01) 
 		// 			quen bubble,              quen reflect,           quen impulse,         aard circle
 			return true;
-
-		return super.CanUseSkill(skill);
+		return false;
+		//return super.CanUseSkill(skill); ? block to avoid unexpected damage/spell/resist boosts
 	}
 }
 

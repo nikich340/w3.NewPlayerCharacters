@@ -2,6 +2,26 @@
 # definition of entities
 #
 templates:
+  nr_aard_proj_blast:
+    includes:
+      - "gameplay/templates/signs/pc_aard_proj_blast.w2ent"
+    entityObject:
+      ".type": NR_AardProjectile
+
+  nr_aard_proj_cone:
+    includes:
+      - "gameplay/templates/signs/pc_aard_proj_cone.w2ent"
+    entityObject:
+      ".type": NR_AardProjectile
+
+  nr_fast_travel_teleport:
+    includes:
+      - "quests/part_1/quest_files/q203_him/entities/q203_yenn_teleport.w2ent"
+    entityObject:
+      ".type": NR_FastTravelTeleport
+      m_fxName: teleport
+      m_activeTime: 15.0
+
   #nr_localizedstrings_storage:
   #  entityObject:
   #    ".type": NR_LocalizedStringStorage
@@ -16,9 +36,7 @@ templates:
   #    ".type": NR_SpecialIntStorage
   #    #u8: [1, 2, 3]
   #    #u16: [1, 2, 3]
-  nr_scene_trigger:
-    includes:
-      - "dlc\\bob\\data\\environment\\decorations\\gameplay\\rich_district\\statues\\anna_statue\\anna_statue.w2ent"
+  nr_scene_trigger_woman:
     entityObject:
       .type: NR_SceneTrigger
       isReusable: true
@@ -27,16 +45,157 @@ templates:
       interactionAnimTime: 1.0
       sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
       sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
-      #test_array: [[1, 2], [3, 4]]
       components:
         SceneTriggerComp:
           ".type": CInteractionComponent
-          transform:
-            pos: [ 0.0, 0.0, 0.01 ]
-            rot: [ 0.0, 0.0, 0.0 ]
+          #transform:
+          #  pos: [ 0.0, 0.0, 0.01 ]
+          #  rot: [ 0.0, 0.0, 0.0 ]
           iconOffset: [0.0, 0.0, 1.2, 0.0]
           isEnabledInCombat: false
           actionName: "Use"
+        Mesh:
+          ".type": CStaticMeshComponent
+          isStreamed: true
+          transform:
+            pos: [ 0.0, 0.0, 0.0 ]
+            rot: [ 0.0, 0.0, 0.0 ]
+            scale: [ 1.1, 1.1, 1.1 ]
+          drawableFlags:
+            - DF_IsVisible
+            - DF_CastShadows
+          lightChannels:
+            - LC_Characters
+          mesh: dlc/ep1/data/items/quest_items/q601/model/q601_item_statue.w2mesh
+
+  nr_scene_trigger_raven:
+    entityObject:
+      .type: NR_SceneTrigger
+      isReusable: true
+      isInteractive: true
+      interactionAnim: PEA_ExamineEyeLevel
+      interactionAnimTime: 1.0
+      sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
+      sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
+      components:
+        SceneTriggerComp:
+          ".type": CInteractionComponent
+          iconOffset: [0.0, 0.0, 1.2, 0.0]
+          isEnabledInCombat: false
+          actionName: "Use"
+        Mesh:
+          ".type": CStaticMeshComponent
+          isStreamed: true
+          transform:
+            pos: [ 0.0, 0.0, 0.0 ]
+            rot: [ 0.0, 0.0, 0.0 ]
+            scale: [ 0.6, 0.6, 0.6 ]
+          drawableFlags:
+            - DF_IsVisible
+            - DF_CastShadows
+          lightChannels:
+            - LC_Characters
+          mesh: dlc/bob/data/environment/decorations/gameplay/rich_district/statues/statue_bridge/model/statue_bridge_02.w2mesh
+  
+  nr_scene_trigger_sword:
+    entityObject:
+      .type: NR_SceneTrigger
+      isReusable: true
+      isInteractive: true
+      interactionAnim: PEA_ExamineEyeLevel
+      interactionAnimTime: 1.0
+      sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
+      sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
+      components:
+        SceneTriggerComp:
+          ".type": CInteractionComponent
+          iconOffset: [0.0, 0.0, 1.2, 0.0]
+          isEnabledInCombat: false
+          actionName: "Use"
+        Mesh:
+          ".type": CStaticMeshComponent
+          isStreamed: true
+          transform:
+            pos: [ 0.0, 0.0, 0.0 ]
+            rot: [ 0.0, 0.0, 0.0 ]
+            scale: [ 0.6, 0.6, 0.6 ]
+          drawableFlags:
+            - DF_IsVisible
+            - DF_CastShadows
+          lightChannels:
+            - LC_Characters
+          mesh: dlc/bob/data/environment/decorations/gameplay/rich_district/statues/statue_bridge/model/statue_bridge_01.w2mesh
+    
+  nr_scene_trigger_elder1:
+    entityObject:
+      .type: NR_SceneTrigger
+      isReusable: true
+      isInteractive: true
+      interactionAnim: PEA_ExamineEyeLevel
+      interactionAnimTime: 1.0
+      sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
+      sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
+      components:
+        SceneTriggerComp:
+          ".type": CInteractionComponent
+          iconOffset: [0.0, 0.0, 1.2, 0.0]
+          isEnabledInCombat: false
+          actionName: "Use"
+        Mesh:
+          ".type": CStaticMeshComponent
+          isStreamed: true
+          transform:
+            pos: [ 0.0, 0.0, 0.0 ]
+            rot: [ 0.0, 0.0, 0.0 ]
+            scale: [ 0.7, 0.7, 0.7 ]
+          drawableFlags:
+            - DF_IsVisible
+            - DF_CastShadows
+          lightChannels:
+            - LC_Characters
+          mesh: environment/decorations/elven_puzzle_statue/elven_statue_elven_statue.w2mesh
+
+  nr_scene_trigger_elder2:
+    entityObject:
+      .type: NR_SceneTrigger
+      isReusable: true
+      isInteractive: true
+      interactionAnim: PEA_ExamineEyeLevel
+      interactionAnimTime: 1.0
+      sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
+      sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
+      components:
+        SceneTriggerComp:
+          ".type": CInteractionComponent
+          iconOffset: [0.0, 0.0, 1.2, 0.0]
+          isEnabledInCombat: false
+          actionName: "Use"
+        Mesh:
+          ".type": CStaticMeshComponent
+          isStreamed: true
+          transform:
+            pos: [ 0.0, 0.0, 0.0 ]
+            rot: [ 0.0, 0.0, 0.0 ]
+            scale: [ 0.22, 0.22, 0.22 ]
+          drawableFlags:
+            - DF_IsVisible
+            - DF_CastShadows
+          lightChannels:
+            - LC_Characters
+          mesh: environment/decorations/elven_puzzle_statue/elven_statue_plinth.w2mesh
+        Mesh2:
+          ".type": CStaticMeshComponent
+          isStreamed: true
+          transform:
+            pos: [ 0.0, 0.0, 0.0 ]
+            rot: [ 0.0, 0.0, 0.0 ]
+            scale: [ 0.22, 0.22, 0.22 ]
+          drawableFlags:
+            - DF_IsVisible
+            - DF_CastShadows
+          lightChannels:
+            - LC_Characters
+          mesh: environment/architecture/elven/statues/elven_statue_shield/elven_statue_shield_green.w2mesh
   
   nr_tornado:
     entityObject:
@@ -424,10 +583,10 @@ templates:
             Min: [ -1.08, -1.08, -1.08, 1.0 ]
             Max: [ 1.08, 1.08, 1.08, 1.0 ]
           mesh: fx/signs/quen/ver1/quen_sphere.w2mesh
-      idTag:  07ed1689-91a2-4d74-a0ec-846b664b91d9
+      idTag: 07ed1689-91a2-4d74-a0ec-846b664b91d9
 
-      effectName: philippa_barrier_shield
-      alternateEffectName: default_fx_bear_abl2 # temp!!!
+      #effectName: philippa_barrier_shield
+      #alternateEffectName: default_fx_bear_abl2 # temp!!!
       playOnOwner: true
       hitEntityTemplate: gameplay/templates/signs/pc_quen_hit.w2ent
       shakeStrength: 0.2

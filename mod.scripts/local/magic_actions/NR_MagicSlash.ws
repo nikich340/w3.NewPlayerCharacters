@@ -1,6 +1,21 @@
 class NR_MagicSlash extends NR_MagicAction {
-	var swingType, swingDir	: int; 
+	var dummyEntity2 : CEntity;
+	var swingType, swingDir	: int;
 	default actionType = ENR_Slash;
+
+	latent function OnInit() : bool {
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+
+		if ( voicelineChance >= RandRange(100) + 1 ) {
+			sceneInputs.PushBack(3);
+			sceneInputs.PushBack(4);
+			sceneInputs.PushBack(5);
+			PlayScene( sceneInputs );
+		}
+
+		return true;
+	}
 
 	latent function SetSwingData(newSwingType : int, newSwingDir : int) {
 		swingType = newSwingType;
@@ -14,12 +29,23 @@ class NR_MagicSlash extends NR_MagicAction {
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
-		dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
-		m_fxNameMain = SlashFxName();
+		if (FactsQuerySum("nr_magic_DoubleSlash") > 0) {
+			pos.Z += 0.15f;
+			dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
+			pos.Z -= 0.3f;
+			dummyEntity2 = theGame.CreateEntity( entityTemplate, pos, rot );
+		} else {
+			dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
+		}
 
+		m_fxNameMain = SlashFxName();
 		if (dummyEntity && m_fxNameMain != '') {
 			dummyEntity.PlayEffect(m_fxNameMain);
 			dummyEntity.DestroyAfter(5.f);
+			if (dummyEntity2) {
+				dummyEntity2.PlayEffect(m_fxNameMain);
+				dummyEntity2.DestroyAfter(5.f);
+			}
 		} else {
 			NRE("DummyEntity (" + resourceName + ", " + entityTemplate + ", " + dummyEntity + ") or m_fxNameMain (" + m_fxNameMain + ") is invalid.");
 			return OnPrepared(false);
@@ -30,6 +56,7 @@ class NR_MagicSlash extends NR_MagicAction {
 
 	latent function OnPerform() : bool {
 		var targetNPC : CNewNPC;
+		var dk : float;
 
 		var super_ret : bool;
 		super_ret = super.OnPerform();
@@ -38,11 +65,27 @@ class NR_MagicSlash extends NR_MagicAction {
 		}
 		if (target) {
 			targetNPC = (CNewNPC) target;
+			targetNPC.NoticeActor( thePlayer );
 			if ( m_fxNameHit != '' && (!targetNPC || !targetNPC.HasAlternateQuen()) ) {
 				dummyEntity.PlayEffect(m_fxNameHit);
+				if (dummyEntity2) {
+					dummyEntity2.PlayEffect(m_fxNameHit);
+				}
 			}
 			thePlayer.OnCollisionFromItem( target );
-			targetNPC.NoticeActor( thePlayer );
+
+			damage = new W3DamageAction in this;
+			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
+			if (dummyEntity2) {
+				dk = 1.5f;
+			} else {
+				dk = 1.f;
+			}
+			damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
+			// damage.AddEffectInfo(EET_Burning, 2.0);
+			theGame.damageMgr.ProcessAction( damage );
+			delete damage;
 		} else if (destroyable) {
 			if (destroyable.reactsToIgni) {
 				destroyable.OnIgniHit(NULL);
@@ -55,9 +98,15 @@ class NR_MagicSlash extends NR_MagicAction {
 	}
 
 	latent function BreakAction() {
+		if (isPerformed)
+			return;
+			
 		super.BreakAction();
 		if (dummyEntity) {
 			dummyEntity.Destroy();
+		}
+		if (dummyEntity2) {
+			dummyEntity2.Destroy();
 		}
 	}
 
@@ -99,7 +148,7 @@ class NR_MagicSlash extends NR_MagicAction {
 						return 'down_left_orange';
 					case ASD_RightLeft:
 					default:
-						return 'down_right_orangee';
+						return 'down_right_orange';
 				}
 			case ENR_ColorRed:
 				switch ( swingDir ) {

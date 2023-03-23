@@ -6,7 +6,6 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 	protected var m_teleportPos 	: Vector;
 
 	default actionType = ENR_FastTravelTeleport;
-	default drainStaminaOnPerform = false; // drained in state Combat
 	default m_activeTime = 15.f;
 
 	latent function SetTravelData(pinTag : name, areaId : EAreaName, currentAreaId : EAreaName) {
@@ -19,10 +18,12 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 		super.OnPrepare();
 
 		entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_fast_travel_teleport");
-		pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 0.5f + Vector(0,0,1.f);
-		m_teleportPos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 5.f + Vector(0,0,1.f);
+		pos 			= thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 0.5f + Vector(0,0,1.f);
+		m_teleportPos 	= thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 5.0f + Vector(0,0,1.f);
 
 		m_teleportPos = TraceToPoint(pos, m_teleportPos);
+		m_teleportPos = SnapToGround(m_teleportPos);
+		m_teleportPos.Z += 1.f;
 		// can't create teleport without player teleported instantly
 		if (VecDistanceSquared(pos, m_teleportPos) < 1.f) {
 			NRD("NR_MagicFastTravelTeleport: Can't create teleport without player teleported instantly");
@@ -50,7 +51,7 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 	}
 
 	latent function BreakAction() {
-		if (!isPrepared) {
+		if (!isPrepared || isPerformed) {
 			return;
 		}
 		super.BreakAction();
@@ -93,8 +94,8 @@ state Active in NR_MagicFastTravelTeleport {
 		startTime = EngineTimeToFloat(theGame.GetEngineTime());
 		while (parent.m_activeTime > GetLocalTime()) {
 			dist = VecDistanceSquared(parent.m_teleportPos, thePlayer.GetWorldPosition() + Vector(0,0,1.f));
-			// 0.7^2
-			if (dist < 0.49) {
+			// 0.8^2
+			if (dist < 0.64) {
 				PerformFastTravel();
 				break;
 			}

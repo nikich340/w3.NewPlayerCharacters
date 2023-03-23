@@ -1,4 +1,4 @@
-exec function sspawn(id : int, optional hostile : Bool, optional immortal : Bool, optional level : Bool) {
+exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bool, optional immortal : Bool) {
 	var ent : CEntity;
 	var pos : Vector;
 	var template : CEntityTemplate;
@@ -46,8 +46,6 @@ exec function sspawn(id : int, optional hostile : Bool, optional immortal : Bool
 	}
 	else if (id == 25) {
 		template = (CEntityTemplate)LoadResource("dlc/bob/data/living_world/enemy_templates/wyvern.w2ent", true);
-	}	else if (id == 31) {
-		template = (CEntityTemplate)LoadResource("nr_golem2");
 	}
 	else if (id == 26) {
 		template = (CEntityTemplate)LoadResource("dlc/bob/data/quests/main_npcs/dettlaff_van_eretein_vampire.w2ent", true);
@@ -62,7 +60,7 @@ exec function sspawn(id : int, optional hostile : Bool, optional immortal : Bool
 		template = (CEntityTemplate)LoadResource("quests/main_npcs/emhyr.w2ent", true);
 	}
 	else if (id == 101) {
-		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_scene_trigger.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress_inv.w2ent", true);
 	}
 	else if (id == 102) {
 		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent", true);
@@ -87,18 +85,100 @@ exec function sspawn(id : int, optional hostile : Bool, optional immortal : Bool
 		npc.SetImmortalityMode( AIM_None, AIC_IsAttackableByPlayer );
 	}
 
-	if (hostile) {
+	if (!friendly) {
 		npc.SetTemporaryAttitudeGroup( 'hostile_to_player', AGP_Default );
 		npc.SetAttitude( thePlayer, AIA_Hostile );
 		thePlayer.SetAttitude( npc, AIA_Hostile );
 	}
-	if (level) {
+	if (!notAdjust) {
 		npc.SetLevel( GetWitcherPlayer().GetLevel() );
 	}
 }
 
-exec function testl1() {
-	thePlayer.PlayLine(1088526, true);
+exec function nrtmp() {
+	NR_GetMagicManager().SetDefaults_HeavyPush();
+}
+
+exec function nrStamina() {
+	NR_GetMagicManager().SetDefaults_StaminaCost();
+}
+
+exec function nrSkill(skillLevel : int) {
+	if (skillLevel > EnumGetMax('ENR_MagicSkill') || skillLevel < 1) {
+		NR_Notify("Invalid skill value, it must be [1; " + EnumGetMax('ENR_MagicSkill') + "]");
+		return;
+	}
+	NR_Notify("Set skill value = [" + NR_GetMagicManager().GetSkillLevelLocStr(skillLevel) + "]");
+	NR_GetMagicManager().SetParamInt('universal', "DEBUG_skillLevel", skillLevel);
+}
+
+exec function nrElement(element : int) {
+	if (element > EnumGetMax('ENR_MagicElement') || element < 1) {
+		NR_Notify("Invalid element value, it must be [1; " + EnumGetMax('ENR_MagicElement') + "]");
+		return;
+	}
+	NR_Notify("Set element value = [" + NR_GetMagicManager().GetMagicElementLocStr(element) + "]");
+	NR_GetMagicManager().SetParamInt('universal', "magic_skill_element", element);
+}
+
+exec function nrUnlock() {
+	var 	skillsList : array<String>;
+	var  	i : int;
+	skillsList = NR_GetMagicManager().GetMagicSkillsList();
+
+	for (i = 0; i < skillsList.Size(); i += 1) {
+		FactsAdd(skillsList[i], 1);
+	}
+}
+
+exec function nrLock() {
+	var 	skillsList : array<String>;
+	var  	i : int;
+	skillsList = NR_GetMagicManager().GetMagicSkillsList();
+
+	for (i = 0; i < skillsList.Size(); i += 1) {
+		FactsRemove(skillsList[i]);
+	}
+}
+
+exec function nrProjectile(damage : float) {
+	if (damage < 0.f) {
+		NR_Notify("Invalid damage value, it must be > 0");
+		return;
+	}
+	NR_Notify("Set proj damage value = [" + damage + "]");
+	NR_GetMagicManager().SetParamFloat('universal', "DEBUG_projectile_dmg", damage);
+}
+
+exec function playerAbl() {
+	var abls, attrs  : array<name>;
+	var i : int;
+	var val : SAbilityAttributeValue;
+	
+	thePlayer.GetCharacterStats().GetAbilities(abls);
+	thePlayer.GetCharacterStats().GetAllAttributesNames(attrs);
+
+	for (i = 0; i < abls.Size(); i += 1) {
+		NRD("Ability: " + abls[i]);
+	}
+	for (i = 0; i < attrs.Size(); i += 1) {
+		if( theGame.params.IsForbiddenAttribute(attrs[i]) )
+			continue;
+		val = thePlayer.GetAttributeValue(attrs[i]);
+		NRD("Attribute: " + attrs[i] + ", value: [base = " + val.valueBase + "], [mult = " + val.valueMultiplicative + "], [add = " + val.valueAdditive + "]");
+	}
+	NRD("Max ess: " + thePlayer.GetStatMax(BCS_Essence));
+	NRD("Cur ess: " + thePlayer.GetStat(BCS_Essence));
+	NRD("Max vit: " + thePlayer.GetStatMax(BCS_Vitality));
+	NRD("Cur vit: " + thePlayer.GetStat(BCS_Vitality));
+	NRD("Immortality: " + thePlayer.GetImmortalityMode());
+}
+
+exec function testl11() {
+	thePlayer.PlayLine(158228, true);
+}
+exec function testl12() {
+	thePlayer.PlayLine(1223911, true);
 }
 exec function testl21() {
 	thePlayer.PlayLine(2115940050, true);
@@ -501,12 +581,26 @@ exec function tp1() {
 	thePlayer.TeleportWithRotation(pos, rot);
 }
 
-exec function effect(eName : name, optional disable : bool) {
+exec function nrEffect(eName : name, optional disable : bool) {
 	if (disable) {
 		thePlayer.StopEffect(eName);
 	} else {
 		thePlayer.PlayEffect(eName);
 	}
+}
+
+exec function nrEntityEffect(templatePath : String, eName : name, optional disable : bool) {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+
+	template = (CEntityTemplate)LoadResource(templatePath, true);
+	entity = theGame.CreateEntity(template, thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.5f, thePlayer.GetWorldRotation());
+	if (disable) {
+		entity.StopEffect(eName);
+	} else {
+		entity.PlayEffect(eName);
+	}
+	entity.DestroyAfter(10.f);
 }
 
 function EulerToString(euler: EulerAngles) : String {

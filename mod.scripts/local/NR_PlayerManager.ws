@@ -46,7 +46,7 @@ function NRD(message : String)
 
 function NRE(message : String)
 {
-    theGame.GetGuiManager().ShowNotification(message, 3000.0);
+    //theGame.GetGuiManager().ShowNotification(message, 5000.0);
     LogChannel('NR_ERROR', message);
 }
 
@@ -60,12 +60,12 @@ function NR_stringByItemUID(itemId : SItemUniqueId) : String {
 		return "<invalid>";
 }
 
-class NR_TemplateData {
-	public var path : String;
-	public var isLoaded : bool;
-	public var isDepotPath : bool;
-	public var nameID : int;
-	public var appName : String;
+class NR_AppearanceSet {
+	public var headName : name;
+	public var appearanceTemplates : array<String>;
+	public var appearanceTemplateIsDepotPath : array<bool>;
+	public var appearanceItems : array<String>;
+	public var appearanceItemIsDepotPath : array<bool>;
 }
 
 class NR_PlayerManager extends CPeristentEntity {
@@ -77,13 +77,16 @@ class NR_PlayerManager extends CPeristentEntity {
 	public saved var           m_appearanceTemplates : array<String>;
 	public saved var    m_appearanceTemplateIsLoaded : array<bool>;
 	public saved var m_appearanceTemplateIsDepotPath : array<bool>;
-	public saved var           m_appearanceItems 	 : array<String>;
-	public saved var m_appearanceItemIsDepotPath 	 : array<bool>;
+	public saved var           	   m_appearanceItems : array<String>;
+	public saved var 	 m_appearanceItemIsDepotPath : array<bool>;
+	public saved var 				m_appearanceSets : array<NR_AppearanceSet>;
 
+
+	protected var  					m_showAppearanceInfo : bool;
 	protected var  					   m_headPreviewName : name;
 	protected var    		m_appearancePreviewTemplates : array<String>;
 	protected var    			m_appearancePreviewItems : array<String>;
-	//public 		var m_appearanceTemplatesPreviewTemp : array<String>;
+	default m_showAppearanceInfo = false;
 
 	protected saved	var m_magicDataMaps : array<NR_Map>;
 	const 			var ST_Universal	: int;
@@ -172,11 +175,14 @@ class NR_PlayerManager extends CPeristentEntity {
 		var 	  changes : bool = false;
 		var	  forceUnload : bool = false;
 
+		if (!IsReplacerActive())
+			return;
+
 		// unload all preview templates & items
 		ResetAllAppearancePreviewTemplates();
-		NRD("OnDialogOptionSelected: index = " + index + ", dataIndex = " + m_sceneSelector.GetPreviewDataIndex());
 		m_sceneSelector.GetTemplatesToUpdate(index, IsFemale(), m_appearancePreviewTemplates, m_appearancePreviewItems, m_headPreviewName);
 		forceUnload = m_sceneSelector.ForceUnloadSlotTemplates(index, IsFemale());
+		NRD("OnDialogOptionSelected: index = " + index + ", dataIndex = " + m_sceneSelector.GetPreviewDataIndex() + ", forceUnload = " + forceUnload);
 		// unload saved and load preview
 		for (slot = ENR_RSlotHair; slot < ENR_RSlotMisc; slot += 1) {
 			NRD("OnDialogOptionSelected: slot = " + slot + ", preview = [" + m_appearancePreviewTemplates[slot] + "]");
@@ -218,7 +224,7 @@ class NR_PlayerManager extends CPeristentEntity {
 
 		// update notify info
 		//if (changes) {
-		//	ShowAppearanceInfo();
+		//	UpdateAppearanceInfo();
 		//}
 	}
 	// scene (preview) stuff functions //
@@ -226,13 +232,18 @@ class NR_PlayerManager extends CPeristentEntity {
 		var slots : array<ENR_AppearanceSlots>;
 		var paths : array<String>;
 		var 	i : int;
+		var	  forceUnload : bool = false;
 
-		NRD("OnDialogOptionAccepted: " + index);
+		if (!IsReplacerActive())
+			return;
+
+		forceUnload = m_sceneSelector.ForceUnloadSlotTemplates(index, IsFemale());
+		NRD("OnDialogOptionAccepted: " + index + ", forceUnload = " + forceUnload);
 		if (m_sceneSelector.SaveOnAccept(index, IsFemale())) {
 			NRD("Accept: save");
 			// put preview to saved
-			if (SaveAllAppearancePreviewTemplates()) {
-				ShowAppearanceInfo();
+			if (SaveAllAppearancePreviewTemplates(forceUnload)) {
+				UpdateAppearanceInfo();
 			}
 		}
 
@@ -250,7 +261,7 @@ class NR_PlayerManager extends CPeristentEntity {
 				UpdateHead('nr_h_01_wa__yennefer');	/* set default yennefer head */
 			else
 				UpdateHead('head_0');	/* set default geralt head */
-			ShowAppearanceInfo();
+			UpdateAppearanceInfo();
 			return;
 		}
 		if (m_appearanceTemplates[slot] != "") {
@@ -260,8 +271,46 @@ class NR_PlayerManager extends CPeristentEntity {
 			}
 
 			m_appearanceTemplates[slot] = "";
-			ShowAppearanceInfo();
+			UpdateAppearanceInfo();
 		}
+	}
+
+	public function SaveAppearanceSet() {
+		var set : NR_AppearanceSet;
+		set = new NR_AppearanceSet in this;
+		set.appearanceTemplates = m_appearanceTemplates;
+		set.appearanceTemplateIsDepotPath = m_appearanceTemplateIsDepotPath;
+		set.appearanceItems = m_appearanceItems;
+		set.appearanceItemIsDepotPath = m_appearanceItemIsDepotPath;
+		set.headName = m_headName;
+
+		m_appearanceSets.PushBack(set);
+		thePlayer.DisplayHudMessage( GetLocStringById(2115940097) + IntToString(m_appearanceSets.Size()) );
+		FactsSet("nr_appearance_sets", m_appearanceSets.Size());
+	}
+
+	public function LoadAppearanceSet(setIndex : int) {
+		var 	i 		: int;
+		var 	slot 	: int;
+
+		if (setIndex < 0 || setIndex >= m_appearanceSets.Size())
+			return;
+
+		ResetAllAppearanceHeadHair();
+		m_appearanceTemplates = m_appearanceSets[setIndex].appearanceTemplates;
+		m_appearanceTemplateIsDepotPath = m_appearanceSets[setIndex].appearanceTemplateIsDepotPath;
+		m_appearanceItems = m_appearanceSets[setIndex].appearanceItems;
+		m_appearanceItemIsDepotPath = m_appearanceSets[setIndex].appearanceItemIsDepotPath;
+		LoadAppearanceTemplates();
+		UpdateHead(m_appearanceSets[setIndex].headName);
+		UpdateAppearanceInfo();
+	}
+
+	public function RemoveAppearanceSet(setIndex : int) {
+		if (setIndex < 0 || setIndex >= m_appearanceSets.Size())
+			return;
+
+		m_appearanceSets.Erase(setIndex);
 	}
 
 	// scene (preview) stuff functions //
@@ -270,10 +319,10 @@ class NR_PlayerManager extends CPeristentEntity {
 			for (item_index = m_appearanceItems.Size() - 1; item_index >= 0; item_index -= 1) {
 				UpdateAppearanceItem("", true, item_index);
 			}
-			ShowAppearanceInfo();
+			UpdateAppearanceInfo();
 		} else if (item_index > 0 && item_index <= m_appearanceItems.Size()) {
 			UpdateAppearanceItem("", true, item_index - 1);
-			ShowAppearanceInfo();
+			UpdateAppearanceInfo();
 		}
 	}
 
@@ -284,14 +333,23 @@ class NR_PlayerManager extends CPeristentEntity {
 			return StrBeforeLast( StrAfterLast(templateName, "/"), "." );
 	}
 
+	public function ShowAppearanceInfo() {
+		m_showAppearanceInfo = true;
+		UpdateAppearanceInfo();
+	}
+
 	public function HideAppearanceInfo() {
+		m_showAppearanceInfo = false;
 		theGame.GetGuiManager().ShowNotification("", 1.f);
 	}
 
-	public function ShowAppearanceInfo() {
+	public function UpdateAppearanceInfo() {
 		var 		i : int;
 		var SLOT_STR, NBSP, BR : String;
 		var 	text : String;
+
+		if (!m_showAppearanceInfo)
+			return;
 
 		// <img src='img://" + GetItemIconPathByName + "' height='" + GetNotificationFontSize() + "' width='" + GetNotificationFontSize() + "' vspace='-10' />&nbsp;
 		BR = "<br>";
@@ -315,19 +373,20 @@ class NR_PlayerManager extends CPeristentEntity {
 		NR_Notify(text, /* seconds */ 600.f);
 	}
 
-	// Helper function (when player type changed from scene) //
+	// Helper function (when player type changed from scene and female<->non-female) //
 	function SetDefaultAppearance(type : ENR_PlayerType) {
 		switch (type) {
 			case ENR_PlayerWitcher:
 				ResetAllAppearanceHeadHair();
-				UpdateHead('nr_head_eskel');
+				UpdateHead('nr_h_01_ma__eskel');
 				//UpdateHair('NR Eskel Hairstyle');
 				UpdateAppearanceTemplate(/*path*/ "characters/models/secondary_npc/eskel/body_01_ma__eskel.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
 				break;
 			case ENR_PlayerWitcheress:
 				ResetAllAppearanceHeadHair();
-				UpdateHead('nr_head_rosa');
+				UpdateHead('nr_h_01_wa__edna');
 				//UpdateHair('NR Rosa Hairstyle');
+				UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/c_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
 				UpdateAppearanceTemplate(/*path*/ "characters/models/common/woman_average/body/a2g_02_wa__body.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
 				UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/torso/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
 				//UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_GSlotArmor, /*isDepotPath*/ true);
@@ -339,11 +398,12 @@ class NR_PlayerManager extends CPeristentEntity {
 		
 			case ENR_PlayerSorceress:
 				ResetAllAppearanceHeadHair();
-				UpdateHead('nr_head_yennefer');
+				UpdateHead('nr_h_01_wa__yennefer');
 				//UpdateHair('NR Yennefer Hairstyle');
-				UpdateAppearanceItem(/*path*/ "characters\models\main_npc\yennefer\pendant_01_wa__yennefer.w2ent", /*isDepotPath*/ true, /*itemIndex*/ -1);
-				UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\yennefer\b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-				UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\yennefer\l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
+				UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/c_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
+				UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+				UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
+				UpdateAppearanceItem(/*path*/ "characters/models/main_npc/yennefer/pendant_01_wa__yennefer.w2ent", /*isDepotPath*/ true, /*itemIndex*/ -1);
 				break;
 			default:
 				break;
@@ -473,7 +533,7 @@ class NR_PlayerManager extends CPeristentEntity {
 						NR_FixPlayer( 0.0, 0 );
 					// BAD, it was auto-reset to Geralt after World change(?)
 					} else {
-						NRE("BAD! Player change to Geralt without request!");
+						NRD("Player change to Geralt without request!");
 						NR_ChangePlayer( m_savedPlayerType );
 						return;
 					}
@@ -785,14 +845,21 @@ class NR_PlayerManager extends CPeristentEntity {
 		}
 	}
 	// All templates added to preview (and loaded) overwrite saved templates data //
-	function SaveAllAppearancePreviewTemplates() : bool {
+	function SaveAllAppearancePreviewTemplates(forceUnload : bool) : bool {
 		var 	i 		: int;
 		var 	slot 	: int;
 		var anyChanges	: bool;
 
 		for (slot = ENR_RSlotHair; slot < ENR_RSlotMisc; slot += 1) {
-			if (m_appearancePreviewTemplates[slot] == "")
+			if (m_appearancePreviewTemplates[slot] == "") {
+				if (forceUnload && m_appearanceTemplates[slot] != "") {
+					m_appearanceTemplates[slot] = "";
+					m_appearanceTemplateIsLoaded[slot] = false;
+					m_appearanceTemplateIsDepotPath[slot] = false;
+					anyChanges = true;
+				}
 				continue;
+			}
 			
 			anyChanges = true;
 			m_appearanceTemplates[slot] = m_appearancePreviewTemplates[slot];
@@ -927,9 +994,10 @@ class NR_PlayerManager extends CPeristentEntity {
 		for (item_index = m_appearanceItems.Size() - 1; item_index >= 0; item_index -= 1) {
 			UpdateAppearanceItem("", true, item_index);
 		}
+		NR_Notify("Check: item size = " + m_appearanceItems.Size());
 
 		if (IsFemale())
-			UpdateHead('nr_head_yennefer');	/* set default yennefer head */
+			UpdateHead('nr_h_01_wa__yennefer');	/* set default yennefer head */
 		else
 			UpdateHead('head_0');	/* set default geralt head */
 		RemoveHair();			/* set no hair item */
@@ -993,8 +1061,8 @@ exec function nrLoad(templateName : String, slot : ENR_AppearanceSlots, optional
 	else
 		NR_GetPlayerManager().UpdateAppearanceTemplate(templateName, slot, /*isDepotPath*/ false);
 }
-// nrLoad(dlc\ep1\data\items\bodyparts\geralt_items\trunk\common_light\armor_stand\t_02_mg__wedding_suit_armor_stand.w2ent, ENR_GSlotArmor, true)
-// nrLoad(dlc\bob\data\items\bodyparts\geralt_items\trunk\armor_vampire\armor_stand\q704_t_01a_mg__vampire_armor_stand.w2ent, ENR_GSlotArmor, true)
+// nrLoad(dlc/ep1/data/items/bodyparts/geralt_items/trunk/common_light/armor_stand/t_02_mg__wedding_suit_armor_stand.w2ent, ENR_GSlotArmor, true)
+// nrLoad(dlc/bob/data/items/bodyparts/geralt_items/trunk/armor_vampire/armor_stand/q704_t_01a_mg__vampire_armor_stand.w2ent, ENR_GSlotArmor, true)
 
 exec function nrUnload(slot : ENR_AppearanceSlots, optional isDepotPath : bool) {
 	if (isDepotPath)
@@ -1114,7 +1182,7 @@ exec function toLambert() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_lambert');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\secondary_npc\lambert\body_01_ma__lambert.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/secondary_npc/lambert/body_01_ma__lambert.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
 	}
 }
@@ -1125,8 +1193,8 @@ exec function toTriss() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_h_01_wa__triss');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\triss\body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\triss\c_01_wa__triss.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/c_01_wa__triss.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 }
@@ -1137,9 +1205,9 @@ exec function toYen() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_yennefer');
 		manager.RemoveHair();
-		//manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\yennefer\pendant_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotMisc1, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\yennefer\b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\yennefer\l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/pendant_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotMisc1, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 }
@@ -1150,14 +1218,14 @@ exec function toEmhyr() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_emhyr');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\emhyr\body_01_ma__emhyr.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\common\man_average\body\g_01_ma__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/emhyr/body_01_ma__emhyr.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/common/man_average/body/g_01_ma__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
 	}
 }
 
 // removefact(q705_yen_first_met)
-// playScene(dlc\bob\data\quests\main_quests\quest_files\q705_epilog\scenes\q705_20a_yen_visit_vineyard.w2scene)
+// playScene(dlc/bob/data/quests/main_quests/quest_files/q705_epilog/scenes/q705_20a_yen_visit_vineyard.w2scene)
 
 exec function toYenJoke2() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
@@ -1165,10 +1233,10 @@ exec function toYenJoke2() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_yennefer');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "items\bodyparts\geralt_items\trunk\bare\t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items\bodyparts\geralt_items\gloves\bare\g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items\bodyparts\geralt_items\legs\casual_non_combat\l_02_mg__casual_skellige_pants.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items\bodyparts\geralt_items\shoes\common_heavy\s_02_mg__common_heavy_lvl4.w2ent", /*slot*/ ENR_RSlotShoes, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/trunk/bare/t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/legs/casual_non_combat/l_02_mg__casual_skellige_pants.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/shoes/common_heavy/s_02_mg__common_heavy_lvl4.w2ent", /*slot*/ ENR_RSlotShoes, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
 	}
 }
@@ -1180,10 +1248,10 @@ exec function toYenJoke3() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_yennefer');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "items\bodyparts\geralt_items\trunk\bare\t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items\bodyparts\geralt_items\gloves\bare\g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items\bodyparts\geralt_items\legs\bare\l_01_mg__body_underwear.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items\bodyparts\geralt_items\shoes\bare\s_01_mg__body.w2ent", /*slot*/ ENR_RSlotShoes, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/trunk/bare/t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/legs/bare/l_01_mg__body_underwear.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/shoes/bare/s_01_mg__body.w2ent", /*slot*/ ENR_RSlotShoes, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
 	}
 }
@@ -1194,8 +1262,8 @@ exec function toTrissDLC() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_triss_dlc');
 		//manager.UpdateHair('NR Triss Hairstyle DLC');
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlc6\data\characters\models\main_npc\triss\b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlc6\data\characters\models\main_npc\triss\c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 }
@@ -1206,9 +1274,9 @@ exec function toYenn() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_yennefer');
 		//manager.UpdateHair('NR Yennefer Hairstyle');
-		//manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\yennefer\pendant_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotMisc1, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\yennefer\b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\yennefer\l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/pendant_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotMisc1, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerSorceress); // change player type in the last queue
 	}
 }
@@ -1219,8 +1287,8 @@ exec function toTrisss() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_h_01_wa__triss');
 		//manager.UpdateHair('NR Triss Hairstyle DLC');
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlc6\data\characters\models\main_npc\triss\b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlc6\data\characters\models\main_npc\triss\c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerSorceress); // change player type in the last queue
 	}
 }
@@ -1230,7 +1298,7 @@ exec function toTrisss2() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_triss');
 		//manager.UpdateHair('NR Triss Hairstyle');
-		manager.UpdateAppearanceTemplate(/*path*/ "characters\models\main_npc\triss\body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
 		NR_ChangePlayer(ENR_PlayerSorceress); // change player type in the last queue
 	}
 }
@@ -1323,13 +1391,13 @@ function playSceneF(path : string, optional input : string) {
     theGame.GetStorySceneSystem().PlayScene(scene, input);
 }
 exec function toScene0() {
-	playSceneF("quests\prologue\quest_files\q001_beggining\scenes\q001_5_wake_up.w2scene");
+	playSceneF("quests/prologue/quest_files/q001_beggining/scenes/q001_5_wake_up.w2scene");
 }
 exec function toScene1() {
-	playSceneF("quests\sidequests\skellige\quest_files\sq204_forest_spirit\scenes\sq204_03b_cs_leshy_appear.w2scene");
+	playSceneF("quests/sidequests/skellige/quest_files/sq204_forest_spirit/scenes/sq204_03b_cs_leshy_appear.w2scene");
 }
 exec function yensc(optional input : String) {
-	playSceneF("dlc\bob\data\quests\main_quests\quest_files\q705_epilog\scenes\q705_20a_yen_visit_vineyard.w2scene");
+	playSceneF("dlc/bob/data/quests/main_quests/quest_files/q705_epilog/scenes/q705_20a_yen_visit_vineyard.w2scene");
 }
 exec function tosc(path : String, optional input : String) {
 	playSceneF(path, input);

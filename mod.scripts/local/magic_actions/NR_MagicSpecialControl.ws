@@ -10,17 +10,14 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 	default isControlled= false;
 	
 	latent function OnInit() : bool {
-		var phraseInputs : array<int>;
-		var phraseChance : int;
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
-		phraseChance = map[ST_Universal].getI("s_voicelineChance", 40);
-		NRD("phraseChance = " + phraseChance);
-		if ( phraseChance >= RandRange(100) + 1 ) {
-			NRD("PlayScene!");
-			phraseInputs.PushBack(8);
-			phraseInputs.PushBack(9);
-			phraseInputs.PushBack(10);
-			PlayScene( phraseInputs );
+		if ( voicelineChance >= RandRange(100) + 1 ) {
+			sceneInputs.PushBack(8);
+			sceneInputs.PushBack(9);
+			sceneInputs.PushBack(10);
+			PlayScene( sceneInputs );
 		}
 
 		return true;
@@ -117,7 +114,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 	}
 
 	latent function BreakAction() {
-		if (isPerformed) // entities are controlled and it shouldn't be changed on hit
+		if (isPerformed)
 			return;
 
 		super.BreakAction();

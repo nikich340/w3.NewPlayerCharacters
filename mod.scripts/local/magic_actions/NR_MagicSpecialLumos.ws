@@ -4,16 +4,14 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	default actionType 		= ENR_SpecialLumos;
 	
 	latent function OnInit() : bool {
-		var phraseInputs : array<int>;
-		var phraseChance : int;
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
-		phraseChance = map[ST_Universal].getI("s_voicelineChance", 40);
-		NRD("phraseChance = " + phraseChance);
-		if ( phraseChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= RandRange(100) + 1 ) {
 			NRD("PlayScene!");
-			phraseInputs.PushBack(1);
-			phraseInputs.PushBack(2);
-			PlayScene( phraseInputs );
+			sceneInputs.PushBack(1);
+			sceneInputs.PushBack(2);
+			PlayScene( sceneInputs );
 		}
 
 		return true;
@@ -48,6 +46,9 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 
 	/* Non-latent version */
 	function BreakActionSync() {
+		if (isPerformed)
+			return;
+			
 		GotoState('Stop');
 	}
 

@@ -1616,7 +1616,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		ResetTimeToEndCombat();
 
 		parent.magicManager.CorrectAspectAction( actionType, aspectName );
-		if ( parent.magicManager.HasStaminaForAction(aspectName) ) {
+		if ( parent.magicManager.HasStaminaForAction(actionType) ) {
 			parent.magicManager.SetActionType( actionType );
 			comboPlayer.PlayAttack( aspectName );
 			NRD("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
@@ -1699,9 +1699,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		if ( parent.IsInState('CombatFists') ) {
 			/* CHECK IF FINISHER POSSIBLE */
-			if ( parent.slideTarget && attackTarget && parent.IsThreat(attackTarget) && CanPerformFinisherOnAliveTarget(attackTarget)
+			if ( parent.slideTarget && attackTarget && CanPerformFinisherOnAliveTarget(attackTarget)
 			&& attackTarget.GetHealthPercents() <= parent.magicManager.GetMaxHealthPercForFinisher()
-				&& RandRange(100) <= parent.magicManager.GetChancePercForFinisher() )
+				&& RandRange(100) < parent.magicManager.GetChancePercForFinisher(attackTarget) )
 			{
 					TryPeformMagicAttack( 'AttackFinisher', ENR_RipApart );
 			} else if( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )

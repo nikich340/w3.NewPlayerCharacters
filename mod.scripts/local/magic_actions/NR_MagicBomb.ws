@@ -1,24 +1,19 @@
 class NR_MagicBomb extends NR_MagicAction {
-	var l_bombEntity : CMagicBombEntity;
-	var s_bombCount : int;
+	var l_bombEntity : NR_MagicBombEntity;
 	var s_bombPursue : bool;
 
 	default actionType = ENR_BombExplosion;
-	default s_bombCount 	= 1;
 	default s_bombPursue 	= false;
 	
 	latent function OnInit() : bool {
-		var phraseInputs : array<int>;
-		var phraseChance : int;
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
-		phraseChance = map[ST_Universal].getI("s_voicelineChance", 30);
-		NRD("phraseChance = " + phraseChance);
-		if ( phraseChance >= RandRange(100) + 1 ) {
-			NRD("PlayScene!");
-			phraseInputs.PushBack(3);
-			phraseInputs.PushBack(4);
-			phraseInputs.PushBack(5);
-			PlayScene( phraseInputs );
+		if ( voicelineChance >= RandRange(100) + 1 ) {
+			sceneInputs.PushBack(3);
+			sceneInputs.PushBack(4);
+			sceneInputs.PushBack(5);
+			PlayScene( sceneInputs );
 		}
 
 		return true;
@@ -27,14 +22,16 @@ class NR_MagicBomb extends NR_MagicAction {
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
-		resourceName = 'arcaneExplosion';
-		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
+		entityTemplate = (CEntityTemplate)LoadResourceAsync( "nr_philippa_arcane" );
 
 		return OnPrepared(true);
 	}
 
 	latent function OnPerform() : bool {
 		var super_ret : bool;
+		var bombPursue : bool;
+		var hitsCaster : bool;
+		var dk : float;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
 			return OnPerformed(false);
@@ -42,25 +39,27 @@ class NR_MagicBomb extends NR_MagicAction {
 
 		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );
-		l_bombEntity = (CMagicBombEntity)theGame.CreateEntity(entityTemplate, pos, rot);
+		l_bombEntity = (NR_MagicBombEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!l_bombEntity) {
-			NRE("l_bombEntity is invalid.");
+			NRE("l_bombEntity is invalid, template = " + entityTemplate);
 			return OnPerformed(false);
 		}
-
-		// TODO! l_bombEntity.arcaneFxName = ArcaneFxName();
-		// TODO! l_bombEntity.explosionFxName = ExplosionFxName();
-		// TODO! if (target)
-		// TODO! 	l_bombEntity.pursueTarget = target;
-		// TODO! l_bombEntity.respectCaster = respectCaster;
-		// l_bombEntity.Init();
-		l_bombEntity.DestroyAfter(l_bombEntity.settlingTime + 5.f);
+		bombPursue = FactsQuerySum("nr_magic_BombAim") > 0;
+		hitsCaster = FactsQuerySum("nr_magic_RespectCaster") < 1;
+		l_bombEntity.m_fxName = ArcaneFxName();
+		l_bombEntity.m_explosionFxName = ExplosionFxName();
+		l_bombEntity.m_metersPerSec = 1.f;
+		l_bombEntity.m_timeToExplode = 3.f;
+		dk = 2.f;
+		l_bombEntity.m_damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+		l_bombEntity.Init(thePlayer, target, /*hitsCaster*/ hitsCaster, /*pursue*/ bombPursue);
+		l_bombEntity.DestroyAfter(l_bombEntity.m_timeToExplode + 5.f);
 
 		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {
-		if (isPerformed) // bomb is independent from caster
+		if (isPerformed)
 			return;
 
 		super.BreakAction();

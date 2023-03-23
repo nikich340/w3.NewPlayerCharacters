@@ -5,17 +5,15 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 	default golemsAmount 	= 1;
 	
 	latent function OnInit() : bool {
-		var phraseInputs : array<int>;
-		var phraseChance : int;
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
-		phraseChance = map[ST_Universal].getI("s_voicelineChance", 40);
-		NRD("phraseChance = " + phraseChance);
-		if ( phraseChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= RandRange(100) + 1 ) {
 			NRD("PlayScene!");
-			phraseInputs.PushBack(11);
-			phraseInputs.PushBack(12);
-			phraseInputs.PushBack(13);
-			PlayScene( phraseInputs );
+			sceneInputs.PushBack(11);
+			sceneInputs.PushBack(12);
+			sceneInputs.PushBack(13);
+			PlayScene( sceneInputs );
 		}
 
 		return true;
@@ -101,7 +99,7 @@ class NR_MagicSpecialGolem extends NR_MagicAction {
 	}
 
 	latent function BreakAction() {
-		if (isPerformed) // golem is independent from caster
+		if (isPerformed)
 			return;
 
 		super.BreakAction();

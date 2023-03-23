@@ -2,16 +2,13 @@ class NR_MagicRipApart extends NR_MagicAction {
 	default actionType = ENR_RipApart;
 
 	latent function OnInit() : bool {
-		var phraseInputs : array<int>;
-		var phraseChance : int;
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
-		phraseChance = map[ST_Universal].getI("s_voicelineChance", 40);
-		NRD("phraseChance = " + phraseChance);
-		if ( phraseChance >= RandRange(100) + 1 ) {
-			NRD("PlayScene!");
-			phraseInputs.PushBack(6);
-			phraseInputs.PushBack(7);
-			PlayScene( phraseInputs );
+		if ( voicelineChance >= RandRange(100) + 1 ) {
+			sceneInputs.PushBack(6);
+			sceneInputs.PushBack(7);
+			PlayScene( sceneInputs );
 		}
 
 		return true;
@@ -24,7 +21,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 			buffParams.effectType = EET_Confusion;
 			buffParams.creator = thePlayer;
 			buffParams.sourceName = 'NR_MagicRipApart';
-			buffParams.duration = 5.f;
+			buffParams.duration = 7.f;
 			buffParams.customFXName = 'axii_slowdown';
 			target.AddEffectCustom(buffParams);
 
@@ -69,6 +66,9 @@ class NR_MagicRipApart extends NR_MagicAction {
 		return OnPerformed(true);
 	}
 	latent function BreakAction() {
+		if (isPerformed)
+			return;
+			
 		super.BreakAction();
 		if (dummyEntity) {
 			dummyEntity.Destroy();

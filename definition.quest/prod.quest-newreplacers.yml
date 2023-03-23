@@ -1,7 +1,7 @@
 #
 # production settings
 # 
-# (version: 29, saved: 2022-12-02 19:21:21)
+# (version: 56, saved: 2023-02-25 00:03:49)
 #
 ---
 production:
@@ -13,7 +13,15 @@ production:
     storesdata: false
     strings-idspace: 5940
     strings-idstart: 0
-    version: 29
+    version: 56
     mounters:
       - ".type": CR4ResourceDefinitionsDLCMounter
         resourceDefinitionXmlFilePath: "dlc\\dlcnewreplacers\\data\\gameplay\\globals\\resources\\gameplay.xml"
+      - ".type": CR4RewardsDLCMounter
+        rewordsXmlFilePath: "dlc\\dlcnewreplacers\\data\\gameplay\\rewards\\nr_def_rewards.xml"
+      - ".type": CR4ScaleformContentDLCMounter
+        scaleformDirectoryPath: "dlc\\dlcnewreplacers\\data\\gameplay\\gui_new\\"
+      - ".type": CR4DefinitionsDLCMounter
+        definitionXmlFilePath: "dlc\\dlcnewreplacers\\data\\gameplay\\abilities\\nr_abilities.xml"
+      - ".type": CR4DefinitionsNGPlusDLCMounter
+        definitionXmlFilePath: "dlc\\dlcnewreplacers\\data\\gameplay\\abilities_plus\\nr_abilities.xml"

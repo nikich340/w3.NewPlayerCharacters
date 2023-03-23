@@ -28,10 +28,18 @@ eredin_meteorite - ледяной метеорит*/
 enum ENR_MagicSkill {
 	ENR_SkillUnknown, 		// 0
 	ENR_SkillNovice, 		// 1
-	ENR_SkillApprentice, 		// 2
-	ENR_SkillExperienced,		// 3
+	ENR_SkillApprentice, 	// 2
+	ENR_SkillExperienced,	// 3
 	ENR_SkillMistress,		// 4
 	ENR_SkillArchMistress	// 5
+}
+enum ENR_MagicElement {
+	ENR_ElementUnknown, // 0
+	ENR_ElementAir, 	// 1
+	ENR_ElementWater, 	// 2
+	ENR_ElementEarth,	// 3
+	ENR_ElementFire,	// 4
+	ENR_ElementMixed	// 5
 }
 enum ENR_MagicAction {
 		// unknown
@@ -277,6 +285,7 @@ statemachine class NR_MagicManager {
 	protected var cursedActions : array<NR_MagicAction>;
 	protected var willeyVictim 	: CActor;
 	protected var eqSign 		: ESignType;
+	protected var m_entitiesRipCheck : array<CEntity>;
 
 	public var aEventsStack 	: array<SNR_MagicEvent>;
 	public var aData 			: CPreAttackEventData;
@@ -299,6 +308,8 @@ statemachine class NR_MagicManager {
 		var wasLoaded : bool;
 
 		NR_GetPlayerManager().GetMagicDataMaps(sMap, wasLoaded);
+
+		SetDefaults_StaminaCost(); // TOREMOVE!
 		if (!wasLoaded || forceReset) {
 			SetDefaults_StaminaCost();
 
@@ -309,6 +320,7 @@ statemachine class NR_MagicManager {
 			SetDefaults_HeavyAbstract();
 			SetDefaults_HeavyRock();
 			SetDefaults_HeavyBomb();
+			SetDefaults_HeavyPush();
 
 			SetDefaults_Teleport();
 			SetDefaults_HandFx();
@@ -339,8 +351,8 @@ statemachine class NR_MagicManager {
 		aSelectorLight.AddAttack('AttackLightThrow', 	sMap[ST_Universal].getI("light_throw_amount", 1));
 
 		aSelectorHeavy.Reset();
-		aSelectorHeavy.AddAttack('AttackHeavyRock', 	sMap[ST_Universal].getI("heavy_rock_amount", 2));
-		aSelectorHeavy.AddAttack('AttackHeavyThrow', 	sMap[ST_Universal].getI("heavy_bomb_amount", 1));
+		aSelectorHeavy.AddAttack('AttackHeavyRock', 	sMap[ST_Universal].getI("heavy_rocks_amount", 2));
+		aSelectorHeavy.AddAttack('AttackHeavyThrow', 	sMap[ST_Universal].getI("heavy_bomb_amount",  1));
 	}
 
 	public function CorrectAspectAction(out actionType : ENR_MagicAction, out aspectName : name) {
@@ -423,9 +435,17 @@ statemachine class NR_MagicManager {
 	}
 
 	/* Function for scene setup - should not be called during combat! */
+	public function GetParamInt(signName : name, varName : String) : int {
+		var signInt : int = (int)SignNameToEnum(signName);
+		return sMap[signInt].getI(varName);
+	}
 	public function SetParamInt(signName : name, varName : String, varValue : int) {
 		var signInt : int = (int)SignNameToEnum(signName);
 		sMap[signInt].setI(varName, varValue);
+	}
+	public function GetParamFloat(signName : name, varName : String) : float {
+		var signInt : int = (int)SignNameToEnum(signName);
+		return sMap[signInt].getF(varName);
 	}
 	public function SetParamFloat(signName : name, varName : String, varValue : float) {
 		var signInt : int = (int)SignNameToEnum(signName);
@@ -525,8 +545,11 @@ statemachine class NR_MagicManager {
 				return "#FFFFFF";
 		}
 	}
+	protected function ColorFormattedText(text : String, color : ENR_MagicColor) : String {
+		return "<font color = '" + ColorHexStr(color) + "'>" + text + "</font>";
+	}
 	protected function ColorFormattedValue(valueId : int, color : ENR_MagicColor) : String {
-		return "<font color = '" + ColorHexStr(color) + "'>" + GetLocStringById(valueId) + "</font>";
+		return ColorFormattedText( GetLocStringById(valueId), color );
 	}
 	public function MageLocId(characterName : name) : int {
 		switch (characterName) {
@@ -544,17 +567,42 @@ statemachine class NR_MagicManager {
 				return 335803;
 			case 'eredin':
 				return 335796;
+			case 'djinn':
+				return 583032;
+			case 'ofieri':
+				return 1105972;
+			case 'hermit':
+				return 1119070;
 			default:
 				return 147158; // Error
 		}
 	}
 
+	public function GetMagicSkillsList() : array<String> {
+		var list : array<String>;
+		list.PushBack("nr_magic_RespectCaster");
+		list.PushBack("nr_magic_DoubleSlash");
+		list.PushBack("nr_magic_ProjectileAim");
+		list.PushBack("nr_magic_LightningRebound");
+		list.PushBack("nr_magic_DoubleRocks");
+		list.PushBack("nr_magic_RocksAim");
+		list.PushBack("nr_magic_BombAim");
+		list.PushBack("nr_magic_PushSlowdown");
+		list.PushBack("nr_magic_PushFreeze");
+		list.PushBack("nr_magic_PushBurn");
+		list.PushBack("nr_magic_PushFullBlast");
+		list.PushBack("nr_magic_RipChance");
+		list.PushBack("nr_magic_TeleportAutoPush");
+		return list;
+	}
+
 	public function ShowMagicInfo(sectionName : name) {
-		var 		s, i : int;
+		var 		s, i, j : int;
+		var 	skillsList : array<String>;
 		var 	NBSP, BR : String;
 		var 	text : String;
 		var styleName : name;
-		var typeId, styleId, color : int;
+		var typeId, styleId, color, color2 : int;
 
 		sMap[ST_Universal].setN("setup_scene_section", sectionName);
 		// <img src='img://" + GetItemIconPathByName + "' height='" + GetNotificationFontSize() + "' width='" + GetNotificationFontSize() + "' vspace='-10' />&nbsp;
@@ -564,33 +612,56 @@ statemachine class NR_MagicManager {
 
 		if (sectionName == 'main') {
 			// light attacks
-			text += "<font color='#000145'>[{358190}]</font>{ }{539939}:{ }" + GetSkillLevelLocStr() + "{ } (" + IntToString(GetSkillLevel()) + ")";
+			text += "<font color='#000145'>[{358190}]</font>{ }{539939}:{ }" + GetSkillLevelLocStr(GetSkillLevel()) + "{ } (" + IntToString(GetSkillLevel()) + ")" + BR;
+			text += "<font color='#145000'>[{2115940164}]</font>:{ }" + BR;
+			j = 0;
+			skillsList = GetMagicSkillsList();
+			for (i = 0; i < skillsList.Size(); i += 1) {
+				if (FactsQuerySum(skillsList[i]) > 0) {
+					j += 1;
+					// TODO: skillsList[i] to nice description
+					text += "{ }{ }{ }" + IntToString(j) + ".{ }" + skillsList[i] + BR;
+				}
+			}
 			
 		} else if (sectionName == 'hand') {
 			// light attacks
 			text += "<font color='#3a0045'>[{2115940144}]</font><br>";
 			text += "{2115940119}{ }={ }" + sMap[ST_Universal].getI("light_slash_amount", 2) + ":" + sMap[ST_Universal].getI("light_throw_amount", 1) + BR;
 			for (s = ST_Aard; s < ST_Universal; s += 1) {
-				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_HandFx), 'keira') );
-				color = sMap[s].getI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite);
 				if (eqSign == s) {
 					text += "> ";
 				}
-				text += "({" + SignLocId(s) + "}){ }" + ColorFormattedValue(styleId, color) + BR;
+				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_HandFx), 'keira') );
+				color = sMap[s].getI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite);
+				text += "({" + SignLocId(s) + "}){ }" + ColorFormattedValue(styleId, color);
+				text += BR;
 				// else {
 				//	text += ",{ }{147158}/{147158}";
 				//}
+			}
+		} else if (sectionName == 'teleport') {
+			// light attacks
+			text += "<font color='#3a0045'>[{2115940161}]</font><br>";
+			for (s = ST_Aard; s < ST_Universal; s += 1) {
+				if (eqSign == s) {
+					text += "> ";
+				}
+				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Teleport), 'yennefer') );
+				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Teleport), ENR_ColorWhite);
+				text += "({" + SignLocId(s) + "}){ }" + ColorFormattedValue(styleId, color);
+				text += BR;
 			}
 		} else if (sectionName == 'light') {
 			// light attacks
 			text += "<font color='#004e01'>[{2115940118}]</font><br>";
 			text += "{2115940119}{ }={ }" + sMap[ST_Universal].getI("light_slash_amount", 2) + ":" + sMap[ST_Universal].getI("light_throw_amount", 1) + BR;
 			for (s = ST_Aard; s < ST_Universal; s += 1) {
-				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Slash), 'yennefer') );
-				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorWhite);
 				if (eqSign == s) {
 					text += "> ";
 				}
+				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Slash), 'yennefer') );
+				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorWhite);
 				text += "({" + SignLocId(s) + "}){ }{2115940123}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
 				
 				typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_ThrowAbstract), ENR_Lightning);
@@ -602,9 +673,24 @@ statemachine class NR_MagicManager {
 					text += "{2115940141}:{ }" + ColorFormattedValue(styleId, color) + "";
 				}
 				text += BR;
-				// else {
-				//	text += ",{ }{147158}/{147158}";
-				//}
+			}
+		} else if (sectionName == 'heavy') {
+			// light attacks
+			text += "<font color='#004e01'>[{2115940152}]</font><br>";
+			text += "{2115940153}{ }={ }" + sMap[ST_Universal].getI("heavy_rock_amount", 2) + ":" + sMap[ST_Universal].getI("heavy_bomb_amount", 1) + BR;
+			for (s = ST_Aard; s < ST_Universal; s += 1) {
+				if (eqSign == s) {
+					text += "> ";
+				}
+				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Rock), 'keira') );
+				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorWhite);
+				color2 = sMap[s].getI("color_cone_" + ENR_MAToName(ENR_Rock), ENR_ColorWhite);
+				text += "({" + SignLocId(s) + "}){ }{2115940154}:{ }" + ColorFormattedValue(styleId, color) + "/" + ColorFormattedText("*", color2) + ";{ }";
+				
+				color = sMap[s].getI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorWhite);
+				//styleId = MageLocId( sMap[s].getN("color_" + ENR_MAToName(ENR_BombExplosion), 'philippa') );
+				text += "{2115940157}:{ }" + ColorFormattedValue(ColorLocId(color), color) + "";
+				text += BR;
 			}
 		}
 
@@ -618,61 +704,56 @@ statemachine class NR_MagicManager {
 		}
 	}
 
+	public function GetStaminaRegenPoints(regenPoints : float, dt : float) : float {
+		var regenPerSec : float = 150.f; // 100 => 60 sec
+		var skillLevel : int = GetSkillLevel();
+		var skillReductionBonus : float = 0.05f * ((float)skillLevel - 1.f); // [0.0 - 0.28]
+		//NRD("GetRegenPoints: regenPoints = " + regenPoints + " (" + dt + " s, time " + theGame.GetEngineTimeAsSeconds() + ")");
+
+		return regenPerSec * (1.f - skillReductionBonus) * dt;
+	}
 
 	function SetDefaults_StaminaCost() {
-		// cost_<AttackType> in [0, 1] of total stamina
-		// delay_<AttackType> in milliseconds
-		sMap[ST_Universal].setF("cost_TeleportFar", 0.2f);
-		sMap[ST_Universal].setF("delay_TeleportFar", 50.f);
+		// cost_<AttackType> in [0, 100]% of max stamina
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_FastTravelTeleport), 20.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_Teleport), 5.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_CounterPush), 10.f);
 
-		sMap[ST_Universal].setF("cost_TeleportClose", 0.1f);
-		sMap[ST_Universal].setF("delay_TeleportClose", 0.5f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_Slash), 10.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_Lightning), 15.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_ProjectileWithPrepare), 20.f);
 
-		sMap[ST_Universal].setF("cost_AttackNoStamina", 0.0f);
-		sMap[ST_Universal].setF("delay_AttackNoStamina", 0.0f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_RipApart), 20.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_Rock), 30.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_BombExplosion), 30.f);
 
-		sMap[ST_Universal].setF("cost_AttackLight", 0.1f);
-		sMap[ST_Universal].setF("delay_AttackLight", 0.0f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialGolem), 50.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialMeteor), 50.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialTornado), 50.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialHeal), 50.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialSphere), 50.f);
 
-		sMap[ST_Universal].setF("cost_AttackHeavy", 0.2f);
-		sMap[ST_Universal].setF("delay_AttackHeavy", 0.25f);
-
-		sMap[ST_Universal].setF("cost_AttackFinisher", 0.25f);
-		sMap[ST_Universal].setF("delay_AttackFinisher", 0.5f);
-
-		sMap[ST_Universal].setF("cost_AttackPush", 0.25f);
-		sMap[ST_Universal].setF("delay_AttackPush", 1.0f);	
-
-		sMap[ST_Universal].setF("cost_AttackSpecialAard", 0.5f);
-		sMap[ST_Universal].setF("delay_AttackSpecialAard", 1.5f);	
-
-		sMap[ST_Universal].setF("cost_AttackSpecialYrden", 0.5f);
-		sMap[ST_Universal].setF("delay_AttackSpecialYrden", 1.5f);
-
-		sMap[ST_Universal].setF("cost_AttackSpecialAxii", 0.5f);
-		sMap[ST_Universal].setF("delay_AttackSpecialAxii", 1.5f);
-
-		sMap[ST_Universal].setF("cost_AttackSpecialQuen", 0.5f);
-		sMap[ST_Universal].setF("delay_AttackSpecialQuen", 1.5f);
-
-		sMap[ST_Universal].setF("cost_AttackSpecialIgni", 0.5f);
-		sMap[ST_Universal].setF("delay_AttackSpecialIgni", 1.5f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialLightningFall), 75.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialControl), 75.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialMeteorFall), 75.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialLumos), 75.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialTransform), 75.f);
 	}
 
 	function SetDefaults_LightSlash() {
-		sMap[ST_Aard].setI("type_" + ENR_MAToName(ENR_Slash), 162823);
+		sMap[ST_Aard].setN("style_" + ENR_MAToName(ENR_Slash), 'yennefer');
 		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorWhite);
 
-		sMap[ST_Axii].setI("type_" + ENR_MAToName(ENR_Slash), 162823);
+		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_Slash), 'yennefer');
 		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorSeagreen);
 
-		sMap[ST_Igni].setI("type_" + ENR_MAToName(ENR_Slash), 162822);
+		sMap[ST_Igni].setN("style_" + ENR_MAToName(ENR_Slash), 'triss');
 		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorOrange);
 
-		sMap[ST_Quen].setI("type_" + ENR_MAToName(ENR_Slash), 1157557);
+		sMap[ST_Quen].setN("style_" + ENR_MAToName(ENR_Slash), 'lynx');
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorYellow);
 
-		sMap[ST_Yrden].setI("type_" + ENR_MAToName(ENR_Slash), 300169);
+		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_Slash), 'philippa');
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorViolet);
 	}
 
@@ -705,18 +786,23 @@ statemachine class NR_MagicManager {
 
 	function SetDefaults_HeavyRock() {
 		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorWhite);
+		sMap[ST_Aard].setI("color_cone_" + ENR_MAToName(ENR_Rock), ENR_ColorWhite);
 		sMap[ST_Aard].setN("style_" + ENR_MAToName(ENR_Rock), 'keira');
 		
 		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorSeagreen);
+		sMap[ST_Axii].setI("color_cone_" + ENR_MAToName(ENR_Rock), ENR_ColorSeagreen);
 		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_Rock), 'djinn');
 
 		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorOrange);
-		sMap[ST_Igni].setN("style_" + ENR_MAToName(ENR_Rock), 'lynx');
+		sMap[ST_Igni].setI("color_cone_" + ENR_MAToName(ENR_Rock), ENR_ColorOrange);
+		sMap[ST_Igni].setN("style_" + ENR_MAToName(ENR_Rock), 'keira');
 
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorYellow);
-		sMap[ST_Quen].setN("style_" + ENR_MAToName(ENR_Rock), 'lynx');
+		sMap[ST_Quen].setI("color_cone_" + ENR_MAToName(ENR_Rock), ENR_ColorYellow);
+		sMap[ST_Quen].setN("style_" + ENR_MAToName(ENR_Rock), 'keira');
 
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorViolet);
+		sMap[ST_Yrden].setI("color_cone_" + ENR_MAToName(ENR_Rock), ENR_ColorViolet);
 		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_Rock), 'djinn');
 	}
 
@@ -730,6 +816,18 @@ statemachine class NR_MagicManager {
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorYellow);
 
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorViolet);
+	}
+
+	function SetDefaults_HeavyPush() {
+		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_CounterPush), ENR_ColorWhite);
+
+		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_CounterPush), ENR_ColorSeagreen);
+
+		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_CounterPush), ENR_ColorOrange);
+
+		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_CounterPush), ENR_ColorYellow);
+
+		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_CounterPush), ENR_ColorViolet);
 	}
 
 	function SetDefaults_Special() {
@@ -790,36 +888,36 @@ statemachine class NR_MagicManager {
 
 	function SetDefaults_HandFx() {
 		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite);
-		sMap[ST_Aard].setN("fx_type_" + ENR_MAToName(ENR_HandFx), 'yennefer');
+		sMap[ST_Aard].setN("style_" + ENR_MAToName(ENR_HandFx), 'yennefer');
 
 		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorSeagreen);
-		sMap[ST_Axii].setN("fx_type_" + ENR_MAToName(ENR_HandFx), 'keira');
+		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_HandFx), 'keira');
 
 		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorOrange);
-		sMap[ST_Igni].setN("fx_type_" + ENR_MAToName(ENR_HandFx), 'triss');
+		sMap[ST_Igni].setN("style_" + ENR_MAToName(ENR_HandFx), 'triss');
 
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorYellow);
-		sMap[ST_Quen].setN("fx_type_" + ENR_MAToName(ENR_HandFx), 'keira');
+		sMap[ST_Quen].setN("style_" + ENR_MAToName(ENR_HandFx), 'keira');
 
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorViolet);
-		sMap[ST_Yrden].setN("fx_type_" + ENR_MAToName(ENR_HandFx), 'philippa');
+		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_HandFx), 'philippa');
 	}
 
 	function SetDefaults_Teleport() {
 		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_Teleport), ENR_ColorWhite);
-		sMap[ST_Aard].setN("fx_type_" + ENR_MAToName(ENR_Teleport), 'yennefer');
+		sMap[ST_Aard].setN("style_" + ENR_MAToName(ENR_Teleport), 'ofieri');
 
 		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_Teleport), ENR_ColorSeagreen);
-		sMap[ST_Axii].setN("fx_type_" + ENR_MAToName(ENR_Teleport), 'yennefer');
+		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_Teleport), 'yennefer');
 
 		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_Teleport), ENR_ColorOrange);
-		sMap[ST_Igni].setN("fx_type_" + ENR_MAToName(ENR_Teleport), 'triss');
+		sMap[ST_Igni].setN("style_" + ENR_MAToName(ENR_Teleport), 'triss');
 
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_Teleport), ENR_ColorYellow);
-		sMap[ST_Quen].setN("fx_type_" + ENR_MAToName(ENR_Teleport), 'triss');
+		sMap[ST_Quen].setN("style_" + ENR_MAToName(ENR_Teleport), 'hermit');
 
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_Teleport), ENR_ColorViolet);
-		sMap[ST_Yrden].setN("fx_type_" + ENR_MAToName(ENR_Teleport), 'triss');
+		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_Teleport), 'triss');
 	}
 
 	public function IsInSetupScene() : bool {
@@ -901,6 +999,9 @@ statemachine class NR_MagicManager {
 	}
 	// SetSceneSign first if needed
 	public function SetActionType(type : ENR_MagicAction) {
+		// break old action for a case
+		aEventsStack.PushBack(SNR_MagicEvent('BreakMagicAttack', 'dummy_anim', 0.f));
+
 		switch (type) {
 			case ENR_ThrowAbstract:
 				aActionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_ThrowAbstract), (int)ENR_Lightning);
@@ -927,11 +1028,14 @@ statemachine class NR_MagicManager {
 	public function GetActionType() : ENR_MagicAction {
 		return aActionType;
 	}
-	public function DEV_AddActionCustom( action : NR_MagicAction, optional isCursed : bool ) {
+
+	public function AddActionManual( action : NR_MagicAction, optional isCursed : bool ) {
 		if (!action) {
 			return;
 		}
+		action.sign 		= eqSign;
 		action.map 			= sMap;
+		action.m_fxNameHit 	= GetHitFXName( GetActionColor() );
 		action.magicSkill 	= GetSkillLevel();
 		if (isCursed) {
 			cursedActions.PushBack(action);
@@ -945,11 +1049,22 @@ statemachine class NR_MagicManager {
 		if (areaId == -1)
 			areaId = currentAreaId;
 
+		if (!HasStaminaForAction(ENR_FastTravelTeleport)) {
+			return false;
+		}
+
 		aTargetPinTag = pinTag;
 		aTargetAreaId = areaId;
 		aCurrentAreaId = currentAreaId;
 		NR_GetReplacerSorceress().GotoCombatStateWithAttack( 'attack_magic_ftteleport' );
 		return true;
+	}
+
+	public function GetTeleportDistance(farTeleport : bool) : float {
+		if (farTeleport)
+			return sMap[eqSign].getI("distance_" + ENR_MAToName(ENR_Teleport), 16) * 1.f;
+		else
+			return sMap[eqSign].getI("distance_far_" + ENR_MAToName(ENR_Teleport), 8) * 1.f;
 	}
 
 	public function GetActionColor() : ENR_MagicColor {
@@ -1016,38 +1131,42 @@ statemachine class NR_MagicManager {
 	}
 
 	/* STAMINA */
-	private function GetStaminaValuesForAction(actionName : name, out costPerc : float, out delay : float) {
+	// returns final cost with bonuses applied in range [0 - 100]% of max stamina
+	protected function GetStaminaCostForAction(actionType : ENR_MagicAction) : float {
+		var costPerc : float;
 		var skillLevel : int = GetSkillLevel();
-		var reduceBySkill : float = 1.f + ((float)skillLevel - 1.f) / 2.f; // [1.0 - 3.0]
-		var actionString : String = NameToString(actionName);
+		var skillReductionBonus : float = 0.1f * ((float)skillLevel - 1.f); // [0.0 - 0.4]
+		var skillElement : int = 0;
 
-		// basic values
-		costPerc = sMap[ST_Universal].getF("cost_" + actionString, 0.1f);
-		delay = sMap[ST_Universal].getF("delay_" + actionString, 0.0f);
+		// basic value
+		costPerc = sMap[ST_Universal].getF("cost_" + ENR_MAToName(actionType), 1.0f);
 
 		// magic skill bonus
-		costPerc = costPerc / reduceBySkill;
-		delay = delay / reduceBySkill;
+		NRD("skillReductionBonus = " + skillReductionBonus);
+		costPerc = costPerc * (1.f - skillReductionBonus);
 
-		// TODO: Fact-based extra skills to reduce stamina
+		return costPerc;
 	}
-	public function HasStaminaForAction(actionName : name, optional dontInformGUI : bool) : bool {
-		var costPerc 			: float;
-		var delay 				: float;
-		var playerStaminaPerc 	: float = thePlayer.GetStaminaPercents(); // [0.0 - 1.0]
 
-		GetStaminaValuesForAction(actionName, costPerc, delay);
+	public function HasStaminaForAction(actionType : ENR_MagicAction, optional dontInformGUI : bool) : bool {
+		var costPerc 			: float;
+		var playerStaminaPerc 	: float = thePlayer.GetStaminaPercents() * 100.f; // [0.0 - 100.0]%
+
+		costPerc = GetStaminaCostForAction(actionType);
 		if (playerStaminaPerc < costPerc && !dontInformGUI) {
-			thePlayer.SetShowToLowStaminaIndication( thePlayer.GetStatMax(BCS_Stamina) * costPerc );
+			thePlayer.SetShowToLowStaminaIndication( thePlayer.GetStatMax(BCS_Stamina) * costPerc / 100.f );
+			thePlayer.SoundEvent("gui_no_stamina");
+			theGame.VibrateControllerVeryLight();
 		}
 		return playerStaminaPerc >= costPerc;
 	}
-	public function DrainStaminaForAction(actionName : name) {
+
+	public function DrainStaminaForAction(actionType : ENR_MagicAction) {
 		var costPerc 		: float;
 		var delay 			: float;
 
-		GetStaminaValuesForAction(actionName, costPerc, delay);
-		thePlayer.DrainStamina(ESAT_FixedValue, costPerc * thePlayer.GetStatMax(BCS_Stamina), delay);
+		costPerc = GetStaminaCostForAction(actionType);
+		thePlayer.DrainStamina(ESAT_FixedValue, thePlayer.GetStatMax(BCS_Stamina) * costPerc / 100.f, /*delay*/ 1.f);
 	}
 
 	/* DAMAGE & SKILLS */
@@ -1055,6 +1174,11 @@ statemachine class NR_MagicManager {
 	{
 		var playerLevel : int;
 		var playerMax	: int;
+
+		if (sMap[ST_Universal].getI("DEBUG_skillLevel", 0) > 0) {
+			return sMap[ST_Universal].getI("DEBUG_skillLevel", 0);
+		}
+
 		playerLevel = GetWitcherPlayer().GetLevel();
 		playerMax = GetWitcherPlayer().GetMaxLevel();
 		if ( FactsQuerySum("NewGamePlus") <= 0 ) {
@@ -1075,9 +1199,9 @@ statemachine class NR_MagicManager {
 		}
 	}
 
-	public function GetSkillLevelLocStr() : String
+	public function GetSkillLevelLocStr(skillLevel : ENR_MagicSkill) : String
 	{
-		var skillLevel : ENR_MagicSkill = GetSkillLevel();
+		//var skillLevel : ENR_MagicSkill = GetSkillLevel();
 		switch (skillLevel) {
 			case ENR_SkillNovice:
 				return GetLocStringById(2115940147);
@@ -1092,21 +1216,56 @@ statemachine class NR_MagicManager {
 		}
 	}
 
-	public function GetMaxHealthPercForFinisher() : float {
-		// TODO!
-		return 0.1f; // [0.0 - 1.0]
+	public function GetMagicElementLocStr(element : ENR_MagicElement) : String
+	{
+		//var skillLevel : ENR_MagicSkill = GetSkillLevel();
+		switch (element) {
+			case ENR_ElementAir:
+				return "Air";
+			case ENR_ElementWater:
+				return "Water";
+			case ENR_ElementEarth:
+				return "Earth";
+			case ENR_ElementFire:
+				return "Fire";
+			case ENR_ElementMixed:
+				return "Mixed";
+		}
 	}
-	// [0 .. chance] -> finisher available
-	public function GetChancePercForFinisher() : float {
-		// TODO?
-		var chance : float = theGame.params.FINISHER_ON_DEATH_CHANCE;
 
+	public function GetMaxHealthPercForFinisher() : float {
+		var perc : float = 0.15f;
+		if (FactsQuerySum("nr_magic_RipChance") > 0)
+			perc = 0.25f;
+
+		return perc; // [0.0 - 1.0]
+	}
+
+	// [0 .. chance] -> finisher available
+	public function GetChancePercForFinisher(entity : CEntity) : int {
+		var chance : int = 10;
+		if (FactsQuerySum("nr_magic_RipChance") > 0)
+			chance += 10;
+
+		if (entity) {
+			// checked before - no chance
+			if (m_entitiesRipCheck.Contains(entity)) {
+				chance = -1;
+			} else {
+				m_entitiesRipCheck.PushBack(entity);
+			}
+		}
 		return chance;
 	}
+
+
+
 	public function UpdateFistsLevel(id: SItemUniqueId) {
 		var playerLevel, levelDiff : int;
 		var inv : CInventoryComponent;
 		var i : int;
+		var abilities, attributes : array<name>;
+		var att : SAbilityAttributeValue;
 
 		NR_Notify("GetSkillLevel = " + GetSkillLevel());
 		playerLevel = GetWitcherPlayer().GetLevel();
@@ -1120,29 +1279,38 @@ statemachine class NR_MagicManager {
 		// STEEL & SILVER & ELEMENTAL
 		for( i = 0; i < playerLevel; i += 1 ) 
 		{
-			if ( FactsQuerySum("NewGamePlus") > 0 || FactsQuerySum("StandAloneEP1") > 0) {
-				inv.AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
-				inv.AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true );
-				inv.AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
-			}
-			else {
-				//inv.AddItemCraftedAbility(id, 'autogen_steel_dmg', true ); 
-				inv.AddItemCraftedAbility(id, 'autogen_silver_dmg', true );
-				//inv.AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
-			}
+			//inv.AddItemCraftedAbility(id, 'nr_autogen_magic_fists_dmg', true );
 		}
 
 		// NGP
-		if (FactsQuerySum("NewGamePlus") > 0)
+		/*if (FactsQuerySum("NewGamePlus") > 0)
 		{
 			levelDiff = theGame.params.NewGamePlusLevelDifference();
 			for( i = 0; i < levelDiff; i += 1 ) 
 			{
-				inv.AddItemCraftedAbility(id, 'nr_autogen_fixed_elemental_dmg', true );
-				inv.AddItemCraftedAbility(id, 'autogen_fixed_steel_dmg', true );
-				inv.AddItemCraftedAbility(id, 'autogen_fixed_silver_dmg', true ); 
+				inv.AddItemCraftedAbility(id, 'nr_autogen_magic_fists_dmg', true );
 			}
 			inv.SetItemModifierInt(id, 'NGPItemAdjusted', 1);
+		}*/
+
+		NRD("--- NR FISTS STATS ---");
+		NRD("Level: " + inv.GetItemLevel(id));
+		inv.GetItemAbilities(id, abilities);
+		for( i = 0; i < abilities.Size(); i += 1 ) 
+		{
+			NRD("Abilitiy[" + i + "] = " + abilities[i]);
+		}
+		inv.GetItemBaseAttributes(id, attributes);
+		for( i = 0; i < attributes.Size(); i += 1 ) 
+		{
+			att = inv.GetItemAttributeValue(id, attributes[i]);
+			NRD("Base attribute[" + i + "] = " + attributes[i] + " (" + att.valueBase + " * (1 + " + att.valueMultiplicative + ") + " + att.valueAdditive + ")");
+		}
+		inv.GetItemAttributes(id, attributes);
+		for( i = 0; i < attributes.Size(); i += 1 ) 
+		{
+			att = inv.GetItemAttributeValue(id, attributes[i]);
+			NRD("Attribute[" + i + "] = " + attributes[i] + " (" + att.valueBase + " * (1 + " + att.valueMultiplicative + ") + " + att.valueAdditive + ")");
 		}
 
 		// BONUS GIFT
@@ -1291,7 +1459,7 @@ statemachine class NR_MagicManager {
 			//case ENR_ColorBlack:
 			//case ENR_ColorGrey:
 			case ENR_ColorWhite:
-				return 'ashield_white';
+				return 'shield_white';
 			case ENR_ColorOrange:
 				return 'shield_orange';
 			case ENR_ColorRed:
@@ -1407,7 +1575,7 @@ state MagicLoop in NR_MagicManager {
 		}
 		mAction.sign 		= parent.eqSign;
 		mAction.map 		= parent.sMap;
-		mAction.m_fxNameHit = parent.GetHitFXName( parent.GetActionColor() );;
+		mAction.m_fxNameHit = parent.GetHitFXName( parent.GetActionColor() );
 		mAction.magicSkill 	= parent.GetSkillLevel();
 		mAction.OnInit();
 
@@ -1418,6 +1586,8 @@ state MagicLoop in NR_MagicManager {
 	latent function PrepareMagicAction() {
 		if (mAction) {
 			NRD("PrepareMagicAction: type = " + mAction.actionType);
+			if (mAction.isBroken)
+				return;
 			if ( mAction.actionType == ENR_Slash ) {
 				((NR_MagicSlash)mAction).SetSwingData(parent.aData.swingType, parent.aData.swingDir);
 			} else if ( mAction.actionType == ENR_Teleport ) {
@@ -1438,6 +1608,8 @@ state MagicLoop in NR_MagicManager {
 
 		if (mAction) {
 			NRD("PerformMagicAction: type = " + mAction.actionType);
+			if (mAction.isBroken)
+				return;
 			mAction.OnPerform();
 		} else {
 			NRE("MM: PerformMagicAction: NULL mAction!");
@@ -1480,10 +1652,10 @@ state MagicLoop in NR_MagicManager {
 	}
 
 	latent function BreakMagicAction() {
-		if (mAction) {
+		if (mAction && !mAction.isPerformed) {
 			mAction.BreakAction();
 		} else {
-			NRE("MM: BreakMagicAction: NULL mAction!");
+			NRD("MM: BreakMagicAction: NULL mAction!");
 		}
 	}
 	
@@ -1551,3 +1723,20 @@ state MagicLoop in NR_MagicManager {
 	//                   W3HorseComponent         
 }
 // !! QuenImpulse()
+
+// dt - time passed, targetPos - position is where entity is going to currently, reachPos is where entity should go ideally
+latent function NR_SmoothMoveToTarget(dt : float, metersPerSec : float, out currentPos : Vector, out targetPos : Vector, reachPos : Vector) {
+	var resultPos : Vector;
+	var moveDir : Vector;
+	var moveDirLen, maxMoveLen, Z : float;
+
+	targetPos = VecInterpolate( targetPos, reachPos, 0.7f ); // for smooth direction change
+	moveDir = targetPos - currentPos;
+	moveDirLen = VecDistance(currentPos, targetPos);
+	maxMoveLen = dt * metersPerSec;
+
+	currentPos = VecInterpolate( currentPos, targetPos, MinF(0.8f, maxMoveLen / moveDirLen) );
+	if ( theGame.GetWorld().PhysicsCorrectZ(currentPos + Vector(0,0,1.f), Z) ) {
+		currentPos.Z = Z;
+	}
+}

@@ -51,13 +51,10 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		var predictedDodgeRot : EulerAngles;
 		var Z : float;
 
-		if ( playerEvadeType == PET_Roll && parent.magicManager.HasStaminaForAction( 'TeleportFar' ) ) {
-			teleportLength = 16.0f;
-		} else if ( parent.magicManager.HasStaminaForAction( 'TeleportClose' ) ) {
-			teleportLength = 8.0f;
-		} else {
+		if ( !parent.magicManager.HasStaminaForAction( ENR_Teleport ) )
 			return;
-		}
+
+		teleportLength = parent.magicManager.GetTeleportDistance(playerEvadeType == PET_Roll);
 
 		parent.ResetUninterruptedHitsCount();		
 		parent.SetIsCurrentlyDodging(true, true);
@@ -75,7 +72,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + parent.GetWorldPosition();
 		predictedDodgeRot = parent.GetWorldRotation();
-		NRD("foundSafePoint");
 		foundSafePoint = GetSafeTeleportPoint( predictedDodgePos );
 		attempsToFindPoint = 5;
 
@@ -117,14 +113,8 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		if ( parent.RaiseForceEvent( 'CombatAction' ) )
 		{
 			// protect from interrupting teleport (DisallowHitAnim doesn't always help)
-			parent.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
-			parent.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
-
-			if( teleportLength > 8.f ) {
-				parent.magicManager.DrainStaminaForAction( 'TeleportFar' );
-			} else {
-				parent.magicManager.DrainStaminaForAction( 'TeleportClose' );
-			}
+			//parent.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
+			//parent.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
 
 			// Perk 21 - all defensive actions generate adrenaline
 			if( parent.CanUseSkill(S_Perk_21) )

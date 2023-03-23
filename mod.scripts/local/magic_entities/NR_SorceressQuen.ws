@@ -20,8 +20,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		GetSignStats();
 
 		sorceress = NR_GetReplacerSorceress();
-		if ( sorceress && !sorceress.magicManager.HasStaminaForAction('TODO') ) {
-			sorceress.SoundEvent( "gui_ingame_low_stamina_warning" );
+		if ( sorceress && !sorceress.magicManager.HasStaminaForAction(ENR_SpecialSphere) ) {
 			CleanUp();
 			Destroy();
 			return false;
@@ -65,11 +64,11 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	event OnStarted() 
 	{
 		var isAlternate		: bool;
-		var magicManagerager		: NR_MagicManager;
+		var magicManager		: NR_MagicManager;
 		
-		magicManagerager = NR_GetMagicManager();
-		if (magicManagerager) {
-			magicManagerager.DrainStaminaForAction('AttackSpecialQuen');
+		magicManager = NR_GetMagicManager();
+		if (magicManager) {
+			magicManager.DrainStaminaForAction(ENR_SpecialSphere);
 		}
 
 		// --- owner.ChangeAspect( this, S_Magic_s04 );
@@ -173,6 +172,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 	{
 		var witcher			: W3PlayerWitcher;
 		var params 			: SCustomEffectParams;
+		var magicManager 	: NR_MagicManager;
 		
 		super.OnEnterState( prevStateName );
 		
@@ -201,7 +201,11 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		if( witcher )
 		{
-			if( !parent.freeFromBearSetBonus )
+			magicManager = NR_GetMagicManager();
+			if ( magicManager ) {
+				magicManager.DrainStaminaForAction(ENR_SpecialSphere);
+			} 
+			else if( !parent.freeFromBearSetBonus )
 			{
 				parent.ManagePlayerStamina();
 				parent.ManageGryphonSetBonusBuff();

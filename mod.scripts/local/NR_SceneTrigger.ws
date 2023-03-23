@@ -39,3 +39,7 @@ class NR_SceneTrigger extends W3MonsterClue
         inUse = false;
     }
 }
+
+exec function setupScene() {
+    FactsAdd("nr_player_setup_scene_requested", 1);
+}

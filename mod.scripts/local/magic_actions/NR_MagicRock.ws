@@ -10,17 +10,15 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 	default actionType = ENR_Rock;
 	
 	latent function OnInit() : bool {
-		var phraseInputs : array<int>;
-		var phraseChance : int;
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
-		phraseChance = map[ST_Universal].getI("s_voicelineChance", 30);
-		NRD("phraseChance = " + phraseChance);
-		if ( phraseChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= RandRange(100) + 1 ) {
 			NRD("PlayScene!");
-			phraseInputs.PushBack(3);
-			phraseInputs.PushBack(4);
-			phraseInputs.PushBack(5);
-			PlayScene( phraseInputs );
+			sceneInputs.PushBack(3);
+			sceneInputs.PushBack(4);
+			sceneInputs.PushBack(5);
+			PlayScene( sceneInputs );
 		}
 
 		return true;
@@ -32,6 +30,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		var raiseObjectsHeightNoise, spawnObjectsInConeAngle, coneAngle, coneWidth, spawnRadiusMin, spawnRadiusMax, circleRadiusMin, circleRadiusMax : float;
 		var spawnPos, spawnCenter, normalCollision 	: Vector;
 		var spawnRot 				: EulerAngles;
+		var dk : float;
 
 		super.OnPrepare();
 
@@ -42,7 +41,11 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		resourceName = RockEntityName();
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		// BTTaskPullObjectsFromGroundAndShoot, Keira Metz & Djinni //
-		numberToSpawn			= 9;
+		numberToSpawn			= 10;
+		dk 						= 3.f / numberToSpawn;
+		if (FactsQuerySum("nr_magic_DoubleRocks") > 0) {
+			numberToSpawn *= 2;
+		}
 		numberOfCircles 		= 1; // don't change this
 		spawnObjectsInConeAngle = 45.f;
 		numPerCircle 			= FloorF( (float) numberToSpawn / (float) numberOfCircles );
@@ -56,11 +59,15 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		for	(i = 0; i < numberToSpawn; i += 1) {
 			circleRadiusMin = spawnRadiusMin + ( 1.f / (float) numberOfCircles ) * ( spawnRadiusMax - spawnRadiusMin) ;
 			circleRadiusMax = spawnRadiusMax - ( 1.f / (float) numberOfCircles ) * ( spawnRadiusMax - spawnRadiusMin) ;
-			spawnPos = spawnCenter + VecConeRand( thePlayer.GetHeading() - ( spawnObjectsInConeAngle * 0.5f ) + ( coneAngle * i ), coneWidth, circleRadiusMin, circleRadiusMax );
+			if (!IsInSetupScene())
+				spawnPos = spawnCenter + VecConeRand( thePlayer.GetHeading() - ( spawnObjectsInConeAngle * 0.5f ) + ( coneAngle * i ), coneWidth, circleRadiusMin, circleRadiusMax );
+			else
+				spawnPos = spawnCenter + thePlayer.GetHeadingVector() + VecRingRand(0, 0.5);
 			theGame.GetWorld().StaticTrace( spawnPos + Vector(0,0,5), spawnPos - Vector(0,0,5), spawnPos, normalCollision );
 			spawnRot = VecToRotation( thePlayer.GetWorldPosition() - spawnPos);
 			
 			projectile = (W3AdvancedProjectile)theGame.CreateEntity( entityTemplate, spawnPos + Vector(0,0,0.3f), spawnRot );
+			projectile.projDMG = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 			projectile.PlayEffect( m_fxNameMain );
 			lStartPositions.PushBack( spawnPos );
 			lProjectiles.PushBack(projectile);
@@ -88,6 +95,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		var range, distToTarget, distance3DToTarget, projectileFlightTime, npcToTargetAngle	: float;
 		var spawnPos			: Vector;
 		var spawnRot			: EulerAngles;
+		var aimAbility 			: bool;
 
 		var super_ret : bool;
 		super_ret = super.OnPerform();
@@ -98,15 +106,19 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		// stop rotating
 		PopState( true );
 		// "aard" push effect
-		resourceName = 'keira_metz_cast'; // lynx_cast ?
+		resourceName = 'nr_lynx_aard'; // lynx_cast ?
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 		spawnPos = thePlayer.GetWorldPosition() + Vector(0, 0, 1.15);
 		spawnRot = thePlayer.GetWorldRotation();
 		dummyEntity = theGame.CreateEntity( entityTemplate, spawnPos, spawnRot );
+		//if (!dummyEntity) {
+		//	NRE("Invalid dummyEntity (" + dummyEntity + "), entityTemplate (" + entityTemplate + ")");
+		//}
 
 		dummyEntity.CreateAttachment( thePlayer );
 		dummyEntity.PlayEffect( m_fxNameExtra ); // 'blast' 'cone'
 		dummyEntity.DestroyAfter(5.f);
+		aimAbility = FactsQuerySum("nr_magic_RocksAim") > 0;
 
 		NRD("rock: OnPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
 		// shoot projectiles
@@ -131,13 +143,20 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 				projectileFlightTime = distance3DToTarget / drawSpeedLimit;
 				target.SignalGameplayEventParamFloat( 'Time2DodgeProjectile', projectileFlightTime );
 			}
-			projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, range, standartCollisions );
+			if (target && aimAbility && RandRange(100) < 30) {
+				projectile.ShootProjectileAtNode( projectile.projAngle, projectile.projSpeed, target, range, standartCollisions );
+			} else {
+				projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, range, standartCollisions );
+			}
 			projectile.DestroyAfter(10.f);
 		}
 		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {
+		if (isPerformed)
+			return;
+			
 		super.BreakAction();
 		GotoState('Break');
 	}
@@ -147,12 +166,10 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		var typeName : name = map[sign].getN("style_" + ENR_MAToName(actionType));
 		switch (typeName) {
 			case 'djinn':
-				return "sorceress_wood_proj";
-			case 'lynx':
-				return "ep2_sorceress_stone_proj";
+				return "nr_djinn_wood_proj";
 			case 'keira':
 			default:
-				return "sorceress_stone_proj";
+				return "nr_lynx_stone_proj";
 		}
 	}
 
@@ -165,21 +182,21 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			//case ENR_ColorGrey:
 			//	return 'grey';
 			case ENR_ColorYellow:
-				return 'cone_yellow';
+				return 'glow_yellow';
 			case ENR_ColorOrange:
-				return 'cone_orange';
+				return 'glow_orange';
 			case ENR_ColorRed:
-				return 'cone_red';
+				return 'glow_red';
 			case ENR_ColorPink:
-				return 'cone_pink';
+				return 'glow_pink';
 			case ENR_ColorViolet:
-				return 'cone_violet';
+				return 'glow_violet';
 			case ENR_ColorBlue:
-				return 'cone_blue';
+				return 'glow_blue';
 			case ENR_ColorSeagreen:
-				return 'cone_seagreen';
+				return 'glow_seagreen';
 			case ENR_ColorGreen:
-				return 'cone_green';
+				return 'glow_green';
 			//case ENR_ColorSpecial1:
 			//	return 'special1';
 			//case ENR_ColorSpecial2:
@@ -188,12 +205,12 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			//	return 'special3';
 			case ENR_ColorWhite:
 			default:
-				return 'cone_white';
+				return 'glow_white';
 		}
 	}
 
 	latent function PushFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor();
+		var color : ENR_MagicColor = map[sign].getI("color_cone_" + ENR_MAToName(actionType), ENR_ColorWhite);
 
 		switch (color) {
 			//case ENR_ColorBlack:

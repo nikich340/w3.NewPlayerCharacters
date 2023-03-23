@@ -2,9 +2,24 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 	var projectile 		: W3AdvancedProjectile;
 	default actionType = ENR_ProjectileWithPrepare;
 
+	latent function OnInit() : bool {
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+
+		if ( voicelineChance >= RandRange(100) + 1 ) {
+			sceneInputs.PushBack(3);
+			sceneInputs.PushBack(4);
+			sceneInputs.PushBack(5);
+			PlayScene( sceneInputs );
+		}
+
+		return true;
+	}
+
 	latent function OnPrepare() : bool {
 		var spearProjectile 	: W3IceSpearProjectile;
 		var fireballProjectile 	: W3FireballProjectile;
+		var dk 		: float;
 		super.OnPrepare();
 
 		resourceName = ProjectileEntityName();
@@ -27,13 +42,16 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 			spearProjectile.initFxName = InitFxName();
 			spearProjectile.onCollisionFxName = CollisionFxName();
 			spearProjectile.onCollisionVictimFxName = m_fxNameHit;
-			NRE("spearProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName() + ", m_fxNameHit = " + m_fxNameHit);
+			NRD("spearProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName() + ", m_fxNameHit = " + m_fxNameHit);
 		} else if (fireballProjectile) {
 			fireballProjectile.initFxName = InitFxName();
 			fireballProjectile.onCollisionFxName = CollisionFxName();
+			NRD("fireballProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName());
 		} else {
 			NRE("Unknown projectile type: " + projectile);
 		}
+		dk = 1.5f;
+		projectile.projDMG = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 		projectile.Init(thePlayer);
 		projectile.CreateAttachment( thePlayer, 'r_weapon' );
 		projectile.DestroyAfter(10.f);
@@ -50,12 +68,18 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 			return OnPerformed(false);
 		}
 		projectile.BreakAttachment();
-		projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, 20.f, standartCollisions );
+		if (target && FactsQuerySum("nr_magic_ProjectileAim") > 0) {
+			projectile.ShootProjectileAtNode( projectile.projAngle, projectile.projSpeed, target, 20.f, standartCollisions );
+		} else {
+			projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, 20.f, standartCollisions );
+		}
 		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {
 		var normal : Vector;
+		if (isPerformed)
+			return;
 
 		super.BreakAction();
 		if (projectile) {

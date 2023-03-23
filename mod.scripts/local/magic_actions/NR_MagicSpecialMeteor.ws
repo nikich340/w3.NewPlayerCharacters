@@ -3,18 +3,16 @@ class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 	default actionType = ENR_SpecialMeteor;
 
 	latent function OnInit() : bool {
-		var phraseInputs : array<int>;
-		var phraseChance : int;
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
-		phraseChance = map[ST_Universal].getI("s_voicelineChance", 40);
-		NRD("phraseChance = " + phraseChance);
-		if ( phraseChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= RandRange(100) + 1 ) {
 			NRD("PlayScene!");
-			phraseInputs.PushBack(18);
-			phraseInputs.PushBack(19);
-			phraseInputs.PushBack(20);
-			phraseInputs.PushBack(21);
-			PlayScene( phraseInputs );
+			sceneInputs.PushBack(18);
+			sceneInputs.PushBack(19);
+			sceneInputs.PushBack(20);
+			sceneInputs.PushBack(21);
+			PlayScene( sceneInputs );
 		}
 
 		return true;
@@ -58,6 +56,9 @@ class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 	}
 
 	latent function BreakAction() {
+		if (isPerformed)
+			return;
+			
 		super.BreakAction();
 		if (meteor) {
 			meteor.Destroy();

@@ -5,18 +5,16 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 	default actionType = ENR_SpecialTornado;
 	
 	latent function OnInit() : bool {
-		var phraseInputs : array<int>;
-		var phraseChance : int;
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
-		phraseChance = map[ST_Universal].getI("s_voicelineChance", 100);
-		NRD("phraseChance = " + phraseChance);
-		if ( phraseChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= RandRange(100) + 1 ) {
 			NRD("PlayScene!");
-			phraseInputs.PushBack(14);
-			phraseInputs.PushBack(15);
-			phraseInputs.PushBack(16);
-			phraseInputs.PushBack(17);
-			PlayScene( phraseInputs );
+			sceneInputs.PushBack(14);
+			sceneInputs.PushBack(15);
+			sceneInputs.PushBack(16);
+			sceneInputs.PushBack(17);
+			PlayScene( sceneInputs );
 		}
 
 		return true;
@@ -70,7 +68,7 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 	}
 
 	latent function BreakAction() {
-		if (isPerformed) // tornado is independent from caster
+		if (isPerformed)
 			return;
 
 		super.BreakAction();

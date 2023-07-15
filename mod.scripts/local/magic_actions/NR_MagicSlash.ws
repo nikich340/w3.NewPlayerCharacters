@@ -1,11 +1,14 @@
 class NR_MagicSlash extends NR_MagicAction {
 	var dummyEntity2 : CEntity;
 	var swingType, swingDir	: int;
+	
 	default actionType = ENR_Slash;
+	default actionSubtype = ENR_LightAbstract;
+	default performsToLevelup = 100;
 
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 5);
 
 		if ( voicelineChance >= RandRange(100) + 1 ) {
 			sceneInputs.PushBack(3);
@@ -15,6 +18,13 @@ class NR_MagicSlash extends NR_MagicAction {
 		}
 
 		return true;
+	}
+
+	protected function SetSkillLevel(newLevel : int) {
+		if (newLevel == 5) {
+			ActionAbilityUnlock("DoubleSlash");
+		}
+		super.SetSkillLevel(newLevel);
 	}
 
 	latent function SetSwingData(newSwingType : int, newSwingDir : int) {
@@ -27,9 +37,9 @@ class NR_MagicSlash extends NR_MagicAction {
 
 		resourceName = SlashEntityName();
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
-		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
+		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
-		if (FactsQuerySum("nr_magic_DoubleSlash") > 0) {
+		if ( IsActionAbilityUnlocked("DoubleSlash") ) {
 			pos.Z += 0.15f;
 			dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
 			pos.Z -= 0.3f;
@@ -54,14 +64,14 @@ class NR_MagicSlash extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform() : bool {
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var targetNPC : CNewNPC;
 		var dk : float;
 
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 		if (target) {
 			targetNPC = (CNewNPC) target;
@@ -77,24 +87,26 @@ class NR_MagicSlash extends NR_MagicAction {
 			damage = new W3DamageAction in this;
 			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 			if (dummyEntity2) {
-				dk = 1.5f;
+				dk = 1.5f * SkillTotalDamageMultiplier();
 			} else {
-				dk = 1.f;
+				dk = 1.f * SkillTotalDamageMultiplier();
 			}
 			damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
 			// damage.AddEffectInfo(EET_Burning, 2.0);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
-		} else if (destroyable) {
+		}
+		/* else if (destroyable) {
 			if (destroyable.reactsToIgni) {
 				destroyable.OnIgniHit(NULL);
 			} else {
 				destroyable.OnAardHit(NULL);
 			}
 		}
+		*/
 
-		return OnPerformed(true);
+		return OnPerformed(true, scriptedPerform);
 	}
 
 	latent function BreakAction() {

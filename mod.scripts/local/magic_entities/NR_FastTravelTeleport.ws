@@ -59,7 +59,7 @@ state Active in NR_FastTravelTeleport {
 	latent function PerformFastTravel() {
 		var manager	: CCommonMapManager = theGame.GetCommonMapManager();
 
-		NR_Notify("PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
+		NRD("PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
 		if ( !manager )
 		{
 			return;

@@ -1,13 +1,12 @@
 class NR_MagicBomb extends NR_MagicAction {
 	var l_bombEntity : NR_MagicBombEntity;
-	var s_bombPursue : bool;
 
 	default actionType = ENR_BombExplosion;
-	default s_bombPursue 	= false;
+	default actionSubtype = ENR_HeavyAbstract;
 	
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 25);
 
 		if ( voicelineChance >= RandRange(100) + 1 ) {
 			sceneInputs.PushBack(3);
@@ -19,6 +18,16 @@ class NR_MagicBomb extends NR_MagicAction {
 		return true;
 	}
 
+	protected function SetSkillLevel(newLevel : int) {
+		if (newLevel == 5) {
+			ActionAbilityUnlock("Pursuit");
+		}
+		if (newLevel == 10) {
+			ActionAbilityUnlock("DamageControl");
+		}
+		super.SetSkillLevel(newLevel);
+	}
+
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
@@ -27,35 +36,35 @@ class NR_MagicBomb extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform() : bool {
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var super_ret : bool;
 		var bombPursue : bool;
-		var hitsCaster : bool;
+		var respectCaster : bool;
 		var dk : float;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 
-		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
+		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );
 		l_bombEntity = (NR_MagicBombEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!l_bombEntity) {
 			NRE("l_bombEntity is invalid, template = " + entityTemplate);
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
-		bombPursue = FactsQuerySum("nr_magic_BombAim") > 0;
-		hitsCaster = FactsQuerySum("nr_magic_RespectCaster") < 1;
+		bombPursue = IsActionAbilityUnlocked("Pursuit");
+		respectCaster = IsActionAbilityUnlocked("DamageControl");
 		l_bombEntity.m_fxName = ArcaneFxName();
 		l_bombEntity.m_explosionFxName = ExplosionFxName();
 		l_bombEntity.m_metersPerSec = 1.f;
 		l_bombEntity.m_timeToExplode = 3.f;
-		dk = 2.f;
+		dk = 2.5f * SkillTotalDamageMultiplier();
 		l_bombEntity.m_damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
-		l_bombEntity.Init(thePlayer, target, /*hitsCaster*/ hitsCaster, /*pursue*/ bombPursue);
+		l_bombEntity.Init(thePlayer, target, /*respectCaster*/ respectCaster, /*pursue*/ bombPursue);
 		l_bombEntity.DestroyAfter(l_bombEntity.m_timeToExplode + 5.f);
 
-		return OnPerformed(true);
+		return OnPerformed(true, scriptedPerform);
 	}
 
 	latent function BreakAction() {

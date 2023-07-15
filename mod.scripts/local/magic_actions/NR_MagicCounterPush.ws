@@ -1,11 +1,23 @@
 class NR_MagicCounterPush extends NR_MagicAction {
 	var aardEntity		: W3AardEntity;
 	var aardProjectile 	: NR_AardProjectile;
-	var autoSpawned 	: bool;
-	var useFullBlast 	: bool;
+	var s_fullSphere, s_freeze, s_burn : bool;
+	
 	default actionType = ENR_CounterPush;
-	default autoSpawned = false;
-	default useFullBlast = false;
+	default performsToLevelup = 150;
+
+	protected function SetSkillLevel(newLevel : int) {
+		if (newLevel == 5) {
+			ActionAbilityUnlock("FullBlast");
+		}
+		if (newLevel == 8) {
+			ActionAbilityUnlock("Freezing");
+		}
+		if (newLevel == 10) {
+			ActionAbilityUnlock("Burning");
+		}
+		super.SetSkillLevel(newLevel);
+	}
 
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
@@ -20,13 +32,21 @@ class NR_MagicCounterPush extends NR_MagicAction {
 			return OnPrepared(false);
 		}
 
-		pos -= thePlayer.GetHeadingVector() * 0.8f;
-		useFullBlast = FactsQuerySum("nr_magic_PushFullBlast") > 0;
-		if (useFullBlast) {
+		pos -= thePlayer.GetHeadingVector() * 0.7f;
+		s_fullSphere = !isManual && IsActionAbilityUnlocked("FullBlast");
+		if (!isManual && RandRange(100) + 1 <= 20 + SkillLevel()) {
+			s_freeze = IsActionAbilityUnlocked("Freezing") && BuffType() == 1;
+			if (!s_freeze) {
+				s_burn = IsActionAbilityUnlocked("Burning") && BuffType() == 2;
+			}
+			
+		}
+		
+		if (s_fullSphere) {
 			pos.Z -= 0.5f;
 			entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_aard_proj_blast");
 		} else {
-			pos.Z += 2.f;  // increase to 2.f if problems
+			pos.Z += 1.f;
 			entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_aard_proj_cone");
 		}
 		
@@ -39,7 +59,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform() : bool {
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var attackRange : CAIAttackRange;
 		var aardStandartCollisions : array<name>;
 		var hitsWater : bool;
@@ -47,29 +67,25 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 		
-		/*if ( !aardEntity.NR_Init(NR_GetReplacerSorceress().nr_signOwner) ) {
-			NRD("Not enough stamina for action: " + actionType);
-			return OnPerformed(false);
-		}*/
 		aardStandartCollisions.PushBack( 'Projectile' );
 		aardStandartCollisions.PushBack( 'Door' );
 		aardStandartCollisions.PushBack( 'Static' );		
 		aardStandartCollisions.PushBack( 'Character' );
+		aardStandartCollisions.PushBack( 'Destructible' );
 		aardStandartCollisions.PushBack( 'RigidBody' );
 		aardStandartCollisions.PushBack( 'Corpse' );
 		aardStandartCollisions.PushBack( 'ParticleCollider' );
 
-		aardProjectile.useSlowdown = FactsQuerySum("nr_magic_PushSlowdown") > 0;
-		if ( !autoSpawned && RandRange(100) < 25 ) {
-			aardProjectile.useFreeze = FactsQuerySum("nr_magic_PushFreeze") > 0;
-			aardProjectile.useBurn = !aardProjectile.useFreeze && FactsQuerySum("nr_magic_PushBurn") > 0;
-		}
+		aardProjectile.useFullSphere = s_fullSphere;
+		//aardProjectile.useSlowdown = s_slowdown;
+		aardProjectile.useFreeze = s_freeze;
+		aardProjectile.useBurn = s_burn;
 		
 		aardProjectile.ExtInit( NR_GetReplacerSorceress().nr_signOwner, S_Magic_1, aardEntity );
-		if (useFullBlast) {
+		if (s_fullSphere) {
 			attackRange = theGame.GetAttackRangeForEntity( aardEntity, 'blast_upgrade2' );
 			m_fxNameMain = BlastFxName();
 			GCameraShake(0.4f, true, pos, 30.0f);
@@ -79,17 +95,14 @@ class NR_MagicCounterPush extends NR_MagicAction {
 			GCameraShake(0.2f, true, pos, 30.0f);
 		}
 		aardProjectile.SetAttackRange( attackRange );
-		if (useFullBlast) {
-			aardProjectile.SphereOverlapTest( 10.f, aardStandartCollisions );
-		} else {
-			pos += thePlayer.GetHeadingVector() * 10.f;
-			aardProjectile.ShootCakeProjectileAtPosition( /*angle*/ 70.f, /*height*/ 5.f, /*shootAngle*/ 0.0f, /*velocity*/ 30.0f, /*target*/ pos, /*range*/ 10.f, aardStandartCollisions );
-		}
 		aardEntity.PlayEffect( m_fxNameMain );
 
+		/*
 		if (aardProjectile.useSlowdown) {
-			aardProjectile.AddTimer('ProcessSlowdown', 1.5f);
+			NRD("AARD: Add ProcessSlowdown timer");
+			aardProjectile.AddTimer('ProcessSlowdownTimer', 1.5f, false, , , true);
 		}
+		*/
 
 		hitsWater = ((CMovingPhysicalAgentComponent)thePlayer.GetMovingAgentComponent()).GetSubmergeDepth() < 0;
 		if (hitsWater)
@@ -97,16 +110,26 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		else
 			aardEntity.PlayEffect( 'blast_ground' );
 
-		if (aardProjectile.useFreeze) {
+		if (s_freeze) {
 			//thePlayer.PlayEffect( 'mutation_6_power' );
 			theGame.GetSurfacePostFX().AddSurfacePostFXGroup(pos, /*in*/ 0.3f, /*active*/ 5.f, /*out*/ 1.5f, attackRange.rangeMax, /*0 - frost, 1 - burn*/ 0 );
-		} else if (aardProjectile.useBurn) {
+		} else if (s_burn) {
 			theGame.GetSurfacePostFX().AddSurfacePostFXGroup(pos, /*in*/ 0.3f, /*active*/ 5.f, /*out*/ 1.5f, attackRange.rangeMax, /*0 - frost, 1 - burn*/ 1 );
 		}
-		aardProjectile.DestroyAfter(10.f);
-		aardEntity.DestroyAfter(5.f);
 
-		return OnPerformed(true);
+		if (s_fullSphere) {
+			// aardProjectile.SphereOverlapTest( 12.f, aardStandartCollisions );
+			aardProjectile.NR_ProcessCollisionNPCsInCone(/*range*/ 13.f, /*angle*/ 360.f, /*speed*/ 80.0f);
+		} else {
+			pos += thePlayer.GetHeadingVector() * 10.f;
+			aardProjectile.ShootCakeProjectileAtPosition( /*angle*/ 120.f, /*height*/ 4.f, /*shootAngle*/ 0.0f, /*speed*/ 70.0f, /*target*/ pos, /*range*/ 10.f, aardStandartCollisions );
+			aardProjectile.NR_ProcessCollisionNPCsInCone(/*range*/ 10.f, /*angle*/ 120.f, /*speed*/ 70.0f);
+		}
+
+		aardProjectile.DestroyAfter(10.f);
+		aardEntity.DestroyAfter(10.f);
+
+		return OnPerformed(true, scriptedPerform);
 	}
 
 	latent function BreakAction() {
@@ -192,6 +215,11 @@ class NR_MagicCounterPush extends NR_MagicAction {
 				return 'cone_white';
 		}
 	}
+
+	function BuffType() : int {
+		// 0 = None, 1 = Freeze, 2 = Burn
+		return map[sign].getI("buff_" + ENR_MAToName(actionType), 0);
+	} 
 
 	// unused
 	latent function BlastMutationFxName() : name {

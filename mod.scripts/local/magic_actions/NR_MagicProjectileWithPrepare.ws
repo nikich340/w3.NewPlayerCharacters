@@ -1,10 +1,12 @@
 class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 	var projectile 		: W3AdvancedProjectile;
+	
 	default actionType = ENR_ProjectileWithPrepare;
+	default actionSubtype = ENR_LightAbstract;
 
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 10);
 
 		if ( voicelineChance >= RandRange(100) + 1 ) {
 			sceneInputs.PushBack(3);
@@ -14,6 +16,13 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		}
 
 		return true;
+	}
+
+	protected function SetSkillLevel(newLevel : int) {
+		if (newLevel == 5) {
+			ActionAbilityUnlock("AutoAim");
+		}
+		super.SetSkillLevel(newLevel);
 	}
 
 	latent function OnPrepare() : bool {
@@ -50,7 +59,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		} else {
 			NRE("Unknown projectile type: " + projectile);
 		}
-		dk = 1.5f;
+		dk = 1.5f * SkillTotalDamageMultiplier();
 		projectile.projDMG = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 		projectile.Init(thePlayer);
 		projectile.CreateAttachment( thePlayer, 'r_weapon' );
@@ -61,19 +70,24 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform() : bool {
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var super_ret : bool;
+		var component : CComponent;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 		projectile.BreakAttachment();
-		if (target && FactsQuerySum("nr_magic_ProjectileAim") > 0) {
-			projectile.ShootProjectileAtNode( projectile.projAngle, projectile.projSpeed, target, 20.f, standartCollisions );
+		if (target && IsActionAbilityUnlocked("AutoAim")) {
+			component = target.GetComponent('torso3effect');
+			if (component)
+				projectile.ShootProjectileAtNode( projectile.projAngle, projectile.projSpeed, component, 25.f, standartCollisions );
+			else
+				projectile.ShootProjectileAtNode( projectile.projAngle, projectile.projSpeed, target, 25.f, standartCollisions );
 		} else {
-			projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, 20.f, standartCollisions );
+			projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, 25.f, standartCollisions );
 		}
-		return OnPerformed(true);
+		return OnPerformed(true, scriptedPerform);
 	}
 
 	latent function BreakAction() {

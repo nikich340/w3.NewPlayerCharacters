@@ -1,12 +1,14 @@
-class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
+class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 	var transformNPC 	: CNewNPC;
 	var idleActionId 	: int;
 	var appearanceName 	: name;
-	default actionType = ENR_SpecialTransform;
+	
+	default actionType = ENR_SpecialPolymorphism;
+	default actionSubtype = ENR_SpecialAbstractAlt;
 	
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 40);
 
 		if ( voicelineChance >= RandRange(100) + 1 ) {
 			NRD("PlayScene!");
@@ -23,12 +25,10 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 		var appNames 	: array<name>;
 		super.OnPrepare();
 
-		// load data from map
-		s_specialLifetime = map[ST_Universal].getI("s_transformLifetime", 60);
-
 		resourceName = map[ST_Universal].getN("s_transformEntity", 'nr_transform_cat');
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 
+		// Dhu's cats: https://www.nexusmods.com/witcher3/mods/3527
 		if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
 			appearanceName = map[ST_Universal].getN("s_transformAppearance", 'cat_20');
 		else
@@ -48,12 +48,12 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform() : bool {
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var aiTree 		: CAIIdleTree;
 		var super_ret 	: bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 
 		thePlayer.PlayEffect('teleport_appear');
@@ -63,7 +63,7 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 		transformNPC = (CNewNPC)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!transformNPC) {
 			NRE("transformNPC is invalid.");
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 		transformNPC.PlayEffect('appear');
 		transformNPC.ApplyAppearance( appearanceName );
@@ -74,7 +74,7 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 		thePlayer.GotoState('NR_Transformed');
 
 		GotoState('RunWait');
-		return OnPerformed(true);
+		return OnPerformed(true, scriptedPerform);
 	}
 	
 	latent function BreakAction() {
@@ -85,7 +85,7 @@ class NR_MagicSpecialTransform extends NR_MagicSpecialAction {
 		GotoState('Stop');
 	}
 }
-state RunWait in NR_MagicSpecialTransform {
+state RunWait in NR_MagicSpecialPolymorphism {
 	event OnEnterState( prevStateName : name )
 	{
 		NRD("OnEnterState: " + this);
@@ -93,7 +93,7 @@ state RunWait in NR_MagicSpecialTransform {
 		RunWait();		
 	}
 	entry function RunWait() {
-		Sleep( parent.s_specialLifetime );
+		Sleep( parent.s_lifetime );
 
 		NRD("StopAction: " + this);
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
@@ -103,7 +103,7 @@ state RunWait in NR_MagicSpecialTransform {
 		NRD("OnLeaveState: " + this);
 	}
 }
-state Stop in NR_MagicSpecialTransform {
+state Stop in NR_MagicSpecialPolymorphism {
 	event OnEnterState( prevStateName : name )
 	{
 		parent.inPostState = true;
@@ -123,19 +123,18 @@ state Stop in NR_MagicSpecialTransform {
 	event OnLeaveState( nextStateName : name )
 	{
 		// can be removed from cached/cursed actions
-		NRD("NR_MagicSpecialTransform: Stop: OnLeaveState");
+		NRD("NR_MagicSpecialPolymorphism: Stop: OnLeaveState");
 		parent.inPostState = false;
 	}
 }
-state Cursed in NR_MagicSpecialTransform {
+state Cursed in NR_MagicSpecialPolymorphism {
 	event OnEnterState( prevStateName : name )
 	{
 		parent.inPostState = true;
 		Curse();
 	}
 	entry function Curse() {
-		// TODO ?
-		// do nothing atm
+		// do nothing
 		parent.StopAction();
 	}
 	event OnLeaveState( nextStateName : name )

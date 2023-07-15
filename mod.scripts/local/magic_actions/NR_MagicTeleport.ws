@@ -2,6 +2,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 	protected var teleportCamera 	: CStaticCamera;
 	protected var teleportPos 	: Vector;
 	protected var oldCameraPos 	: Vector;
+	
 	default actionType = ENR_Teleport;
 
 	latent function SetTeleportPos(pos : Vector) {
@@ -24,8 +25,10 @@ class NR_MagicTeleport extends NR_MagicAction {
 			return OnPrepared(true);
 		}
 
+		// to make ignore hits
 		thePlayer.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
 		thePlayer.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
+		
 		pos = thePlayer.GetWorldPosition();
 		rot = thePlayer.GetWorldRotation();
 		oldCameraPos = theCamera.GetCameraPosition();
@@ -51,15 +54,22 @@ class NR_MagicTeleport extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform() : bool {
+	protected function SetSkillLevel(newLevel : int) {
+		if (newLevel == 5) {
+			ActionAbilityUnlock("AutoCounterPush");
+		}
+		super.SetSkillLevel(newLevel);
+	}
+
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 
 		thePlayer.PlayEffect( m_fxNameExtra );
-		if (FactsQuerySum("nr_magic_TeleportAutoPush") > 0 && RandRange(100) < 50) {
+		if (IsActionAbilityUnlocked("AutoCounterPush") && RandRange(100) < 40 + SkillLevel()) {
 			PerformAutoPush();
 		}
 
@@ -67,12 +77,12 @@ class NR_MagicTeleport extends NR_MagicAction {
 			Sleep(0.2f);  // wait for effect a bit
 			thePlayer.SetGameplayVisibility(true);
 			thePlayer.SetVisibility(true);
-			return OnPerformed(true);
+			return OnPerformed(true, scriptedPerform);
 		}
 
 		if ( !teleportCamera ) {
 			NRE("Perform: No valid teleport camera.");
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 		Sleep(0.2f);  // wait for effect a bit
 		thePlayer.SetGameplayVisibility(true);
@@ -85,7 +95,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		thePlayer.SetImmortalityMode( AIM_None, AIC_Combat );
 		thePlayer.SetImmortalityMode( AIM_None, AIC_Default );
 
-		return OnPerformed(true);
+		return OnPerformed(true, scriptedPerform);
 	}
 
 	latent function PerformAutoPush() {
@@ -97,7 +107,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		nr_manager.AddActionManual(action);
 		action.OnInit();
 		action.OnPrepare();
-		action.OnPerform();
+		action.OnPerform(/*scripted*/ true);
 	}
 
 	latent function BreakAction() {

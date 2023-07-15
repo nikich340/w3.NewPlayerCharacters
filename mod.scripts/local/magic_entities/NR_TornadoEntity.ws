@@ -1,49 +1,47 @@
-statemachine class NR_TornadoEntity extends CEntity {
-	public var m_caster 				: CActor;
-	public var m_target 				: CActor;
-	public var m_targetPos				: Vector;
-	public var m_tornadoPursue			: bool;
-	public var m_fxName				: name;
+statemachine class NR_TornadoEntity extends CGameplayEntity {
+	protected var m_caster, m_target : CActor;
+	protected var m_targetPos : Vector;
+	public var m_metersPerSec : float;
+	protected var m_tornadoLifetime, m_victimDistance, m_victimDistanceSq : float;
+	protected var m_respectCaster : bool;
+	protected var m_pursueTarget : bool;
+	protected var m_fxName : name;
+	protected var m_victimEffects : array<EEffectType>;
+
+	default m_victimDistance = 3.f;
+	default m_victimDistanceSq = 9.f;
+	default m_metersPerSec = 3.f;
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
 		super.OnSpawned(spawnData);
 	}
 	// if target is NULL, then static pos is used
-	public function Init(caster : CActor, target : CActor, targetPos : Vector, tornadoPursue : bool, effectName : name) {
+	public function Activate(caster : CActor, target : CActor, targetPos : Vector, effectName : name,
+							lifetime : float, respectCaster : bool, pursue : bool, is_freezing : bool) {
 		m_caster = caster;
 		m_target = target;
 		m_targetPos = targetPos;
-		m_tornadoPursue = tornadoPursue;
+		m_tornadoLifetime = lifetime;
+		m_respectCaster = respectCaster;
+		m_pursueTarget = pursue;
 		m_fxName = effectName;
+		m_victimEffects.PushBack(EET_Bleeding);
+		if (is_freezing) {
+			m_victimEffects.PushBack(EET_SlowdownFrost);
+		}
 		GotoState('Active');
 	}
-	public function Stop() {
+
+	/* to stop before lifetime elapsed */
+	public function ForceStop() {
 		GotoState('Stop');
 	}
 }
 
 state Active in NR_TornadoEntity {
-	protected var startTime 		: float;
-	protected var affectedEntities 	: array<CGameplayEntity>;
-
-	public var affectEnemiesInRange 	: float;
-	public var castingLoopTime 			: float;
-	public var damageMultiplier 		: float;
-	public var victimTestInterval 		: float;
-	public var debuffInterval 			: float;
-	public var damageInterval 			: float;
-	public var moveSpeed	 			: float;
-	public var slowdownRatio			: float;
-	public var effects 					: array<EEffectType>;
-
-	default affectEnemiesInRange 		= 2.5f;
-	default damageMultiplier 			= 0.01f;
-	default victimTestInterval 			= 0.1f;
-	default debuffInterval 				= 0.25f;
-	default damageInterval				= 0.25f;
-	default moveSpeed 					= 2.5f; // "meters" per 1 sec
-	default slowdownRatio 				= 0.8f;
+	protected var startTime		: float;
+	protected var victims		: array<CActor>;
 
 	event OnEnterState( prevStateName : name )
 	{
@@ -51,6 +49,7 @@ state Active in NR_TornadoEntity {
 		parent.PlayEffect( parent.m_fxName );
 		MainLoop();
 	}
+
 	event OnLeaveState( nextStateName : name )
 	{
 		var actorVictim				: CActor;
@@ -58,175 +57,141 @@ state Active in NR_TornadoEntity {
 
 		NRD("Active: OnLeaveState");
 		parent.StopEffect( parent.m_fxName );
-		for ( i = 0 ; i < affectedEntities.Size() ; i += 1 )
-		{
-			actorVictim = (CActor)affectedEntities[i];
-			if (!actorVictim)
+		victims.Clear();
+	}
+
+	function GetLocalTime() : float {
+		return theGame.GetEngineTimeAsSeconds() - startTime;
+	}
+
+	entry function MainLoop() {
+		var moveTime, lastMoveTime, distSq 	: float;
+		var damageTime, lastDamageTime, damageVal, dk : float;
+		var currentPos, targetPos, reachPos : Vector;
+		var entities 	: array<CGameplayEntity>;
+		var actor 		: CActor;
+		var i, j 		: int;
+		var damage 		: W3DamageAction;
+
+		startTime = theGame.GetEngineTimeAsSeconds();
+		lastMoveTime = GetLocalTime();
+		lastDamageTime = lastMoveTime;
+		dk = 20.f;
+
+		currentPos = parent.GetWorldPosition();
+		if (parent.m_target) {
+			reachPos = parent.m_target.GetWorldPosition();
+		} else {
+			reachPos = currentPos;
+		}
+		targetPos = reachPos;
+
+		while ( GetLocalTime() < parent.m_tornadoLifetime ) {
+			SleepOneFrame();
+			/* move tornado */
+			moveTime = GetLocalTime() - lastMoveTime;
+			if (moveTime < 0.03f)
 				continue;
 
-			for ( j = 0; j < effects.Size(); j += 1 ) {
-				if (actorVictim.HasBuff(effects[j])) {
-					actorVictim.RemoveBuff(effects[j]);
-					NRD("tornado: Stop Remove effect [" + effects[j] + "] from: " + actorVictim);
-				}
-			}
-		}
-	}
-	function GetLocalTime() : float {
-		return EngineTimeToFloat(theGame.GetEngineTime()) - startTime;
-	}
-	entry function MainLoop() {
-		var params 					: SCustomEffectParams;
-		var action 					: W3DamageAction;
-		var movementAdjustor 		: CMovementAdjustor;
-		var ticket 					: SMovementAdjustmentRequestTicket;
-		var attributeName 			: name;
-		var victims 				: array<CGameplayEntity>;
-		var actorVictim				: CActor;
-		var damage 					: float;
-		var lastMoveTime 			: float;
-		var lastShakeTime 			: float;
-		var lastDebuffTime 			: float;
-		var lastDamageTime 			: float;
-		var timeStamp 				: float;
-		var lastVictimsTestTime 	: float;
-		var distToTarget 			: float;
-		var camShakeStrength		: float;
-		var res 					: bool;
-		var i, j					: int;
-		var moveRatio 				: float;
-		var moveTime 				: float;
-		var moveDir 				: Vector;
-		var moveDirLen 				: float;
-		var currentPos				: Vector;
-
-		// TODO!
-		effects.PushBack(EET_Bleeding);
-		effects.PushBack(EET_SlowdownFrost);
-		params.duration = -1;
-		params.creator = parent.m_caster;
-		params.sourceName = parent.m_caster.GetName();
-
-		attributeName = GetBasicAttackDamageAttributeName(theGame.params.ATTACK_NAME_LIGHT, theGame.params.DAMAGE_NAME_PHYSICAL);
-		damage = CalculateAttributeValue( parent.m_caster.GetAttributeValue( attributeName ) );
-		NRD("tornado: attributeName = " + attributeName);
-		NRD("tornado: damage1 = " + damage);
-		damage = CalculateAttributeValue( parent.m_caster.GetAttributeValue( 'light_attack_damage_vitality' ) );
-		NRD("tornado: damage2 = " + damage);
-		damage *= damageMultiplier;
-		NRD("tornado: damage3 = " + damage);
-		if (damage < 1) {
-			// TODO! Correct way to calculate Vitality/Essence damage according to player level?
-			damage = 20.f;
-		}
-
-		action = new W3DamageAction in this;
-		currentPos = parent.GetWorldPosition();
-
-		startTime = EngineTimeToFloat(theGame.GetEngineTime());
-		lastMoveTime = 0.f;
-		lastShakeTime = 0.f;
-		lastVictimsTestTime = 0.f;
-		lastDebuffTime = 0.f;
-		lastDamageTime = 0.f;
-
-		while( true )
-		{
-			SleepOneFrame();
-
-			moveTime = GetLocalTime() - lastMoveTime;
-			if (parent.m_tornadoPursue && moveTime > 0.1f) {
+			if (parent.m_pursueTarget) {
 				if (parent.m_target) {
-					// smooth move to target
-					parent.m_targetPos = VecInterpolate( parent.m_targetPos, parent.m_target.GetWorldPosition(), 0.75 );
-				} else {
-					// random smooth move
-					parent.m_targetPos = VecInterpolate( parent.m_targetPos, parent.m_targetPos + VecRingRand(0.5f, 1.5f), 0.75 );
+					reachPos = parent.m_target.GetWorldPosition();
 				}
-				moveDir = parent.m_targetPos - currentPos;
-				NRD("tornado: target = " + VecToString(parent.m_targetPos) + ", currentPos = " + VecToString(currentPos));
-				moveDirLen = MaxF( EPSILON(), VecDistance(currentPos, parent.m_targetPos) ); // eps if diff too small
-				if (moveDirLen <= moveSpeed * moveTime) {
-					currentPos = parent.m_targetPos;
-					moveRatio = 1.f; // for debug
-				} else {
-					moveRatio = (moveSpeed * moveTime) / moveDirLen;
-					moveRatio = MaxF( moveRatio, 0.02f ); // -> increase speed if distance is too big
-					currentPos = currentPos + moveDir * moveRatio;
-				}
-				NRD("tornado: moveTime = " + moveTime + ", moveDirLen = " + moveDirLen + ", moveRatio = " + moveRatio);
+
+				NR_SmoothMoveToTarget(moveTime, parent.m_metersPerSec, currentPos, targetPos, reachPos);
+				NRD("Tornado: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
 				parent.Teleport(currentPos);
-				lastMoveTime = GetLocalTime();
-			}			
-			
-			///NRD("tornado: GetLocalTime = " + GetLocalTime());
-			// recheck affected entities
-			if ( lastVictimsTestTime + victimTestInterval < GetLocalTime() )
-			{
-				victims.Clear();
-				FindGameplayEntitiesInRange( victims, this.parent, affectEnemiesInRange, 99, , FLAG_OnlyAliveActors );
-				for ( i = 0 ; i < affectedEntities.Size() ; i += 1 )
-				{
-					actorVictim = (CActor)affectedEntities[i];
-					if (!actorVictim || actorVictim == parent.m_caster)
-						continue;
-
-					if ( !victims.Contains(affectedEntities[i]) ) {
-						for ( j = 0; j < effects.Size(); j += 1 ) {
-							if (actorVictim.HasBuff(effects[j])) {
-								actorVictim.RemoveBuff(effects[j]);
-								NRD("tornado:Remove effect [" + effects[j] + "] from: " + actorVictim);
-							}
-						}
-					}
-				}
-
-				for ( i = 0 ; i < victims.Size() ; i += 1 )
-				{
-					actorVictim = (CActor)victims[i];
-					if (!actorVictim || !actorVictim.IsAlive() || actorVictim == parent.m_caster)
-						continue;
-
-					for ( j = 0; j < effects.Size(); j += 1 ) {
-						if (!actorVictim.HasBuff(effects[j])) {
-							params.effectType = effects[j];
-							actorVictim.AddEffectCustom(params);
-							NRD("tornado:Add effect [" + effects[j] + "] from: " + actorVictim);
-						}
-					}
-				}
-				affectedEntities = victims;
-				lastVictimsTestTime = GetLocalTime();
 			}
-			
-			if ( lastDamageTime + damageInterval < GetLocalTime() )
+			lastMoveTime = GetLocalTime();
+
+			/* check and damage victims */
+			damageTime = GetLocalTime() - lastDamageTime;
+			if (damageTime < 0.25f)
+				continue;
+
+			// remove old victims if out
+			for ( i = victims.Size() - 1; i >= 0; i -= 1 )
 			{
-				
-				for ( i = 0 ; i < affectedEntities.Size() ; i += 1 )
-				{
-					actorVictim = (CActor)affectedEntities[i];
-					NRD("tornado: damage => " + actorVictim);
-					if ( actorVictim == parent.m_caster || actorVictim.IsCurrentlyDodging() )
-						continue;
-					
-					action.Initialize( parent.m_caster, actorVictim, this, parent.m_caster.GetName(), EHRT_None, CPS_Undefined, false, true, false, false );
-					action.SetHitAnimationPlayType(EAHA_ForceNo);
-					action.attacker = parent.m_caster;
-					action.SetSuppressHitSounds(true);
-					action.SetHitEffect( '' );
-					action.SetIgnoreArmor(true);
-					action.AddDamage(theGame.params.DAMAGE_NAME_PHYSICAL, damage );
-					action.SetIsDoTDamage( damageInterval );
-					theGame.damageMgr.ProcessAction( action );
-					
-					parent.m_caster.SignalGameplayEventParamObject( 'DamageInstigated', action );
-					
-					//if ( ((W3PlayerWitcher)actorVictim).IsQuenActive( false ) )
-					//	((W3PlayerWitcher)actorVictim).FinishQuen( false );
+				distSq = VecDistanceSquared2D(currentPos, victims[i].GetWorldPosition());
+				if ( !victims[i].IsAlive() || distSq > parent.m_victimDistanceSq ) {
+					victims.Erase(i);
 				}
-				lastDamageTime = GetLocalTime();
 			}
+
+			// add new victims if in
+			entities.Clear();
+			FindGameplayEntitiesInRange( entities, this.parent, parent.m_victimDistance, 99, , FLAG_OnlyAliveActors );
+			for ( i = 0; i < entities.Size(); i += 1 )
+			{
+				actor = (CActor)entities[i];
+				if (!actor || !actor.IsAlive())
+					continue;
+
+				if (parent.m_respectCaster && GetAttitudeBetween(actor, parent.m_caster) != AIA_Hostile)
+					continue;
+
+				if ( !victims.Contains(actor) ) {
+					victims.PushBack(actor);
+				}
+			}
+
+			// add damage with buffs to entities
+			for ( i = 0; i < victims.Size(); i += 1 )
+			{
+				damage = new W3DamageAction in this;
+				damage.Initialize(parent.m_caster, victims[i], NULL, parent, EHRT_None, CPS_Undefined, false, false, false, true );
+				damageVal = GetDamage(victims[i], /*min*/ 2.f*dk, /*max*/ 50.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/);
+				damageVal = damageVal * damageTime / 7.f;
+				damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
+				//damage.SetCanPlayHitParticle( false );
+				damage.SetSuppressHitSounds( true );
+				damage.SetHitAnimationPlayType( EAHA_ForceNo );
+				for (j = 0; j < parent.m_victimEffects.Size(); j += 1) {
+					damage.AddEffectInfo(parent.m_victimEffects[j], 0.25f);
+				}
+				theGame.damageMgr.ProcessAction( damage );
+					
+				delete damage;
+			}
+			lastDamageTime = GetLocalTime();
 		}
+		parent.GotoState('Stop');
+	}
+
+	latent function GetDamage(damageTarget : CActor, minPerc : float, maxPerc : float, basicVitality : float, addVitality : float, basicEssence : float, addEssence : float, optional randMin : float, optional randMax : float) : float {
+		var damage, maxDamage, minDamage : float;
+		var levelDiff : float;
+
+		if (randMin < 0.1) {
+			randMin = 0.9;
+		}
+		if (randMax < 0.1) {
+			randMax = 1.1;
+		}
+
+		if (damageTarget) {
+			levelDiff = thePlayer.GetLevel() - damageTarget.GetLevel();
+			maxDamage = damageTarget.GetMaxHealth() * maxPerc / 100.f + levelDiff * 1.f;
+			minDamage = MaxF(damageTarget.GetMaxHealth() * 0.5f / 100.f, damageTarget.GetMaxHealth() * minPerc / 100.f + levelDiff * 0.1f);
+		} else {
+			levelDiff = 0;
+			maxDamage = 1000000.f;
+			minDamage = 1.f;
+		}
+
+		if (damageTarget.UsesVitality()) {
+			damage = basicVitality + addVitality * thePlayer.GetLevel();
+		} else {
+			damage = basicEssence + addEssence * thePlayer.GetLevel();
+		}
+		damage = damage * RandRangeF(randMax, randMin);
+
+		if (damageTarget) {
+			damage = MinF(maxDamage, damage);
+			damage = MaxF(minDamage, damage);
+		}
+		NRD("Tornado: GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
+		return damage;
 	}
 }
 state Stop in NR_TornadoEntity {
@@ -234,18 +199,19 @@ state Stop in NR_TornadoEntity {
 	{
 		NRD("Stop: OnEnterState");
 	}
+
 	event OnLeaveState( nextStateName : name )
 	{
 		NRD("Stop: OnLeaveState");
 	}
 }
 
-exec function tornado() {
+exec function tornado1() {
 	var entityTemplate : CEntityTemplate;
 	var tornadoEntity : NR_TornadoEntity;
 
 	entityTemplate = (CEntityTemplate)LoadResource( 'nr_tornado' );
 	tornadoEntity = (NR_TornadoEntity)theGame.CreateEntity(entityTemplate, thePlayer.GetWorldPosition());
-	tornadoEntity.Init(NULL, thePlayer, thePlayer.GetWorldPosition(), true, 'tornado_sand_red');
+	tornadoEntity.Activate(thePlayer, thePlayer, thePlayer.GetWorldPosition(), 'tornado_sand', 7.f, /*affectCaster*/true,/*pursue*/true, /*freeze*/true );
 	tornadoEntity.DestroyAfter(15.f);
 }

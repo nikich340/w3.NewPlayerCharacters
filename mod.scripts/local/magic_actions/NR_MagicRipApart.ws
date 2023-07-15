@@ -1,9 +1,10 @@
 class NR_MagicRipApart extends NR_MagicAction {
 	default actionType = ENR_RipApart;
+	default actionSubtype = ENR_HeavyAbstract;
 
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 25);
 
 		if ( voicelineChance >= RandRange(100) + 1 ) {
 			sceneInputs.PushBack(6);
@@ -33,7 +34,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 
 		return OnPrepared(true);
 	}
-	latent function OnPerform() : bool {
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var dismembermentComp 	: CDismembermentComponent;
 		var wounds				: array< name >;
 		var usedWound			: name;
@@ -41,7 +42,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 
 		if (target) {
@@ -60,10 +61,10 @@ class NR_MagicRipApart extends NR_MagicAction {
 
 			dummyEntity.PlayEffect('blood_explode');
 			dummyEntity.DestroyAfter(5.f);
-			target.Kill('NR_ReplacerSorceress', false, thePlayer);
+			target.Kill('NR_MagicRipApart', true, thePlayer);
 		}
 
-		return OnPerformed(true);
+		return OnPerformed(true, scriptedPerform);
 	}
 	latent function BreakAction() {
 		if (isPerformed)

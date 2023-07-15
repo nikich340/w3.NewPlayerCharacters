@@ -1,11 +1,13 @@
 statemachine class NR_SorceressQuen extends W3QuenEntity
 {
 	// change mode on holding button, but don't allow the game to change beh var
-	editable var isReallyAlternate : Bool;
-	editable var playOnOwner : Bool;
-	editable var shakeStrength : float;
+	editable var isReallyAlternate 		: Bool;
+	editable var playOnOwner 			: Bool;
+	editable var cameraShakeStrength 	: float;
+	protected var magicManager 			: NR_MagicManager;
+	protected var drainStamina, s_counterLightning 	: bool;
 	default playOnOwner = false;
-	default shakeStrength = 0.2f;
+	default cameraShakeStrength = 0.2f;
 
 	default skillEnum = S_Magic_4;
 
@@ -13,18 +15,34 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	{
 		var player : CR4Player;
 		var focus : SAbilityAttributeValue;
-		var sorceress : NR_ReplacerSorceress;
+		var durationBonus, healthMultiplier : float;
 		
+		magicManager = NR_GetMagicManager();
+		if (!magicManager) {
+			return false;
+		}
 		owner = inOwner;
 		fireMode = 0;
-		GetSignStats();
+		GetSignStats();  // <-- vanilla shieldDuration and shieldHealth here
 
-		sorceress = NR_GetReplacerSorceress();
-		if ( sorceress && !sorceress.magicManager.HasStaminaForAction(ENR_SpecialSphere) ) {
+		durationBonus = magicManager.GetGeneralDurationBonus() + magicManager.GetActionDurationBonus(ENR_SpecialShield);
+		healthMultiplier = magicManager.GetShieldDamageAbsorption(); // % of max HP
+		shieldDuration = magicManager.GetParamFloat('ST_Universal', "duration_" + ENR_MAToName(ENR_SpecialShield));
+		shieldDuration *= (100.f + durationBonus) / 100.f;
+		shieldHealth = thePlayer.GetStatMax(BCS_Vitality);
+		shieldHealth *= healthMultiplier / 100.f;
+		s_counterLightning = magicManager.IsActionAbilityUnlocked(ENR_SpecialShield, "AutoLightning");
+
+		initialShieldHealth = shieldHealth;
+		NRD("NR_SorceressQuen Init: shieldDuration = " + shieldDuration + ", initialShieldHealth = " + initialShieldHealth);
+
+		if ( !skipCastingAnimation && !magicManager.HasStaminaForAction(ENR_SpecialShield) ) {
 			CleanUp();
 			Destroy();
 			return false;
 		}
+		drainStamina = !skipCastingAnimation;
+
 		
 		if ( skipCastingAnimation || owner.InitCastSign( this ) )
 		{
@@ -64,12 +82,6 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	event OnStarted() 
 	{
 		var isAlternate		: bool;
-		var magicManager		: NR_MagicManager;
-		
-		magicManager = NR_GetMagicManager();
-		if (magicManager) {
-			magicManager.DrainStaminaForAction(ENR_SpecialSphere);
-		}
 
 		// --- owner.ChangeAspect( this, S_Magic_s04 );
 		if ( theInput.GetActionValue( 'CastSignHold' ) > 0.f ) {
@@ -106,11 +118,11 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	}
 
 	public function LastingShieldFxName() : name {
-		return 'quen_lasting_shield_hit';
+		return magicManager.SphereHitFxName();
 	}
 
 	public function LastingImpulseFxName() : name {
-		return 'lasting_shield_impulse';
+		return magicManager.SphereHitFxName();
 	}
 
 	public function DischargeFxName() : name {
@@ -118,11 +130,11 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	}
 
 	public function FxName() : name {
-		return NR_GetMagicManager().SphereFxName();
+		return magicManager.SphereFxName();
 	}
 
 	public function FxAltName() : name {
-		return NR_GetMagicManager().SphereFxName();
+		return magicManager.SphereFxName();
 	}
 
 	protected function LaunchEffect(enable : bool) {
@@ -168,11 +180,12 @@ state Expired in NR_SorceressQuen
 
 state ShieldActive in NR_SorceressQuen extends Active
 {	
+	protected var attackers : array<CActor>;
+
 	event OnEnterState( prevStateName : name )
 	{
 		var witcher			: W3PlayerWitcher;
 		var params 			: SCustomEffectParams;
-		var magicManager 	: NR_MagicManager;
 		
 		super.OnEnterState( prevStateName );
 		
@@ -201,9 +214,8 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		if( witcher )
 		{
-			magicManager = NR_GetMagicManager();
-			if ( magicManager ) {
-				magicManager.DrainStaminaForAction(ENR_SpecialSphere);
+			if ( parent.drainStamina ) {
+				parent.magicManager.DrainStaminaForAction(ENR_SpecialShield);
 			} 
 			else if( !parent.freeFromBearSetBonus )
 			{
@@ -225,6 +237,18 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		witcher.AddTimer('HACK_QuenSaveStatus', 0, true);
 		parent.shieldStartTime = theGame.GetEngineTime();
+		RunWait();
+	}
+
+	entry function RunWait() {
+		while (true) {
+			SleepOneFrame();
+
+			if (attackers.Size() > 0) {
+				PerformAutoLightning(attackers[0]);
+				attackers.Erase(0);
+			}
+		}
 	}
 	
 	event OnLeaveState( nextStateName : name )
@@ -256,7 +280,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		// --- parent.StopEffect( parent.effects[parent.fireMode].castEffect );
 	}
 		
-	
+	// damageData - after attacking shield
 	event OnTargetHit( out damageData : W3DamageAction )
 	{
 		var pos : Vector;
@@ -271,23 +295,28 @@ state ShieldActive in NR_SorceressQuen extends Active
 		var i : int;
 		var isBleeding : bool;
 		
+		var min, max : SAbilityAttributeValue; 
+		
+		// was dodged
 		if( damageData.WasDodged() ||
 			damageData.GetHitReactionType() == EHRT_Reflect )
 		{
 			return true;
 		}
 		
+		// notify controller
 		parent.OnTargetHit(damageData);
-
+		
+		// is parried
 		inAttackAction = (W3Action_Attack)damageData;
 		if(inAttackAction && inAttackAction.CanBeParried() && (inAttackAction.IsParried() || inAttackAction.IsCountered()) )
 			return true;
 		
 		casterActor = caster.GetActor();
-		reducedDamage = 0;		
-				
+		reducedDamage = 0;
+
 		damageData.GetDTs(damageTypes);
-		for(i=0; i<damageTypes.Size(); i+=1)
+		for(i = 0; i < damageTypes.Size(); i += 1)
 		{
 			if(damageTypes[i].dmgType == theGame.params.DAMAGE_NAME_DIRECT)
 			{
@@ -308,50 +337,61 @@ state ShieldActive in NR_SorceressQuen extends Active
 			incomingDamage = MaxF(0, damageData.processedDmg.vitalityDamage - directDamage);
 		}
 		
-		if(incomingDamage < parent.shieldHealth)
+		if (incomingDamage < parent.shieldHealth) {
 			reducedDamage = incomingDamage;
-		else
-			reducedDamage = MaxF(incomingDamage, parent.shieldHealth);
+		} else {
+			//if (parent.shieldHealth > parent.GetInitialShieldHealth() / parent.minimumAttacksToBlock) {
+			//	reducedDamage = incomingDamage;
+			//} else {
+				reducedDamage = MaxF(incomingDamage, parent.shieldHealth);
+			//}
+		}
 		
 		
 		if(!damageData.IsDoTDamage())
 		{
 			casterActor.PlayEffect( parent.LastingShieldFxName() );	
-
-			GCameraShake( parent.shakeStrength, true, parent.GetWorldPosition(), 30.0f );
+			
+			GCameraShake( parent.cameraShakeStrength, true, parent.GetWorldPosition(), 30.0f );
 		}
-		
 		
 		if ( theGame.CanLog() )
 		{
 			LogDMHits("Quen ShieldActive.OnTargetHit: reducing damage from " + damageData.processedDmg.vitalityDamage + " to " + (damageData.processedDmg.vitalityDamage - reducedDamage), action );
 		}
+		NRD("SorceressQuen Shield: shieldHealth = " + parent.shieldHealth + ", playerHealthMax = " + thePlayer.GetStatMax(BCS_Vitality) + ", incomingDamage = " + incomingDamage + ", reducedDamage = " + reducedDamage);
 		
 		damageData.SetHitAnimationPlayType( EAHA_ForceNo );		
 		damageData.SetCanPlayHitParticle( false );
 		
 		if(reducedDamage > 0)
 		{
-			
-			spellPower = casterActor.GetTotalSignSpellPower(virtual_parent.GetSkill());
-			
-			if ( caster.CanUseSkill( S_Magic_s15 ) )
+			/*
+			if ( parent.wasSignSupercharged )
+			{
+				theGame.GetDefinitionsManager().GetAbilityAttributeValue( 'magic_s15', 'spell_power', min, max);
+				skillBonus = CalculateAttributeValue( min ) * 3;
+				skillBonus += CalculateAttributeValue( caster.GetSkillAttributeValue( S_Sword_s19, 'spell_power', false, true ) ) * thePlayer.GetSkillLevel( S_Sword_s19 );
+			}
+			else if ( caster.CanUseSkill( S_Magic_s15 ) )
 				skillBonus = CalculateAttributeValue( caster.GetSkillAttributeValue( S_Magic_s15, 'bonus', false, true ) );
 			else
 				skillBonus = 0;
+			
 				
 			drainedHealth = reducedDamage / (skillBonus + spellPower.valueMultiplicative);			
 			parent.shieldHealth -= drainedHealth;
-			
-				
+			*/
+
+			//parent.shieldHealth -= MinF(reducedDamage, parent.GetInitialShieldHealth() / parent.minimumAttacksToBlock);
+			parent.shieldHealth -= reducedDamage;
 			damageData.processedDmg.vitalityDamage -= reducedDamage;
-			
 			
 			if( damageData.processedDmg.vitalityDamage >= 20 )
 				casterActor.RaiseForceEvent( 'StrongHitTest' );
-				
 			
-			if (!damageData.IsDoTDamage() && casterActor == thePlayer && damageData.attacker != casterActor && GetWitcherPlayer().CanUseSkill(S_Magic_s14) && parent.dischargePercent > 0 && !damageData.IsActionRanged() && VecDistanceSquared( casterActor.GetWorldPosition(), damageData.attacker.GetWorldPosition() ) <= 13 ) 
+			/*
+			if (!damageData.IsDoTDamage() && casterActor == thePlayer && damageData.attacker != casterActor && ( GetWitcherPlayer().CanUseSkill(S_Magic_s14) || parent.wasSignSupercharged ) && parent.dischargePercent > 0 && !damageData.IsActionRanged() && VecDistanceSquared( casterActor.GetWorldPosition(), damageData.attacker.GetWorldPosition() ) <= 13 ) 
 			{
 				action = new W3DamageAction in theGame.damageMgr;
 				action.Initialize( casterActor, damageData.attacker, parent, 'quen', EHRT_Light, CPS_SpellPower, false, false, true, false, 'hit_shock' );
@@ -366,9 +406,13 @@ state ShieldActive in NR_SorceressQuen extends Active
 				theGame.damageMgr.ProcessAction( action );		
 				delete action;
 				
-				
-				casterActor.PlayEffect( parent.DischargeFxName() );
-			}			
+				casterActor.PlayEffect('quen_force_discharge');
+			}
+			*/
+			// !damageData.IsActionRanged()
+			if (parent.s_counterLightning && damageData.attacker != casterActor  && VecDistanceSquared( casterActor.GetWorldPosition(), damageData.attacker.GetWorldPosition() ) <= 25) {
+				attackers.PushBack((CActor)damageData.attacker);
+			}
 		}
 		
 		
@@ -380,13 +424,41 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		if( parent.shieldHealth <= 0 )
 		{
-			if ( parent.owner.CanUseSkill(S_Magic_s13) )
+			/*
+			if ( parent.owner.CanUseSkill(S_Magic_s13) || parent.wasSignSupercharged )
 			{				
-				casterActor.PlayEffect( parent.LastingImpulseFxName() );
-				caster.GetPlayer().QuenImpulse( false, parent, "quen_impulse" );
+				casterActor.PlayEffect( 'lasting_shield_impulse' );
+				if ( parent.wasSignSupercharged )
+					caster.GetPlayer().QuenImpulse( false, parent, "quen_impulse", 3 );
+				else
+					caster.GetPlayer().QuenImpulse( false, parent, "quen_impulse" );
 			}
+			*/
+			casterActor.PlayEffect( parent.LastingImpulseFxName() );
+			caster.GetPlayer().QuenImpulse( false, parent, "quen_impulse", 3 );
 			
 			damageData.SetEndsQuen(true);
 		}
+	}
+
+	latent function PerformAutoLightning(attacker : CActor) {
+		var action : NR_MagicLightning;
+		var center, position : Vector;
+
+		if (!attacker)
+			return;
+
+		center = thePlayer.GetWorldPosition() + Vector(0.f, 0.f, 1.5f);
+		position = center + VecNormalize2D(attacker.GetWorldPosition() - thePlayer.GetWorldPosition()) * 0.3f;
+		action = new NR_MagicLightning in parent.magicManager;
+		action.drainStaminaOnPerform = false;
+		parent.magicManager.AddActionManual(action);
+		action.target = attacker;
+		action.OnInit();
+		action.OnPrepare();
+		action.m_fxNameMain = action.LightningFxName(ENR_SpecialShield);
+		action.m_fxNameHit = action.HitFxName(ENR_SpecialShield);
+		action.OnPerformReboundFromPos(attacker, position);
+		action.OnPerformed(true, true);
 	}
 }

@@ -1,6 +1,7 @@
 statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	public var magicManager 	: NR_MagicManager;
 	public var nr_signOwner 	: W3SignOwnerPlayer;
+	protected saved var nr_quenEntity 	: NR_SorceressQuen;
 	protected saved var nr_lumosActive	: bool;
 	protected var nr_targetDist : float;
 
@@ -11,7 +12,6 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Remove guarded stance - sorceress never use real fistfight */
 	public function SetGuarded(flag : bool)
 	{
-		NR_Notify("SetGuarded1: " + flag);
 		// --- super.SetGuarded(flag);
 	}
 
@@ -47,35 +47,32 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		magicManager.GotoState('MagicLoop');
 		// launch lumos fx if was active
 		if (nr_lumosActive)
-			magicManager.LumosFX(/*enable*/ true, /*reload*/ true);
+			magicManager.LumosFX(/*enable*/ true);
+
+		NR_RestoreQuen(savedQuenHealth, savedQuenDuration);
 	}
 
 	function SetLumosActive(active : bool) {
-		NR_Notify("SetLumosActive: " + active);
+		NRD("SetLumosActive: " + active);
 		nr_lumosActive = active;
 	}
 
 	timer function NR_SetTargetDist( delta : float, id : int ) {
 		nr_targetDist = 17.f; // TODO: use settings value
 		findMoveTargetDistMin = nr_targetDist;
-		NRD("NR_SetTargetDist");
+		NRD("NR_SetTargetDist = " + nr_targetDist);
 	}
 
 	event OnAnimEventMagic( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
 	{
-		var magicEvent : SNR_MagicEvent;
-
 		if (animEventType != AET_Tick) {
-			NRD("ERROR! Wrong animEventType: " + animEventType);
 			return false;
 		}
-		magicEvent.eventName = animEventName;
-		magicEvent.animName = GetAnimNameFromEventAnimInfo(animInfo);
-		magicEvent.animTime = GetLocalAnimTimeFromEventAnimInfo(animInfo);
+		//magicEvent.animTime = GetLocalAnimTimeFromEventAnimInfo(animInfo);
 		//magicEvent.eventDuration = GetEventDurationFromEventAnimInfo(animInfo);
-		NRD("OnAnimEventMagic:: eventName = " + magicEvent.eventName + ", type = " + animEventType + ", animName = " + magicEvent.animName);
+		NRD("OnAnimEventMagic:: eventName = " + animEventName + ", type = " + animEventType + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
 		// will be auto-processed async in next frame
-		magicManager.aEventsStack.PushBack(magicEvent);
+		magicManager.AddActionEvent( animEventName, GetAnimNameFromEventAnimInfo(animInfo) );
 	}
 
 	event OnPreAttackEvent(animEventName : name, animEventType : EAnimationEventType, data : CPreAttackEventData, animInfo : SAnimationEventAnimInfo)
@@ -93,17 +90,43 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		//NR_Notify("OnAnimEventBlend:: eventName = " + animEventName + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
 	//}
 
+	public function NR_RestoreQuen( quenHealth : float, quenDuration : float ) : bool
+	{
+		NRD("NR_RestoreQuen: quenHealth = " + quenHealth + ", quenDuration = " + quenDuration);
+		if(quenHealth > 0.f && quenDuration >= 3.f)
+		{
+			if (!nr_quenEntity) {
+				nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
+				NRD("NR_RestoreQuen: recreate entity");
+			}
+			
+			nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen), true );
+			
+			nr_quenEntity.SetDataFromRestore(quenHealth, quenDuration);
+			nr_quenEntity.OnStarted();
+			nr_quenEntity.OnThrowing();
+			nr_quenEntity.OnEnded();
+			
+			return true;
+		}
+		
+		return false;
+	}
+
 	/* Break current magic attack, if it's in process */
 	public function ReactToBeingHit(damageAction : W3DamageAction, optional buffNotApplied : bool) : bool {
-		var magicEvent : SNR_MagicEvent;
 		var effectInfos : array< SEffectInfo >;
+		var isGameplayEffect : bool;
 
-        if (damageAction.GetEffects( effectInfos ) > 0 || damageAction.DealsAnyDamage()) {
-        	magicEvent.eventName = 'BreakMagicAttack';
-        	magicManager.aEventsStack.PushBack(magicEvent);
-        	PrintDamageAction("ReactToBeingHit", damageAction);
+		if ( (CBaseGameplayEffect)damageAction.causer )
+        	isGameplayEffect = true;
+
+        if ( !isGameplayEffect && (damageAction.GetEffects( effectInfos ) > 0 || damageAction.DealsAnyDamage()) ) {
+        	NRD("ReactToBeingHit: buffSourceName = " + damageAction.GetBuffSourceName() + ", attacker = " + damageAction.attacker + ", causer = " + damageAction.causer);
+        	magicManager.AddActionEvent('BreakMagicAttack', 'ReactToBeingHit');
+        	//PrintDamageAction("ReactToBeingHit", damageAction);
         }
-        NR_Notify("ReactToBeingHit, damage = " + damageAction.DealsAnyDamage());
+        //NRD("ReactToBeingHit, damage = " + damageAction.DealsAnyDamage());
         
         return super.ReactToBeingHit(damageAction);
 	}
@@ -138,8 +161,21 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	{
 		NRD("CastQuen()");
 		/* make standart Quen launching to use vanilla logic */
-		SetBehaviorVariable('NR_isMagicAttack', 1) ;
-		return super.CastSign();
+		SetBehaviorVariable('NR_isMagicAttack', 1);
+		
+		if ( IsInAir() )
+		{
+			return false;
+		}
+		
+		//AddTemporarySkills();
+
+		// destroy old shield
+		if (nr_quenEntity) {
+			nr_quenEntity.GotoState('Expired');
+		}
+		nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
+		return nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen) );
 	}
 
 	/* Wrapper: call fistfight attack */
@@ -157,14 +193,105 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		super.QuenImpulse(isAlternate, signEntity, source, forceSkillLevel);
 	}*/
 
+	/*public function IsImmuneToBuff(effect : EEffectType) : bool
+	{
+		var immunes : CBuffImmunity;
+		var i : int;
+		var potion, positive, neutral, negative, immobilize, confuse, damage : bool;
+		var criticalStatesToResist, resistCriticalStateChance, resistCriticalStateMultiplier : float;
+		var localCriticalStateCounter : float;
+		var mac : CMovingAgentComponent;
+		
+		NRD("sorceress.IsImmuneToBuff: " + effect);
+		mac = GetMovingAgentComponent();
+		
+		if ( mac && mac.IsEntityRepresentationForced() == 512 && !IsUsingVehicle() ) 
+		{
+			if( effect != EET_Snowstorm && effect != EET_SnowstormQ403 )
+				return false;
+		}
+		
+		if ( IsCriticalEffectType( effect ) && HasAbility( 'ResistCriticalStates' ) )
+		{
+			criticalStatesToResist = CalculateAttributeValue( GetAttributeValue( 'critical_states_to_raise_guard' ) );
+			resistCriticalStateChance = CalculateAttributeValue( GetAttributeValue( 'resist_critical_state_chance' ) );
+			resistCriticalStateMultiplier = CalculateAttributeValue( GetAttributeValue( 'resist_critical_state_chance_mult_per_hit' ) );
+			
+			localCriticalStateCounter = GetCriticalStateCounter();
+			resistCriticalStateChance += localCriticalStateCounter * resistCriticalStateMultiplier;
+			
+			if ( localCriticalStateCounter >= criticalStatesToResist )
+			{
+				if( resistCriticalStateChance > RandRangeF( 1, 0 ) )
+				{
+					NRD("sorceress.IsImmuneToBuff: case 1");
+					return true;
+				}
+			}
+		}
+		
+		for(i=0; i<buffImmunities.Size(); i+=1)
+		{
+			if(buffImmunities[i].buffType == effect) {
+				NRD("sorceress.IsImmuneToBuff: case 2");
+				return true;
+			}
+		}
+		
+		for(i=0; i<buffRemovedImmunities.Size(); i+=1)
+		{
+			if(buffRemovedImmunities[i].buffType == effect)
+				return false;
+		}
+		
+		immunes = theGame.GetBuffImmunitiesForActor(this);
+		if(immunes.immunityTo.Contains(effect)) {
+			NRD("sorceress.IsImmuneToBuff: case 3");
+			return true;
+		}
+		
+		theGame.effectMgr.GetEffectTypeFlags(effect, potion, positive, neutral, negative, immobilize, confuse, damage);
+		if( (potion && immunes.potion) || (positive && immunes.positive) || (neutral && immunes.neutral) || (negative && ( isImmuneToNegativeBuffs || immunes.negative ) ) || (immobilize && immunes.immobilize) || (confuse && immunes.confuse) || (damage && immunes.damage) )
+		{
+			if (potion && immunes.potion)
+				NRD("sorceress.IsImmuneToBuff: case 4a");
+			if (positive && immunes.positive)
+				NRD("sorceress.IsImmuneToBuff: case 4b");
+			if (neutral && immunes.neutral)
+				NRD("sorceress.IsImmuneToBuff: case 4c");
+			if (negative && ( isImmuneToNegativeBuffs || immunes.negative ) )
+				NRD("sorceress.IsImmuneToBuff: case 4d");
+			if (immobilize && immunes.immobilize)
+				NRD("sorceress.IsImmuneToBuff: case 4e");
+			if (confuse && immunes.confuse)
+				NRD("sorceress.IsImmuneToBuff: case 4f");
+			if (damage && immunes.damage)
+				NRD("sorceress.IsImmuneToBuff: case 4g");
+			NRD("sorceress.IsImmuneToBuff: case 4");
+			return true;
+		}
+			
+		return false;
+	}*/
+
+	/* Wrapper: fool stamina checking when "casting signs" */
+	public function HasStaminaToUseSkill(skill : ESkill, optional perSec : bool, optional signHack : bool) : bool
+	{
+		//NRD("sorceress.HasStaminaToUseSkill: skill = " + skill + ", perSec = " + perSec);
+		if (skill >= S_Magic_1 && skill <= S_Magic_5 )
+			return true;
+
+		return super.HasStaminaToUseSkill(skill, perSec, signHack);
+	}
+
 	/* Wrapper: fool skill checking about some skills */
 	public function CanUseSkill(skill : ESkill) : bool
 	{
-		if (skill == S_Magic_4 || skill == S_Magic_s14 || skill == S_Magic_s13 || skill == S_Magic_s01) 
 		// 			quen bubble,              quen reflect,           quen impulse,         aard circle
+		if (skill == S_Magic_4 || skill == S_Magic_s14 || skill == S_Magic_s13 || skill == S_Magic_s01) 
 			return true;
-		return false;
-		//return super.CanUseSkill(skill); ? block to avoid unexpected damage/spell/resist boosts
+
+		return super.CanUseSkill(skill);
 	}
 }
 

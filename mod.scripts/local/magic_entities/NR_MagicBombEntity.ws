@@ -2,7 +2,7 @@
 statemachine class NR_MagicBombEntity extends CGameplayEntity
 {
 	protected var m_caster, m_target 	: CActor;
-	editable var m_dealsDamageToCaster	: bool;
+	editable var m_respectCaster		: bool;
 	editable var m_pursueTarget			: bool;
 	editable var m_damageRadius			: float;
 	editable var m_damageVal			: float;
@@ -19,11 +19,11 @@ statemachine class NR_MagicBombEntity extends CGameplayEntity
 	default m_fxName 			= 'arcane_circle';
 	default m_explosionFxName 	= 'explosion';
 
-	function Init( caster : CActor, target : CActor, dealsDamageToCaster : bool, pursueTarget : bool )
+	function Init( caster : CActor, target : CActor, respectCaster : bool, pursueTarget : bool )
 	{
 		m_caster = caster;
 		m_target = target;
-		m_dealsDamageToCaster = dealsDamageToCaster;
+		m_respectCaster = respectCaster;
 		m_pursueTarget = pursueTarget;
 		NRD("NR_MagicBombEntity: Init, m_target = " + m_target);
 		GotoState('Active');
@@ -74,8 +74,8 @@ state Active in NR_MagicBombEntity {
 				NR_SmoothMoveToTarget(moveTime, parent.m_metersPerSec, currentPos, targetPos, reachPos);
 				NRD("Bomb: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
 				parent.Teleport(currentPos);
-				lastMoveTime = GetLocalTime();
 			}
+			lastMoveTime = GetLocalTime();
 		}
 		Explosion();
 	}
@@ -83,6 +83,7 @@ state Active in NR_MagicBombEntity {
 	latent function Explosion() {
 		var entitiesInRange : array<CGameplayEntity>;
 		var victim : CActor;
+		var dEnt   : W3DestroyableClue;
 		var damage : W3DamageAction;
 		var i : int;
 
@@ -95,7 +96,7 @@ state Active in NR_MagicBombEntity {
 		for( i = 0; i < entitiesInRange.Size(); i += 1 )
 		{
 			victim = (CActor)entitiesInRange[i];
-			if( victim && (parent.m_dealsDamageToCaster || victim != parent.m_caster) )
+			if( victim && (!parent.m_respectCaster || GetAttitudeBetween(victim, parent.m_caster) == AIA_Hostile) )
 			{
 				victim.AddEffectDefault( EET_Stagger, parent, parent.GetName() );
 				damage = new W3DamageAction in this;
@@ -104,6 +105,11 @@ state Active in NR_MagicBombEntity {
 				// damage.AddEffectInfo(EET_Burning, 2.0);
 				theGame.damageMgr.ProcessAction( damage );
 				delete damage;
+			} else {
+				dEnt = (W3DestroyableClue)entitiesInRange[i];
+				if (dEnt && dEnt.destroyable && !dEnt.destroyed) {
+					dEnt.ProcessDestruction();
+				}
 			}
 		}
 	}

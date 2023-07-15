@@ -68,7 +68,7 @@ class NR_AppearanceSet {
 	public var appearanceItemIsDepotPath : array<bool>;
 }
 
-class NR_PlayerManager extends CPeristentEntity {
+statemachine class NR_PlayerManager {
 	protected saved var m_savedPlayerType : ENR_PlayerType;
 	default          m_savedPlayerType = ENR_PlayerGeralt;
 
@@ -110,19 +110,18 @@ class NR_PlayerManager extends CPeristentEntity {
 
 	// once is called after entity created //
 	public function Init() {
-		AddTag('nr_player_manager');
-		CreateAttachment(thePlayer);
 		m_geraltSavedItems.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 		m_appearanceTemplates.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 		m_appearanceTemplateIsLoaded.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 		m_appearanceTemplateIsDepotPath.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 	}
-	// once is called on entity created, then is always called on game loaded //
-	event OnSpawned( spawnData : SEntitySpawnData )
-	{
+
+	// run on every game load
+	public function OnStarted() {
 		var template : CEntityTemplate;
 
-		NRD("OnSpawned: " + this);
+		NRD("OnStarted: " + this);
+
 		// scene stuff //
 		m_appearancePreviewTemplates.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 		//m_appearanceTemplatesPreviewTemp.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
@@ -131,19 +130,27 @@ class NR_PlayerManager extends CPeristentEntity {
 			NRE("!m_sceneSelector template");
 		}
 		m_sceneSelector = (NR_SceneSelector)theGame.CreateEntity(template, thePlayer.GetWorldPosition());
+		NRD("OnSpawned: m_sceneSelector loaded.");
 		if ( !m_sceneSelector ) {
 			NRE("!m_sceneSelector");
 		}
 
 		template = (CEntityTemplate)LoadResource("nr_strings_storage");
 		stringsStorage = (NR_LocalizedStringStorage)theGame.CreateEntity(template, thePlayer.GetWorldPosition());
+		NRD("OnSpawned: stringsStorage loaded.");
 		if (!stringsStorage) {
 			NRE("!stringsStorage");
 		}
 
-		AddTimer('OnPlayerSpawned', 0.2f);
-		super.OnSpawned( spawnData );
+		GotoState('PlayerChange');
 	}
+	// once is called on entity created, then is always called on game loaded //
+	/*event OnSpawned( spawnData : SEntitySpawnData )
+	{
+		NRD("OnSpawned: " + this);
+		OnStarted();
+		super.OnSpawned( spawnData );
+	}*/
 
 	// return map containing saved magic setups //
 	public function GetMagicDataMaps(out map : array<NR_Map>, out wasLoaded : bool) {
@@ -501,15 +508,21 @@ class NR_PlayerManager extends CPeristentEntity {
 		return playerType != ENR_PlayerGeralt && playerType != ENR_PlayerWitcher;
 	}
 	// Main postponed function to fix player appearance on spawning (in any case) //
-	timer function OnPlayerSpawned( delta : float, id : int ) {
+	public function OnPlayerSpawned() {
 		var 				i : int;
 		var currentPlayerType : ENR_PlayerType;
 
-		currentPlayerType = GetCurrentPlayerType();
-		NRD("Cur player: " + currentPlayerType + ", saved player: " + m_savedPlayerType);
+		NRD("OnPlayerSpawned: start");
+		/*if ( !thePlayer ) {
+			AddTimer('OnPlayerSpawned', 0.25f);
+			return;
+		}*/
 
-		if ( !thePlayer.HasChildAttachment( this ) )
-			CreateAttachment(thePlayer);
+		currentPlayerType = GetCurrentPlayerType();
+		NRD("OnPlayerSpawned: Cur player: " + currentPlayerType + ", saved player: " + m_savedPlayerType);
+
+		//if ( !thePlayer.HasChildAttachment( this ) )
+		//	CreateAttachment(thePlayer);
 
 		for (i = ENR_RSlotHair; i < ENR_RSlotMisc; i += 1) {
 			m_appearanceTemplateIsLoaded[i] = false;
@@ -530,7 +543,7 @@ class NR_PlayerManager extends CPeristentEntity {
 					// OK, we asked for it - restore mounted items
 					/// TODO check if ( FactsQuerySum("nr_player_change_requested") > 0 ) {
 					if ( m_playerChangeRequested ) {
-						NR_FixPlayer( 0.0, 0 );
+						NR_FixPlayer();
 					// BAD, it was auto-reset to Geralt after World change(?)
 					} else {
 						NRD("Player change to Geralt without request!");
@@ -550,7 +563,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		}
 		// CUSTOM REPLACER - APPLY FIX ALWAYS
 		if ( IsReplacerActive() ) {
-			NR_FixReplacer( 0.0, 0 );
+			NR_FixReplacer();
 		}
 		/// TODO FactsRemove("nr_player_change_requested");
 		m_playerChangeRequested = false;
@@ -565,6 +578,7 @@ class NR_PlayerManager extends CPeristentEntity {
 			FactsAdd("nr_player_female", 1);
 		}
 	}
+
 	function SetInStoryScene(val : Bool) {
 		inStoryScene = val;
 	}
@@ -994,7 +1008,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		for (item_index = m_appearanceItems.Size() - 1; item_index >= 0; item_index -= 1) {
 			UpdateAppearanceItem("", true, item_index);
 		}
-		NR_Notify("Check: item size = " + m_appearanceItems.Size());
+		NRD("ResetAllAppearanceHeadHair: m_appearanceItems size = " + m_appearanceItems.Size());
 
 		if (IsFemale())
 			UpdateHead('nr_h_01_wa__yennefer');	/* set default yennefer head */
@@ -1003,7 +1017,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		RemoveHair();			/* set no hair item */
 	}
 	// Fixes replacer appearance (on loading, after type changing) //
-	timer function NR_FixReplacer( delta : float, id : int ) {
+	public function NR_FixReplacer() {
 		var witcher : NR_ReplacerWitcher;
 		// change displayName hack
 		witcher = NR_GetWitcherReplacer();
@@ -1021,7 +1035,7 @@ class NR_PlayerManager extends CPeristentEntity {
 		m_geraltDataSaved = true;
 	}
 	// Fixes player appearance (after type chaning only) //
-	timer function NR_FixPlayer( delta : float, id : int ) {
+	public function NR_FixPlayer() {
 		RestoreEquipment();
 		RestoreHead();
 		RestoreHair();
@@ -1030,25 +1044,69 @@ class NR_PlayerManager extends CPeristentEntity {
 	}
 }
 
+state Idle in NR_PlayerManager {
+	event OnEnterState( prevStateName : name )
+	{
+	}
+
+	event OnLeaveState( nextStateName : name )
+	{
+	}
+}
+
+state PlayerChange in NR_PlayerManager {
+	event OnEnterState( prevStateName : name )
+	{
+		WaitAndCheck();
+	}
+
+	entry function WaitAndCheck() {
+		Sleep(0.3f);
+		parent.OnPlayerSpawned();
+		parent.GotoState('Idle');
+	}
+
+	event OnLeaveState( nextStateName : name )
+	{
+	}
+}
+
+state FixReplacer in NR_PlayerManager {
+	event OnEnterState( prevStateName : name )
+	{
+		WaitAndCheck();
+	}
+
+	entry function WaitAndCheck() {
+		Sleep(0.3f);
+		parent.NR_FixReplacer();
+		parent.GotoState('Idle');
+	}
+
+	event OnLeaveState( nextStateName : name )
+	{
+	}
+}
+
 function NR_GetPlayerManager() : NR_PlayerManager
 {
-	var nrManagerTemplate : CEntityTemplate;
-	var nrManager         : NR_PlayerManager;
-	nrManager = (NR_PlayerManager)theGame.GetEntityByTag('nr_player_manager'); //(NR_PlayerManager)EntityHandleGet( nrPlayerManagerHandle );
+	//var nrManagerTemplate : CEntityTemplate;
 
-	if ( !nrManager ) {
-		nrManagerTemplate = (CEntityTemplate)LoadResource("nr_player_manager");
-		nrManager = (NR_PlayerManager)theGame.CreateEntity(nrManagerTemplate, thePlayer.GetWorldPosition(),,,,,PM_Persist);
-		nrManager.Init();
+	/*if ( !theGame.nr_playerManager ) {
+		//nrManagerTemplate = (CEntityTemplate)LoadResource("nr_player_manager");
+		//theGame.nr_playerManager = (NR_PlayerManager)theGame.CreateEntity(nrManagerTemplate, thePlayer.GetWorldPosition(),,,,,PM_Persist);
+		theGame.nr_playerManager = new NR_PlayerManager in theGame;
+		theGame.nr_playerManager.Init();
 		//EntityHandleSet( nrPlayerManagerHandle, nrManager );
 		NRD("PlayerManager created!");
 	} else {
 		NRD("PlayerManager found!");
-		if ( !thePlayer.HasChildAttachment( nrManager ) )
-			nrManager.CreateAttachment(thePlayer);
+	}*/
+	if (!theGame.nr_playerManager) {
+		NRE("NR_GetPlayerManager: !theGame.nr_playerManager");
 	}
 
-	return nrManager;
+	return theGame.nr_playerManager;
 }
 
 exec function nrPlayer(playerType : int) {
@@ -1128,10 +1186,11 @@ function NR_ChangePlayer(playerType : ENR_PlayerType) {
 	NRD("NR_ChangePlayer -> " + playerType);
 	manager = NR_GetPlayerManager();
 	manager.SetPlayerChangeRequested( true );
-	manager.AddTimer('OnPlayerSpawned', 0.3f, false, , , true);
+	manager.GotoState('PlayerChange');
 
-	//FactsAdd("nr_player_change_requested", 1);
-
+	// for quests
+	FactsAdd("nr_player_change_" + playerType, 1);
+	
 	if (playerType == ENR_PlayerGeralt) {
 		theGame.ChangePlayer( "Geralt" );
 	} else if (playerType == ENR_PlayerCiri) {
@@ -1146,7 +1205,7 @@ function NR_ChangePlayer(playerType : ENR_PlayerType) {
 		NRE("ERROR! Unknown player type: " + playerType);
 		return;
 	}
-	thePlayer.abilityManager.RestoreStat(BCS_Vitality);
+	// cheaty thePlayer.abilityManager.RestoreStat(BCS_Vitality);
 	thePlayer.Debug_ReleaseCriticalStateSaveLocks();
 }
 
@@ -1423,3 +1482,16 @@ exec function tosc(path : String, optional input : String) {
 		}
 	}
 }*/
+
+exec function nr_fix1() {
+	var entity : CEntity;
+
+	entity = theGame.GetEntityByTag('nr_player_manager');
+	if (entity) {
+		entity.BreakAttachment();
+		entity.Destroy();
+		NR_Notify("Found. Fixed.");
+	} else {
+		NR_Notify("NOT Found.");
+	}
+}

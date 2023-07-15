@@ -1,10 +1,13 @@
 class NR_MagicLightning extends NR_MagicAction {
 	protected var entityTemplate2 	: CEntityTemplate;
+	protected var s_rebound 		: bool;
+	
 	default actionType = ENR_Lightning;
+	default actionSubtype = ENR_LightAbstract;
 
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 10);
 
 		if ( voicelineChance >= RandRange(100) + 1 ) {
 			sceneInputs.PushBack(3);
@@ -16,12 +19,19 @@ class NR_MagicLightning extends NR_MagicAction {
 		return true;
 	}
 
+	protected function SetSkillLevel(newLevel : int) {
+		if (newLevel == 5) {
+			ActionAbilityUnlock("Rebound");
+		}
+		super.SetSkillLevel(newLevel);
+	}
+
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
 		entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_dummy_hit_fx");
 		entityTemplate2 = (CEntityTemplate)LoadResourceAsync("nr_lightning_fx");
-		// lightning can destroy clues //
+		// lightning can destroy destructible //
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 0.f );
 		dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
@@ -29,23 +39,25 @@ class NR_MagicLightning extends NR_MagicAction {
 			NRE("DummyEntity is invalid.");
 			return OnPrepared(false);
 		}
-		//((CGameplayEntity)dummyEntity).AddTag( 'nr_lightning_dummy_entity' );
+		s_rebound = !isManual && IsActionAbilityUnlocked("Rebound");
 		dummyEntity.DestroyAfter( 5.f );
 		m_fxNameMain = LightningFxName();
-		m_fxNameHit = HitFxName(); // use dummy entity - more hit fx options
+		m_fxNameHit = HitFxName();
+		// m_fxNameExtra = ... for rebounding ?
 
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform() : bool {
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var targetNPC : CNewNPC;
+		var oldTarget : CActor;
 		var component : CComponent;
 		var dk : float;
 
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 
 		if (target) {
@@ -56,55 +68,123 @@ class NR_MagicLightning extends NR_MagicAction {
 				thePlayer.PlayEffect(m_fxNameMain, target);
 			}
 
+			Sleep(0.1f);
 			targetNPC = (CNewNPC) target;
-			if (!targetNPC || !targetNPC.HasAlternateQuen()) {
+			if ( !targetNPC || !targetNPC.HasAlternateQuen() ) {
 				dummyEntity.Teleport(target.GetWorldPosition() + Vector(0,0,1.f));
 				dummyEntity.PlayEffect(m_fxNameHit);
 			}
-			thePlayer.OnCollisionFromItem(target);
+			//thePlayer.OnCollisionFromItem(target);
 
 			damage = new W3DamageAction in this;
 			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
-			dk = 1.5f;
+			dk = 2.f * SkillTotalDamageMultiplier();
 			damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
-			// damage.AddEffectInfo(EET_Burning, 2.0);
+			damage.AddEffectInfo(EET_Stagger, 2.f);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
 
-			if (FactsQuerySum("nr_magic_LightningRebound") > 0) {
+			if (s_rebound) {
 				Sleep(0.1f);
-				OnPerformRebound(target);
+				oldTarget = target;
+				target = FindNewTarget(oldTarget, 20.f);
+				NRD("Rebound: newTarget = " + target);
+				if (target)
+					OnPerformReboundFromActor(target, oldTarget);
 			}
 		} else if (destroyable) {
-			if (destroyable.reactsToIgni) {
-				destroyable.OnIgniHit(NULL);
-			} else {
-				destroyable.OnAardHit(NULL);
-			}
+			destroyable.ProcessDestruction();
 			thePlayer.PlayEffect(m_fxNameMain, destroyable);
 			dummyEntity.PlayEffect(m_fxNameHit);
 		} else {
 			thePlayer.PlayEffect(m_fxNameMain, dummyEntity);
 			dummyEntity.PlayEffect(m_fxNameHit);
 		}
+		dummyEntity.DestroyAfter(5.f);
 
-		return OnPerformed(true);
+		return OnPerformed(true, scriptedPerform);
 	}
 
-	latent function OnPerformRebound(oldTarget : CActor) {
+	latent function OnPerformReboundFromPos(newTarget : CActor, fromPos : Vector) {
 		var lightningEntity, dummyEntity2 : CEntity;
-		var actor : CActor;
+		var entities 		: array<CGameplayEntity>;
+		var i				: int;
+		var capsuleHeight   : float;
+		var component : CComponent;
 		var targetNPC : CNewNPC;
+		var dk : float;
+
+		if (!newTarget)
+			return;
+
+		lightningEntity = theGame.CreateEntity( entityTemplate2, fromPos );
+		
+		if (newTarget.IsAlive())
+			capsuleHeight = ((CMovingPhysicalAgentComponent)newTarget.GetMovingAgentComponent()).GetCapsuleHeight();
+		else
+			capsuleHeight = 0.f;
+
+		dummyEntity2 = theGame.CreateEntity( entityTemplate, newTarget.GetWorldPosition() + Vector(0,0,capsuleHeight * 0.9f) );
+		
+		component = newTarget.GetComponent('torso3effect');
+		if (component) {
+			lightningEntity.PlayEffect(m_fxNameMain, component);
+		} else {
+			lightningEntity.PlayEffect(m_fxNameMain, newTarget);
+		}
+
+		Sleep(0.2f);
+		targetNPC = (CNewNPC)newTarget;
+		if ( !targetNPC || !targetNPC.HasAlternateQuen() ) {
+			dummyEntity2.PlayEffect(m_fxNameHit);
+		}
+		//thePlayer.OnCollisionFromItem(newTarget);
+
+		damage = new W3DamageAction in this;
+		damage.Initialize( thePlayer, newTarget, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
+		dk = 1.f * SkillTotalDamageMultiplier();
+		damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+		damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
+		damage.AddEffectInfo(EET_Stagger, 1.f);
+		theGame.damageMgr.ProcessAction( damage );
+		delete damage;
+		lightningEntity.DestroyAfter(5.f);
+		dummyEntity2.DestroyAfter(5.f);
+	}
+
+	// Just a visual fx
+	latent function OnPerformReboundFromPosToPos(newPos : Vector, fromPos : Vector) {
+		var lightningEntity, dummyEntity2 : CEntity;
+		var entities 		: array<CGameplayEntity>;
+		var i				: int;
+
+		lightningEntity = theGame.CreateEntity( entityTemplate2, fromPos );
+		dummyEntity2 = theGame.CreateEntity( entityTemplate, newPos );
+		
+		lightningEntity.PlayEffect(m_fxNameMain, dummyEntity2);
+		Sleep(0.2f);
+		dummyEntity2.PlayEffect(m_fxNameHit);
+
+		lightningEntity.DestroyAfter(5.f);
+		dummyEntity2.DestroyAfter(5.f);
+	}
+
+	latent function OnPerformReboundFromActor(newTarget : CActor, oldTarget : CActor) {
+		OnPerformReboundFromPos(newTarget, oldTarget.GetWorldPosition());
+	}
+
+	latent function FindNewTarget(oldTarget : CActor, searchRange : float) : CActor {
+		var actor, newTarget : CActor;
 		var entities : array<CGameplayEntity>;
 		var i : int;
 		var distSq, minDistSq, dk : float;
 		var onLine : bool;
-		var component : CComponent;
 
+		// search for target
 		minDistSq = 999999.f;
-		FindGameplayEntitiesInRange(entities, oldTarget, 25.f, 99, , FLAG_ExcludePlayer + FLAG_OnlyAliveActors + FLAG_ExcludeTarget);
-		target = NULL;
+		FindGameplayEntitiesInRange(entities, oldTarget, searchRange, 99, , FLAG_ExcludePlayer + FLAG_OnlyAliveActors + FLAG_ExcludeTarget);
+		newTarget = NULL;
 		for (i = 0; i < entities.Size(); i += 1) {
 			actor = (CActor)entities[i];
 			if (actor && actor != oldTarget) {
@@ -114,44 +194,14 @@ class NR_MagicLightning extends NR_MagicAction {
 					onLine = NR_OnLineOfSight(oldTarget, actor, 1.f);
 					NRD("OnPerformRebound: onLine = " + onLine);
 					if (onLine) {
-						target = actor;
+						newTarget = actor;
 						minDistSq = distSq;
 					}
 				}
 			}
 		}
 
-		if (target) {
-			lightningEntity = theGame.CreateEntity( entityTemplate2, oldTarget.GetWorldPosition() + Vector(0,0,1.f), oldTarget.GetWorldRotation() );
-			dummyEntity2 = theGame.CreateEntity( entityTemplate, target.GetWorldPosition() + Vector(0,0,1.f), target.GetWorldRotation() );
-
-			component = targetNPC.GetComponent('torso3effect');
-			if (component) {
-				NRD("lightningEntity = " + lightningEntity + ", has effect = " + lightningEntity.HasEffect(m_fxNameMain) + ", play effect (" + component + ") = " + lightningEntity.PlayEffect(m_fxNameMain, component));
-				//lightningEntity.PlayEffect(m_fxNameMain, component);
-			} else {
-				NRD("lightningEntity = " + lightningEntity + ", has effect = " + lightningEntity.HasEffect(m_fxNameMain) + ", play effect (" + target + ") = " + lightningEntity.PlayEffect(m_fxNameMain, target));
-				//lightningEntity.PlayEffect(m_fxNameMain, target);
-			}
-
-			targetNPC = (CNewNPC)target;
-			if (!targetNPC || !targetNPC.HasAlternateQuen() ) {
-				dummyEntity2.Teleport(target.GetWorldPosition() + Vector(0,0,1.f));
-				dummyEntity2.PlayEffect(m_fxNameHit);
-			}
-			thePlayer.OnCollisionFromItem(target);
-
-			damage = new W3DamageAction in this;
-			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
-			dk = 1.f;
-			damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
-			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
-			// damage.AddEffectInfo(EET_Burning, 2.0);
-			theGame.damageMgr.ProcessAction( damage );
-			delete damage;
-		}
-
-		return;
+		return newTarget;
 	}
 
 	latent function BreakAction() {
@@ -163,8 +213,12 @@ class NR_MagicLightning extends NR_MagicAction {
 		}
 	}
 
-	latent function HitFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor(ENR_ThrowAbstract);
+	latent function HitFxName(optional customActionType : ENR_MagicAction) : name {
+		var color : ENR_MagicColor;
+		if (customActionType != ENR_Unknown)
+			color = NR_GetActionColor(customActionType);
+		else
+			color = NR_GetActionColor(ENR_ThrowAbstract);
 
 		switch (color) {
 			//case ENR_ColorBlack:
@@ -199,9 +253,14 @@ class NR_MagicLightning extends NR_MagicAction {
 		}
 	}
 
-	latent function LightningFxName() : name {
-		var color 	: ENR_MagicColor = NR_GetActionColor(ENR_ThrowAbstract);
+	latent function LightningFxName(optional customActionType : ENR_MagicAction) : name {
+		var color 	: ENR_MagicColor;
 		var fx_type : name			 = map[sign].getN("style_" + ENR_MAToName(actionType));
+		if (customActionType != ENR_Unknown)
+			color = NR_GetActionColor(customActionType);
+		else
+			color = NR_GetActionColor(ENR_ThrowAbstract);
+		
 		switch (color) {
 			//case ENR_ColorBlack:
 			//	return 'ENR_ColorBlack';
@@ -284,8 +343,7 @@ class NR_MagicLightning extends NR_MagicAction {
 						return 'lightning_lynx_white';
 					case 'keira':
 					default:
-						//return 'lightning_keira_white';
-						return 'lightning_sand';
+						return 'lightning_keira_white';
 				}
 		}
 	}

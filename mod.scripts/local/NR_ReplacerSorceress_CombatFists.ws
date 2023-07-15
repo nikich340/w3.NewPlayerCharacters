@@ -47,8 +47,9 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		var foundSafePoint 		: bool;
 		var attempsToFindPoint	: int;
-		var predictedDodgePos : Vector;
-		var predictedDodgeRot : EulerAngles;
+		var currentPos 			: Vector;
+		var predictedDodgePos 	: Vector;
+		var predictedDodgeRot 	: EulerAngles;
 		var Z : float;
 
 		if ( !parent.magicManager.HasStaminaForAction( ENR_Teleport ) )
@@ -67,18 +68,18 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			evadeTarget = parent.moveTarget;		
 		}
 
-		predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + parent.GetWorldPosition();
+		currentPos = parent.GetWorldPosition();
 		predictedDodgeRot = parent.GetWorldRotation();
+		predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + currentPos;
+		NR_GetSafeTeleportPoint( predictedDodgePos ); // snap to ground
+		predictedDodgePos = NR_GetTeleportMaxArchievablePoint( thePlayer, currentPos, predictedDodgePos );
 
-		predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + parent.GetWorldPosition();
-		predictedDodgeRot = parent.GetWorldRotation();
-		foundSafePoint = GetSafeTeleportPoint( predictedDodgePos );
+		foundSafePoint = NR_GetSafeTeleportPoint( predictedDodgePos );
 		attempsToFindPoint = 5;
-
 		// binary decrease teleportLength
 		while (!foundSafePoint) {
 			if (!attempsToFindPoint) {
-				predictedDodgePos = parent.GetWorldPosition();
+				predictedDodgePos = currentPos;
 				break;
 			}
 			NRD("foundSafePoint: left " + attempsToFindPoint);
@@ -86,8 +87,8 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			playerEvadeType = PET_Dodge; // since we decreased length to 6.0 or less
 
 			teleportLength = teleportLength / 2.f;
-			predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + parent.GetWorldPosition();
-			foundSafePoint = GetSafeTeleportPoint( predictedDodgePos );
+			predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + currentPos;
+			foundSafePoint = NR_GetSafeTeleportPoint( predictedDodgePos );
 		}
 		NRD("Found safe tp pos with length: " + teleportLength + ", pos: " + VecToString(predictedDodgePos) + ", playerPos: " + VecToString(parent.GetWorldPosition()));
 
@@ -133,31 +134,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		// it is set in magicManager on teleport end
 		//parent.SetImmortalityMode( AIM_None, AIC_Combat );
 		//parent.SetImmortalityMode( AIM_None, AIC_Default );
-	}
-	latent function GetSafeTeleportPoint(out tpPos : Vector) : bool {
-		var newPos : Vector;
-		var newZ : float;
-
-		// from IsPointSuitableForTeleport()
-		if ( !theGame.GetWorld().NavigationFindSafeSpot( tpPos, 0.5f, 0.5f*3, newPos ) )
-		{
-			if ( theGame.GetWorld().NavigationComputeZ(tpPos, tpPos.Z - 10.f, tpPos.Z + 10.f, newZ) )
-			{
-				tpPos.Z = newZ;
-				if ( !theGame.GetWorld().NavigationFindSafeSpot( tpPos, 0.5f, 0.5f*3, newPos ) )
-					return false;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		if ( theGame.GetWorld().PhysicsCorrectZ(newPos, newZ) ) {
-			newPos.Z = newZ;
-		}
-
-		tpPos = newPos;
-		return true;
 	}
 
 	event OnInterruptAttack() {
@@ -267,6 +243,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		CreateAttackLightAspect();
 		CreateAttackHeavyAspect();
 		CreateAttackSpecialAspect();
+		CreateAttackSpecialLongAspect();
 		CreateAttackFinisherAspect();
 		CreateAttackPushAspect();
 	}
@@ -453,6 +430,19 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		// taunt_03_rp == ?"transform"
 		// electricity_lp == "cast" / ?"transform"
 
+		/* hack to use woman_sorceress_special_attack_electricity_lp for rp */
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialFastTravelTeleport' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_special_attack_fireball_lp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_special_attack_fireball_lp', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_special_attack_fireball_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_special_attack_fireball_lp', ADIST_Medium );
+		}
+
 		/* 3.33 (1.7) */
 		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialElectricity' );
 		{
@@ -509,13 +499,79 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialTransform' );
 		{
 			str = aspect.CreateComboString( false );
-			str.AddDirAttack( 'woman_sorceress_transform_rp', AD_Front, ADIST_Medium );		
-			str.AddAttack( 'woman_sorceress_transform_rp', ADIST_Medium );
+			str.AddDirAttack( 'woman_sorceress_special_attack_electricity_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_special_attack_electricity_rp', ADIST_Medium );
 		}			
 		{
 			str = aspect.CreateComboString( true );		
-			str.AddDirAttack( 'woman_sorceress_transform_lp', AD_Front, ADIST_Medium );	
-			str.AddAttack( 'woman_sorceress_transform_lp', ADIST_Medium );
+			str.AddDirAttack( 'woman_sorceress_special_attack_electricity_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_special_attack_electricity_lp', ADIST_Medium );
+		}
+	}
+
+	private final function CreateAttackSpecialLongAspect()
+	{
+		var aspect : CComboAspect;
+		var str : CComboString;
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialLongYenChanting' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'nr_q403_yennefer_chanting_spell', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'nr_q403_yennefer_chanting_spell', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'q403_yennefer_chanting_spell', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'q403_yennefer_chanting_spell', ADIST_Medium );
+		}
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialLongCiriTargeting' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'nr_ciri_targeting_for_triss_meteorite_rp_loop', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'nr_ciri_targeting_for_triss_meteorite_rp_loop', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'nr_ciri_targeting_for_triss_meteorite_lp_loop', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'nr_ciri_targeting_for_triss_meteorite_lp_loop', ADIST_Medium );
+		}
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialLongYenNaglfar' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'nr_yennefer_naglfar_arrives_loop_01', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'nr_yennefer_naglfar_arrives_loop_01', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'nr_yennefer_naglfar_arrives_loop_01', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'nr_yennefer_naglfar_arrives_loop_01', ADIST_Medium );
+		}
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialLongMargeritaNaglfar' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'nr_margerita_naglfar_arrives_loop_01', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'nr_margerita_naglfar_arrives_loop_01', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'nr_margerita_naglfar_arrives_loop_01', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'nr_margerita_naglfar_arrives_loop_01', ADIST_Medium );
+		}
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialLongSorceress' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'nr_sorceress_casting_short_spell_loop', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'nr_sorceress_casting_short_spell_loop', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'nr_sorceress_casting_short_spell_loop', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'nr_sorceress_casting_short_spell_loop', ADIST_Medium );
 		}
 	}
 

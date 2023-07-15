@@ -10,30 +10,36 @@ abstract statemachine class NR_MagicAction {
 	protected var m_effectColor : ENR_MagicColor;
 	protected var    	  i, j 	: int;
 	protected var standartCollisions : array<name>;
-	protected var m_fxNameMain   : name;
-	protected var m_fxNameExtra  : name;
 
-	public var m_fxNameHit	: name;
+	public var m_fxNameMain   	: name;
+	public var m_fxNameExtra  	: name;
+	public var m_fxNameHit		: name;
 	public var sign 			: ESignType;
 	public var target			: CActor;  // == Willey when in scene
 	public var map 			: array<NR_Map>;
 	public var magicSkill	: ENR_MagicSkill;
 	public var actionType 	: ENR_MagicAction;
+	public var actionSubtype: ENR_MagicAction;
 	public var isPrepared	: bool;
 	public var isPerformed	: bool;
 	public var isBroken		: bool;
 	public var inPostState	: bool;
 	public var isCursed		: bool;
+	public var isManual 	: bool;
 	public var drainStaminaOnPerform : bool;
+	public var performsToLevelup : int;
 	const  var ST_Universal	 : int;
 
 	default actionType 	= ENR_Unknown;
+	default actionSubtype = ENR_Unknown;
 	default isPrepared 	= false;
 	default isPerformed = false;
 	default isBroken	= false;
 	default inPostState	= false;
 	default isCursed 	= false;
+	default isManual 	= false;
 	default drainStaminaOnPerform 	= true;
+	default performsToLevelup 		= 50; // action-specific
 	default ST_Universal 			= 5; // EnumGetMax(ESignType); 
 
 	latent function OnInit() : bool {
@@ -48,6 +54,7 @@ abstract statemachine class NR_MagicAction {
 		*/
 		return true;
 	}
+
 	latent function PlayScene(inputs : array<int>) : bool {
 		var scene : CStoryScene;
 		var path : String;
@@ -69,52 +76,108 @@ abstract statemachine class NR_MagicAction {
 		theGame.GetStorySceneSystem().PlayScene(scene, "spell_" + IntToString(input_index));
 		return true;
 	}
+
 	latent function OnPrepare() : bool {
 		// load and calculate data
+		NRD("OnPrepare: " + actionType);
 		if (!IsInSetupScene()) {
 			target 	= thePlayer.GetTarget();
 			//sign 	= GetWitcherPlayer().GetEquippedSign();
 		}
-		//standartCollisions.PushBack('Debris');
-		standartCollisions.PushBack('Character');
-		standartCollisions.PushBack('CommunityCollidables');
-		standartCollisions.PushBack('Terrain');
-		standartCollisions.PushBack('Static');
-		standartCollisions.PushBack('Projectile');		
-		standartCollisions.PushBack('ParticleCollider'); 
-		standartCollisions.PushBack('Ragdoll');
-		standartCollisions.PushBack('Destructible');
-		standartCollisions.PushBack('RigidBody');
-		standartCollisions.PushBack('Foliage');
-		standartCollisions.PushBack('Boat');
-		standartCollisions.PushBack('BoatDocking');
-		standartCollisions.PushBack('Door');
-		standartCollisions.PushBack('Platforms');
-		standartCollisions.PushBack('Corpse');
-		standartCollisions.PushBack('Fence');
-		standartCollisions.PushBack('Water');
+		standartCollisions = NR_GetStandartCollisionNames();
 
 		return !isBroken;
 	}
+
 	function OnPrepared(result : bool) : bool {
 		isPrepared = result;
 		return result;
 	}
-	latent function OnPerform() : bool {
+
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		// perform action, fx
-		return isPrepared && !isBroken;
+		NRD("OnPerform: " + actionType);
+		return isPrepared && !isBroken && !isPerformed;
 	}
-	function OnPerformed(result : bool) : bool {
+
+	function OnPerformed(result : bool, optional scriptedPerform : bool) : bool {
 		var magicManager : NR_MagicManager;
 
 		isPerformed = result;
+		NRD("OnPerformed: [" + ENR_MAToName(actionType) + "] result = " + result + ", scriptedPerform = " + scriptedPerform);
 		if (result && drainStaminaOnPerform) {
 			magicManager = NR_GetMagicManager();
 			if (magicManager)
 				magicManager.DrainStaminaForAction(actionType);
 		}
+
+		if (isPerformed && !scriptedPerform) {
+			FactsAdd("nr_magic_performed_" + ENR_MAToName(actionType), 1);
+			if (actionSubtype != ENR_Unknown)
+				FactsAdd("nr_magic_performed_" + ENR_MAToName(actionSubtype), 1);
+			//NRD("OnPerformed: " + "nr_magic_performed_" + ENR_MAToName(actionType) + "=" + FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType)));
+			CheckSkillLevelup();
+		}
 		return result;
 	}
+
+	function CheckSkillLevelup() {
+		var newSkillLevel : int;
+
+		newSkillLevel = PerformedCount() / performsToLevelup;
+		if (newSkillLevel > SkillLevel() && newSkillLevel <= 10) {
+			SetSkillLevel( newSkillLevel );
+			NR_GetMagicManager().ShowSkillLevelup( actionType );
+		}
+	}
+
+	function PerformedCount() : int {
+		return FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType));
+	}
+
+	function SkillLevel() : int {
+		return map[ST_Universal].getI("level_" + ENR_MAToName(actionType), 0);
+	}
+
+	protected function SetSkillLevel(newLevel : int) {
+		// this is basic logic, override it in children classes (add special handles)
+		// FactsAdd("nr_magic_" + ENR_MAToName(type) + "_" + abilityName, 1)
+		map[ST_Universal].setI("level_" + ENR_MAToName(actionType), newLevel);
+	}
+
+	protected function ActionAbilityUnlock(abilityName : String) {
+		NR_GetMagicManager().ActionAbilityUnlock(actionType, abilityName);
+	}
+
+	protected function IsActionAbilityUnlocked(abilityName : String) : bool {
+		return NR_GetMagicManager().IsActionAbilityUnlocked(actionType, abilityName);
+	}
+
+	// + x% to damage
+	function SkillTotalDamageMultiplier(optional invert : bool) : float {
+		if (!invert)
+			return (100.f + NR_GetMagicManager().GetGeneralDamageBonus() + NR_GetMagicManager().GetActionDamageBonus(actionType)) / 100.f;
+		else
+			return (100.f - NR_GetMagicManager().GetGeneralDamageBonus() - NR_GetMagicManager().GetActionDamageBonus(actionType)) / 100.f;
+	}
+
+	// - x% to stamina cost
+	/*function SkillStaminaBonus() : int {
+		return NR_GetMagicManager().GetGeneralStaminaBonus() + NR_GetMagicManager().GetActionStaminaBonus(actionType);
+	}*/
+
+	// + x% to duration
+	function SkillDurationMultiplier(optional invert : bool) : float {
+		if (!invert)
+			return (100.f + NR_GetMagicManager().GetGeneralDurationBonus() + NR_GetMagicManager().GetActionDurationBonus(actionType)) / 100.f;
+		else
+			return (100.f - NR_GetMagicManager().GetGeneralDurationBonus() - NR_GetMagicManager().GetActionDurationBonus(actionType)) / 100.f;
+	}
+	
+	function SkillMaxApplies() : int {
+		return NR_GetMagicManager().GetActionMaxApplies(actionType);	
+	}
+
 	latent function BreakAction() {
 		// should not be launched on successful perform!
 		// makes cleanup if action was interrupted
@@ -173,13 +236,13 @@ abstract statemachine class NR_MagicAction {
 		var    i 	: int;
 		var onLine 	: Bool;
 		FindGameplayEntitiesInRange(ents, thePlayer, 20.f, 1000, '', 0, NULL, 'W3DestroyableClue');
-		NR_Notify("Found destroyable: " + ents.Size());
 		for (i = 0; i < ents.Size(); i += 1) {
 			dEnt = (W3DestroyableClue)ents[i];
-			// destroyable, not destroyed, reacts to aard or igni, is on line of sight, is in FOV
-			if (dEnt && dEnt.destroyable && !dEnt.destroyed && (dEnt.reactsToAard || dEnt.reactsToIgni) && AbsF(theCamera.GetCameraHeading() - dEnt.GetHeading()) < 90) {
-				onLine = NR_OnLineOfSight(thePlayer, dEnt, 1.5f);
+			// destroyable, not destroyed, reacts to aard or igni, is on line of sight, *is in FOV
+			if (dEnt && dEnt.destroyable && !dEnt.destroyed /*&& (dEnt.reactsToAard || dEnt.reactsToIgni) weird! && AbsF(theCamera.GetCameraHeading() - dEnt.GetHeading()) < 90*/) {
 				// there must be no static obstacles
+				onLine = NR_OnLineOfSight(thePlayer, dEnt, 1.f);
+			
 				if (onLine) {
 					destroyable = dEnt;
 					return true;
@@ -195,21 +258,15 @@ abstract statemachine class NR_MagicAction {
 		
 		traceStartPos = nodeA.GetWorldPosition();
 		traceEndPos = nodeB.GetWorldPosition();
+		
 		traceDiff = VecNormalize(traceEndPos - traceStartPos);
 		traceStartPos += traceDiff * 1.f;
 		traceEndPos -= traceDiff * 1.f;
-		
 		traceStartPos.Z += zOffset; // 1.8f for usual head height
 		traceEndPos.Z += zOffset;
-		if ( theGame.GetWorld().StaticTrace(traceStartPos, traceEndPos, traceStopPos, normal, standartCollisions) ) {
-			NRD("NR_OnLineOfSight: start = " + VecToString(traceStartPos) + ", end = " + VecToString(traceEndPos) + ", stop = " + VecToString(traceStopPos));
-			if( traceEndPos == traceStopPos ) {
-				return true;
-			}
-			return false;
-		} else {
-			return true;
-		}
+		
+		traceStopPos = TraceToPoint(traceStartPos, traceEndPos);
+		return (traceStopPos == traceEndPos);
 	}
 
 	latent function TraceToPoint(from : Vector, to : Vector) : Vector
@@ -226,7 +283,7 @@ abstract statemachine class NR_MagicAction {
 	latent function SnapToGround(pos : Vector) : Vector
 	{
 		var groundZ : float;
-		if ( theGame.GetWorld().PhysicsCorrectZ(pos, groundZ) ) {
+		if ( theGame.GetWorld().PhysicsCorrectZ(pos + Vector(0,0,5.f), groundZ) ) {
 			pos.Z = groundZ;
 		}
 		
@@ -245,18 +302,20 @@ abstract statemachine class NR_MagicAction {
 		}
 
 		if (randMin < 0.1) {
-			randMin = 0.9;
+			randMin = 0.8;
 		}
 		if (randMax < 0.1) {
-			randMax = 1.1;
+			randMax = 1.2;
 		}
 
 		if (damageTarget) {
-			levelDiff = thePlayer.GetLevel() - damageTarget.GetLevel();
+			levelDiff = Max(0, thePlayer.GetLevel() - damageTarget.GetLevel());
 			maxDamage = damageTarget.GetMaxHealth() * maxPerc / 100.f + levelDiff * 1.f;
 			minDamage = MaxF(damageTarget.GetMaxHealth() * 0.5f / 100.f, damageTarget.GetMaxHealth() * minPerc / 100.f + levelDiff * 0.1f);
 		} else {
 			levelDiff = 0;
+			maxDamage = 1000000.f;
+			minDamage = 1.f;
 		}
 
 		if (damageTarget.UsesVitality()) {
@@ -276,11 +335,11 @@ abstract statemachine class NR_MagicAction {
 	}
 
 	// [playerLevel - 2step, playerLevel - step, playerLevel, playerLevel + step, playerLevel + 2step]
-	latent function NR_AdjustMinionLevel(npc : CNewNPC, optional step : int) {
+	function NR_AdjustMinionLevel(npc : CNewNPC, optional step : int) {
 		var newLevel : int;
 
 		if (!step) {
-			step = 3;
+			step = 2;
 		}
 		newLevel = GetWitcherPlayer().GetLevel() - 2 * step;
 		newLevel += step * ((int)magicSkill - (int)ENR_SkillNovice);
@@ -294,11 +353,28 @@ abstract statemachine class NR_MagicAction {
 		return map[ST_Universal].getI("setup_scene_active", 0);
 	}
 
+	function MidPosInScene(optional farFromCamera : bool) : Vector {
+		var vecDiff, ret 	 : Vector;
+		if (target)
+			vecDiff = target.GetWorldPosition() - thePlayer.GetWorldPosition();
+		ret = thePlayer.GetWorldPosition() + vecDiff * 0.5f;
+		if (farFromCamera) {
+ 			vecDiff = ret - theCamera.GetCameraPosition();
+ 			ret += vecDiff;
+		}
+		return ret;
+	}
+
 	// get action color enum for current action type
-	function NR_GetActionColor(optional customActionType : ENR_MagicAction) : ENR_MagicColor {
+	public function NR_GetActionColor(optional customActionType : ENR_MagicAction) : ENR_MagicColor {
 		if (customActionType != ENR_Unknown)
 			return (ENR_MagicColor)map[sign].getI("color_" + ENR_MAToName(customActionType), ENR_ColorWhite);
 		
 		return (ENR_MagicColor)map[sign].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite);
+	}
+	
+	// interface for SpecialLong actions
+	public function ContinueAction() {
+		
 	}
 }

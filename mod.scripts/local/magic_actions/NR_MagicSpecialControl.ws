@@ -1,17 +1,15 @@
 statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 	// var controlledActor : CActor; use "target" var
 	var wraithEntity	: CNewNPC;
-	var wasHostile 		: bool;
 	var isControlled	: bool;
-	var s_controlNecroProb 	: int;
-	var s_controlEffect 	: EEffectType;
+	
 	default actionType 	= ENR_SpecialControl;
-	default wasHostile 	= false;
+	default actionSubtype 	= ENR_SpecialAbstract;
 	default isControlled= false;
 	
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 40);
 
 		if ( voicelineChance >= RandRange(100) + 1 ) {
 			sceneInputs.PushBack(8);
@@ -21,6 +19,13 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		}
 
 		return true;
+	}
+
+	protected function SetSkillLevel(newLevel : int) {
+		if (newLevel == 5) {
+			ActionAbilityUnlock("Upscaling");
+		}
+		super.SetSkillLevel(newLevel);
 	}
 
 	latent function OnPrepare() : bool {
@@ -33,15 +38,9 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );
 
-		// load data from map
-		s_specialLifetime = map[ST_Universal].getI("s_controlLifetime", 15);
-		s_controlNecroProb = map[ST_Universal].getI("s_controlNecroProb", 100);
-		s_controlEffect = (EEffectType)map[ST_Universal].getI("s_controlEffect", EET_AxiiGuardMe);
-		NRD("onPrepare: s_controlEffect = " + s_controlEffect + ", s_specialLifetime = " + s_specialLifetime);
-		
-		actors = thePlayer.GetNPCsAndPlayersInCone(/*range*/ 25, /*coneDir*/ VecHeading(thePlayer.GetHeadingVector()), /*coneAngle*/ 120, /*maxResults*/ 99, , FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile + FLAG_Attitude_Neutral + FLAG_TestLineOfSight);
+		//actors = thePlayer.GetNPCsAndPlayersInCone(/*range*/ 25, /*coneDir*/ thePlayer.GetHeading(), /*coneAngle*/ 120, /*maxResults*/ 99, , FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile + FLAG_Attitude_Neutral);
 
-		targetIdx = -1;
+		/*targetIdx = -1;
 		minAngle = 361.f;
 		if ( target && target.HasTag('NR_SpecialControl') ) {
 			target = NULL;
@@ -54,18 +53,18 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 					&& minAngle > targetAngle ) 
 				{
 					targetIdx = i;
-					minAngle = targetAngle; 
+					minAngle = targetAngle;
 				}
 			}
 			if (targetIdx >= 0) {
 				target = actors[targetIdx];
 			}
-		}
+		}*/
 		NRD("Final target: " + target);
 
 		if (target) {
 			// from AddMagic17Effect
-			buffParams.effectType = EET_Slowdown; // EET_SlowdownAxii ?
+			buffParams.effectType = EET_SlowdownAxii;
 			buffParams.creator = thePlayer;
 			buffParams.sourceName = "NR_MagicSpecialControl";
 			buffParams.duration = 5.f;
@@ -78,39 +77,30 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform() : bool {
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 
 		//thePlayer.LockToTarget( false );
 		//thePlayer.EnableManualCameraControl( false, 'NR_MagicSpecialControl' );
-		if ( !target ) {
-			NRE("Control: NULL target.");
-
-			entityTemplate = (CEntityTemplate)LoadResourceAsync("quests\part_1\quest_files\q203_him\entities\q203_geralt_head_component.w2ent", true);
-			dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
-			if (!dummyEntity) {
-				NRE("Control: NULL dummyEntity.");
-			}
-		} else {
-			entityTemplate = (CEntityTemplate)LoadResourceAsync("quests\part_1\quest_files\q203_him\entities\q203_geralt_head_component.w2ent", true);
-			//pos = controlledActors[i].GetBoneWorldPosition('head');
-			dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
-			if (!dummyEntity) {
-				NRE("Control: NULL dummyEntity.");
-			}
+		entityTemplate = (CEntityTemplate)LoadResourceAsync("quests\part_1\quest_files\q203_him\entities\q203_geralt_head_component.w2ent", true);
+		dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
+		if (!dummyEntity) {
+			NRE("Control: NULL dummyEntity.");
+		}
+		if ( target ) {
 			if ( !dummyEntity.CreateAttachment( target, 'head' ) ) {
 				dummyEntity.CreateAttachment( target );
 				NRD("Can't attach dummy to head slot: " + target);
 			}
 		}
 		thePlayer.PlayEffect('mind_control', dummyEntity);
-		GotoState('RunWait');
+		GotoState('Active');
 		
-		return OnPerformed(true);
+		return OnPerformed(true, scriptedPerform);
 	}
 
 	latent function BreakAction() {
@@ -121,7 +111,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		GotoState('Stop');
 	}
 
-	latent function TakeControl(npc : CNewNPC, bonuses : bool) {
+	latent function TakeControl(npc : CNewNPC) {
 		var bonusAbilityName : name;
 
 		if (!npc || !npc.IsAlive())
@@ -131,7 +121,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		
 		if ( npc.GetAttitude( thePlayer ) == AIA_Hostile )
 		{
-			wasHostile = true;
+			// wasHostile = true;
 			npc.ResetAttitude( thePlayer );
 		}
 		if ( npc.HasTag('animal') || npc.IsHorse() ) {
@@ -142,16 +132,13 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		npc.SignalGameplayEvent('AxiiGuardMeAdded');
 		npc.SignalGameplayEvent('NoticedObjectReevaluation');
 
-		if (bonuses) {
+		
+		if (IsActionAbilityUnlocked("Upscaling")) {
 			bonusAbilityName = thePlayer.GetSkillAbilityName(S_Magic_s05);
-			if (magicSkill >= ENR_SkillApprentice) {
-				npc.AddAbility(bonusAbilityName, true); // 1st bonus
-			}
-			if (magicSkill >= ENR_SkillMistress) {
-				npc.AddAbility(bonusAbilityName, true); // 2nd bonus
-			}
-			NR_Notify("bonusAbilityName = " + bonusAbilityName);
-		}
+			npc.AddAbility(bonusAbilityName, true);
+			npc.SetLevel(npc.GetLevel() + 3);
+			NRD("Control: bonusAbilityName = " + bonusAbilityName);
+		}			
 
 		if (npc.IsHorse())
 			npc.GetHorseComponent().ResetPanic();
@@ -172,10 +159,19 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 
 		bonusAbilityName = thePlayer.GetSkillAbilityName(S_Magic_s05);
 		npc.RemoveAbilityAll(bonusAbilityName);
+		if (IsActionAbilityUnlocked("Upscaling")) {
+			npc.SetLevel(npc.GetLevel() - 3);
+		}
 		npc.StopEffect('axii_guardian');
 	}
 }
-state RunWait in NR_MagicSpecialControl {
+state Active in NR_MagicSpecialControl {
+	protected var startTime : float;
+
+	function GetLocalTime() : float {
+		return theGame.GetEngineTimeAsSeconds() - startTime;
+	}
+
 	event OnEnterState( prevStateName : name )
 	{
 		NRD("OnEnterState: " + this);
@@ -186,21 +182,20 @@ state RunWait in NR_MagicSpecialControl {
 		var buffParams 	: SCustomEffectParams;
 		var result 		: EEffectInteract;
 		var npc 		: CNewNPC;
-		var startTime 	: float;
 
-		Sleep( 1.f );
+		Sleep( 0.5f );
 		//NRD("EnableManualCameraControl: " + this);
 		npc = (CNewNPC)parent.target;
 		thePlayer.StopEffect('mind_control');
 
 		if ( npc ) {
-			npc.RemoveBuff(EET_Slowdown, true, "NR_MagicSpecialControl");
-			parent.TakeControl( npc, /*bonuses*/ true );
+			npc.RemoveBuff(EET_SlowdownAxii, true, "NR_MagicSpecialControl");
+			parent.TakeControl( npc );
 			parent.isControlled = true;
 
 			startTime = theGame.GetEngineTimeAsSeconds();
 			// wait for time exceed or NPC's death
-			while( npc.IsAlive() && theGame.GetEngineTimeAsSeconds() - startTime < parent.s_specialLifetime ) {
+			while( npc.IsAlive() && GetLocalTime() < parent.s_lifetime ) {
 				Sleep(0.2f);
 			}
 
@@ -208,24 +203,20 @@ state RunWait in NR_MagicSpecialControl {
 			parent.StopControl( npc );
 			parent.isControlled = false;
 
-			/* Was hostile human OR is dead human + necro chance is lucky */
-			if ( (parent.wasHostile || !npc.IsAlive()) && npc.IsHuman() && parent.s_controlNecroProb >= RandRange(100) + 1 ) {
-				NRD("KILL AND SUMMON WRAITH!");
-				npc.Kill('NR_MagicSpecialControl', /*ignoreImmortalityMode*/ true);
-				Sleep(0.75f);
+			/* Target is dead human */
+			if ( npc.IsHuman() && !npc.IsAlive() ) {
+				//npc.Kill('NR_MagicSpecialControl', /*ignoreImmortalityMode*/ true);
+				Sleep(0.5f);
 				parent.entityTemplate = (CEntityTemplate)LoadResourceAsync("wraith");
 				parent.wraithEntity = (CNewNPC)theGame.CreateEntity( parent.entityTemplate, npc.GetWorldPosition(), npc.GetWorldRotation() );
 
-				if (parent.magicSkill >= ENR_SkillMistress) {
-					parent.wraithEntity.SetAppearance('wraith_03');
-				} else if (parent.magicSkill >= ENR_SkillApprentice) {
+				if (parent.IsActionAbilityUnlocked("Upscaling")) {
 					parent.wraithEntity.SetAppearance('wraith_02');
 				}
 				parent.NR_AdjustMinionLevel( parent.wraithEntity, 1 );
+				parent.TakeControl( parent.wraithEntity );
 
-				parent.TakeControl( parent.wraithEntity, /*bonuses*/ false );
-
-				Sleep( parent.s_specialLifetime );
+				Sleep( parent.s_lifetime );
 			}
 		} else {
 			NRD("NULL target: " + this);
@@ -237,6 +228,7 @@ state RunWait in NR_MagicSpecialControl {
 		NRD("OnLeaveState: " + this);
 	}
 }
+
 state Stop in NR_MagicSpecialControl {
 	event OnEnterState( prevStateName : name )
 	{
@@ -245,11 +237,11 @@ state Stop in NR_MagicSpecialControl {
 		Stop();
 	}
 	entry function Stop() {
-		if ( parent.isControlled ) {
+		if ( parent.isControlled && parent.target.IsAlive() ) {
 			parent.StopControl( (CNewNPC)parent.target );
 			parent.isControlled = false;
 		}
-		if ( parent.wraithEntity ) {
+		if ( parent.wraithEntity && parent.wraithEntity.IsAlive() ) {
 			parent.StopControl( parent.wraithEntity );
 			parent.wraithEntity.Kill('NR_MagicSpecialControl', /*ignoreImmortalityMode*/ true);
 		}
@@ -261,6 +253,7 @@ state Stop in NR_MagicSpecialControl {
 		parent.inPostState = false;
 	}
 }
+
 state Cursed in NR_MagicSpecialControl {
 	event OnEnterState( prevStateName : name )
 	{
@@ -273,14 +266,19 @@ state Cursed in NR_MagicSpecialControl {
 			parent.StopControl( (CNewNPC)parent.target );
 			parent.isControlled = false;
 		}
-		if ( parent.wraithEntity ) {
-			Sleep(0.5f);
-			parent.StopControl( parent.wraithEntity );
+		Sleep(1.f);
 
-			Sleep( parent.s_specialLifetime );
-		} else {
-			NRD("Curse: NULL wraithEntity!");
-		}
+		if ( parent.wraithEntity && parent.wraithEntity.IsAlive() ) {
+			// kill friendly wraith
+			parent.StopControl( parent.wraithEntity );
+			parent.wraithEntity.Kill('NR_MagicSpecialControl', /*ignoreImmortalityMode*/ true);
+		} 
+		// spawn new hostile wraith
+		parent.entityTemplate = (CEntityTemplate)LoadResourceAsync("wraith");
+		parent.wraithEntity = (CNewNPC)theGame.CreateEntity( parent.entityTemplate, parent.target.GetWorldPosition(), parent.target.GetWorldRotation() );
+		parent.wraithEntity.SetAppearance('wraith_03');
+		parent.wraithEntity.SetLevel( Max(1, thePlayer.GetLevel() - 5 - parent.SkillLevel() / 2) );
+		Sleep( parent.s_lifetime * 0.5f );
 		
 		parent.StopAction();
 	}

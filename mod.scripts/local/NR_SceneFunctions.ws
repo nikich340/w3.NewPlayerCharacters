@@ -29,10 +29,14 @@ storyscene function NR_UserSetsRemove_S(player: CStoryScenePlayer, setIndex : in
 
 storyscene function NR_SwitchIncludeAsItem_S(player: CStoryScenePlayer, slot_index : int) {
 	if (FactsQuerySum("nr_scene_stacking_as_items") < 1) {
-		FactsAdd("nr_scene_stacking_as_items", 1);
+		FactsSet("nr_scene_stacking_as_items", 1);
 	} else {
 		FactsSet("nr_scene_stacking_as_items", 0);
 	}
+}
+
+storyscene function NR_FactsSet_S(player: CStoryScenePlayer, factName : string, value : int) {
+	FactsSet(factName, value);
 }
 
 // Magic stuff
@@ -80,7 +84,7 @@ storyscene function NR_ShowMagicInfo_S(player: CStoryScenePlayer, sectionName : 
 storyscene function NR_SetMagicSignName_S(player: CStoryScenePlayer, signName : name) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
-	NR_Notify("NR_SetMagicSignName_S: signName = " + signName);
+	NRD("NR_SetMagicSignName_S: signName = " + signName);
 	if (!magicManager) {
 		NRE("NR_SetMagicInSetupScene_S: NULL magicManager!");
 		return;
@@ -184,6 +188,10 @@ storyscene function NR_SetMagicParamName_S(player: CStoryScenePlayer, signName :
 	}
 	magicManager.SetParamName(signName, varName, varValue);
 	magicManager.UpdateMagicInfo();
+}
+
+latent storyscene function NR_CreatePortal_S(player: CStoryScenePlayer, waypointTag : name, worldName : String, optional activeTime : float) {
+	NR_CreatePortal( waypointTag, worldName, activeTime );
 }
 
 /*latent storyscene function NR_ChooseMagicParamPercent_S(player: CStoryScenePlayer, signName : name, varName : String)

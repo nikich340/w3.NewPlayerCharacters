@@ -1359,7 +1359,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		}
 		
 		NRD("SS: BuildCombo()");
-		comboPlayer.SetDurationBlend( 0.5f );
+		comboPlayer.SetDurationBlend( 0.4f );
 		
 		
 		CleanUpComboStuff();
@@ -1607,8 +1607,26 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		&& actorVictim.IsAlive()
 		// ? && ( actorVictim.HasBuff(EET_Confusion) || actorVictim.HasBuff(EET_AxiiGuardMe) )
 		&& actorVictim.IsVulnerable()
+		&& (!actorVictim.HasTag('HideHealthBarModule') || actorVictim.HasTag('NotBoss'))
 		&& !actorVictim.HasAbility('DisableFinisher')
 		&& !actorVictim.HasAbility('InstantKillImmune');
+	}
+
+	public function GetAnimDurationForAspect( aspectName : name ) : float {
+		switch (aspectName) {
+			case 'AttackSpecialLongYenChanting':
+				return 10.66667f;
+			case 'AttackSpecialLongCiriTargeting':
+				return 4.f;
+			case 'AttackSpecialLongYenNaglfar':
+				return 4.06667f;
+			case 'AttackSpecialLongMargeritaNaglfar':
+				return 2.73333f;
+			case 'AttackSpecialLongSorceress':
+				return 5.83333f;
+			default:
+				return 5.f;
+		}
 	}
 
 	// if stamina is not enough, then "nullify" attack will be performed
@@ -1616,16 +1634,118 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		ResetTimeToEndCombat();
 
 		parent.magicManager.CorrectAspectAction( actionType, aspectName );
+		if ( parent.magicManager.IsLongMagicAction(actionType) ) {
+			TryPeformLongMagicAttack( aspectName, actionType );
+		}
+
+		if ( !parent.magicManager.IsActionLearned(actionType) ) {
+			thePlayer.DisplayHudMessage( NR_StrRed(GetLocStringById(2115940242) + ": " + ENR_MAToLocString(actionType)) );
+			return;
+		}
+
 		if ( parent.magicManager.HasStaminaForAction(actionType) ) {
 			parent.magicManager.SetActionType( actionType );
-			comboPlayer.PlayAttack( aspectName );
 			NRD("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
+			// separate thing for sorceress quen
+			if (actionType == ENR_SpecialShield) {
+				parent.CastQuen();
+			} else {
+				NRD("PlayAttack: aspect = " + aspectName + ", = " + comboPlayer.PlayAttack( aspectName ));
+			}
 		} else {
 			parent.magicManager.SetActionType( ENR_Unknown );
 			comboPlayer.PlayAttack( 'AttackNoStamina' );
-			NRD("Combat.TryPeformMagicAttack: No stamina for: " + aspectName);
+			NRD("Combat.TryPeformMagicAttack: No stamina to make attack: " + actionType);
 		}
 		virtual_parent.OnCombatActionStart();
+	}
+
+	latent function TryPeformLongMagicAttack( aspectName : name, actionType : ENR_MagicAction ) : bool {
+		var startTime, currentTime, lastTime, deltaTime, animTime, lastAnimTime : float;
+		var playRet : bool;
+
+		ResetTimeToEndCombat();
+		// parent.magicManager.CorrectAspectAction( actionType, aspectName );
+		if ( !parent.magicManager.IsActionLearned(actionType) ) {
+			thePlayer.DisplayHudMessage( NR_StrRed(GetLocStringById(2115940242) + ": " + ENR_MAToLocString(actionType)) );
+			return false;
+		}
+
+		if ( !parent.magicManager.HasStaminaForAction(actionType) ) {
+			parent.magicManager.SetActionType( ENR_Unknown );
+			playRet = comboPlayer.PlayAttack( 'AttackNoStamina' );
+			NRD("Combat.TryPeformMagicAttack: No stamina to launch attack: " + actionType + ", playAnim = " + playRet);
+			virtual_parent.OnCombatActionStart();
+			return false;
+		}
+
+		parent.magicManager.SetActionType( actionType );
+		// manually push action to Active state
+		parent.magicManager.AddActionEvent( 'InitAction', 'TryPeformLongMagicAttack' );
+		parent.magicManager.AddActionEvent( 'Prepare', 'TryPeformLongMagicAttack' );
+		parent.magicManager.AddActionEvent( 'PerformMagicAttack', 'TryPeformLongMagicAttack' );
+		parent.magicManager.DrainStaminaForAction( actionType );
+		
+		playRet = comboPlayer.PlayAttack( aspectName );
+		// unwanted actions may break anim
+		virtual_parent.BlockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
+		virtual_parent.BlockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
+		virtual_parent.BlockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
+		virtual_parent.BlockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
+		virtual_parent.BlockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
+		virtual_parent.BlockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
+
+		animTime = GetAnimDurationForAspect( aspectName ) - 0.3f;
+		startTime = theGame.GetEngineTimeAsSeconds();
+		lastTime = startTime;
+		lastAnimTime = startTime;
+		NRD("TryPeformLongMagicAttack: animTime = " + animTime);
+
+		while ( theInput.IsActionPressed( 'CastSign' ) ) {
+			SleepOneFrame();
+			ResetTimeToEndCombat();  // don't allow to exit combat state
+			currentTime = theGame.GetEngineTimeAsSeconds();
+			deltaTime = currentTime - lastTime;
+			if (deltaTime < 0.1f)
+				continue;
+
+			lastTime = currentTime;
+
+			if ( !parent.magicManager.CanContinueMagicAction() ||
+				 !parent.magicManager.HasStaminaForActionTick(actionType, deltaTime) ) {
+				break;
+			}
+			parent.magicManager.DrainStaminaForActionTick(actionType, deltaTime);
+			parent.magicManager.AddActionEvent( 'ContinueAction', 'TryPeformLongMagicAttack' );
+
+			if ( currentTime - lastAnimTime > animTime ) {
+				playRet = comboPlayer.PlayAttack( aspectName );
+				NRD("TryPeformLongMagicAttack: PlayAttack = " + aspectName + ", ret = " + playRet);
+				lastAnimTime = currentTime;
+			}
+		}
+
+		virtual_parent.OnCombatActionStart();
+		// we can't stop anim if it's still in blend-in
+		if (currentTime - startTime < 0.2f) {
+			Sleep(0.2f);
+		}
+
+		NRD("TryPeformLongMagicAttack: OnInterruptAttack");
+		OnInterruptAttack();
+		parent.RaiseForceEvent( 'AnimEndAUX' );
+		//parent.RaiseEvent( 'ForceBlendOut' ); <-- intermediate anim end
+
+		// small pause before allowing new action
+		Sleep(0.2f);
+		virtual_parent.UnblockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
+		virtual_parent.UnblockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
+		virtual_parent.UnblockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
+		virtual_parent.UnblockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
+		virtual_parent.UnblockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
+		virtual_parent.UnblockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
+
+		return true;
 	}
 	
 	var enableSoftLock	: bool; 
@@ -1720,11 +1840,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				ResetTimeToEndCombat();
 				isAlternateAttack = CheckIsAlternateAttack( 0.2f );
 				NRD("Combat.ProcessAttack: isAlternate = " + isAlternateAttack);
-
-				if (parent.GetEquippedSign() == ST_Quen && !isAlternateAttack) {
-					parent.CastQuen();
-					return;
-				}
 				
 				if (isAlternateAttack)
 					TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialAbstractAlt );
@@ -1732,7 +1847,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 					TryPeformMagicAttack( 'AttackHeavyRock', ENR_SpecialAbstract );				
 			} else if ( playerAttackType == 'attack_magic_ftteleport' )
 			{
-				TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_FastTravelTeleport );
+				TryPeformMagicAttack( 'AttackSpecialFastTravelTeleport', ENR_FastTravelTeleport );
 			}
 			else
 			{
@@ -1751,7 +1866,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		while (theGame.GetEngineTimeAsSeconds() - startTime < minHoldTime) {
 			SleepOneFrame();
 			if ( !theInput.IsActionPressed( 'CastSign' ) ) {
-				NR_Notify("Hold time: " + FloatToStringPrec(theGame.GetEngineTimeAsSeconds() - startTime, 5));
+				NRD("Hold time: " + FloatToStringPrec(theGame.GetEngineTimeAsSeconds() - startTime, 5));
 				return false;
 			}
 		}

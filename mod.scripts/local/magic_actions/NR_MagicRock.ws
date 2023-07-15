@@ -1,17 +1,18 @@
 statemachine class NR_MagicRock extends NR_MagicAction {
 	var projectile 		: W3AdvancedProjectile;
 	var lProjectiles 	: array<W3AdvancedProjectile>;
-
 	var lStartPositions : array<Vector>;
 	var lFinalPositions : array<Vector>;
 	var lStartTime 		: float;
 	var lPrevTime 		: float;
 	var lLoopActive		: bool;
+
 	default actionType = ENR_Rock;
+	default actionSubtype = ENR_HeavyAbstract;
 	
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 25);
 
 		if ( voicelineChance >= RandRange(100) + 1 ) {
 			NRD("PlayScene!");
@@ -22,6 +23,13 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		}
 
 		return true;
+	}
+
+	protected function SetSkillLevel(newLevel : int) {
+		if (newLevel == 5) {
+			ActionAbilityUnlock("AutoAim");
+		}
+		super.SetSkillLevel(newLevel);
 	}
 
 	latent function OnPrepare() : bool {
@@ -42,10 +50,9 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		// BTTaskPullObjectsFromGroundAndShoot, Keira Metz & Djinni //
 		numberToSpawn			= 10;
-		dk 						= 3.f / numberToSpawn;
-		if (FactsQuerySum("nr_magic_DoubleRocks") > 0) {
-			numberToSpawn *= 2;
-		}
+		dk 						= 2.5f * SkillTotalDamageMultiplier() / numberToSpawn;
+		numberToSpawn 			+= SkillLevel();
+
 		numberOfCircles 		= 1; // don't change this
 		spawnObjectsInConeAngle = 45.f;
 		numPerCircle 			= FloorF( (float) numberToSpawn / (float) numberOfCircles );
@@ -87,7 +94,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform() : bool {
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		var i 					: int;
 		var shootDirectionNoise : float = 2.5f;
 		var drawSpeedLimit 		: float = 10.f;
@@ -95,12 +102,11 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		var range, distToTarget, distance3DToTarget, projectileFlightTime, npcToTargetAngle	: float;
 		var spawnPos			: Vector;
 		var spawnRot			: EulerAngles;
-		var aimAbility 			: bool;
 
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false);
+			return OnPerformed(false, scriptedPerform);
 		}
 
 		// stop rotating
@@ -118,7 +124,6 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		dummyEntity.CreateAttachment( thePlayer );
 		dummyEntity.PlayEffect( m_fxNameExtra ); // 'blast' 'cone'
 		dummyEntity.DestroyAfter(5.f);
-		aimAbility = FactsQuerySum("nr_magic_RocksAim") > 0;
 
 		NRD("rock: OnPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
 		// shoot projectiles
@@ -143,14 +148,14 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 				projectileFlightTime = distance3DToTarget / drawSpeedLimit;
 				target.SignalGameplayEventParamFloat( 'Time2DodgeProjectile', projectileFlightTime );
 			}
-			if (target && aimAbility && RandRange(100) < 30) {
+			if (target && IsActionAbilityUnlocked("AutoAim")) {
 				projectile.ShootProjectileAtNode( projectile.projAngle, projectile.projSpeed, target, range, standartCollisions );
 			} else {
 				projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, range, standartCollisions );
 			}
 			projectile.DestroyAfter(10.f);
 		}
-		return OnPerformed(true);
+		return OnPerformed(true, scriptedPerform);
 	}
 
 	latent function BreakAction() {

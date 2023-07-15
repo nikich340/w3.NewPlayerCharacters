@@ -1,11 +1,13 @@
 class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	var isActive 			: bool;
+	
 	default isActive 		= false;
 	default actionType 		= ENR_SpecialLumos;
+	default actionSubtype = ENR_SpecialAbstractAlt;
 	
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 100);
 
 		if ( voicelineChance >= RandRange(100) + 1 ) {
 			NRD("PlayScene!");
@@ -22,34 +24,53 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 		return OnPrepared(true);
 	}*/
 
+	public function IsActive() : bool {
+		return isActive;
+	}
+
+	public function SetActive(active : bool) {
+		isActive = active;
+	}
+
 	/* Non-latent version */
-	public function OnPerformSync() : bool {
-		NR_Notify("NR_MagicSpecialLumos::OnPerformSync, isActive = " + isActive);
-		if (isActive) {
-			BreakActionSync();
-			return true;
+	public function OnPrepareSync() {
+		m_fxNameMain = LumosFxName();
+		inPostState = true; // prevent action erasing
+		isPrepared = true;
+	}
+
+	/* Non-latent version */
+	public function OnSwitchSync(enable : bool) : bool {
+		NRD("NR_MagicSpecialLumos:OnSwitchSync, isActive = " + isActive);
+
+		if (!isPrepared) {
+			OnPrepareSync();
 		}
 
-		s_specialLifetime = map[ST_Universal].getI("s_controlLifetime", 60);
-		m_fxNameMain = LumosFxName();
+		if (enable) {
+			if (!IsActive()) {
+				NR_GetReplacerSorceress().PlayEffect( m_fxNameMain );
+			}
+		}
+		if (!enable) {
+			if (IsActive()) {
+				NR_GetReplacerSorceress().StopEffect( m_fxNameMain );
+			}
+		}
+		SetActive(enable);
+		NRD("NR_MagicSpecialLumos:OnSwitchSync = " + enable);
 
-		NR_Notify("NR_MagicSpecialLumos::OnPerformSync, effectColor = " + m_effectColor);
-
-		NR_GetReplacerSorceress().PlayEffect( m_fxNameMain );
-		GotoState('RunWait');
 		return true;
 	}
 
-	latent function OnPerform() : bool {
-		return OnPerformed( OnPerformSync() );
+	latent function OnPerform(optional scriptedPerform : bool) : bool {
+		return OnPerformed( OnSwitchSync(!IsActive()) );
 	}
 
 	/* Non-latent version */
 	function BreakActionSync() {
 		if (isPerformed)
 			return;
-			
-		GotoState('Stop');
 	}
 
 	latent function BreakAction() {
@@ -93,29 +114,34 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	}
 }
 
+/*
 state RunWait in NR_MagicSpecialLumos {
 	event OnEnterState( prevStateName : name )
 	{
+		parent.inPostState = true;
 		NRD("RunWait: OnEnterState: " + this);
 		RunWait();		
 	}
 	entry function RunWait() {
 		NR_GetReplacerSorceress().SetLumosActive(true);
 		parent.isActive = true;
-		Sleep( parent.s_specialLifetime );
+		Sleep( parent.s_lifetime );
 		NRD("RunWait: Stop lumos!");
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
 	event OnLeaveState( nextStateName : name )
 	{
 		NRD("RunWait: OnLeaveState: " + this);
+		parent.inPostState = false;
 	}
 }
 state Stop in NR_MagicSpecialLumos {
 	event OnEnterState( prevStateName : name )
 	{
+		parent.inPostState = true;
 		NRD("Stop: OnEnterState: " + this);
 		Stop();
+		parent.inPostState = false;
 	}
 	entry function Stop() {
 		NR_GetReplacerSorceress().SetLumosActive(false);
@@ -143,3 +169,4 @@ state Curse in NR_MagicSpecialLumos {
 		NRD("OnLeaveState: " + this);
 	}
 }
+*/

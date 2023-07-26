@@ -540,6 +540,11 @@ import class CR4Game extends CCommonGame
 		GetGuiManager().OnSignIn();
 	}
 	
+	event OnHDRChangedEvent()
+	{
+		GetGuiManager().OnHDRChanged();
+	}
+	
 	event OnUserSignedOut()
 	{
 		isSignedIn = false;
@@ -754,15 +759,17 @@ import class CR4Game extends CCommonGame
 			thePlayer.SetTeleportedOnBoatToOtherHUB( false );
 			thePlayer.AddTimer( 'DelayedSpawnAndMountBoat', 0.001f, false );
 		}
-
+		
 		// NR_MOD v
+		NRD("theGame.OnGameStarted: PlayerManager check..");
 		if ( !nr_playerManager ) {
 			nr_playerManager = new NR_PlayerManager in theGame;
 			nr_playerManager.Init();
 			NRD("theGame.OnGameStarted: PlayerManager created!");
 		}
 		NRD("theGame.OnGameStarted: PlayerManager OnStarted!");
-		nr_playerManager.OnStarted();
+		NRD("theGame.OnGameStarted: PlayerManager checked!");
+		nr_playerManager.GotoState('Startup');
 		// NR_MOD ^
 	}
 	

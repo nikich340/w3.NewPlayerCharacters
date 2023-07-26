@@ -664,6 +664,11 @@ quest function SetGeraltHairQuest( hairstyleName : name )
 	var size : int;
 	var i : int;
 
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	witcher = GetWitcherPlayer();
 	inv = witcher.GetInventory();
 
@@ -691,6 +696,11 @@ quest function SetGeraltTorsoQuest( torsoName : name )
 	var size : int;
 	var i : int;
 
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	witcher = GetWitcherPlayer();
 	inv = witcher.GetInventory();
 
@@ -721,6 +731,11 @@ quest function SetGeraltPalmsQuest( palmsName : name )
 	var size : int;
 	var i : int;
 
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	witcher = GetWitcherPlayer();
 	inv = witcher.GetInventory();
 

@@ -1231,9 +1231,9 @@ class CR4MapMenu extends CR4MenuBase
 			return false;
 		}
 
-		// v NR MOD
+		// NR_MOD v
 		if ( NR_GetMagicManager() && NR_GetMagicManager().IsActionLearned(ENR_FastTravelTeleport) && NR_GetMagicManager().CreateFastTravelTeleport(pinTag, areaId, m_currentArea) ) {
-			// close map
+			// teleport will be created - close map
 			theGame.Unpause("menus");
 			rootMenu = theGame.GetGuiManager().GetRootMenu();
 			if ( rootMenu )
@@ -1242,7 +1242,7 @@ class CR4MapMenu extends CR4MenuBase
 			}
 			return false;
 		}
-		// ^ NR MOD
+		// NR_MOD ^
 
 		if ( !manager.DBG_IsAllowedFT() )
 		{

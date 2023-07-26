@@ -2122,7 +2122,7 @@ class CR4InventoryMenu extends CR4MenuBase
 		
 		// v NR_MOD v
 		if ( NR_GetWitcherReplacer() && NR_GetWitcherReplacer().NR_IsSlotDenied(slot) ) {
-			showNotification( "<font color='#00008B'>(" + GetLocStringById(NR_GetWitcherReplacer().GetNameID()) + ")</font>" + GetLocStringByKeyExt("nr_slot_denied") + SlotEnumToName(slot) );
+			showNotification( "<font color='#00008B'>(" + GetLocStringById(NR_GetWitcherReplacer().GetNameID()) + ")</font> " + GetLocStringById(2115940100) + SlotEnumToName(slot) );
 			OnPlaySoundEvent("gui_global_denied");
 			return false;
 		}

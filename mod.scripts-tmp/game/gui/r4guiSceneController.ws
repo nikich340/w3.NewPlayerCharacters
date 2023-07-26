@@ -198,31 +198,7 @@ class CR4GuiSceneController
 	public function SetEntityTemplate( entityTemplateAlias : string )
 	{
 		var templateResource : CEntityTemplate;
-		// v NR_MOD
-		var extraTemplateResources : array<CEntityTemplate>;
-		var nr_manager : NR_PlayerManager = NR_GetPlayerManager();
-		var      nr_i, nr_j : int;
-		// ^ NR_MOD
 
-		// v NR_MOD
-		if ( !StrStartsWith(entityTemplateAlias, "Horse") && nr_manager && nr_manager.IsReplacerActive() ) {
-			for (nr_i = ENR_RSlotHair; nr_i < ENR_RSlotMisc; nr_i += 1) {
-				if (nr_manager.m_appearanceTemplates[nr_i] == "")
-					continue;
-				templateResource = (CEntityTemplate) LoadResource( nr_manager.m_appearanceTemplates[nr_i], nr_manager.m_appearanceTemplateIsDepotPath[nr_i] );
-				if (templateResource)
-					extraTemplateResources.PushBack(templateResource);
-			}
-			for (nr_i = 0; nr_i < nr_manager.m_appearanceItems.Size(); nr_i += 1) {
-				if (nr_manager.m_appearanceItems[nr_i] == "")
-					continue;
-				templateResource = (CEntityTemplate) LoadResource( nr_manager.m_appearanceItems[nr_i], nr_manager.m_appearanceItemIsDepotPath[nr_i] );
-				if (templateResource)
-					extraTemplateResources.PushBack(templateResource);
-			}
-		}
-		// ^ NR_MOD
-		
 		if ( _isEntitySpawning )
 		{
 			_entityTemplateAlias = entityTemplateAlias;
@@ -233,14 +209,8 @@ class CR4GuiSceneController
 			if ( templateResource )
 			{
 				// v NR_MOD
-				if ( !StrStartsWith(entityTemplateAlias, "Horse") ) {
-					for (nr_i = 0; nr_i < templateResource.appearances.Size(); nr_i += 1) {
-						// clear old templates - because CEntityTemplate seems to be cached
-						templateResource.appearances[nr_i].includedTemplates.Clear();
-						for (nr_j = 0; nr_j < extraTemplateResources.Size(); nr_j += 1) {
-							templateResource.appearances[nr_i].includedTemplates.PushBack(extraTemplateResources[nr_j]);
-						}
-					}
+				if ( !StrStartsWith(entityTemplateAlias, "Horse") && NR_GetPlayerManager().IsReplacerActive() ) {
+					NR_GetPlayerManager().UpdateInventoryTemplateAppearance( templateResource );
 				}
 				// ^ NR_MOD
 				_isEntitySpawning = true;

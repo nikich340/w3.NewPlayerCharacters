@@ -761,15 +761,7 @@ import class CR4Game extends CCommonGame
 		}
 		
 		// NR_MOD v
-		NRD("theGame.OnGameStarted: PlayerManager check..");
-		if ( !nr_playerManager ) {
-			nr_playerManager = new NR_PlayerManager in theGame;
-			nr_playerManager.Init();
-			NRD("theGame.OnGameStarted: PlayerManager created!");
-		}
-		NRD("theGame.OnGameStarted: PlayerManager OnStarted!");
-		NRD("theGame.OnGameStarted: PlayerManager checked!");
-		nr_playerManager.GotoState('Startup');
+		NR_OnGameStarted(this);
 		// NR_MOD ^
 	}
 	

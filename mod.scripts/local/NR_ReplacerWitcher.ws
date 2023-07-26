@@ -7,13 +7,6 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	default m_replacerType      = ENR_PlayerWitcher;
 	default inventoryTemplate 	= "nr_replacer_witcher_inv";
 
-	// TODO: remove this!
-	public function SetTeleportedOnBoatToOtherHUB( val : bool )
-	{
-		NRD("SetTeleportedOnBoatToOtherHUB: " + val);
-		super.SetTeleportedOnBoatToOtherHUB( val );
-	}
-
 	public function GetNameID() : int {
 		//displayName = 318188;
 		return 452675;   // 0000452675|70994a4f|-1.000|Witcher
@@ -92,6 +85,13 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 
 		return NR_mountAllowed && super.ShouldMount(slot, item, category);
 	}*/
+
+	event OnBlockingSceneStarted( scene: CStoryScene )
+	{
+		NR_GetPlayerManager().SetInStoryScene( true );
+		super.OnBlockingSceneStarted( scene );
+	}
+
 	event OnBlockingSceneEnded( optional output : CStorySceneOutput)
 	{
 		NR_GetPlayerManager().SetInStoryScene( false );
@@ -101,18 +101,15 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	public function UnequipItemFromSlot(slot : EEquipmentSlots, optional reequipped : bool) : bool
 	{
 		var item : SItemUniqueId;
-		var nrPlayerManager : NR_PlayerManager;
-
-		nrPlayerManager = NR_GetPlayerManager();
+		var nrPlayerManager : NR_PlayerManager = NR_GetPlayerManager();
 
 		if ( !GetItemEquippedOnSlot(slot, item) )
 			return false;
 		
+		NRD("UnequipItemFromSlot: slot = " + slot + ", reequipped = " + reequipped);
 		/* IsInNonGameplayCutscene() - don't unequip armor for scenes (bath, barber etc) */
 		if ( IsInNonGameplayCutscene() ) {
-			nrPlayerManager.SetInStoryScene( true );
-			nrPlayerManager.GotoState('FixReplacer');
-			NRD("UnequipItemFromSlot: slot = " + slot + ", in scene: calling fix");
+			NRD("UnequipItemFromSlot: slot = " + slot + ", ignoring (in scene).");
 			return false;
 		}
 
@@ -124,6 +121,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		}
 	}
 
+	// EquipItem -> here
 	public function EquipItemInGivenSlot(item : SItemUniqueId, slot : EEquipmentSlots, ignoreMounting : bool, optional toHand : bool) : bool
 	{
 		var ret : Bool;

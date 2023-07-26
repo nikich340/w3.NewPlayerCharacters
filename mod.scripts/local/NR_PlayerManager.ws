@@ -33,7 +33,7 @@ function NR_Notify(message : String, optional seconds : float)
 	if (seconds < 1.f)
 		seconds = 3.f;
     theGame.GetGuiManager().ShowNotification(message, seconds * 1000.f, false);
-    LogChannel('NR_MOD', message);
+    NRD(message);
 }
 quest function NR_Notify_Quest(message : String, optional seconds : float) {
 	NR_Notify(message, seconds);
@@ -41,13 +41,13 @@ quest function NR_Notify_Quest(message : String, optional seconds : float) {
 
 function NRD(message : String)
 {
-    LogChannel('NR_DEBUG', message);
+    LogChannel('NR_DEBUG', "(" + FloatToStringPrec(theGame.GetEngineTimeAsSeconds(), 3) + "): " + message);
 }
 
 function NRE(message : String)
 {
     //theGame.GetGuiManager().ShowNotification(message, 5000.0);
-    LogChannel('NR_ERROR', message);
+    LogChannel('NR_ERROR', "(" + FloatToStringPrec(theGame.GetEngineTimeAsSeconds(), 3) + "): " + message);
 }
 
 function NR_stringByItemUID(itemId : SItemUniqueId) : String {
@@ -117,7 +117,7 @@ statemachine class NR_PlayerManager {
 	}
 
 	// run on every game load
-	public function OnStarted() {
+	public latent function OnStarted() {
 		var template : CEntityTemplate;
 
 		NRD("OnStarted: " + this);
@@ -125,7 +125,7 @@ statemachine class NR_PlayerManager {
 		// scene stuff //
 		m_appearancePreviewTemplates.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 		//m_appearanceTemplatesPreviewTemp.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
-		template = (CEntityTemplate)LoadResource("nr_scene_selector");
+		template = (CEntityTemplate)LoadResourceAsync("nr_scene_selector");
 		if (!template) {
 			NRE("!m_sceneSelector template");
 		}
@@ -142,7 +142,7 @@ statemachine class NR_PlayerManager {
 			NRE("!stringsStorage");
 		}
 
-		GotoState('PlayerChange');
+		//GotoState('PlayerChange'); -> in replacers.OnSpawned()
 	}
 	// once is called on entity created, then is always called on game loaded //
 	/*event OnSpawned( spawnData : SEntitySpawnData )
@@ -282,6 +282,7 @@ statemachine class NR_PlayerManager {
 		}
 	}
 
+	// scene (preview) stuff functions //
 	public function SaveAppearanceSet() {
 		var set : NR_AppearanceSet;
 		set = new NR_AppearanceSet in this;
@@ -296,6 +297,7 @@ statemachine class NR_PlayerManager {
 		FactsSet("nr_appearance_sets", m_appearanceSets.Size());
 	}
 
+	// scene (preview) stuff functions //
 	public function LoadAppearanceSet(setIndex : int) {
 		var 	i 		: int;
 		var 	slot 	: int;
@@ -313,6 +315,7 @@ statemachine class NR_PlayerManager {
 		UpdateAppearanceInfo();
 	}
 
+	// scene (preview) stuff functions //
 	public function RemoveAppearanceSet(setIndex : int) {
 		if (setIndex < 0 || setIndex >= m_appearanceSets.Size())
 			return;
@@ -333,6 +336,7 @@ statemachine class NR_PlayerManager {
 		}
 	}
 
+	// scene (preview) stuff functions //
 	public function GetTemplateFriendlyName(templateName : String) : String {
 		if (templateName == "")
 			return "<font color='#500000'>[" + GetLocStringById(1070947) + "]</font>";  // "<Empty slot>"
@@ -340,16 +344,19 @@ statemachine class NR_PlayerManager {
 			return StrBeforeLast( StrAfterLast(templateName, "/"), "." );
 	}
 
+	// scene (preview) stuff functions //
 	public function ShowAppearanceInfo() {
 		m_showAppearanceInfo = true;
 		UpdateAppearanceInfo();
 	}
 
+	// scene (preview) stuff functions //
 	public function HideAppearanceInfo() {
 		m_showAppearanceInfo = false;
 		theGame.GetGuiManager().ShowNotification("", 1.f);
 	}
 
+	// scene (preview) stuff functions //
 	public function UpdateAppearanceInfo() {
 		var 		i : int;
 		var SLOT_STR, NBSP, BR : String;
@@ -416,6 +423,7 @@ statemachine class NR_PlayerManager {
 				break;
 		}
 	}
+
 	// Helper function //
 	function GetCurrentPlayerType() : ENR_PlayerType {
 		var replacer : NR_ReplacerWitcher;
@@ -429,6 +437,7 @@ statemachine class NR_PlayerManager {
 			return ENR_PlayerGeralt;
 		}
 	}
+
 	// Helper function //
 	function GetCurrentPlayerTypeName() : String {
 		var replacer : NR_ReplacerWitcher;
@@ -442,6 +451,7 @@ statemachine class NR_PlayerManager {
 			return GetLocStringById( 1085744 );
 		}
 	}
+
 	// False if vanilla Geralt/Ciri player template is used, True otherwise //
 	public function IsReplacerActive() : Bool {
 		var playerType : ENR_PlayerType;
@@ -449,10 +459,12 @@ statemachine class NR_PlayerManager {
 		playerType = GetCurrentPlayerType();
 		return (playerType != ENR_PlayerGeralt && playerType != ENR_PlayerCiri);
 	}
+
 	// True if current player/replacer has female gender //
 	public function IsFemale() : Bool {
 		return IsFemaleType(m_savedPlayerType);
 	}
+
 	// Helper function //
 	public function ENRSlotByCategory(category : name) : ENR_AppearanceSlots {
 		if (category == 'armor') {
@@ -471,6 +483,7 @@ statemachine class NR_PlayerManager {
 			return ENR_GSlotUnknown;
 		}
 	}
+
 	// Helper function //
 	public function CategoryByENRSlot(slot : ENR_AppearanceSlots) : name {
 		if (slot == ENR_GSlotArmor) {
@@ -489,6 +502,7 @@ statemachine class NR_PlayerManager {
 			return 'UNKNOWN CATEGORY';
 		}
 	}
+
 	// Helper function //
 	public function EEquipmentSlotToENRSlot(slot : EEquipmentSlots) : ENR_AppearanceSlots {
 		if (slot == EES_Armor) {
@@ -503,10 +517,12 @@ statemachine class NR_PlayerManager {
 			return ENR_GSlotUnknown;
 		}
 	}
+
 	// Helper function //
 	public function IsFemaleType(playerType : ENR_PlayerType) : Bool {
 		return playerType != ENR_PlayerGeralt && playerType != ENR_PlayerWitcher;
 	}
+
 	// Main postponed function to fix player appearance on spawning (in any case) //
 	public function OnPlayerSpawned() {
 		var 				i : int;
@@ -572,22 +588,58 @@ statemachine class NR_PlayerManager {
 		// update facts
 		FactsRemove("nr_player_female");
 		FactsRemove("nr_player_type");
+		FactsRemove("nr_speech_switch");
 		
 		FactsAdd("nr_player_type", (int)m_savedPlayerType);
 		if (IsFemaleType(m_savedPlayerType)) {
 			FactsAdd("nr_player_female", 1);
+		}
+		if (FactsQuerySum("nr_speech_manual_control") < 1) {
+			FactsAdd("nr_speech_switch", (int)IsFemaleType(m_savedPlayerType));
 		}
 	}
 
 	function SetInStoryScene(val : Bool) {
 		inStoryScene = val;
 	}
+
 	function NR_DebugPrintData() {
 		var i : int;
 		for (i = 0; i < m_geraltSavedItems.Size(); i += 1) {
 			NRD("NR_SavedEquipment[" + ((ENR_AppearanceSlots)i) + "]" + m_geraltSavedItems[i]);
 		}
 	}
+
+	public function UpdateInventoryTemplateAppearance(template : CEntityTemplate) {
+		var templateResource : CEntityTemplate;
+		var extraTemplateResources : array<CEntityTemplate>;
+		var       i, j : int;
+
+		for (i = ENR_RSlotHair; i < ENR_RSlotMisc; i += 1) {
+			if (m_appearanceTemplates[i] == "")
+				continue;
+			templateResource = (CEntityTemplate)LoadResource( m_appearanceTemplates[i], m_appearanceTemplateIsDepotPath[i] );
+			if (templateResource)
+				extraTemplateResources.PushBack(templateResource);
+		}
+
+		for (i = 0; i < m_appearanceItems.Size(); i += 1) {
+			if (m_appearanceItems[i] == "")
+				continue;
+			templateResource = (CEntityTemplate)LoadResource( m_appearanceItems[i], m_appearanceItemIsDepotPath[i] );
+			if (templateResource)
+				extraTemplateResources.PushBack(templateResource);
+		}
+
+		for (i = 0; i < template.appearances.Size(); i += 1) {
+			// clear old templates - because CEntityTemplate seems to be cached
+			template.appearances[i].includedTemplates.Clear();
+			for (j = 0; j < extraTemplateResources.Size(); j += 1) {
+				template.appearances[i].includedTemplates.PushBack(extraTemplateResources[j]);
+			}
+		}
+	}
+
 	// Saves main geralt equipment items + hair + head (when changing type from Geralt) //
 	function SavePlayerData() {
 		var inv : CInventoryComponent;
@@ -613,6 +665,7 @@ statemachine class NR_PlayerManager {
 			}
 		}
 	}
+
 	// Load replacer head item //
 	function LoadHead(newHeadName : name) {
 		var headManager : CHeadManagerComponent;
@@ -623,6 +676,7 @@ statemachine class NR_PlayerManager {
 		headManager.BlockGrowing( true );
 		headManager.SetCustomHead( newHeadName );
 	}
+
 	// Get current head name from player //
 	function GetCurrentHeadName() : name {
 		var headManager : CHeadManagerComponent;
@@ -630,6 +684,7 @@ statemachine class NR_PlayerManager {
 		headManager = (CHeadManagerComponent)(thePlayer.GetComponentByClassName( 'CHeadManagerComponent' ));
 		return headManager.GetCurHeadName();
 	}
+
 	// Updates saved replacer head item and load it //
 	function UpdateHead(newHeadName : name) {
 		m_headName = newHeadName;
@@ -638,6 +693,7 @@ statemachine class NR_PlayerManager {
 
 		LoadHead(m_headName);
 	}
+
 	// Removes geralt hair item (part of NR_FixPlayer) <- to use c_ app template for replacers //
 	function RemoveHair(/* newHairstyleName : name */) {
 		var inv : CInventoryComponent;
@@ -672,6 +728,7 @@ statemachine class NR_PlayerManager {
 		NRD("Hair Mount: " + ret);
 		*/
 	}
+
 	// Mounts geralt saved head item (part of NR_FixPlayer) //
 	function RestoreHead() {
 		var headManager : CHeadManagerComponent;
@@ -689,6 +746,7 @@ statemachine class NR_PlayerManager {
 		headManager.SetCustomHead( m_geraltSavedItems[ENR_GSlotHead] );
 		NRD("Restore head: " + m_geraltSavedItems[ENR_GSlotHead]);
 	}
+
 	// Mounts geralt saved hair item (part of NR_FixPlayer) //
 	function RestoreHair() {
 		var inv : CInventoryComponent;
@@ -711,6 +769,7 @@ statemachine class NR_PlayerManager {
 		ret = inv.MountItem(ids[0]);
 		NRD("Hair RMount: " + ret + ", " + inv.IsIdValid(ids[0]) + ", "  + inv.GetItemName(ids[0]));
 	}
+
 	// Mounts all geralt saved equipment items (part of NR_FixPlayer) //
 	function RestoreEquipment() {
 		var inv  : CInventoryComponent;
@@ -731,6 +790,7 @@ statemachine class NR_PlayerManager {
 			}
 		}
 	}
+
 	// Returns default item names for geralt (part of RemoveSavedItem) //
 	function GetDefaultItemByCategory(category : name) : name {
 		if (category == 'armor') {
@@ -745,6 +805,7 @@ statemachine class NR_PlayerManager {
 			return 'UNKNOWN ITEM';
 		}
 	}
+
 	// Removes geralt saved equippment item (when replacer: to mount default item correctly later) <- from Inventory //
 	function RemoveSavedItem(id : SItemUniqueId) {
 		var inv  : CInventoryComponent;
@@ -756,6 +817,7 @@ statemachine class NR_PlayerManager {
 
 		m_geraltSavedItems[ ENRSlotByCategory(category) ] = GetDefaultItemByCategory(category);
 	}
+
 	// Updates geralt saved equippment item (when replacer: to mount it correctly later) <- from Inventory //
 	function UpdateSavedItem(id : SItemUniqueId) {
 		var inv  : CInventoryComponent;
@@ -767,7 +829,7 @@ statemachine class NR_PlayerManager {
 
 		category = inv.GetItemCategory(id);
 		itemName = inv.GetItemName(id);
-		NRD("UpdateSavedItem : " + itemName);
+		NRD("UpdateSavedItem : " + itemName + " (" + category + "), inStoryScene = " + inStoryScene);
 		if ( inv.IsItemMounted(id) && (category == 'armor' || category == 'gloves' 
 			|| category == 'pants' || category == 'boots') )
 		{
@@ -779,6 +841,7 @@ statemachine class NR_PlayerManager {
 
 		m_geraltSavedItems[ ENRSlotByCategory(category) ] = itemName;
 	}
+
 	// Saves and unmounts all geralt equipment items (part of NR_FixReplacer) //
 	function UnmountEquipment() {
 		var inv  : CInventoryComponent;
@@ -812,6 +875,7 @@ statemachine class NR_PlayerManager {
 			}
 		}
 	}
+
 	// Load template (if templateName != "") //
 	function IncludeAppearanceTemplate(templateName : String, isDepotPath : bool) {
 		var appearanceComponent : CAppearanceComponent;
@@ -835,6 +899,7 @@ statemachine class NR_PlayerManager {
 			NRE("ERROR: AppearanceComponent not found!");
 		}
 	}
+
 	// Unload template (if templateName != "") //
 	function ExcludeAppearanceTemplate(templateName : String, isDepotPath : bool) {
 		var appearanceComponent : CAppearanceComponent;
@@ -858,6 +923,7 @@ statemachine class NR_PlayerManager {
 			NRE("ERROR: AppearanceComponent not found!");
 		}
 	}
+
 	// All templates added to preview (and loaded) overwrite saved templates data //
 	function SaveAllAppearancePreviewTemplates(forceUnload : bool) : bool {
 		var 	i 		: int;
@@ -898,6 +964,7 @@ statemachine class NR_PlayerManager {
 
 		return anyChanges;
 	}
+
 	// Unload all PREVIEW templates //
 	function ResetAllAppearancePreviewTemplates() {
 		var 	slot : int;
@@ -916,6 +983,7 @@ statemachine class NR_PlayerManager {
 		m_appearancePreviewItems.Clear();
 		m_headPreviewName = '';
 	}
+
 	// Updates template in given slot: Exclude old + Include new (if new != "") //
 	function UpdateAppearanceTemplate(templateName : String, slot : ENR_AppearanceSlots, isDepotPath : bool) {
 		if (IsReplacerActive() && m_appearanceTemplateIsLoaded[slot]) {
@@ -1016,6 +1084,7 @@ statemachine class NR_PlayerManager {
 			UpdateHead('head_0');	/* set default geralt head */
 		RemoveHair();			/* set no hair item */
 	}
+
 	// Fixes replacer appearance (on loading, after type changing) //
 	public function NR_FixReplacer() {
 		var witcher : NR_ReplacerWitcher;
@@ -1034,6 +1103,7 @@ statemachine class NR_PlayerManager {
 		LoadAppearanceTemplates();  /* load saved replacer templates */
 		m_geraltDataSaved = true;
 	}
+
 	// Fixes player appearance (after type chaning only) //
 	public function NR_FixPlayer() {
 		RestoreEquipment();
@@ -1047,6 +1117,28 @@ statemachine class NR_PlayerManager {
 state Idle in NR_PlayerManager {
 	event OnEnterState( prevStateName : name )
 	{
+		NRD("Idle: OnEnterState");
+	}
+
+	event OnLeaveState( nextStateName : name )
+	{
+	}
+}
+
+state Startup in NR_PlayerManager {
+	event OnEnterState( prevStateName : name )
+	{
+		WaitAndCheck();
+	}
+
+	entry function WaitAndCheck() {
+		NRD("Startup: WaitAndCheck");
+		parent.OnStarted();
+		while (thePlayer.GetComponentsCountByClassName( 'CAppearanceComponent' ) < 1) {
+			Sleep(0.05f);
+		}
+		parent.OnPlayerSpawned();
+		parent.GotoState('Idle');
 	}
 
 	event OnLeaveState( nextStateName : name )
@@ -1061,7 +1153,8 @@ state PlayerChange in NR_PlayerManager {
 	}
 
 	entry function WaitAndCheck() {
-		Sleep(0.3f);
+		NRD("PlayerChange: WaitAndCheck");
+		Sleep(0.25f);
 		parent.OnPlayerSpawned();
 		parent.GotoState('Idle');
 	}
@@ -1078,6 +1171,7 @@ state FixReplacer in NR_PlayerManager {
 	}
 
 	entry function WaitAndCheck() {
+		NRD("FixReplacer: WaitAndCheck");
 		Sleep(0.3f);
 		parent.NR_FixReplacer();
 		parent.GotoState('Idle');
@@ -1102,9 +1196,10 @@ function NR_GetPlayerManager() : NR_PlayerManager
 	} else {
 		NRD("PlayerManager found!");
 	}*/
-	if (!theGame.nr_playerManager) {
+	if ( !theGame.nr_playerManager ) {
 		NRE("NR_GetPlayerManager: !theGame.nr_playerManager");
 	}
+	NRD("NR_GetPlayerManager: " + theGame.nr_playerManager);
 
 	return theGame.nr_playerManager;
 }
@@ -1207,6 +1302,16 @@ function NR_ChangePlayer(playerType : ENR_PlayerType) {
 	}
 	// cheaty thePlayer.abilityManager.RestoreStat(BCS_Vitality);
 	thePlayer.Debug_ReleaseCriticalStateSaveLocks();
+}
+
+function NR_OnGameStarted(theGameObject : CR4Game) {
+	if ( !theGameObject.nr_playerManager ) {
+		theGameObject.nr_playerManager = new NR_PlayerManager in theGameObject;
+		theGameObject.nr_playerManager.Init();
+		NRD("theGame.OnGameStarted: PlayerManager created.");
+	}
+	NRD("theGame.OnGameStarted: PlayerManager startup.");
+	theGameObject.nr_playerManager.GotoState('Startup');
 }
 
 // nrPlayer("nr_replacer_witcher");        <- console

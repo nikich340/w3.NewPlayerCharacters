@@ -1,0 +1,116 @@
+communities:
+  comm_master_cat:
+    actors:
+      master_cat:
+        template: "dlc/dlcnewreplacers/data/entities/nr_master_cat.w2ent"
+        appearances: [ "cat_vanilla_03" ]
+        tags: [ "nr_master_cat" ]
+
+    phases:
+      ship_phase:
+        master_cat:
+          add_tags: [ "nr_master_cat_ship_phase" ]
+          scripted: NR_ApplyAppearanceIfPossibleInitializer
+          attitude: player
+          immortality: immortal
+          use_last_ap: true
+          start_in_ap: true
+          actionpoints:
+            "06:00": prologue/cat_eat
+            "06:30": 
+              - prologue/cat_sit_books
+              - prologue/cat_sit_2
+              - prologue/cat_sit_3
+            "09:30":
+              - prologue/cat_sit_3
+              - prologue/cat_sit_4
+              - prologue/cat_sit_table
+            "12:00": prologue/cat_eat
+            "12:30":
+              - prologue/cat_sit_2
+              - prologue/cat_sit_4
+              - prologue/cat_sit_table
+            "14:30": 
+              - prologue/cat_sit_books
+              - prologue/cat_sit_2
+              - prologue/cat_sit_3
+            "17:00": prologue/cat_eat
+            "17:30":
+              - prologue/cat_sit_4
+              - prologue/cat_sit_books
+              - prologue/cat_sit_table
+            "19:30": 
+              - prologue/cat_sit_4
+              - prologue/cat_sit_2
+              - prologue/cat_sit_3
+            "22:00": prologue/cat_eat
+            "22:30":
+              - prologue/cat_sit_books
+              - prologue/cat_sit_2
+              - prologue/cat_sit_3
+              - prologue/cat_sit_4
+              - prologue/cat_sit_table
+
+  comm_master_mage:
+    actors:
+      master_mage:
+        template: "dlc/dlcnewreplacers/data/entities/nr_master_mage.w2ent"
+        appearances: [ "nr_master_mage" ]
+        tags: [ "nr_master_mage" ]
+
+
+    phases:
+      ship_phase:
+        master_mage:
+          add_tags: [ "nr_master_mage_ship_phase" ]
+          scripted: NR_PlayTeleportInScriptedInitializer
+          attitude: player
+          immortality: immortal
+          use_last_ap: true
+          start_in_ap: true
+          actionpoints:
+            "00:00":
+              - prologue/ship_look_far
+              - prologue/ship_look_far_2
+              - prologue/ship_look_far_3
+            "00:15": prologue/ship_sleeping
+            "08:30":
+              - prologue/ship_eat_1
+              - prologue/ship_eat_2
+            "10:00":
+              - prologue/ship_tired_near_books
+              - prologue/ship_read_book
+            "13:00":
+              - prologue/ship_look_far
+              - prologue/ship_look_far_2
+              - prologue/ship_look_far_3
+            "15:00":
+              - prologue/ship_eat_1
+              - prologue/ship_eat_2
+            "16:00":
+              - prologue/ship_sit_on_mast
+              - prologue/ship_stand_on_mast
+              - prologue/ship_stand_on_mast2
+            # stone_phase: [18:00, 23:59]
+          #guard: [ prologue/master_location_area, 0.0 ]
+      
+      stone_phase:
+        master_mage:
+          add_tags: [ "nr_master_mage_stone_phase" ]
+          scripted: NR_PlayTeleportInScriptedInitializer
+          attitude: player
+          immortality: immortal
+          use_last_ap: true
+          start_in_ap: true
+          actionpoints:
+            # ship_phase: [00:00, 17:59]
+            "18:00": 
+              - prologue/stone_casting_spell
+              - prologue/stone_examine
+            "20:00": 
+              - prologue/stone_read_book
+              - prologue/stone_flute
+            "22:00":
+              - prologue/stone_sit_smoke
+              - prologue/stone_sit_pray
+          guard: [ prologue/snow_arena_area, 0.0 ]

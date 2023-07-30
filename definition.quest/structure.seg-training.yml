@@ -1,0 +1,811 @@
+#
+# quest structure subsegment: training
+# 
+# (version: 498, saved: 2023-07-30 17:54:01)
+#
+---
+structure:
+  segments:
+    training:
+      blocks:
+        in:
+          ".editor": [ -907.0, 313.0 ]
+          next:
+            - journal.after_spider: Activate
+            - waituntil.never_happen_fact
+        
+        waituntil.Control_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialControl, ">=", 1 ]
+          ".editor":
+            pos: [ 203.0, 749.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.Control_tutorial
+            - waituntil.control_performed
+        
+        waituntil.MeteorFall_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialMeteorFall, ">=", 1 ]
+          ".editor":
+            pos: [ 242.0, 1381.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.MeteorFall_tutorial
+            - waituntil.MeteorFall_performed
+        
+        waituntil.MeteorFall_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialMeteorFall, ">=", 5 ]
+          ".editor":
+            pos: [ 415.0, 1448.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_meteor_fall: Success
+            - script.reset_practising_fact
+        
+        waituntil.Meteor_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialMeteor, ">=", 1 ]
+          ".editor":
+            pos: [ 211.0, 860.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.Meteor_tutorial
+            - waituntil.meteor_performed
+        
+        waituntil.Polymorphism_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialPolymorphism, ">=", 1 ]
+          ".editor":
+            pos: [ 240.0, 1513.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - waituntil.polymorphism_performed
+            - script.Polymorphism_tutorial
+        
+        waituntil.Servant_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialServant, ">=", 1 ]
+          ".editor":
+            pos: [ 218.0, 965.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.Servant_tutorial
+            - waituntil.Servant_performed
+        
+        waituntil.Servant_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialServant, ">=", 7 ]
+          ".editor":
+            pos: [ 398.0, 1043.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_servant: Success
+            - script.reset_practising_fact
+        
+        waituntil.Shield_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialShield, ">=", 1 ]
+          ".editor":
+            pos: [ 212.0, 471.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.shield_tutorial
+            - waituntil.shield_performed
+        
+        waituntil.Thunder_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialLightningFall, ">=", 1 ]
+          ".editor":
+            pos: [ 217.0, 1108.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.Thunder_tutorial
+            - waituntil.Thunder_performed
+        
+        waituntil.Thunder_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialLightningFall, ">=", 5 ]
+          ".editor":
+            pos: [ 408.0, 1184.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_thunder: Success
+            - script.reset_practising_fact
+        
+        waituntil.Tornado_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialTornado, ">=", 1 ]
+          ".editor":
+            pos: [ 201.0, 625.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.Tornado_tutorial
+            - waituntil.tornado_performed
+        
+        waituntil.Unknown_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialHeal, ">=", 5 ]
+          ".editor":
+            pos: [ 401.0, 1318.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_unknown: Success
+            - script.reset_practising_fact
+        
+        waituntil.Unknown_spell_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialHeal, ">=", 1 ]
+          ".editor":
+            pos: [ 226.0, 1247.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.Unknown_spell_tutorial
+            - waituntil.Unknown_performed
+        
+        waituntil.apprentice:
+          factdb: [ nr_master_apprentice, ">=", 1 ]
+          ".editor":
+            pos: [ -574.0, 601.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.talk_to_mage: Success
+            - waituntil.just_learned_fact
+            - objective.become_archi: Activate
+        
+        waituntil.control_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialControl, ">=", 7 ]
+          ".editor":
+            pos: [ 394.0, 777.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_control: Success
+            - script.reset_practising_fact
+        
+        waituntil.failed:
+          factdb: [ nr_master_apprentice_failed, ">=", 1 ]
+          ".editor":
+            pos: [ -465.0, 386.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.talk_to_mage: Failure
+            - questoutcome.quest_outcome: Failure
+        
+        waituntil.ftt_fact:
+          factdb: [ nr_magic_learning_ENR_FastTravelTeleport, ">=", 1 ]
+          ".editor":
+            pos: [ 202.0, 293.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.ftt_tutorial
+            - waituntil.ftt_performed
+        
+        waituntil.ftt_performed:
+          factdb: [ nr_magic_performed_ENR_FastTravelTeleport, ">=", 3 ]
+          ".editor":
+            pos: [ 400.0, 328.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_ftt: Success
+            - script.reset_practising_fact
+        
+        waituntil.heavy_attacks_fact:
+          factdb: [ nr_magic_learning_ENR_HeavyAbstract, ">=", 1 ]
+          ".editor":
+            pos: [ 203.0, 132.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.heavy_tutorial
+            - waituntil.heavy_performed
+        
+        waituntil.heavy_performed:
+          factdb: [ nr_magic_performed_ENR_HeavyAbstract, ">=", 13 ]
+          ".editor":
+            pos: [ 396.0, 180.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_heavy: Success
+            - script.reset_practising_fact
+        
+        waituntil.just_learned_fact:
+          factdb: [ nr_magic_skill_just_learned, ">=", 1 ]
+          ".editor":
+            pos: [ -381.0, 883.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.reset_just_learned_fact
+            - addfact.add_practising_fact
+        
+        waituntil.meteor_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialMeteor, ">=", 7 ]
+          ".editor":
+            pos: [ 392.0, 901.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_meteor: Success
+            - script.reset_practising_fact
+        
+        waituntil.never_happen_fact:
+          factdb: [ nr_never_happen, ">=", 1 ]
+          ".editor":
+            pos: [ -694.0, 165.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - out
+        
+        waituntil.polymorphism_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialPolymorphism, ">=", 5 ]
+          ".editor":
+            pos: [ 413.0, 1586.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_polymorphism: Success
+            - script.reset_practising_fact
+        
+        waituntil.shield_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialShield, ">=", 7 ]
+          ".editor":
+            pos: [ 405.0, 526.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_shield: Success
+            - script.reset_practising_fact
+        
+        waituntil.tornado_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialTornado, ">=", 7 ]
+          ".editor":
+            pos: [ 396.0, 663.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_tornado: Success
+            - script.reset_practising_fact
+        
+        script.Control_tutorial:
+          ".editor":
+            pos: [ 395.0, 721.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillControl
+            - delay: 0.6000000238
+          next:
+            - objective.practise_control: Activate
+            - addfact.ENR_SpecialControl
+        
+        script.MeteorFall_tutorial:
+          ".editor":
+            pos: [ 417.0, 1381.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillMeteorFall
+            - delay: 0.6000000238
+          next:
+            - objective.practise_meteor_fall: Activate
+            - addfact.ENR_SpecialMeteorFall
+        
+        script.Meteor_tutorial:
+          ".editor":
+            pos: [ 391.0, 837.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillMeteor
+            - delay: 0.6000000238
+          next:
+            - objective.practise_meteor: Activate
+            - addfact.ENR_SpecialMeteor
+        
+        script.Polymorphism_tutorial:
+          ".editor":
+            pos: [ 405.0, 1516.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillPolymorphism
+            - delay: 0.6000000238
+          next:
+            - objective.practise_polymorphism: Activate
+            - addfact.ENR_SpecialPolymorphism
+        
+        script.Servant_tutorial:
+          ".editor":
+            pos: [ 394.0, 966.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillServant
+            - delay: 0.6000000238
+          next:
+            - objective.practise_servant: Activate
+            - addfact.ENR_SpecialServant
+        
+        script.Thunder_tutorial:
+          ".editor":
+            pos: [ 402.0, 1107.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillLightningFall
+            - delay: 0.6000000238
+          next:
+            - objective.practise_thunder: Activate
+            - addfact.ENR_SpecialLightningFall
+        
+        script.Tornado_tutorial:
+          ".editor":
+            pos: [ 402.0, 597.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillTornado
+            - delay: 0.6000000238
+          next:
+            - objective.practise_tornado: Activate
+            - addfact.ENR_SpecialTornado
+        
+        script.Unknown_spell_tutorial:
+          ".editor":
+            pos: [ 401.0, 1246.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillTODO!!!
+            - delay: 0.6000000238
+          next:
+            - objective.practise_unknown: Activate
+            - addfact.ENR_SpecialHeal
+        
+        script.Unlock_hound_servant:
+          ".editor":
+            pos: [ 779.0, 944.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_MagicActionAbilityUnlock_Q
+          parameter:
+            - type: cname_ENR_SpecialServant
+            - abilityName: Hound
+          next: ".done"
+        
+        script.fade_in_half_sec:
+          ".editor":
+            pos: [ -183.0, 1055.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: FadeInQuest
+          parameter:
+            - fadeTime: 0.5
+          next:
+            - waituntil.just_learned_fact
+        
+        script.ftt_tutorial:
+          ".editor":
+            pos: [ 398.0, 262.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillFastTravelTeleport
+            - delay: 0.6000000238
+          next:
+            - objective.practise_ftt: Activate
+            - addfact.ENR_FastTravelTeleport
+        
+        script.heavy_tutorial:
+          ".editor":
+            pos: [ 397.0, 92.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillHeavyAttacks
+            - delay: 0.6000000238
+          next:
+            - objective.practise_heavy: Activate
+            - addfact.ENR_HeavyAbstract
+            - addfact.ENR_RipApart
+            - addfact.ENR_Rock
+            - addfact.ENR_BombExplosion
+        
+        script.reset_control_fact:
+          ".editor":
+            pos: [ 766.0, 709.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialControl
+          next: ".done"
+        
+        script.reset_ftt_fact:
+          ".editor":
+            pos: [ 744.0, 215.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_FastTravelTeleport
+          next: ".done"
+        
+        script.reset_heal_fact:
+          ".editor":
+            pos: [ 783.0, 1252.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialHeal
+          next: ".done"
+        
+        script.reset_heavy_fact:
+          ".editor":
+            pos: [ 739.0, 44.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_HeavyAbstract
+          next: ".done"
+        
+        script.reset_just_learned_fact:
+          ".editor":
+            pos: [ -162.0, 801.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_skill_just_learned
+          next:
+            - script.tp_player_to_arena
+        
+        script.reset_meteor_fact:
+          ".editor":
+            pos: [ 763.0, 837.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialMeteor
+          next: ".done"
+        
+        script.reset_meteor_fall_fact:
+          ".editor":
+            pos: [ 789.0, 1380.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialMeteorFall
+          next: ".done"
+        
+        script.reset_polymorphism_fact:
+          ".editor":
+            pos: [ 783.0, 1523.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialPolymorphism
+          next: ".done"
+        
+        script.reset_practising_fact:
+          ".editor":
+            pos: [ 721.0, 624.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_skill_practising
+          next: ".done"
+        
+        script.reset_servant_fact:
+          ".editor":
+            pos: [ 778.0, 1017.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialServant
+          next: ".done"
+        
+        script.reset_shield_fact:
+          ".editor":
+            pos: [ 772.0, 409.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialShield
+          next: ".done"
+        
+        script.reset_thunder_fact:
+          ".editor":
+            pos: [ 780.0, 1113.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialLightningFall
+          next: ".done"
+        
+        script.reset_tornado_fact:
+          ".editor":
+            pos: [ 766.0, 557.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialTornado
+          next: ".done"
+        
+        script.shield_tutorial:
+          ".editor":
+            pos: [ 402.0, 431.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillShield
+            - delay: 0.6000000238
+          next:
+            - objective.practise_shield: Activate
+            - addfact.ENR_SpecialShield
+        
+        script.tp_player_to_arena:
+          ".editor":
+            pos: [ 4.0, 872.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: TeleportObject
+          parameter:
+            - objectTag: cname_PLAYER
+            - destinationTag: cname_newreplacers_prologue_snow_arena_center_wp
+            - xOffset: 0.0
+            - yOffset: 0.0
+            - zOffset: 0.0
+            - useSafePlacement: false
+            - onSafePlacementFailUseBruteForce: false
+          next:
+            - script.fade_in_half_sec
+        
+        script.wait_half_s:
+          ".editor":
+            pos: [ -4.0, 593.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_Wait_Q
+          parameter:
+            - sec: 0.6000000238
+          next:
+            - waituntil.heavy_attacks_fact
+            - waituntil.ftt_fact
+            - waituntil.Shield_fact
+            - waituntil.Tornado_fact
+            - waituntil.Control_fact
+            - waituntil.Meteor_fact
+            - waituntil.Servant_fact
+            - waituntil.Thunder_fact
+            - waituntil.Unknown_spell_fact
+            - waituntil.MeteorFall_fact
+            - waituntil.Polymorphism_fact
+        
+        journal.after_spider:
+          ".editor": [ -725.0, 453.0 ]
+          entry: quests/sorceress_quest/after_spider_descr
+          notify: true
+          next:
+            - objective.talk_to_mage: Activate
+            - waituntil.failed
+            - waituntil.apprentice
+        
+        objective.become_archi:
+          ".editor": [ -113.0, 324.0 ]
+          objective: sorceress_quest/find_master/become_archi
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_control:
+          ".editor": [ 573.0, 774.0 ]
+          objective: sorceress_quest/find_master/practise_control
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_ftt:
+          ".editor": [ 593.0, 318.0 ]
+          objective: sorceress_quest/find_master/practise_ftt
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_heavy:
+          ".editor": [ 559.0, 152.0 ]
+          objective: sorceress_quest/find_master/practise_heavy
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_meteor:
+          ".editor": [ 572.0, 896.0 ]
+          objective: sorceress_quest/find_master/practise_meteor
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_meteor_fall:
+          ".editor": [ 586.0, 1451.0 ]
+          objective: sorceress_quest/find_master/practise_melgar_fire
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_polymorphism:
+          ".editor": [ 583.0, 1583.0 ]
+          objective: sorceress_quest/find_master/practise_polymorphism
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_servant:
+          ".editor": [ 571.0, 1037.0 ]
+          objective: sorceress_quest/find_master/practise_servant
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_shield:
+          ".editor": [ 602.0, 482.0 ]
+          objective: sorceress_quest/find_master/practise_shield
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_thunder:
+          ".editor": [ 573.0, 1180.0 ]
+          objective: sorceress_quest/find_master/practise_alzur_thunder
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_tornado:
+          ".editor": [ 590.0, 650.0 ]
+          objective: sorceress_quest/find_master/practise_tornado
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_unknown:
+          ".editor": [ 574.0, 1313.0 ]
+          objective: sorceress_quest/find_master/practise_mistress_unknown
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.talk_to_mage:
+          ".editor": [ -341.0, 189.0 ]
+          objective: sorceress_quest/find_master/talk_with_mage
+          notify: true
+          track: false
+          next: ".done"
+        
+        questoutcome.quest_outcome:
+          ".editor": [ -263.0, 281.0 ]
+          quest: sorceress_quest
+          notify: true
+          next: ".done"
+        
+        addfact.ENR_BombExplosion:
+          ".editor": [ 556.0, -166.0 ]
+          value: [ nr_magic_skill_ENR_BombExplosion, -1 ]
+          next: ".done"
+        
+        addfact.ENR_FastTravelTeleport:
+          ".editor": [ 572.0, 218.0 ]
+          value: [ nr_magic_skill_ENR_FastTravelTeleport, 1 ]
+          next:
+            - script.reset_ftt_fact
+        
+        addfact.ENR_HeavyAbstract:
+          ".editor": [ 561.0, 43.0 ]
+          value: [ nr_magic_skill_ENR_HeavyAbstract, 1 ]
+          next:
+            - script.reset_heavy_fact
+        
+        addfact.ENR_RipApart:
+          ".editor": [ 558.0, -32.0 ]
+          value: [ nr_magic_skill_ENR_RipApart, 1 ]
+          next: ".done"
+        
+        addfact.ENR_Rock:
+          ".editor": [ 556.0, -100.0 ]
+          value: [ nr_magic_skill_ENR_Rock, 1 ]
+          next: ".done"
+        
+        addfact.ENR_SpecialControl:
+          ".editor": [ 575.0, 711.0 ]
+          value: [ nr_magic_skill_ENR_SpecialControl, 1 ]
+          next:
+            - script.reset_control_fact
+        
+        addfact.ENR_SpecialHeal:
+          ".editor": [ 568.0, 1248.0 ]
+          value: [ nr_magic_skill_ENR_SpecialHeal, 1 ]
+          next:
+            - script.reset_heal_fact
+        
+        addfact.ENR_SpecialLightningFall:
+          ".editor": [ 569.0, 1106.0 ]
+          value: [ nr_magic_skill_ENR_SpecialLightningFall, 1 ]
+          next:
+            - script.reset_thunder_fact
+        
+        addfact.ENR_SpecialMeteor:
+          ".editor": [ 567.0, 838.0 ]
+          value: [ nr_magic_skill_ENR_SpecialMeteor, 1 ]
+          next:
+            - script.reset_meteor_fact
+        
+        addfact.ENR_SpecialMeteorFall:
+          ".editor": [ 585.0, 1380.0 ]
+          value: [ nr_magic_skill_ENR_SpecialMeteorFall, 1 ]
+          next:
+            - script.reset_meteor_fall_fact
+        
+        addfact.ENR_SpecialPolymorphism:
+          ".editor": [ 574.0, 1520.0 ]
+          value: [ nr_magic_skill_ENR_SpecialPolymorphism, 1 ]
+          next:
+            - script.reset_polymorphism_fact
+        
+        addfact.ENR_SpecialServant:
+          ".editor": [ 566.0, 969.0 ]
+          value: [ nr_magic_skill_ENR_SpecialServant, 1 ]
+          next:
+            - script.reset_servant_fact
+            - script.Unlock_hound_servant
+        
+        addfact.ENR_SpecialShield:
+          ".editor": [ 609.0, 408.0 ]
+          value: [ nr_magic_skill_ENR_SpecialShield, 1 ]
+          next:
+            - script.reset_shield_fact
+        
+        addfact.ENR_SpecialTornado:
+          ".editor": [ 589.0, 558.0 ]
+          value: [ nr_magic_skill_ENR_SpecialTornado, 1 ]
+          next:
+            - script.reset_tornado_fact
+        
+        addfact.add_practising_fact:
+          ".editor": [ -182.0, 694.0 ]
+          value: [ nr_magic_skill_practising, 1 ]
+          next:
+            - script.wait_half_s
+        
+        out:
+          ".editor": [ -493.0, -11.0 ]
+          next: ".done"
+        

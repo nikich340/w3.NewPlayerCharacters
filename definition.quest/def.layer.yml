@@ -1,37 +1,2034 @@
 layers: 
+  # dlc\dlcnewreplacers\data\entities\nr_q210_large_nilfgaardian_ship.w2ent
+  # dlc\dlcnewreplacers\data\particles\quest\
+  # dlc\dlcnewreplacers\data\behaviortrees\
+  # dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh
   vanilla_encapment: prologue:quests\q001_beggining\encampment
   vanilla_bob_corvo_chair: levels\bob\locations\vineyards\east\corvo_bianco\q705_epilog\garden_chair
   
-  tree_layer: 
+  cook_my_entities_layer: 
     world: "bob"
     #context: ""
 
-    statics: 
-      custom_tree: 
-        template: "CEntity:dlc\\bob\\data\\environment\\vegetation\\giant_castle_ent\\dry_tree_big.w2ent"
-        pos: [ 869.7175292969, -2293.0566406250, 6.3524169922 ]
+    statics:
+      cook_master_staff:
+        template: "CEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_staff_01.w2ent"
+        pos: [ 0, 0, -100 ]
         rot: [ 0.0, 0.0, 0.0 ]
 
-  bob_scenetriggers: 
-    world: "bob"
+      cook_invisible_wall:
+        template: "CEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_wall_invisible.w2ent"
+        pos: [ 0, 0, -100 ]
+        rot: [ 0.0, 0.0, 0.0 ]
+
+      #statue_old2: 
+      #  template: "W3FairytaleWitchFluid:dlc\\bob\\data\\fx\\monsters\\fairytale_witch\\liquid_hit_ground.w2ent"
+      #  pos: [ -183.1400756836, 721.5464477539, 3.2030215263 ]
+      #  rot: [ 0.0, 0.0, 0.0 ]
+      #  scale: [ 0.600000000, 0.600000000, 0.600000000 ]
+
+      #statue_old: 
+      #  template: "W3AnimatedContainer:gameplay\\containers\\_container_definitions\\autogen\\elven_statue_elven_statue__treasure__q2__everywhere.w2ent"
+      #  pos: [ -178.1758880615, 720.8773193359, 0.4564575851 ]
+      #  rot: [ 0.0, 0.0, 25.8000068665 ]
+      #  scale: [ 0.700000000, 0.700000000, 0.700000000 ]
+
+      #statue_raven: 
+      #  template: "CEntity:dlc\\bob\\data\\environment\\decorations\\gameplay\\rich_district\\statues\\statue_bridge\\statue_bridge_02.w2ent"
+      #  pos: [ -181.2770690918, 721.0741577148, 0.4910888672 ]
+      #  rot: [ 0.0, 0.0, 0.0 ]
+      #  scale: [ 0.6000000, 0.6000000, 0.6000000 ]
+
+      #statue_sword: 
+      #  template: "CEntity:dlc\\bob\\data\\environment\\decorations\\gameplay\\rich_district\\statues\\statue_bridge\\statue_bridge_01.w2ent"
+      #  pos: [ -179.7623138428, 721.0776977539, 0.5971679688 ]
+      #  rot: [ 0.0, 0.0, 0.0 ]
+      #  scale: [ 0.6000000, 0.6000000, 0.6000000 ]
+
+
+  quest_points_layer:
+    world: "prologue"
     #context: ""
 
-    scenepoints: 
-      scenepoint1: [ 1088.633667, -853.812561, 22.517338, 130.0 ]
+    areas:
+      wo_hub_borders: 
+        height: 292.0003662109
+        borderpoints:
+          - [ -439.0399475098, -148.2942962646, -219.8364562988 ]
+          - [ -255.6267395020, -350.3956909180, -219.8364562988 ]
+          - [ -167.0175781250, -368.4923706055, -219.8365020752 ]
+          - [ 85.3153991699, -346.6388549805, -219.8363952637 ]
+          - [ 318.9010009766, -273.7822265625, -219.8365020752 ]
+          - [ 437.7237548828, -208.9831695557, -219.8365020752 ]
+          - [ 528.9506835938, -160.4905548096, -219.8363952637 ]
+          - [ 590.8023681641, -68.9738616943, -219.8361968994 ]
+          - [ 595.9922485352, 122.1486053467, -219.8361968994 ]
+          - [ 636.3567504883, 173.9752044678, -219.8361968994 ]
+          - [ 611.7804565430, 268.3602905273, -219.8363037109 ]
+          - [ 553.8688964844, 304.2040100098, -219.8363952637 ]
+          - [ 500.5203857422, 274.5509033203, -219.8365020752 ]
+          - [ 439.9047851562, 309.3634948730, -219.8365936279 ]
+          - [ 381.7710571289, 320.6495056152, -219.8365936279 ]
+          - [ 332.6586914062, 317.1062927246, -219.8365936279 ]
+          - [ 271.1577148438, 346.0882568359, -219.8365936279 ]
+          - [ 232.9056854248, 388.6380004883, -219.8365936279 ]
+          - [ 110.5511932373, 365.5896606445, -219.8365020752 ]
+          - [ 79.8860015869, 365.6701660156, -219.8365020752 ]
+          - [ -4.5234909058, 458.3075561523, -219.8365020752 ]
+          - [ -77.8655853271, 450.8252563477, -219.8365020752 ]
+          - [ -128.1803894043, 501.5611572266, -219.8365020752 ]
+          - [ -212.1453704834, 485.0330810547, -219.8365020752 ]
+          - [ -237.0870513916, 469.0540771484, -219.8365020752 ]
+          - [ -270.6455688477, 472.8764648438, -219.8365020752 ]
+          - [ -282.5766601562, 482.7202148438, -219.8365020752 ]
+          - [ -333.4622802734, 487.1795654297, -219.8365020752 ]
+          - [ -363.6009521484, 477.5932617188, -219.8365936279 ]
+          - [ -438.8063354492, 467.6464843750, -219.8365936279 ]
+          - [ -447.7653808594, 333.3406982422, -219.8365020752 ]
+          - [ -445.5694580078, 244.2017974854, -219.8365936279 ]
+          - [ -483.3720703125, 4.0839080811, -219.8365936279 ]
+
+      nb_area: 
+        height: 4.0
+        borderpoints: 
+          - [ 13.6396322250, -14.4261255264, -0.5983734727 ]
+          - [ 6.7298097610, -4.9155597687, -0.5983734727 ]
+          - [ -4.4505300522, -8.5482740402, -0.5983734727 ]
+          - [ -4.4505290985, -20.3039760590, -0.5983734727 ]
+          - [ 6.7298097610, -23.9366836548, -0.5983734727 ]
+
+      hint_discover_area: 
+        #height: 2.0
+        borderpoints: 
+          - [ -259.5350646973, -258.1928100586, 12.3059329987 ]
+          - [ -261.6080017090, -255.3396606445, 12.3059329987 ]
+          - [ -264.9621276855, -256.4294738770, 12.3059329987 ]
+          - [ -264.9621276855, -259.9561462402, 12.3059329987 ]
+          - [ -261.6080017090, -261.0459594727, 12.3059329987 ]
+
+      master_location_area:
+        height: 20.0
+        borderpoints:
+          - [-217.55960082999997, -307.2698059082, 39.9421157837]
+          - [-225.90026855459996, -289.0056762695, 39.9421157837]
+          - [-280.78723144519995, -279.2956848145, 39.9421157837]
+          - [-295.37274169909995, -298.3782348633, 39.9421157837]
+          - [-243.87295532219997, -341.0067749024, 39.9421157837]
+
+      snow_arena_area:
+        height: 10.0
+        borderpoints:
+          - [-227.12091064439997, -319.0485534668, 40.1770591736]
+          - [-219.67800903309995, -305.9157104492, 40.1770591736]
+          - [-226.70205688469997, -291.365814209, 40.1770591736]
+          - [-238.70881652819997, -287.3837280274, 40.1770591736]
+          - [-248.86605834949995, -292.9448242188, 40.1770591736]
+          - [-254.23794555659998, -301.6236877441, 40.1770591736]
+          - [-252.28967285149997, -309.8207397461, 40.1770591736]
+          - [-238.57997131339997, -322.6856689453, 40.1770591736]
+
+      stone_arena_area:
+        height: 3.0
+        borderpoints:
+          - [-219.02581787099996, -302.0078735352, 41.0890274048]
+          - [-223.17169189439997, -296.301574707, 41.0890274048]
+          - [-229.87994384759998, -298.4812316895, 41.0890274048]
+          - [-229.87994384759998, -305.5345153809, 41.0890274048]
+          - [-223.17169189439997, -307.7141723633, 41.0890274048]
+
+    mappins: 
+      # radius 32
+      investigate_strange_area: [ -269.3150939941, -230.2278747559, 13.7698478699 ]
+
+      nb_pin: [ 4.2048754692, -14.9949951172, 1.3214421272 ]
 
     waypoints:
-      test_point: [1090.9785156250, -856.0631103516, 22.4583454132, 97.0]
+      snow_arena_1: [-247.15420532219997, -304.2886657715, 41.4622840881, 264.9999694824]
 
+      snow_arena_10: [-235.35278320299997, -316.4312744141, 41.4080238342, -2.2000102997]
+
+      snow_arena_11: [-240.48162841789997, -314.9214477539, 41.2192268372, -28.2000160217]
+
+      snow_arena_12: [-244.40750122059995, -310.2827453613, 41.268535614, 309.2000122070]
+
+      snow_arena_2: [-246.26473999009994, -298.8557128906, 41.3940124512, 223.3998565674]
+
+      snow_arena_3: [-243.88269042959996, -296.0598449707, 41.3404922485, 221.7998504639]
+
+      snow_arena_4: [-239.42431640619998, -294.1918640137, 41.289981842, 194.5998687744]
+
+      snow_arena_5: [-234.83189392079996, -294.9366149902, 41.2076950073, 157.5998992920]
+
+      snow_arena_6: [-228.62405395499997, -299.1450195313, 41.6909980774, 122.9999694824]
+
+      snow_arena_7: [-226.16511535639995, -306.4745788574, 41.7022399902, 89.5999908447]
+
+      snow_arena_8: [-227.60054016099997, -312.5265808106, 41.8976325989, 62.5999794006]
+
+      snow_arena_9: [-231.21844482409995, -316.3665466309, 41.7458457947, 27.9999885559]
+
+      snow_arena_center: [-237.56506347649997, -304.7667541504, 40.3227920532, 120.1999359131]
+
+    actionpoints:
+      stone_casting_spell: [-226.27468872059995, -302.1538391113, 41.6939430237, 288.5999145508, "quest_man/nr_q210_avallach_holds_spell_with_staff"]
+
+      stone_examine: [-226.10157775869996, -302.653503418, 41.6939430237, 306.5999755859, "quest_man/q311_avallach_looking_at_things"]
+      stone_flute: [-228.50590515129997, -296.1782531738, 41.818687439, -32.7999839783, "work_man/stand_mw_music_flute_jt"]
+      stone_read_book: [-224.29800415029996, -305.6421508789, 41.6390304565, 21.0000171661, "ep2_man/nr_stand_m_read_book_jt_with_book"]
+
+      stone_sit_smoke:
+        pos: [-225.72512817369997, -303.5107116699, 41.6504211426]
+        rot: [0.0, 0.0, -29.7999973297]
+        action: "resting_man/sit_m_ground_smoking_jt"
+        ignoreCollisions: true
+
+      stone_sit_pray:
+        pos: [-226.59761047349997, -300.7084655762, 41.6486663818]
+        rot: [0.0, 0.0, -87.8000106812]
+        action: "work_man/sit_mw_praying_ground_jt"
+        ignoreCollisions: true
+
+      ship_sleeping:
+        pos: [-277.00140380849996, -297.1951599121, 44.7409667969]
+        rot: [0.0, 0.0, 52.6000022888]
+        action: "sleeping_man/lie_mwdc_sleep_bed_r_jt"
+        ignoreCollisions: true
+
+      ship_tired_near_books: [-269.5986938476, -303.97265625, 43.2547912598, 143.9999084473, "work_man/stand_mw_tired_jt"]
+
+      ship_read_book: [-269.9186096191, -304.3079223633, 43.0848770142, -216.1998748779, "ep2_man/nr_stand_m_read_book_jt_with_book"]
+
+      ship_eat_1: [-257.0654907226, -314.1528625488, 43.0711250305, -51.5999412537, "ep2_man/stand_m_eating_baguette_jt"]
+
+      ship_eat_2: [-256.876586914, -314.3481140137, 43.0752792358, -51.5999412537, "work_man/standing_eating_jt"]
+
+      ship_look_far: [-255.25537109369998, -318.2437438965, 43.7606277466, -206.7999267578, "work_man/stand_mwd_looking_in_direction_jt"]
+
+      ship_look_far_2: [-255.61294555659998, -318.0119018555, 43.7606277466, -206.7999267578, "idle_man/stands_m_arms_behind_jt"]
+
+      ship_look_far_3: [-256.32571411119994, -317.5407714844, 43.7606277466, -44.7999191284, "ep2_man/stand_m_smoking_jt"]
+
+      ship_sit_on_mast:
+        pos: [-246.72467041009998, -319.8995666504, 43.5230064392]
+        rot: [0.0, 0.0, -90.6000137329]
+        action: "work_man/sit_mw_devastated_jt"
+        ignoreCollisions: true
+
+      ship_stand_on_mast: [-246.31033325189998, -320.9450378418, 43.5850563049, -50.6, "idle_man/stands_m_arms_behind_jt"]
+
+      ship_stand_on_mast2: [-247.31918334949995, -321.1278381348, 43.5428466797, -50.6, "ep2_man/stand_m_smoking_jt"]
+
+      cat_eat: [-258.9583740234, -311.6933898926, 43.0246238708, -95.7999801636, "cat/cat_eating_jt"]
+
+      cat_sit_books: [-269.23602294909995, -305.8960571289, 43.0728759766, -67.7999649048, "ep1_cat/q604_cat_sit"]
+
+      cat_sit_2: [-265.07174682609997, -302.7674255371, 43.0386161804, -148.4000244141, "ep1_cat/q604_cat_sit"]
+
+      cat_sit_3: [-261.79873657219997, -312.9863586426, 43.0386161804, -70.0000228882, "ep1_cat/q604_cat_sit"]
+
+      cat_sit_4: [-263.98214721669996, -307.5189208984, 43.0386161804, -160.1999969482, "ep1_cat/q604_cat_sit"]
+
+      cat_sit_table: [-271.9193115234, -300.3887329102, 43.2009925842, -86.1999664307, "ep1_cat/q604_cat_sit"]
+
+    scenepoints: 
+      crystal: [ -262.0, -257.0, 12.0, 0.0 ]
+      ship: [-246.20300292959996, -320.9024963379, 43.0, 0.0]
+
+
+  crystal_hint_layer: 
+    world: "prologue"
+    #context: ""
+  
     statics: 
-      trigger1:
-        .type: "NR_SceneTrigger"
-        template: "dlc/dlcnewreplacers/data/entities/nr_scene_trigger.w2ent"
-        #playerPos: [ 1088.855469, -853.623840, 22.404493, 1.0 ]
-        playerPos: [ 1090.9785156250, -856.0631103516, 22.4583454132, 1.0 ]
-        playerRot:
-          Pitch: 0.0
-          Yaw: 96.6000061035
-          Roll: 0.0
+      interactive_crystal_ground: 
+        .type: "W3MonsterClue"
+        tags: ["nr_interactive_crystal_ground"]
+        transform: 
+          pos: [ -262.6635131836, -257.9526367188, 12.3288917542 ]
+          rot: [ 0.0, 90.0, -113.8000030518 ]
+        streamingDistance: 20
+        isInteractive: true
+        isVisibleAsClue: true
+        testLineOfSight: true
+        interactionAnim: PEA_InspectLow
+        interactionAnimTime: 3.0
+        components: 
+          mq7003_magic_gem_d: 
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: [ "IsVisible", "CastShadows" ]
+            mesh: "dlc\\bob\\data\\items\\quest_items\\th701\\th701_item__gem_key\\th701_item__gem_key.w2mesh"
+          InteractiveClue: # <- name goes to questeditor
+            .type: "CInteractionComponent"
+            actionName: Examine  # upper-case!
+            #rangeMin: 0.0
+            #rangeMax: 3.0
+            isStreamed: false
+            isEnabled: true
+            reportToScript: true
+
+
+  master_location:
+    world: "prologue"
+    #context: ""
+    # spike-1 offset: [ -0.7, -0.208, 6.3 ]
+    # spike-2 offset: [ 0.1443, 0.883, 6.4 ]
+    statics:
+      master_notebook:
+        .type: "NR_MusicAreaManagerEntity"
+        #template: "dlc\\ep1\\data\\items\\quest_items\\q604\\q604_item__notebook.w2ent"
         transform:
-          pos: [ 1090.9785156250, -856.0631103516, 22.4583454132 ]
-          rot: [ 0.0, 0.0, 96.6000061035 ]
+          pos: [-272.2290039062, -299.545501709, 43.9500007629]
+          rot: [0.0, 0.0, -128.9999694824]
+        m_bankName: "nr_quest.bnk"
+        m_inAreaFact: "nr_on_master_ship"
+        m_playEvent: "Play_mus_loc_master_ship_background"
+        m_stopEvent: "Stop_mus_loc_master_ship_background"
+        streamingDistance: 100
+        components:
+          q604_item__notebook:
+            ".type": CMeshComponent
+            isStreamed: true
+            drawableFlags:
+              - DF_IsVisible
+              - DF_CastShadows
+            lightChannels:
+              - LC_Characters
+            mesh: dlc/ep1/data/items/quest_items/q604/q604_item__notebook/q604_item__notebook.w2mesh
+
+      master_megascope_crystal_1:
+        template: "CEntity:dlc\\bob\\data\\items\\quest_items\\mq7023\\mq7023_item__megascope_crystal.w2ent"
+        pos: [-271.59432983389996, -299.5130615234, 43.9500007629]
+        rot: [0.0, 0.0, 0.0]
+
+      master_megascope_crystal_2:
+        template: "CEntity:dlc\\bob\\data\\items\\quest_items\\mq7023\\mq7023_item__megascope_crystal.w2ent"
+        pos: [-271.65499877919996, -299.5874938965, 43.9599990845]
+        rot: [30.0, 0.0, 0.0]
+
+      golem_attempt_1: 
+        template: "CEntity:dlc\\bob\\data\\items\\quest_items\\mq7007\\mq7007_item__golem_grafitti.w2ent"
+        pos: [ -265.8697814941, -304.3204345703, 42.2524261475 ]
+        rot: [ 57.1999855042, 84.1999969482, -25.5999412537 ]
+
+      golem_attempt_2: 
+        template: "CEntity:dlc\\bob\\data\\items\\quest_items\\mq7007\\mq7007_item__golem_grafitti.w2ent"
+        pos: [ -262.8359680176, -305.8386535645, 42.2524261475 ]
+        rot: [ 57.1999855042, 84.1999969482, -58.9999389648 ]
+
+      master_megascope:
+        .type: "W3MonsterClue"
+        template: "dlc\\bob\\data\\quests\\minor_quests\\quest_files\\mq7023_mutations\\entities\\mq7023_megascope.w2ent"
+        tags: ["nr_interactive_master_megascope"]
+        transform:
+          pos: [-271.48773193349996, -299.9736938477, 43.1984291077]
+          rot: [0.0, 0.0, -227.3999176025]
+        streamingDistance: 100
+        isInteractive: true
+        isVisibleAsClue: false
+        testLineOfSight: true
+        interactionAnim: PEA_InspectMid
+        interactionAnimTime: 2.0
+
+      cat_fish_plate:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/bob/data/environment/decorations/gameplay/rich_district/decoration_set/plates/meshes/merge_deco_rich_plate_large_i.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/merge_deco_rich_plate_large_i.w2ent"
+        transform:
+          pos: [-258.49969482409995, -311.7717590332, 43.0699996948]
+          rot: [0.0, 0.0, 7.7999987602]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/bob/data/environment/decorations/gameplay/rich_district/decoration_set/plates/meshes/merge_deco_rich_plate_large_i.w2mesh"
+
+      ship_stairs_extra_for_ap:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/architecture/human/skellige/ard_skellig/kaer_trolde/castle/wood_plattforms/wood_plattform_stairs_short.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/wood_plattform_stairs_short.w2ent"
+        transform:
+          pos: [-258.7172851562, -315.7777709961, 42.4450302124]
+          rot: [0.0, 5.0, 141.3999938965]
+          scale: [0.5000000000, 0.5000000000, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/architecture/human/skellige/ard_skellig/kaer_trolde/castle/wood_plattforms/wood_plattform_stairs_short.w2mesh"
+      static_wall_1:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-252.35803222649997, -299.4174194336, 41.8975486755]
+          rot: [0.0, 0.0, 597.7999267578]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_2:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-250.24676513659995, -296.0113220215, 41.8975486755]
+          rot: [0.0, 0.0, 598.7999267578]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_3:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-247.65759277339998, -293.0291137695, 41.8975486755]
+          rot: [0.0, 0.0, 579.3995971680]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_4:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-244.33224487299998, -290.8157043457, 41.8975486755]
+          rot: [0.0, 0.0, 567.5997314453]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_5:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-240.55795288079997, -289.4304199219, 41.8975486755]
+          rot: [0.0, 0.0, 555.9995727539]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_6:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-236.61235046379997, -289.0874328613, 41.8975486755]
+          rot: [0.0, 0.0, 534.5994262695]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_7:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-232.96881103509998, -290.0121154785, 41.8975486755]
+          rot: [0.0, 0.0, 516.1997070312]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_8:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-229.36679077139996, -291.8994140625, 41.8618965149]
+          rot: [0.0, 0.0, 508.1997375488]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_9:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-226.20460510249995, -294.3780517578, 41.5618896484]
+          rot: [0.0, 0.0, 493.7997741699]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_10:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-223.88191223139995, -297.6211547852, 41.261882782]
+          rot: [0.0, 0.0, 477.3998718262]
+          scale: [1.0, 1.0, 1.5]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_11:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-222.36325073229997, -301.3509521484, 41.2418823242]
+          rot: [0.0, 0.0, 468.7998657227]
+          scale: [1.0, 1.0, 1.5]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_12:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-221.53890991199995, -305.1867980957, 41.4818878174]
+          rot: [0.0, 0.0, 454.1997375488]
+          scale: [1.0, 1.0, 1.5]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_13:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-222.05386352529996, -309.1305541992, 41.4818878174]
+          rot: [0.0, 0.0, 428.7995910645]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_14:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-223.81930541979997, -312.7449035645, 41.4818878174]
+          rot: [0.0, 0.0, 419.3995666504]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_15:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-226.22747802729995, -315.9193115234, 41.4818878174]
+          rot: [0.0, 0.0, 407.7994995117]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_16:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-229.29298400869996, -318.3578796387, 41.4715995789]
+          rot: [0.0, 0.0, 388.5995178223]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_17:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-232.98922729479997, -319.9353637695, 41.4715995789]
+          rot: [0.0, 0.0, 379.9995422363]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      static_wall_18:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-236.92054748529995, -320.7064208984, 41.4715995789]
+          rot: [0.0, 0.0, 361.7994079590]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      snow_circle_base:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_cave_terrain_circle_ice.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/cave_terrain_circle_ice.w2ent"
+        transform:
+          pos: [-237.89961242669997, -305.1519775391, 41.2672042847]
+          rot: [0.0, 0.0, 377.9998474121]
+          scale: [1.5000000000, 1.5000000000, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_cave_terrain_circle_ice.w2mesh"
+
+      snow_circle_1:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-252.78430175769995, -298.572845459, 41.6865234375]
+          rot: [180.0, 0.0, 415.0003356934]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/ice_giant_island/iceicles/iccle_waterfall_big_translucent.w2mesh"
+
+      snow_circle_10:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-220.98469543449997, -302.8104553223, 41.20652771]
+          rot: [180.0, 0.0, 637.9997558594]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_11:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-220.85287475579997, -307.6430358887, 41.20652771]
+          rot: [180.0, 0.0, 618.5995483398]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_12:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-222.62794494619996, -312.0780639649, 41.20652771]
+          rot: [180.0, 0.0, 600.0001220703]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_13:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-225.29095458979995, -316.1190185547, 41.20652771]
+          rot: [180.0, 0.0, 590.1995239258]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_14:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-229.15843200669997, -319.2724609375, 41.20652771]
+          rot: [180.0, 0.0, 565.9997558594]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_15:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-233.80839538569995, -321.0550537109, 41.20652771]
+          rot: [180.0, 0.0, 551.5997924805]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_16:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-238.71176147449995, -321.2072143555, 41.20652771]
+          rot: [180.0, 0.0, 530.7997436523]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/ice_giant_island/iceicles/iccle_waterfall_big_translucent.w2mesh"
+
+      snow_circle_2:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-250.27642822259998, -294.719909668, 41.6865234375]
+          rot: [180.0, 0.0, 415.0003356934]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_3:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-246.99057006829997, -291.4945068359, 41.6065216064]
+          rot: [180.0, 0.0, 394.4003295898]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_4:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-242.80026245109997, -289.1901245117, 41.5665206909]
+          rot: [180.0, 0.0, 379.9999389648]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_5:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-238.18037414539995, -288.1403808594, 41.4865188599]
+          rot: [180.0, 0.0, 723.5999755859]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_6:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-233.31120300279997, -288.7987976074, 41.726524353]
+          rot: [180.0, 0.0, 696.1997680664]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_7:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-229.20248413079997, -290.9267578125, 41.726524353]
+          rot: [180.0, 0.0, 686.5996093750]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_8:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-225.28259277339995, -293.8893127442, 41.3265304565]
+          rot: [180.0, 0.0, 675.9997558594]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_9:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-222.50639343249995, -298.0436706543, 41.20652771]
+          rot: [180.0, 0.0, 652.5996704102]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_floor_1:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_b.w2ent"
+        transform:
+          pos: [-246.44235229479995, -324.3845214844, 41.9375343323]
+          rot: [0.0, 0.0, 92.2000122070]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+
+      snow_floor_10:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_c.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_c.w2ent"
+        transform:
+          pos: [-256.46066284169996, -322.0124511719, 41.9563140869]
+          rot: [0.0, 0.0, 1164.1999511719]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_c.w2mesh"
+
+      #snow_floor_11: 
+      #  .type: "CEntity"
+      #  .debug: 
+      #    mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_sparse_a.w2mesh"
+      #    meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_sparse_a.w2ent"
+      #  transform: 
+      #    pos: [ -261.0229492188, -319.7278137207, 38.4521484375 ]
+      #    rot: [ 7.0, 0.0, 81.5999984741 ]
+      #  streamingDistance: 100
+      #  components: 
+      #    mesh: 
+      #      .type: "CStaticMeshComponent"
+      #      isStreamed: false
+      #      drawableFlags: [ "IsVisible", "CastShadows" ]
+      #      mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_sparse_a.w2mesh"
+
+      snow_floor_12:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_shatter_a.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_shatter_a.w2ent"
+        transform:
+          pos: [-254.60446166979995, -303.2393798828, 41.4401168823]
+          rot: [0.0, 0.0, 133.1999969482]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_shatter_a.w2mesh"
+
+      snow_floor_13:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_d.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_d.w2ent"
+        transform:
+          pos: [-242.47494506829997, -320.3544616699, 42.0401191711]
+          rot: [0.0, 0.0, 207.3999633789]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_d.w2mesh"
+
+      snow_floor_14:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_small_b.w2ent"
+        transform:
+          pos: [-245.00381469719997, -319.5927734375, 42.0001182556]
+          rot: [0.0, 0.0, 119.1998977661]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_b.w2mesh"
+
+      snow_floor_15:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_a.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_small_a.w2ent"
+        transform:
+          pos: [-251.40219116199995, -309.2128601074, 41.4801063538]
+          rot: [0.0, 0.0, -74.0001373291]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_a.w2mesh"
+
+      snow_floor_16:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_b.w2ent"
+        transform:
+          pos: [-244.41848754869994, -329.2313842774, 41.9213600159]
+          rot: [0.0, 0.0, 106.3991470337]
+          scale: [1.5000000000, 1.5000000000, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+
+      snow_floor_17:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_sparse_a.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_sparse_a.w2ent"
+        transform:
+          pos: [-270.7575988769, -304.558380127, 42.1374282837]
+          rot: [0.0, 0.0, 391.3992919922]
+          scale: [1.5000000000, 1.5000000000, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_sparse_a.w2mesh"
+
+      snow_floor_18:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_b.w2ent"
+        transform:
+          pos: [-282.39550781239996, -300.503112793, 41.9774246216]
+          rot: [0.0, 0.0, 391.3992919922]
+          scale: [1.5000000000, 1.5000000000, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+
+      snow_floor_19:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_b.w2ent"
+        transform:
+          pos: [-280.10549926749997, -286.9253234863, 42.0574264526]
+          rot: [0.0, 0.0, 358.3990783691]
+          scale: [1.5000000000, 1.5000000000, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_b.w2mesh"
+
+      #snow_floor_2: 
+      #  .type: "CEntity"
+      #  .debug: 
+      #    mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_sparse_b.w2mesh"
+      #    meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_sparse_b.w2ent"
+      #  transform: 
+      #    pos: [ -267.8543701172, -322.7940673828, 39.0922050476 ]
+      #    rot: [ 0.0, 0.0, 148.4000244141 ]
+      #  streamingDistance: 100
+      #  components: 
+      #    mesh: 
+      #      .type: "CStaticMeshComponent"
+      #      isStreamed: false
+      #      drawableFlags: [ "IsVisible" ]
+      #      mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_sparse_b.w2mesh"
+
+      snow_floor_3:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_sparse_a.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_sparse_a.w2ent"
+        transform:
+          pos: [-248.01727294909995, -310.3634033203, 41.4121665955]
+          rot: [0.0, 0.0, 58.9999618530]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_sparse_a.w2mesh"
+
+      snow_floor_4:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_b.w2ent"
+        transform:
+          pos: [-261.3171691894, -296.2640991211, 41.962223053]
+          rot: [0.0, 0.0, 208.9998321533]
+          scale: [1.5000000000, 1.5000000000, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+
+      snow_floor_5:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_b.w2ent"
+        transform:
+          pos: [-276.0011901855, -293.7629089356, 42.0013084412]
+          rot: [0.0, 0.0, 273.0002136230]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+
+      snow_floor_6:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_c.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_c.w2ent"
+        transform:
+          pos: [-282.80886840809995, -291.0236816406, 42.0413093567]
+          rot: [0.0, 0.0, 495.7999877930]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_c.w2mesh"
+
+      snow_floor_7:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_a.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_a.w2ent"
+        transform:
+          pos: [-271.1392822265, -287.3645324707, 42.0413093567]
+          rot: [0.0, 0.0, 609.7998046875]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_a.w2mesh"
+
+      snow_floor_8:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_b.w2ent"
+        transform:
+          pos: [-263.25610351549994, -294.0304870606, 41.9613189697]
+          rot: [0.0, 0.0, 999.2002563477]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+
+      snow_floor_9:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_group_dense_b.w2ent"
+        transform:
+          pos: [-266.7369689941, -309.3545837402, 41.9613189697]
+          rot: [0.0, 0.0, 1092.1990966797]
+          scale: [2.0, 2.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_group_dense_b.w2mesh"
+
+      snow_floor_20:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_c.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_small_c.w2ent"
+        transform:
+          pos: [-271.35961914049994, -291.1471862793, 41.9163017273]
+          rot: [0.0, 0.0, 522.5990600586]
+          scale: [2.0, 2.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_c.w2mesh"
+
+      snow_floor_21:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_c.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_small_c.w2ent"
+        transform:
+          pos: [-269.33200073229995, -293.3130493164, 41.9617507935]
+          rot: [0.0, 0.0, 120.5990600586]
+          scale: [1.5, 1.5, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_c.w2mesh"
+
+      ice_floor_22:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_c.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_c.w2ent"
+        transform:
+          pos: [-253.18719482409995, -327.2681274414, 41.9060020447]
+          rot: [0.0, 0.0, 130.7999877930]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_c.w2mesh"
+
+      ice_floor_23:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_d.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_d.w2ent"
+        transform:
+          pos: [-263.3964233398, -299.9566650391, 41.9172172546]
+          rot: [0.0, 0.0, 187.7999420166]
+          scale: [1.0, 2.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_d.w2mesh"
+
+      ice_floor_24:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_c.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_small_c.w2ent"
+        transform:
+          pos: [-254.47821044909995, -300.4841918945, 41.8372154236]
+          rot: [0.0, 0.0, 187.7999420166]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_c.w2mesh"
+
+      ice_floor_25:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_c.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_c.w2ent"
+        transform:
+          pos: [-260.80166625969997, -321.6577453613, 41.8860015869]
+          rot: [0.0, 0.0, 130.7999877930]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_c.w2mesh"
+
+      ice_floor_26:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_large_b.w2ent"
+        transform:
+          pos: [-274.90054321279996, -309.6858520508, 41.8260002136]
+          rot: [0.0, 0.0, 355.9998168945]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_large_b.w2mesh"
+
+      ice_floor_27:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_a.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_small_a.w2ent"
+        transform:
+          pos: [-257.41503906239996, -305.4920654297, 41.8371925354]
+          rot: [0.0, 0.0, -47.2000007629]
+        streamingDistance: 200
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_a.w2mesh"
+
+      ice_floor_28:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_a.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_small_a.w2ent"
+        transform:
+          pos: [-256.56143188469997, -318.5947265625, 41.8771476746]
+          rot: [0.0, 0.0, -11.4000043869]
+        streamingDistance: 200
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_a.w2mesh"
+
+      ice_floor_29:
+        .type: "CEntity"
+        .debug:
+          mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_c.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/ice_flow_small_c.w2ent"
+        transform:
+          pos: [-250.86181640619998, -321.7553405762, 41.906211853]
+          rot: [0.0, 0.0, 234.5000915527]
+          scale: [1.5000000000, 2.5000000000, 1.0]
+        streamingDistance: 200
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "environment/terrain_surroundings/skellige/ice_flow/ice_flow_small_c.w2mesh"
+
+      master_magic_ship:
+        tags: ["nr_master_magic_ship"]
+        template: "CEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_q210_large_nilfgaardian_ship.w2ent"
+        pos: [-261.7337646484, -308.3988342285, 39.4462165833]
+        rot: [0.0, 0.0, 50.8000297546]
+
+      #master_magic_ship: 
+      #  template: "CEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_q210_large_nilfgaardian_ship.w2ent"
+      #  pos: [ -261.7337646484, -308.3988342285, 36.4462165833 ]
+      #  rot: [ 0.0, 0.0, 50.8000259399 ]
+
+      pop_yrden_arena:
+        tags: ["nr_interactive_ship_stone"]
+        template: "W3MonsterClue:dlc\\dlcnewreplacers\\data\\entities\\nr_place_of_power_cross.w2ent"
+        pos: [-224.49894714349995, -301.5534973145, 41.7747077942]
+        rot: [0.0, 0.0, 112.0000381470]
+      ship_bed:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/bob/data/environment/decorations/gameplay/rich_district/furniture/beds/rich_bed_single.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/rich_bed_single.w2ent"
+        transform:
+          pos: [-277.98391723619994, -296.1641235352, 44.3001937866]
+          rot: [0.0, 0.0, 52.9999313354]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/bob/data/environment/decorations/gameplay/rich_district/furniture/beds/rich_bed_single.w2mesh"
+
+      ship_bed_table:
+        template: "W3AnimatedContainer:dlc\\bob\\data\\gameplay\\container_definitions\\ep2_loot_hotel_silver__deco_rich_bed_table_a.w2ent"
+        pos: [-277.43655395499997, -298.194732666, 44.000995636]
+        rot: [0.0, 0.0, 140.7999114990]
+
+      ship_bookshelf_1:
+        template: "W3AnimatedContainer:gameplay\\containers\\_container_definitions\\autogen\\bookstand_b__unique_books_magic.w2ent"
+        pos: [-270.63031005849996, -305.3345336914, 43.6692390442]
+        rot: [0.0, 0.0, 1037.2000732422]
+
+      ship_chest_1:
+        template: "W3AnimatedContainer:dlc\\bob\\data\\gameplay\\container_definitions\\uniqe_spiral__rich_chest_b.w2ent"
+        pos: [-267.416229248, -308.5807189941, 43.5987472534]
+        rot: [0.0, 0.0, 1220.2000732422]
+
+      ship_chest_2:
+        template: "W3AnimatedContainer:dlc\\bob\\data\\gameplay\\container_definitions\\ep2_loot_elven_ruins__rich_chest_a.w2ent"
+        pos: [-268.7252502441, -307.5342407227, 43.5999984741]
+        rot: [0.0, 0.0, 1400.7995605469]
+
+      ship_chest_secret:
+        template: "W3AnimatedContainer:quests\\minor_quests\\novigrad\\quest_files\\mq3012_jade_statuettes\\entities\\mq3012_statuette_chest.w2ent"
+        pos: [-279.6800231933, -295.9710388184, 44.9269371033]
+        rot: [0.0, 0.0, 140.4000549316]
+
+      ship_lamp_1:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_blue.w2ent"
+        pos: [-266.15573120109997, -308.9346618652, 43.979927063]
+        rot: [0.0, 0.0, 1037.2000732422]
+
+      ship_lamp_2:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_blue.w2ent"
+        pos: [-274.631072998, -301.0733337402, 44.0399284363]
+        rot: [0.0, 0.0, 1037.2000732422]
+
+      ship_lamp_3:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_blue.w2ent"
+        pos: [-271.49801635729995, -297.2225036621, 44.0499992371]
+        rot: [0.0, 0.0, 1037.2000732422]
+
+      ship_lamp_4:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_blue.w2ent"
+        pos: [-262.08520507799994, -303.9842834473, 43.9798965454]
+        rot: [0.0, 0.0, 1037.2000732422]
+
+      ship_lamp_5:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_blue.w2ent"
+        pos: [-257.60668945299994, -315.8987426758, 44.0799827576]
+        rot: [0.0, 0.0, 1037.2000732422]
+
+      ship_lamp_6:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_blue.w2ent"
+        pos: [-251.43099975579997, -320.5744934082, 44.4199981689]
+        rot: [0.0, 0.0, 1037.2000732422]
+
+      ship_lamp_7:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_blue.w2ent"
+        pos: [-247.74191284169996, -316.0689697266, 44.4199905396]
+        rot: [0.0, 0.0, 1037.2000732422]
+
+      ship_lamp_8:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_blue.w2ent"
+        pos: [-253.52999877919996, -310.9184875488, 44.0699996948]
+        rot: [0.0, 0.0, 1037.2000732422]
+
+      ship_lamp_shelf:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_holder_blue.w2ent"
+        pos: [-270.49429321279996, -304.6445617676, 46.2999420166]
+        rot: [0.0, 0.0, 1071.8000488281]
+
+      ship_lamp_table:
+        template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_candleholder_fancy_blue.w2ent"
+        pos: [-277.54504394519995, -298.3448486328, 44.8100013733]
+        rot: [0.0, 0.0, 1055.4002685547]
+
+      #ship_bed_chair: 
+      #  .type: "CEntity"
+      #  .debug: 
+      #    mesh: "environment/architecture/human/kaer_morhen/kaer_morhen_triss_interior/kaer_morhen_triss_interior_chair.w2mesh"
+      #    meshpreview: "dlc/modtemplates/radishquestui/meshes/kaer_morhen_triss_interior_chair.w2ent"
+      #  transform: 
+      #    pos: [ -293.5490112305, -303.9549865723, 41.7400016785 ]
+      #    rot: [ 0.0, 0.0, 140.3999786377 ]
+      #  streamingDistance: 100
+      #  components: 
+      #    mesh: 
+      #      .type: "CStaticMeshComponent"
+      #      isStreamed: false
+      #      drawableFlags: [ "IsVisible", "CastShadows" ]
+      #      mesh: "environment/architecture/human/kaer_morhen/kaer_morhen_triss_interior/kaer_morhen_triss_interior_chair.w2mesh"
+
+      ship_book_1:
+        template: "W3AnimatedContainer:items\\readable_books\\elder_blood.w2ent"
+        pos: [-269.62152099599996, -305.9418029785, 44.8741874695]
+        rot: [0.0, 70.0, 224.5999603271]
+
+      ship_book_10:
+        template: "W3AnimatedContainer:items\\readable_books\\polymorphism.w2ent"
+        pos: [-271.2471313476, -304.4173278809, 44.4741783142]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_11:
+        template: "W3AnimatedContainer:items\\readable_books\\wild_hunt.w2ent"
+        pos: [-269.7574768066, -305.8477478027, 44.8600158691]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_12:
+        template: "W3AnimatedContainer:items\\readable_books\\witchers.w2ent"
+        pos: [-271.11370849599996, -304.6627807617, 44.1199989319]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_13:
+        template: "W3AnimatedContainer:items\\readable_books\\witcher_signs.w2ent"
+        pos: [-271.0736083984, -304.6931152344, 44.1199989319]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_14:
+        template: "W3AnimatedContainer:items\\readable_books\\druids.w2ent"
+        pos: [-271.03036499009994, -304.7561340332, 44.1199989319]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_15:
+        template: "W3AnimatedContainer:items\\readable_books\\aen_seidhe_and_aen_elle.w2ent"
+        pos: [-270.9799804687, -304.8045349121, 44.1199989319]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_2:
+        template: "W3AnimatedContainer:items\\readable_books\\conjunction_of_spheres.w2ent"
+        pos: [-270.6891174316, -305.0189819336, 44.4741783142]
+        rot: [0.0, 70.0, 224.5999603271]
+
+      ship_book_3:
+        template: "W3AnimatedContainer:items\\readable_books\\elven_legends.w2ent"
+        pos: [-269.66278076159995, -305.8985595703, 44.8741874695]
+        rot: [0.0, 70.0, 224.5999603271]
+
+      ship_book_4:
+        template: "W3AnimatedContainer:items\\readable_books\\theory_of_spheres.w2ent"
+        pos: [-271.15432739249997, -304.6254272461, 44.1199989319]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_5:
+        template: "W3AnimatedContainer:items\\readable_books\\elven_sages.w2ent"
+        pos: [-269.78057861319996, -305.7933349609, 44.8741874695]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_food_chair_1:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/bob/data/environment/decorations/gameplay/rich_district/furniture/chairs/rich_chair_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/rich_chair_b.w2ent"
+        transform:
+          pos: [-255.68869018549998, -314.1597595215, 43.0892753601]
+          rot: [0.0, 0.0, -38.2000083923]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/bob/data/environment/decorations/gameplay/rich_district/furniture/chairs/rich_chair_b.w2mesh"
+
+      ship_food_chair_2:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/bob/data/environment/decorations/gameplay/rich_district/furniture/chairs/rich_chair_b.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/rich_chair_b.w2ent"
+        transform:
+          pos: [-257.33227539049994, -312.8789367676, 43.0892753601]
+          rot: [0.0, 0.0, -39.0000076294]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/bob/data/environment/decorations/gameplay/rich_district/furniture/chairs/rich_chair_b.w2mesh"
+
+      ship_food_table_1:
+        template: "CEntity:dlc\\dlcnewreplacers\\data\\entities\\nge_missed\\deco_rich_table_food_large_round_f.w2ent"
+        pos: [-256.72824096669996, -312.1467895508, 43.0903549194]
+        rot: [0.0, 0.0, 0.0]
+
+      ship_food_table_2:
+        template: "CEntity:dlc\\dlcnewreplacers\\data\\entities\\nge_missed\\backup_deco_rich_table_food_large_round_a.w2ent"
+        pos: [-255.11111450189998, -313.4231262207, 43.0903549194]
+        rot: [0.0, 0.0, 0.0]
+
+      ship_writing_table:
+        template: "CActionPoint:gameplay\\community\\actionpoints\\work\\sit_m_writing_desk_ap.w2ent"
+        pos: [-272.41940307609997, -299.1013793945, 43.1728591919]
+        rot: [0.0, 0.0, 320.0000305176]
+
+
+  master_location_extra_walls:
+    world: "prologue"
+    #context: ""
+
+    statics:
+      snow_circle_extra_1:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-253.78973388659995, -303.0035400391, 41.2961921692]
+          rot: [0.0, 180.0, 271.6000061035]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: true
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_extra_2:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-252.83532714839998, -307.4485168457, 41.0724143982]
+          rot: [0.0, 180.0, 291.7998046875]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: true
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_extra_3:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-250.46737670889996, -311.423828125, 41.2634925842]
+          rot: [0.0, 180.0, 310.3995361328]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: true
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_extra_4:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-246.75390624989996, -314.8393859863, 41.0724143982]
+          rot: [0.0, 180.0, 315.3993530273]
+          scale: [3.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: true
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_extra_5:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-242.17214965809995, -319.8723754883, 41.4093208313]
+          rot: [0.0, 180.0, 315.9993286133]
+          scale: [2.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: true
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      snow_circle_extra_6:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/iccle_waterfall_big_translucent.w2ent"
+        transform:
+          pos: [-244.29226684559995, -317.5695495606, 41.4093208313]
+          rot: [0.0, 180.0, 304.3992309570]
+          scale: [2.0, 3.0, 3.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: true
+            drawableFlags: ["IsVisible", "CastShadows"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/iccle_waterfall_big_translucent_no_collision.w2mesh"
+
+      static_wall_extra_1:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-253.09643554679997, -303.2181091309, 41.287437439]
+          rot: [0.0, 0.0, -84.3999404907]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      wall_2:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-252.13525390619998, -307.0830078125, 41.3074378967]
+          rot: [0.0, 0.0, -62.9999389648]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      wall_3:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-249.99237060539997, -310.4398803711, 41.3871612549]
+          rot: [0.0, 0.0, -49.9999465942]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      wall_4:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-247.34381103509998, -313.4831237793, 41.3871612549]
+          rot: [0.0, 0.0, -47.7999496460]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      wall_5:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-253.09643554679997, -303.2181091309, 41.287437439]
+          rot: [0.0, 0.0, -84.3999404907]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      wall_6:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-241.07202148429997, -319.3048400879, 41.3871612549]
+          rot: [0.0, 0.0, -34.3999366760]
+          scale: [1.3, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      wall_7:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-244.58340454089995, -316.4011535645, 41.4177322388]
+          rot: [0.0, 0.0, -45.6000289917]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      ice_wall_extra_1:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-254.03631591789997, -301.7894592285, 41.3848152161]
+          rot: [0.0, 0.0, 91.4000091553]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      ice_wall_extra_2:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-253.31021118159998, -305.6878356934, 41.2648124695]
+          rot: [0.0, 0.0, 108.1999969482]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      ice_wall_extra_3:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-249.13833618159998, -312.9377441406, 43.084854126]
+          rot: [90.0, 0.0, 123.6000213623]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      ice_wall_extra_4:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-242.80676269519995, -319.4111938477, 41.6111488342]
+          rot: [0.0, 4.0, 139.0]
+          scale: [1.0, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      ice_wall_extra_5:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-239.30993652339998, -321.2286682129, 41.6111488342]
+          rot: [0.0, 4.0, 165.6000671387]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      ice_wall_extra_6:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-235.40435791009998, -321.1592407227, 41.6111488342]
+          rot: [0.0, 4.0, 196.4000854492]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      ice_wall_rolled_2:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-248.46585082999997, -312.9458312988, 46.5421333313]
+          rot: [90.0, 28.1999874115, 129.6001129150]
+          scale: [0.7, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+      ice_wall_rolled_1:
+        .type: "CEntity"
+        .debug:
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+          meshpreview: "dlc/dlcnewreplacers/data/entities/nr_wall_invisible.w2ent"
+        transform:
+          pos: [-244.04730224599996, -317.5751953125, 46.5621337891]
+          rot: [90.0, 27.7999916077, 133.6000366211]
+          scale: [0.7, 1.0, 1.0]
+        streamingDistance: 100
+        components:
+          mesh:
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: ["IsVisible"]
+            mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_wall_invisible.w2mesh"
+
+
+  master_location_magic_books:
+    world: "prologue"
+    #context: ""
+
+    statics:
+      ship_book_6:
+        template: "W3AnimatedContainer:items\\readable_books\\goetia.w2ent"
+        pos: [-271.16528320299994, -304.5182495117, 44.4741783142]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_7:
+        template: "W3AnimatedContainer:items\\readable_books\\necromancy.w2ent"
+        pos: [-271.3777160644, -304.2817382813, 44.4741783142]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_8:
+        template: "W3AnimatedContainer:items\\readable_books\\hydromancy.w2ent"
+        pos: [-271.33563232409995, -304.3176879883, 44.4741783142]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_9:
+        template: "W3AnimatedContainer:items\\readable_books\\oneiromancy.w2ent"
+        pos: [-271.206665039, -304.4643859863, 44.4741783142]
+        rot: [0.0, 90.0, 224.6000061035]
+
+      ship_book_rune:
+        template: "CEntity:gameplay\\templates\\signs\\pc_yrden_rune_0.w2ent"
+        pos: [-271.29187011709996, -304.419708252, 44.4799995422]
+        rot: [0.0, 0.0, 45.9999809265]

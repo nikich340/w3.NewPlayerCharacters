@@ -1,50 +1,441 @@
 #
 # quest structure root segment
 # 
-# (version: 29, saved: 2022-12-02 19:21:21)
+# (version: 498, saved: 2023-07-30 17:54:01)
 #
 ---
 structure:
   quest:
     blocks:
       start:
-        ".editor": [ -359.0, 175.0 ]
+        ".editor": [ -579.0, 206.0 ]
         next:
-          - changeworld.test_tp
-          - changelayers.show_vanilla_start
+          - waituntil.Wait_intro_done
+          - changelayers.hide_master_location
+          - waituntil.REMOVE_DEV_0
+      
+      subsegment.TRAINING:
+        ".editor":
+          pos: [ 6254.0, 1559.0 ]
+          in: [ In ]
+          out: [ Out ]
+        segment: training
+        next: ".done"
+      
+      scene.Oh_no_comment:
+        ".editor":
+          pos: [ 4742.0, 967.0 ]
+          in: [ oh_not_that ]
+          out: [ Output ]
+        scene: 02.magic_lines.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: false
+        next: ".done"
       
       scene.Relaunch_female_scene:
         ".editor":
-          pos: [ 924.0, 18.0 ]
+          pos: [ 1243.0, -272.0 ]
           in: [ Input ]
-          out: [ Output ]
+          out: [ ChangeType, Output, Sorceress ]
         scene: 01.player_change_female.yml
         placement: ~PLAYER
         interruptable: true
         _fadein: true
+        next.ChangeType:
+          - script.wait_200_ms
         next.Output:
-          - waituntil.Scene_type_change_request
+          - waituntil.Wait_setup_scene_fact
+        next.Sorceress:
+          - scene.Sorceress_scene: Input
       
       scene.Relaunch_male_scene:
         ".editor":
-          pos: [ 893.0, -170.0 ]
+          pos: [ 1123.0, -517.0 ]
           in: [ Input ]
-          out: [ Output ]
+          out: [ ChangeType, Output ]
         scene: 01.player_change_male.yml
         placement: ~PLAYER
         interruptable: true
         _fadein: true
+        next.ChangeType:
+          - script.wait_200_ms
         next.Output:
-          - waituntil.Scene_type_change_request
+          - waituntil.Wait_setup_scene_fact
       
-      waituntil.3s:
-        elapsed: "00:00:03"
+      scene.Sorceress_1st_time_comment:
         ".editor":
-          pos: [ -168.0, 327.0 ]
+          pos: [ 749.0, 821.0 ]
+          in: [ first_time ]
+          out: [ Output ]
+        scene: 02.magic_lines.yml
+        placement: ~PLAYER
+        interruptable: false
+        _fadein: false
+        next.Output:
+          - waituntil.wait_inside_nb_area
+          - journal.quest_start_entry: Activate
+      
+      scene.Sorceress_scene:
+        ".editor":
+          pos: [ 1247.0, -157.0 ]
+          in: [ Input ]
+          out: [ Back ]
+        scene: 03.player_change_sorceress.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: false
+        next.Back:
+          - scene.Relaunch_female_scene: Input
+      
+      scene.Stone_comment:
+        ".editor":
+          pos: [ 3328.0, 1122.0 ]
+          in: [ magic_stone_discovered ]
+          out: [ Output ]
+        scene: 02.magic_lines.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: false
+        next: ".done"
+      
+      scene.Wow_comment:
+        ".editor":
+          pos: [ 2885.0, 1040.0 ]
+          in: [ wow_location ]
+          out: [ Output ]
+        scene: 02.magic_lines.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: false
+        next.Output:
+          - waituntil.2s_d
+      
+      scene.crystal_to_portal_scene:
+        ".editor":
+          pos: [ 2298.0, 1065.0 ]
+          in: [ Input ]
+          out: [ Output ]
+        scene: 04.crystal_portal.yml
+        placement: prologue/crystal
+        interruptable: true
+        _fadein: true
+        next.Output:
+          - waituntil.on_master_ship
+      
+      scene.master_about_spider:
+        ".editor":
+          pos: [ 6363.0, 1443.0 ]
+          in: [ about_spider ]
+          out: [ Output ]
+        scene: 07.master_oneliners.yml
+        placement: ~nr_master_mage
+        interruptable: true
+        _fadein: false
+        next: ".done"
+      
+      scene.not_sorceress_comment:
+        ".editor":
+          pos: [ 1703.0, 756.0 ]
+          in: [ not_sorceress ]
+          out: [ Output ]
+        scene: 02.magic_lines.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: false
+        next.Output:
+          - waituntil.Wait_crystal_examined
+      
+      scene.should_check_area_comment:
+        ".editor":
+          pos: [ 1484.0, 772.0 ]
+          in: [ check_area ]
+          out: [ Output ]
+        scene: 02.magic_lines.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: false
+        next.Output:
+          - objective.check_area: Activate
+          - objective.check_nb: Success
+          - changelayers.show_crystal
+      
+      scene.spider_boss_scene:
+        ".editor":
+          pos: [ 4786.0, 1735.0 ]
+          in: [ Input ]
+          out: [ Output ]
+        scene: 05.spider_boss_fight.yml
+        placement: prologue/ship
+        interruptable: true
+        _fadein: true
+        next.Output:
+          - script.hide_spider_indicator
+      
+      scene.stone_activated_comment:
+        ".editor":
+          pos: [ 7062.0, 1444.0 ]
+          in: [ stone_activated ]
+          out: [ Output ]
+        scene: 07.master_oneliners.yml
+        placement: ~nr_master_mage
+        interruptable: true
+        _fadein: false
+        next: ".done"
+      
+      scene.this_scene_should_never_happen:
+        ".editor":
+          pos: [ 654.0, 467.0 ]
+          in: [ should_never_happen ]
+          out: [ Output ]
+        scene: 02.magic_lines.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: false
+        next.Output:
+          - end
+      
+      scene.treatment_scene:
+        ".editor":
+          pos: [ 5605.0, 1549.0 ]
+          in: [ Input ]
+          out: [ Output ]
+        scene: 06.sorceress_treatment.yml
+        placement: prologue/ship
+        interruptable: true
+        _fadein: true
+        next.Output:
+          - script.reset_stone_activated_fact
+          - addfact.Master_met_fact
+          - script.Fade_in_1s
+      
+      interaction.master_ready_to_study:
+        ".editor":
+          pos: [ 3666.0, 1583.0 ]
+          in: [ Input ]
+          out: [ Output ]
+        scene: 08.sorceress_study.yml
+        placement: ~PLAYER
+        interruptable: true
+        actor: [ nr_master_mage ]
+        next: ".done"
+      
+      waituntil.1_real_sec:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 6149.0, 916.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.check_time_range
+      
+      waituntil.1s:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 548.0, 743.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - scene.Sorceress_1st_time_comment: first_time
+      
+      waituntil.1s_a:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 2129.0, 1008.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - scene.crystal_to_portal_scene: Input
+          - waituntil.ship_portal_created
+      
+      waituntil.1s_b:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 3676.0, 938.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.check_any_alive
+      
+      waituntil.1s_c:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 4187.0, 1198.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Check_any_alive_x2
+      
+      waituntil.1s_d:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 2987.0, 1410.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Toggle_megascope_fx
+      
+      waituntil.1s_e:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 3600.0, 2063.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Is_magic_stone_active_b
+      
+      waituntil.1s_f:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 6190.0, 1255.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Is_near_master
+      
+      waituntil.1s_g:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 4938.0, 1412.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Play_scene_p1_mus
+      
+      waituntil.1s_loop_b:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 4594.0, 1267.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.is_above_40_percents
+      
+      waituntil.2s:
+        elapsed: "00:00:02"
+        ".editor":
+          pos: [ -222.0, 306.0 ]
           in: [ In ]
           out: [ Out ]
         next:
           - script.InitPlayerManager
+      
+      waituntil.2s_a:
+        elapsed: "00:00:02"
+        ".editor":
+          pos: [ 3406.0, 1260.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - interaction.master_ready_to_study: Input
+      
+      waituntil.2s_b:
+        elapsed: "00:00:02"
+        ".editor":
+          pos: [ 3406.0, 1760.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - interaction.master_ready_to_study: Input
+      
+      waituntil.2s_c:
+        elapsed: "00:00:02"
+        ".editor":
+          pos: [ 4546.0, 901.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - scene.Oh_no_comment: oh_not_that
+      
+      waituntil.2s_d:
+        elapsed: "00:00:02"
+        ".editor":
+          pos: [ 3032.0, 1125.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.near_stone
+      
+      waituntil.2s_loop:
+        elapsed: "00:00:02"
+        ".editor":
+          pos: [ 491.0, 133.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.TRACK_PROGRESS
+      
+      waituntil.3s_a:
+        elapsed: "00:00:03"
+        ".editor":
+          pos: [ 3664.0, 1501.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Hide_master_a
+      
+      waituntil.3s_b:
+        elapsed: "00:00:03"
+        ".editor":
+          pos: [ 6531.0, 1312.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Is_in_scene
+      
+      waituntil.5_min:
+        elapsed: "00:05:00"
+        ".editor":
+          pos: [ 6188.0, 1182.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.wait_new_day
+      
+      waituntil.5s:
+        elapsed: "00:00:05"
+        ".editor":
+          pos: [ 2999.0, 494.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.inside_master_ship
+      
+      waituntil.5s_a:
+        elapsed: "00:00:05"
+        ".editor":
+          pos: [ 1982.0, 567.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.Wait_ship_stone_use
+      
+      waituntil.5s_b:
+        elapsed: "00:00:05"
+        ".editor":
+          pos: [ 2963.0, 801.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.outside_master_ship
+      
+      waituntil.5s_c:
+        elapsed: "00:00:05"
+        ".editor":
+          pos: [ 6874.0, 1370.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - scene.stone_activated_comment: stone_activated
+      
+      waituntil.7_s:
+        elapsed: "00:00:07"
+        ".editor":
+          pos: [ 5477.0, 2088.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.play_standart_mus
       
       waituntil.Never_happen_fact:
         factdb: [ nr_never_happen, ">=", 1 ]
@@ -53,49 +444,811 @@ structure:
           in: [ In ]
           out: [ Out ]
         next:
-          - end
+          - scene.this_scene_should_never_happen: should_never_happen
       
-      waituntil.Scene_type_change_request:
-        factdb: [ nr_scene_player_change_requested, ">=", 1 ]
+      waituntil.REMOVE_DEV_0:
+        factdb: [ nr_dev_master0, ">=", 1 ]
         ".editor":
-          pos: [ 485.0, 53.0 ]
+          pos: [ 1644.0, 1396.0 ]
           in: [ In ]
           out: [ Out ]
         next:
-          - script.wait_200_ms
+          - waituntil.on_master_ship
+          - waituntil.Wait_ship_stone_use
+          - waituntil.2s_loop
+      
+      waituntil.Wait_crystal_examined:
+        interaction: [ InteractiveClue, ~nr_interactive_crystal_ground ]
+        ".editor":
+          pos: [ 1852.0, 950.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Is_Sorceress
+      
+      waituntil.Wait_intro_done:
+        factdb: [ q001_ghouls_dead, ">=", 1 ]
+        ".editor":
+          pos: [ -363.0, 401.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.2s
+      
+      waituntil.Wait_notice_taken:
+        factdb: [ nr_sorceress_quest_notice, ">=", 1 ]
+        ".editor":
+          pos: [ 1302.0, 654.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - scene.should_check_area_comment: check_area
+      
+      waituntil.Wait_player_sorceress:
+        factdb: [ nr_sorceress_quest_start, ">=", 1 ]
+        ".editor":
+          pos: [ 387.0, 593.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.1s
+      
+      waituntil.Wait_setup_scene_fact:
+        factdb: [ item_use_nr_chameleon_potion, ">=", 1 ]
+        ".editor":
+          pos: [ 393.0, -410.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Use_potion_and_close_menu
+      
+      waituntil.Wait_ship_stone_use:
+        interaction: [ activationComponent, ~nr_interactive_ship_stone ]
+        ".editor":
+          pos: [ 1897.0, 428.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - addfact.set_fact_stone_activated
+      
+      waituntil.check_time_range:
+        time: [ "18:00", "23:00" ]
+        ".editor":
+          pos: [ 6455.0, 914.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.check_auto_activate_stone_chance
+      
+      waituntil.fact_stop_mus_p2:
+        factdb: [ nr_scene_treatment_mus_part2_play, ">=", 2 ]
+        ".editor":
+          pos: [ 5113.0, 1835.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Stop_scene_p2_mus
+      
+      waituntil.inside_master_ship:
+        inside: [ prologue/master_location_area, PLAYER ]
+        ".editor":
+          pos: [ 2741.0, 796.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.5s_b
+          - addfact.on_ship_fact
+      
+      waituntil.magic_stone_should_work_fact:
+        factdb: [ nr_magic_stone_works, ">=", 1 ]
+        ".editor":
+          pos: [ 3183.0, 716.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.stone_activated_fact
+      
+      waituntil.master_met_fact:
+        factdb: [ nr_quest_master_met, ">=", 1 ]
+        ".editor":
+          pos: [ 2888.0, 1175.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.master_should_spawn
+      
+      waituntil.master_should_spawn:
+        factdb: [ nr_quest_master_spawned, ">=", 1 ]
+        ".editor":
+          pos: [ 3043.0, 1265.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - spawn.spawn_master_ship
+      
+      waituntil.master_should_spawn_2:
+        factdb: [ nr_quest_master_spawned, ">=", 1 ]
+        ".editor":
+          pos: [ 3018.0, 1703.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - spawn.spawn_master_stone
+      
+      waituntil.near_stone:
+        outside: [ prologue/stone_arena_area, PLAYER ]
+        ".editor":
+          pos: [ 3181.0, 1029.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - scene.Stone_comment: magic_stone_discovered
+      
+      waituntil.on_master_ship:
+        inside: [ prologue/master_location_area, PLAYER ]
+        ".editor":
+          pos: [ 2327.0, 939.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - changelayers.show_master_location
+      
+      waituntil.outside_master_ship:
+        outside: [ prologue/master_location_area, PLAYER ]
+        ".editor":
+          pos: [ 2718.0, 490.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.5s
+          - script.reset_on_ship_fact
+      
+      waituntil.play_ship_adv_part_2:
+        factdb: [ nr_scene_treatment_mus_part2_play, ">=", 1 ]
+        ".editor":
+          pos: [ 4742.0, 1854.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Play_scene_p2_mus
+      
+      waituntil.scene_lightning_fx_fact:
+        factdb: [ nr_scene_spider_lightning, ">=", 1 ]
+        ".editor":
+          pos: [ 4977.0, 1261.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.scene_lightning_fx
+      
+      waituntil.scene_meteors_spawn_fact:
+        factdb: [ nr_scene_spider_spawn_meteors, ">=", 1 ]
+        ".editor":
+          pos: [ 4940.0, 1109.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.scene_meteors_spawn
+      
+      waituntil.scene_toxic_face_fact:
+        factdb: [ nr_scene_spider_toxic_face, ">=", 1 ]
+        ".editor":
+          pos: [ 4958.0, 1184.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.toxic_75_100
+      
+      waituntil.ship_portal_created:
+        factdb: [ nr_scene_ship_portal_created, ">=", 1 ]
+        ".editor":
+          pos: [ 2301.0, 1203.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Create_Portal_To_Master
+      
+      waituntil.ship_time_range:
+        time: [ "00:00", "17:30" ]
+        ".editor":
+          pos: [ 3403.0, 1898.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Is_magic_stone_active_b
+      
+      waituntil.stone_activated_fact:
+        factdb: [ nr_magic_stone_activated, ">=", 1 ]
+        ".editor":
+          pos: [ 3336.0, 642.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Spawn_entities
+          - changelayers.show_extra_walls
+      
+      waituntil.stone_time_range:
+        time: [ "18:00", "23:30" ]
+        ".editor":
+          pos: [ 3433.0, 1430.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.3s_a
+      
+      waituntil.treatment_fx_fact:
+        factdb: [ nr_scene_treatment_fx, "=", 1 ]
+        ".editor":
+          pos: [ 5468.0, 1696.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Play_blue_necro_fx
+      
+      waituntil.treatment_fx_fact_2:
+        factdb: [ nr_scene_treatment_fx, ">=", 2 ]
+        ".editor":
+          pos: [ 5869.0, 1667.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.stop_mind_control
+          - script.toxic_100_75
+      
+      waituntil.wait_2s:
+        elapsed: "00:00:02"
+        ".editor":
+          pos: [ 1633.0, 614.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - scene.not_sorceress_comment: not_sorceress
+      
+      waituntil.wait_inside_nb_area:
+        inside: [ prologue/nb_area, PLAYER ]
+        ".editor":
+          pos: [ 934.0, 640.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Add_notice_to_nb
+      
+      waituntil.wait_megascope_interacted:
+        interaction: [ InteractiveClue, ~nr_interactive_master_megascope ]
+        ".editor":
+          pos: [ 2823.0, 1345.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.1s_d
+      
+      waituntil.wait_new_day:
+        time: [ "00:00", "17:59" ]
+        ".editor":
+          pos: [ 6193.0, 1059.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.check_time_range
+      
+      script.Add_chameleon_potion:
+        ".editor":
+          pos: [ 41.0, 306.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_AddChameleonPotion
+        next:
+          - script.REMOVE_dev_notify
+          - waituntil.Never_happen_fact
+          - waituntil.Wait_setup_scene_fact
+          - waituntil.Wait_player_sorceress
+          - script.TRACK_PROGRESS
+      
+      script.Add_notice_to_nb:
+        ".editor":
+          pos: [ 1105.0, 532.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_AddContractToNoticeBoard
+        parameter:
+          - boardTag: cname_prologue_village_noticeboard
+          - errandStringKey: item_name_newreplacers_notices_sorceress_training_notice
+          - newQuestFact: nr_sorceress_quest_notice
+          - addedItemName: cname_newreplacers_notices_sorceress_training_notice
+        next:
+          - waituntil.Wait_notice_taken
       
       script.ChangePlayer_Q:
         ".editor":
-          pos: [ 288.0, -227.0 ]
+          pos: [ 1596.0, -497.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_ChangePlayer_Q
         next:
           - script.Remove_scene_type_change_fact
       
+      script.Check_activated_before:
+        ".editor":
+          pos: [ 3844.0, 941.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_CheckFactCond_Q
+        parameter:
+          - factName: nr_magic_stone_activated_before
+          - factCond: "<"
+          - factVal: 1
+        next.False:
+          - script.reset_stone_activated_fact
+          - script.new_logmsg_2
+        next.True:
+          - addfact.add_fact_stone_activated
+          - script.Spawn_entities_x2
+      
+      script.Check_any_alive_x2:
+        ".editor":
+          pos: [ 4175.0, 1093.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_CheckEntitiesAlive_Q
+        parameter:
+          - tag: cname_nr_cross_stone_entity
+          - moreThan: 0
+        next.False:
+          - script.Spawn_entitiy_BOSS
+        next.True:
+          - waituntil.1s_c
+      
+      script.Create_Portal_To_Master:
+        ".editor":
+          pos: [ 2513.0, 1200.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_CreatePortal_Q
+        parameter:
+          - waypointTag: cname_newreplacers_prologue_snow_arena_center_wp
+          - worldName: prolog_village
+          - activeTime: 60.0
+        next:
+          - script.reset_ship_portal_fact
+      
+      script.Fade_in_1s:
+        ".editor":
+          pos: [ 5863.0, 1547.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: FadeInQuest
+        parameter:
+          - fadeTime: 1.0
+        next: ".done"
+      
+      script.Fade_out_half_sec:
+        ".editor":
+          pos: [ 4581.0, 1490.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_FadeOutQuestBlack
+        parameter:
+          - fadeTime: 0.5
+        next:
+          - script.Play_megascope_fx
+          - script.Stop_mist_mus
+          - script.Wait_half_sec
+          - waituntil.play_ship_adv_part_2
+      
+      script.Hide_master_a:
+        ".editor":
+          pos: [ 3910.0, 1651.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_HideMaster_Q
+        parameter:
+          - phaseTag: cname_nr_master_mage_ship_phase
+        next:
+          - despawn.despawn_master_ship
+      
+      script.Hide_master_b:
+        ".editor":
+          pos: [ 3763.0, 2016.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_HideMaster_Q
+        parameter:
+          - phaseTag: cname_nr_master_mage_stone_phase
+        next:
+          - despawn.despawn_master_stone
+      
       script.InitPlayerManager:
         ".editor":
-          pos: [ 4.0, 254.0 ]
+          pos: [ -86.0, 217.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_InitPlayerManager_Q
         next:
-          - script.new_nr_notify_quest
+          - script.Add_chameleon_potion
+      
+      script.Is_Sorceress:
+        ".editor":
+          pos: [ 2003.0, 877.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_IsPlayerSorceress_Q
+        next.False:
+          - waituntil.wait_2s
+        next.True:
+          - objective.check_area: Success
+          - waituntil.Wait_ship_stone_use
+          - waituntil.1s_a
+          - script.fade_out_1s
+      
+      script.Is_in_scene:
+        ".editor":
+          pos: [ 6530.0, 1220.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_IsInSceneCond_Q
+        next.False:
+          - addfact.magic_stone_activated_b
+        next.True:
+          - waituntil.3s_b
+      
+      script.Is_magic_stone_active_b:
+        ".editor":
+          pos: [ 3591.0, 1955.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_CheckFactCond_Q
+        parameter:
+          - factName: nr_magic_stone_activated
+          - factCond: ">="
+          - factVal: 1
+        next.False:
+          - script.Hide_master_b
+        next.True:
+          - waituntil.1s_e
+      
+      script.Is_near_master:
+        ".editor":
+          pos: [ 6192.0, 1372.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_IsNearTargetCond_Q
+        parameter:
+          - entityTag: cname_PLAYER
+          - targetTag: cname_nr_master_mage
+          - maxDistance: 8.0
+        next.False:
+          - waituntil.1s_f
+        next.True:
+          - scene.master_about_spider: about_spider
+      
+      script.Kill_spider:
+        ".editor":
+          pos: [ 5116.0, 1698.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: KillWithoutAgony
+        parameter:
+          - killTag: cname_nr_cross_stone_boss_spider
+        next:
+          - script.Teleport_spider_corpse
+      
+      script.Play_blue_necro_fx:
+        ".editor":
+          pos: [ 5664.0, 1804.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayEffectWithTargetComp_Q
+        parameter:
+          - entityTag: cname_nr_master_mage
+          - effectName: cname_mind_control_blue
+          - activate: true
+          - targetTag: cname_PLAYER
+          - compName: cname_torso3effect
+        next:
+          - waituntil.treatment_fx_fact_2
+      
+      script.Play_boss_mus:
+        ".editor":
+          pos: [ 4743.0, 1089.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlaySound_Q
+        parameter:
+          - bankName: nr_quest.bnk
+          - eventName: Play_mus_loc_master_ship_white_mist
+          - saveType: SESB_DontSave
+        next: ".done"
+      
+      script.Play_megascope_fx:
+        ".editor":
+          pos: [ 4783.0, 1573.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: PlayEffectQuest
+        parameter:
+          - entityTag: cname_nr_interactive_master_megascope
+          - effectName: cname_activate
+          - activate: true
+          - persistentEffect: false
+          - deactivateAll: false
+          - preventEffectStacking: true
+        next: ".done"
+      
+      script.Play_scene_p1_mus:
+        ".editor":
+          pos: [ 5095.0, 1344.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlaySound_Q
+        parameter:
+          - bankName: nr_quest.bnk
+          - eventName: Play_mus_loc_master_ship_adventure_part1
+          - saveType: SESB_DontSave
+        next: ".done"
+      
+      script.Play_scene_p2_mus:
+        ".editor":
+          pos: [ 4924.0, 1974.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlaySound_Q
+        parameter:
+          - bankName: nr_quest.bnk
+          - eventName: Play_mus_loc_master_ship_adventure_part2
+          - saveType: SESB_DontSave
+        next:
+          - waituntil.fact_stop_mus_p2
+      
+      script.Play_stone_ready_fx:
+        ".editor":
+          pos: [ 3145.0, 914.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: PlayEffectQuest
+        parameter:
+          - entityTag: cname_nr_interactive_ship_stone
+          - effectName: cname_ready
+          - activate: true
+          - persistentEffect: false
+          - deactivateAll: false
+          - preventEffectStacking: true
+        next:
+          - waituntil.magic_stone_should_work_fact
+      
+      script.REMOVE_dev_notify:
+        ".editor":
+          pos: [ 179.0, 429.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Notify_Quest
+        parameter:
+          - message: "Hi! This is a dev version of \"New Player Characters\" mod. Open your inventory and apply \"Chameleon potion\". "
+          - seconds: 30.0
+        next: ".done"
       
       script.Remove_scene_type_change_fact:
         ".editor":
-          pos: [ 445.0, -80.0 ]
+          pos: [ 1726.0, -385.0 ]
           in: [ In ]
           out: [ Out ]
         function: RemoveFactQuest
         parameter:
           - factId: cname_nr_scene_player_change_requested
         next:
-          - script.wait_1000_ms
+          - script.wait_500_ms_a
+      
+      script.Remove_setup_scene_fact:
+        ".editor":
+          pos: [ 1031.0, -342.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: RemoveFactQuest
+        parameter:
+          - factId: cname_item_use_nr_chameleon_potion
+        next:
+          - script.check_if_female
+      
+      script.Save_game_and_wait:
+        ".editor":
+          pos: [ 2602.0, 923.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_SaveGameAndWait
+        parameter:
+          - type: SGT_ForcedCheckPoint
+          - slot: -1
+          - wait: 0.5
+        next:
+          - waituntil.inside_master_ship
+          - addfact.magic_stone_should_work
+          - waituntil.master_met_fact
+          - waituntil.wait_megascope_interacted
+          - scene.Wow_comment: wow_location
+          - spawn.spawn_cat
+      
+      script.Spawn_entities:
+        ".editor":
+          pos: [ 3516.0, 736.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_UseCrossStone_Q
+        next:
+          - script.check_any_alive
+      
+      script.Spawn_entities_x2:
+        ".editor":
+          pos: [ 4021.0, 1016.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_UseCrossStone_Q
+        next:
+          - script.Check_any_alive_x2
+      
+      script.Spawn_entitiy_BOSS:
+        ".editor":
+          pos: [ 4390.0, 1196.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_UseCrossStoneBossSpider_Q
+        next:
+          - script.show_spider_indicator
+          - waituntil.1s_loop_b
+          - script.Stop_background_mus
+          - waituntil.2s_c
+      
+      script.Start_master_music:
+        ".editor":
+          pos: [ 3173.0, 496.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlaySound_Q
+        parameter:
+          - bankName: nr_quest.bnk
+          - eventName: Play_mus_loc_master_ship_background
+          - saveType: SESB_DontSave
+        next: ".done"
+      
+      script.Stop_background_mus:
+        ".editor":
+          pos: [ 4568.0, 1009.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlaySound_Q
+        parameter:
+          - bankName: nr_quest.bnk
+          - eventName: Stop_mus_loc_master_ship_background
+          - saveType: SESB_DontSave
+        next:
+          - script.Play_boss_mus
+      
+      script.Stop_mist_mus:
+        ".editor":
+          pos: [ 4778.0, 1458.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlaySound_Q
+        parameter:
+          - bankName: nr_quest.bnk
+          - eventName: Stop_mus_loc_master_ship_white_mist
+          - saveType: SESB_DontSave
+        next:
+          - waituntil.1s_g
+      
+      script.Stop_scene_p2_mus:
+        ".editor":
+          pos: [ 5279.0, 1984.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlaySound_Q
+        parameter:
+          - bankName: nr_quest.bnk
+          - eventName: Stop_mus_loc_master_ship_adventure_part2
+          - saveType: SESB_DontSave
+        next:
+          - waituntil.7_s
+      
+      script.TRACK_PROGRESS:
+        ".editor":
+          pos: [ 489.0, 7.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_TrackPlayerProgress_Q
+        next:
+          - waituntil.2s_loop
+      
+      script.Teleport_spider_corpse:
+        ".editor":
+          pos: [ 5263.0, 1566.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: TeleportObject
+        parameter:
+          - objectTag: cname_nr_cross_stone_boss_spider
+          - destinationTag: cname_newreplacers_prologue_snow_arena_center_wp
+          - xOffset: 0.0
+          - yOffset: 0.0
+          - zOffset: 0.0
+          - useSafePlacement: false
+          - onSafePlacementFailUseBruteForce: false
+        next:
+          - waituntil.treatment_fx_fact
+          - script.Wait_half_sec_b
+      
+      script.Toggle_megascope_fx:
+        ".editor":
+          pos: [ 2876.0, 1488.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_ToogleEffect
+        parameter:
+          - entityTag: cname_nr_interactive_master_megascope
+          - effectName: cname_activate
+        next:
+          - waituntil.wait_megascope_interacted
+      
+      script.Use_potion_and_close_menu:
+        ".editor":
+          pos: [ 544.0, -262.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_UseChameleonPotion
+        next:
+          - script.fade_out_500_ms
+      
+      script.Wait_half_sec:
+        ".editor":
+          pos: [ 4590.0, 1646.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 0.5
+        next:
+          - scene.spider_boss_scene: Input
+      
+      script.Wait_half_sec_b:
+        ".editor":
+          pos: [ 5427.0, 1458.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 0.5
+        next:
+          - scene.treatment_scene: Input
+      
+      script.check_any_alive:
+        ".editor":
+          pos: [ 3685.0, 822.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_CheckEntitiesAlive_Q
+        parameter:
+          - tag: cname_nr_cross_stone_entity
+          - moreThan: 0
+        next.False:
+          - script.Check_activated_before
+        next.True:
+          - waituntil.1s_b
+      
+      script.check_auto_activate_stone_chance:
+        ".editor":
+          pos: [ 6667.0, 1053.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_CheckRandomChance_Q
+        parameter:
+          - chance: 1
+          - maxChance: 500
+        next.False:
+          - waituntil.1_real_sec
+        next.True:
+          - script.Is_in_scene
+          - script.new_logmsg
       
       script.check_if_female:
         ".editor":
-          pos: [ 672.5845947266, -92.0834655762 ]
+          pos: [ 1225.0, -393.0 ]
           in: [ In ]
           out: [ "False", "True" ]
         function: NR_IsPlayerFemale_Q
@@ -104,32 +1257,351 @@ structure:
         next.True:
           - scene.Relaunch_female_scene: Input
       
-      script.new_nr_notify_quest:
+      script.fade_out_1s:
         ".editor":
-          pos: [ 193.0, 363.0 ]
+          pos: [ 2250.0, 757.0 ]
           in: [ In ]
           out: [ Out ]
-        function: NR_Notify_Quest
+        function: NR_FadeOutQuestBlack
         parameter:
-          - message: "Hi! This is a dev version of \"New Player Characters\" mod."
-          - seconds: 30.0
-        next:
-          - waituntil.Never_happen_fact
-          - waituntil.Scene_type_change_request
+          - fadeTime: 1.0
+        next: ".done"
       
-      script.wait_1000_ms:
+      script.fade_out_500_ms:
         ".editor":
-          pos: [ 603.0, -198.0 ]
+          pos: [ 692.0, -322.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_FadeOutQuestBlack
+        parameter:
+          - fadeTime: 0.5
+        next:
+          - script.wait_500_ms
+      
+      script.hide_spider_indicator:
+        ".editor":
+          pos: [ 4985.0, 1590.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: ShowBossFightIndicator
+        parameter:
+          - enable: false
+          - bossTag: cname_nr_cross_stone_boss_spider
+        next:
+          - script.Kill_spider
+      
+      script.is_above_40_percents:
+        ".editor":
+          pos: [ 4591.0, 1375.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: IsActorHPAboveX
+        parameter:
+          - tag: cname_nr_cross_stone_boss_spider
+          - health: 40
+        next.False:
+          - script.Fade_out_half_sec
+          - waituntil.scene_lightning_fx_fact
+          - waituntil.scene_toxic_face_fact
+          - waituntil.scene_meteors_spawn_fact
+        next.True:
+          - waituntil.1s_loop_b
+      
+      script.new_logmsg:
+        ".editor":
+          pos: [ 6856.0, 1180.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: radLog
+        parameter:
+          - logChannel: cname_NEWREPLACERS
+          - msg: MAGIC STONE AUTO ACTIVATION!
+        next: ".done"
+      
+      script.new_logmsg_2:
+        ".editor":
+          pos: [ 4008.0, 802.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: radLog
+        parameter:
+          - logChannel: cname_NEWREPLACERS
+          - msg: Check activated before = false
+        next: ".done"
+      
+      script.play_standart_mus:
+        ".editor":
+          pos: [ 5647.0, 2228.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlaySound_Q
+        parameter:
+          - bankName: nr_quest.bnk
+          - eventName: Play_mus_loc_master_ship_background
+          - saveType: SESB_DontSave
+        next: ".done"
+      
+      script.reset_on_ship_fact:
+        ".editor":
+          pos: [ 2875.0, 382.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: ResetFactQuest
+        parameter:
+          - factID: cname_nr_on_master_ship
+        next: ".done"
+      
+      script.reset_ship_portal_fact:
+        ".editor":
+          pos: [ 2429.0, 1358.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: ResetFactQuest
+        parameter:
+          - factID: cname_nr_scene_ship_portal_created
+        next:
+          - waituntil.ship_portal_created
+      
+      script.reset_stone_activated_fact:
+        ".editor":
+          pos: [ 5798.0, 2028.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: ResetFactQuest
+        parameter:
+          - factID: cname_nr_magic_stone_activated
+        next:
+          - changelayers.hide_extra_walls
+      
+      script.scene_lightning_fx:
+        ".editor":
+          pos: [ 5143.0, 1152.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: PlayEffectWithTargetQuest
+        parameter:
+          - entityTag: cname_PLAYER
+          - effectName: cname_lightning_keira_yellow
+          - activate: true
+          - targetTag: cname_nr_cross_stone_boss_spider
+        next: ".done"
+      
+      script.scene_meteors_spawn:
+        ".editor":
+          pos: [ 5133.0, 985.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_SpawnMeteorsAtEntity_Q
+        parameter:
+          - entityTag: cname_nr_cross_stone_boss_spider
+          - meteorsNum: 4
+          - intervalSec: 1.25
+        next: ".done"
+      
+      script.show_spider_indicator:
+        ".editor":
+          pos: [ 4583.0, 1131.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: ShowBossFightIndicator
+        parameter:
+          - enable: true
+          - bossTag: cname_nr_cross_stone_boss_spider
+        next: ".done"
+      
+      script.start_prologue_mus:
+        ".editor":
+          pos: [ 3167.0, 225.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayMusic
+        parameter:
+          - areaName: prolog_village
+          - eventName: mus_loc_prologue_village_cs_to_gmpl
+          - saveType: SESB_DontSave
+        next: ".done"
+      
+      script.stop_mind_control:
+        ".editor":
+          pos: [ 6073.0, 1574.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: PlayEffectQuest
+        parameter:
+          - entityTag: cname_nr_master_mage
+          - effectName: cname_mind_control_blue
+          - activate: false
+          - persistentEffect: false
+          - deactivateAll: false
+          - preventEffectStacking: false
+        next: ".done"
+      
+      script.stop_ship_loc_mus:
+        ".editor":
+          pos: [ 3009.0, 299.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlaySound_Q
+        parameter:
+          - bankName: nr_quest.bnk
+          - eventName: Stop_mus_loc_master_ship
+          - saveType: SESB_ClearSaved
+        next:
+          - script.start_prologue_mus
+      
+      script.stop_toxic_100_75:
+        ".editor":
+          pos: [ 7320.0, 1650.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayHeadEffect_Q
+        parameter:
+          - tag: cname_PLAYER
+          - effect: cname_toxic_100_075
+          - stop: true
+        next:
+          - script.stop_toxic_75_50
+      
+      script.stop_toxic_25_0:
+        ".editor":
+          pos: [ 7903.0, 1643.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayHeadEffect_Q
+        parameter:
+          - tag: cname_PLAYER
+          - effect: cname_toxic_025_000
+          - stop: true
+        next: ".done"
+      
+      script.stop_toxic_50_25:
+        ".editor":
+          pos: [ 7708.0, 1640.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayHeadEffect_Q
+        parameter:
+          - tag: cname_PLAYER
+          - effect: cname_toxic_050_025
+          - stop: true
+        next:
+          - script.stop_toxic_25_0
+      
+      script.stop_toxic_75_50:
+        ".editor":
+          pos: [ 7519.0, 1642.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayHeadEffect_Q
+        parameter:
+          - tag: cname_PLAYER
+          - effect: cname_toxic_075_050
+          - stop: true
+        next:
+          - script.stop_toxic_50_25
+      
+      script.stop_vanilla_mus:
+        ".editor":
+          pos: [ 3110.0, 623.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayMusic
+        parameter:
+          - areaName: prolog_village
+          - eventName: stop_music
+          - saveType: SESB_Save
+        next:
+          - script.Start_master_music
+      
+      script.toxic_100_75:
+        ".editor":
+          pos: [ 6058.0, 1743.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayHeadEffect_Q
+        parameter:
+          - tag: cname_PLAYER
+          - effect: cname_toxic_100_075
+          - stop: false
+        next:
+          - script.wait_1
+      
+      script.toxic_25_0:
+        ".editor":
+          pos: [ 6970.0, 1719.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayHeadEffect_Q
+        parameter:
+          - tag: cname_PLAYER
+          - effect: cname_toxic_025_000
+          - stop: false
+        next:
+          - script.wait_4
+      
+      script.toxic_50_25:
+        ".editor":
+          pos: [ 6672.0, 1714.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayHeadEffect_Q
+        parameter:
+          - tag: cname_PLAYER
+          - effect: cname_toxic_050_025
+          - stop: false
+        next:
+          - script.wait_3
+      
+      script.toxic_75_100:
+        ".editor":
+          pos: [ 5146.0, 1063.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayHeadEffect_Q
+        parameter:
+          - tag: cname_PLAYER
+          - effect: cname_toxic_075_100
+          - stop: false
+        next: ".done"
+      
+      script.toxic_75_50:
+        ".editor":
+          pos: [ 6372.0, 1731.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_PlayHeadEffect_Q
+        parameter:
+          - tag: cname_PLAYER
+          - effect: cname_toxic_075_050
+          - stop: false
+        next:
+          - script.wait_2
+      
+      script.wait_1:
+        ".editor":
+          pos: [ 6205.0, 1820.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_Wait_Q
         parameter:
-          - sec: 1.0
-        next: ".done"
+          - sec: 1.5
+        next:
+          - script.toxic_75_50
+      
+      script.wait_2:
+        ".editor":
+          pos: [ 6518.0, 1824.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 1.5
+        next:
+          - script.toxic_50_25
       
       script.wait_200_ms:
         ".editor":
-          pos: [ 139.0, -63.0 ]
+          pos: [ 1463.0, -408.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_Wait_Q
@@ -138,9 +1610,83 @@ structure:
         next:
           - script.ChangePlayer_Q
       
-      changelayers.show_vanilla_start:
+      script.wait_3:
         ".editor":
-          pos: [ -120.0, 44.0 ]
+          pos: [ 6818.0, 1826.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 1.5
+        next:
+          - script.toxic_25_0
+      
+      script.wait_4:
+        ".editor":
+          pos: [ 7132.0, 1822.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 1.5
+        next:
+          - script.stop_toxic_100_75
+      
+      script.wait_500_ms:
+        ".editor":
+          pos: [ 859.0, -223.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 0.5
+        next:
+          - script.Remove_setup_scene_fact
+      
+      script.wait_500_ms_a:
+        ".editor":
+          pos: [ 1739.0, -658.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 0.5
+        next:
+          - script.check_if_female
+      
+      changelayers.hide_extra_walls:
+        ".editor":
+          pos: [ 5809.0, 2166.0 ]
+          hint: hide-only
+          in: []
+          out: []
+        sync: true
+        purge: false
+        world: prologue
+        hide:
+          - master_location_extra_walls
+        next:
+          - script.Play_stone_ready_fx
+      
+      changelayers.hide_master_location:
+        ".editor":
+          pos: [ -320.0, 43.0 ]
+          hint: hide-only
+          in: []
+          out: []
+        sync: true
+        purge: false
+        world: prologue
+        hide:
+          - master_location
+          - master_location_magic_books
+          - crystal_hint_layer
+          - master_location_extra_walls
+        next: ".done"
+      
+      changelayers.show_crystal:
+        ".editor":
+          pos: [ 1681.0, 849.0 ]
           hint: show-only
           in: []
           out: []
@@ -148,16 +1694,164 @@ structure:
         purge: false
         world: prologue
         show:
-          - vanilla_encapment
+          - crystal_hint_layer
+        next:
+          - waituntil.Wait_crystal_examined
+      
+      changelayers.show_extra_walls:
+        ".editor":
+          pos: [ 3491.0, 576.0 ]
+          hint: show-only
+          in: []
+          out: []
+        sync: true
+        purge: false
+        world: prologue
+        show:
+          - master_location_extra_walls
         next: ".done"
       
-      changeworld.test_tp:
-        ".editor": [ -187.0, 176.0 ]
-        destination: bob/test_point
+      changelayers.show_master_location:
+        ".editor":
+          pos: [ 2462.0, 855.0 ]
+          hint: show-only
+          in: []
+          out: []
+        sync: true
+        purge: false
+        world: prologue
+        show:
+          - master_location
+          - master_location_extra_walls
+          - master_location_magic_books
         next:
-          - waituntil.3s
+          - script.Save_game_and_wait
+      
+      spawn.spawn_cat:
+        ".editor":
+          pos: [ 2836.0, 1251.0 ]
+          hint: spawn-only
+          in: []
+          out: []
+        phase: ship_phase
+        spawnsets:
+          - comm_master_cat
+        next: ".done"
+      
+      spawn.spawn_master_ship:
+        ".editor":
+          pos: [ 3199.0, 1335.0 ]
+          hint: spawn-only
+          in: []
+          out: []
+        phase: ship_phase
+        spawnsets:
+          - comm_master_mage
+        next:
+          - waituntil.stone_time_range
+          - waituntil.2s_a
+      
+      spawn.spawn_master_stone:
+        ".editor":
+          pos: [ 3203.0, 1829.0 ]
+          hint: spawn-only
+          in: []
+          out: []
+        phase: stone_phase
+        spawnsets:
+          - comm_master_mage
+        next:
+          - waituntil.ship_time_range
+          - waituntil.2s_b
+      
+      despawn.despawn_master_ship:
+        ".editor":
+          pos: [ 4143.0, 1776.0 ]
+          hint: despawn-only
+          in: []
+          out: []
+        spawnsets:
+          - comm_master_mage
+        next:
+          - waituntil.master_should_spawn_2
+      
+      despawn.despawn_master_stone:
+        ".editor":
+          pos: [ 3984.0, 2099.0 ]
+          hint: despawn-only
+          in: []
+          out: []
+        spawnsets:
+          - comm_master_mage
+        next:
+          - waituntil.master_should_spawn
+      
+      journal.quest_start_entry:
+        ".editor": [ 975.0, 760.0 ]
+        entry: quests/sorceress_quest/start_descr
+        notify: true
+        activate_root: true
+        next:
+          - objective.check_nb: Activate
+      
+      objective.check_area:
+        ".editor": [ 1746.0, 1063.0 ]
+        objective: sorceress_quest/find_master/investigate_strange_area
+        notify: true
+        track: true
+        next: ".done"
+      
+      objective.check_nb:
+        ".editor": [ 1039.0, 871.0 ]
+        objective: sorceress_quest/find_master/check_noticeboard
+        notify: true
+        track: true
+        next: ".done"
+      
+      addfact.Master_met_fact:
+        ".editor": [ 5796.0, 1332.0 ]
+        value: [ nr_quest_master_met, 1 ]
+        next:
+          - addfact.Master_should_spawn_fact
+      
+      addfact.Master_should_spawn_fact:
+        ".editor": [ 6011.0, 1490.0 ]
+        value: [ nr_quest_master_spawned, 1 ]
+        next:
+          - script.Is_near_master
+          - subsegment.TRAINING
+          - waituntil.5_min
+      
+      addfact.add_fact_stone_activated:
+        ".editor": [ 4017.0, 886.0 ]
+        value: [ nr_magic_stone_activated_before, 1 ]
+        next: ".done"
+      
+      addfact.magic_stone_activated_b:
+        ".editor": [ 6696.0, 1296.0 ]
+        value: [ nr_magic_stone_activated, 2 ]
+        next:
+          - waituntil.5s_c
+          - waituntil.wait_new_day
+      
+      addfact.magic_stone_should_work:
+        ".editor": [ 2942.0, 924.0 ]
+        value: [ nr_magic_stone_works, 1 ]
+        next:
+          - waituntil.magic_stone_should_work_fact
+      
+      addfact.on_ship_fact:
+        ".editor": [ 2941.0, 690.0 ]
+        value: [ nr_on_master_ship, 1 ]
+        next: ".done"
+      
+      addfact.set_fact_stone_activated:
+        ".editor": [ 2082.0, 438.0 ]
+        value: [ nr_magic_stone_activated, 1 ]
+        next:
+          - waituntil.5s_a
       
       end:
-        ".editor": [ 684.0, 333.0 ]
+        ".editor": [ 840.0, 314.0 ]
         next: ".done"
       

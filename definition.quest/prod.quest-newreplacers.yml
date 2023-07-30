@@ -1,7 +1,7 @@
 #
 # production settings
 # 
-# (version: 56, saved: 2023-02-25 00:03:49)
+# (version: 498, saved: 2023-07-30 17:54:01)
 #
 ---
 production:
@@ -13,8 +13,11 @@ production:
     storesdata: false
     strings-idspace: 5940
     strings-idstart: 0
-    version: 56
+    version: 498
     mounters:
+      - ".type": CR4MappinsDLCMounter
+        worldFilePath: levels/prolog_village/prolog_village.w2w
+        mappinsFilePath: dlc/dlcnewreplacers/data/nr_prologue_pins.w2em
       - ".type": CR4ResourceDefinitionsDLCMounter
         resourceDefinitionXmlFilePath: "dlc\\dlcnewreplacers\\data\\gameplay\\globals\\resources\\gameplay.xml"
       - ".type": CR4RewardsDLCMounter

@@ -615,3 +615,21 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
 quest function NR_MagicActionAbilityUnlock_Q( type : name, abilityName : String ) {
     NR_GetMagicManager().ActionAbilityUnlock(ENR_NameToMA(type), abilityName);
 }
+
+// sceneBlockId = always NR-modded scene block
+quest function NR_SetSceneBlockActive_Q( questPath : name, sceneBlockId : int, active : bool ) {
+    var startTime : float = theGame.GetEngineTimeAsSeconds();
+
+    NR_GetPlayerManager().SetSceneBlockActive(questPath, sceneBlockId, active);
+    NRD("NR_SetSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
+}
+
+// sceneBlockId = always NR-modded scene block
+quest function NR_IsSceneBlockActive_Q( questPath : name, sceneBlockId : int ) : bool {
+    var active : bool;
+    var startTime : float = theGame.GetEngineTimeAsSeconds();
+    
+    active = NR_GetPlayerManager().IsSceneBlockActive( questPath, sceneBlockId );
+    NRD("NR_IsSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
+    return active;
+}

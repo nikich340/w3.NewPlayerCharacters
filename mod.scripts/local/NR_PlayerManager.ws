@@ -89,6 +89,7 @@ statemachine class NR_PlayerManager {
 	default m_showAppearanceInfo = false;
 
 	protected saved	var m_magicDataMaps : array<NR_Map>;
+	protected saved	var m_activeSceneBlocks : NR_Map;
 	const 			var ST_Universal	: int;
 	default 			ST_Universal 	= 5; // EnumGetMax(ESignType); 
 
@@ -114,9 +115,10 @@ statemachine class NR_PlayerManager {
 		m_appearanceTemplates.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 		m_appearanceTemplateIsLoaded.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
 		m_appearanceTemplateIsDepotPath.Resize( EnumGetMax('ENR_AppearanceSlots') + 1 );
+		m_activeSceneBlocks = new NR_Map in this;
 	}
 
-	// run on every game load
+	// run on every game load (load non-saved data)
 	public latent function OnStarted() {
 		var template : CEntityTemplate;
 
@@ -141,8 +143,20 @@ statemachine class NR_PlayerManager {
 		if (!stringsStorage) {
 			NRE("!stringsStorage");
 		}
+	}
 
-		//GotoState('PlayerChange'); -> in replacers.OnSpawned()
+	public function SetSceneBlockActive(questPath : name, sceneBlockId : int, active : bool) {
+		var key : String;
+		key = NameToString(questPath) + ":" + IntToString(sceneBlockId);
+
+		m_activeSceneBlocks.setI(key, (int)active);
+	}
+
+	public function IsSceneBlockActive(questPath : name, sceneBlockId : int) : bool {
+		var key : String;
+		key = NameToString(questPath) + ":" + IntToString(sceneBlockId);
+
+		return m_activeSceneBlocks.getI(key, 0) == 1;
 	}
 	// once is called on entity created, then is always called on game loaded //
 	/*event OnSpawned( spawnData : SEntitySpawnData )
@@ -1117,92 +1131,138 @@ statemachine class NR_PlayerManager {
 state Idle in NR_PlayerManager {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Idle: OnEnterState");
+		NRD("NR_PlayerManager::Idle: OnEnterState");
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
+		NRD("NR_PlayerManager::Idle: OnLeaveState");
 	}
 }
 
-state Startup in NR_PlayerManager {
+state GameLaunched in NR_PlayerManager {
 	event OnEnterState( prevStateName : name )
 	{
-		WaitAndCheck();
+		NRD("NR_PlayerManager::GameLaunched: OnEnterState");
+		GameLaunched();
 	}
 
-	entry function WaitAndCheck() {
-		NRD("Startup: WaitAndCheck");
+	entry function GameLaunched() {
+		NRD("NR_PlayerManager::GameLaunched: GameLaunched");
 		parent.OnStarted();
 		while (thePlayer.GetComponentsCountByClassName( 'CAppearanceComponent' ) < 1) {
 			Sleep(0.05f);
 		}
 		parent.OnPlayerSpawned();
+		NRD("NR_PlayerManager::GameLaunched: -> Idle");
 		parent.GotoState('Idle');
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
+		NRD("NR_PlayerManager::GameLaunched: OnLeaveState");
 	}
 }
 
 state PlayerChange in NR_PlayerManager {
 	event OnEnterState( prevStateName : name )
 	{
-		WaitAndCheck();
+		NRD("NR_PlayerManager::PlayerChange: OnEnterState");
+		PlayerChange();
 	}
 
-	entry function WaitAndCheck() {
-		NRD("PlayerChange: WaitAndCheck");
+	entry function PlayerChange() {
+		NRD("NR_PlayerManager::PlayerChange: PlayerChange");
 		Sleep(0.25f);
 		parent.OnPlayerSpawned();
+		NRD("NR_PlayerManager::PlayerChange: -> Idle");
 		parent.GotoState('Idle');
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
+		NRD("NR_PlayerManager::PlayerChange: OnLeaveState");
 	}
 }
 
 state FixReplacer in NR_PlayerManager {
 	event OnEnterState( prevStateName : name )
 	{
-		WaitAndCheck();
+		NRD("NR_PlayerManager::FixReplacer: OnEnterState");
+		FixReplacer();
 	}
 
-	entry function WaitAndCheck() {
-		NRD("FixReplacer: WaitAndCheck");
+	entry function FixReplacer() {
+		NRD("NR_PlayerManager::FixReplacer: FixReplacer");
 		Sleep(0.3f);
 		parent.NR_FixReplacer();
+		NRD("NR_PlayerManager::FixReplacer: -> Idle");
 		parent.GotoState('Idle');
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
+		NRD("NR_PlayerManager::FixReplacer: OnLeaveState");
 	}
+}
+
+function NR_ChangePlayer(playerType : ENR_PlayerType) {
+	var manager    : NR_PlayerManager;
+
+	NRD("NR_ChangePlayer -> " + playerType);
+	manager = NR_GetPlayerManager();
+	manager.SetPlayerChangeRequested( true );
+
+	// for quests
+	FactsAdd("nr_player_change_" + playerType, 1);
+	
+	if (playerType == ENR_PlayerGeralt) {
+		theGame.ChangePlayer( "Geralt" );
+	} else if (playerType == ENR_PlayerCiri) {
+		theGame.ChangePlayer( "Ciri" );
+	} else if (playerType == ENR_PlayerWitcher) {
+		theGame.ChangePlayer( "nr_replacer_witcher" );
+	} else if (playerType == ENR_PlayerWitcheress) {
+		theGame.ChangePlayer( "nr_replacer_witcheress" );
+	} else if (playerType == ENR_PlayerSorceress) {
+		theGame.ChangePlayer( "nr_replacer_sorceress" );
+	} else {
+		NRE("ERROR! Unknown player type: " + playerType);
+		return;
+	}
+
+	// cheaty thePlayer.abilityManager.RestoreStat(BCS_Vitality);
+	thePlayer.Debug_ReleaseCriticalStateSaveLocks();
+	manager.GotoState('PlayerChange');
 }
 
 function NR_GetPlayerManager() : NR_PlayerManager
 {
-	//var nrManagerTemplate : CEntityTemplate;
-
-	/*if ( !theGame.nr_playerManager ) {
-		//nrManagerTemplate = (CEntityTemplate)LoadResource("nr_player_manager");
-		//theGame.nr_playerManager = (NR_PlayerManager)theGame.CreateEntity(nrManagerTemplate, thePlayer.GetWorldPosition(),,,,,PM_Persist);
-		theGame.nr_playerManager = new NR_PlayerManager in theGame;
-		theGame.nr_playerManager.Init();
-		//EntityHandleSet( nrPlayerManagerHandle, nrManager );
-		NRD("PlayerManager created!");
-	} else {
-		NRD("PlayerManager found!");
-	}*/
 	if ( !theGame.nr_playerManager ) {
-		NRE("NR_GetPlayerManager: !theGame.nr_playerManager");
+		NR_CreatePlayerManager( theGame );
 	}
 	NRD("NR_GetPlayerManager: " + theGame.nr_playerManager);
 
 	return theGame.nr_playerManager;
 }
+
+function NR_OnGameStarted(theGameObject : CR4Game) {
+	if ( !theGameObject.nr_playerManager ) {
+		NR_CreatePlayerManager( theGameObject );
+	}
+	NRD("theGame.OnGameStarted: PlayerManager -> GameLaunched.");
+	theGameObject.nr_playerManager.GotoState('GameLaunched');
+}
+
+function NR_CreatePlayerManager(theGameObject : CR4Game) {
+	if ( !theGameObject.nr_playerManager ) {
+		theGameObject.nr_playerManager = new NR_PlayerManager in theGameObject;
+		NRD("theGame.OnGameStarted: PlayerManager just created.");
+		theGameObject.nr_playerManager.Init();
+	}
+}
+
+
 
 exec function nrPlayer(playerType : int) {
 	NR_ChangePlayer((int)playerType);
@@ -1274,45 +1334,6 @@ function NR_UpdatePlayer() {
 
 	NR_GetPlayerManager().OnPlayerSpawned(0.0, 0);
 }*/
-
-function NR_ChangePlayer(playerType : ENR_PlayerType) {
-	var manager    : NR_PlayerManager;
-
-	NRD("NR_ChangePlayer -> " + playerType);
-	manager = NR_GetPlayerManager();
-	manager.SetPlayerChangeRequested( true );
-	manager.GotoState('PlayerChange');
-
-	// for quests
-	FactsAdd("nr_player_change_" + playerType, 1);
-	
-	if (playerType == ENR_PlayerGeralt) {
-		theGame.ChangePlayer( "Geralt" );
-	} else if (playerType == ENR_PlayerCiri) {
-		theGame.ChangePlayer( "Ciri" );
-	} else if (playerType == ENR_PlayerWitcher) {
-		theGame.ChangePlayer( "nr_replacer_witcher" );
-	} else if (playerType == ENR_PlayerWitcheress) {
-		theGame.ChangePlayer( "nr_replacer_witcheress" );
-	} else if (playerType == ENR_PlayerSorceress) {
-		theGame.ChangePlayer( "nr_replacer_sorceress" );
-	} else {
-		NRE("ERROR! Unknown player type: " + playerType);
-		return;
-	}
-	// cheaty thePlayer.abilityManager.RestoreStat(BCS_Vitality);
-	thePlayer.Debug_ReleaseCriticalStateSaveLocks();
-}
-
-function NR_OnGameStarted(theGameObject : CR4Game) {
-	if ( !theGameObject.nr_playerManager ) {
-		theGameObject.nr_playerManager = new NR_PlayerManager in theGameObject;
-		theGameObject.nr_playerManager.Init();
-		NRD("theGame.OnGameStarted: PlayerManager created.");
-	}
-	NRD("theGame.OnGameStarted: PlayerManager startup.");
-	theGameObject.nr_playerManager.GotoState('Startup');
-}
 
 // nrPlayer("nr_replacer_witcher");        <- console
 // NR_ChangePlayer("nr_replacer_witcher"); <- scripts/quest/scene block

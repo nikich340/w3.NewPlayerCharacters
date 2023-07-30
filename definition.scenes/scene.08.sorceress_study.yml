@@ -1,0 +1,1908 @@
+repository:
+  actors:
+    nr_master_mage:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\nr_master_mage.w2ent"
+      appearance: [ "nr_master_mage" ]
+
+    sorceress:
+      template: "dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent"
+      #appearance: [ "yennefer_gown" ]
+
+  animations:
+    anim_6962_high_standing_determined_additive_hold_sword:
+      animation: "high_standing_determined_additive_hold_sword"
+      frames: 288
+
+    anim_6690_add_gesture_explain_01:
+      animation: "add_gesture_explain_01"
+      frames: 277
+
+    anim_6691_add_gesture_explain_02:
+      animation: "add_gesture_explain_02"
+      frames: 163
+
+  actor.poses:
+    pose_0_high_standing_determined_idle:
+      idle_anim: "high_standing_determined_idle"
+
+    pose_2127_High_Standing_Determined:
+      name: "Standing"
+      emotional_state: "Determined"
+      status: "High"
+      idle_anim: "high_standing_determined_idle"
+
+  cameras:
+    cam_1_cam_med_to_mage:
+      fov: 20.0
+      transform:
+        pos: [ -1.0599974394, -1.7600096464, 1.7099988461 ]
+        rot: [ 0.0, 356.5999450684, 332.2248535156 ]
+      zoom: 2.0
+      dof:
+        aperture: [ 28.2495422363, 1.2700729370 ]
+        blur: [ 0.0, 5.0 ]
+        focus: [ 2.1400001049, 2.5000000000 ]
+        intensity: 1.0
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_2_cam_med_to_sorceress:
+      fov: 20.0
+      transform:
+        pos: [ -0.8399962783, 2.0599973202, 1.7800061703 ]
+        rot: [ 0.0, 353.6000671387, 202.9500274658 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 42.1379013062, 2.7060298920 ]
+        blur: [ 0.0, 5.0 ]
+        focus: [ 2.0, 2.5000000000 ]
+        intensity: 1.0
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_3_cam_semiclose_to_mage:
+      fov: 17.0
+      transform:
+        pos: [ -0.7399901748, -1.4700011015, 1.7099988461 ]
+        rot: [ 0.0, 357.3999938965, 337.2000122070 ]
+      zoom: 2.0
+      dof:
+        aperture: [ 28.2495422363, 1.2700729370 ]
+        blur: [ 0.0, 5.0 ]
+        focus: [ 1.7500000000, 2.5000000000 ]
+        intensity: 1.0
+      event_generator:
+        plane: "Semicloseup"
+        tags: [ "ext" ]
+
+    cam_4_cam_semiclose_to_sorceress:
+      fov: 17.0
+      transform:
+        pos: [ -0.5899962783, 1.7699888945, 1.7649991512 ]
+        rot: [ 0.0, 354.5501403809, 198.2751159668 ]
+      zoom: 2.0
+      dof:
+        aperture: [ 28.2495422363, 1.2700729370 ]
+        blur: [ 0.0, 5.0 ]
+        focus: [ 1.1499999762, 2.5000000000 ]
+        intensity: 1.0
+      event_generator:
+        plane: "Semicloseup"
+        tags: [ "ext" ]
+
+    cam_5_cam_close_to_mage:
+      fov: 10.0
+      transform:
+        pos: [ -0.6600036025, -1.9700011015, 1.7000005245 ]
+        rot: [ 0.0, 359.5999755859, 344.2499084473 ]
+      zoom: 2.0
+      dof:
+        aperture: [ 28.2495422363, 1.2700729370 ]
+        blur: [ 2.0, 5.0 ]
+        focus: [ 2.0, 2.5000000000 ]
+        intensity: 1.0
+      event_generator:
+        plane: "Closeup"
+        tags: [ "ext" ]
+
+    cam_6_cam_close_to_sorceress:
+      fov: 10.0
+      transform:
+        pos: [ -0.7999877334, 2.3500058651, 1.7399976254 ]
+        rot: [ 0.0, 357.4002380371, 197.0500793457 ]
+      zoom: 2.0
+      dof:
+        aperture: [ 28.2495422363, 1.2700729370 ]
+        blur: [ 0.0, 2.5000000000 ]
+        focus: [ 2.0199999809, 5.0 ]
+        intensity: 1.0
+      event_generator:
+        plane: "Closeup"
+        tags: [ "ext" ]
+
+    cam_7_cam_superclose_to_mage:
+      fov: 10.0
+      transform:
+        pos: [ -0.4500121772, -0.6099852920, 1.7099988461 ]
+        rot: [ 0.0, 0.3499999642, 341.0250854492 ]
+      zoom: 2.0
+      dof:
+        aperture: [ 28.2495422363, 1.2700729370 ]
+        blur: [ 0.0, 5.0 ]
+        focus: [ 0.0, 2.5000000000 ]
+        intensity: 1.0
+      event_generator:
+        plane: "Supercloseup"
+        tags: [ "ext" ]
+
+    cam_8_cam_superclose_to_sorceress:
+      fov: 10.0
+      transform:
+        pos: [ -0.3699950874, 1.0100096464, 1.7599980831 ]
+        rot: [ 0.0, 355.9250488281, 193.2750091553 ]
+      zoom: 2.0
+      dof:
+        aperture: [ 28.2495422363, 1.2700729370 ]
+        blur: [ 0.0, 5.0 ]
+        focus: [ 0.0, 1.5000000000 ]
+        intensity: 1.0
+      event_generator:
+        plane: "Supercloseup"
+        tags: [ "ext" ]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 840
+
+  placement: "PLAYER"
+    # INFO: world coordinates of used origin:
+      #pos: [ -267.2500305176, -323.5708312988, 40.2939796448 ]
+      #rot: [ 0.0, 46.5613822937, 0.0 ]
+  safe_placement: false
+  snap_to_terrain: true
+
+  assets:
+    actors:
+      nr_master_mage:
+        repo: "nr_master_mage"
+        by_voicetag: false
+        appearance: "nr_master_mage"
+        tags: [ "nr_master_mage" ]
+
+      sorceress:
+        repo: "sorceress"
+        by_voicetag: false
+        tags: [ "PLAYER" ]
+
+    cameras:
+      cam_1_cam_med_to_mage:
+        repo: "cam_1_cam_med_to_mage"
+
+      cam_2_cam_med_to_sorceress:
+        repo: "cam_2_cam_med_to_sorceress"
+
+      cam_3_cam_semiclose_to_mage:
+        repo: "cam_3_cam_semiclose_to_mage"
+
+      cam_4_cam_semiclose_to_sorceress:
+        repo: "cam_4_cam_semiclose_to_sorceress"
+
+      cam_5_cam_close_to_mage:
+        repo: "cam_5_cam_close_to_mage"
+
+      cam_6_cam_close_to_sorceress:
+        repo: "cam_6_cam_close_to_sorceress"
+
+      cam_7_cam_superclose_to_mage:
+        repo: "cam_7_cam_superclose_to_mage"
+
+      cam_8_cam_superclose_to_sorceress:
+        repo: "cam_8_cam_superclose_to_sorceress"
+
+    animations:
+      nr_master_mage_high_standing_determined_additive_hold_sword:
+        actor: "nr_master_mage"
+        repo: "anim_6962_high_standing_determined_additive_hold_sword"
+        #duration: 9.6000003815
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_add_gesture_explain_01:
+        actor: "nr_master_mage"
+        repo: "anim_6690_add_gesture_explain_01"
+        #duration: 9.2333335876
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_add_gesture_explain_02:
+        actor: "sorceress"
+        repo: "anim_6691_add_gesture_explain_02"
+        #duration: 5.4333333969
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_add_gesture_explain_01:
+        actor: "sorceress"
+        repo: "anim_6690_add_gesture_explain_01"
+        #duration: 0.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+    actor.poses:
+      nr_master_mage_high_standing_determined_idle:
+        actor: "nr_master_mage"
+        repo: "pose_0_high_standing_determined_idle"
+
+      sorceress_High_Standing_Determined:
+        actor: "sorceress"
+        repo: "pose_2127_High_Standing_Determined"
+
+storyboard:
+  defaults:
+    placement:
+      #sorceress: [[ 0.0, 0.0, 0.0 ], [ 0.0, 0.0, 0.0 ]]
+      sorceress: [[ 0.0, -0.6, 0.0 ], [ 0.0, 0.0, 0.0 ]]
+      #nr_master_mage: [[ 0.0, 1.6, 0.0 ], [ 0.0, 0.0, 180.0 ]]
+      nr_master_mage: [[ 0.0, 1.0, 0.0 ], [ 0.0, 0.0, 180.0 ]]
+
+    actor.pose:
+      nr_master_mage: nr_master_mage_high_standing_determined_idle
+      sorceress: sorceress_High_Standing_Determined
+
+  # add_gesture_explain_01 -> anim_6690_add_gesture_explain_01 (M)
+  # add_gesture_explain_01 -> anim_12431_add_gesture_explain_01 (F)
+  section_first_meeting:
+    shot_first_meeting_1m:
+      - actor.lookat: [0.0, nr_master_mage, sorceress]
+      - actor.lookat: [0.0, sorceress, nr_master_mage]
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.5, anim_6706_add_gesture_question_05]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_first_meeting_2s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - actor.anim.additive:
+          actor: sorceress
+        #  .@pos: [0.0, anim_12433_add_gesture_explain_03]
+          .@pos: [0.0, anim_12434_add_gesture_explain_04]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_first_meeting_3m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6694_add_gesture_explain_05]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_first_meeting_4s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - actor.anim.additive:
+          actor: sorceress
+        #  .@pos: [0.0, anim_12433_add_gesture_explain_03]
+          .@pos: [0.0, anim_12434_add_gesture_explain_04]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_first_meeting_5m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6696_add_gesture_explain_07]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_first_meeting_6s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - actor.anim.additive:
+          actor: sorceress
+          .@pos: [0.0, anim_12451_add_gesture_question_04]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_first_meeting_7m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6721_add_gesture_weight_shift_step_04]
+          blendin: 0.4
+          blendout: 0.4
+
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.4, anim_6690_add_gesture_explain_01]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_first_meeting_8m:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+    shot_first_meeting_9s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+      - actor.anim.additive:
+          actor: sorceress
+          .@pos: [0.0, anim_12461_add_idle_weight_shift_04]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_first_meeting_10m:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6732_add_reaction_laugh_01]
+          blendin: 0.4
+          blendout: 0.4
+          weight: 0.6
+
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6731_add_reaction_agreeing_nod_02]
+          blendin: 0.4
+          blendout: 0.4
+
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.3, anim_6702_add_gesture_explain_13]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_first_meeting_11s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - world.addfact: [0.0, nr_master_met_before, 1]
+      - actor.anim.additive:
+          actor: sorceress
+          .@pos: [0.0, anim_12437_add_gesture_explain_07]
+          blendin: 0.4
+          blendout: 0.4
+          stretch: 0.8
+
+  section_greeting_apprentice_a:
+    shot_greeting_apprentice_a:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6711_add_gesture_slight_explain_01]
+          blendin: 0.4
+          blendout: 0.4
+
+  section_greeting_apprentice_b:
+    shot_greeting_apprentice_b:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6711_add_gesture_slight_explain_01]
+          blendin: 0.4
+          blendout: 0.4
+
+  section_greeting_apprentice_c:
+    shot_greeting_apprentice_c:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6711_add_gesture_slight_explain_01]
+          blendin: 0.4
+          blendout: 0.4
+
+  section_greeting_common_a:
+    shot_greeting_common_a:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6712_add_gesture_slight_explain_02]
+          blendin: 0.4
+          blendout: 0.4
+
+  section_greeting_common_b:
+    shot_greeting_common_b:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6712_add_gesture_slight_explain_02]
+          blendin: 0.4
+          blendout: 0.4
+
+  section_goodbye_a:
+    shot_goodbye_a:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - actor.gamestate: [0.9, nr_master_mage]
+      - actor.gamestate: [0.9, sorceress]
+      - cam.blend.togame: [0.9, cam_1_cam_med_to_mage]
+
+  section_goodbye_b:
+    shot_goodbye_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - actor.gamestate: [0.9, nr_master_mage]
+      - actor.gamestate: [0.9, sorceress]
+      - cam.blend.togame: [0.9, cam_1_cam_med_to_mage]
+
+  section_goodbye_c:
+    shot_goodbye_c:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - actor.gamestate: [0.9, nr_master_mage]
+      - actor.gamestate: [0.9, sorceress]
+      - cam.blend.togame: [0.9, cam_1_cam_med_to_mage]
+
+  section_about_ainyerahn:
+    # TODO: emotions, additives
+    shot_about_ainyerahn_1s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+    shot_about_ainyerahn_2m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+    shot_about_ainyerahn_3m:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+    shot_about_ainyerahn_4m:
+      - cam: [0.4, cam_6_cam_close_to_sorceress]
+      - cam: [0.8, cam_5_cam_close_to_mage]
+
+    #shot_about_ainyerahn_5m:
+    #  - cam: [0.0, cam_5_cam_close_to_mage]
+
+  section_apprentice_1:
+    # TODO: emotions, additives
+    shot_apprentice_1_1s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+    shot_apprentice_1_2m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_choice_apprentice_1:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_2_a:
+    # TODO: emotions, additives
+    shot_apprentice_2_a_1s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+    shot_apprentice_2_a_2m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_apprentice_2_b:
+    # TODO: emotions, additives
+    shot_apprentice_2_b_1s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+    shot_apprentice_2_b_2m:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+  section_choice_apprentice_2_a:
+    CHOICE_1:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+  section_apprentice_2_a_a:
+    # TODO: emotions, additives
+    shot_apprentice_2_a_a_1s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+    shot_apprentice_2_a_a_2s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+  section_apprentice_2_a_b:
+    shot_apprentice_2_a_b_1s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+    shot_apprentice_2_a_b_2s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+  section_apprentice_2_ab:
+    shot_apprentice_2_ab_1m:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+  section_choice_apprentice_2_ab:
+    CHOICE_1:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+  section_apprentice_2_ab_a:
+    # TODO: emotions, additives
+    shot_apprentice_2_ab_a_1s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+    shot_apprentice_2_ab_a_2m:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+  section_apprentice_2_ab_b:
+    # TODO: emotions, additives
+    shot_apprentice_2_ab_b_1s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+    shot_apprentice_2_ab_b_2m:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+    shot_apprentice_2_ab_b_3s:
+      - world.addfact: [0.0, nr_master_apprentice_failed, 1]
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+      # SADNESS or ...
+
+  section_apprentice_2_a_c:
+    # TODO: emotions, additives
+    shot_apprentice_2_a_c_1s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+    shot_apprentice_2_a_c_2m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+    shot_apprentice_2_a_c_3s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_2_a_d:
+    # TODO: emotions, additives
+    shot_apprentice_2_a_d_1s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+    shot_apprentice_2_a_d_2m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_apprentice_accept:
+    # TODO: emotions, additives
+    shot_apprentice_accept_1m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+    shot_apprentice_accept_2s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_again:
+    # TODO: emotions, additives
+    shot_apprentice_trial_again:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q0:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q0_1m:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+    shot_apprentice_trial_q0_2s:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+
+    shot_apprentice_trial_q0_3m:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+  section_choice_trial_q0:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q0_a:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q0_a:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q0_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q0_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q0_c:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q0_c:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - world.addfact: [0.0, nr_scene_trial_correct, 1]
+
+  section_apprentice_trial_q0_d:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q0_d:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q0_d:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q0_d:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q1a:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1a:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+  section_apprentice_trial_q1b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1b:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+  section_choice_trial_q1a:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_choice_trial_q1b:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q1a_a:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1a_a:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q1a_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1a_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - world.addfact: [0.0, nr_scene_trial_correct, 1]
+
+  section_apprentice_trial_q1a_c:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1a_c:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q1a_d:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1a_d:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q1b_a:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1b_a:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - world.addfact: [0.0, nr_scene_trial_correct, 1]
+
+  section_apprentice_trial_q1b_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1b_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q1b_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1b_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q1b_c:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1b_c:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q1b_d:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q1b_d:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q2a:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2a:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_apprentice_trial_q2b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2b:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_choice_trial_q2a:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_choice_trial_q2b:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q2a_a:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2a_a:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q2a_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2a_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q2a_c:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2a_c:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q2a_d:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2a_d:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - world.addfact: [0.0, nr_scene_trial_correct, 1]
+
+  section_apprentice_trial_q2b_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2b_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q2b_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2b_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q2b_c:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2b_c:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - world.addfact: [0.0, nr_scene_trial_correct, 1]
+
+  section_apprentice_trial_q2b_d:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q2b_d:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q3a:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3a:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_apprentice_trial_q3b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3b:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_choice_trial_q3a:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_choice_trial_q3b:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q3a_a:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3a_a:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q3a_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3a_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q3a_c:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3a_c:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q3a_d:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3a_d:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - world.addfact: [0.0, nr_scene_trial_correct, 1]
+
+  section_apprentice_trial_q3b_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3b_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q3b_b:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3b_b:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_q3b_c:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3b_c:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - world.addfact: [0.0, nr_scene_trial_correct, 1]
+
+  section_apprentice_trial_q3b_d:
+    # TODO: emotions, additives
+    shot_apprentice_trial_q3b_d:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_trial_failed_1:
+    # TODO: emotions, additives
+    shot_apprentice_trial_failed_1:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+
+  section_apprentice_trial_failed_2:
+    # TODO: emotions, additives
+    shot_apprentice_trial_failed_2:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - world.addfact: [0.0, nr_master_apprentice_need_test, 1]
+
+  section_apprentice_trial_passed:
+    # TODO: emotions, additives
+    shot_apprentice_trial_passed_1:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - world.addfact: [0.0, nr_master_apprentice, 1]
+    #shot_apprentice_trial_passed_2
+    #shot_apprentice_trial_passed_3
+
+  section_apprentice_no_new_spells_archmistress:
+    # TODO: emotions, additives
+    shot_apprentice_no_new_spells_archmistress:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_apprentice_no_new_spells_wait:
+    # TODO: emotions, additives
+    shot_apprentice_no_new_spells_wait:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_cant_choose_apprentice_new_spells:
+    # TODO: emotions, additives
+    shot_cant_choose_apprentice_new_spells:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_can_choose_apprentice_new_spells:
+    # TODO: emotions, additives
+    shot_choose_apprentice_new_spells:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_choice_apprentice_new_spells:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_apprentice_after_new_spell_a:
+    # TODO: emotions, additives
+    shot_apprentice_after_new_spell_a:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_apprentice_after_new_spell_b:
+    # TODO: emotions, additives
+    shot_apprentice_after_new_spell_b:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+
+  section_apprentice_after_new_spell_fade_out:
+    shot_apprentice_after_new_spell_fade_out:
+      - fade.out: [0.0, 1.0]
+      - world.addfact: [0.99, nr_magic_skill_learned, 1]
+      - world.addfact: [0.99, nr_magic_skill_just_learned, 1]
+      
+  section_choice_apprentice_remind_spells:
+    CHOICE_1:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+  section_ask_to_ground:
+    shot_ask_to_ground_1s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+
+    shot_ask_to_ground_2m:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.effect.start: [0.0, nr_master_mage, generic_spell_rh]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6715_add_gesture_slight_explain_05]
+          blendin: 0.4
+          blendout: 0.4
+
+    shot_ask_to_ground_3m:
+      - actor.effect.stop: [0.99, nr_master_mage, generic_spell_rh]
+
+dialogscript:
+  actors: [ "nr_master_mage", "sorceress" ]
+  player: "sorceress"
+
+  section_start:
+    - PAUSE: 0.0
+    - NEXT:
+        condition: [ "nr_master_met_before", ">=", 1 ]
+        on_true: section_met_before
+        on_false: section_first_meeting
+
+  section_first_meeting:
+    - CUE: shot_first_meeting_1m
+    - nr_master_mage: "2115940850|Cead, luned. Conas esseath aelaedde?"
+
+    - CUE: shot_first_meeting_2s
+    - sorceress: "2115940851|I'm fine, thank you. Do you speak the Common Tongue?"
+
+    - CUE: shot_first_meeting_3m
+    - nr_master_mage: "2115940852|Squaess… Excuse me. I'm used to talk to myself in Hen Llinge."
+
+    - CUE: shot_first_meeting_4s
+    - sorceress: "2115940853|Where am I? This ship and icy environment…"
+
+    - CUE: shot_first_meeting_5m
+    - nr_master_mage: "2115940854|…are floating in the air, true. I have been investigating the source of a powerful magic intersection, which was located in the ice of the North Sea."
+
+    - CUE: shot_first_meeting_6s
+    - sorceress: "2115940855|Was located?"
+
+    - CUE: shot_first_meeting_7m
+    - nr_master_mage: "2115940856|Yes, when I tried to shift the flow of magic towards the air element, it cut the space and moved me here with everything you can see."
+
+    - CUE: shot_first_meeting_8m
+    - nr_master_mage: "2115940857|It seems that the intersection is produced by that stone. Sometimes the flow becomes unstable and summons hostile creatures."
+
+    - CUE: shot_first_meeting_9s
+    - sorceress: "2115940858|So I provoked a surge in the flow…"
+
+    - CUE: shot_first_meeting_10m
+    - nr_master_mage: "2115940859|Hahaha, yes. Every time I touch it, a similar event occurs. Kind of the Alzur's Double Cross magic, I suppose."
+
+    - CUE: shot_first_meeting_11s
+    - sorceress: "2115940860|Now I understand. Probably…"
+    - PAUSE: 1.0
+
+    - NEXT: section_choice_main
+
+  section_met_before:
+    - PAUSE: 0.0
+    - NEXT:
+        condition: [ "nr_master_apprentice", ">=", 1 ]
+        on_true: section_randomizer_greeting_apprentice
+        on_false: section_randomizer_greeting_common
+
+  section_randomizer_greeting_apprentice:
+    - section_greeting_apprentice_a
+    - section_greeting_apprentice_b
+    - section_greeting_apprentice_c
+
+  section_randomizer_greeting_common:
+    - section_greeting_common_a
+    - section_greeting_common_b
+
+  section_greeting_apprentice_a:
+    - CUE: shot_greeting_apprentice_a
+    - nr_master_mage: "2115940861|Cead, my young apprentice."
+    - NEXT: section_choice_main
+
+  section_greeting_apprentice_b:
+    - CUE: shot_greeting_apprentice_b
+    - nr_master_mage: "2115940862|Glad to see the most powerful sorceress… on this ship."
+    - NEXT: section_choice_main
+
+  section_greeting_apprentice_c:
+    - CUE: shot_greeting_apprentice_c
+    - nr_master_mage: "2115940863|How is my apprentice doing?"
+    - NEXT: section_choice_main
+
+  section_greeting_common_a:
+    - CUE: shot_greeting_common_a
+    - nr_master_mage: "2115940864|Greetings."
+    - NEXT: section_choice_main
+
+  section_greeting_common_b:
+    - CUE: shot_greeting_common_b
+    - nr_master_mage: "2115940865|Welcome back!"
+    - NEXT: section_choice_main
+
+  section_pre_choice_main:
+    - PAUSE: 0.0
+    - NEXT: section_choice_main
+
+  section_choice_main:
+    - CHOICE:
+      - choice: [ "2115940870|I would like to become your apprentice.", section_apprentice_1]
+        single_use: true
+        emphasize: true
+      - choice: [ "2115940870|I would like to become your apprentice.", section_apprentice_trial_again]
+        emphasize: true
+        condition: ["nr_master_apprentice_need_test", ">=", 1]
+      - choice: [ "2115940984|I need a portal to get back to the ground.", section_ask_to_ground]
+        emphasize: true
+        condition: ["nr_master_apprentice_failed", ">=", 1]
+      - choice: [ "2115940918|I would like to learn new spells.", section_apprentice_new_spells]
+        emphasize: true
+        condition: ["nr_master_apprentice", ">=", 1]
+      - choice: [ "2115940919|Could you please remind me how to cast…", section_choice_apprentice_remind_spells]
+        emphasize: true
+        condition: ["nr_master_apprentice", ">=", 1]
+      - choice: [ "2115940985|About my successes in practice…", script_show_spell_stats_black]
+        emphasize: true
+        condition: ["nr_master_apprentice", ">=", 1]
+      - choice: [ "2115940871|Tell me about yourself.", section_about_ainyerahn]
+        # condition: ["fact", "=", 1]
+      - choice: [ "2115940867|See you later.", section_randomizer_goodbye, exit]
+        # emphasize: true
+
+  section_randomizer_goodbye:
+    - section_goodbye_a
+    - section_goodbye_b
+    - section_goodbye_c
+
+  section_goodbye_a:
+    - CUE: shot_goodbye_a
+    - sorceress: "2115940867|See you later."
+    - NEXT: section_exit
+
+  section_goodbye_b:
+    - CUE: shot_goodbye_b
+    - sorceress: "2115940868|Farewell."
+    - NEXT: section_exit
+
+  section_goodbye_c:
+    - CUE: shot_goodbye_c
+    - sorceress: "2115940869|So long."
+    - NEXT: section_exit
+
+  section_about_ainyerahn:
+    - CUE: shot_about_ainyerahn_1s
+    - sorceress: "2115940871|Tell me about yourself."
+
+    - CUE: shot_about_ainyerahn_2m
+    - nr_master_mage: "2115940914|Call me Ainyerahn. My father, a seasoned sailor, often took me along on his maritime expeditions. However, one fateful day, a tempestuous storm mercilessly wrecked our ship."
+    
+    - CUE: shot_about_ainyerahn_3m
+    - nr_master_mage: "2115940915|Amidst the chaos, wreckage of the ship and drowning sailors, a blinding flash consumed me, and I awake in the depths of Kaedwen's forests."
+    
+    - CUE: shot_about_ainyerahn_4m
+    - nr_master_mage: "2115940916|I lost my father that day, but fate granted me the chance to study at the esteemed school of mages. Although, during my final year at Ban Ard, circumstances compelled my departure.."
+    
+    - CUE: shot_about_ainyerahn_5m
+    - nr_master_mage: "2115940917|Since then, my focus has been on researching magical anomalies and intersections. Purposefully distant from the conflicts of the noble houses and the ignorance of the masses."
+
+    - NEXT: section_choice_main
+
+  section_apprentice_1:
+    - CUE: shot_apprentice_1_1s
+    - sorceress: "2115940870|I would like to become your apprentice."
+
+    - CUE: shot_apprentice_1_2m
+    - nr_master_mage: "2115940872|How unexpected… Why? You could learn more in Aretuza."
+
+    - NEXT: section_choice_apprentice_1
+
+  section_choice_apprentice_1:
+    - CHOICE:
+      - choice: [ "2115940873|I was expelled from there.", section_apprentice_2_a]
+        emphasize: true
+      - choice: [ "2115940874|I couldn't stand their high expectations anymore.", section_apprentice_2_b]
+        emphasize: true
+
+  section_apprentice_2_a:
+    - CUE: shot_apprentice_2_a_1s
+    - sorceress: "2115940873|I was expelled from there."
+
+    - CUE: shot_apprentice_2_a_2m
+    - nr_master_mage: "2115940875|Was it due to the use of forbidden arts?"
+
+    - NEXT: section_choice_apprentice_2_a
+
+  section_apprentice_2_b:
+    - CUE: shot_apprentice_2_b_1s
+    - sorceress: "2115940874|I couldn't stand their high expectations anymore."
+
+    - CUE: shot_apprentice_2_b_2m
+    - nr_master_mage: "2115940890|I do understand you."
+
+    - NEXT: section_apprentice_accept
+
+  section_choice_apprentice_2_a:
+    - CHOICE:
+      - choice: [ "2115940876|Yes, I summoned a demon.", section_apprentice_2_a_a]
+        emphasize: true
+      - choice: [ "2115940877|Yes, I dabbled with necromancy.", section_apprentice_2_a_b]
+        emphasize: true
+      - choice: [ "2115940878|No, I killed a teacher by an accident.", section_apprentice_2_a_c]
+        emphasize: true
+      - choice: [ "2115940879|No, I'd rather not talk about it.", section_apprentice_2_a_d]
+        emphasize: true
+
+  section_apprentice_2_a_a:
+    - CUE: shot_apprentice_2_a_a_1s
+    - sorceress: "2115940876|Yes, I summoned a demon."
+
+    - CUE: shot_apprentice_2_a_a_2s
+    - sorceress: "2115940880|I lost control over it and, before rector stopped the demon, it killed several novices…"
+
+    - NEXT: section_apprentice_2_ab
+
+  section_apprentice_2_a_b:
+    - CUE: shot_apprentice_2_a_b_1s
+    - sorceress: "2115940877|Yes, I dabbled with necromancy."
+
+    - CUE: shot_apprentice_2_a_b_2s
+    - sorceress: "2115940881|To do this, I stole magic crystals from our mentor's megascope…"
+
+    - NEXT: section_apprentice_2_ab
+
+  section_apprentice_2_ab:
+    - CUE: shot_apprentice_2_ab_1m
+    - nr_master_mage: "2115940882|Do you now regret what you did?"
+
+    - NEXT: section_choice_apprentice_2_ab
+
+  section_choice_apprentice_2_ab:
+    - CHOICE:
+      - choice: [ "2115940883|Yes, very much.", section_apprentice_2_ab_a]
+        emphasize: true
+      - choice: [ "2115940884|Not really.", section_apprentice_2_ab_b]
+        emphasize: true
+
+  section_apprentice_2_ab_a:
+    - CUE: shot_apprentice_2_ab_a_1s
+    - sorceress: "2115940883|Yes, very much."
+
+    - CUE: shot_apprentice_2_ab_a_2m
+    - nr_master_mage: "2115940885|It was important for me to hear that."
+
+    - NEXT: section_apprentice_accept
+
+  section_apprentice_2_ab_b:
+    # nr_master_apprentice_failed
+    - CUE: shot_apprentice_2_ab_b_1s
+    - sorceress: "2115940884|Not really."
+    
+    - CUE: shot_apprentice_2_ab_b_2m
+    - nr_master_mage: "2115940886|You failed to grasp that lesson, hence ye shall not learn mine either."
+
+    - CUE: shot_apprentice_2_ab_b_3s
+    - PAUSE: 2.0
+
+    - NEXT: section_choice_main
+
+  section_apprentice_2_a_c:
+    - CUE: shot_apprentice_2_a_c_1s
+    - sorceress: "2115940878|No, I killed a teacher by an accident."
+
+    - CUE: shot_apprentice_2_a_c_2m
+    - nr_master_mage: "2115940887|Hope I am not supossed to be the next…"
+
+    - CUE: shot_apprentice_2_a_c_3s
+    - sorceress: "2115940888|Well, sure not!"
+
+    - NEXT: section_apprentice_accept
+
+  section_apprentice_2_a_d:
+    - CUE: shot_apprentice_2_a_d_1s
+    - sorceress: "2115940879|No, I'd rather not talk about it."
+
+    - CUE: shot_apprentice_2_a_d_2m
+    - nr_master_mage: "2115940889|As you wish."
+
+    - NEXT: section_apprentice_accept
+
+  section_apprentice_accept:
+    - CUE: shot_apprentice_accept_1m
+    - nr_master_mage: "2115940891|Hmm… It's been a while since I had been taking apprentices…"
+
+    - CUE: shot_apprentice_accept_2s
+    - sorceress: "2115940892|Please! I won't fail you."
+
+    - NEXT: section_apprentice_trial_q0
+
+  section_apprentice_trial_again:
+    - CUE: shot_apprentice_trial_again
+    - sorceress: "2115940870|I would like to become your apprentice."
+
+    - NEXT: script_apprentice_trial_again
+
+  script_apprentice_trial_again:
+    - SCRIPT:
+        function: NR_FactsSet_S
+        parameter:
+          - factName: nr_scene_trial_correct
+          - value: 0
+    - NEXT: script_apprentice_trial_again_2
+
+  script_apprentice_trial_again_2:
+    - SCRIPT:
+        function: NR_FactsSet_S
+        parameter:
+          - factName: nr_master_apprentice_need_test
+          - value: 0
+    - NEXT: section_apprentice_trial_q0
+
+  section_apprentice_trial_q0:
+    - CUE: shot_apprentice_trial_q0_1m
+    - nr_master_mage: "2115940893|Well, first you need to prove that you are ready."
+    - nr_master_mage: "2115940894|I will ask you some questions."
+
+    - CUE: shot_apprentice_trial_q0_2s
+    - sorceress: "2115940988|I am ready."
+
+    - CUE: shot_apprentice_trial_q0_3m
+    - PAUSE: 0.5
+    - nr_master_mage: "2115940895|What is Magic?"
+
+    - NEXT: section_choice_trial_q0
+
+  section_choice_trial_q0:
+    - CHOICE:
+      - choice: [ "2115940920|Energy of 6 elements.", section_apprentice_trial_q0_a]
+        emphasize: true
+      - choice: [ "2115940921|Bright flashes and sparks.", section_apprentice_trial_q0_b]
+        emphasize: true
+      - choice: [ "2115940922|Art and science of controlling chaos.", section_apprentice_trial_q0_c]
+        emphasize: true
+      - choice: [ "2115940923|Easy way to get what you want.", section_apprentice_trial_q0_d]
+        emphasize: true
+      - TIME_LIMIT: 10.0
+
+  section_apprentice_trial_q0_a:
+    - CUE: shot_apprentice_trial_q0_a
+    - sorceress: "2115940920|Energy of 6 elements."
+
+    - NEXT: section_randomizer_apprentice_trial_q1
+
+  section_apprentice_trial_q0_b:
+    - CUE: shot_apprentice_trial_q0_b
+    - sorceress: "2115940921|Bright flashes and sparks."
+
+    - NEXT: section_randomizer_apprentice_trial_q1
+
+  section_apprentice_trial_q0_c:
+    - CUE: shot_apprentice_trial_q0_c
+    - sorceress: "2115940922|Art and science of controlling chaos."
+
+    - NEXT: section_randomizer_apprentice_trial_q1
+
+  section_apprentice_trial_q0_d:
+    - CUE: shot_apprentice_trial_q0_d
+    - sorceress: "2115940923|Easy way to get what you want."
+
+    - NEXT: section_randomizer_apprentice_trial_q1
+
+  section_randomizer_apprentice_trial_q1:
+    - section_apprentice_trial_q1a
+    - section_apprentice_trial_q1b
+
+  section_apprentice_trial_q1a:
+    - CUE: shot_apprentice_trial_q1a
+    - nr_master_mage: "2115940896|What mages were responsible for the creation of the first witchers?"
+
+    - NEXT: section_choice_trial_q1a
+
+  section_apprentice_trial_q1b:
+    - CUE: shot_apprentice_trial_q1b
+    - nr_master_mage: "2115940897|Who was the first human sorceress and a virtuoso of air magic?"
+
+    - NEXT: section_choice_trial_q1b
+
+  section_choice_trial_q1a:
+    - CHOICE:
+      - choice: [ "2115940924|Geoffrey Monck and Raffard the White.", section_apprentice_trial_q1a_a]
+        emphasize: true
+      - choice: [ "2115940925|Alzur and Cosimo Malaspina.", section_apprentice_trial_q1a_b]
+        emphasize: true
+      - choice: [ "2115940926|Nina Fioravanti and Aurora Henson.", section_apprentice_trial_q1a_c]
+        emphasize: true
+      - choice: [ "2115940927|Ortolan and Sorel Degerlund.", section_apprentice_trial_q1a_d]
+        emphasize: true
+      - TIME_LIMIT: 10.0
+
+  section_choice_trial_q1b:
+    - CHOICE:
+      - choice: [ "2115940928|Agnes of Glanville.", section_apprentice_trial_q1b_a]
+        emphasize: true
+      - choice: [ "2115940929|Klara Larissa de Winter.", section_apprentice_trial_q1b_b]
+        emphasize: true
+      - choice: [ "2115940930|Tissaia de Vries.", section_apprentice_trial_q1b_c]
+        emphasize: true
+      - choice: [ "2115940931|Lara Dorren aep Shiadhal.", section_apprentice_trial_q1b_d]
+        emphasize: true
+      - TIME_LIMIT: 10.0
+
+  section_apprentice_trial_q1a_a:
+    - CUE: shot_apprentice_trial_q1a_a
+    - sorceress: "2115940924|Geoffrey Monck and Raffard the White."
+
+    - NEXT: section_randomizer_apprentice_trial_q2
+
+  section_apprentice_trial_q1a_b:
+    - CUE: shot_apprentice_trial_q1a_b
+    - sorceress: "2115940925|Alzur and Cosimo Malaspina."
+
+    - NEXT: section_randomizer_apprentice_trial_q2
+
+  section_apprentice_trial_q1a_c:
+    - CUE: shot_apprentice_trial_q1a_c
+    - sorceress: "2115940926|Nina Fioravanti and Aurora Henson."
+
+    - NEXT: section_randomizer_apprentice_trial_q2
+
+  section_apprentice_trial_q1a_d:
+    - CUE: shot_apprentice_trial_q1a_d
+    - sorceress: "2115940927|Ortolan and Sorel Degerlund."
+
+    - NEXT: section_randomizer_apprentice_trial_q2
+
+  section_apprentice_trial_q1b_a:
+    - CUE: shot_apprentice_trial_q1b_a
+    - sorceress: "2115940928|Agnes of Glanville."
+
+    - NEXT: section_randomizer_apprentice_trial_q2
+
+  section_apprentice_trial_q1b_b:
+    - CUE: shot_apprentice_trial_q1b_b
+    - sorceress: "2115940929|Klara Larissa de Winter."
+
+    - NEXT: section_randomizer_apprentice_trial_q2
+
+  section_apprentice_trial_q1b_c:
+    - CUE: shot_apprentice_trial_q1b_c
+    - sorceress: "2115940930|Tissaia de Vries."
+
+    - NEXT: section_randomizer_apprentice_trial_q2
+
+  section_apprentice_trial_q1b_d:
+    - CUE: shot_apprentice_trial_q1b_d
+    - sorceress: "2115940931|Lara Dorren aep Shiadhal."
+
+    - NEXT: section_randomizer_apprentice_trial_q2
+
+  section_randomizer_apprentice_trial_q2:
+    - section_apprentice_trial_q2a
+    - section_apprentice_trial_q2b
+
+  section_apprentice_trial_q2a:
+    - CUE: shot_apprentice_trial_q2a
+    - nr_master_mage: "2115940898|What type of magic grants the ability to perceive the current fate of individuals?"
+
+    - NEXT: section_choice_trial_q2a
+
+  section_apprentice_trial_q2b:
+    - CUE: shot_apprentice_trial_q2b
+    - nr_master_mage: "2115940899|Why was the practice of necromancy forbidden?"
+
+    - NEXT: section_choice_trial_q2b
+
+  section_choice_trial_q2a:
+    - CHOICE:
+      - choice: [ "2115940975|Goetia.", section_apprentice_trial_q2a_a]
+        emphasize: true
+      - choice: [ "2115940976|Transmutation.", section_apprentice_trial_q2a_b]
+        emphasize: true
+      - choice: [ "2115940977|Lesbomancy.", section_apprentice_trial_q2a_c]
+        emphasize: true
+      - choice: [ "2115940978|Hydromancy.", section_apprentice_trial_q2a_d]
+        emphasize: true
+      - TIME_LIMIT: 10.0
+
+  section_choice_trial_q2b:
+    - CHOICE:
+      - choice: [ "2115940932|Because it requires a huge amount of energy.", section_apprentice_trial_q2b_a]
+        emphasize: true
+      - choice: [ "2115940933|Because of a superstitious fear of the dead.", section_apprentice_trial_q2b_b]
+        emphasize: true
+      - choice: [ "2115940934|Because it always lead to entirely negative side effects, despite any motives.", section_apprentice_trial_q2b_c]
+        emphasize: true
+      - choice: [ "2115940935|Because it allows to extract information from a corpse.", section_apprentice_trial_q2b_d]
+        emphasize: true
+      - TIME_LIMIT: 10.0
+
+  section_apprentice_trial_q2a_a:
+    - CUE: shot_apprentice_trial_q2a_a
+    - sorceress: "2115940975|Goetia."
+
+    - NEXT: section_randomizer_apprentice_trial_q3
+
+  section_apprentice_trial_q2a_b:
+    - CUE: shot_apprentice_trial_q2a_b
+    - sorceress: "2115940976|Transmutation."
+
+    - NEXT: section_randomizer_apprentice_trial_q3
+
+  section_apprentice_trial_q2a_c:
+    - CUE: shot_apprentice_trial_q2a_c
+    - sorceress: "2115940977|Lesbomancy."
+
+    - NEXT: section_randomizer_apprentice_trial_q3
+
+  section_apprentice_trial_q2a_d:
+    - CUE: shot_apprentice_trial_q2a_d
+    - sorceress: "2115940978|Hydromancy."
+
+    - NEXT: section_randomizer_apprentice_trial_q3
+
+  section_apprentice_trial_q2b_a:
+    - CUE: shot_apprentice_trial_q2b_a
+    - sorceress: "2115940932|Because it requires a huge amount of energy."
+
+    - NEXT: section_randomizer_apprentice_trial_q3
+
+  section_apprentice_trial_q2b_b:
+    - CUE: shot_apprentice_trial_q2b_b
+    - sorceress: "2115940933|Because of a superstitious fear of the dead."
+
+    - NEXT: section_randomizer_apprentice_trial_q3
+
+  section_apprentice_trial_q2b_c:
+    - CUE: shot_apprentice_trial_q2b_c
+    - sorceress: "2115940934|Because it always lead to entirely negative side effects, despite any motives."
+
+    - NEXT: section_randomizer_apprentice_trial_q3
+
+  section_apprentice_trial_q2b_d:
+    - CUE: shot_apprentice_trial_q2b_d
+    - sorceress: "2115940935|Because it allows to extract information from a corpse."
+
+    - NEXT: section_randomizer_apprentice_trial_q3
+
+  section_randomizer_apprentice_trial_q3:
+    - section_apprentice_trial_q3a
+    - section_apprentice_trial_q3b
+
+  section_apprentice_trial_q3a:
+    - CUE: shot_apprentice_trial_q3a
+    - nr_master_mage: "2115940900|From which element does the witcher's Quen sign derive its power?"
+
+    - NEXT: section_choice_trial_q3a
+
+  section_apprentice_trial_q3b:
+    - CUE: shot_apprentice_trial_q3b
+    - nr_master_mage: "2115940901|Of all the magical elements, which one is considered the most hazardous?"
+
+    - NEXT: section_choice_trial_q3b
+
+  section_choice_trial_q3a:
+    - CHOICE:
+      - choice: [ "2115940936|Air.", section_apprentice_trial_q3a_a]
+        emphasize: true
+      - choice: [ "2115940937|Water.", section_apprentice_trial_q3a_b]
+        emphasize: true
+      - choice: [ "2115940938|Fire.", section_apprentice_trial_q3a_c]
+        emphasize: true
+      - choice: [ "2115940939|Earth.", section_apprentice_trial_q3a_d]
+        emphasize: true
+      - TIME_LIMIT: 10.0
+
+  section_choice_trial_q3b:
+    - CHOICE:
+      - choice: [ "2115940936|Air.", section_apprentice_trial_q3b_a]
+        emphasize: true
+      - choice: [ "2115940937|Water.", section_apprentice_trial_q3b_b]
+        emphasize: true
+      - choice: [ "2115940938|Fire.", section_apprentice_trial_q3b_c]
+        emphasize: true
+      - choice: [ "2115940939|Earth.", section_apprentice_trial_q3b_d]
+        emphasize: true
+      - TIME_LIMIT: 10.0
+
+  section_apprentice_trial_q3a_a:
+    - CUE: shot_apprentice_trial_q3a_a
+    - sorceress: "2115940936|Air."
+
+    - NEXT: section_apprentice_trial_result
+
+  section_apprentice_trial_q3a_b:
+    - CUE: shot_apprentice_trial_q3a_b
+    - sorceress: "2115940937|Water."
+
+    - NEXT: section_apprentice_trial_result
+
+  section_apprentice_trial_q3a_c:
+    - CUE: shot_apprentice_trial_q3a_c
+    - sorceress: "2115940938|Fire."
+
+    - NEXT: section_apprentice_trial_result
+
+  section_apprentice_trial_q3a_d:
+    - CUE: shot_apprentice_trial_q3a_d
+    - sorceress: "2115940939|Earth."
+
+    - NEXT: section_apprentice_trial_result
+
+  section_apprentice_trial_q3b_a:
+    - CUE: shot_apprentice_trial_q3b_a
+    - sorceress: "2115940936|Air."
+
+    - NEXT: section_apprentice_trial_result
+
+  section_apprentice_trial_q3b_b:
+    - CUE: shot_apprentice_trial_q3b_b
+    - sorceress: "2115940937|Water."
+
+    - NEXT: section_apprentice_trial_result
+
+  section_apprentice_trial_q3b_c:
+    - CUE: shot_apprentice_trial_q3b_c
+    - sorceress: "2115940938|Fire."
+
+    - NEXT: section_apprentice_trial_result
+
+  section_apprentice_trial_q3b_d:
+    - CUE: shot_apprentice_trial_q3b_d
+    - sorceress: "2115940939|Earth."
+
+    - NEXT: section_apprentice_trial_result
+
+  section_apprentice_trial_result:
+    - PAUSE: 0.0
+    - NEXT:
+        condition: [ "nr_scene_trial_correct", ">", 3 ]
+        on_true: section_apprentice_trial_passed
+        on_false: section_apprentice_trial_failed
+
+  section_apprentice_trial_failed:
+    - NEXT:
+        condition: [ "nr_scene_trial_correct", ">", 0 ]
+        on_true: section_apprentice_trial_failed_2
+        on_false: section_apprentice_trial_failed_1
+
+  section_apprentice_trial_failed_1:
+    - CUE: shot_apprentice_trial_failed_1
+    - nr_master_mage: "2115940903|Don't they teach you a thing in Aretuza? You've managed to answer all my questions wrong."
+
+    - NEXT: section_apprentice_trial_failed_2
+
+  section_apprentice_trial_failed_2:
+    - CUE: shot_apprentice_trial_failed_2
+    - nr_master_mage: "2115940902|You requires further preparation. You can make use of my ship's library."
+
+    - NEXT: section_choice_main
+
+  section_apprentice_trial_passed:
+    - CUE: shot_apprentice_trial_passed_1
+    - nr_master_mage: "2115940904|Very well, you're prepared. And you've already familiarized with the basic spells."
+    - CUE: shot_apprentice_trial_passed_2
+    - nr_master_mage: "2115940905|You can learn new advanced spells, or improve the ones you already know."
+    - CUE: shot_apprentice_trial_passed_3
+    - nr_master_mage: "2115940906|Remember, you must successfully perform every new spell several times before advancing to the next one."
+
+    - NEXT: section_choice_main
+
+  section_apprentice_new_spells:
+    - NEXT:
+        condition: [ "nr_magic_skill_points", ">", 0 ]
+        on_true: section_check_choose_apprentice_new_spells
+        on_false: section_apprentice_no_new_spells
+
+  section_apprentice_no_new_spells:
+    - NEXT:
+        condition: [ "nr_magic_skill_level", ">", 4 ]
+        on_true: section_apprentice_no_new_spells_archmistress
+        on_false: section_apprentice_no_new_spells_wait
+
+  section_apprentice_no_new_spells_archmistress:
+    - CUE: shot_apprentice_no_new_spells_archmistress
+    - nr_master_mage: "2115940913|I have teached you all the advanced spells. Meaning, I am currently unable to provide further knowledge."
+
+    - NEXT: section_choice_main
+
+  section_apprentice_no_new_spells_wait:
+    - CUE: shot_apprentice_no_new_spells_wait
+    - nr_master_mage: "2115940908|Your level of magic is still insufficient to delve into new spells."
+
+    - NEXT: section_choice_main
+
+  section_check_choose_apprentice_new_spells:
+    - NEXT:
+        condition: [ "nr_magic_skill_practising", ">", 0 ]
+        on_true: section_cant_choose_apprentice_new_spells
+        on_false: section_can_choose_apprentice_new_spells
+
+  section_cant_choose_apprentice_new_spells:
+    - CUE: shot_cant_choose_apprentice_new_spells
+    - nr_master_mage: "2115940907|Before moving on, you still need to practice the spell we studied last time."
+
+    - NEXT: section_choice_main
+
+  section_can_choose_apprentice_new_spells:
+    - CUE: shot_choose_apprentice_new_spells
+    - nr_master_mage: "2115940910|You must decide which one sparks your interest."
+
+    - NEXT: section_choice_apprentice_new_spells
+
+  section_choice_apprentice_new_spells:
+    - CHOICE:
+      - choice: [ "2115940103|[BACK]", section_choice_main, exit]
+        emphasize: true
+      - choice: [ "2115940146|Heavy attacks", script_apprentice_new_spell_heavy_attacks]
+        condition: [ "nr_magic_skill_level", ">=", 2 ]
+        emphasize: true
+      - choice: [ "2115940145|Fast Travel Teleport", script_apprentice_new_spell_ftt]
+        condition: [ "nr_magic_skill_level", ">=", 2 ]
+        emphasize: true
+      - choice: [ "2115940156|Shield", script_apprentice_new_spell_shield]
+        condition: [ "nr_magic_skill_level", ">=", 2 ]
+        emphasize: true
+      - choice: [ "2115940153|Tornado", script_apprentice_new_spell_tornado]
+        condition: [ "nr_magic_skill_level", ">=", 3 ]
+        emphasize: true
+      - choice: [ "2115940154|Control", script_apprentice_new_spell_control]
+        condition: [ "nr_magic_skill_level", ">=", 3 ]
+        emphasize: true
+      - choice: [ "2115940155|Meteor", script_apprentice_new_spell_meteor]
+        condition: [ "nr_magic_skill_level", ">=", 4 ]
+        emphasize: true
+      - choice: [ "2115940157|Servant", script_apprentice_new_spell_servant]
+        condition: [ "nr_magic_skill_level", ">=", 4 ]
+        emphasize: true
+      - choice: [ "2115940162|Alzur's Thunder", script_apprentice_new_spell_thunder]
+        condition: [ "nr_magic_skill_level", ">=", 4 ]
+        emphasize: true
+      - choice: [ "2115940163|???", script_apprentice_new_spell_unknown]
+        condition: [ "nr_magic_skill_level", ">=", 4 ]
+        emphasize: true
+      - choice: [ "2115940164|Melgar's fire", script_apprentice_new_spell_melgar]
+        condition: [ "nr_magic_skill_level", ">=", 5 ]
+        emphasize: true
+      - choice: [ "2115940166|Polymorphism", script_apprentice_new_spell_polymorphism]
+        condition: [ "nr_magic_skill_level", ">=", 5 ]
+        emphasize: true
+
+  script_apprentice_new_spell_heavy_attacks:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_HeavyAbstract
+          - value: 1
+    - NEXT: script_apprentice_new_spell_heavy_attacks2
+  script_apprentice_new_spell_heavy_attacks2:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_Rock
+          - value: 1
+    - NEXT: script_apprentice_new_spell_heavy_attacks3
+  script_apprentice_new_spell_heavy_attacks3:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_BombExplosion
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_ftt:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_FastTravelTeleport
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_tornado:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialTornado
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_control:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialControl
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_shield:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialShield
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_meteor:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialMeteor
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_servant:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialServant
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_thunder:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialLightningFall
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_unknown:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialHeal
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_melgar:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialMeteorFall
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_polymorphism:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialPolymorphism
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  section_randomizer_apprentice_after_new_spell:
+    - section_apprentice_after_new_spell_a
+    - section_apprentice_after_new_spell_b
+
+  section_apprentice_after_new_spell_a:
+    - CUE: shot_apprentice_after_new_spell_a
+    - nr_master_mage: "2115940911|I see. I shall instruct you on the steps to perform this spell, and it is your task to practice and master it."
+
+    - NEXT: section_apprentice_after_new_spell_fade_out
+
+  section_apprentice_after_new_spell_b:
+    - CUE: shot_apprentice_after_new_spell_b
+    - nr_master_mage: "2115940912|Understood. I will now explain how to execute this spell, and your responsibility will be to work it out by practicing."
+
+    - NEXT: section_apprentice_after_new_spell_fade_out
+
+  section_apprentice_after_new_spell_fade_out:
+    # addfact here (nr_magic_skill_just_learned)
+    - CUE: shot_apprentice_after_new_spell_fade_out
+    - PAUSE: 1.0
+
+    - NEXT: section_exit_blackscreen
+
+  section_choice_apprentice_remind_spells:
+    - CHOICE:
+      - choice: [ "2115940103|[BACK]", section_choice_main, exit]
+        emphasize: true
+      - choice: [ "2115940095|Basic spells", script_apprentice_remind_basics]
+        emphasize: true
+      - choice: [ "2115940146|Heavy attacks", script_apprentice_remind_heavy]
+        condition: [ "nr_magic_skill_ENR_HeavyAbstract", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940145|Fast Travel Teleport", script_apprentice_remind_ftt]
+        condition: [ "nr_magic_skill_ENR_FastTravelTeleport", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940156|Shield", script_apprentice_remind_shield]
+        condition: [ "nr_magic_skill_ENR_SpecialShield", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940153|Tornado", script_apprentice_remind_tornado]
+        condition: [ "nr_magic_skill_ENR_SpecialTornado", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940154|Control", script_apprentice_remind_control]
+        condition: [ "nr_magic_skill_ENR_SpecialControl", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940155|Meteor", script_apprentice_remind_meteor]
+        condition: [ "nr_magic_skill_ENR_SpecialMeteor", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940157|Servant", script_apprentice_remind_servant]
+        condition: [ "nr_magic_skill_ENR_SpecialServant", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940162|Alzur's Thunder", script_apprentice_remind_thunder]
+        condition: [ "nr_magic_skill_ENR_SpecialLightningFall", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940163|???", script_apprentice_remind_unknown]
+        condition: [ "nr_magic_skill_ENR_SpecialHeal", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940164|Melgar's fire", script_apprentice_remind_meteor_fall]
+        condition: [ "nr_magic_skill_ENR_SpecialMeteorFall", ">=", 1 ]
+        emphasize: true
+      - choice: [ "2115940166|Polymorphism", script_apprentice_remind_polymorphism]
+        condition: [ "nr_magic_skill_ENR_SpecialPolymorphism", ">=", 1 ]
+        emphasize: true
+        
+  script_apprentice_remind_basics:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillBasics"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+
+  script_apprentice_remind_heavy:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillHeavyAttacks"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_ftt:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillFastTravelTeleport"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_tornado:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillTornado"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_control:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillControl"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_shield:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillShield"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_meteor:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillMeteor"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_servant:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillServant"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_thunder:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillLightningFall"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_unknown:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillTODO!!!"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_meteor_fall:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillMeteorFall"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+    
+  script_apprentice_remind_polymorphism:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SorceressSkillPolymorphism"
+          - reminder: true
+    - NEXT: section_pre_choice_main
+
+  script_show_spell_stats_black:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+    - NEXT: section_pre_choice_main
+
+  section_ask_to_ground:
+    - CUE: shot_ask_to_ground_1s
+    - sorceress: "2115940984|I need a portal to get back to the ground."
+
+    - CUE: shot_ask_to_ground_2m
+    - nr_master_mage: "2115940987|Sure, no problem."
+    - CUE: shot_ask_to_ground_3m
+    - PAUSE: 1.0
+
+    - NEXT: script_ask_to_ground_create_ftt
+
+  script_ask_to_ground_create_ftt:
+    - SCRIPT:
+        function: NR_CreatePortal_S
+        parameter:
+          - waypointTag: CNAME_well_village # Broken_bridge
+          - worldName: prolog_village
+          - activeTime: 60.0
+    - NEXT: section_pre_choice_main
+
+  section_exit_blackscreen:
+    - BLACKSCREEN: true
+    - EXIT
+
+  section_exit:
+    - EXIT

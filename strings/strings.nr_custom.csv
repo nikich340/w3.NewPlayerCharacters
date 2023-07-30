@@ -1,6 +1,12 @@
 ;meta[language=en]
 ; id      |key(hex)|key(str)| text
-2115940100|00000000|nr_slot_denied|<font color='#8B0000'>Not allowed to equip items in slot: </font>
+2115940094|00000000||[Open teleport to Master Ainyerahn]
+2115940095|00000000||Basic spells
+2115940096|00000000||Snowbell
+2115940097|00000000||Saved as set #
+2115940098|00000000|item_name_nr_chameleon_potion|Chameleon
+2115940099|00000000|item_desc_nr_chameleon_potion|Allows to change appearance. When a sorceress, allows to customize spells as well.
+2115940100|00000000||Not allowed to equip items in slot: 
 2115940101|00000000||Witcheress
 2115940102|00000000||coloring
 2115940103|00000000||[BACK]
@@ -16,3 +22,148 @@
 2115940113|00000000||Legs
 2115940114|00000000||Shoes
 2115940115|00000000||Misc
+2115940116|00000000||variants
+2115940117|00000000||Player type
+;
+;    162823|Yennefer
+;    334714|Keira Metz
+;    162822|Triss
+;   1157557|Witch of Lynx Crag
+;    300169|Philippa Eilhart
+;    335803|Caranthir
+;    335796|Eredin
+;    583032|Djinn
+;    147158|ERROR
+;
+; Magic stuff : Slash
+2115940118|00000000||Light attacks
+2115940119|00000000||Slash/Throw ratio
+2115940120|00000000||type
+2115940121|00000000||color
+2115940122|00000000||Slash
+2115940123|00000000||Voiceline chance
+; Magic stuff : Colors
+2115940124|00000000||Black
+2115940125|00000000||Grey
+2115940126|00000000||White
+2115940127|00000000||Yellow
+2115940128|00000000||Orange
+2115940129|00000000||Red
+2115940130|00000000||Pink
+2115940131|00000000||Violet
+2115940132|00000000||Blue
+2115940133|00000000||Seagreen
+2115940134|00000000||Green
+2115940135|00000000||Special-1
+2115940136|00000000||Special-2
+2115940137|00000000||Special-3
+; Throw
+2115940140|00000000||Throw
+2115940141|00000000||Lightning
+2115940142|00000000||Projectile
+; HAND FX
+2115940143|00000000||Hand effect
+; TELEPORT
+2115940144|00000000||Teleport
+2115940145|00000000||Fast Travel Teleport
+; HEAVY
+2115940146|00000000||Heavy attacks
+2115940147|00000000||Rocks/Bomb ratio
+2115940148|00000000||Rocks
+2115940149|00000000||Bomb
+2115940150|00000000||Rocks wave
+2115940160|00000000||Rip apart finisher
+; PUSH
+2115940151|00000000||Counter push
+; SPECIAL
+2115940152|00000000||Special spells
+2115940153|00000000||Tornado
+2115940154|00000000||Control
+2115940155|00000000||Meteor
+2115940156|00000000||Shield
+2115940157|00000000||Servant
+2115940161|00000000||Servant spawn fx
+; SPECIAL 2
+2115940158|00000000||Alternative special spells
+2115940159|00000000||Your spell is <font color='#FF0000'>BACKFIRING</font> you: 
+2115940162|00000000||Alzur's Thunder
+2115940163|00000000||???
+2115940164|00000000||Melgar's fire
+2115940165|00000000||Lumos
+2115940166|00000000||Polymorphism
+;
+2115940199|00000000||Master Ainyerahn
+; SKILLS, TUTORIALS
+2115940200|00000000||Novice
+2115940201|00000000||Apprentice
+2115940202|00000000||Experienced
+2115940203|00000000||Mistress
+2115940204|00000000||Arch-Mistress
+2115940205|00000000||Unlocked skills
+;
+2115940206|00000000||Welcome to Custom Player Characters (CPC) Mod!
+2115940207|00000000||Special "{2115940098}" potion was added to your inventory. Use it and exit inventory to launch player setup scene.<br><br>Important note: until you decide to use potion, the mod has zero impact on your game.<br><br>Good luck on the Path!<br>
+2115940208|00000000||You have reached new magic level!
+2115940198|00000000||You have learned new magic skill!
+2115940197|00000000||New magic level: 
+2115940196|00000000||New magic skill: 
+2115940195|00000000||This is a reminder.
+2115940194|00000000||Magic skills progress.
+2115940193|00000000||New skill level!
+; Novice
+2115940209|00000000||You have basic magic skills:<br><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142})</b><br>  {1077642}/{1084067}: Press "Light attack" button (the same as for sword) to perform.<br>  Other modes: Press "Use slot 4" button to perform.<br><br><b>- {2115940151}</b><br>  Press "Parry" button (the same as for sword) to perform.<br><br><b>- {2115940144}</b><br>  {1077642}: Press movement buttons (to control direction, optional) + "Roll" (far distance) / "Dodge" (close distance) button to perform.<br>  {1084067}: Press movement buttons (to control direction, optional) + "Use slot 4" button to perform.<br><br><b>- {2115940158}</b><br>  {2115940165}: Select Yrden sign and <i>hold</i> "Cast sign" button to perform. Hold this button again to dispell.<br><br><i>The more you use the skill, the more powerful it becomes and more skill abilities are unlocked.</i><br><i>Follow the quest to find a teacher and learn new spells!</i><br>
+; Apprentice
+2115940210|00000000||You are ready to learn new magic skills:<br><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b><br><b>- {2115940145}</b><br><br><i>You must visit {2115940199} to learn them.</i><br>
+; Apprentice - heavy attacks learned
+2115940211|00000000||<b>- {2115940146} ({2115940148}, {2115940149}, {2115940160})</b><br>  Press "Heavy attack" button or "Light attack + heavy attack modifier" (the same as for sword) to perform.<br>  {2115940148} and {2115940149} take turns in a ratio of 2:1 (can be changed in player setup scene).<br>  {2115940160} will be performed with 15% chance if victim has less than 15% of health. These values can be improved by practising.<br>  NOTE: You can't use {2115940160} on bosses.<br>
+; Apprentice - fast travel teleport learned
+2115940212|00000000||<b>- {2115940145}</b><br>  Open world map and click on <i>any</i> signpost icon to perform.<br>
+; Experienced
+2115940213|00000000||You are ready to learn new magic skills:<br><b>- {2115940152} ({2115940153}, {2115940154}, {2115940156})</b><br><br><i>You must visit {2115940199} to learn them.</i><br>
+; Experienced - Tornado learned
+2115940214|00000000||<b>- {2115940153}</b><br>  Select <i>Aard</i> sign (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after expiration. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+; Experienced - Control learned
+2115940215|00000000||<b>- {2115940154}</b><br>  Select <i>Axii</i> sign (default, can be changed in player setup scene), select target enemy and <i>press</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after expiration. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+; Experienced - Shield learned
+2115940216|00000000||<b>- {2115940156}</b><br>  Select <i>Quen</i> sign (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br>
+; Mistress
+2115940217|00000000||You are ready to learn new magic skills:<br><b>- {2115940152} ({2115940155}, {2115940157})</b><br><b>- {2115940158} ({2115940162}, {2115940163})</b><br><br><i>You must visit {2115940199} to learn them.</i><br>
+; Mistress - Meteor learned
+2115940218|00000000||<b>- {2115940155}</b><br>  Select <i>Igni</i> sign (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+; Mistress - Servant learned
+2115940219|00000000||<b>- {2115940155}</b><br>  Select <i>Yrden</i> sign (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after expiration. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+; Mistress - Alzur's thunder learned
+2115940220|00000000||<b>- {2115940162}</b><br>  Select <i>Aard</i> sign (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+; Mistress - ??? learned
+2115940221|00000000||<b>- {2115940163}</b><br>  Select <i>Axii</i> sign (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+; Arch-Mistress
+2115940222|00000000||You are ready to learn new magic skills:<br><b>- {2115940158} ({2115940164}, {2115940166})</b><br><br><i>You must visit {2115940199} to learn them.</i><br>
+; Arch-Mistress - Melgar's fire learned
+2115940223|00000000||<b>- {2115940164}</b><br>  Select <i>Igni</i> sign (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+; Arch-Mistress - Polymorphism learned
+2115940224|00000000||<b>- {2115940166}</b><br>  Select <i>Yrden</i> sign (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br>
+2115940225|00000000||Performs
+2115940226|00000000||Customization [allows you to change visual and other aspects, always unlocked at skill level 1]
+2115940227|00000000||Special abilities [additional bonuses for the spell, do not affect stamina cost]
+2115940228|00000000||Double slash [additional slash gives +50% to damage]
+2115940229|00000000||Auto-aim [projectiles adjust the trajectory]
+2115940230|00000000||Lightning rebound [additional lightning with 50% of damage strikes another opponent]
+2115940231|00000000||Full blast [spherical wave throws enemies from all sides]
+2115940232|00000000||Auto-Counter push [when teleporting to a new position, a counter push is performed with 40% chance, and +1% chance at each skill level]
+2115940233|00000000||Puppets upscaling [increases the target's level by 3 during control]
+2115940234|00000000||Max puppets [maximum of controlled entities in total, which can exist at the same time]
+2115940235|00000000||Max servants [maximum of summoned servants in total, which can exist at the same time]
+2115940236|00000000||Max tornados [maximum of created tornados in total, which can exist at the same time]
+2115940237|00000000||Following the player [servants follow the player]
+2115940238|00000000||Servant types [which servants you can summon, unlocked types can be selected in player setup scene]
+2115940239|00000000||Target pursuit [pursues a target during all the time]
+2115940240|00000000||Meteors count [number of meteors at one cast]
+2115940241|00000000||Damage absorption (100% = max player HP)
+2115940242|00000000||The skill is not learned
+2115940243|00000000||<i>Legend</i>: <font color="#FF0000">red = locked</font>, <font color="#00FF00">green = unlocked (learned)/bonus</font>
+2115940244|00000000||Damage control [the spell deals damage only to hostile entities, but the player still takes damage if the spell is BACKFIRING him]
+2115940245|00000000||Burning [sets enemies on fire for 5 seconds with a 20% chance, and +1% chance at each skill level]
+2115940246|00000000||Freezing [freezes enemies for 5 seconds with a 20% chance, and +1% chance at each skill level]
+2115940247|00000000||Lightnings/Meteors count [number of lightnings/meteors at one time interval]
+2115940248|00000000||Lightnings/Meteors interval [time between lightnings/meteors creating]
+;

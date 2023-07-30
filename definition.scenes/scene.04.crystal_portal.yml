@@ -1,0 +1,242 @@
+repository:
+  actors:
+    sorceress:
+      template: "dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent"
+      #appearance: [ "nr_player" ]
+
+  props:
+    th701_portal_crystal_glowing:
+      template: "dlc\\bob\\data\\quests\\minor_quests\\quest_files\\th701_archmastergear\\th701_wolf\\entities\\th701_portal_crystal_glowing.w2ent"
+
+  animations:
+    anim_4231_geralt_finding_clues_low_end:
+      animation: "geralt_finding_clues_low_end"
+      frames: 30
+
+    anim_12665_high_standing_determined_gesture_show_hold:
+      animation: "high_standing_determined_gesture_show_hold"
+      frames: 233
+
+    anim_12082_woman_sorceress_special_attack_fireball_lp:
+      animation: "woman_sorceress_special_attack_fireball_lp"
+      frames: 90
+
+  actor.poses:
+    pose_0_high_standing_determined_idle:
+      idle_anim: "high_standing_determined_idle"
+
+    pose_2127_High_Standing_Determined:
+      name: "Standing"
+      emotional_state: "Determined"
+      status: "High"
+      idle_anim: "high_standing_determined_idle"
+
+  cameras:
+    cam_1_Shot1_clues_stop:
+      fov: 40.0
+      transform:
+        pos: [ -3.7499997616, 0.2664794624, 1.9489572048 ]
+        rot: [ 0.0, 340.2000122070, 240.7625732422 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_2_Shot2_show_clue:
+      fov: 40.0
+      transform:
+        pos: [ -3.7619626522, 1.4202116728, 1.9989564419 ]
+        rot: [ 0.0, 347.0, 226.9875946045 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_4_Shot4_cast_teleport_show_togame:
+      fov: 40.0
+      transform:
+        pos: [ -3.4338986874, -2.4818723202, 1.9989564419 ]
+        rot: [ 0.0, 350.9749755859, 319.6625976562 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 810
+
+  placement: "newreplacers_prologue_crystal_sp"
+    # INFO: world coordinates of used origin:
+      #pos: [ -262.0, -257.0, 12.0 ]
+      #rot: [ 0.0, 0.0, 0.0 ]
+
+  assets:
+    actors:
+      sorceress:
+        repo: "sorceress"
+        by_voicetag: false
+        tags: [ "PLAYER" ]
+
+    props:
+      th701_portal_crystal_glowing:
+        repo: "th701_portal_crystal_glowing"
+
+    cameras:
+      cam_1_Shot1_clues_stop:
+        repo: "cam_1_Shot1_clues_stop"
+
+      cam_2_Shot2_show_clue:
+        repo: "cam_2_Shot2_show_clue"
+
+      cam_4_Shot4_cast_teleport_show_togame:
+        repo: "cam_4_Shot4_cast_teleport_show_togame"
+
+    animations:
+      sorceress_finding_clues_low_end:
+        actor: "sorceress"
+        repo: "anim_4231_geralt_finding_clues_low_end"
+        #duration: 1.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_high_standing_determined_gesture_show_hold:
+        actor: "sorceress"
+        repo: "anim_12665_high_standing_determined_gesture_show_hold"
+        #duration: 3.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_special_attack_fireball_lp:
+        actor: "sorceress"
+        repo: "anim_12082_woman_sorceress_special_attack_fireball_lp"
+        #duration: 3.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+    actor.poses:
+      sorceress_high_standing_determined_idle:
+        actor: "sorceress"
+        repo: "pose_0_high_standing_determined_idle"
+
+      sorceress_High_Standing_Determined:
+        actor: "sorceress"
+        repo: "pose_2127_High_Standing_Determined"
+
+storyboard:
+  defaults:
+    placement:
+      sorceress: [[ -1.7178648710, -1.2962645292, 0.4677600265 ], [ 0.0, 0.0, 20.2000026703 ]]
+
+    actor.pose:
+      sorceress: sorceress_High_Standing_Determined
+
+  section_start:
+    # shot Shot1 clues stop
+    shot_1:
+      - fade.in: [0.0, 0.5]
+      #- actor.placement: [0.0, sorceress, [ -1.7178648710, -1.2962645292, 0.4677600265 ], [ 0.0, 0.0, 20.2000026703 ]]
+      #- actor.pose: [0.0, geralt_high_standing_determined_idle]
+      - cam: [0.0, cam_2_Shot2_show_clue]
+      - actor.anim: 
+          .@pos: [0.0, sorceress_finding_clues_low_end]
+          blendin: 0.0
+          blendout: 0.5
+          stretch: 1.25      
+
+    # shot Shot2 show clue
+    shot_2:
+      #- actor.pose: [0.0, fringilla_vigo_High_Standing_Determined]
+      #- prop.placement: [0.0, th701_portal_crystal_glowing, [ -1.6140135527, -0.9881896377, 1.3818758726 ], [ 0.0, 95.1999664307, 51.3000144958 ]]
+      #- cam: [0.0, cam_2_Shot2_show_clue]
+      - prop.attach:
+          # time, prop, slot (== name of bone prop will be attached to)
+          .@pos: [0.1, th701_portal_crystal_glowing, sorceress, r_weapon]
+          # prop offset relative to the bone/slot
+          pos: [0.09, 0.035, 0.0]
+          #rot: [0.0, 0.0, 0.0]
+          # teleports prop entity from current location to bone location (+ prop offset)
+          snap_at_start: true
+          # show/hide prop on processing event (default is true)
+          show: true
+
+      - cam.blend.start: [0.0, cam_2_Shot2_show_clue, smooth]
+      # Perform at 1.32/3.00 = 0.44
+      - actor.anim: 
+          .@pos: [0.0, sorceress_high_standing_determined_gesture_show_hold]
+          blendin: 0.4
+          blendout: 0.3
+      - actor.lookat: [0.2, sorceress, [ -0.2085874081, 0.7937171459, 0.9709357023 ]]
+      - actor.lookat: [0.8, sorceress, NONE]
+      - prop.detach: [0.8, th701_portal_crystal_glowing, true] # hide = true
+
+    # shot Shot3 cast teleport
+    shot_3:
+      - actor.effect.start: [0.2, sorceress, q210_portal_spell_blue]
+      - actor.effect.stop: [0.999, sorceress, q210_portal_spell_blue]
+      - world.addfact: [0.44, nr_scene_ship_portal_created, 1]
+      - cam.blend.end: [0.999, cam_4_Shot4_cast_teleport_show_togame, smooth]
+      - actor.anim: 
+          .@pos: [0.0, sorceress_woman_sorceress_special_attack_fireball_lp]
+          blendin: 0.3
+          blendout: 0.3
+
+    # shot Shot4 cast teleport show togame
+    shot_4_togame:
+      - cam.blend.togame: [0.0, cam_4_Shot4_cast_teleport_show_togame]
+
+dialogscript:
+  player: "sorceress"
+  actors: [ "sorceress" ]
+  props: [ "th701_portal_crystal_glowing" ]
+
+  section_start:
+    # shot Shot1 clues stop
+    - CUE: shot_1
+    - PAUSE: 1.25
+    # shot Shot2 show clue
+    - CUE: shot_2
+    # (longest) anim: high_standing_determined_gesture_show_hold
+    - sorceress: "[7.4710]2115940062|Megascope_crystal..."
+    # shot Shot3 cast teleport
+    - CUE: shot_3
+    - PAUSE: 3.0
+    # shot Shot4 cast teleport show togame
+    - CUE: shot_4_togame
+    # (longest) anim: high_standing_determined_gesture_show_hold
+    - PAUSE: 1.0
+    - NEXT: section_exit
+
+  section_exit:
+    - CAMERA_BLEND: 2.0
+    - EXIT
+

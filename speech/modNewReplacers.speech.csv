@@ -1,0 +1,212 @@
+;meta[language=en]
+; id      |key(hex)|key(str)| text
+;
+; rename this file to mod<YOUR MODNAME>.speech.csv and
+; add all strings for custom voicelines like the example line below.
+;
+; make sure the XXXX is the string id-space of the project and nnn is unique
+; for every line.
+;
+;211XXXXnnn|||example voiceline text
+;
+;0001192021|||Quite true.
+2115940050|||Arha'an lumar!
+2115940051|||Cais'te aet disgleir!
+2115940052|||Gveryd me cassel!
+2115940053|||Greame et dwyr!
+2115940054|||Rhobeir'me gelle!
+2115940055|||Greame et dwyr!
+2115940056|||Ess pyr'shena a et cleytte!
+2115940057|||Nevid! Ariva!
+2115940058|||Agored, teirgan.
+2115940059|||Vryff cais'te aem gyhar!
+2115940060|||I sense a great power within me… But I need to learn how to channel it. I need a teacher.
+2115940061|||Interesting, maybe there is some magic in that place. I should check.
+2115940062|||The Megascope crystal! And the magical trail clearly points to its source. I shall try to conjure a portal to that location.
+2115940063|||Wow, what place is this?
+2115940064|||A powerful flow of magic emanates from this stone…
+2115940065|||Oh, no, not that!
+2115940066|||*shriek*
+2115940067|||Oh…
+; *shriek*
+; Кристалл мегаскопа. И магический след явно указывает на исходное местоположение. Попробую создать портал туда.
+2115940068|||You saved me life. Who might you be? And where the blazes am I?
+2115940069|||Wish I were a sorceress…
+; Who created you?
+2115940070|||Qued se creoest?
+; Go to me!
+2115940071|||Caem a me!
+; Calm down, girl
+2115940072|||Caelm, luned.
+; Purifying the blood from poison
+2115940073|||Aeksin a'bloed vort nimh!
+2115940074|||Hey, can you hear me?
+2115940075|||D'yaebl! She's still dying…
+; I breathe life into you
+2115940076|||Me aedit'ef a'vita as te!
+2115940077|||Maith.
+; swears
+2115940078|||An'badraigh aen cuach.
+2115940079|||Gar'ean!
+2115940080|||Ess'tuath esse!
+; 
+2115940850|||Cead, luned. Conas esseath aelaedde?
+2115940851|||I'm fine, thank you. Do you speak the Common Tongue?
+2115940852|||Squaess… Excuse me. I've taken to speakin' to meself in Hen Llinge.
+2115940853|||Where am I? This ship and icy environment…
+2115940854|||…are floating mid-air, true. I've been exploring the origins of a formidable magic intersection, which was located in the ice of the North Sea.
+2115940855|||Was located?
+2115940856|||Yes, when I tried to manipulate the flow of magic towards the air element, it rupted the space and whisked me away to this spot, along with everything' ye now witness.
+2115940857|||It appears that the intersection is produced by that stone. At times, the flow becomes unruly, attractin' hostile creatures.
+2115940858|||So it seems I've stirred up a surge in the flow…
+2115940859|||Hahaha, indeed. Every time I make contact with the stone, a like event takes place. It's reminiscent of the workings of Alzur's Double Cross magic, I'd say.
+2115940860|||Now I reckon I understand. Well, probably, at least…
+; greetings to apprentice
+2115940861|||Cead, my young apprentice.
+2115940862|||A pleasure to witness the presence of the most formidable sorceress… aboard this ship.
+2115940863|||Warms me heart to lay eyes upon my apprentice.
+; greetings common
+2115940864|||Greetings.
+2115940865|||Welcome back!
+; exit
+2115940867|||See you later.
+2115940868|||Farewell.
+2115940869|||So long.
+; teaching dialogs
+2115940870|||I would like to become your apprentice.
+2115940871|||Tell me about yourself.
+2115940872|||How unexpected… Why? Undoubtedly, you could have acquired more knowledge at Aretuza.
+2115940873|||I was banished from that place.
+2115940874|||The weight of their relentless demands became too much for me to endure.
+2115940875|||Was it because you dabbled in forbidden arts?
+2115940876|||Yes, I summoned a demon.
+2115940877|||Yes, I dared to tinker with necromancy.
+2115940878|||No, I killed a teacher by an accident.
+2115940879|||No, I'd rather not speak of it.
+2115940880|||I lost control over it almost immediately, and ere rector could halt the demon, it killed several novices…
+2115940881|||And to accomplish this, I pilfered magic crystals from our mentor's megascope…
+2115940882|||Do you now carry regret for what you've done?
+2115940883|||Yes, very much.
+2115940884|||Not really.
+2115940885|||It was crucial for me to hear those words.
+2115940886|||You failed to grasp that lesson, hence ye shall not learn mine either.
+2115940887|||Hope I ain't meant to be the next…
+2115940888|||Well, sure not!
+2115940889|||As you wish.
+2115940890|||I comprehend you well enough.
+2115940891|||Hmm… 'Tis been quite some time since I last took on apprentices…
+2115940892|||Please! I… I will not fail you.
+2115940893|||Well, first you must demonstrate your readiness.
+2115940894|||I shall pose a few questions to you.
+2115940895|||What is Magic?
+2115940896|||What mages were responsible for the creation of the first witchers?
+2115940897|||Who was the first human sorceress and a virtuoso of air magic?
+2115940898|||What type of magic grants the ability to perceive the current fate of individuals?
+2115940899|||Why was the practice of necromancy forbidden?
+2115940900|||From which element does the witcher's Quen sign derive its power?
+2115940901|||Of all the magical elements, which one is considered the most hazardous?
+; master dialogs
+2115940902|||You need further preparation. You can make use of my ship's library.
+2115940903|||Don't they teach you a thing in Aretuza? You've managed to answer all my questions wrong.
+2115940904|||Very well, you're prepared. And you've already familiarized with the basic spells.
+2115940905|||You can learn new advanced spells, or improve the ones you already know.
+2115940906|||Remember, you must successfully perform every new spell several times before advancing to the next one.
+2115940907|||Before moving on, you still need to practice the spell we studied last time.
+2115940908|||Your level of magic is still insufficient to delve into new spells.
+2115940909|||By the way, you've reached the point where you can learn new spells.
+2115940910|||You must decide which one sparks your interest.
+2115940911|||I see. I shall instruct you on the steps to perform this spell, and it is your task to practice and master it.
+2115940912|||Understood. I will now explain how to execute this spell, and your responsibility will be to work it out by practicing.
+2115940913|||I have teached you all the advanced spells. Meaning, I am currently unable to provide further knowledge.
+2115940914|||Call me Ainyerahn. My father, a seasoned sailor, often took me along on his maritime expeditions. However, one fateful day, a tempestuous storm mercilessly wrecked our ship.
+2115940915|||Amidst the chaos, wreckage of the ship and drowning sailors, a blinding flash consumed me, and I awake in the depths of Kaedwen's forests.
+2115940916|||I lost my father that day, but fate granted me the chance to study at the esteemed academy of mages. Although, during my final year at Ban Ard, circumstances compelled my departure..
+2115940917|||Since then, my focus has been on researching magical anomalies and intersections. Purposefully distant from the conflicts of the noble houses and the ignorance of the masses.
+2115940918|||I would like to learn new spells.
+2115940919|||Could you please remind me how to cast…
+2115940985|||About my successes in practice…
+2115940986|||About my successes in practice…
+; sorceress answers
+; q0
+2115940920|||Energy of 6 elements.
+2115940921|||Bright flashes and sparks.
+2115940922|||Art and science of controlling chaos.
+2115940923|||Easy way to get what you want.
+; q1A
+2115940924|||Geoffrey Monck and Raffard the White.
+2115940925|||Alzur and Cosimo Malaspina.
+2115940926|||Nina Fioravanti and Aurora Henson.
+2115940927|||Ortolan and Sorel Degerlund.
+; q1B
+2115940928|||Agnes of Glanville.
+2115940929|||Klara Larissa de Winter.
+2115940930|||Tissaia de Vries.
+2115940931|||Lara Dorren aep Shiadhal.
+; q2A
+2115940975|||Goetia.
+2115940976|||Transmutation.
+2115940977|||Lesbomancy.
+2115940978|||Hydromancy.
+; q2B
+2115940932|||Because it requires a huge amount of energy.
+2115940933|||Because of a superstitious fear of the dead.
+2115940934|||Because it always lead to entirely negative side effects, despite any motives.
+2115940935|||Because it allows to extract information from a corpse.
+; q3A/B
+2115940936|||The Air Element.
+2115940937|||The Water Element.
+2115940938|||The Fire Element.
+2115940939|||The Earth Element.
+; Golem creation
+2115940940|||Ah, greetings, apprentice. Could you assist me with something?
+2115940941|||Yes, what happened?
+2115940942|||Sorry, no time for this.
+2115940943|||Before your arrival, there were moments when I found myself contemplating the insidious nature of loneliness. That's why I welcomed a feline companion into my life, and the idea of crafting a loyal golem has crossed my mind on numerous occasions.
+2115940944|||However, every attempt I made resulted in unsatisfactory outcomes. Presently, I have the utmost confidence that, in collaboration with you, we can bring into existence an astounding creature.
+2115940945|||Are there any risks we should be aware of?
+2115940946|||Unless you deem a wasted obsidian heart or an unruly, hostile heap of stone as significant risks, then no.
+2115940947|||Sure. This is gonna be interesting.
+2115940948|||Sorry, I'm not sure I can help.
+2115940949|||So, let us begin. I will summon the enlivening thunder, and while I do, you shall infuse it with the elements of earth and water, maintaining an equal balance.
+; Я призываю звёздные молнии жизни! (Ainyerahn);
+2115940950|||Me galwad iersann sigellen aep vita!
+2115940951|||You've made a right mess of it! The elements of earth and water should have been mixed in equal parts, not skewed like this!
+2115940952|||Hey… What is your name? What is your goal?
+2115940953|||I am Celestine. I protect my creators, master and mistress. And do what they order.
+2115940954|||Brilliant! We have succeeded! The aspect of water gives him extraordinary mindset. Welcome to my ship, Celestine.
+2115940955|||Thank you, master.
+; Dialogs with Celestine
+2115940956|||Mistress. A pleasure.
+2115940957|||Morning. Nice day.
+2115940958|||1. Are you aware of yourself?
+2115940959|||I was in the earth, water, air. Everywhere. And now I am here.
+2115940960|||2. Do you have any wishes?
+2115940961|||Calmness. Silence. Slowness.
+2115940962|||3. What will you do if we disappear?
+2115940963|||Fulfill your last will. Protect your property.
+2115940964|||4. How many will be two plus six?
+2115940965|||Hmm.. Ten minus two.
+2115940966|||5. Do you like this place?
+2115940967|||Yes. It is quiet, blue, beautiful.
+2115940968|||6. Are you experiencing emotions?
+2115940969|||I follow the algorithm. Anything outside of it is an annoyance. The rest is a calmness.
+; Farewell
+2115940970|||I shall wait.
+2115940971|||Luck to you.
+; Auto-onelines
+2115940972|||I am strong as a rock.
+2115940973|||I am nice as a crystal.
+2115940974|||I am smart as water.
+; Attack-oneliners
+2115940979|||Intruders!
+2115940980|||Red Alert!
+2115940981|||Going into combat mode!
+2115940982|||Calmness has been restored.
+2115940983|||Intruders have been eliminated.
+2115940984|||I need a portal to get back to the ground.
+; 85, 86 used
+2115940987|||Sure, no problem.
+2115940988|||I am ready.
+; Я вдыхаю в тебя воду и землю! (Sorceress)
+2115940989|||Me aedit'ef a'lagi shed a'ear as te!
+;

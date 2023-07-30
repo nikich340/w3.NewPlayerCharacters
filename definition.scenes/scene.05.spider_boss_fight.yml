@@ -1,0 +1,1324 @@
+repository:
+  actors:
+    sorceress:
+      template: "dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent"
+      #appearance: [ "nr_player" ]
+
+    nr_black_spider_34_boss_big:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\nr_blood_spider_boss_big.w2ent"
+      appearance: [ "blood_spider_01" ]
+
+    nr_master:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\nr_master_mage.w2ent"
+      appearance: [ "nr_master_mage" ]
+
+  props:
+    mh306_magic_barrier:
+      template: "quests\\generic_quests\\novigrad\\quest_files\\mh306_dao\\entities\\mh306_magic_barrier.w2ent"
+
+  animations:
+    woman_sorceress_attack_throw_rp_01:
+      animation: "woman_sorceress_attack_throw_rp_01"
+      frames: 60
+      #duration 2 sec
+
+    anim_12113_woman_sorceress_teleport_rp:
+      animation: "woman_sorceress_teleport_rp"
+      frames: 75
+
+    anim_9930_monster_archas_move_walk_f:
+      animation: "monster_archas_move_walk_f"
+      frames: 63
+
+    anim_1326_monster_archas_move_idle_to_walk_turn_l90:
+      animation: "monster_archas_move_idle_to_walk_turn_l90"
+      frames: 40
+
+    anim_12046_woman_sorceress_attack_rp_01:
+      animation: "woman_sorceress_attack_rp_01"
+      frames: 60
+
+    anim_1320_monster_archas_hit_dynamic_heavy_front_2:
+      animation: "monster_archas_hit_dynamic_heavy_front_2"
+      frames: 25
+
+    anim_1304_monster_archas_attack_dynamic_heavy_1:
+      animation: "monster_archas_attack_dynamic_heavy_1"
+      frames: 58
+
+    anim_12048_woman_sorceress_attack_slash_left_lp:
+      animation: "woman_sorceress_attack_slash_left_lp"
+      frames: 69
+
+    anim_1303_monster_archas_attack_dynamic_fast_2:
+      animation: "monster_archas_attack_dynamic_fast_2"
+      frames: 35
+
+    anim_12059_woman_sorceress_effect_knockdown_f_start:
+      animation: "woman_sorceress_effect_knockdown_f_start"
+      frames: 60
+
+    anim_12058_woman_sorceress_effect_knockdown_f_loop:
+      animation: "woman_sorceress_effect_knockdown_f_loop"
+      frames: 10
+
+    anim_9867_monster_archas_attack_dynamic_superheavy_1:
+      animation: "monster_archas_attack_dynamic_superheavy_1"
+      frames: 87
+
+    anim_9560_monster_archas_hit_dynamic_light_front_1:
+      animation: "monster_archas_hit_dynamic_light_front_1"
+      frames: 24
+
+    anim_5466_man_mage_root_attack_end:
+      animation: "man_mage_root_attack_end"
+      frames: 48
+
+    anim_5456_man_mage_force_blast_01:
+      animation: "man_mage_force_blast_01"
+      frames: 40
+
+    anim_9902_monster_archas_effect_stagger_long:
+      animation: "monster_archas_effect_stagger_long"
+      frames: 75
+
+    anim_5453_man_mage_cast_shield_02:
+      animation: "man_mage_cast_shield_02"
+      frames: 67
+
+    anim_9915_monster_archas_idle:
+      animation: "monster_archas_idle"
+      frames: 90
+
+    anim_5479_man_mage_tornado_01_start:
+      animation: "man_mage_tornado_01_start"
+      frames: 30
+
+    anim_1302_monster_archas_attack_dynamic_fast_1:
+      animation: "monster_archas_attack_dynamic_fast_1"
+      frames: 43
+
+    anim_5478_man_mage_tornado_01_loop:
+      animation: "man_mage_tornado_01_loop"
+      frames: 99
+
+    anim_9561_monster_archas_hit_reflected_1:
+      animation: "monster_archas_hit_reflected_1"
+      frames: 45
+
+    anim_9888_monster_archas_block_start:
+      animation: "monster_archas_block_start"
+      frames: 15
+
+    anim_9887_monster_archas_block_loop:
+      animation: "monster_archas_block_loop"
+      frames: 60
+
+    anim_9910_monster_archas_hit_dynamic_light_front_1:
+      animation: "monster_archas_hit_dynamic_light_front_1"
+      frames: 25
+
+    anim_9911_monster_archas_hit_dynamic_light_front_l:
+      animation: "monster_archas_hit_dynamic_light_front_l"
+      frames: 25
+
+    anim_9912_monster_archas_hit_dynamic_light_front_r:
+      animation: "monster_archas_hit_dynamic_light_front_r"
+      frames: 25
+
+    anim_9892_monster_archas_death_f_1:
+      animation: "monster_archas_death_f_1"
+      frames: 75
+
+    anim_5477_man_mage_tornado_01_end:
+      animation: "man_mage_tornado_01_end"
+      frames: 44
+
+    anim_6738_add_reaction_sigh_02:
+      animation: "add_reaction_sigh_02"
+      frames: 114
+
+    anim_5089_man_npc_2hdruid_castspell_fwd:
+      animation: "man_npc_2hdruid_castspell_fwd"
+      frames: 90
+
+    anim_6973_high_standing_determined_calm_exit_back:
+      animation: "high_standing_determined_calm_exit_back"
+      frames: 281
+
+  actor.poses:
+    pose_0_woman_sorceress_idle_lp_01:
+      idle_anim: "woman_sorceress_idle_lp_01"
+
+    pose_0_woman_sorceress_knockdown_f_loop:
+      idle_anim: "woman_sorceress_effect_knockdown_f_loop"
+
+    pose_0_monster_archas_idle:
+      idle_anim: "monster_archas_idle"
+
+    pose_0_high_standing_determined_idle:
+      idle_anim: "high_standing_determined_idle"
+
+    pose_1196_man_mage_root_attack_loop:
+      idle_anim: "man_mage_root_attack_loop"
+
+    pose_704_man_npc_2hhammer_idle_rp:
+      idle_anim: "man_npc_2hhammer_idle_rp"
+
+    pose_1690_monster_archas_block_loop:
+      idle_anim: "monster_archas_block_loop"
+
+  cameras:
+    cam_1_Shot_back1_teleport_out:
+      fov: 40.0
+      transform:
+        pos: [ 12.6562643051, 1.9190672636, 0.8922766447 ]
+        rot: [ 0.0, 355.2999877930, 337.7000122070 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_2_Shot_back2_teleport_in:
+      fov: 35.0
+      transform:
+        pos: [ 9.5666189194, 20.9901714325, 0.1615714878 ]
+        rot: [ 0.0, 356.6750183105, 227.4443511963 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_3_Shot_attack1b_hit:
+      fov: 40.0
+      transform:
+        pos: [ 13.4434804916, 21.3010845184, 0.1615714878 ]
+        rot: [ 0.0, 356.9750061035, 219.6942901611 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_6_Shot_attack1d_hit:
+      fov: 40.0
+      transform:
+        pos: [ 11.9525442123, 20.5293560028, 0.1865730137 ]
+        rot: [ 0.0, 355.2500305176, 254.5942687988 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_7_Shot_attack2a_try_finish_close:
+      fov: 30.0
+      transform:
+        pos: [ 14.6273794174, 23.4289836884, -0.9884985685 ]
+        rot: [ 0.0, 8.4500265121, 206.6695098877 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_7_Shot_attack2a_try_finish:
+      fov: 40.0
+      transform:
+        pos: [ 14.6273794174, 23.4289836884, -0.9884985685 ]
+        rot: [ 0.0, 8.4500265121, 206.6695098877 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_9_Shot_attack2c_stop_cast:
+      fov: 40.0
+      transform:
+        pos: [ 3.1162412167, 16.8622417450, -1.0885351896 ]
+        rot: [ 0.0, 358.0500183105, 252.6945190430 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_10_Shot_attack2d_push:
+      fov: 40.0
+      transform:
+        pos: [ 6.7569270134, 22.6996440887, -1.0885351896 ]
+        rot: [ 0.0, 359.4500122070, 192.5944061279 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_16_Shot_attack3_lop_cast_above:
+      fov: 40.0
+      transform:
+        pos: [ 4.6855463982, 16.2359294891, 1.5364491940 ]
+        rot: [ 0.0, 275.9250183105, 252.6945037842 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_17_Shot_attack4_lop_cast_above2:
+      fov: 40.0
+      transform:
+        pos: [ 6.2641901970, 17.2373943329, 11.1120328903 ]
+        rot: [ 0.0, 275.9000244141, 225.4444732666 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_21_Shot_attack5_death:
+      fov: 40.0
+      transform:
+        pos: [ 2.9409482479, 18.4473247528, -0.7127341628 ]
+        rot: [ 0.0, 354.2250061035, 237.1945190430 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_22_Shot_attack6_sigh:
+      fov: 30.0
+      transform:
+        pos: [ 5.4602961540, 17.8073711395, -1.0377539396 ]
+        rot: [ 0.0, 0.8000140786, 141.6692504883 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_23_Shot_attack7_cast_tie:
+      fov: 30.0
+      transform:
+        pos: [ -1.2154234648, 23.3887004852, -0.4127158523 ]
+        rot: [ 0.0, 357.5250244141, 238.5191955566 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_24_Shot_attack7_go_back:
+      fov: 30.0
+      transform:
+        pos: [ -1.5205992460, 23.3943462372, -0.4127158523 ]
+        rot: [ 0.0, 357.5500183105, 233.1191101074 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 820
+
+  placement: "newreplacers_prologue_ship_sp"
+    # INFO: world coordinates of used origin:
+      #pos: [ -263.0, -326.0, 40.0 ]
+      #rot: [ 0.0, 0.0, 0.0 ]
+  safe_placement: false
+  snap_to_terrain: false
+
+  assets:
+    actors:
+      sorceress:
+        repo: "sorceress"
+        by_voicetag: false
+        tags: [ "PLAYER" ]
+
+      nr_black_spider_34_boss_big:
+        repo: "nr_black_spider_34_boss_big"
+        by_voicetag: false
+        appearance: "blood_spider_01"
+        tags: [ "nr_cross_stone_boss_spider" ]
+
+      nr_master:
+        repo: "nr_master"
+        by_voicetag: false
+        appearance: "nr_master_mage"
+        tags: [ "nr_master_mage" ]
+
+    props:
+      mh306_magic_barrier:
+        repo: "mh306_magic_barrier"
+
+    cameras:
+      cam_1_Shot_back1_teleport_out:
+        repo: "cam_1_Shot_back1_teleport_out"
+
+      cam_2_Shot_back2_teleport_in:
+        repo: "cam_2_Shot_back2_teleport_in"
+
+      cam_3_Shot_attack1b_hit:
+        repo: "cam_3_Shot_attack1b_hit"
+
+      cam_6_Shot_attack1d_hit:
+        repo: "cam_6_Shot_attack1d_hit"
+
+      cam_7_Shot_attack2a_try_finish:
+        repo: "cam_7_Shot_attack2a_try_finish"
+
+      cam_7_Shot_attack2a_try_finish_close:
+        repo: "cam_7_Shot_attack2a_try_finish_close"
+
+      cam_9_Shot_attack2c_stop_cast:
+        repo: "cam_9_Shot_attack2c_stop_cast"
+
+      cam_10_Shot_attack2d_push:
+        repo: "cam_10_Shot_attack2d_push"
+
+      cam_16_Shot_attack3_lop_cast_above:
+        repo: "cam_16_Shot_attack3_lop_cast_above"
+
+      cam_17_Shot_attack4_lop_cast_above2:
+        repo: "cam_17_Shot_attack4_lop_cast_above2"
+
+      cam_21_Shot_attack5_death:
+        repo: "cam_21_Shot_attack5_death"
+
+      cam_22_Shot_attack6_sigh:
+        repo: "cam_22_Shot_attack6_sigh"
+
+      cam_23_Shot_attack7_cast_tie:
+        repo: "cam_23_Shot_attack7_cast_tie"
+
+      cam_24_Shot_attack7_go_back:
+        repo: "cam_24_Shot_attack7_go_back"
+
+    animations:
+      sorceress_woman_sorceress_teleport_rp:
+        actor: "sorceress"
+        repo: "anim_12113_woman_sorceress_teleport_rp"
+        #duration: 2.5000000000
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_move_walk_f:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9930_monster_archas_move_walk_f"
+        #duration: 2.0999999046
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_move_idle_to_walk_turn_l90:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_1326_monster_archas_move_idle_to_walk_turn_l90"
+        #duration: 1.3333333731
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_attack_rp_01:
+        actor: "sorceress"
+        repo: "anim_12046_woman_sorceress_attack_rp_01"
+        #duration: 2.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_hit_dynamic_heavy_front_2:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_1320_monster_archas_hit_dynamic_heavy_front_2"
+        #duration: 0.8333333135
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_attack_dynamic_heavy_1:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_1304_monster_archas_attack_dynamic_heavy_1"
+        #duration: 1.9333332777
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_attack_slash_left_lp:
+        actor: "sorceress"
+        repo: "anim_12048_woman_sorceress_attack_slash_left_lp"
+        #duration: 2.2999999523
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_attack_dynamic_fast_2:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_1303_monster_archas_attack_dynamic_fast_2"
+        #duration: 1.1666666269
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_effect_knockdown_f_start:
+        actor: "sorceress"
+        repo: "anim_12059_woman_sorceress_effect_knockdown_f_start"
+        #duration: 2.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_effect_knockdown_f_loop:
+        actor: "sorceress"
+        repo: "anim_12058_woman_sorceress_effect_knockdown_f_loop"
+        #duration: 0.3333333433
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_attack_dynamic_superheavy_1:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9867_monster_archas_attack_dynamic_superheavy_1"
+        #duration: 2.9000000954
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_1:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9560_monster_archas_hit_dynamic_light_front_1"
+        #duration: 0.8000000119
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_man_mage_root_attack_end:
+        actor: "nr_master"
+        repo: "anim_5466_man_mage_root_attack_end"
+        #duration: 1.6000000238
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_man_mage_force_blast_01:
+        actor: "nr_master"
+        repo: "anim_5456_man_mage_force_blast_01"
+        #duration: 1.3333333731
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_effect_stagger_long:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9902_monster_archas_effect_stagger_long"
+        #duration: 2.5000000000
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_man_mage_cast_shield_02:
+        actor: "nr_master"
+        repo: "anim_5453_man_mage_cast_shield_02"
+        #duration: 2.2333333492
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_idle:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9915_monster_archas_idle"
+        #duration: 3.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_man_mage_tornado_01_start:
+        actor: "nr_master"
+        repo: "anim_5479_man_mage_tornado_01_start"
+        #duration: 1.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_attack_dynamic_fast_1:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_1302_monster_archas_attack_dynamic_fast_1"
+        #duration: 1.4333332777
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_man_mage_tornado_01_loop:
+        actor: "nr_master"
+        repo: "anim_5478_man_mage_tornado_01_loop"
+        #duration: 3.2999999523
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_hit_reflected_1:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9561_monster_archas_hit_reflected_1"
+        #duration: 1.5000000000
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_block_start:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9888_monster_archas_block_start"
+        #duration: 0.5000000000
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_block_loop:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9887_monster_archas_block_loop"
+        #duration: 2.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_l:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9911_monster_archas_hit_dynamic_light_front_l"
+        #duration: 0.8333333135
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_r:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9912_monster_archas_hit_dynamic_light_front_r"
+        #duration: 0.8333333135
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_black_spider_34_boss_big_monster_archas_death_f_1:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "anim_9892_monster_archas_death_f_1"
+        #duration: 0.8333333135
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_man_mage_tornado_01_end:
+        actor: "nr_master"
+        repo: "anim_5477_man_mage_tornado_01_end"
+        #duration: 2.5000000000
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_add_reaction_sigh_02:
+        actor: "nr_master"
+        repo: "anim_6738_add_reaction_sigh_02"
+        #duration: 1.4666666985
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_man_npc_2hdruid_castspell_fwd:
+        actor: "nr_master"
+        repo: "anim_5089_man_npc_2hdruid_castspell_fwd"
+        #duration: 3.7999999523
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_high_standing_determined_calm_exit_back:
+        actor: "nr_master"
+        repo: "anim_6973_high_standing_determined_calm_exit_back"
+        #duration: 3.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+    actor.poses:
+      sorceress_woman_sorceress_idle_lp_01:
+        actor: "sorceress"
+        repo: "pose_0_woman_sorceress_idle_lp_01"
+
+      sorceress_woman_sorceress_knockdown_f_loop:
+        actor: "sorceress"
+        repo: "pose_0_woman_sorceress_knockdown_f_loop"
+
+      nr_black_spider_34_boss_big_monster_archas_idle:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "pose_0_monster_archas_idle"
+
+      nr_master_high_standing_determined_idle:
+        actor: "nr_master"
+        repo: "pose_0_high_standing_determined_idle"
+
+      nr_master_man_mage_root_attack_loop:
+        actor: "nr_master"
+        repo: "pose_1196_man_mage_root_attack_loop"
+
+      nr_master_man_npc_2hhammer_idle_rp:
+        actor: "nr_master"
+        repo: "pose_704_man_npc_2hhammer_idle_rp"
+
+      nr_black_spider_34_boss_big_monster_archas_block_loop:
+        actor: "nr_black_spider_34_boss_big"
+        repo: "pose_1690_monster_archas_block_loop"
+
+    soundbanks:
+      - monster_arachas
+      - nr_quest
+      - grunt_vo_sentry_female
+      - magic_filippa
+      - combat
+
+storyboard:
+  defaults:
+    placement:
+      sorceress: [[ 20.2991313934, 10.8187551498, -0.9077223539 ], [ 0.0, 0.0, 101.6000137329 ]]
+      nr_black_spider_34_boss_big: [[ 11.5728597641, 12.8242483139, -2.5405995846 ], [ 0.0, 0.0, 253.6000061035 ]]
+      nr_master: [[ 21.8444194794, 11.0787038803, -5.4118189812 ], [ 0.0, 0.0, 0.0 ]]
+
+    actor.pose:
+      sorceress: sorceress_woman_sorceress_idle_lp_01
+      nr_black_spider_34_boss_big: nr_black_spider_34_boss_big_monster_archas_idle
+      nr_master: nr_master_man_npc_2hhammer_idle_rp
+
+  section_start:
+    # shot Shot back1 teleport out
+    shot_1: # 1.0 s
+      - fade.in: [0.0, 0.5]
+      - actor.lookat: [0.0, nr_black_spider_34_boss_big, sorceress]
+      - actor.lookat: [0.0, sorceress, nr_black_spider_34_boss_big]
+      #- actor.effect.start: [0.0, nr_black_spider_34_boss_big, blood5]
+      - actor.hide: [0.0, nr_master]
+      #- actor.placement: [0.0, sorceress, [ 20.2991313934, 10.8187551498, -0.9077223539 ], [ 0.0, 0.0, 101.6000137329 ]]
+      #- actor.placement: [0.0, nr_black_spider_34_boss_big, [ 9.1499471664, 13.6558218002, -2.4699475765 ], [ 0.0, 0.0, 253.6000061035 ]]
+      #- actor.placement: [0.0, nr_master, [ 21.8444194794, 11.0787038803, -5.4118189812 ], [ 0.0, 0.0, 0.0 ]]
+      - actor.effect.start: [0.0, sorceress, hand_fx_keira_white]
+      - prop.placement: [0.0, mh306_magic_barrier, [ 10.2469472885, 16.8299541473, -5.7194132805 ], [ 0.0, 0.0, 0.0 ]]
+      - prop.hide: [0.0, mh306_magic_barrier]
+      - cam: [0.0, cam_1_Shot_back1_teleport_out]
+      - actor.anim: 
+          .@pos: [0.5, sorceress_woman_sorceress_teleport_rp]
+          blendin: 0.4
+          blendout: 0.4
+
+      - actor.placement.start: [0.2, nr_black_spider_34_boss_big, [ 11.5728597641, 12.8242483139, -2.5405995846 ], [ 0.0, 0.0, 253.6000061035 ], smooth]
+      - actor.anim: # 2.1
+          .@pos: [0.2, nr_black_spider_34_boss_big_monster_archas_move_walk_f]
+          blendin: 0.1
+          #clipend: 2.1
+          blendout: 0.2
+          stretch: 0.851
+          motionExtraction: true
+
+      - actor.effect.start: [0.9, sorceress, teleport_out_yennefer_yellow]
+      - actor.hide: [0.999, sorceress]
+
+    # shot Shot back2 teleport in
+    shot_2: # 1.7 s
+      - actor.effect.start: [0.0, sorceress, teleport_in_yennefer_yellow]
+      - actor.show: [0.1, sorceress]
+      - actor.placement: [0.0, sorceress, [ 15.8832998276, 18.4281291962, -1.7393758297 ], [ 0.0, 0.0, 152.4000244141 ]]
+      #- actor.placement: [0.0, nr_black_spider_34_boss_big, [ 16.1900920868, 10.7555837631, -2.4699475765 ], [ 0.0, 0.0, 229.0999908447 ]]
+      #- cam: [0.0, cam_2_Shot_back2_teleport_in]
+      #- actor.anim: [0.0, sorceress_woman_sorceress_teleport_rp]
+      - actor.placement.end: [0.588, nr_black_spider_34_boss_big, [ 16.9403209686, 10.3426809311, -1.9594266415 ], [ 0.0, 0.0, 262.5999755859 ], rapid]
+      - actor.anim: # 1.333
+          .@pos: [0.588, nr_black_spider_34_boss_big_monster_archas_move_idle_to_walk_turn_l90]
+          blendin: 0.17
+          blendout: 0.0
+          stretch: 0.525
+          #clipend: 0.7
+          motionExtraction: true
+
+    # shot Shot attack1b hit
+    shot_3: # 2.0 s
+      - actor.placement: [0.0, sorceress, [ 16.7000255585, 19.5239238739, -1.7393758297 ], [ 0.0, 0.0, 196.7999114990 ]]
+      #- actor.placement: [0.0, nr_black_spider_34_boss_big, [ 18.5793437958, 11.2104177475, -1.4700049162 ], [ 0.0, 0.0, 0.4999943078 ]]
+      #- actor.placement: [0.0, nr_master, [ 21.2800884247, 10.9298696518, -2.4419400692 ], [ 0.0, 0.0, 0.0 ]]
+      - cam: [0.0, cam_3_Shot_attack1b_hit]
+      - actor.anim: # 2.0 s
+          actor: sorceress
+          .@pos: [0.0, woman_sorceress_attack_throw_rp_01]
+          blendin: 0.0
+          blendout: 0.3
+          #stretch: 1.1
+          motionExtraction: true
+
+      - actor.placement.start: [0.0, nr_black_spider_34_boss_big, [ 18.9544506073, 11.7809133530, -1.4561842680 ], [ 0.0, 0.0, 6.5999889374 ], rapid]
+      - actor.placement.end: [0.64, nr_black_spider_34_boss_big, [ 18.2849102020, 14.8183889389, -1.4700049162 ], [ 0.0, 0.0, 13.6999940872 ], rapid]
+      - actor.anim: # 2.133 s -> 1.35
+          actor: nr_black_spider_34_boss_big
+          .@pos: [0.0, anim_1332_monster_archas_move_walk_f]
+          blendin: 0.0
+          blendout: 0.111
+          stretch: 0.9
+          #stretch: 0.628
+          clipend: 1.5
+          motionExtraction: true
+
+      - world.addfact: [0.6, nr_scene_spider_lightning, 1]
+      #- actor.effect.start: [0.6, sorceress, lightning_keira_yellow]
+      - actor.effect.start: [0.625, nr_black_spider_34_boss_big, hit_electric_quen]
+      - actor.anim: # 0.833 s
+          .@pos: [0.625, nr_black_spider_34_boss_big_monster_archas_hit_dynamic_heavy_front_2]
+          blendin: 0.1
+          blendout: 0.1
+          #clipend: 1.3
+          motionExtraction: true
+
+    # shot Shot attack1c attack
+    shot_5: # 0.5 s
+      #- actor.placement: [0.0, nr_black_spider_34_boss_big, [ 18.3299388885, 14.3757009506, -1.4700049162 ], [ 0.0, 0.0, 6.0999946594 ]]
+      - actor.placement.start: [0.0, nr_black_spider_34_boss_big, [ 18.5601787567, 13.8649587631, -1.4700049162 ], [ 0.0, 0.0, 13.6999940872 ], rapid]
+      - actor.anim: # 2.3 s
+          .@pos: [0.0, sorceress_woman_sorceress_attack_slash_left_lp]
+          blendin: 0.3
+          blendout: 0.15
+          clipend: 0.65
+          motionExtraction: true
+
+      #- actor.placement.start: [0.0, nr_black_spider_34_boss_big, [ 18.2849102020, 14.8183889389, -1.4700049162 ], [ 0.0, 0.0, 13.6999940872 ], smooth]
+      - actor.anim: # 1.166 s
+          .@pos: [0.0, nr_black_spider_34_boss_big_monster_archas_attack_dynamic_fast_2]
+          blendin: 0.1
+          blendout: 0.1
+          motionExtraction: true
+      
+    # shot Shot attack1d hit
+    shot_6: # 1.0 s
+      - cam: [0.0, cam_6_Shot_attack1d_hit]
+      - actor.placement: [0.0, sorceress, [ 16.7000255585, 19.5239238739, -1.47 ], [ 9.0, 0.0, 196.7999114990 ]]
+      #- actor.placement.end: [0.1, nr_black_spider_34_boss_big, [ 17.1295604706, 19.1085186005, -1.4700049162 ], [ 0.0, 0.0, 19.1000061035 ], rapid]
+      - actor.placement.end: [0.2, nr_black_spider_34_boss_big, [ 17.1345653534, 18.8582744598, -1.4700049162 ], [ 0.0, 0.0, 19.1000061035 ], rapid]
+      - world.addfact: [0.999, nr_scene_spider_toxic_face, 1]
+      - actor.sound: [0.0, sorceress, cmb_play_ger_stab_in]
+      - actor.sound: [0.999, sorceress, grunt_vo_death]
+      - actor.anim: # 2.0 s
+          .@pos: [0.0, sorceress_woman_sorceress_effect_knockdown_f_start]
+          blendin: 0.15
+          blendout: 0.0
+          motionExtraction: true
+
+      - actor.lookat: [0.999, sorceress, NONE]
+      - actor.effect.stop: [0.999, sorceress, hand_fx_keira_white]
+      - actor.pose: [0.999, sorceress_woman_sorceress_knockdown_f_loop]
+
+    # shot Shot attack2a try finish
+    shot_7: # 1.9
+      - actor.placement: [0.0, sorceress, [ 16.6764049530, 20.3787517548, -1.47 ], [ 9.0, 0.0, 177.1999206543 ]]
+      - actor.placement: [0.0, nr_black_spider_34_boss_big, [ 18.0558605194, 16.7078838348, -1.5700049162 ], [ 0.0, 0.0, 12.9999914169 ]]
+      - cam.blend.start: [0.0, cam_7_Shot_attack2a_try_finish_close, smooth]
+      - cam.blend.end: [0.9, cam_7_Shot_attack2a_try_finish, rapid]
+      - actor.anim: # 1.3 s -> 1.95
+          .@pos: [0.0, nr_black_spider_34_boss_big_monster_archas_attack_dynamic_superheavy_1]
+          blendin: 0.05
+          clipend: 1.3
+          blendout: 0.0333
+          stretch: 1.5
+          motionExtraction: true
+      #- actor.anim: # 2.9 s
+      #    .@pos: [0.0, nr_black_spider_34_boss_big_monster_archas_attack_dynamic_superheavy_1]
+      #    blendin: 0.0
+      #    blendout: 0.2
+      #    clipend: 2.7
+      #    motionExtraction: true
+      - actor.effect.start: [0.95, sorceress, philippa_shield_blue]
+      - actor.effect.start: [0.99, sorceress, philippa_shield_hit_blue]
+      - actor.effect.stop: [0.99, sorceress, philippa_shield_blue]
+      - actor.sound: [0.95, nr_black_spider_34_boss_big, monster_arachas_cmb_block]
+
+    # shot Shot attack2b hit
+    shot_8: # 0.7 s
+      - actor.placement: [0.0, nr_master, [ 4.6719660759, 15.9289236069, -2.5051000118 ], [ 0.0, 0.0, 264.2999877930 ]]
+      #- actor.pose: [0.0, nr_master_man_mage_root_attack_loop]
+      - actor.pose: [0.0, nr_master_man_npc_2hhammer_idle_rp]
+      - actor.equip.right: [0.0, nr_master, nr_Q2_Mage_Staff2h]
+      - actor.show: [0.0, nr_master]
+      
+      - actor.placement.start: [0.0, nr_black_spider_34_boss_big, [ 18.0558605194, 16.7078838348, -1.5700049162 ], [ 0.0, 0.0, 12.9999914169 ], rapid]
+      - actor.placement.end: [0.999, nr_black_spider_34_boss_big, [ 18.15, 15.5, -1.5700049162 ], [ 0.0, 0.0, 12.9999914169 ], rapid]
+      - actor.sound: [0.0, nr_black_spider_34_boss_big, Play_arachas_pain1]
+      - actor.anim: # 0.8 s
+          .@pos: [0.0, nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_1]
+          blendin: 0.05
+          blendout: 0.1
+          motionExtraction: true
+
+    shot_9a:
+      - cam: [0.0, cam_9_Shot_attack2c_stop_cast]
+      - world.weather: [0.0, WT_Light_Rain, 7]
+      - actor.anim: # 1.6
+          .@pos: [0.0, nr_master_man_mage_root_attack_end]
+          blendin: 0.0
+          blendout: 0.3
+          #clipend: 2.7
+          motionExtraction: true
+      - actor.lookat: [0.3, nr_black_spider_34_boss_big, nr_master]
+
+      - actor.sound: [0.8, nr_black_spider_34_boss_big, Play_arachas_taunt2]
+      - actor.anim: # 1.333
+          .@pos: [0.567, nr_black_spider_34_boss_big_monster_archas_move_idle_to_walk_turn_l90]
+          blendin: 0.1
+          blendout: 0.133
+          #clipend: 2.7
+          motionExtraction: true      
+
+    # shot Shot attack2d push
+    shot_10: # 2.0 s
+      - actor.placement.start: [0.0, nr_black_spider_34_boss_big, [ 16.6819286346, 14.0880422592, -1.4700049162 ], [ 0.0, 0.0, 82.0000152588 ], smooth]
+      - actor.placement.end: [0.7, nr_black_spider_34_boss_big, [ 8.9134206772, 16.3453655243, -2.6698033810 ], [ 0.0, 0.0, 85.4000167847 ], rapid]
+      
+      #- actor.placement: [0.0, nr_black_spider_34_boss_big, [ 7.3410334587, 15.7896413803, -1.4700049162 ], [ 0.0, 0.0, 90.4000167847 ]]
+      - cam: [0.0, cam_10_Shot_attack2d_push]
+
+      - actor.sound: [0.5, nr_black_spider_34_boss_big, monster_arachas_cmb_block]
+      - actor.anim: # 2.1
+          .@pos: [0.0, nr_black_spider_34_boss_big_monster_archas_move_walk_f]
+          blendin: 0.133
+          blendout: 0.1
+          stretch: 0.714
+          #clipend: 1.5
+          motionExtraction: true
+
+      - actor.anim: # 1.333 [0.4]
+          .@pos: [0.5, nr_master_man_mage_force_blast_01]
+          blendin: 0.15
+          blendout: 0.15
+          #clipend: 2.7
+          motionExtraction: true
+
+      - actor.effect.start: [0.55, nr_master, san_fx1]
+
+      - actor.anim: # 2.5
+          .@pos: [0.7, nr_black_spider_34_boss_big_monster_archas_effect_stagger_long]
+          blendin: 0.1
+          blendout: 0.15
+          #clipend: 1.5
+          motionExtraction: true
+
+      #- actor.anim: [0.0, nr_black_spider_34_boss_big_monster_archas_effect_stagger_long]
+
+    # shot Shot attack2e push hit
+    shot_11: # 2.0
+      #- actor.placement: [0.0, nr_black_spider_34_boss_big, [ 7.3410334587, 15.7896413803, -1.4700049162 ], [ 0.0, 0.0, 90.4000167847 ]]
+      - actor.anim: # 2.233 [1.2]
+          .@pos: [0.1, nr_master_man_mage_cast_shield_02]
+          blendin: 0.15
+          blendout: 0.15
+          #clipend: 2.7
+          motionExtraction: true
+      
+      - actor.effect.start: [0.6, nr_master, tornado]
+      #- prop.placement: [0.0, mh306_magic_barrier, [ 4.8997797966, 15.9186086655, -1.4995611906 ], [ 0.0, 0.0, 0.0 ]]
+
+    # shot Shot attack2g start cast
+    shot_13: # 1.2
+      - actor.anim: # 1.43333 (1.0 -> 0.8)
+          .@pos: [0.0, nr_black_spider_34_boss_big_monster_archas_attack_dynamic_fast_1]
+          blendin: 0.15
+          blendout: 0.1
+          #stretch: 0.8
+          clipend: 0.8
+          motionExtraction: true
+
+      - actor.sound: [0.6, nr_black_spider_34_boss_big, Play_arachas_taunt3]
+      - actor.anim: # 1.5
+          .@pos: [0.6, nr_black_spider_34_boss_big_monster_archas_hit_reflected_1]
+          blendin: 0.1
+          blendout: 0.1
+          motionExtraction: true
+
+      - actor.anim: # 1.0
+          .@pos: [0.1667, nr_master_man_mage_tornado_01_start]
+          blendin: 0.15
+          blendout: 0.0
+          #clipend: 0.9
+          motionExtraction: true
+
+    # shot Shot attack3 lop cast above
+    shot_16: # 6.3
+      - actor.placement: [0.0, nr_black_spider_34_boss_big, [ 8.9134206772, 16.3453655243, -2.6698033810 ], [ 0.0, 0.0, 90.4000167847 ]]
+      #- cam.blend.start: [0.0, cam_16_Shot_attack3_lop_cast_above, smooth]
+      - cam.blend.start: [0.0, cam_17_Shot_attack4_lop_cast_above2, smooth]
+      #- cam.blend.end: [0.999, cam_17_Shot_attack4_lop_cast_above2, smooth]
+      - world.addfact: [0.3, nr_scene_spider_spawn_meteors, 1]
+
+      - actor.anim: # 0.5
+          .@pos: [0.2, nr_black_spider_34_boss_big_monster_archas_block_start]
+          blendin: 0.4
+          blendout: 0.1
+          motionExtraction: true
+
+      - actor.pose: [0.263, nr_black_spider_34_boss_big_monster_archas_block_loop]
+
+      - actor.sound: [0.5, nr_black_spider_34_boss_big, Play_arachas_pain3]
+      - actor.anim: # 0.8
+          .@pos: [0.5, nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_1]
+          blendin: 0.2
+          blendout: 0.2
+          motionExtraction: true
+
+      - actor.sound: [0.7, nr_black_spider_34_boss_big, Play_arachas_pain2]
+      - actor.anim: # 0.833
+          .@pos: [0.7, nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_l]
+          blendin: 0.2
+          blendout: 0.2
+          motionExtraction: true
+
+      - actor.sound: [0.9, nr_black_spider_34_boss_big, Play_arachas_pain1]
+      - actor.anim: # 0.833
+          .@pos: [0.9, nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_r]
+          blendin: 0.2
+          blendout: 0.2
+          motionExtraction: true
+
+      - actor.anim: # 3.3
+          .@pos: [0.0, nr_master_man_mage_tornado_01_loop]
+          blendin: 0.0
+          blendout: 0.15
+          #clipend: 1.5
+          motionExtraction: true
+
+      - actor.anim: # 3.3
+          .@pos: [0.5, nr_master_man_mage_tornado_01_loop]
+          blendin: 0.15
+          blendout: 0.15
+          #clipend: 1.5
+          motionExtraction: true
+
+      - actor.effect.stop: [0.9, nr_master, tornado]
+      # nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_1
+      # nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_l
+      # nr_black_spider_34_boss_big_monster_archas_hit_dynamic_light_front_r
+
+    # shot Shot attack5 death
+    shot_21: # 2.0
+      #- actor.placement: [0.0, nr_black_spider_34_boss_big, [ 8.9134206772, 16.3453655243, -2.6698033810 ], [ 0.0, 0.0, 90.4000167847 ]]
+      - cam.blend.end: [0.0, cam_21_Shot_attack5_death, smooth]
+
+      - actor.sound: [0.0, nr_black_spider_34_boss_big, Play_arachas_death]
+      - actor.anim: # 2.5
+          .@pos: [0.0, nr_black_spider_34_boss_big_monster_archas_death_f_1]
+          blendin: 0.0
+          blendout: 0.0
+          #clipend: 1.5
+          motionExtraction: true
+
+      - actor.lookat: [0.5, nr_black_spider_34_boss_big, NONE]
+
+      - actor.pose: [0.0, nr_master_high_standing_determined_idle]
+      - actor.anim: # 2.5
+          .@pos: [0.0, nr_master_man_mage_tornado_01_end]
+          blendin: 0.0
+          blendout: 0.5
+          #clipend: 1.5
+          motionExtraction: true
+
+    # shot Shot attack6 sigh
+    shot_22: # 3.0
+      - actor.placement: [0.0, nr_master, [ 4.2749323845, 16.3778667450, -2.5051000118 ], [ 0.0, 0.0, 301.7999877930 ]]
+      - cam: [0.0, cam_22_Shot_attack6_sigh]
+      - actor.anim: # 0.1 -> 10.0
+          .@pos: [0.0, nr_black_spider_34_boss_big_monster_archas_death_f_1]
+          blendin: 0.0
+          blendout: 0.0
+          stretch: 200.0
+          clipfront: 2.4
+          clipend: 2.5
+          motionExtraction: false
+
+      - actor.anim.additive: # 3.8
+          .@pos: [0.0, nr_master_add_reaction_sigh_02]
+          blendin: 0.3
+          blendout: 0.3
+      - actor.lookat: [0.8, nr_master, sorceress]
+      # start mus
+      - world.addfact: [0.8, nr_scene_treatment_mus_part2_play, 1]
+
+    # shot Shot attack7 cast tie
+    shot_23: # 2.5
+      - actor.placement: [0.0, sorceress, [ 16.6764049530, 20.3787517548, -1.47 ], [ 0.0, 0.0, 177.1999206543 ]]
+      - actor.effect.start: [0.5, sorceress, healing]
+      - actor.sound: [0.5, sorceress, magic_filippa_cast_levitation_loop_start]
+      #- actor.effect.start: [0.9, sorceress, axii_slowdown]
+      - cam.blend.start: [0.0, cam_23_Shot_attack7_cast_tie, smooth]
+      - actor.placement.start: [0.4, sorceress, [ 16.6764049530, 20.3787517548, -1.47 ], [ 0.0, 0.0, 177.1999206543 ], smooth]
+      
+      - actor.anim: # 3.0 [1.2]
+          .@pos: [0.0, nr_master_man_npc_2hdruid_castspell_fwd]
+          blendin: 0.0
+          blendout: 0.5
+          #clipend: 1.5
+          motionExtraction: true
+
+    # shot Shot attack7 go back
+    shot_24: # 7.0
+      - actor.placement.key: [0.5, sorceress, [ 13.6565389633, 19.8982830048, -0.7194175124 ], [ 0.0, 0.0, 91.3999710083 ]]
+      #- actor.effect.stop: [0.25, sorceress, philippa_shield_blue]
+      - actor.lookat: [0.0, nr_master, NONE]
+      - actor.anim.additive: 
+          actor: nr_master
+          .@pos: [0.0, anim_6962_high_standing_determined_additive_hold_sword]
+          blendin: 0.5
+          blendout: 0.0
+
+      - actor.anim: # 9.366 [1.2]
+          .@pos: [0.0, nr_master_high_standing_determined_calm_exit_back]
+          #clipfront: 0.5
+          blendin: 0.5
+          blendout: 0.0
+          #clipend: 1.5
+          motionExtraction: true
+
+    shot_25:
+      - actor.placement.key: [0.4, sorceress, [ 8.8020620346, 19.7110576630, -1.3822706938 ], [ 0.0, 0.0, 100.4998855591 ]]
+      
+    # shot Shot attack7 go back fade
+    shot_26: # 1.0
+      - fade.out: [0.0, 1.0]
+      - cam.blend.end: [0.999, cam_24_Shot_attack7_go_back, rapid]
+      - actor.sound: [0.999, sorceress, magic_filippa_cast_levitation_loop_stop]
+      - actor.placement.end: [0.999, sorceress, [ 4.7232966423, 16.7987346649, -1.3822706938 ], [ 0.0, 0.0, 100.4998855591 ], rapid]
+
+dialogscript:
+  player: "sorceress"
+  actors: [ "sorceress", "nr_black_spider_34_boss_big", "nr_master" ]
+  props: [ "mh306_magic_barrier" ]
+
+  section_start:
+    # shot Shot back1 teleport out
+    - CUE: shot_1
+    # (longest) anim: woman_sorceress_teleport_rp
+    - PAUSE: 1.0
+    # shot Shot back2 teleport in
+    - CUE: shot_2
+    # (longest) anim: woman_sorceress_teleport_rp
+    - PAUSE: 1.7
+    # shot Shot attack1b hit
+    - CUE: shot_3
+    # (longest) anim: woman_sorceress_attack_rp_01
+    - PAUSE: 2.0
+
+    # shot Shot attack1c attack
+    - CUE: shot_5
+    # (longest) anim: woman_sorceress_attack_slash_left_lp
+    - PAUSE: 0.5
+
+    # shot Shot attack1d hit
+    - CUE: shot_6
+    # (longest) anim: woman_sorceress_effect_knockdown_f_start
+    - sorceress: "[0.9850]2115940066|Oo-oh!"
+    - PAUSE: 1.015
+    # shot Shot attack2a try finish
+    - CUE: shot_7
+    # (longest) anim: monster_archas_attack_dynamic_superheavy_1
+    - PAUSE: 1.9
+    # shot Shot attack2b hit
+    - CUE: shot_8
+    - PAUSE: 0.7
+    # shot Shot attack2c stop cast
+    - CUE: shot_9a
+    - nr_master: "[1.7625]2115940071|Caem a me!"
+    - PAUSE: 0.4375
+
+    # shot Shot attack2d push
+    - CUE: shot_10
+    # (longest) anim: monster_archas_move_walk_f
+    - PAUSE: 2.0
+    # shot Shot attack2e push hit
+    - CUE: shot_11
+    # (longest) anim: monster_archas_effect_stagger_long
+    - PAUSE: 2.0
+    # shot Shot attack2f shield
+
+    - CUE: shot_13
+    # (longest) anim: monster_archas_idle
+    - PAUSE: 1.2
+
+    - CUE: shot_16
+    # (longest) anim: man_mage_tornado_01_loop
+    - PAUSE: 6.3
+
+    - CUE: shot_21
+    # (longest) anim: monster_archas_death_f_1
+    - PAUSE: 2.0
+    # shot Shot attack6 sigh
+    - CUE: shot_22
+    # (longest) anim: add_reaction_sigh_02
+    - PAUSE: 3.0
+    # shot Shot attack7 cast tie
+    - CUE: shot_23
+    # (longest) anim: man_npc_2hdruid_castspell_fwd
+    - nr_master: "[2.3972]2115940072|Caelm, Luned."
+    # shot Shot attack7 go back
+    - CUE: shot_24
+    # (longest) anim: high_standing_determined_calm_exit_back
+    - PAUSE: 2.5
+    - CUE: shot_25
+    - PAUSE: 5.0
+
+    # shot Shot attack7 go back fade
+    - CUE: shot_26
+    # (longest) anim: high_standing_determined_calm_exit_back
+    - PAUSE: 1.0
+    - NEXT: section_exit
+
+  section_exit:
+    - BLACKSCREEN: true
+    - EXIT

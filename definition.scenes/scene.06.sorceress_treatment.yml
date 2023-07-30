@@ -1,0 +1,676 @@
+repository:
+  actors:
+    nr_master_mage:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\nr_master_mage.w2ent"
+      appearance: [ "nr_master_mage" ]
+      mimic:
+        emotional_state: "Focused"
+        eyes: "Focused"
+        pose: "Focused"
+        weight: 1.0
+        anim: "Focused"
+
+    sorceress:
+      template: "dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent"
+      #appearance: [ "nr_player" ]
+      mimic:
+        emotional_state: "Sleeping"
+        eyes: "Sleeping"
+        pose: "Sleeping"
+        weight: 1.0
+        anim: "Sleeping"
+
+  animations:
+    anim_8339_casting_and_holding_spell_start:
+      animation: "casting_and_holding_spell_start"
+      frames: 106
+
+    anim_8338_casting_and_holding_spell_loop_01:
+      animation: "casting_and_holding_spell_loop_01"
+      frames: 127
+
+    anim_8340_casting_and_holding_spell_stop:
+      animation: "casting_and_holding_spell_stop"
+      frames: 86
+
+    anim_5468_man_mage_root_attack_start:
+      animation: "man_mage_root_attack_start"
+      frames: 25
+
+    anim_5467_man_mage_root_attack_loop:
+      animation: "man_mage_root_attack_loop"
+      frames: 65
+
+    anim_5466_man_mage_root_attack_end:
+      animation: "man_mage_root_attack_end"
+      frames: 48
+
+  animations.mimic:
+    mimicsanim_340_pain_pose_face:
+      animation: "pain_pose_face"
+      frames: 10
+
+  actor.poses:
+    pose_0_high_standing_determined_idle:
+      idle_anim: "high_standing_determined_idle"
+
+    pose_704_man_npc_2hhammer_idle_rp:
+      idle_anim: "man_npc_2hhammer_idle_rp"
+
+    pose_2162_Low_Laying_Devastated:
+      name: "Laying"
+      emotional_state: "Devastated"
+      status: "Low"
+      idle_anim: "low_lying_down_devastated_idle"
+
+  cameras:
+    cam_1_Shot1_cam1a:
+      fov: 40.0
+      transform:
+        pos: [ -23.0428752899, 21.3083171844, 1.7502171993 ]
+        rot: [ 0.0, 350.8250427246, 86.6906433105 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_2_Shot2_cam1b:
+      fov: 40.0
+      transform:
+        pos: [ -27.5950298309, 25.2538738251, 2.7502782345 ]
+        rot: [ 0.0, 351.8500366211, 110.2654113770 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_3_Shot3_cam2:
+      fov: 40.0
+      transform:
+        pos: [ -31.0633831024, 25.8549175262, 2.7002751827 ]
+        rot: [ 0.0, 346.8750305176, 186.2905883789 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_4_Shot4_cam3:
+      fov: 20.0
+      transform:
+        pos: [ -30.5617656708, 24.5978069305, 2.9002873898 ]
+        rot: [ 0.0, 318.8000793457, 115.1149902344 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_5_Shot5_6_cam4:
+      fov: 25.0
+      transform:
+        pos: [ -32.1505088806, 25.1622295380, 2.35 ]
+        rot: [ 0.0, 359.2250366211, 218.7912597656 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_6_Shot7_cam4b:
+      fov: 21.0
+      transform:
+        pos: [ -32.1505088806, 25.1622295380, 2.35 ]
+        rot: [ 0.0, 0.6500227451, 221.0668945312 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_7_Shot8_cam5:
+      fov: 30.0
+      transform:
+        pos: [ -28.5807476044, 25.0932903290, 2.5252645016 ]
+        rot: [ 0.0, 351.9500427246, 112.2162780762 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_8_Shot9_cam3_lookat2:
+      fov: 20.0
+      transform:
+        pos: [ -30.5617656708, 24.5978069305, 4.7754015923 ]
+        rot: [ 0.0, 286.8000793457, 117.9649047852 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_1_Shot1_master_face_close:
+      fov: 10.0
+      transform:
+        pos: [ -31.8567485809, 25.6859722137, 2.7147344112 ]
+        rot: [ 0.0, 1.2499992847, 217.1749267578 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_3_Shot3_sorceress_face_close:
+      fov: 15.0
+      transform:
+        pos: [ -30.3280315399, 24.7582073212, 3.4397845268 ]
+        rot: [ 0.0, 315.2250061035, 113.2499084473 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_4_Shot3b_sorceress_face_close:
+      fov: 13.0
+      transform:
+        pos: [ -30.3280315399, 24.7582073212, 3.4397845268 ]
+        rot: [ 0.0, 315.2250061035, 113.2499084473 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 820
+
+  placement: "newreplacers_prologue_ship_sp"
+    # INFO: world coordinates of used origin:
+      #pos: [ -263.0, -326.0, 40.0 ]
+      #rot: [ 0.0, 0.0, 0.0 ]
+  safe_placement: false
+  snap_to_terrain: false
+
+  assets:
+    actors:
+      nr_master_mage:
+        repo: "nr_master_mage"
+        #by_voicetag: true
+        appearance: "nr_master_mage"
+        tags: [ "nr_master_mage" ]
+
+      sorceress:
+        repo: "sorceress"
+        by_voicetag: false
+        tags: [ "PLAYER" ]
+
+    cameras:
+      cam_1_Shot1_cam1a:
+        repo: "cam_1_Shot1_cam1a"
+
+      cam_2_Shot2_cam1b:
+        repo: "cam_2_Shot2_cam1b"
+
+      cam_3_Shot3_cam2:
+        repo: "cam_3_Shot3_cam2"
+
+      cam_4_Shot4_cam3:
+        repo: "cam_4_Shot4_cam3"
+
+      cam_5_Shot5_6_cam4:
+        repo: "cam_5_Shot5_6_cam4"
+
+      cam_6_Shot7_cam4b:
+        repo: "cam_6_Shot7_cam4b"
+
+      cam_7_Shot8_cam5:
+        repo: "cam_7_Shot8_cam5"
+
+      cam_8_Shot9_cam3_lookat2:
+        repo: "cam_8_Shot9_cam3_lookat2"
+
+      cam_1_Shot1_master_face_close:
+        repo: "cam_1_Shot1_master_face_close"
+
+      cam_3_Shot3_sorceress_face_close:
+        repo: "cam_3_Shot3_sorceress_face_close"
+
+      cam_4_Shot3b_sorceress_face_close:
+        repo: "cam_4_Shot3b_sorceress_face_close"
+
+    animations:
+      nr_master_mage_casting_and_holding_spell_start:
+        actor: "nr_master_mage"
+        repo: "anim_8339_casting_and_holding_spell_start"
+        #duration: 3.5333333015
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_casting_and_holding_spell_loop_01:
+        actor: "nr_master_mage"
+        repo: "anim_8338_casting_and_holding_spell_loop_01"
+        #duration: 4.2333331108
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_casting_and_holding_spell_stop:
+        actor: "nr_master_mage"
+        repo: "anim_8340_casting_and_holding_spell_stop"
+        #duration: 2.8666665554
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_man_mage_root_attack_start:
+        actor: "nr_master_mage"
+        repo: "anim_5468_man_mage_root_attack_start"
+        #duration: 0.8333333135
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_man_mage_root_attack_loop:
+        actor: "nr_master_mage"
+        repo: "anim_5467_man_mage_root_attack_loop"
+        #duration: 2.1666667461
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_man_mage_root_attack_end:
+        actor: "nr_master_mage"
+        repo: "anim_5466_man_mage_root_attack_end"
+        #duration: 1.6000000238
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+    animations.mimic:
+      sorceress_pain_pose_face:
+        actor: "sorceress"
+        repo: "mimicsanim_340_pain_pose_face"
+        #duration: 0.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.5000000000
+        blendout: 0.5000000000
+
+      nr_master_mage_geralt_happiness_gesture_smile_face:
+        actor: "nr_master_mage"
+        repo: "mimicsanim_112_geralt_happiness_gesture_smile_face"
+        #duration: 0.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.5000000000
+        blendout: 0.5000000000
+
+    actor.poses:
+      nr_master_mage_high_standing_determined_idle:
+        actor: "nr_master_mage"
+        repo: "pose_0_high_standing_determined_idle"
+
+      nr_master_mage_man_npc_2hhammer_idle_rp:
+        actor: "nr_master_mage"
+        repo: "pose_704_man_npc_2hhammer_idle_rp"
+
+      sorceress_Low_Laying_Devastated:
+        actor: "sorceress"
+        repo: "pose_2162_Low_Laying_Devastated"
+
+    mimics:
+      nr_master_mage_focused:
+        actor: nr_master_mage
+        repo: focused
+        duration: 1.0
+        weight: 0.8
+
+      nr_master_mage_nervous:
+        actor: nr_master_mage
+        repo: nervous
+        duration: 1.0
+        weight: 0.8
+
+      nr_master_mage_happy:
+        actor: nr_master_mage
+        repo: happy
+        duration: 1.0
+        weight: 0.8
+
+      sorceress_unconscious_closed_eyes:
+        actor: sorceress
+        repo: sleeping
+        duration: 1.0
+        weight: 1.0
+        anim: "Sleeping"
+        pose: "Sleeping"
+
+      sorceress_unconscious_opened_eyes:
+        actor: sorceress
+        repo: sleeping
+        duration: 1.0
+        eyes: "Determined"
+        #emotional_state: "No state"
+        pose: "Determined"
+        anim: "Determined"
+        weight: 0.7
+        #anim: "No anim"
+        #duration: 0.0
+
+storyboard:
+  defaults:
+    placement:
+      nr_master_mage: [[ -30.2266216278, 23.2333660126, 1.0709837675 ], [ 0.0, 0.0, 32.21 ]]
+      sorceress: [[ -31.2628154755, 24.6533489227, 2.0147168636 ], [ 0.0, 0.0, 326.2999877930 ]]
+      # or [ -31.1099834442, 24.5885906219, 1.9747235775 ], [ 0.0, 0.0, 323.5000000000 ]
+
+    actor.pose:
+      nr_master_mage: nr_master_mage_man_npc_2hhammer_idle_rp
+      sorceress: sorceress_Low_Laying_Devastated
+
+  section_start:
+    # shot Shot1 cam1a
+    shot_0:
+      - fade.in: [0.0, 0.5]
+      - actor.equip.right: [0.0, nr_master_mage, nr_Q2_Mage_Staff2h]
+      - cam.blend.start: [0.0, cam_1_Shot1_cam1a, smooth]
+      - actor.lookat: [0.0, nr_master_mage, sorceress]
+      - actor.lookat: [0.0, sorceress, NONE]
+      #- actor.effect.start: [0.0, sorceress, critical hit]
+      - actor.effect.start: [0.0, sorceress, covered_blood]
+      #- actor.mimic: [0.0, sorceress_unconscious_closed_eyes]
+      #- actor.mimic: [0.0, nr_master_mage_focused]
+
+    shot_1:
+      - actor.anim: #duration 3.5333333 sec
+          .@pos: [0.0, nr_master_mage_casting_and_holding_spell_start]
+          blendin: 0.5
+          blendout: 0.4453
+
+    # shot Shot2 cam1b
+    shot_2a:
+      #- actor.placement: [0.0, sorceress, [ -31.1099834442, 24.5885906219, 1.9747235775 ], [ 0.0, 0.0, 323.5000000000 ]]
+      - actor.effect.start: [0.0, sorceress, blue_slowdown]
+      - actor.anim: #duration 4.233333 sec
+          .@pos: [0.0, nr_master_mage_casting_and_holding_spell_loop_01]
+          blendin: 0.4453
+          blendout: 0.495
+
+    shot_2b:
+      - cam.blend.end: [0.4, cam_2_Shot2_cam1b, smooth]
+
+    # shot Shot3 cam2
+    shot_3:
+      - cam: [0.0, cam_3_Shot3_cam2]
+      - actor.mimic: [0.0, nr_master_mage_nervous]
+      - actor.anim: #duration 2.8666666 sec
+          .@pos: [0.0, nr_master_mage_casting_and_holding_spell_stop]
+          blendin: 0.495
+          clipend: 2.0905
+          blendout: 0.0
+
+    # shot Shot4 cam3
+    shot_4a:
+      - actor.unequip.right: [0.0, nr_master_mage]
+      - actor.effect.stop: [0.2, sorceress, blue_slowdown]
+      - cam: [0.0, cam_3_Shot3_sorceress_face_close]
+
+    # shot Shot5 6 cam4
+    shot_5:
+      - actor.equip.right: [0.0, nr_master_mage, nr_Q2_Mage_Staff2h]
+      - cam.blend.start: [0.0, cam_5_Shot5_6_cam4, smooth]
+      - actor.mimic: [0.25, nr_master_mage_focused]
+      - actor.anim: #duration 0.8333333 sec
+          .@pos: [0.0, nr_master_mage_man_mage_root_attack_start]
+          blendin: 0.0
+          blendout: 0.1
+
+    # shot Shot7 cam4b
+    shot_6a: # 4.2805
+      - cam.blend.end: [0.859, cam_6_Shot7_cam4b, smooth]
+      - cam: [0.86, cam_7_Shot8_cam5]
+      - actor.anim: #duration 2.1666667 sec
+          .@pos: [0.0, nr_master_mage_man_mage_root_attack_loop]
+          blendin: 0.1
+          blendout: 0.1666
+      - actor.effect.start: [0.0, nr_master_mage, steam_fx]
+      - world.addfact: [0.0, nr_scene_treatment_fx, 1]
+      #- actor.effect.start: [0.25, sorceress, hand_fx_barrier]
+      #- actor.anim.additive: #duration 2.1666667 sec
+      #    actor: nr_master_mage
+      #    .@pos: [0.333, anim_5469_man_mage_sand_cage_01]
+      #    clipfront: 0.7
+      #    clipend: 3.1
+      #    blendin: 0.4
+      #    blendout: 0.4
+
+      - actor.effect.start: [0.478, sorceress, healing]
+      - actor.effect.stop: [0.95, sorceress, healing]
+      - actor.anim: #duration 2.1666667 sec
+          .@pos: [0.467, nr_master_mage_man_mage_root_attack_loop]
+          blendin: 0.1666
+          blendout: 0.1666
+
+      - actor.anim: #duration 2.1666667 sec
+          .@pos: [0.934, nr_master_mage_man_mage_root_attack_loop]
+          blendin: 0.1666
+          blendout: 0.1666
+          #clipend: 2.0
+
+    shot_6b: # 4.2805
+      - cam: [0.285, cam_6_Shot7_cam4b]
+      # at 0.43s
+      - actor.anim: #duration 2.1666667 sec
+          .@pos: [0.285, nr_master_mage_man_mage_root_attack_loop]
+          #clipfront: 0.0
+          blendin: 0.1666
+          blendout: 0.1666
+      #- actor.effect.start: [0.25, sorceress, hand_fx_barrier]
+      #- actor.anim.additive: #duration 2.1666667 sec
+      #    actor: nr_master_mage
+      #    .@pos: [0.333, anim_5469_man_mage_sand_cage_01]
+      #    clipfront: 0.7
+      #    clipend: 3.1
+      #    blendin: 0.4
+      #    blendout: 0.4
+
+      - actor.effect.start: [0.4, sorceress, healing]
+      - actor.effect.stop: [0.95, sorceress, healing]
+      - actor.anim: #duration 2.1666667 sec
+          .@pos: [0.752, nr_master_mage_man_mage_root_attack_loop]
+          blendin: 0.1666
+          blendout: 0.1666
+
+    # shot Shot8 cam5
+    shot_7:
+      - actor.anim: #duration 1.6 sec
+          .@pos: [0.0, nr_master_mage_man_mage_root_attack_end]
+          blendin: 0.1666
+          blendout: 0.0
+          clipend: 1.2
+
+    # shot Shot9 cam3 lookat2
+    shot_8a: # 2.0
+      - actor.effect.stop: [0.0, sorceress, covered_blood]
+      - world.addfact: [0.0, nr_scene_treatment_fx, 2]
+      - actor.unequip.right: [0.0, nr_master_mage]
+      - actor.pose: [0.0, nr_master_mage_high_standing_determined_idle]
+      - cam.blend.start: [0.0, cam_3_Shot3_sorceress_face_close]
+
+    shot_8b:
+      # stop mus
+      - world.addfact: [0.0, nr_scene_treatment_mus_part2_play, 2]
+      - actor.mimic: [0.0, sorceress_unconscious_opened_eyes]
+      - actor.anim.mimic: #duration 0.33333334 sec
+          .@pos: [0.0, sorceress_pain_pose_face]
+          blendin: 0.0333
+          stretch: 15.0
+          blendout: 0.0333
+          weight: 1.0
+      - actor.lookat:
+          .@pos: [0.5, sorceress, [ 0.6099464297, -0.6290792227, 0.9732855558 ]]
+          turn: head
+          speed: 0.3
+
+    shot_8c:
+      - cam.blend.end: [0.999, cam_4_Shot3b_sorceress_face_close]
+
+      #- actor.lookat: [0.25, sorceress, [ 0.0949605778, -0.3299106956, 1.0977019072 ]]
+      - actor.lookat:
+          .@pos: [0.4, sorceress, [ 0.8573110104, 0.0292311311, 0.0912094042 ]]
+          turn: head
+          speed: 0.2
+
+      - actor.mimic: [0.6, sorceress_unconscious_closed_eyes]
+
+    shot_9a:
+      - cam: [0.0, cam_1_Shot1_master_face_close]
+      - actor.mimic: [0.2, nr_master_mage_happy]
+      - actor.anim.mimic:
+          actor: nr_master_mage
+          .@pos: [0.999, mimicsanim_68_geralt_reaction_tired_face]
+          blendin: 0.5
+          blendout: 0.5
+
+    shot_9b:
+      - fade.out: [0.0, 1.0]
+
+dialogscript:
+  player: "sorceress"
+  actors: [ "nr_master_mage", "sorceress" ]
+
+  section_start:
+    # shot Shot1 cam1a
+    - CUE: shot_0
+    - PAUSE: 3.0
+
+    - CUE: shot_1
+    # (longest) anim: casting_and_holding_spell_start
+    - nr_master_mage: "[3.0881]2115940073|Aeksin a'bloed vort nimh!"
+    # shot Shot2 cam1b
+    - CUE: shot_2a
+    # (longest) anim: casting_and_holding_spell_loop_01
+    - PAUSE: 0.65
+    - CUE: shot_2b
+    - nr_master_mage: "[3.0881]2115940073|Aeksin a'bloed vort nimh!"
+    - PAUSE: 0.25
+    # shot Shot3 cam2
+    - CUE: shot_3
+    # (longest) anim: casting_and_holding_spell_stop
+    - nr_master_mage: "[2.0905]2115940074|Hey, can you hear me?"
+    - CUE: shot_4a
+    - PAUSE: 0.5
+    # shot Shot4 cam3
+    - CUE: shot_4b
+    # (longest) anim: casting_and_holding_spell_stop
+    - nr_master_mage: "2115940075|D'yaebl! She is still dying.."
+    # shot Shot5 6 cam4
+    - CUE: shot_5
+    - PAUSE: 0.73333
+    # shot Shot7 cam4b
+    - CUE: shot_6a
+    # (longest) anim: man_mage_root_attack_loop
+    - nr_master_mage: "[4.2805]2115940076|Me aedit'ef a'vita as te!"
+    - PAUSE: 0.5
+    - CUE: shot_6b
+    - nr_master_mage: "[4.2805]2115940076|Me aedit'ef a'vita as te!"
+    - PAUSE: 0.939
+    # shot Shot8 cam5
+    - CUE: shot_7
+    # (longest) anim: man_mage_root_attack_end
+    - PAUSE: 1.2
+    # shot Shot9 cam3 lookat2
+
+    - CUE: shot_8a
+    - PAUSE: 2.0
+    - CUE: shot_8b
+    - sorceress: "[0.7530]2115940067|Ooh_"
+    - CUE: shot_8c
+    - PAUSE: 7.0
+
+    - CUE: shot_9a
+    - PAUSE: 1.0
+    - nr_master_mage: "[1.4067]2115940077|Maith."
+    - CUE: shot_9b
+    - PAUSE: 1.0
+
+    - NEXT: section_exit
+
+  section_exit:
+    #- CAMERA_BLEND: 1.0
+    - BLACKSCREEN: true
+    - EXIT

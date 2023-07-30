@@ -1,0 +1,61 @@
+repository:
+  actors:
+    nr_master_mage:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\nr_master_mage.w2ent"
+      appearance: [ "nr_master_mage" ]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 830
+
+  gameplay: true
+  cinematic_subtitles: true
+
+  assets:
+    actors:
+      nr_master_mage:
+        repo: "nr_master_mage"
+        by_voicetag: false
+        tags: [ "nr_master_mage" ]
+
+dialogscript:
+  player: "nr_master_mage"
+  actors: [ "nr_master_mage" ]
+
+  section_start_about_spider:
+    - nr_master_mage: "2115940070|Qued se creoest?"
+    - NEXT: section_exit
+
+  section_start_stone_activated:
+    - NEXT: section_randomizer_stone_activated
+
+  section_randomizer_stone_activated:
+    - section_stone_activated_a
+    - section_stone_activated_b
+    - section_stone_activated_c
+    - section_stone_activated_d
+
+  section_stone_activated_a:
+    - nr_master_mage: "2115940078|An'badraigh aen cuach."
+    - NEXT: section_exit
+
+  section_stone_activated_b:
+    - nr_master_mage: "2115940079|Gar'ean!"
+    - NEXT: section_exit
+
+  section_stone_activated_c:
+    - nr_master_mage: "2115940080|Ess'tuath esse!"
+    - NEXT: section_exit
+
+  section_stone_activated_d:
+    - nr_master_mage: "2115940071|Caem a me!"
+    - NEXT: section_exit
+
+  section_start: # debug (shouldn't be called)
+    - nr_master_mage: "2115940073|Aeksin a'bloed vort nimh!"
+    - NEXT: section_exit
+
+  section_exit:
+    - EXIT

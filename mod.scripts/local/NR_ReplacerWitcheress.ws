@@ -12,12 +12,6 @@ statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
 	public function GetNameID() : int {
 		return 2115940101; // 2115940101|00000000||Witcheress
 	}
-
-	event OnEquipItemRequested(item : SItemUniqueId, ignoreMount : bool)
-	{
-		NRD("OnEquipItemRequested: " + inv.GetItemName(item) + ", ignoreMount = " + ignoreMount);
-		super.OnEquipItemRequested(item, ignoreMount);
-	}
 	
 	/* from Ciri replacer class - fix sliding to target */
 	event OnAnimEvent_SlideToTarget( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )

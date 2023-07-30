@@ -1701,6 +1701,8 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		lastAnimTime = startTime;
 		NRD("TryPeformLongMagicAttack: animTime = " + animTime);
 
+		virtual_parent.OnCombatActionStart();
+
 		while ( theInput.IsActionPressed( 'CastSign' ) ) {
 			SleepOneFrame();
 			ResetTimeToEndCombat();  // don't allow to exit combat state
@@ -1725,7 +1727,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			}
 		}
 
-		virtual_parent.OnCombatActionStart();
 		// we can't stop anim if it's still in blend-in
 		if (currentTime - startTime < 0.2f) {
 			Sleep(0.2f);
@@ -1734,6 +1735,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		NRD("TryPeformLongMagicAttack: OnInterruptAttack");
 		OnInterruptAttack();
 		parent.RaiseForceEvent( 'AnimEndAUX' );
+		parent.OnPlayerActionEnd();
 		//parent.RaiseEvent( 'ForceBlendOut' ); <-- intermediate anim end
 
 		// small pause before allowing new action

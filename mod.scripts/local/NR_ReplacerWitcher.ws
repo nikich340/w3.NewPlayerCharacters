@@ -2,7 +2,6 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	import var displayName : LocalizedString;
 	protected var m_replacerType         : ENR_PlayerType;
 	public var inventoryTemplate   		 : String;
-	protected editable var deniedInventorySlots : array<name>;
 	
 	default m_replacerType      = ENR_PlayerWitcher;
 	default inventoryTemplate 	= "nr_replacer_witcher_inv";
@@ -18,7 +17,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 
 	public function NR_IsSlotDenied(slot : EEquipmentSlots) : bool
 	{
-		return deniedInventorySlots.Contains( SlotEnumToName(slot) );
+		return false;
 	}
 
 	// TODO: remove this!
@@ -34,7 +33,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		inv.GetAllItems(ids);
 
 		for (i = 0; i < ids.Size(); i += 1) {
-			result = "item[" + i + "] ";
+			result = "item[" + i + "] " + inv.GetItemName(ids[i]) + ": (category " + inv.GetItemCategory(ids[i]) + ") ";
 
 			equippedOnSlot = GetItemSlot( ids[i] );
 
@@ -44,7 +43,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 			}
 			if ( inv.IsItemHeld(ids[i]) )
 			{
-				result += "(held) ";
+				result += "(held in: " + inv.GetItemHoldSlot(ids[i]) + ") ";
 			}
 			if ( inv.IsItemMounted(ids[i]) )
 			{
@@ -54,15 +53,18 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 			{
 				result += "{";
 				for (j = 0; j < tags.Size(); j += 1) {
-					result += tags[j] + ",";
+					if (j > 0) {
+						result += ", ";
+					}
+					result += tags[j];
 				}
 				result += "} ";
 				tags.Clear();
 			}
-			result += inv.GetItemName(ids[i]);
-			NR_Notify(result);
+			NRD(result);
 		}
 	}
+
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
 		NRD("OnSpawned: " + m_replacerType);
@@ -125,9 +127,13 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	public function EquipItemInGivenSlot(item : SItemUniqueId, slot : EEquipmentSlots, ignoreMounting : bool, optional toHand : bool) : bool
 	{
 		var ret : Bool;
-		NRD("EquipItemInGivenSlot: slot = " + slot + " ignoreMounting = " + ignoreMounting);
+		NRD("EquipItemInGivenSlot: slot = " + slot + " ignoreMounting = " + ignoreMounting + ", toHand = " + toHand);
 		if (slot == EES_Armor || slot == EES_Boots || slot == EES_Gloves || slot == EES_Pants) {
 			ignoreMounting = true;
+		}
+		if (NR_IsSlotDenied(slot)) {
+			NRD("EquipItemInGivenSlot: slot is denied.");
+			return false;
 		}
 		ret = super.EquipItemInGivenSlot(item, slot, ignoreMounting, toHand);
 		NR_GetPlayerManager().UpdateSavedItem(item);

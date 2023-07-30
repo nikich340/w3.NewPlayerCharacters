@@ -19,6 +19,14 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		return 358190; // 0000358190|e29b1c4b|-1.000|Sorceress
 	}
 
+	public function NR_IsSlotDenied(slot : EEquipmentSlots) : bool
+	{
+		if (slot == EES_SilverSword || slot == EES_SteelSword || slot == EES_Potion4)
+			return true;
+
+		return super.NR_IsSlotDenied(slot);
+	}
+
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
 		super.OnSpawned( spawnData );
@@ -27,8 +35,10 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		AddTimer('NR_LaunchMagicManager', 0.25f);  // post-pone to let player manager load
 
 		AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend'); // TODO: Remove this later!!
+
 		// no swords
 		BlockAction( EIAB_DrawWeapon, 'NR_ReplacerSorceress' );
+		ExterminateSwordStuff();
 		
 		// no guard poses
 		super.SetGuarded(false);
@@ -58,9 +68,34 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	}
 
 	timer function NR_SetTargetDist( delta : float, id : int ) {
-		nr_targetDist = 17.f; // TODO: use settings value
+		nr_targetDist = 15.f;
 		findMoveTargetDistMin = nr_targetDist;
 		NRD("NR_SetTargetDist = " + nr_targetDist);
+	}
+
+	public function ExterminateSwordStuff() {
+		var i 	: int;
+		var ids : array<SItemUniqueId>;
+
+		UnequipItemFromSlot(EES_SteelSword);
+		UnequipItemFromSlot(EES_SilverSword);
+		UnequipItemFromSlot(EES_Potion4);
+
+		inv.GetAllItems(ids);
+		for (i = 0; i < ids.Size(); i += 1) {
+			if (inv.GetItemCategory(ids[i]) == 'steelsword' || inv.GetItemCategory(ids[i]) == 'silversword'
+				|| inv.GetItemCategory(ids[i]) == 'steel_scabbards' || inv.GetItemCategory(ids[i]) == 'silver_scabbards') 
+			{
+				if ( inv.IsItemHeld(ids[i]) )
+					inv.DropItem(ids[i], false);
+				if ( inv.IsItemMounted(ids[i]) )
+					inv.UnmountItem(ids[i]);
+				if ( IsItemEquipped(ids[i]) )
+					UnequipItem(ids[i]);
+			}
+		}
+
+		weaponHolster.UpdateRealWeapon();
 	}
 
 	event OnAnimEventMagic( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
@@ -82,6 +117,14 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 			magicManager.OnPreAttackEvent(GetAnimNameFromEventAnimInfo(animInfo), data);
 		}
 		super.OnPreAttackEvent(animEventName, animEventType, data, animInfo);
+	}
+
+	event OnBlockingSceneEnded( optional output : CStorySceneOutput)
+	{
+		ExterminateSwordStuff();
+		if (output.action == SSOA_EnterCombatSteel || output.action == SSOA_EnterCombatSilver)
+			output.action = SSOA_EnterCombatFists;
+		super.OnBlockingSceneEnded( output );
 	}
 	
 	// TODO: Remove this later!!

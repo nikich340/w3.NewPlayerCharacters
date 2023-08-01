@@ -41,6 +41,7 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 		if ( IsNameValid(behVarNameOnDeactivation) )
 			npc.SetBehaviorVariable( behVarNameOnDeactivation, 0 );
 
+		nr_meteorColor = NR_FinalizeColor(nr_meteorColor);
 		pathString = "dlc/dlcnewreplacers/data/entities/magic/meteor/nr_" + NameToString(nr_meteorStyleName) + "_meteor_" + ENR_MCToStringShort(nr_meteorColor) + ".w2ent";
 		m_meteorTemplate = (CEntityTemplate)LoadResourceAsync(pathString, true);
 		

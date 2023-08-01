@@ -385,9 +385,11 @@ abstract statemachine class NR_MagicAction {
 			 prefix += "horse_";
 
 		if (customActionType != ENR_Unknown)
-			return (ENR_MagicColor)map[sign].getI("color_" + ENR_MAToName(customActionType), ENR_ColorWhite);
-		
-		return (ENR_MagicColor)map[sign].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite);
+			color = (ENR_MagicColor)map[sign].getI(prefix + ENR_MAToName(customActionType), ENR_ColorWhite);
+		else
+			color = (ENR_MagicColor)map[sign].getI(prefix + ENR_MAToName(actionType), ENR_ColorWhite);
+
+		return NR_FinalizeColor( color );
 	}
 	
 	// interface for SpecialLong actions

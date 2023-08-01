@@ -92,7 +92,8 @@ enum ENR_MagicColor {
 	    // reserved
 	ENR_ColorSpecial1,	// 11
 	ENR_ColorSpecial2,	// 12
-	ENR_ColorSpecial3	// 13
+	ENR_ColorSpecial3,	// 13
+	ENR_ColorRandom	// 14 -> White..Green [2 - 10]
 }
 /*
 	ST_Aard, 	// 0
@@ -335,9 +336,18 @@ function ENR_MCToName(color : ENR_MagicColor) : name {
 			return 'ENR_ColorSpecial2';
 		case ENR_ColorSpecial3:
 			return 'ENR_ColorSpecial3';
+		case ENR_ColorRandom:
+			return 'ENR_ColorRandom';
 		default:
 			return 'ENR_ColorWhite';
 	}
+}
+
+function NR_FinalizeColor(color : ENR_MagicColor) : ENR_MagicColor {
+	if (color != ENR_ColorRandom)
+		return color;
+	
+	return (ENR_MagicColor)RandRange(10 + 1, 2);
 }
 
 function ENR_MCToStringShort(color : ENR_MagicColor) : String {
@@ -374,6 +384,8 @@ function ENR_NameToMC(colorName : name) : ENR_MagicColor {
 			return ENR_ColorSpecial2;
 		case 'ENR_ColorSpecial3':
 			return ENR_ColorSpecial3;
+		case 'ENR_ColorRandom':
+			return ENR_ColorRandom;
 		default:
 			return ENR_ColorWhite;
 	}
@@ -685,6 +697,8 @@ statemachine class NR_MagicManager {
 				return 2115940136;
 			case ENR_ColorSpecial3:
 				return 2115940137;
+			case ENR_ColorRandom:
+				return 2115940138;
 			case ENR_ColorWhite:
 			default:
 				return 2115940126;
@@ -718,6 +732,8 @@ statemachine class NR_MagicManager {
 				return "#004400";
 			case ENR_ColorSpecial3:
 				return "#000044";
+			case ENR_ColorRandom:
+				return "#440044";
 			case ENR_ColorWhite:
 			default:
 				return "#FFFFFF";
@@ -1020,9 +1036,9 @@ statemachine class NR_MagicManager {
 		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'philippa');
 
 		// horse attacks
-		sMap[ST_Axii].setI("color_horse_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorBlue);
-		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_Lightning), 'keira');
-		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'philippa');
+		sMap[ST_Axii].setI("color_horse_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorRandom);
+		sMap[ST_Axii].setN("style_horse_" + ENR_MAToName(ENR_Lightning), 'keira');
+		sMap[ST_Axii].setN("style_horse_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'philippa');
 	}
 
 	function SetDefaults_HeavyRock() {
@@ -1360,7 +1376,7 @@ statemachine class NR_MagicManager {
 				actionType = ENR_SpecialAbstractAlt;
 				break;
 		}
-		return sMap[eqSign].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite);
+		return NR_FinalizeColor( sMap[eqSign].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite) );
 	}
 
 	public function GetHitFXName(color : ENR_MagicColor) : name {
@@ -1886,7 +1902,7 @@ statemachine class NR_MagicManager {
 	}
 
 	public function HandFxName() : name {
-		var color 	: ENR_MagicColor = sMap[eqSign].getI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite);
+		var color 	: ENR_MagicColor = NR_FinalizeColor( sMap[eqSign].getI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite) );
 		var fx_type : name			 = sMap[eqSign].getN("style_" + ENR_MAToName(ENR_HandFx), 'keira');
 
 		switch (color) {
@@ -2019,7 +2035,7 @@ statemachine class NR_MagicManager {
 	}
 
 	public function SphereFxName() : name {
-		var color 	: ENR_MagicColor = sMap[eqSign].getI("color_" + ENR_MAToName(ENR_SpecialShield), ENR_ColorRed);
+		var color 	: ENR_MagicColor = NR_FinalizeColor( sMap[eqSign].getI("color_" + ENR_MAToName(ENR_SpecialShield), ENR_ColorRed) );
 
 		switch (color) {
 			//case ENR_ColorBlack:
@@ -2050,7 +2066,7 @@ statemachine class NR_MagicManager {
 	}
 
 	public function SphereHitFxName() : name {
-		var color 	: ENR_MagicColor = sMap[eqSign].getI("color_" + ENR_MAToName(ENR_SpecialShield), ENR_ColorRed);
+		var color 	: ENR_MagicColor = NR_FinalizeColor( sMap[eqSign].getI("color_" + ENR_MAToName(ENR_SpecialShield), ENR_ColorRed) );
 
 		switch (color) {
 			//case ENR_ColorBlack:

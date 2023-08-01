@@ -215,7 +215,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 	}
 
 	latent function PushFxName() : name {
-		var color : ENR_MagicColor = map[sign].getI("color_cone_" + ENR_MAToName(actionType), ENR_ColorWhite);
+		var color : ENR_MagicColor = NR_FinalizeColor( map[sign].getI("color_cone_" + ENR_MAToName(actionType), ENR_ColorWhite) );
 
 		switch (color) {
 			//case ENR_ColorBlack:

@@ -224,6 +224,9 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Wrapper: call fistfight attack */
 	function CastSign() : bool
 	{
+		if ( IsUsingHorse() ) {
+			return super.CastSign();
+		}
 		NRD("CastSign()");
 		GotoCombatStateWithAction( IA_None );
 		return OnPerformAttack('attack_magic_special');

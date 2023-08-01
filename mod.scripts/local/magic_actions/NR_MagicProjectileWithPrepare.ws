@@ -107,7 +107,12 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 
 	latent function ProjectileEntityName() : String
 	{
-		var typeName : name = map[sign].getN("style_" + ENR_MAToName(actionType));
+		var typeName : name;
+		if (isOnHorse)
+			typeName = map[sign].getN("style_horse_" + ENR_MAToName(actionType));
+		else
+			typeName = map[sign].getN("style_" + ENR_MAToName(actionType));
+		
 		switch (typeName) {
 			case 'philippa':
 				return "nr_philippa_missile";

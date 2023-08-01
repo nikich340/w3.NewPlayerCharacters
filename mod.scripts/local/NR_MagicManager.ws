@@ -428,6 +428,7 @@ statemachine class NR_MagicManager {
 	protected var m_entitiesRipCheck : array<CEntity>;
 	protected var aEventsStack 	: array<SNR_MagicEvent>;
 	protected var mAction 		: NR_MagicAction;
+	protected var mMiscActionsBlocked : bool;
 
 	public var aData 			: CPreAttackEventData;
 	public var aTargetPinTag 	: name;
@@ -435,7 +436,7 @@ statemachine class NR_MagicManager {
 	public var aCurrentAreaId 	: EAreaName;
 	public var aIsAlternate 	: Bool; // remove?
 	public var aTeleportPos		: Vector;
-	public var aSelectorLight, aSelectorHeavy : NR_MagicAspectSelector;
+	public var aSelectorLight, aSelectorHorse, aSelectorHeavy : NR_MagicAspectSelector;
 	
 	protected var aHandEffect 	: name;
 	protected var i            	: int;
@@ -489,6 +490,7 @@ statemachine class NR_MagicManager {
 		}
 
 		aSelectorLight = new NR_MagicAspectSelector in this;
+		aSelectorHorse = new NR_MagicAspectSelector in this;
 		aSelectorHeavy = new NR_MagicAspectSelector in this;
 		InitAspectsSelectors();
 	}
@@ -508,6 +510,10 @@ statemachine class NR_MagicManager {
 		aSelectorLight.AddAttack('AttackLightSlash', 	sMap[ST_Universal].getI("light_slash_amount", 2));
 		aSelectorLight.AddAttack('AttackLightThrow', 	sMap[ST_Universal].getI("light_throw_amount", 1));
 
+		aSelectorHorse.Reset();
+		aSelectorHorse.AddAttack('AttackHorseLightning', 	sMap[ST_Universal].getI("horse_lightning_amount", 1));
+		aSelectorHorse.AddAttack('AttackHorseProjectile', 	sMap[ST_Universal].getI("horse_projectile_amount", 1));
+
 		aSelectorHeavy.Reset();
 		aSelectorHeavy.AddAttack('AttackHeavyRock', 	sMap[ST_Universal].getI("heavy_rocks_amount", 2));
 		aSelectorHeavy.AddAttack('AttackHeavyThrow', 	sMap[ST_Universal].getI("heavy_bomb_amount",  1));
@@ -521,6 +527,13 @@ statemachine class NR_MagicManager {
 		switch (aspectName) {
 			case 'AttackLight':
 				aspectName = aSelectorLight.SelectAttack();
+				break;
+			case 'AttackHorse':
+				aspectName = aSelectorHorse.SelectAttack();
+				if (aspectName == 'AttackHorseLightning')
+					actionType = ENR_Lightning;
+				else
+					actionType = ENR_ProjectileWithPrepare;
 				break;
 			case 'AttackHeavy':
 				aspectName = aSelectorHeavy.SelectAttack();
@@ -537,7 +550,6 @@ statemachine class NR_MagicManager {
 				else
 					actionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_ThrowAbstract));
 				break;
-
 			case ENR_HeavyAbstract:
 				if (aspectName == 'AttackHeavyRock')
 					actionType = ENR_Rock;
@@ -549,6 +561,8 @@ statemachine class NR_MagicManager {
 				break;
 			case ENR_SpecialAbstractAlt:
 				actionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt));
+				break;
+			default:
 				break;
 		}
 
@@ -582,6 +596,8 @@ statemachine class NR_MagicManager {
 				break;
 			case ENR_SpecialPolymorphism:
 				aspectName = 'AttackSpecialTransform';
+				break;
+			default:
 				break;
 		}
 		NRD("CorrectAspectAction: (after) actionType = " + ENR_MAToName(actionType) + ", aspectName = " + aspectName);
@@ -1002,6 +1018,11 @@ statemachine class NR_MagicManager {
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorViolet);
 		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_Lightning), 'lynx');
 		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'philippa');
+
+		// horse attacks
+		sMap[ST_Axii].setI("color_horse_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorBlue);
+		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_Lightning), 'keira');
+		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'philippa');
 	}
 
 	function SetDefaults_HeavyRock() {
@@ -1437,11 +1458,13 @@ statemachine class NR_MagicManager {
 		thePlayer.DrainStamina(ESAT_FixedValue, thePlayer.GetStatMax(BCS_Stamina) * costPerc / 100.f, /*delay*/ 0.1f);
 	}
 
-	public function DrainStaminaForAction(actionType : ENR_MagicAction) {
+	public function DrainStaminaForAction(actionType : ENR_MagicAction, optional specialMultiplier : float) {
 		var costPerc 		: float;
 		var delay 			: float;
 
 		costPerc = GetStaminaCostForAction(actionType);
+		if (specialMultiplier > 0.f)
+			costPerc = costPerc * specialMultiplier;
 		NRD("DrainStaminaForAction: " + actionType + " = " + costPerc);
 		thePlayer.DrainStamina(ESAT_FixedValue, thePlayer.GetStatMax(BCS_Stamina) * costPerc / 100.f, /*delay*/ 0.5f);
 	}
@@ -1755,6 +1778,14 @@ statemachine class NR_MagicManager {
 
 		SoundEventQuest("gui_character_synergy_effect", SESB_DontSave);
 		theGame.GetTutorialSystem().ShowTutorialHint(popupData);
+	}
+
+	public function IsMiscStateActionsBlocked() : bool {
+		return mMiscActionsBlocked;
+	}
+
+	public function SetMiscStateActionsBlocked(blocked : bool) {
+		mMiscActionsBlocked = blocked;
 	}
 
 	public function GetMagicElementLocStr(element : ENR_MagicElement) : String
@@ -2270,32 +2301,61 @@ state MagicLoop in NR_MagicManager {
 				// pop front - processed
 				parent.aEventsStack.Erase(0);
 			} else {
-				if ( thePlayer.GetCurrentStateName() == 'Exploration' && theInput.IsActionJustPressed( 'DrinkPotion4' ) ) {
-					PerformExplorationTeleport();
-				} else if ( thePlayer.GetCurrentStateName() == 'Swimming' && theInput.IsActionJustPressed( 'DrinkPotion4' ) ) {
-					PerformSwimmingAttack();
-				} else if ( thePlayer.GetCurrentStateName() == 'HorseRiding' && theInput.IsActionJustPressed( 'DrinkPotion4' ) ) {
-					PerformHorseRidingAttack();
-				} else if ( (thePlayer.GetCurrentStateName() == 'Sailing' || thePlayer.GetCurrentStateName() == 'SailingPassive') && theInput.IsActionJustPressed( 'DrinkPotion4' ) ) {
-					PerformSailingAttack();
-				}
+				ProcessMiscStateActions();
 			}
 		}
 	}
 
-	latent function PerformExplorationTeleport() {
+
+
+	latent function ProcessMiscStateActions() {
+		var stateName : name;
+
+		if (parent.mMiscActionsBlocked) {
+			return;
+		}
+
+		stateName = thePlayer.GetCurrentStateName();
+		switch (stateName) {
+			case 'Exploration':
+				if ( theInput.IsActionJustPressed( 'DrinkPotion4' ) )
+					PerformExplorationTeleport();
+				break;
+			case 'Swimming':
+				if ( theInput.IsActionJustPressed( 'Finish' ) )
+					PerformSwimmingAction();
+				break;
+			case 'HorseRiding':
+				if ( theInput.IsActionJustPressed( 'VehicleAttack' ) )
+					PerformHorseRidingAction();
+				break;
+			case 'Sailing':
+			case 'SailingPassive':
+				// PerformSailingAction();
+				break;
+			default:
+				// NRD("PerformMiscStateAction in unwrapped state: " + stateName);
+				break;
+		}
+	}
+
+	latent function CheckIsActionHeld(actionName : name) : bool {
 		var startTime : float;
-		var hold : Bool;
 
 		startTime = theGame.GetEngineTimeAsSeconds();
-		hold = true;
 		while (theGame.GetEngineTimeAsSeconds() - startTime < 0.2f) {
 			SleepOneFrame();
-			if ( !theInput.IsActionPressed( 'HighlightObjective' ) ) {
-				hold = false;
-				break;
+			if ( !theInput.IsActionPressed( actionName ) ) {
+				return false;
 			}
 		}
+		return true;
+	}
+
+	latent function PerformExplorationTeleport() {
+		var hold : bool;
+
+		hold = CheckIsActionHeld('DrinkPotion4');
 		if ( hold ) {
 			NRD("PerformExplorationTeleport: EBAT_Roll");
 			NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Roll );
@@ -2305,16 +2365,51 @@ state MagicLoop in NR_MagicManager {
 		}
 	}
 
-	latent function PerformSwimmingAttack() {
-		NR_Notify("PerformSwimmingAttack!");
+	latent function PerformSwimmingAction() {
+		NR_Notify("PerformSwimmingAction!");
 	}
 
-	latent function PerformHorseRidingAttack() {
-		NR_Notify("PerformHorseRidingAttack!");
-	}
+	latent function PerformHorseRidingAction() {
+		var horseComp : W3HorseComponent;
+		var inJump, inCanter, inGallop, leftSide : bool;
+		var target : CActor;
+		var actionType : ENR_MagicAction;
+		var aspectName : name;
+		var angleDist : float;
 
-	latent function PerformSailingAttack() {
-		NR_Notify("PerformSailingAttack!");
+		horseComp = thePlayer.GetUsedHorseComponent();
+		if (horseComp) {
+			inJump = horseComp.OnCheckHorseJump();
+			inCanter = horseComp.inCanter;
+			inGallop = horseComp.inGallop;
+		}
+		NRD("PerformHorseRidingAction: horseComp = " + horseComp + ", inJump = " + inJump + ", inCanter = " + inCanter + ", inGallop = " + inGallop);
+	
+		actionType = ENR_LightAbstract;
+		aspectName = 'AttackHorse';
+		parent.CorrectAspectAction(actionType, aspectName);
+		parent.SetActionType(actionType);
+		parent.SetMiscStateActionsBlocked(true);
+		// inCanter > inGallop !
+
+		leftSide = false;
+		target = thePlayer.GetTarget();
+		if (target) {
+			angleDist = AngleDistance( thePlayer.GetHeading(), VecHeading( target.GetWorldPosition() - thePlayer.GetWorldPosition() ) );
+			leftSide = (angleDist < 0.f);
+		}
+
+		if (inGallop || inCanter) {
+			if (leftSide)
+				thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', 'horse_magic_attack_gallop_left_underhand', 0.2, 0.3 );
+			else
+				thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', 'horse_magic_attack_gallop_right_underhand', 0.2, 0.3 );
+		} else {
+			if (leftSide)
+				thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', 'horse_magic_attack_idle_left_underhand', 0.3, 0.5 );
+			else
+				thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', 'horse_magic_attack_idle_right_underhand', 0.3, 0.5 );
+		}
 	}
 	// horse: thePlayer.GetUsedHorseComponent().GetUserCombatManager()
 	//                   W3HorseComponent         

@@ -26,6 +26,7 @@ abstract statemachine class NR_MagicAction {
 	public var inPostState	: bool;
 	public var isCursed		: bool;
 	public var isManual 	: bool;
+	public var isOnHorse 	: bool;
 	public var drainStaminaOnPerform : bool;
 	public var performsToLevelup : int;
 	const  var ST_Universal	 : int;
@@ -81,10 +82,11 @@ abstract statemachine class NR_MagicAction {
 		// load and calculate data
 		NRD("OnPrepare: " + actionType);
 		if (!IsInSetupScene()) {
-			target 	= thePlayer.GetTarget();
+			target = thePlayer.GetTarget();
 			//sign 	= GetWitcherPlayer().GetEquippedSign();
 		}
 		standartCollisions = NR_GetStandartCollisionNames();
+		isOnHorse = thePlayer.IsUsingHorse();
 
 		return !isBroken;
 	}
@@ -107,8 +109,11 @@ abstract statemachine class NR_MagicAction {
 		NRD("OnPerformed: [" + ENR_MAToName(actionType) + "] result = " + result + ", scriptedPerform = " + scriptedPerform);
 		if (result && drainStaminaOnPerform) {
 			magicManager = NR_GetMagicManager();
-			if (magicManager)
+			if (isOnHorse) {
+				magicManager.DrainStaminaForAction(actionType, 2.f);
+			} else {
 				magicManager.DrainStaminaForAction(actionType);
+			}
 		}
 
 		if (isPerformed && !scriptedPerform) {
@@ -117,6 +122,9 @@ abstract statemachine class NR_MagicAction {
 				FactsAdd("nr_magic_performed_" + ENR_MAToName(actionSubtype), 1);
 			//NRD("OnPerformed: " + "nr_magic_performed_" + ENR_MAToName(actionType) + "=" + FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType)));
 			CheckSkillLevelup();
+		}
+		if (isOnHorse) {
+			NR_GetMagicManager().SetMiscStateActionsBlocked(false);
 		}
 		return result;
 	}
@@ -204,13 +212,16 @@ abstract statemachine class NR_MagicAction {
 				foundDestroyable = NR_FindDestroyableTarget();
 			}
 			if (foundDestroyable) {
-				NRD("Found destroyable!");
+				NRD("Found destroyable target: " + destroyable);
 				pos = destroyable.GetWorldPosition();
 				pos.Z += 0.7f;
 			} else {
 				NRD("WARNING! No target, use ground pos.");
 				//pos = thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 5.f;
-				pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 5.f;
+				if (isOnHorse)
+					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 15.f;
+				else
+					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 5.f;
 				NRD("Original Z = " + pos.Z);
 
 				// correct a bit with physics raycast
@@ -367,6 +378,12 @@ abstract statemachine class NR_MagicAction {
 
 	// get action color enum for current action type
 	public function NR_GetActionColor(optional customActionType : ENR_MagicAction) : ENR_MagicColor {
+		var prefix : String = "color_";
+		var color : ENR_MagicColor;
+
+		if (isOnHorse)
+			 prefix += "horse_";
+
 		if (customActionType != ENR_Unknown)
 			return (ENR_MagicColor)map[sign].getI("color_" + ENR_MAToName(customActionType), ENR_ColorWhite);
 		
@@ -375,6 +392,5 @@ abstract statemachine class NR_MagicAction {
 	
 	// interface for SpecialLong actions
 	public function ContinueAction() {
-		
 	}
 }

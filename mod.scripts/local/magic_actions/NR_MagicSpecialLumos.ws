@@ -78,7 +78,7 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	}
 
 	function LumosFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor(ENR_SpecialAbstractAlt);
+		var color : ENR_MagicColor = NR_GetActionColor();
 
 		switch (color) {
 			//case ENR_ColorBlack:

@@ -1,0 +1,48 @@
+{
+	"dlc_id": "dlc_name_key",
+	"dlc_name_key": "dlccyberpunkprototypeattire",
+	"dlc_author_nickname": "Ard Carraigh",
+	"dlc_link": "https://www.nexusmods.com/witcher3/mods/7050",
+	"dlc_appearance_templates": {
+		"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/t_01_cyberpunk.w2ent": {
+			"template_slot": "ENR_RSlotTorso",
+			"template_name_key": "item_name_cyberpunk_jacket"
+		},
+		"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/l_01a_cyberpunk.w2ent": {
+			"template_slot": "ENR_RSlotLegs",
+			"template_name_key": "item_name_cyberpunk_pants"
+		},
+		"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/s_01_cyberpunk_01.w2ent": {
+			"template_slot": "ENR_RSlotShoes",
+			"template_name_key": "item_name_cyberpunk_converse_01"
+		},
+		"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/s_01_cyberpunk_02.w2ent": {
+			"template_slot": "ENR_RSlotShoes",
+			"template_name_key": "item_name_cyberpunk_converse_02"
+		},
+		"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/s_01_cyberpunk_03.w2ent": {
+			"template_slot": "ENR_RSlotShoes",
+			"template_name_key": "item_name_cyberpunk_converse_03"
+		},
+		"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/s_01_cyberpunk_04.w2ent": {
+			"template_slot": "ENR_RSlotShoes",
+			"template_name_key": "item_name_cyberpunk_converse_04"
+		},
+		"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/s_01_cyberpunk_05.w2ent": {
+			"template_slot": "ENR_RSlotShoes",
+			"template_name_key": "item_name_cyberpunk_converse_05"
+		}
+	},
+	"dlc_appearance_sets": [
+		[
+			"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/t_01_cyberpunk.w2ent",
+			"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/l_01a_cyberpunk.w2ent",
+			"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/s_01_cyberpunk_03.w2ent"
+		],
+		[
+			"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/t_01_cyberpunk.w2ent",
+			"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/l_01a_cyberpunk.w2ent",
+			"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/s_01_cyberpunk_05.w2ent"
+		]
+	]
+}

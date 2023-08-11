@@ -1,0 +1,1134 @@
+repository:
+  actors:
+    geralt:
+      template: "gameplay\\templates\\characters\\player\\player.w2ent"
+
+  actor.poses:
+    pose_2124_High_Standing_Ready_Combat:
+      name: "Standing Ready"
+      emotional_state: "Combat"
+      status: "High"
+      idle_anim: "dialogue_witcher_combat_pose_ready"
+
+    pose_2125_High_Standing_Relaxed_Combat:
+      name: "Standing Relaxed"
+      emotional_state: "Combat"
+      status: "High"
+      idle_anim: "dialogue_witcher_combat_pose_relaxed"
+
+    pose_0_woman_sorceress_idle_lp_01:
+      idle_anim: "woman_sorceress_idle_lp_01"
+
+    pose_0_high_standing_determined_idle:
+      idle_anim: "high_standing_determined_idle"
+
+    pose_933_inventory_noequipment_idle:
+      idle_anim: "inventory_noequipment_idle"
+
+    pose_936_man_ex_idle:
+      idle_anim: "man_ex_idle"
+
+  cameras:
+    cam_1_main:
+      fov: 40.0
+      transform:
+        pos: [1.5302824974, 2.1882100105, 1.6499993801]
+        rot: [0.0, 347.9000244141, 138.5505065918]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_2_body:
+      fov: 35.0
+      transform:
+        pos: [1.1995065212, 1.7811288834, 1.6499993801]
+        rot: [0.0, 349.1750183105, 142.4002838135]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_3_dress:
+      fov: 35.0
+      transform:
+        pos: [1.3681781292, 1.9982236624, 1.5999991894]
+        rot: [0.0, 349.4750061035, 141.4254760742]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_4_hands:
+      fov: 33.0
+      transform:
+        pos: [1.0044779778, 1.2701109648, 1.4749987125]
+        rot: [0.0, 349.4000244141, 142.4251861572]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_5_head1:
+      fov: 28.0
+      transform:
+        pos: [0.5574567914, 0.8309780955, 1.7499997616]
+        rot: [0.0, 355.2000122070, 142.0251922607]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_5_head1_rotate:
+      fov: 28.0
+      transform:
+        pos: [0.9741775990, 0.4379033148, 1.7499997616]
+        rot: [0.0, 355.0000305176, 109.2752532959]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_5_head1_female:
+      fov: 28.0
+      transform:
+        pos: [0.5574567914, 0.8309780955, 1.7]
+        rot: [0.0, 355.2000122070, 142.0251922607]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_5_head1_female_rotate:
+      fov: 28.0
+      transform:
+        pos: [0.9741775990, 0.4379033148, 1.7]
+        rot: [0.0, 355.0000305176, 109.2752532959]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_7_head2:
+      fov: 28.0
+      transform:
+        pos: [0.1968964338, 0.9436335564, 1.7499997616]
+        rot: [0.0, 355.7250061035, 164.5501098633]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_8_legs:
+      fov: 33.0
+      transform:
+        pos: [1.1714537144, 1.4889160395, 1.1499974728]
+        rot: [0.0, 341.1000061035, 142.4251861572]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495002747, 1.2700699568]
+        blur: [1.0, 5.0]
+        focus: [1.0, 5.0]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 550
+    #find_safe_placement: false
+    #snap_to_terrain: false
+
+  safe_placement: false
+  snap_to_terrain: true
+
+  placement: "PLAYER"
+    # INFO: world coordinates of used origin:
+      #pos: [ 1088.7259521484, -853.7511596680, 22.4313697815 ]
+      #rot: [ 0.0, 150.3841247559, 0.0 ]
+
+  assets:
+    actors:
+      geralt:
+        repo: "geralt"
+        by_voicetag: true
+        tags: ["PLAYER"]
+
+    cameras:
+      cam_1_main:
+        repo: "cam_1_main"
+
+      cam_2_body:
+        repo: "cam_2_body"
+
+      cam_3_dress:
+        repo: "cam_3_dress"
+
+      cam_4_hands:
+        repo: "cam_4_hands"
+
+      cam_5_head1:
+        repo: "cam_5_head1"
+
+      cam_5_head1_rotate:
+        repo: "cam_5_head1_rotate"
+
+      cam_5_head1_female:
+        repo: "cam_5_head1_female"
+
+      cam_5_head1_female_rotate:
+        repo: "cam_5_head1_female_rotate"
+
+      #cam_7_head2:
+      #  repo: "cam_7_head2"
+
+      cam_8_legs:
+        repo: "cam_8_legs"
+
+    actor.poses:
+      geralt_High_Standing_Ready_Combat:
+        actor: "geralt"
+        repo: "pose_2124_High_Standing_Ready_Combat"
+
+      geralt_High_Standing_Relaxed_Combat:
+        actor: "geralt"
+        repo: "pose_2125_High_Standing_Relaxed_Combat"
+
+      geralt_high_standing_determined_idle:
+        actor: "geralt"
+        repo: "pose_0_high_standing_determined_idle"
+
+      geralt_inventory_noequipment_idle:
+        actor: "geralt"
+        repo: "pose_933_inventory_noequipment_idle"
+
+      geralt_man_ex_idle:
+        actor: "geralt"
+        repo: "pose_936_man_ex_idle"
+
+storyboard:
+  defaults:
+    placement:
+      geralt: [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+
+    actor.pose:
+      geralt: geralt_man_ex_idle
+
+  section_start:
+    shot_0:
+      #- actor.equip.right: [0.0, geralt, steelsword]
+      #- cam.blend.start: [0.0, cam_1_Shot_cam_type]
+      - cam: [0.0, cam_1_main]
+      - fade.in: [0.0, 0.5]
+
+  section_choice_main:
+    # shot Shot cam type
+    CHOICE_1:
+      - cam: [0.0, cam_1_main]
+
+  section_choice_type:
+    # shot Shot cam hair1
+    CHOICE_1:
+      - cam: [0.0, cam_1_main]
+
+  section_blend_exit:
+    shot_blend_togame:
+      - cam.blend.togame: [0.0, cam_1_main]
+
+  section_fadeout_exit:
+    shot_fadeout_exit:
+      - cam: [0.0, cam_1_main]
+      - fade.out: [0.0, 0.5]
+
+  section_blendout_exit_sorceress:
+    shot_blendout_exit_sorceress:
+      - cam: [0.0, cam_1_main]
+      - fade.out: [0.0, 0.5]
+
+dialogscript:
+  player: "geralt"
+  actors: ["geralt"]
+
+  section_start:
+    - CUE: shot_0
+    - PAUSE: 0.5
+    - NEXT: script_enter_state
+
+  script_enter_state:
+    - SCRIPT:
+        function: NR_EnterScenePreviewState_S
+        parameter:
+          - stateName: CNAME_NR_ScenePreviewAppearance_DialogState
+    - NEXT: section_choice_main
+
+  section_choice_main:
+    - CHOICE:
+        - choice: ["[EXIT]", script_exit_state_blend, exit]
+          emphasize: true
+        - choice: ["Change player type", section_choice_type]
+          emphasize: true
+        - choice: ["Change player appearance", section_choice_player_appearance]
+          emphasize: true
+          condition: ["nr_player_type", ">", 2]
+        - choice: ["Change sorceress spells", section_blendout_exit_sorceress]
+          emphasize: true
+          condition: ["nr_player_type", "=", 5]
+        - choice: ["2115940094|[Open teleport]", section_branch_teleport_master]
+          emphasize: true
+          condition: ["nr_quest_master_met", ">=", 1]
+
+  section_branch_teleport_master:
+    #- PAUSE: 0.0
+    - NEXT:
+        condition: [ "nr_player_type", "=", 5 ]
+        on_true: script_activate_teleport_master
+        on_false: section_wish_sorceress
+
+  section_wish_sorceress:
+    - geralt: "2115940069|Wish I were a sorceress…"
+    - NEXT: section_choice_main
+
+  section_choice_type:
+    - CHOICE:
+        - choice: ["Geralt (vanilla)", script_set_geralt]
+          condition: [nr_player_type, "!=", 1]
+          emphasize: true
+        - choice: ["Ciri (vanilla)", script_set_ciri]
+          condition: [nr_player_type, "!=", 2]
+          emphasize: true
+        - choice: ["Witcher (custom)", script_set_witcher]
+          condition: [nr_player_type, "!=", 3]
+          emphasize: true
+        - choice: ["Witcheress (custom)", script_set_witcheress]
+          condition: [nr_player_type, "!=", 4]
+          emphasize: true
+        - choice: ["Sorceress (custom)", script_set_sorceress]
+          condition: [nr_player_type, "!=", 5]
+          emphasize: true
+
+        - choice: ["2115940103|[BACK]", section_choice_main, exit]
+          emphasize: true
+
+  script_set_geralt:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_scene_player_change_type
+          - value: 1      # casted to ENR_PlayerType in scripts
+    - NEXT: section_fadeout_exit
+
+  script_set_ciri:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_scene_player_change_type
+          - value: 2
+    - NEXT: section_fadeout_exit
+
+  script_set_witcher:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_scene_player_change_type
+          - value: 3
+    - NEXT: section_fadeout_exit
+
+  script_set_witcheress:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_scene_player_change_type
+          - value: 4
+    - NEXT: section_fadeout_exit
+
+  script_set_sorceress:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_scene_player_change_type
+          - value: 5
+    - NEXT: section_fadeout_exit
+
+  script_activate_teleport_master:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_scene_ship_portal_created
+          - value: 1
+    - NEXT: section_fadeout_exit
+
+  section_choice_player_appearance:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_main, exit]
+          emphasize: true
+        - choice: ["Switch stacking templates as items: [disabled]", script_switch_stacking]
+          emphasize: true
+          condition: ["nr_scene_stacking_as_items", "<", 1]
+        - choice: ["Switch stacking templates as items: [enabled]", script_switch_stacking]
+          emphasize: true
+          condition: ["nr_scene_stacking_as_items", ">=", 1]
+        - choice: ["[Clear all slots and items]", script_clear_slotsitems_all]
+          emphasize: true
+        - choice: ["Saved appearance sets", section_choice_saved_sets]
+          emphasize: true
+        - choice: ["NPC appearance sets", section_choice_main]
+          emphasize: true
+
+  section_choice_saved_sets:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_player_appearance, exit]
+          emphasize: true
+        - choice: ["Save current appearance set", script_user_sets_save]
+          emphasize: true
+        - choice: ["Load appearance set", section_choice_saved_sets_load]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 1]
+        - choice: ["Remove appearance set", section_choice_saved_sets_remove]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 1]
+
+  section_trans_choice_saved_sets_to_choice_saved_sets:
+    - PAUSE: 0.0
+    - NEXT: section_choice_saved_sets
+
+  script_user_sets_save:
+    - SCRIPT:
+        function: NR_UserSetsSave_S
+    - NEXT: section_trans_choice_saved_sets_to_choice_saved_sets
+
+  section_choice_saved_sets_load:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_saved_sets, exit]
+          emphasize: true
+        - choice: ["Load set #1", script_saved_sets_load_0]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 1]
+        - choice: ["Load set #2", script_saved_sets_load_1]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 2]
+        - choice: ["Load set #3", script_saved_sets_load_2]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 3]
+        - choice: ["Load set #4", script_saved_sets_load_3]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 4]
+        - choice: ["Load set #5", script_saved_sets_load_4]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 5]
+        - choice: ["Load set #6", script_saved_sets_load_5]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 6]
+        - choice: ["Load set #7", script_saved_sets_load_6]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 7]
+        - choice: ["Load set #8", script_saved_sets_load_7]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 8]
+        - choice: ["Load set #9", script_saved_sets_load_8]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 9]
+        - choice: ["Load set #10", script_saved_sets_load_9]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 10]
+        - choice: ["Load set #11", script_saved_sets_load_10]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 11]
+        - choice: ["Load set #12", script_saved_sets_load_11]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 12]
+        - choice: ["Load set #13", script_saved_sets_load_12]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 13]
+        - choice: ["Load set #14", script_saved_sets_load_13]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 14]
+        - choice: ["Load set #15", script_saved_sets_load_14]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 15]
+        - choice: ["Load set #16", script_saved_sets_load_15]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 16]
+        - choice: ["Load set #17", script_saved_sets_load_16]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 17]
+        - choice: ["Load set #18", script_saved_sets_load_17]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 18]
+        - choice: ["Load set #19", script_saved_sets_load_18]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 19]
+        - choice: ["Load set #20", script_saved_sets_load_19]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 20]
+        - choice: ["Load set #21", script_saved_sets_load_20]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 21]
+        - choice: ["Load set #22", script_saved_sets_load_21]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 22]
+        - choice: ["Load set #23", script_saved_sets_load_22]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 23]
+        - choice: ["Load set #24", script_saved_sets_load_23]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 24]
+        - choice: ["Load set #25", script_saved_sets_load_24]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 25]
+        - choice: ["Load set #26", script_saved_sets_load_25]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 26]
+        - choice: ["Load set #27", script_saved_sets_load_26]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 27]
+        - choice: ["Load set #28", script_saved_sets_load_27]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 28]
+        - choice: ["Load set #29", script_saved_sets_load_28]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 29]
+        - choice: ["Load set #30", script_saved_sets_load_29]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 30]
+
+  section_trans_choice_saved_sets_load_to_choice_saved_sets_load:
+    - PAUSE: 0.0
+    - NEXT: section_choice_saved_sets_load
+
+  script_saved_sets_load_0:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 0
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_1:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 1
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_2:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 2
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_3:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 3
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_4:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 4
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_5:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 5
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_6:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 6
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_7:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 7
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_8:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 8
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_9:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 9
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_10:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 10
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_11:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 11
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_12:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 12
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_13:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 13
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_14:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 14
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_15:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 15
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_16:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 16
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_17:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 17
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_18:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 18
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_19:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 19
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_20:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 20
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_21:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 21
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_22:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 22
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_23:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 23
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_24:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 24
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_25:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 25
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_26:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 26
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_27:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 27
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_28:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 28
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  script_saved_sets_load_29:
+    - SCRIPT:
+        function: NR_UserSetsLoad_S
+        parameter:
+          - setIndex: 29
+    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+
+  section_choice_saved_sets_remove:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_saved_sets, exit]
+          emphasize: true
+        - choice: ["Remove set #1", script_saved_sets_remove_0]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 1]
+        - choice: ["Remove set #2", script_saved_sets_remove_1]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 2]
+        - choice: ["Remove set #3", script_saved_sets_remove_2]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 3]
+        - choice: ["Remove set #4", script_saved_sets_remove_3]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 4]
+        - choice: ["Remove set #5", script_saved_sets_remove_4]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 5]
+        - choice: ["Remove set #6", script_saved_sets_remove_5]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 6]
+        - choice: ["Remove set #7", script_saved_sets_remove_6]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 7]
+        - choice: ["Remove set #8", script_saved_sets_remove_7]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 8]
+        - choice: ["Remove set #9", script_saved_sets_remove_8]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 9]
+        - choice: ["Remove set #10", script_saved_sets_remove_9]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 10]
+        - choice: ["Remove set #11", script_saved_sets_remove_10]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 11]
+        - choice: ["Remove set #12", script_saved_sets_remove_11]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 12]
+        - choice: ["Remove set #13", script_saved_sets_remove_12]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 13]
+        - choice: ["Remove set #14", script_saved_sets_remove_13]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 14]
+        - choice: ["Remove set #15", script_saved_sets_remove_14]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 15]
+        - choice: ["Remove set #16", script_saved_sets_remove_15]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 16]
+        - choice: ["Remove set #17", script_saved_sets_remove_16]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 17]
+        - choice: ["Remove set #18", script_saved_sets_remove_17]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 18]
+        - choice: ["Remove set #19", script_saved_sets_remove_18]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 19]
+        - choice: ["Remove set #20", script_saved_sets_remove_19]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 20]
+        - choice: ["Remove set #21", script_saved_sets_remove_20]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 21]
+        - choice: ["Remove set #22", script_saved_sets_remove_21]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 22]
+        - choice: ["Remove set #23", script_saved_sets_remove_22]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 23]
+        - choice: ["Remove set #24", script_saved_sets_remove_23]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 24]
+        - choice: ["Remove set #25", script_saved_sets_remove_24]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 25]
+        - choice: ["Remove set #26", script_saved_sets_remove_25]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 26]
+        - choice: ["Remove set #27", script_saved_sets_remove_26]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 27]
+        - choice: ["Remove set #28", script_saved_sets_remove_27]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 28]
+        - choice: ["Remove set #29", script_saved_sets_remove_28]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 29]
+        - choice: ["Remove set #30", script_saved_sets_remove_29]
+          emphasize: true
+          condition: ["nr_appearance_sets", ">=", 30]
+
+  section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove:
+    - PAUSE: 0.0
+    - NEXT: section_choice_saved_sets_remove
+
+  script_saved_sets_remove_0:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 0
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_1:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 1
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_2:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 2
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_3:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 3
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_4:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 4
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_5:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 5
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_6:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 6
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_7:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 7
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_8:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 8
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_9:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 9
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_10:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 10
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_11:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 11
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_12:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 12
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_13:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 13
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_14:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 14
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_15:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 15
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_16:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 16
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_17:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 17
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_18:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 18
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_19:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 19
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_20:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 20
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_21:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 21
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_22:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 22
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_23:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 23
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_24:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 24
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_25:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 25
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_26:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 26
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_27:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 27
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_28:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 28
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  script_saved_sets_remove_29:
+    - SCRIPT:
+        function: NR_UserSetsRemove_S
+        parameter:
+          - setIndex: 29
+    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+
+  section_trans_choice_player_appearance_to_choice_player_appearance:
+    - PAUSE: 0.0
+    - NEXT: section_choice_player_appearance
+
+  script_switch_stacking:
+    - SCRIPT:
+        function: NR_SwitchIncludeAsItem_S
+    - NEXT: section_trans_choice_player_appearance_to_choice_player_appearance
+
+  script_clear_slotsitems_all:
+    - SCRIPT:
+        function: NR_ClearAllSlots_S
+    - NEXT: section_trans_choice_player_appearance_to_choice_player_appearance
+
+  section_fadeout_exit:
+    - CUE: shot_fadeout_exit
+    - PAUSE: 0.5
+    - NEXT: script_exit_state_blackscreen_changetype
+    #- NEXT: script_set_change_requested
+
+  #script_set_change_requested:
+  #    - SCRIPT:
+  #        function: AddFact_S
+  #        parameter:
+  #            - factName: nr_scene_player_change_requested
+  #            - value: 1
+  #    - NEXT: script_exit_state_blackscreen_changetype
+
+  script_exit_state_blackscreen_changetype:
+    - SCRIPT:
+        function: NR_ExitScenePreviewState_S
+    - NEXT: section_exit_blackscreen_changetype
+
+  section_blendout_exit_sorceress:
+    - CUE: shot_blendout_exit_sorceress
+    - PAUSE: 0.5
+    - NEXT: script_exit_state_blackscreen_sorceress
+
+  script_exit_state_blackscreen_sorceress:
+    - SCRIPT:
+        function: NR_ExitScenePreviewState_S
+    - NEXT: section_exit_blackscreen_sorceress
+
+  script_exit_state_blend:
+    - SCRIPT:
+        function: NR_ExitScenePreviewState_S
+    - NEXT: section_blend_exit
+
+  #script_exit_state:
+  #    - SCRIPT:
+  #        function: NR_ExitScenePreviewState_S
+  #    - NEXT: section_exit
+
+  section_blend_exit:
+    - CUE: shot_blend_togame
+    - PAUSE: 1.0
+    - NEXT: section_exit
+
+  section_exit_blackscreen_changetype:
+    - OUTPUT: ChangeType
+    - BLACKSCREEN: true
+    - EXIT
+
+  section_exit_blackscreen_sorceress:
+    - OUTPUT: Sorceress
+    - BLACKSCREEN: true
+    - EXIT
+
+  section_exit:
+    - EXIT

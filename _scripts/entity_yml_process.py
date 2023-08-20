@@ -386,13 +386,13 @@ def friendly_npc_category(npc_cat: EAN, short: bool = False) -> str:
     elif npc_cat == EAN.EAN_DLCCustom:
         return "dc" if short else "dlc_custom"
     elif npc_cat == EAN.EAN_DLCMain:
-        return "dm" if short else  "dlc_main"
+        return "dm" if short else "dlc_main"
     elif npc_cat == EAN.EAN_DLCSecondary:
-        return "ds" if short else  "dlc_secondary"
+        return "ds" if short else "dlc_secondary"
     elif npc_cat == EAN.EAN_VanillaMain:
-        return "vm" if short else  "vanilla_main"
+        return "vm" if short else "vanilla_main"
     elif npc_cat == EAN.EAN_VanillaSecondary:
-        return "vs" if short else  "vanilla_secondary"
+        return "vs" if short else "vanilla_secondary"
 
 
 # str npc cat name
@@ -822,17 +822,25 @@ def load_xml_items():
         "item_name_thief_borsody_[a-z]*$": "item_name_thief_borsody_armor",
         "item_name_rose_[a-z]*$": "item_name_rose_armor",
         "item_name_hoscorset_[a-z]*$": "item_name_hoscorset_armor",
-        "ui_gog_reward_[a-z]*$": "ui_gog_reward_armor",
-        "item_name_ngu_tiger_[a-z]*$": "item_name_ngu_tiger_armor",
         "item_name_skellige_(suit01|casual_pants01|casual_shoes)$": "item_name_skellige_suit01",
+        "item_name_(undvik|skellige)_[a-z]*_dlc$": "item_name_skellige_armour_dlc",
         "item_name_netflix_[a-z]*_dlc$": "item_name_netflix_armour_dlc",
         "item_name_netflix_[a-z]*_dlc_1$": "item_name_netflix_armour_dlc_1",
         "item_name_netflix_[a-z]*_dlc_2$": "item_name_netflix_armour_dlc_2",
+        "ui_gog_reward_[a-z]*$": "ui_gog_reward_armor",
+        "item_name_ngu_tiger_[a-z]*$": "item_name_ngu_tiger_armor",
         # not matching but to be
         "item_name_heavy_[a-z]*_01$": "item_name_heavy_armor_01",
         "item_name_heavy_[a-z]*_02$": "item_name_heavy_armor_02",
         "item_name_heavy_[a-z]*_03$": "item_name_heavy_armor_03",
         "item_name_heavy_[a-z]*_04$": "item_name_heavy_armor_04",
+    }
+    fake_names_female_forbidden = {
+        "ui_gog_reward_armor",
+        "item_name_ngu_tiger_armor",
+        "item_name_netflix_armour_dlc",
+        "item_name_netflix_armour_dlc_1",
+        "item_name_netflix_armour_dlc_2",
     }
     # groups = dict()
 
@@ -847,12 +855,7 @@ def load_xml_items():
             "appearances": dict()
         }
         # some sets are locked for female atm
-        if fake_npc_name in {
-            "ui_gog_reward_armor",
-            "item_name_ngu_tiger_armor",
-            "item_name_netflix_armour_dlc_1",
-            "item_name_netflix_armour_dlc_2",
-        }:
+        if fake_npc_name in fake_names_female_forbidden:
             continue
         # add female variant for JoWitcheress dlc
         m_npc_data[fake_npc_name + "_female"] = {
@@ -991,7 +994,7 @@ def load_xml_items():
                                 full_path = new_full_path
 
                                 if "coloring" in m_data[full_path]["appearances"][app_name]:
-                                    colorings.append( get_app_template_colorings_str(full_path, m_data[full_path]["appearances"][app_name]["coloring"]) )
+                                    colorings.append(get_app_template_colorings_str(full_path, m_data[full_path]["appearances"][app_name]["coloring"]))
                                     app_names.append(app_name)
                                 break
                 else:
@@ -1002,6 +1005,13 @@ def load_xml_items():
 
                 loc_name = child.get("localisation_key_name")
 
+                match_npc_name = str()
+                for regex in loc_str_regex_to_npc_name:
+                    if re.match(regex, loc_name):
+                        match_npc_name = loc_str_regex_to_npc_name[regex]
+                        break
+
+                # add template
                 m_templates[full_path] = {
                     "path": full_path,
                     "colorings": colorings,
@@ -1014,65 +1024,64 @@ def load_xml_items():
                 }
 
                 # DLC JO Witcheress
-                full_path_female = f"dlc/dlcjowitcheress/data/entities/{full_path.replace('.w2ent', '_jo.w2ent')}"
-                os.makedirs(os.path.dirname(f"{cooked_w2ent_dir}/{full_path_female}"), exist_ok=True)
-                shutil.copy2(f"{cooked_w2ent_dir}/{full_path}", f"{cooked_w2ent_dir}/{full_path_female}")
-                m_data[full_path_female] = deepcopy(m_data[full_path])
-                m_templates[full_path_female] = {
-                    "path": full_path_female,
-                    "colorings": colorings,
-                    "slot_category": slot,
-                    "npc_category": EAN.EAN_DLCCustom,
-                    "dlc_id": "dlc_jowitcheress",
-                    "dlc_name_key": "dlc_name_jowitcheress",
-                    "name": "Geralt",
-                    "nameID": 318188,
-                    "extraKey": loc_name,
-                    "gender": EG.EG_Female
-                }
+                if not match_npc_name or match_npc_name not in fake_names_female_forbidden:
+                    full_path_female = f"dlc/dlcjowitcheress/data/entities/{full_path.replace('.w2ent', '_jo.w2ent')}"
+                    os.makedirs(os.path.dirname(f"{cooked_w2ent_dir}/{full_path_female}"), exist_ok=True)
+                    shutil.copy2(f"{cooked_w2ent_dir}/{full_path}", f"{cooked_w2ent_dir}/{full_path_female}")
+                    m_data[full_path_female] = deepcopy(m_data[full_path])
+                    m_templates[full_path_female] = {
+                        "path": full_path_female,
+                        "colorings": colorings,
+                        "slot_category": slot,
+                        "npc_category": EAN.EAN_DLCCustom,
+                        "dlc_id": "dlc_jowitcheress",
+                        "dlc_name_key": "dlc_name_jowitcheress",
+                        "name": "Geralt",
+                        "nameID": 318188,
+                        "extraKey": loc_name,
+                        "gender": EG.EG_Female
+                    }
 
                 print(f"Add item: {child.get('name')} ({loc_name}) [{child.get('category')} -> {slot.name}], colorings: {colorings}")
 
-                for regex in loc_str_regex_to_npc_name:
-                    if re.match(regex, loc_name):
-                        fake_npc_name = loc_str_regex_to_npc_name[regex]
-                        fake_npc_name_female = fake_npc_name + "_female"
-                        print(f"Add to npc set: {loc_name} -> {regex} -> {fake_npc_name}")
-                        for i, app_name in enumerate(app_names):
-                            if len(app_names) > 1 and i == 0:
-                                # skip empty coloring if there are another
+                if match_npc_name:
+                    fake_npc_name = match_npc_name
+                    fake_npc_name_female = fake_npc_name + "_female"
+                    print(f"Add to npc set: {loc_name} -> {regex} -> {fake_npc_name}")
+                    for i, app_name in enumerate(app_names):
+                        if len(app_names) > 1 and i == 0:
+                            # skip empty coloring if there are another
+                            continue
+
+                        for gender in [EG.EG_Male, EG.EG_Female]:
+                            # some sets are locked for female atm
+                            if gender == EG.EG_Female and match_npc_name in fake_names_female_forbidden:
                                 continue
 
-                            for gender in [EG.EG_Male, EG.EG_Female]:
-                                t_path = full_path if gender == EG.EG_Male else full_path_female
-                                t_npc_name = fake_npc_name if gender == EG.EG_Male else fake_npc_name_female
-                                # some sets are locked for female atm
-                                if t_npc_name not in m_npc_data:
-                                    continue
+                            t_path = full_path if gender == EG.EG_Male else full_path_female
+                            t_npc_name = fake_npc_name if gender == EG.EG_Male else fake_npc_name_female
 
-                                app_coloring = m_data[t_path].get("appearances", {}).get(app_name, {}).get("coloring", "{}")
+                            app_coloring = m_data[t_path].get("appearances", {}).get(app_name, {}).get("coloring", "{}")
 
-                                coloring_index = get_app_template_coloring_index(t_path, app_coloring)
-                                final_path = get_app_template_final_path(t_path, coloring_index)
+                            coloring_index = get_app_template_coloring_index(t_path, app_coloring)
+                            final_path = get_app_template_final_path(t_path, coloring_index)
 
-                                print(f"Add fake [{t_npc_name}]<{gender.name}> template: {final_path}")
+                            print(f"Add fake [{t_npc_name}]<{gender.name}> template: {final_path}")
 
-                                if app_name not in m_npc_data[t_npc_name]["appearances"]:
-                                    m_npc_data[t_npc_name]["appearances"][app_name] = {
-                                        i: str() if i != ENR.ENR_RSlotMisc else [] for i in ENR
-                                    }
+                            if app_name not in m_npc_data[t_npc_name]["appearances"]:
+                                m_npc_data[t_npc_name]["appearances"][app_name] = {
+                                    i: str() if i != ENR.ENR_RSlotMisc else [] for i in ENR
+                                }
 
-                                test0 = loc_name
-                                test3 = gender
-                                test4 = app_name
-                                test5 = child.get('name')
-                                if slot == ENR.ENR_RSlotMisc or (m_npc_data[t_npc_name]["appearances"][app_name][slot] and m_npc_data[t_npc_name]["appearances"][app_name][slot] != final_path):
-                                    pass
-                                    # m_npc_data[t_npc_name]["appearances"][app_name][ENR.ENR_RSlotMisc].append(final_path)
-                                else:
-                                    m_npc_data[t_npc_name]["appearances"][app_name][slot] = final_path
-
-                        break
+                            test0 = loc_name
+                            test3 = gender
+                            test4 = app_name
+                            test5 = child.get('name')
+                            if slot == ENR.ENR_RSlotMisc or (m_npc_data[t_npc_name]["appearances"][app_name][slot] and m_npc_data[t_npc_name]["appearances"][app_name][slot] != final_path):
+                                pass
+                                # m_npc_data[t_npc_name]["appearances"][app_name][ENR.ENR_RSlotMisc].append(final_path)
+                            else:
+                                m_npc_data[t_npc_name]["appearances"][app_name][slot] = final_path
 
     m_npc_data["item_name_rose_armor"]["appearances"]["default"][ENR.ENR_RSlotLegs] = "dlc/dlcnewreplacers/data/entities/colorings/vanilla_main/nr_s_01_mb__skellige_villager_coloring_2.w2ent"
     m_npc_data["item_name_rose_armor"]["appearances"]["default"][ENR.ENR_RSlotShoes] = "dlc/dlcnewreplacers/data/entities/colorings/vanilla_main/nr_l0_02_ma__novigrad_guard_coloring_5.w2ent"
@@ -1092,6 +1101,7 @@ def load_xml_items():
 
     m_npc_data["item_name_beauclair_prison_shirt" + "_female"]["appearances"]["default"][ENR.ENR_RSlotGloves] = "characters/models/common/woman_average/body/g_01_wa__old_body.w2ent"
     m_npc_data["item_name_beauclair_prison_shirt" + "_female"]["appearances"]["default"][ENR.ENR_RSlotShoes] = "characters/models/crowd_npc/nml_villager_woman/shoes/s_02_wa__nml_villager.w2ent"
+
 
 def load_dlc_data():
     global m_templates, m_npc_data, m_selector_yml, m_path_by_friendly_name
@@ -1113,7 +1123,8 @@ def load_dlc_data():
                 m_templates[t_path] = {
                     "path": t_path,
                     "colorings": [
-                        json.dumps(t_data["template_coloring"], sort_keys=True) if "template_coloring" in t_data else "{}"  # default empty coloring for all
+                        # json.dumps(t_data["template_coloring"], sort_keys=True) if "template_coloring" in t_data else "{}"  # default empty coloring for all
+                        "{}"
                     ],
                     "slot_category": ENR[t_data["template_slot"]],
                     "npc_category": EAN.EAN_DLCCustom,
@@ -1202,8 +1213,10 @@ def write_coloring_files():
                         if coloring == "{}":
                             continue
                         else:
-                            print(f"ADD DEFAULT COLORING: {coloring} ({vanilla_path})")
-                            custom_path = t
+                            # for custom dlc templates
+                            print(f"CONSIDER ADDING COLORINGS in DLC ENTITY itself: ({vanilla_path})")
+                            continue
+                            # custom_path = t
                     else:
                         custom_path = get_app_template_final_path(t, j, True)
 
@@ -1213,10 +1226,23 @@ def write_coloring_files():
                         print(f"TEMPLATE DUPLICATE: {custom_path} ({vanilla_path})")
                     custom_paths.add(custom_path)
 
+                    putColoringsInEntity = m_templates[t]['slot_category'] == ENR.ENR_GSlotHead
                     if j > 0:
-                        f_comp_out.write(f"{vanilla_path}|{custom_path}|{component_cnt}")
+                        f_comp_out.write(f"{vanilla_path}|{custom_path}|{component_cnt}|{str(putColoringsInEntity).lower()}")
+
+                    if putColoringsInEntity:
+                        f_comp_out.write(f"|coloring_{j}")
 
                     for comp_name in component_dict:
+                        # head is mounted in another way, so we can put colorings inside entity itself
+                        if j > 0 and putColoringsInEntity:
+                            f_comp_out.write(f"|{comp_name}|")
+                            for k, val in enumerate(component_dict[comp_name]):
+                                if k > 0:
+                                    f_comp_out.write(";")
+                                f_comp_out.write(f"{val}")
+                            continue
+
                         new_comp_name = comp_name
                         if j > 0:
                             new_comp_name = f"{comp_name}_coloring_{j}"
@@ -1244,7 +1270,7 @@ def write_coloring_files():
                         if j > 0:
                             f_comp_out.write(f"|{comp_name}|{new_comp_name}")
 
-                        #if new_comp_name == "shoes_coloring_83":
+                        # if new_comp_name == "shoes_coloring_83":
                         #    breakpoint()
 
                         if not use_existing:
@@ -1972,10 +1998,10 @@ def create_scene(gender: EG):
                 subselector_choice_index = len(selector_nodes[subselector_node_index]["m_onPreviewChoice"]) - 1
                 selector_nodes[subselector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(subselector_choice_index, before=f"(sub)choice index = {subselector_choice_index}", indent=12)
 
-                #if npc_app_name.startswith("dye_"):
+                # if npc_app_name.startswith("dye_"):
                 #    add_choice_scripted(text=quoted(f"{STR.DOT.value}|.{npc_data['name']}: #{l}"), from_section_name=subcat_section_name, to_section_name=subcat_script_name,
                 #                template_obj=npc_data, index=l)
-                #else:
+                # else:
                 add_choice_scripted(text=quoted(f"{STR.DOT.value}|.{npc_data['name']}: #{l}"), from_section_name=subcat_section_name, to_section_name=subcat_script_name,
                                     template_obj=npc_data, extra_name_key=npc_app_name)
                 # fill slots for app
@@ -2134,10 +2160,10 @@ def create_scene(gender: EG):
                     subselector_choice_index = len(selector_nodes[subselector_node_index]["m_onPreviewChoice"]) - 1
                     selector_nodes[subselector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(subselector_choice_index, before=f"(sub)choice index = {subselector_choice_index}", indent=12)
 
-                    #if npc_app_name.startswith("dye_"):
+                    # if npc_app_name.startswith("dye_"):
                     #    add_choice_scripted(text=quoted(f"{STR.DOT.value}|.{npc_data['name']}: #{l}"), from_section_name=subcat_section_name, to_section_name=subcat_script_name,
                     #                template_obj=npc_data, index=l)
-                    #else:
+                    # else:
                     add_choice_scripted(text=quoted(f"{STR.DOT.value}|.{npc_data['name']}: #{l}"), from_section_name=subcat_section_name, to_section_name=subcat_script_name,
                                         template_obj=npc_data, extra_name_key=npc_app_name)
                     # fill slots for app

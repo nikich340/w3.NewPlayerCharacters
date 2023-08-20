@@ -842,6 +842,10 @@ def load_xml_items():
         "item_name_netflix_armour_dlc_1",
         "item_name_netflix_armour_dlc_2",
     }
+    armor_variant_replacements = {
+        "t2_11a_mg__bob": "t2_11_mg__bob",
+        todo
+    }
     # groups = dict()
 
     for fake_npc_name in loc_str_regex_to_npc_name.values():
@@ -1003,6 +1007,7 @@ def load_xml_items():
                     # app_names.append("default")
                     pass
 
+                full_path_for_npc = full_path
                 loc_name = child.get("localisation_key_name")
 
                 match_npc_name = str()
@@ -1024,8 +1029,10 @@ def load_xml_items():
                 }
 
                 # DLC JO Witcheress
-                if not match_npc_name or match_npc_name not in fake_names_female_forbidden:
+                add_female_jo_variant = not match_npc_name or match_npc_name not in fake_names_female_forbidden
+                if add_female_jo_variant:
                     full_path_female = f"dlc/dlcjowitcheress/data/entities/{full_path.replace('.w2ent', '_jo.w2ent')}"
+                    full_path_female_for_npc = full_path_female
                     os.makedirs(os.path.dirname(f"{cooked_w2ent_dir}/{full_path_female}"), exist_ok=True)
                     shutil.copy2(f"{cooked_w2ent_dir}/{full_path}", f"{cooked_w2ent_dir}/{full_path_female}")
                     m_data[full_path_female] = deepcopy(m_data[full_path])
@@ -1044,6 +1051,62 @@ def load_xml_items():
 
                 print(f"Add item: {child.get('name')} ({loc_name}) [{child.get('category')} -> {slot.name}], colorings: {colorings}")
 
+                node_variants = child.find("variants")
+                equip_variant_cnt = 1
+                if node_variants:
+                    for node_variant in list(node_variants):
+                        is_armor_stand = False
+                        for node_variant_child in node_variant.findall("item"):
+                            if node_variant_child.text == "_armor_stand":
+                                is_armor_stand = True
+                                break
+
+                        if is_armor_stand:
+                            continue
+
+                        variant_friendly_path = node_variant.attrib.get("equip_template", "")
+                        if variant_friendly_path not in m_path_by_friendly_name:
+                            print(f"Warning: Unknown variant template: {variant_friendly_path}")
+                            continue
+
+                        full_path_variant = m_path_by_friendly_name[variant_friendly_path]
+
+                        # update path for CItemEntities
+                        if "appearances" in m_data[full_path_variant]:
+                            if "dye_default" in m_data[full_path_variant]["appearances"]:
+                                # dyeable
+                                assert (len(m_data[full_path_variant]["appearances"]["dye_default"]["templates"]) == 1)
+                                full_path_variant = m_data[full_path_variant]["appearances"]["dye_default"]["templates"][0]
+                            else:
+                                for app_name in m_data[full_path_variant]["appearances"].keys():
+                                    if len(m_data[full_path_variant]["appearances"][app_name]["templates"]) > 0:
+                                        assert (len(m_data[full_path_variant]["appearances"][app_name]["templates"]) == 1)
+                                        full_path_variant = m_data[full_path_variant]["appearances"][app_name]["templates"][0]
+
+                        equip_variant_cnt += 1
+                        m_templates[full_path_variant] = deepcopy(m_templates[full_path])
+                        m_templates[full_path_variant]["path"] = full_path_variant
+                        m_templates[full_path_variant]["equip_variant"] = equip_variant_cnt
+                        if variant_friendly_path in armor_variant_replacements and friendly_path == armor_variant_replacements[variant_friendly_path]:
+                            full_path_for_npc = full_path_variant
+                            print(f"USE variant = {full_path_variant}")
+                        else:
+                            print(f"Add variant = {full_path_variant}")
+
+                        if add_female_jo_variant:
+                            full_path_female_variant = f"dlc/dlcjowitcheress/data/entities/{full_path_variant.replace('.w2ent', '_jo.w2ent')}"
+                            os.makedirs(os.path.dirname(f"{cooked_w2ent_dir}/{full_path_female_variant}"), exist_ok=True)
+                            shutil.copy2(f"{cooked_w2ent_dir}/{full_path_variant}", f"{cooked_w2ent_dir}/{full_path_female_variant}")
+                            m_data[full_path_female_variant] = deepcopy(m_data[full_path_variant])
+                            m_templates[full_path_female_variant] = deepcopy(m_templates[full_path_female])
+                            m_templates[full_path_female_variant]["path"] = full_path_female_variant
+                            m_templates[full_path_female_variant]["equip_variant"] = equip_variant_cnt
+                            if variant_friendly_path in armor_variant_replacements and friendly_path == armor_variant_replacements[variant_friendly_path]:
+                                full_path_female_for_npc = full_path_female_variant
+                                print(f"USE female variant = {full_path_female_variant}")
+                            else:
+                                print(f"Add female variant = {full_path_female_variant}")
+
                 if match_npc_name:
                     fake_npc_name = match_npc_name
                     fake_npc_name_female = fake_npc_name + "_female"
@@ -1058,7 +1121,7 @@ def load_xml_items():
                             if gender == EG.EG_Female and match_npc_name in fake_names_female_forbidden:
                                 continue
 
-                            t_path = full_path if gender == EG.EG_Male else full_path_female
+                            t_path = full_path_for_npc if gender == EG.EG_Male else full_path_female_for_npc
                             t_npc_name = fake_npc_name if gender == EG.EG_Male else fake_npc_name_female
 
                             app_coloring = m_data[t_path].get("appearances", {}).get(app_name, {}).get("coloring", "{}")
@@ -1066,17 +1129,13 @@ def load_xml_items():
                             coloring_index = get_app_template_coloring_index(t_path, app_coloring)
                             final_path = get_app_template_final_path(t_path, coloring_index)
 
-                            print(f"Add fake [{t_npc_name}]<{gender.name}> template: {final_path}")
+                            # print(f"Add fake [{t_npc_name}]<{gender.name}> template: {final_path}")
 
                             if app_name not in m_npc_data[t_npc_name]["appearances"]:
                                 m_npc_data[t_npc_name]["appearances"][app_name] = {
                                     i: str() if i != ENR.ENR_RSlotMisc else [] for i in ENR
                                 }
 
-                            test0 = loc_name
-                            test3 = gender
-                            test4 = app_name
-                            test5 = child.get('name')
                             if slot == ENR.ENR_RSlotMisc or (m_npc_data[t_npc_name]["appearances"][app_name][slot] and m_npc_data[t_npc_name]["appearances"][app_name][slot] != final_path):
                                 pass
                                 # m_npc_data[t_npc_name]["appearances"][app_name][ENR.ENR_RSlotMisc].append(final_path)
@@ -1134,6 +1193,8 @@ def load_dlc_data():
                     "name": "_skip_",
                     "gender": EG.EG_Any
                 }
+                if "equip_variant" in t_data:
+                    m_templates[t_path]["equip_variant"] = t_data["equip_variant"]
                 if "template_name_key" in t_data:
                     m_templates[t_path]["extraKey"] = t_data["template_name_key"]
                 else:
@@ -1145,7 +1206,7 @@ def load_dlc_data():
                     m_templates[t_path]["gender"] = EG.EG_Female
 
             for gender_str in ["male", "female"]:
-                if len(data[f"dlc_{gender_str}_appearance_sets"]) > 0:
+                if f"dlc_{gender_str}_appearance_sets" in data and len(data[f"dlc_{gender_str}_appearance_sets"]) > 0:
                     npc_name = data["dlc_name_key"] + "_" + gender_str
                     m_npc_data[npc_name] = {
                         "nameID": 1,
@@ -1497,6 +1558,9 @@ def add_choice_scripted(text: str, from_section_name: str, to_section_name: str,
         choice_obj["scriptAction"]["extra_name_key"] = template_obj["extraKey"]
     elif extra_name_key:
         choice_obj["scriptAction"]["extra_name_key"] = extra_name_key
+
+    if "equip_variant" in template_obj:
+        choice_obj["scriptAction"]["equip_variant"] = template_obj["equip_variant"]
 
     if index > 0:
         choice_obj["scriptAction"]["index"] = index

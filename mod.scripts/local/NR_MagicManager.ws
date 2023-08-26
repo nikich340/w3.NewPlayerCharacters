@@ -405,6 +405,13 @@ function NR_StrGreen(str : String, optional dark : bool) : String {
 		return "<font color=\"#009900\">" + str + "</font>";
 }
 
+function NR_StrYellow(str : String, optional dark : bool) : String {
+	if (!dark)
+		return "<font color=\"#FFFF00\">" + str + "</font>";
+	else
+		return "<font color=\"#999900\">" + str + "</font>";
+}
+
 function NR_StrBlue(str : String, optional dark : bool) : String {
 	if (!dark)
 		return "<font color=\"#0000FF\">" + str + "</font>";

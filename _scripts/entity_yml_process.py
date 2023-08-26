@@ -14,6 +14,7 @@ import json
 import time
 import enum
 import shutil
+from tqdm import tqdm
 from copy import deepcopy
 from strenum import StrEnum
 from ctypes import c_uint32
@@ -77,6 +78,7 @@ class SPF(enum.IntEnum):
     ENR_SPDontSaveOnAccept = 1
     ENR_SPForceUnloadAll = 2
     ENR_SPForceUnloadAllExceptHair = 4
+    ENR_SPNPCSet = 8
 
 
 class STR(StrEnum):
@@ -114,6 +116,10 @@ def test_cat(path: str):
         return True
     else:
         return False
+
+
+def quoted(text: str):
+    return yaml.scalarstring.DoubleQuotedScalarString(text)
 
 
 def category(path: str):
@@ -329,7 +335,17 @@ m_selector_yml = {
                 ".type": "NR_SceneSelector",
                 "m_nodesMale": CommentedSeq(),
                 "m_nodesFemale": CommentedSeq(),
-                "m_customDLCInfo": CommentedSeq(),
+                "m_customDLCInfo": CommentedSeq([
+                    {
+                        ".type": "NR_SceneCustomDLCInfo",
+                        "m_dlcID": quoted("dlc_jowitcheress"),
+                        "m_dlcNameKey": quoted("dlc_name_jowitcheress"),
+                        "m_dlcNameStr": quoted("JoWitcheress Models"),
+                        "m_dlcAuthor": quoted("JoWitcheress"),
+                        "m_dlcLink": quoted("Ask valrhea on discord for dlc"),
+                        "m_dlcCheckTemplatePath": quoted("dlc/dlcjowitcheress/data/entities/characters/models/geralt/armor/armor__cat/g_01_mg__lynx_lvl1_meshes_jo.w2ent")
+                    }
+                ]),
                 "m_stringtable": CommentedSeq()
             }
         }
@@ -474,23 +490,28 @@ def dfs_pull_colorings(path) -> dict:
     global m_data
     # print(f"DFS: path = {path}")
 
-    result = dict()
+    colorings = dict()
     # add appearance colorings if any
     if "appearances" in m_data[path]:
         for app in m_data[path]["appearances"]:
             if "coloring" in m_data[path]["appearances"][app]:
-                result[app] = m_data[path]["appearances"][app]["coloring"]
+                colorings[app] = m_data[path]["appearances"][app]["coloring"]
 
     # add parent colorings as well
     if "includes" in m_data[path]:
         for v in m_data[path]["includes"]:
-            sub_result = dfs_pull_colorings(v)
-            for app in sub_result:
-                if app not in result:
-                    # print(f"DFS: add appearance coloring: {app}")
-                    result[app] = sub_result[app]
+            sub_colorings = dfs_pull_colorings(v)
+            for app in sub_colorings:
+                if app not in colorings:
+                    colorings[app] = sub_colorings[app]
+                else:
+                    for comp_name in sub_colorings[app]:
+                        if comp_name not in colorings[app]:
+                            colorings[app][comp_name] = sub_colorings[app][comp_name]
+                        else:
+                            pass
 
-    return result
+    return colorings
 
 
 def get_app_template_colorings(app_template: str, app_coloring_components) -> dict:
@@ -522,6 +543,7 @@ def get_app_template_coloring_index(app_template: str, app_coloring_components) 
     app_colorings = m_templates[app_template]["colorings"]
     if coloring_str not in app_colorings:
         print("get_app_template_coloring_index: ERROR")
+
     index = app_colorings.index(coloring_str)
     if index == 0:
         print("get_app_template_coloring_index: ZERO")
@@ -571,6 +593,35 @@ def load_data():
     with open(f"{m_FOLDER}/EntityDump_actors_filtered.json", mode="r", encoding="utf-8") as ij:
         m_data = json.load(ij)["templates"]
 
+    # manually collapsed template variants made by #starkiller5654
+    add_collapsed_variants = [
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/arms/a_06_wa__bob_woman_noble.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/arms/a_06_wa__bob_woman_noble.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/arms/a_06_wa__bob_woman_noble_p01.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/arms/a_06_wa__bob_woman_noble_p02.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_01_wa__bob_woman_noble.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_01_wa__bob_woman_noble_p01.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_02_wa__bob_woman_noble.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_02_wa__bob_woman_noble_p01.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_02_wa__bob_woman_noble_p02.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_03_wa__bob_woman_noble.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_04_wa__bob_woman_noble.w2ent",
+        "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_05_wa__bob_woman_noble.w2ent",
+        # "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_07b_wa__bob_woman_noble_p02.w2ent",
+        # "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_07_wa__bob_woman_noble_p01.w2ent",
+        # "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/torso/t2_07_wa__bob_woman_noble_p02.w2ent"
+        "dlc/dlcnewreplacers/data/entities/woman_fixed/t2_07b_wa__bob_woman_noble_p02.w2ent",
+        "dlc/dlcnewreplacers/data/entities/woman_fixed/t2_07_wa__bob_woman_noble_p01.w2ent",
+        "dlc/dlcnewreplacers/data/entities/woman_fixed/t2_07_wa__bob_woman_noble_p02.w2ent"
+    ]
+    # add it in data so npc parsing code won't complain
+    for path in add_collapsed_variants:
+        friendly_t = friendly_name(path)
+        dlc_path = f"dlc/dlcnewreplacers/data/entities/woman_fixed/collapsed_variant/{friendly_t}_collapsed.w2ent"
+        m_data[dlc_path] = deepcopy(m_data[path])
+        # v this later
+        # m_templates[dlc_path]["equip_variant"] = 2
+
     # add app templates
     for template in m_data:
         m_path_by_friendly_name[friendly_name(template)] = template
@@ -619,8 +670,9 @@ def load_data():
                         "gender": npc_gender_val
                     }
                     # Unknown thing, but used by actor - change to misc item category
-                    if m_templates[app_template] == ENR.ENR_GSlotUnknown:
-                        m_templates[app_template] = ENR.ENR_RSlotMisc
+                    if m_templates[app_template]["slot_category"] == ENR.ENR_GSlotUnknown:
+                        m_templates[app_template]["slot_category"] = ENR.ENR_RSlotMisc
+
                 # update possible gender always
                 m_templates[app_template]["gender"] |= npc_gender_val
                 # update npc name & cat info
@@ -644,11 +696,58 @@ def load_data():
                     if coloring_str not in m_templates[app_template]["colorings"]:
                         m_templates[app_template]["colorings"].append(coloring_str)
 
+    # add equipment item templates & Armor sets ?
+    load_xml_items()
+
     # add custom DLC templates & NPC sets
     load_dlc_data()
 
-    # add equipment item templates & Armor sets ?
-    load_xml_items()
+    # check templates unused by actors
+    add_head_regexes = {
+        EG.EG_Female: [
+            "dlc.*h_[0-9][0-2]__alp.*",
+            "dlc.*h_[0-9][0-2]__bruxa.*"
+        ],
+        EG.EG_Male: [
+            ".*h_[0-9][0-9]_da.*"
+        ]
+    }
+
+    for template in m_data:
+        if template in m_templates or m_data[template]["type"] != "ITEM":
+            continue
+
+        should_add = False
+        for gender in [EG.EG_Male, EG.EG_Female]:
+            for regex in add_head_regexes[gender]:
+                if re.match(regex, template):
+                    should_add = True
+                    break
+
+            if should_add:
+                m_templates[template] = {
+                    "path": template,
+                    "colorings": [
+                        "{}"  # default empty coloring for all
+                    ],
+                    "slot_category": ENR[m_data[template]["category"]],
+                    "npc_category": EAN.EAN_DLCSecondary if template.startswith("dlc/") else EAN.EAN_VanillaSecondary,
+                    "name": "Other",
+                    "nameID": 1046772,
+                    "extraKey": friendly_name(template),
+                    "gender": gender
+                }
+                print(f'[+] Add missed template: {template} [{m_data[template]["category"]}][{gender.name}]')
+                break
+
+    # make sure variant templates are in the same section as original
+    for path in add_collapsed_variants:
+        friendly_t = friendly_name(path)
+        dlc_path = f"dlc/dlcnewreplacers/data/entities/woman_fixed/collapsed_variant/{friendly_t}_collapsed.w2ent"
+        m_templates[dlc_path] = deepcopy(m_templates[path])
+        m_templates[dlc_path]["path"] = dlc_path
+        m_templates[dlc_path]["equip_variant"] = 2
+        print(f"Add built-in custom template: {dlc_path}")
 
     m_templates = dict(sorted(m_templates.items()))
     print(f"Appearance templates: {len(m_templates)}")
@@ -659,23 +758,25 @@ def load_data():
         # NPC set
         if m_data[template]["type"] == "ACTOR":
             coloring_dict = m_data[template]["coloring_dict"]
-            npc_name = m_data[template]["name"]
             npc_name_id = m_data[template]["nameID"]
             npc_category = EAN[m_data[template]["category"]]
             if npc_name_id == 0 or str(npc_name_id) == npc_name or "appearances" not in m_data[template]:
                 continue
 
+            npc_gender = EG.EG_None
+            # rig is more important
+            if m_data[template]["rig"] == "man_base":
+                npc_gender = EG.EG_Male
+            elif m_data[template]["rig"] == "woman_base":
+                npc_gender = EG.EG_Female
+            elif m_data[template]["gender"] == "male":
+                npc_gender = EG.EG_Male
+            elif m_data[template]["gender"] == "female":
+                npc_gender = EG.EG_Female
+
+            npc_name = m_data[template]["name"] + "_" + npc_gender.name
+
             if npc_name not in m_npc_data:
-                npc_gender = EG.EG_None
-                # rig is more important
-                if m_data[template]["rig"] == "man_base":
-                    npc_gender = EG.EG_Male
-                elif m_data[template]["rig"] == "woman_base":
-                    npc_gender = EG.EG_Female
-                elif m_data[template]["gender"] == "male":
-                    npc_gender = EG.EG_Male
-                elif m_data[template]["gender"] == "female":
-                    npc_gender = EG.EG_Female
 
                 # print(f"Add {npc_name}: {template}, npc_category = {npc_category}")
                 m_npc_data[npc_name] = {
@@ -693,8 +794,11 @@ def load_data():
                 m_npc_data[npc_name]["category"] = npc_category
                 m_npc_data[npc_name]["nameID"] = m_data[template]["nameID"]
 
+            if npc_name == "Noblewoman":
+                print(f"Noblewoman: {template} [{npc_category.name}], higher priority: {has_higher_category}")
+
             for app_name in m_data[template]["appearances"]:
-                if app_name not in m_npc_data[npc_name] or has_higher_category:
+                if app_name not in m_npc_data[npc_name]["appearances"] or has_higher_category:
                     # adding/rewriting appearance templates
                     m_npc_data[npc_name]["appearances"][app_name] = {
                         i: str() if i != ENR.ENR_RSlotMisc else [] for i in ENR
@@ -738,9 +842,15 @@ def load_data():
             if cnt > 0:
                 print(f"NPC sets[{gender.name}][{npc_category.name}] = {cnt}")
 
-    with open(f"{m_FOLDER}/DEBUG_npc_sets.json", mode="w", encoding="utf-8") as jo:
+    with open(f"{m_FOLDER}/DEBUG_npc_sets_by_cats.json", mode="w", encoding="utf-8") as jo:
         start_t = time.time()
         json.dump(m_npc_by_cats, jo, sort_keys=False, ensure_ascii=False, indent=2)
+        end_t = time.time()
+        print(f"npc sets JSON saved in: {end_t - start_t} s")
+
+    with open(f"{m_FOLDER}/DEBUG_npc_sets.json", mode="w", encoding="utf-8") as jo:
+        start_t = time.time()
+        json.dump(m_npc_data, jo, sort_keys=False, ensure_ascii=False, indent=2)
         end_t = time.time()
         print(f"npc sets JSON saved in: {end_t - start_t} s")
 
@@ -768,9 +878,15 @@ def load_data():
                 if cnt > 0:
                     print(f"Appearance templates[{gender.name}][{slot_category.name}][{npc_category.name}] = {cnt}")
 
-    with open(f"{m_FOLDER}/DEBUG_app_templates.json", mode="w", encoding="utf-8") as jo:
+    with open(f"{m_FOLDER}/DEBUG_app_templates_by_cats.json", mode="w", encoding="utf-8") as jo:
         start_t = time.time()
         json.dump(m_templates_by_cats, jo, sort_keys=False, ensure_ascii=False, indent=2)
+        end_t = time.time()
+        print(f"app templates JSON saved in: {end_t - start_t} s")
+
+    with open(f"{m_FOLDER}/DEBUG_app_templates.json", mode="w", encoding="utf-8") as jo:
+        start_t = time.time()
+        json.dump(m_templates, jo, sort_keys=False, ensure_ascii=False, indent=2)
         end_t = time.time()
         print(f"app templates JSON saved in: {end_t - start_t} s")
 
@@ -780,7 +896,6 @@ def load_xml_items():
 
     encoding_mime = magic.Magic(mime_encoding=True)
     items_checked = set()
-    paths_checked = set()
 
     loc_str_regex_to_npc_name = {
         "item_name_elegant_beauclair_[a-z]*$": "item_name_elegant_beauclair_suit",
@@ -824,7 +939,7 @@ def load_xml_items():
         "item_name_hoscorset_[a-z]*$": "item_name_hoscorset_armor",
         "item_name_skellige_(suit01|casual_pants01|casual_shoes)$": "item_name_skellige_suit01",
         "item_name_(undvik|skellige)_[a-z]*_dlc$": "item_name_skellige_armour_dlc",
-        "item_name_netflix_[a-z]*_dlc$": "item_name_netflix_armour_dlc",
+        # "item_name_netflix_[a-z]*_dlc$": "item_name_netflix_armour_dlc",
         "item_name_netflix_[a-z]*_dlc_1$": "item_name_netflix_armour_dlc_1",
         "item_name_netflix_[a-z]*_dlc_2$": "item_name_netflix_armour_dlc_2",
         "ui_gog_reward_[a-z]*$": "ui_gog_reward_armor",
@@ -838,13 +953,10 @@ def load_xml_items():
     fake_names_female_forbidden = {
         "ui_gog_reward_armor",
         "item_name_ngu_tiger_armor",
+        "item_name_skellige_armour_dlc",
         "item_name_netflix_armour_dlc",
         "item_name_netflix_armour_dlc_1",
         "item_name_netflix_armour_dlc_2",
-    }
-    armor_variant_replacements = {
-        "t2_11a_mg__bob": "t2_11_mg__bob",
-        todo
     }
     # groups = dict()
 
@@ -885,31 +997,31 @@ def load_xml_items():
         "gender": EG.EG_Male,
         "category": EAN.EAN_ArmorSet,
         "appearances": {
-            "naked": {
+            "no_armor": {
                 i: str() if i != ENR.ENR_RSlotMisc else [] for i in ENR
             },
-            "naked_towel": {
+            "towel": {
                 i: str() if i != ENR.ENR_RSlotMisc else [] for i in ENR
             },
-            "naked_wet": {
+            "naked_cutscene": {
                 i: str() if i != ENR.ENR_RSlotMisc else [] for i in ENR
             }
         }
     }
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked"][ENR.ENR_RSlotTorso] = m_path_by_friendly_name["t_01_mg__body_medalion"]
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked"][ENR.ENR_RSlotGloves] = m_path_by_friendly_name["g_01_mg__body"]
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked"][ENR.ENR_RSlotLegs] = m_path_by_friendly_name["l_01_mg__body_underwear"]
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked"][ENR.ENR_RSlotShoes] = m_path_by_friendly_name["s_01_mg__body"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["no_armor"][ENR.ENR_RSlotTorso] = m_path_by_friendly_name["t_01_mg__body_medalion"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["no_armor"][ENR.ENR_RSlotGloves] = m_path_by_friendly_name["g_01_mg__body"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["no_armor"][ENR.ENR_RSlotLegs] = m_path_by_friendly_name["l_01_mg__body_underwear"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["no_armor"][ENR.ENR_RSlotShoes] = m_path_by_friendly_name["s_01_mg__body"]
 
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked_towel"][ENR.ENR_RSlotTorso] = m_path_by_friendly_name["t_01_mg__body_towel"]
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked_towel"][ENR.ENR_RSlotGloves] = m_path_by_friendly_name["g_01_mg__body"]
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked_towel"][ENR.ENR_RSlotLegs] = m_path_by_friendly_name["l_01_mg__body_underwear"]
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked_towel"][ENR.ENR_RSlotShoes] = m_path_by_friendly_name["s_01_mg__body"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["towel"][ENR.ENR_RSlotTorso] = m_path_by_friendly_name["t_01_mg__body_towel"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["towel"][ENR.ENR_RSlotGloves] = m_path_by_friendly_name["g_01_mg__body"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["towel"][ENR.ENR_RSlotLegs] = m_path_by_friendly_name["l_01_mg__body_underwear"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["towel"][ENR.ENR_RSlotShoes] = m_path_by_friendly_name["s_01_mg__body"]
 
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked_wet"][ENR.ENR_RSlotTorso] = m_path_by_friendly_name["t_01_mg__body_wet_hires"]
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked_wet"][ENR.ENR_RSlotGloves] = m_path_by_friendly_name["g_01_mg__body_wet"]
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked_wet"][ENR.ENR_RSlotLegs] = m_path_by_friendly_name["l_01_mg__body_wet"]
-    m_npc_data["fake_key_x288_e"]["appearances"]["naked_wet"][ENR.ENR_RSlotShoes] = m_path_by_friendly_name["s_01_mg__body_wet"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["naked_cutscene"][ENR.ENR_RSlotTorso] = m_path_by_friendly_name["t_01_mg__body"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["naked_cutscene"][ENR.ENR_RSlotGloves] = m_path_by_friendly_name["g_01_mg__body"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["naked_cutscene"][ENR.ENR_RSlotLegs] = m_path_by_friendly_name["l_01_mg__body"]
+    m_npc_data["fake_key_x288_e"]["appearances"]["naked_cutscene"][ENR.ENR_RSlotShoes] = m_path_by_friendly_name["s_01_mg__body"]
 
     # item_name_rose_armor: legs: dlc/dlcnewreplacers/data/entities/colorings/vanilla_main/nr_s_01_mb__skellige_villager_coloring_2.w2ent
     # item_name_rose_armor: shoes: dlc/dlcnewreplacers/data/entities/colorings/vanilla_main/nr_l0_02_ma__novigrad_guard_coloring_5.w2ent
@@ -923,7 +1035,48 @@ def load_xml_items():
     # item_name_beauclair_prison_shirt: gloves: characters/models/crowd_npc/skellige_villager/gloves/g_04_ma__skellige_villager.w2ent
     # item_name_beauclair_prison_shirt: shoes: characters/models/crowd_npc/nml_villager/shoes/s_02_ma__nml_villager.w2ent
 
-    for xml_path in Path("XML").rglob("*.xml"):
+    # check items_extensions
+    variants_by_item_name = dict()
+    best_variant_by_item_name = dict()
+    xml_paths = list(Path("XML").rglob("*.xml"))
+    for xml in xml_paths:
+        xml_path = str(xml)
+        encoding = encoding_mime.from_file(xml_path)
+        print(f"[*] Checking item extensions: {xml_path}")
+        root_node = XET.parse(xml_path, parser=XET.XMLParser(encoding=encoding)).getroot()
+        for child in tqdm(root_node.findall('definitions/items_extensions/item_extension')):
+            item_name = child.get("name")
+            node_variants = child.find("variants")
+            if node_variants:
+                equip_variant_cnt = 1
+                if item_name not in variants_by_item_name:
+                    variants_by_item_name[item_name] = set()
+
+                for node_variant in list(node_variants):
+                    is_armor_stand = False
+                    variant_friendly_name = node_variant.attrib.get("equip_template", "")
+                    for node_variant_child in node_variant.findall("item"):
+                        if node_variant_child.text == "_armor_stand":
+                            is_armor_stand = True
+                            break
+
+                    if is_armor_stand:
+                        print(f"[*] Skipping variant for _armor_stand: {variant_friendly_name}")
+                        continue
+
+                    if variant_friendly_name not in m_path_by_friendly_name:
+                        print(f"[!] Can't find variant full entity path: {variant_friendly_name}")
+                        continue
+
+                    full_path_variant = m_path_by_friendly_name[variant_friendly_name]
+                    variants_by_item_name[item_name].add(full_path_variant)
+                    # print(f"[+] Adding item [{item_name}] variant: {variant_friendly_name}")
+                    if "category" in node_variant.attrib and "all" not in node_variant.attrib and node_variant.attrib["category"] in {"armor", "pants", "boots", "gloves"}:
+                        best_variant_by_item_name[item_name] = full_path_variant
+                        # print(f"[*] Recommended variant for full set (with {node_variant.attrib['category']}): {full_path_variant}")
+
+    # check items
+    for xml_path in xml_paths:
         encoding = encoding_mime.from_file(str(xml_path))
         # print(f"Parse xml: {str(xml_path)} [{encoding}]")
 
@@ -934,19 +1087,96 @@ def load_xml_items():
                 continue
             items_checked.add(item_name)
 
-            if all(x in child.attrib for x in ["name", "category", "equip_template", "localisation_key_name"]) and child.get("category") in {"armor", "pants", "boots", "gloves"}:
+            # geralt head/hair
+            if all(x in child.attrib for x in ["name", "category", "equip_template"]) and child.get("category") in {"hair", "head"}:
+                friendly_path = child.get("equip_template")
+                if friendly_path not in m_path_by_friendly_name:
+                    continue
 
+                full_path = m_path_by_friendly_name[friendly_path]
+
+                if child.get("category") == "hair":
+                    slot = ENR.ENR_RSlotHair
+                elif child.get("category") == "head":
+                    slot = ENR.ENR_GSlotHead
+
+                # add template
+                m_templates[full_path] = {
+                    "path": full_path,
+                    "colorings": ["{}"],
+                    "slot_category": slot,
+                    "npc_category": EAN.EAN_VanillaMain,
+                    "name": "Geralt",
+                    "nameID": 318188,
+                    "extraKey": item_name,
+                    "gender": EG.EG_Male
+                }
+
+                # DLC JO Witcheress - don't add, looks bad on female
+                if False:
+                    full_path_female = f"dlc/dlcjowitcheress/data/entities/{full_path.replace('.w2ent', '_jo.w2ent')}"
+                    os.makedirs(os.path.dirname(f"{cooked_w2ent_dir}/{full_path_female}"), exist_ok=True)
+                    shutil.copy2(f"{cooked_w2ent_dir}/{full_path}", f"{cooked_w2ent_dir}/{full_path_female}")
+                    m_data[full_path_female] = deepcopy(m_data[full_path])
+                    m_templates[full_path_female] = {
+                        "path": full_path_female,
+                        "colorings": ["{}"],
+                        "slot_category": slot,
+                        "npc_category": EAN.EAN_VanillaMain,
+                        "name": "Geralt",
+                        "nameID": 318188,
+                        "extraKey": item_name,
+                        "gender": EG.EG_Female
+                    }
+
+                print(f"Add {slot.name} item: {item_name}")
+
+                equip_variant_cnt = 1
+                variant_full_paths = variants_by_item_name.get(item_name, set())
+
+                node_variants = child.find("variants")
+                if node_variants:
+                    for node_variant in list(node_variants):
+                        variant_friendly_name = node_variant.attrib.get("equip_template", "")
+                        if variant_friendly_name not in m_path_by_friendly_name:
+                            print(f"[!] Can't find variant full entity path: {variant_friendly_name}")
+                            continue
+
+                        full_path_variant = m_path_by_friendly_name[variant_friendly_name]
+                        # print(f"[+] Adding {slot.name} [{item_name}] variant: {variant_friendly_name}")
+                        variant_full_paths.add(full_path_variant)
+                        # if "category" in node_variant.attrib and "all" not in node_variant.attrib and node_variant.attrib["category"] in {"armor", "pants", "boots", "gloves"}:
+                        #    best_variant_by_item_name[item_name] = full_path_variant
+                        #    print(f"[*] Recommended variant for full set (with {node_variant.attrib['category']}): {full_path_variant}")
+
+                if full_path in variant_full_paths:
+                    # print(f"[-] Remove variant as it is main template: {full_path}")
+                    variant_full_paths.remove(full_path)
+
+                    for full_path_variant in variant_full_paths:
+                        equip_variant_cnt += 1
+                        m_templates[full_path_variant] = deepcopy(m_templates[full_path])
+                        m_templates[full_path_variant]["path"] = full_path_variant
+                        m_templates[full_path_variant]["equip_variant"] = equip_variant_cnt
+
+                        if False:
+                            full_path_female_variant = f"dlc/dlcjowitcheress/data/entities/{full_path_variant.replace('.w2ent', '_jo.w2ent')}"
+                            os.makedirs(os.path.dirname(f"{cooked_w2ent_dir}/{full_path_female_variant}"), exist_ok=True)
+                            shutil.copy2(f"{cooked_w2ent_dir}/{full_path_variant}", f"{cooked_w2ent_dir}/{full_path_female_variant}")
+                            m_data[full_path_female_variant] = deepcopy(m_data[full_path_variant])
+                            m_templates[full_path_female_variant] = deepcopy(m_templates[full_path_female])
+                            m_templates[full_path_female_variant]["path"] = full_path_female_variant
+                            m_templates[full_path_female_variant]["equip_variant"] = equip_variant_cnt
+
+                # don't try to check as armor part
+                continue
+
+            # armor part
+            if all(x in child.attrib for x in ["name", "category", "equip_template", "localisation_key_name"]) and child.get("category") in {"armor", "pants", "boots", "gloves"}:
                 tags = child.find("tags").text.replace("	", "").replace(" ", "").replace("\n", "").split(",")
                 if "NoShow" in tags or "NoDrop" in tags:
                     continue
 
-                set_name = str()
-                for tag in tags:
-                    if tag.endswith("Set"):
-                        set_name = tag
-                        # print(f"SET PART: {tag}")
-
-                # print(f"Tags = [{tags}]")
                 slot = ENR.ENR_RSlotMisc
                 if child.get("category") == "armor":
                     slot = ENR.ENR_RSlotTorso
@@ -961,12 +1191,8 @@ def load_xml_items():
                 if friendly_path not in m_path_by_friendly_name:
                     continue
 
-                if friendly_path in paths_checked:
-                    pass
-                    # continue
-                paths_checked.add(friendly_path)
-
                 full_path = m_path_by_friendly_name[friendly_path]
+
                 colorings = ["{}"]
                 app_names = ["default"]
                 if "appearances" in m_data[full_path]:
@@ -1021,7 +1247,7 @@ def load_xml_items():
                     "path": full_path,
                     "colorings": colorings,
                     "slot_category": slot,
-                    "npc_category": EAN.EAN_VanillaMain if set_name else EAN.EAN_VanillaSecondary,
+                    "npc_category": EAN.EAN_VanillaMain if child.find("tags") and child.find("tags").text.count("Set") > 0 else EAN.EAN_VanillaSecondary,
                     "name": "Geralt",
                     "nameID": 318188,
                     "extraKey": loc_name,
@@ -1049,10 +1275,12 @@ def load_xml_items():
                         "gender": EG.EG_Female
                     }
 
-                print(f"Add item: {child.get('name')} ({loc_name}) [{child.get('category')} -> {slot.name}], colorings: {colorings}")
+                # print(f"Add item: {child.get('name')} ({loc_name}) [{child.get('category')} -> {slot.name}], colorings: {colorings}")
+                print(f"Add item: {child.get('name')} ({loc_name}) [{child.get('category')} -> {slot.name}]")
 
-                node_variants = child.find("variants")
+                variant_full_paths = variants_by_item_name.get(item_name, set())
                 equip_variant_cnt = 1
+                node_variants = child.find("variants")
                 if node_variants:
                     for node_variant in list(node_variants):
                         is_armor_stand = False
@@ -1064,53 +1292,85 @@ def load_xml_items():
                         if is_armor_stand:
                             continue
 
-                        variant_friendly_path = node_variant.attrib.get("equip_template", "")
-                        if variant_friendly_path not in m_path_by_friendly_name:
-                            print(f"Warning: Unknown variant template: {variant_friendly_path}")
+                        variant_friendly_name = node_variant.attrib.get("equip_template", "")
+                        if variant_friendly_name not in m_path_by_friendly_name:
+                            print(f"[!] Can't find variant full entity path: {variant_friendly_name}")
                             continue
 
-                        full_path_variant = m_path_by_friendly_name[variant_friendly_path]
+                        full_path_variant = m_path_by_friendly_name[variant_friendly_name]
+                        # print(f"[+] Adding item [{item_name}] variant: {variant_friendly_name}")
+                        variant_full_paths.add(full_path_variant)
+                        if "category" in node_variant.attrib and "all" not in node_variant.attrib and node_variant.attrib["category"] in {"armor", "pants", "boots", "gloves"}:
+                            best_variant_by_item_name[item_name] = full_path_variant
+                            # print(f"[*] Recommended variant for full set (with {node_variant.attrib['category']}): {full_path_variant}")
 
-                        # update path for CItemEntities
-                        if "appearances" in m_data[full_path_variant]:
-                            if "dye_default" in m_data[full_path_variant]["appearances"]:
-                                # dyeable
-                                assert (len(m_data[full_path_variant]["appearances"]["dye_default"]["templates"]) == 1)
-                                full_path_variant = m_data[full_path_variant]["appearances"]["dye_default"]["templates"][0]
-                            else:
-                                for app_name in m_data[full_path_variant]["appearances"].keys():
-                                    if len(m_data[full_path_variant]["appearances"][app_name]["templates"]) > 0:
-                                        assert (len(m_data[full_path_variant]["appearances"][app_name]["templates"]) == 1)
-                                        full_path_variant = m_data[full_path_variant]["appearances"][app_name]["templates"][0]
+                if full_path in variant_full_paths:
+                    # print(f"[-] Remove variant as it is main template: {full_path}")
+                    variant_full_paths.remove(full_path)
 
-                        equip_variant_cnt += 1
-                        m_templates[full_path_variant] = deepcopy(m_templates[full_path])
-                        m_templates[full_path_variant]["path"] = full_path_variant
-                        m_templates[full_path_variant]["equip_variant"] = equip_variant_cnt
-                        if variant_friendly_path in armor_variant_replacements and friendly_path == armor_variant_replacements[variant_friendly_path]:
-                            full_path_for_npc = full_path_variant
-                            print(f"USE variant = {full_path_variant}")
+                for full_path_variant in variant_full_paths:
+                    # update path for CItemEntities
+                    old_full_path = full_path_variant
+                    variant_colorings = ["{}"]
+
+                    if "appearances" in m_data[old_full_path]:
+                        if "dye_default" in m_data[old_full_path]["appearances"]:
+                            # dyeable
+                            assert (len(m_data[old_full_path]["appearances"]["dye_default"]["templates"]) == 1)
+                            full_path_variant = m_data[old_full_path]["appearances"]["dye_default"]["templates"][0]
+                            m_data[full_path_variant]["appearances"] = m_data[old_full_path]["appearances"]
+                            # dye_default always first
+                            variant_colorings.append(
+                                get_app_template_colorings_str(full_path_variant, m_data[full_path_variant]["appearances"]["dye_default"]["coloring"])
+                            )
+                            for app_name in sorted(m_data[full_path_variant]["appearances"].keys()):
+                                if app_name == "dye_default":
+                                    continue
+                                variant_colorings.append(
+                                    get_app_template_colorings_str(full_path_variant, m_data[full_path_variant]["appearances"][app_name]["coloring"])
+                                )
                         else:
-                            print(f"Add variant = {full_path_variant}")
+                            for app_name in m_data[old_full_path]["appearances"].keys():
+                                if len(m_data[old_full_path]["appearances"][app_name]["templates"]) > 0:
+                                    assert (len(m_data[old_full_path]["appearances"][app_name]["templates"]) == 1)
+                                    full_path_variant = m_data[old_full_path]["appearances"][app_name]["templates"][0]
+                                    m_data[full_path_variant]["appearances"] = m_data[old_full_path]["appearances"]
+                                    if "coloring" in m_data[full_path_variant]["appearances"][app_name]:
+                                        variant_colorings.append(get_app_template_colorings_str(full_path_variant, m_data[full_path_variant]["appearances"][app_name]["coloring"]))
+                                    break
 
-                        if add_female_jo_variant:
-                            full_path_female_variant = f"dlc/dlcjowitcheress/data/entities/{full_path_variant.replace('.w2ent', '_jo.w2ent')}"
-                            os.makedirs(os.path.dirname(f"{cooked_w2ent_dir}/{full_path_female_variant}"), exist_ok=True)
-                            shutil.copy2(f"{cooked_w2ent_dir}/{full_path_variant}", f"{cooked_w2ent_dir}/{full_path_female_variant}")
-                            m_data[full_path_female_variant] = deepcopy(m_data[full_path_variant])
-                            m_templates[full_path_female_variant] = deepcopy(m_templates[full_path_female])
-                            m_templates[full_path_female_variant]["path"] = full_path_female_variant
-                            m_templates[full_path_female_variant]["equip_variant"] = equip_variant_cnt
-                            if variant_friendly_path in armor_variant_replacements and friendly_path == armor_variant_replacements[variant_friendly_path]:
-                                full_path_female_for_npc = full_path_female_variant
-                                print(f"USE female variant = {full_path_female_variant}")
-                            else:
-                                print(f"Add female variant = {full_path_female_variant}")
+                    equip_variant_cnt += 1
+                    m_templates[full_path_variant] = deepcopy(m_templates[full_path])
+                    m_templates[full_path_variant]["colorings"] = variant_colorings
+                    m_templates[full_path_variant]["path"] = full_path_variant
+                    m_templates[full_path_variant]["equip_variant"] = equip_variant_cnt
+                    if old_full_path == best_variant_by_item_name.get(item_name, ""):
+                        full_path_for_npc = full_path_variant
+                        # print(f"USE variant = {full_path_variant}")
+                    else:
+                        # print(f"Add variant = {full_path_variant}")
+                        pass
+
+                    if add_female_jo_variant:
+                        full_path_female_variant = f"dlc/dlcjowitcheress/data/entities/{full_path_variant.replace('.w2ent', '_jo.w2ent')}"
+                        os.makedirs(os.path.dirname(f"{cooked_w2ent_dir}/{full_path_female_variant}"), exist_ok=True)
+                        shutil.copy2(f"{cooked_w2ent_dir}/{full_path_variant}", f"{cooked_w2ent_dir}/{full_path_female_variant}")
+                        m_data[full_path_female_variant] = deepcopy(m_data[full_path_variant])
+                        m_templates[full_path_female_variant] = deepcopy(m_templates[full_path_female])
+                        m_templates[full_path_female_variant]["colorings"] = variant_colorings
+                        m_templates[full_path_female_variant]["path"] = full_path_female_variant
+                        m_templates[full_path_female_variant]["equip_variant"] = equip_variant_cnt
+                        if old_full_path == best_variant_by_item_name.get(item_name, ""):
+                            full_path_female_for_npc = full_path_female_variant
+                            # print(f"USE female variant = {full_path_female_variant}")
+                        else:
+                            # print(f"Add female variant = {full_path_female_variant}")
+                            pass
 
                 if match_npc_name:
                     fake_npc_name = match_npc_name
                     fake_npc_name_female = fake_npc_name + "_female"
-                    print(f"Add to npc set: {loc_name} -> {regex} -> {fake_npc_name}")
+                    # print(f"Add to npc set: {loc_name} -> {regex} -> {fake_npc_name}")
                     for i, app_name in enumerate(app_names):
                         if len(app_names) > 1 and i == 0:
                             # skip empty coloring if there are another
@@ -1124,6 +1384,8 @@ def load_xml_items():
                             t_path = full_path_for_npc if gender == EG.EG_Male else full_path_female_for_npc
                             t_npc_name = fake_npc_name if gender == EG.EG_Male else fake_npc_name_female
 
+                            m_data1 = m_data[t_path]
+                            m_data2 = m_data[full_path]
                             app_coloring = m_data[t_path].get("appearances", {}).get(app_name, {}).get("coloring", "{}")
 
                             coloring_index = get_app_template_coloring_index(t_path, app_coloring)
@@ -1147,12 +1409,18 @@ def load_xml_items():
 
     m_npc_data["item_name_rose_armor" + "_female"]["appearances"]["default"][ENR.ENR_RSlotLegs] = "dlc/dlcnewreplacers/data/entities/colorings/dlc_secondary/nr_l_01_wa__olgierds_gang_member_woman_coloring_1.w2ent"
 
+    m_npc_data["item_name_beauclair_suit_01"]["appearances"]["default"][ENR.ENR_RSlotTorso] = "dlc/bob/data/items/bodyparts/geralt_items/trunk/casual_beauclair_outfit/t2_10_mg__bob.w2ent"
     m_npc_data["item_name_beauclair_suit_01"]["appearances"]["default"][ENR.ENR_RSlotGloves] = "quests/part_2/quest_files/q106_tower/characters/ghost_npc_body_parts/popiel/g_01_ma__body.w2ent"
+    m_npc_data["item_name_elegant_beauclair_suit"]["appearances"]["default"][ENR.ENR_RSlotTorso] = "dlc/bob/data/items/bodyparts/geralt_items/trunk/casual_beauclair_outfit/t2_11_mg__bob.w2ent"
     m_npc_data["item_name_elegant_beauclair_suit"]["appearances"]["default"][ENR.ENR_RSlotGloves] = "quests/part_2/quest_files/q106_tower/characters/ghost_npc_body_parts/popiel/g_01_ma__body.w2ent"
     m_npc_data["item_name_skellige_suit01"]["appearances"]["default"][ENR.ENR_RSlotGloves] = "quests/part_2/quest_files/q106_tower/characters/ghost_npc_body_parts/popiel/g_01_ma__body.w2ent"
+    m_npc_data["item_name_skellige_suit01"]["appearances"]["default"][ENR.ENR_RSlotTorso] = "items/bodyparts/geralt_items/trunk/casual_non_combat/ta_01_mg__casual_skellige_suit.w2ent"
 
+    m_npc_data["item_name_beauclair_suit_01" + "_female"]["appearances"]["default"][ENR.ENR_RSlotTorso] = "dlc/dlcjowitcheress/data/entities/dlc/bob/data/items/bodyparts/geralt_items/trunk/casual_beauclair_outfit/t2_10_mg__bob_jo.w2ent"
     m_npc_data["item_name_beauclair_suit_01" + "_female"]["appearances"]["default"][ENR.ENR_RSlotGloves] = "dlc/bob/data/characters/models/secondary_npc/hananna_von_kagen/g_01_wa__hanna_von_kagen.w2ent"
+    m_npc_data["item_name_elegant_beauclair_suit" + "_female"]["appearances"]["default"][ENR.ENR_RSlotTorso] = "dlc/dlcjowitcheress/data/entities/dlc/bob/data/items/bodyparts/geralt_items/trunk/casual_beauclair_outfit/t2_11_mg__bob_jo.w2ent"
     m_npc_data["item_name_elegant_beauclair_suit" + "_female"]["appearances"]["default"][ENR.ENR_RSlotGloves] = "dlc/bob/data/characters/models/secondary_npc/hananna_von_kagen/g_01_wa__hanna_von_kagen.w2ent"
+    m_npc_data["item_name_skellige_suit01" + "_female"]["appearances"]["default"][ENR.ENR_RSlotTorso] = "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/trunk/casual_non_combat/ta_01_mg__casual_skellige_suit_jo.w2ent"
     m_npc_data["item_name_skellige_suit01" + "_female"]["appearances"]["default"][ENR.ENR_RSlotGloves] = "dlc/bob/data/characters/models/secondary_npc/hananna_von_kagen/g_01_wa__hanna_von_kagen.w2ent"
 
     m_npc_data["item_name_beauclair_prison_shirt"]["appearances"]["default"][ENR.ENR_RSlotGloves] = "characters/models/crowd_npc/skellige_villager/gloves/g_04_ma__skellige_villager.w2ent"
@@ -1167,66 +1435,109 @@ def load_dlc_data():
 
     for dlc_file in Path("DLCCustom").rglob("*.json"):
         with open(dlc_file, mode="r", encoding="utf-8") as ij:
+            print(f"Loading custom dlc: {str(dlc_file)}")
             data = json.load(ij)
-            m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_customDLCInfo"].append({
-                ".type": "NR_SceneCustomDLCInfo",
-                "m_dlcID": quoted(data["dlc_id"]),
-                "m_dlcNameKey": quoted(data["dlc_name_key"]),
-                "m_dlcAuthor": quoted(data["dlc_author_nickname"]),
-                "m_dlcLink": quoted(data["dlc_link"])
-            })
             # print(data)
+
+            testTemplatePath = ""
             for i, t_path in enumerate(data["dlc_appearance_templates"]):
+                if not testTemplatePath and t_path.startswith("dlc/") and not t_path.startswith("dlc/dlcnewreplacers/"):
+                    testTemplatePath = t_path
                 m_path_by_friendly_name[friendly_name(t_path)] = t_path
                 t_data = data["dlc_appearance_templates"][t_path]
                 m_templates[t_path] = {
                     "path": t_path,
                     "colorings": [
-                        # json.dumps(t_data["template_coloring"], sort_keys=True) if "template_coloring" in t_data else "{}"  # default empty coloring for all
-                        "{}"
+                        json.dumps(t_data["coloring"], sort_keys=True) if "coloring" in t_data else "{}"  # default empty coloring for all
+                        # "{}"
                     ],
-                    "slot_category": ENR[t_data["template_slot"]],
+                    "slot_category": ENR[t_data["slot"]],
                     "npc_category": EAN.EAN_DLCCustom,
                     "dlc_id": data["dlc_id"],
                     "dlc_name_key": data["dlc_name_key"],
+                    "dlc_name_str": data["dlc_name_str"],
                     "nameID": 1,  # means we use "name" as loc_key instead of "nameID" as loc_id
                     "name": "_skip_",
                     "gender": EG.EG_Any
                 }
                 if "equip_variant" in t_data:
                     m_templates[t_path]["equip_variant"] = t_data["equip_variant"]
-                if "template_name_key" in t_data:
-                    m_templates[t_path]["extraKey"] = t_data["template_name_key"]
+
+                if "name_key" in t_data and t_data["name_key"]:
+                    m_templates[t_path]["extraKey"] = t_data["name_key"]
                 else:
                     m_templates[t_path]["extraKey"] = friendly_name(t_path)
 
-                if t_data["template_rig"] == "male":
+                if t_data["rig"].lower() == "male":
                     m_templates[t_path]["gender"] = EG.EG_Male
-                elif t_data["template_rig"] == "female":
+                elif t_data["rig"].lower() == "female":
                     m_templates[t_path]["gender"] = EG.EG_Female
+
+            m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_customDLCInfo"].append({
+                ".type": "NR_SceneCustomDLCInfo",
+                "m_dlcID": quoted(data["dlc_id"]),
+                "m_dlcNameKey": quoted(data["dlc_name_key"]),
+                "m_dlcNameStr": quoted(data["dlc_name_str"]),
+                "m_dlcAuthor": quoted(data["dlc_author_nickname"]),
+                "m_dlcLink": quoted(data["dlc_link"]),
+                "m_dlcCheckTemplatePath": quoted(testTemplatePath)
+            })
 
             for gender_str in ["male", "female"]:
                 if f"dlc_{gender_str}_appearance_sets" in data and len(data[f"dlc_{gender_str}_appearance_sets"]) > 0:
                     npc_name = data["dlc_name_key"] + "_" + gender_str
-                    m_npc_data[npc_name] = {
-                        "nameID": 1,
-                        "name": "_skip_",
-                        "dlc_id": data["dlc_id"],
-                        "dlc_name_key": data["dlc_name_key"],
-                        "gender": EG.EG_Male if gender_str == "male" else EG.EG_Female,
-                        "category": EAN.EAN_DLCCustom,
-                        "appearances": dict()
-                    }
+                    npc_name_armor = data["dlc_name_key"] + "_" + gender_str + "_armor"
+
                     for i, app_name in enumerate(data[f"dlc_{gender_str}_appearance_sets"]):
-                        m_npc_data[npc_name]["appearances"][app_name] = {
+                        # create different npc data on fly
+                        npc_app_name = app_name
+                        if app_name.startswith("ARMOR_"):
+                            unloadHair = app_name.startswith("ARMOR_NOHAIR_")
+                            if npc_name_armor not in m_npc_data:
+                                m_npc_data[npc_name_armor] = {
+                                    "nameID": 1,
+                                    "name": "_skip_",
+                                    "dlc_id": data["dlc_id"],
+                                    "dlc_name_key": data["dlc_name_key"],
+                                    "dlc_name_str": data["dlc_name_str"],
+                                    "gender": EG.EG_Male if gender_str == "male" else EG.EG_Female,
+                                    "category": EAN.EAN_ArmorSet,
+                                    "selector_flag": SPF.ENR_SPForceUnloadAll.value if unloadHair else SPF.ENR_SPForceUnloadAllExceptHair.value,
+                                    "appearances": dict()
+                                }
+                            if unloadHair:
+                                npc_app_name = app_name[len("ARMOR_NOHAIR_"):]
+                            else:
+                                npc_app_name = app_name[len("ARMOR_"):]
+                            npc_data = m_npc_data[npc_name_armor]
+                        else:
+                            if npc_name not in m_npc_data:
+                                m_npc_data[npc_name] = {
+                                    "nameID": 1,
+                                    "name": "_skip_",
+                                    "dlc_id": data["dlc_id"],
+                                    "dlc_name_key": data["dlc_name_key"],
+                                    "gender": EG.EG_Male if gender_str == "male" else EG.EG_Female,
+                                    "category": EAN.EAN_DLCCustom,
+                                    "appearances": dict()
+                                }
+                            npc_data = m_npc_data[npc_name]
+
+                        npc_data["appearances"][npc_app_name] = {
                             j: str() if j != ENR.ENR_RSlotMisc else [] for j in ENR
                         }
                         for j, npc_template in enumerate(data[f"dlc_{gender_str}_appearance_sets"][app_name]):
-                            slot = m_templates[npc_template]["slot_category"]
-                            if slot != ENR.ENR_RSlotMisc and not m_npc_data[npc_name]["appearances"][app_name][slot]:
-                                m_npc_data[npc_name]["appearances"][app_name][slot] = npc_template
+                            if isinstance(npc_template, str):
+                                slot = m_templates[npc_template]["slot_category"]
+                                template_path = npc_template
                             else:
-                                m_npc_data[npc_name]["appearances"][app_name][ENR.ENR_RSlotMisc].append(npc_template)
+                                slot = ENR[npc_template["slot"]]
+                                template_path = npc_template["path"]
+
+                            if slot != ENR.ENR_RSlotMisc and not npc_data["appearances"][npc_app_name][slot]:
+                                npc_data["appearances"][npc_app_name][slot] = template_path
+                            else:
+                                npc_data["appearances"][npc_app_name][ENR.ENR_RSlotMisc].append(template_path)
 
 
 def write_yml_nicely(path, data):
@@ -1275,9 +1586,8 @@ def write_coloring_files():
                             continue
                         else:
                             # for custom dlc templates
-                            print(f"CONSIDER ADDING COLORINGS in DLC ENTITY itself: ({vanilla_path})")
-                            continue
-                            # custom_path = t
+                            print(f"ADD DEFAULT COLORING: ({vanilla_path})")
+                            custom_path = t
                     else:
                         custom_path = get_app_template_final_path(t, j, True)
 
@@ -1330,9 +1640,6 @@ def write_coloring_files():
                         # write
                         if j > 0:
                             f_comp_out.write(f"|{comp_name}|{new_comp_name}")
-
-                        # if new_comp_name == "shoes_coloring_83":
-                        #    breakpoint()
 
                         if not use_existing:
                             coloring_entry_yml = {
@@ -1392,6 +1699,10 @@ def write_rename_head_files():
         with open("WKIT_rename_heads.txt", mode="w", encoding="utf-8") as f_head_out:
             for i, t in enumerate(m_templates):
                 if m_templates[t]["slot_category"] == ENR.ENR_GSlotHead:
+                    if t.startswith("dlc/dlcnewreplacers/data/entities/heads/dlc_custom/"):
+                        print(f"Skip ready custom head: {t}")
+                        continue
+
                     for j, coloring in enumerate(m_templates[t]["colorings"]):
                         if j == 0:
                             vanilla_path = t
@@ -1419,7 +1730,7 @@ def write_rename_head_files():
 
 def string_id(text: str) -> int:
     global m_stringtable, m_stringtable_copies
-    if text == "dlc/ep1/data/characters/models/geralt/armor/armor_viper_v2/t_01_mg__viper_v2_meshes.w2ent":
+    if text == "characters/models/crowd_npc/novigrad_citizen/torso/t1_13_ma__novigrad_citizen.w2ent":
         breakpoint()
     if text not in m_stringtable:
         new_id = len(m_stringtable)
@@ -1547,6 +1858,9 @@ def add_choice_scripted(text: str, from_section_name: str, to_section_name: str,
 
     if "dlc_name_key" in template_obj:
         choice_obj["scriptAction"]["dlc_name_key"] = template_obj["dlc_name_key"]
+
+    if "dlc_name_str" in template_obj:
+        choice_obj["scriptAction"]["dlc_name_str"] = template_obj["dlc_name_str"]
 
     if "nameID" in template_obj and template_obj["name"] != "_skip_":
         if template_obj["nameID"] == 1:
@@ -1773,6 +2087,8 @@ def create_scene(gender: EG):
         end_t = time.time()
         print(f"Scene YML loaded in: {end_t - start_t} s")
 
+    if gender == EG.EG_Female:
+        m_scene_yml["production"]["settings"]["strings-idstart"] = 650
     selector_nodes = m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_nodesMale" if gender == EG.EG_Male else "m_nodesFemale"]
 
     # Create display name selection
@@ -1804,7 +2120,7 @@ def create_scene(gender: EG):
 
         print(f"[*] Added display name variants[{npc_cat.name}] = {len(m_localized_names[npc_cat])}")
 
-    # Create slot templates in section_choice_player_appearance
+    # Create slot templates in section_choice_slots_main
     valid_slots = []
     for slot in ENR:
         if not is_valid_slot_category(slot):
@@ -1820,11 +2136,11 @@ def create_scene(gender: EG):
         add_choice_section(section_name=slot_section_name, cams=preview_cams)
 
         # to slot and back
-        add_trans_section(trans("section_choice_player_appearance", slot_section_name), slot_section_name, cams=["cam_1_main", slot_cam(slot)])
-        add_choice(quoted(f"SLOT: {friendly_slot_category(slot).capitalize()}"), "section_choice_player_appearance",
-                   trans("section_choice_player_appearance", slot_section_name))
-        add_trans_section(trans(slot_section_name, "section_choice_player_appearance"), "section_choice_player_appearance", cams=[slot_cam(slot), "cam_1_main"])
-        add_choice(STR_quoted(STR.BACK), slot_section_name, trans(slot_section_name, "section_choice_player_appearance"), is_exit=True)
+        add_trans_section(trans("section_choice_slots_main", slot_section_name), slot_section_name, cams=["cam_1_main", slot_cam(slot)])
+        add_choice(quoted(f"SLOT: {friendly_slot_category(slot).capitalize()}"), "section_choice_slots_main",
+                   trans("section_choice_slots_main", slot_section_name))
+        add_trans_section(trans(slot_section_name, "section_choice_slots_main"), "section_choice_slots_main", cams=[slot_cam(slot), "cam_1_main"])
+        add_choice(STR_quoted(STR.BACK), slot_section_name, trans(slot_section_name, "section_choice_slots_main"), is_exit=True)
 
         # clear slot
         add_custom_script_section(f"script_clear_{friendly_slot_category(slot)}", trans(slot_section_name, slot_section_name), "NR_ClearAppearanceSlot_S", params=[
@@ -1856,7 +2172,7 @@ def create_scene(gender: EG):
                 "m_onPreviewChoice": CommentedSeq()
             })
             selector_node_index = len(selector_nodes) - 1
-            selector_nodes.yaml_set_comment_before_after_key(selector_node_index, before=f"node index = {selector_node_index}", indent=8)
+            selector_nodes.yaml_set_comment_before_after_key(selector_node_index, before=f"node index = {selector_node_index} ({slot.name}:{npc_cat.name})", indent=8)
             add_custom_script_section(cat_script_name, trans(cat_section_name, cat_section_name), "NR_SetPreviewDataIndex_S", [
                 {
                     "data_index": selector_node_index
@@ -1892,7 +2208,7 @@ def create_scene(gender: EG):
                         "m_onPreviewChoice": CommentedSeq()
                     })
                     subcat_selector_node_index = len(selector_nodes) - 1
-                    selector_nodes.yaml_set_comment_before_after_key(subcat_selector_node_index, before=f"(sub)node index = {subcat_selector_node_index}", indent=8)
+                    selector_nodes.yaml_set_comment_before_after_key(subcat_selector_node_index, before=f"(sub)node index = {subcat_selector_node_index} ({slot.name}:{npc_cat.name}:{friendly_name(path)}:preview)", indent=8)
                     add_custom_script_section(subcat_script_name, trans(subcat_section_name, subcat_section_name), "NR_SetPreviewDataIndex_S", [
                         {
                             "data_index": subcat_selector_node_index
@@ -1938,7 +2254,7 @@ def create_scene(gender: EG):
                             }
                         )
                         subcat_selector_choice_index = len(selector_nodes[subcat_selector_node_index]["m_onPreviewChoice"]) - 1
-                        selector_nodes[subcat_selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(subcat_selector_choice_index, before=f"(sub)choice index = {subcat_selector_choice_index}", indent=12)
+                        selector_nodes[subcat_selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(subcat_selector_choice_index, before=f"(sub)choice index = {subcat_selector_choice_index} ({slot.name}:{npc_cat.name}:{friendly_name(path)}:{coloring_index})", indent=12)
 
                         if slot == ENR.ENR_GSlotHead:
                             selector_nodes[subcat_selector_node_index]["m_onPreviewChoice"][subcat_selector_choice_index]["m_headName"] = friendly_name(final_path)
@@ -1961,7 +2277,7 @@ def create_scene(gender: EG):
                         }
                     )
                     selector_choice_index = len(selector_nodes[selector_node_index]["m_onPreviewChoice"]) - 1
-                    selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index}", indent=12)
+                    selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index} ({slot.name}:{npc_cat.name}:{friendly_name(path)})", indent=12)
 
                     if slot == ENR.ENR_GSlotHead:
                         selector_nodes[selector_node_index]["m_onPreviewChoice"][selector_choice_index]["m_headName"] = friendly_name(final_path)
@@ -1979,7 +2295,7 @@ def create_scene(gender: EG):
         "m_onPreviewChoice": CommentedSeq()
     })
     selector_node_index = len(selector_nodes) - 1
-    selector_nodes.yaml_set_comment_before_after_key(selector_node_index, before=f"node index = {selector_node_index}", indent=8)
+    selector_nodes.yaml_set_comment_before_after_key(selector_node_index, before=f"node index = {selector_node_index} (ARMOR sets)", indent=8)
     add_custom_script_section(script_name_armor_main, trans(section_name_armor_main, section_name_armor_main), "NR_SetPreviewDataIndex_S", [
         {
             "data_index": selector_node_index
@@ -2007,7 +2323,7 @@ def create_scene(gender: EG):
                 }
             )
             selector_choice_index = len(selector_nodes[selector_node_index]["m_onPreviewChoice"]) - 1
-            selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index}", indent=12)
+            selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index} (ARMOR:{armor_set_name}:preview)", indent=12)
 
             # fill slots for 1st app
             for m, slot in enumerate(app):
@@ -2033,7 +2349,7 @@ def create_scene(gender: EG):
                 "m_onPreviewChoice": CommentedSeq()
             })
             subselector_node_index = len(selector_nodes) - 1
-            selector_nodes.yaml_set_comment_before_after_key(subselector_node_index, before=f"(sub)node index = {subselector_node_index}", indent=8)
+            selector_nodes.yaml_set_comment_before_after_key(subselector_node_index, before=f"(sub)node index = {subselector_node_index} (ARMOR:{armor_set_name}:preview)", indent=8)
             add_custom_script_section(subcat_script_name, trans(subcat_section_name, subcat_section_name), "NR_SetPreviewDataIndex_S", [
                 {
                     "data_index": subselector_node_index
@@ -2060,7 +2376,7 @@ def create_scene(gender: EG):
                     }
                 )
                 subselector_choice_index = len(selector_nodes[subselector_node_index]["m_onPreviewChoice"]) - 1
-                selector_nodes[subselector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(subselector_choice_index, before=f"(sub)choice index = {subselector_choice_index}", indent=12)
+                selector_nodes[subselector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(subselector_choice_index, before=f"(sub)choice index = {subselector_choice_index} (ARMOR:{armor_set_name}:{npc_app_name})", indent=12)
 
                 # if npc_app_name.startswith("dye_"):
                 #    add_choice_scripted(text=quoted(f"{STR.DOT.value}|.{npc_data['name']}: #{l}"), from_section_name=subcat_section_name, to_section_name=subcat_script_name,
@@ -2095,7 +2411,7 @@ def create_scene(gender: EG):
                 }
             )
             selector_choice_index = len(selector_nodes[selector_node_index]["m_onPreviewChoice"]) - 1
-            selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index}", indent=12)
+            selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index} (ARMOR:{armor_set_name})", indent=12)
 
             add_choice_scripted(text=quoted(f"{STR.DOT.value}|.{npc_data['name']}: {npc_app_name}"), from_section_name=section_name_armor_main, to_section_name=script_name_armor_main,
                                 template_obj=npc_data, extra_name_key=npc_app_name)
@@ -2120,6 +2436,7 @@ def create_scene(gender: EG):
     main_sets_section = "section_choice_npcs_main"
     add_choice_section(main_sets_section)
     add_choice(STR_quoted(STR.BACK), main_sets_section, "section_choice_player_appearance", is_exit=True)
+    add_choice("2115940579|Apply random", main_sets_section, "script_apply_random_npc_set")
     valid_npc_cats = []
     for npc_cat in EAN:
         if npc_cat != EAN.EAN_ArmorSet and len(m_npc_by_cats[gender][npc_cat]) > 0:
@@ -2134,7 +2451,7 @@ def create_scene(gender: EG):
             "m_onPreviewChoice": CommentedSeq()
         })
         selector_node_index = len(selector_nodes) - 1
-        selector_nodes.yaml_set_comment_before_after_key(selector_node_index, before=f"node index = {selector_node_index}", indent=8)
+        selector_nodes.yaml_set_comment_before_after_key(selector_node_index, before=f"node index = {selector_node_index} (NPC:{npc_cat.name})", indent=8)
         add_custom_script_section(cat_script_name, trans(cat_section_name, cat_section_name), "NR_SetPreviewDataIndex_S", [
             {
                 "data_index": selector_node_index
@@ -2169,7 +2486,7 @@ def create_scene(gender: EG):
                     }
                 )
                 selector_choice_index = len(selector_nodes[selector_node_index]["m_onPreviewChoice"]) - 1
-                selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index}", indent=12)
+                selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index} (NPC:{npc_cat.name}:{npc_name}:preview)", indent=12)
 
                 # fill slots for 1st app
                 for m, slot in enumerate(app):
@@ -2195,7 +2512,7 @@ def create_scene(gender: EG):
                     "m_onPreviewChoice": CommentedSeq()
                 })
                 subselector_node_index = len(selector_nodes) - 1
-                selector_nodes.yaml_set_comment_before_after_key(subselector_node_index, before=f"(sub)node index = {subselector_node_index}", indent=8)
+                selector_nodes.yaml_set_comment_before_after_key(subselector_node_index, before=f"(sub)node index = {subselector_node_index} (NPC:{npc_cat.name}:{npc_name}:preview)", indent=8)
                 add_custom_script_section(subcat_script_name, trans(subcat_section_name, subcat_section_name), "NR_SetPreviewDataIndex_S", [
                     {
                         "data_index": subselector_node_index
@@ -2216,13 +2533,13 @@ def create_scene(gender: EG):
                     selector_nodes[subselector_node_index]["m_onPreviewChoice"].append(
                         {
                             ".type": "NR_ScenePreviewData",
-                            "m_flags": m_npc_data[npc_name].get("selector_flag", SPF.ENR_SPForceUnloadAll.value),
+                            "m_flags": m_npc_data[npc_name].get("selector_flag", SPF.ENR_SPForceUnloadAll.value) | SPF.ENR_SPNPCSet.value,
                             "m_slots": flowed([]),
                             "m_pathIDs": flowed([])
                         }
                     )
                     subselector_choice_index = len(selector_nodes[subselector_node_index]["m_onPreviewChoice"]) - 1
-                    selector_nodes[subselector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(subselector_choice_index, before=f"(sub)choice index = {subselector_choice_index}", indent=12)
+                    selector_nodes[subselector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(subselector_choice_index, before=f"(sub)choice index = {subselector_choice_index} (NPC:{npc_cat.name}:{npc_name}:{npc_app_name})", indent=12)
 
                     # if npc_app_name.startswith("dye_"):
                     #    add_choice_scripted(text=quoted(f"{STR.DOT.value}|.{npc_data['name']}: #{l}"), from_section_name=subcat_section_name, to_section_name=subcat_script_name,
@@ -2252,13 +2569,13 @@ def create_scene(gender: EG):
                 selector_nodes[selector_node_index]["m_onPreviewChoice"].append(
                     {
                         ".type": "NR_ScenePreviewData",
-                        "m_flags": m_npc_data[npc_name].get("selector_flag", SPF.ENR_SPForceUnloadAll.value),
+                        "m_flags": m_npc_data[npc_name].get("selector_flag", SPF.ENR_SPForceUnloadAll.value) | SPF.ENR_SPNPCSet.value,
                         "m_slots": flowed([]),
                         "m_pathIDs": flowed([])
                     }
                 )
                 selector_choice_index = len(selector_nodes[selector_node_index]["m_onPreviewChoice"]) - 1
-                selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index}", indent=12)
+                selector_nodes[selector_node_index]["m_onPreviewChoice"].yaml_set_comment_before_after_key(selector_choice_index, before=f"choice index = {selector_choice_index} (NPC:{npc_cat.name}:{npc_name}:{npc_app_name})", indent=12)
 
                 add_choice_scripted(text=quoted(f"{STR.DOT.value}|.{npc_data['name']}: {npc_app_name}"), from_section_name=cat_section_name, to_section_name=cat_script_name,
                                     template_obj=npc_data, extra_name_key=npc_app_name)
@@ -2288,9 +2605,12 @@ def write_selector_file():
     for i, key in enumerate(m_stringtable):
         if m_stringtable[key] != i:
             print(f"STRINGTABLE ERROR: i = {i}, key = {key}, val = {m_stringtable[key]}")
-        x = 1
         m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_stringtable"].append(key)
+        idx = len(m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_stringtable"]) - 1
+        m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_stringtable"].yaml_set_comment_before_after_key(idx, before=f"# idx = {idx}", indent=8)
 
+    print(f'Nodes male = {len(m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_nodesMale"])}')
+    print(f'Nodes female = {len(m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_nodesFemale"])}')
     print(f"Stringtable size = {len(m_stringtable)}, copies = {m_stringtable_copies}")
     write_yml_nicely(f"{m_FOLDER}/def.entities.nr_selector.yml", m_selector_yml)
 

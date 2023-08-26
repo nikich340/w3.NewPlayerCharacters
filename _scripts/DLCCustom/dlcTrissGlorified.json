@@ -1,0 +1,104 @@
+{
+  "dlc_id": "dlc_3722",
+  "dlc_name_key": "dlc_bsbah_triss_glorified",
+  "dlc_name_str": "Triss (G)Lorified",
+  "dlc_author_nickname": "Bathsebah",
+  "dlc_link": "nexusmods.com/witcher3/mods/3722",
+  "dlc_appearance_templates": {
+    "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/a_casual/c_02_wa__triss.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+	  "template_coloring": {}
+    },
+    "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/hair/triss_glorified_hair.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+	  "template_coloring": {}
+    },
+    "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/a_lingerie/body_02_wa__triss_lingerie.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+	  "template_coloring": {}
+    },
+    "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/a_masquerade/s_01_wa__novigrad_prostitute.w2ent": {
+      "slot": "ENR_RSlotShoes",
+      "rig": "female",
+	  "template_coloring": {}
+    },
+    "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/a_naked/twals_02_wa__body_triss.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "rig": "female",
+	  "template_coloring": {}
+    }
+  },
+  "dlc_male_appearance_sets": {
+  },
+  "dlc_female_appearance_sets": {
+	"triss": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "characters/models/main_npc/triss/body_01_wa__triss.w2ent",
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/hair/triss_glorified_hair.w2ent"
+    ],
+	"triss_dress": [
+	  {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_26_wa__novigrad_citizen.w2ent",
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/a_masquerade/s_01_wa__novigrad_prostitute.w2ent",
+      "characters/models/main_npc/triss/body_03_wa__triss.w2ent",
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/hair/triss_glorified_hair.w2ent"
+    ],
+	"triss_hooded_01": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "characters/models/main_npc/triss/body_01_wa__triss_hooded_01.w2ent",
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/a_casual/c_02_wa__triss.w2ent"
+    ],
+    "triss_hooded_02": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "characters/models/main_npc/triss/body_01_wa__triss_hooded_02.w2ent",
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/hair/triss_glorified_hair.w2ent"
+    ],
+    "triss_lingerie": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/a_lingerie/body_02_wa__triss_lingerie.w2ent",
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/hair/triss_glorified_hair.w2ent"
+    ],
+    "triss_naked": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/a_naked/twals_02_wa__body_triss.w2ent",
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/hair/triss_glorified_hair.w2ent"
+    ],
+    "triss_tortured_bloody_face": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_03_wa__triss_blood.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "characters/models/main_npc/triss/body_01_wa__triss_tortured.w2ent",
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/hair/triss_glorified_hair.w2ent"
+    ],
+    "triss_tortured": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_02_wa__triss_tortured.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "characters/models/main_npc/triss/body_01_wa__triss_tortured.w2ent",
+      "dlc/dlc_trissglorified/data/characters/models/main_npc/triss/hair/triss_glorified_hair.w2ent"
+    ]
+  }
+}

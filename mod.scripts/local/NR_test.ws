@@ -4,7 +4,9 @@ exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bo
 	var template : CEntityTemplate;
 	var npc : CNewNPC;
 
-	if (id == 1) {
+	if (id == 0) {
+		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_master_mage.w2ent", true);
+	} else if (id == 1) {
 		template = (CEntityTemplate)LoadResource("characters/npc_entities/main_npc/triss.w2ent", true);
 	} else if (id == 2) {
 		template = (CEntityTemplate)LoadResource("quests/main_npcs/yennefer.w2ent", true);
@@ -53,6 +55,36 @@ exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bo
 	else if (id == 27) {
 		template = (CEntityTemplate)LoadResource("dlc/bob/data/quests/main_npcs/dettlaff_van_eretein_monster.w2ent", true);
 	}
+	else if (id == 28) {
+		template = (CEntityTemplate)LoadResource("quests/part_3/quest_files/q210_precanaris/characters/q210_lab_golem.w2ent", true);
+	}
+	else if (id == 30) {
+		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_black_spider_34_boss_big.w2ent", true);
+	}
+	else if (id == 31) {
+		template = (CEntityTemplate)LoadResource("dlc/bob/data/quests/minor_quests/quest_files/mq7023_mutations/characters/mq7023_gargoyle_1.w2ent", true);
+	}
+	else if (id == 32) {
+		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_q502_dao_fixed.w2ent", true);
+	}
+	else if (id == 33) {
+		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_elemental_dao_lvl3__ice_fixed.w2ent", true);
+	}
+	else if (id == 34) {
+		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_mq4006_ifryt_fixed.w2ent", true);
+	}
+	else if (id == 35) {
+		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_q210_lab_golem_fixed.w2ent", true);
+	}
+	else if (id == 36) {
+		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_th701_golem_fixed.w2ent", true);
+	}
+	else if (id == 37) {
+		template = (CEntityTemplate)LoadResource("quests/secondary_npcs/djinn.w2ent", true);
+	}
+	else if (id == 38) {
+		template = (CEntityTemplate)LoadResource("dlc/ep1/data/quests/quest_files/q604_mansion/characters/q604_caretaker.w2ent", true);
+	}
 	else if (id == 99) {
 		template = (CEntityTemplate)LoadResource("quests/main_npcs/radovid.w2ent", true);
 	}
@@ -73,6 +105,11 @@ exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bo
 	pos = thePlayer.GetWorldPosition() + VecRingRand(1.f,2.f);
 	ent = theGame.CreateEntity(template, pos );
 	npc = (CNewNPC) ent;
+	npc.AddTag('nr_test_entity');
+	if (id == 0) {
+		npc.ApplyAppearance('nr_master_mage_naked2');
+	}
+
 	if (immortal) {
 		npc.SetImmortalityMode( AIM_Immortal, AIC_Combat );
 		npc.SetImmortalityMode( AIM_Immortal, AIC_Default );
@@ -89,14 +126,184 @@ exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bo
 		npc.SetTemporaryAttitudeGroup( 'hostile_to_player', AGP_Default );
 		npc.SetAttitude( thePlayer, AIA_Hostile );
 		thePlayer.SetAttitude( npc, AIA_Hostile );
+	} else {
+		npc.SetTemporaryAttitudeGroup( 'friendly_to_player', AGP_Default );
+		npc.SetAttitude( thePlayer, AIA_Friendly );
+		thePlayer.SetAttitude( npc, AIA_Friendly );
 	}
 	if (!notAdjust) {
 		npc.SetLevel( GetWitcherPlayer().GetLevel() );
 	}
 }
 
-exec function nrtmp() {
-	NR_GetMagicManager().SetDefaults_HeavyPush();
+exec function dialog(tag : name) {
+	var npc : CNewNPC;
+	npc = (CNewNPC)theGame.GetEntityByTag(tag);
+	if (!npc) {
+		NR_Notify("NO NPC!");
+	}
+	NR_Notify("CanStartTalk = " + npc.CanStartTalk());
+	npc.PlayDialog();
+}
+
+exec function nr_female(enable: bool) {
+	if (enable) {
+		NR_Notify("FEMALE ON");
+		FactsAdd("nr_speech_switch", 1);
+	} else {
+		NR_Notify("FEMALE OFF");
+		FactsRemove("nr_speech_switch");
+	}
+}
+
+exec function nrCross() {
+	var entityTemplate : CEntityTemplate;
+	var entity : CEntity;
+	entityTemplate = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\nr_cross_effect.w2ent", true);
+	entity = theGame.CreateEntity(entityTemplate, thePlayer.GetWorldPosition() + Vector(0,0,1.5f), thePlayer.GetWorldRotation());
+	NRD("nrCross: entityTemplate = " + entityTemplate + ", enttiy = " + entity);
+	if (entity) {
+		NRD("nrCross: PlayEffect = " + entity.PlayEffect('cross'));
+	}
+}
+
+exec function nrfast() {
+	FactsAdd("nr_dev_master0", 1);
+	thePlayer.Teleport(Vector(-237.56506347649997, -304.7667541504, 40.3227920532));
+}
+
+exec function nr_master() {
+	thePlayer.Teleport(Vector(-237.56506347649997, -304.7667541504, 40.3227920532));
+}
+
+exec function nrMoveTo(pointNum : int) {
+	var npc : CNewNPC;
+	var points : array<Vector>;
+
+	npc = (CNewNPC)theGame.GetEntityByTag('nr_test_entity');
+
+	if (!npc) {
+		NR_Notify("!npc");
+		return;
+	}
+	points.PushBack(Vector(-278.8874206543, -313.2870178223, 40.0178413391));
+	points.PushBack(Vector(-286.2327575684, -307.2341308594, 40.1103897095));
+	NRD("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
+	npc.ActionCancelAll();
+	NRD("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
+	NR_Notify("nrMoveTo1 = " + npc.ActionMoveToAsync(points[pointNum]));
+}
+exec function nrMoveTo2(pointNum : int) {
+	var npc : CNewNPC;
+	var points : array<Vector>;
+
+	npc = (CNewNPC)theGame.GetEntityByTag('nr_test_entity');
+
+	if (!npc) {
+		NR_Notify("!npc");
+		return;
+	}
+	points.PushBack(Vector(-278.8874206543, -313.2870178223, 40.0178413391));
+	points.PushBack(Vector(-286.2327575684, -307.2341308594, 40.1103897095));
+	NRD("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
+	npc.ActionCancelAll();
+	NRD("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
+	NR_Notify("nrMoveTo2 = " + npc.ActionMoveOnCurveToAsync(points[pointNum], 10.f, true));
+}
+exec function nrMoveTo3(pointNum : int) {
+	var npc : CNewNPC;
+	var points : array<Vector>;
+	var targeter : CMoveTRGFollowLocomotion;
+
+	npc = (CNewNPC)theGame.GetEntityByTag('nr_test_entity');
+	targeter = new CMoveTRGFollowLocomotion in npc;
+	targeter.attractor = thePlayer;
+	targeter.minimumDistance = 3.f;
+
+	if (!npc) {
+		NR_Notify("!npc");
+		return;
+	}
+	npc.ActionCancelAll();
+	NRD("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
+	NR_Notify("nrMoveTo3 = " + npc.ActionMoveCustomAsync(targeter));
+}
+
+exec function nrBehRaise(eventName : name) {
+	var npc : CNewNPC;
+	npc = (CNewNPC)theGame.GetEntityByTag('nr_test_entity');
+	if (!npc) {
+		NR_Notify("No entity!");
+		return;
+	}
+	NR_Notify("RaiseEvent [" + eventName + "] = " + npc.GetRootAnimatedComponent().RaiseBehaviorEvent(eventName));
+}
+exec function nrBehSet(varName : name, varValue : float) {
+	var npc : CNewNPC;
+	npc = (CNewNPC)theGame.GetEntityByTag('nr_test_entity');
+	if (!npc) {
+		NR_Notify("No entity!");
+		return;
+	}
+	NR_Notify("SetBehaviorVariable [" + varName + ", " + varValue + "] = " + npc.SetBehaviorVariable(varName, varValue));
+}
+
+exec function nrTemp() {
+	NR_GetMagicManager().SetDefaults_Special();
+	NR_GetMagicManager().SetDefaults_SpecialAlt();
+	NR_Notify("Temp script done");
+}
+
+exec function nrMasterBarrier(enable : bool) {
+	var entity : CEntity;
+
+	entity = theGame.GetEntityByTag('nr_master_arena_barrier');
+	NR_Notify("entity = " + entity);
+	if (enable)
+		entity.PlayEffect('magic_obstacle');
+	else
+		entity.StopEffect('magic_obstacle');
+}
+
+exec function nrToArena() {
+	thePlayer.Teleport(Vector(-248.0154418945, -321.4640502930, 38.7458457947));
+}
+exec function nrToPoint(num : int) {
+	if (num == 0) {
+		thePlayer.Teleport(Vector(4.2048754692, -14.9949951172, 1.3214421272));
+	} else if (num == 1) {
+		thePlayer.Teleport(Vector(-262.6635131836, -257.9526367188, 12.3288917542));
+	} else if (num == 2) {
+		thePlayer.Teleport(Vector(-248.0154418945, -321.4640502930, 38.7458457947));
+	}
+	
+	
+}
+
+exec function nrLongAnim1() {
+	var animName : name = 'AttackSpecialLongYenChanting';
+	NR_GetMagicManager().SetParamName('universal', "anim_" + ENR_MAToName(ENR_SpecialMeteorFall), animName);
+	NR_Notify("Set loop anim for meteor: " + animName);
+}
+exec function nrLongAnim2() {
+	var animName : name = 'AttackSpecialLongCiriTargeting';
+	NR_GetMagicManager().SetParamName('universal', "anim_" + ENR_MAToName(ENR_SpecialMeteorFall), animName);
+	NR_Notify("Set loop anim for meteor: " + animName);
+}
+exec function nrLongAnim3() {
+	var animName : name = 'AttackSpecialLongYenNaglfar';
+	NR_GetMagicManager().SetParamName('universal', "anim_" + ENR_MAToName(ENR_SpecialMeteorFall), animName);
+	NR_Notify("Set loop anim for meteor: " + animName);
+}
+exec function nrLongAnim4() {
+	var animName : name = 'AttackSpecialLongMargeritaNaglfar';
+	NR_GetMagicManager().SetParamName('universal', "anim_" + ENR_MAToName(ENR_SpecialMeteorFall), animName);
+	NR_Notify("Set loop anim for meteor: " + animName);
+}
+exec function nrLongAnim5() {
+	var animName : name = 'AttackSpecialLongSorceress';
+	NR_GetMagicManager().SetParamName('universal', "anim_" + ENR_MAToName(ENR_SpecialMeteorFall), animName);
+	NR_Notify("Set loop anim for meteor: " + animName);
 }
 
 exec function nrStamina() {
@@ -214,11 +421,28 @@ exec function scene1m() {
 	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
 }
 
+exec function scene(path : string, optional input : String) {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource(path, true);
+	if (StrLen(input) < 1) {
+		input = "Input";
+	}
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
+	NR_Notify("PLAY scene: " + input);
+
+	theGame.GetStorySceneSystem().PlayScene(scene, input);
+}
+
 exec function scene1f() {
 	var scene      : CStoryScene;
 	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene", true);
-	if (!scene)
-		NRE("NULL scene!");
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
 
 	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
 }
@@ -226,10 +450,157 @@ exec function scene1f() {
 exec function scene1s() {
 	var scene      : CStoryScene;
 	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/03.player_change_sorceress.w2scene", true);
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
+
+	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function scene4() {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/04.crystal_portal.w2scene", true);
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
+
+	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function scene9() {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/09.hb.w2scene", true);
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
+
+	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function scene5() {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/05.spider_boss_fight.w2scene", true);
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
+
+	NR_Notify("PLAY: Input");
+	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function scene6() {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/06.sorceress_treatment.w2scene", true);
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
+
+	NR_Notify("PLAY: Input");
+	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function scene8(has_met : int, teaching : int) {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/08.sorceress_study.w2scene", true);
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
+
+	FactsSet("nr_master_met_before", has_met);
+	FactsSet("nr_master_apprentice", teaching);
+	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function scene10(optional input : String) {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/10.sorceress_attacks.w2scene", true);
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
+
+	if (StrLen(input) < 1) {
+		input = "Input";
+	}
+	NR_Notify("PLAY: " + input);
+	theGame.GetStorySceneSystem().PlayScene(scene, input);
+}
+
+exec function scene11(optional input : String) {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/11.sorceress_gp_attacks.w2scene", true);
+	if (!scene) {
+		NR_Notify("NULL scene!");
+		return;
+	}
+
+	if (StrLen(input) < 1) {
+		input = "Input";
+	}
+	NR_Notify("PLAY: " + input);
+	theGame.GetStorySceneSystem().PlayScene(scene, input);
+}
+
+// PLAYER_SLOT
+// MANUAL_DIALOG_SLOT
+// EXP_SLOT
+// GAMEPLAY_SLOT
+// PLAYER_ACTION_SLOT
+// VEHICLE_SLOT
+exec function horse(animName : name) {
+	thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', animName, 0.3, 0.5 );
+}
+
+exec function exploration(animName : name) {
+	thePlayer.ActionPlaySlotAnimationAsync( 'PLAYER_SLOT', animName, 0.3, 0.5 );
+}
+
+exec function griffin() {
+	var scene      : CStoryScene;
+	scene = (CStoryScene)LoadResource("quests\prologue\quest_files\q001_beggining\scenes\q001_6_meet_griffin.w2scene", true);
 	if (!scene)
 		NRE("NULL scene!");
 
 	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+exec function attach4(optional x, y, z, pitch, yaw, roll : float, optional breakE : Bool) {
+	var template                 : CEntityTemplate;
+	var entity, attachment       : CEntity;
+	var entityTag, attachmentTag : name;
+	var relativePosition         : Vector;
+	var relativeRotation         : EulerAngles;
+	var result                   : Bool;
+	var ents : array<CEntity>;
+	var i : int;
+	var slotName : name;
+
+	slotName = 'r_weapon';
+	entityTag = 'PLAYER';
+	attachmentTag = 'nr_crystal_test';
+
+	if (breakE) {
+		theGame.GetEntitiesByTag(attachmentTag, ents);
+		for (i = 0; i < ents.Size(); i += 1) {
+			ents[i].Destroy();
+		}
+	}
+
+	template = (CEntityTemplate)LoadResource("dlc/bob/data/quests/minor_quests/quest_files/th701_archmastergear/th701_wolf/entities/th701_portal_crystal_glowing.w2ent", true);
+	attachment = theGame.CreateEntity(template, thePlayer.GetWorldPosition(), thePlayer.GetWorldRotation());
+	attachment.AddTag(attachmentTag);
+
+	relativePosition = Vector(x, y, z);
+	relativeRotation = EulerAngles(pitch, yaw, roll);
+
+	result = attachment.CreateAttachment(thePlayer, slotName, relativePosition, relativeRotation);
+	NR_Notify("attach = " + result);
 }
 
 exec function anim1a(slotNum : int) {
@@ -281,7 +652,7 @@ exec function anim1b() {
 	NR_Notify("B = " + ret);
 }
 
-exec function pstate() {
+exec function playerstate() {
 	NR_Notify("Player state = " + thePlayer.GetCurrentStateName());
 }
 
@@ -340,7 +711,7 @@ exec function dao() {
 
 	inv = thePlayer.inv;
 	ids = inv.GetItemsIds('mh306_dao_trophy');	
-	LogItems("DAO: " + ids.Size());
+	NR_Notify("DAO: " + ids.Size());
 }
 exec function dao2() {
 	var inv : CInventoryComponent;
@@ -349,7 +720,7 @@ exec function dao2() {
 	var i : int;
 
 	inv = thePlayer.inv;
-	LogItems("DAO2: " + inv.GetItemQuantityByName('mh306_dao_trophy'));
+	NR_Notify("DAO2: (false) " + inv.GetItemQuantityByName('mh306_dao_trophy', false) + ", (true) " + inv.GetItemQuantityByName('mh306_dao_trophy', true));
 }
 exec function dao3() {
 	var inv : CInventoryComponent;
@@ -358,7 +729,7 @@ exec function dao3() {
 	var i : int;
 
 	inv = GetWitcherPlayer().GetHorseManager().GetInventoryComponent();
-	LogItems("DAO3: " + inv.GetItemQuantityByName('mh306_dao_trophy'));
+	NR_Notify("DAO3: " + inv.GetItemQuantityByName('mh306_dao_trophy'));
 }
 
 exec function dao4() {
@@ -368,7 +739,11 @@ exec function dao4() {
 	var i : int;
 
 	inv = GetWitcherPlayer().GetAssociatedInventory();
-	LogItems("DAO3: " + inv.GetItemQuantityByName('mh306_dao_trophy'));
+	NR_Notify("DAO4: " + inv.GetItemQuantityByName('mh306_dao_trophy'));
+}
+
+exec function nr_stats(fullscreen : bool) {
+	NR_ShowMagicSkillStats(fullscreen);
 }
 
 exec function spell_scene(inp : int) {
@@ -425,23 +800,48 @@ exec function player_scene() {
 */
 
 //characters/npc_entities/monsters/wolf_lvl1.w2ent
-exec function pspawn(path : string, optional app : string) {
+exec function pspawn(path : string, upscale : bool, optional app : string) {
 	var template : CEntityTemplate;
 	var entity : CEntity;
 	var npc : CNewNPC;
 	var pos : Vector;
 
 	template = (CEntityTemplate)LoadResource(path, true);
+	if (!template) {
+		NR_Notify("!template: " + template);
+		return;
+	}
 	pos = thePlayer.GetWorldPosition() + VecRingRand(1.f,2.f);
 	entity = theGame.CreateEntity(template, pos);
+	if (!entity) {
+		NR_Notify("!entity: " + entity);
+		return;
+	}
 	entity.AddTag('NR_TEMP');
-	if (app != "") {
-		npc = (CNewNPC)entity;
-		if (npc) {
-			npc.ApplyAppearance(app);
-		}
+	npc = (CNewNPC)entity;
+	if (app != "" && npc) {
+		npc.ApplyAppearance(app);
+	}
+	if (upscale && npc) {
+		npc.SetLevel(thePlayer.GetLevel());
+	}
+	NR_Notify("Spawned = " + entity);
+}
+
+exec function papp(appName : String) {
+	var appearanceComponent : CAppearanceComponent;
+	var            template : CEntityTemplate;
+	var                   i : int;
+
+	appearanceComponent = (CAppearanceComponent)thePlayer.GetComponentByClassName( 'CAppearanceComponent' );
+	if (appearanceComponent) {
+		NR_Notify("APPLY APP = " + appName);
+		appearanceComponent.ApplyAppearance(appName);
+	} else {
+		NRE("ERROR: AppearanceComponent not found!");
 	}
 }
+
 
 class NR_TestManager {
 
@@ -552,6 +952,10 @@ exec function eproj() {
 	proj.ShootProjectileAtPosition(proj.projAngle, proj.projSpeed, thePlayer.GetWorldPosition() + theCamera.GetCameraDirection() * 10.f, 20.f, collisionGroups);
 }
 
+exec function managerreset() {
+	NR_GetMagicManager().Init(true);
+}
+
 exec function head1() {
 	var heading : float;
 	var vecH, vecR : Vector;
@@ -594,7 +998,7 @@ exec function nrEntityEffect(templatePath : String, eName : name, optional disab
 	var entity : CEntity;
 
 	template = (CEntityTemplate)LoadResource(templatePath, true);
-	entity = theGame.CreateEntity(template, thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.5f, thePlayer.GetWorldRotation());
+	entity = theGame.CreateEntity(template, thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.5f + Vector(0,0,1.5f), thePlayer.GetWorldRotation());
 	if (disable) {
 		entity.StopEffect(eName);
 	} else {
@@ -988,4 +1392,298 @@ function PlayHeadEffect( effect : name, optional stop : bool )
 			head.PlayEffectSingle( effect );
 		}
 	}
+}
+
+function NR_EulerToString(euler: EulerAngles) : String {
+	return "[" + FloatToStringPrec(euler.Pitch,3) + ", " + FloatToStringPrec(euler.Yaw,3) + ", " + FloatToStringPrec(euler.Roll,3) + "]";
+}
+
+exec function NR_Range(range : float, optional makeFriendly : bool) {
+		var entities: array<CGameplayEntity>;
+    var actor : CActor;
+    var i, t, maxEntities: int;
+    var tags : array<name>;
+    var pos : Vector;
+        
+    maxEntities = 1000;
+
+    FindGameplayEntitiesInRange(entities, thePlayer, range, maxEntities);
+
+    pos = thePlayer.GetWorldPosition();
+    NRD("player pos: [" + pos.X + ", " + pos.Y + ", " + pos.Z + "]");
+    NRD("player rot: " + NR_EulerToString(thePlayer.GetWorldRotation()));
+		NR_Notify("nik_range: found entities: " + entities.Size());
+    
+		
+    for (i = 0; i < entities.Size(); i += 1) {
+        NRD("entity: " + entities[i]);
+        NRD("   " + entities[i]);
+        NRD("   - pos: " + VecToString(entities[i].GetWorldPosition()));
+           NRD("   - rot: " + NR_EulerToString(entities[i].GetWorldRotation()));
+        tags = entities[i].GetTags();
+
+        for (t = 0; t < tags.Size(); t += 1) {
+           NRD("   > tag " + tags[t]);
+        }
+        actor = (CActor)entities[i];
+        if (actor) {
+            if (!actor.IsAlive()) {
+                NRD("* actor dead");
+                continue;
+            }
+            if (actor.HasAttitudeTowards(thePlayer)) {
+                NRD("* GetAttitude to player: " + actor.GetAttitude(thePlayer));
+            }
+            NRD("* GetAttitudeGroup: " + actor.GetAttitudeGroup());
+            
+            NRD("* GetVoicetag: " + actor.GetVoicetag());
+            NRD("* GetDisplayName: " + actor.GetDisplayName());
+            NRD("* IsInNonGameplayCutscene: " + actor.IsInNonGameplayCutscene());
+            NRD("* IsInGameplayScene: " + actor.IsInGameplayScene());
+            if (makeFriendly)
+                actor.SetTemporaryAttitudeGroup( 'friendly_to_player', AGP_Default );
+        }
+    }
+}
+
+
+class NR_AssetCooked extends CEntity {
+	var cookedTemplates : array<CEntityTemplate>;
+	var cookedScenes : array<CStoryScene>;
+	var cookedMeshes : array<CMeshComponent>;
+}
+
+exec function icespawn(optional app : bool) {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+	var npc : CNewNPC;
+	var pos : Vector;
+
+	template = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\quest\nr_golem_celestine.w2ent", true);
+	if (!template) {
+		NR_Notify("!TEMPLATE: " + template);
+		return;
+	}
+	pos = thePlayer.GetWorldPosition() + VecRingRand(1.f,2.f);
+	entity = theGame.CreateEntity(template, pos);
+	entity.AddTag('NR_ICE_DEBUG');
+	npc = (CNewNPC)entity;
+	if (npc && app) {
+		// npc.ApplyAppearance("elemental_stone_morph");
+		npc.ApplyAppearance("nr_celestine");
+	}
+	npc.ApplyAppearance("nr_celestine_stone_morph");
+	npc.SetTemporaryAttitudeGroup('friendly_to_player', AGP_Default);
+	NR_Notify("Spawned = " + npc);
+}
+
+exec function iceapp( appName : String ) {
+	var npc : CNewNPC;
+	npc = theGame.GetNPCByTag('NR_ICE_DEBUG');
+	if (npc) {
+		NR_Notify("appearance = " + appName);
+		npc.ApplyAppearance(appName);
+	} else {
+		NR_Notify("!NPC: " + npc);
+	}
+}
+
+exec function icetest2() {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+	var pos : Vector;
+
+	template = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\quest\nr_golem_ice_stone_morph.w2ent", true);
+	if (!template) {
+		NR_Notify("!TEMPLATE: " + template);
+		return;
+	}
+	pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.5f;
+	entity = theGame.CreateEntity(template, pos, thePlayer.GetWorldRotation());
+	entity.AddTag('NR_ICE_DEBUG');
+	NR_Notify("Spawned = " + entity);
+}
+
+exec function icetest3() {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+	var pos : Vector;
+
+	template = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\quest\nr_ground_golem_morph.w2ent", true);
+	if (!template) {
+		NR_Notify("!TEMPLATE: " + template);
+		return;
+	}
+	pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.5f;
+	entity = theGame.CreateEntity(template, pos, thePlayer.GetWorldRotation());
+	entity.AddTag('NR_ICE_DEBUG');
+	NR_Notify("Spawned = " + entity);
+}
+
+exec function icetest4() {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+	var pos : Vector;
+
+	template = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\quest\nr_fire_elemental_morph.w2ent", true);
+	if (!template) {
+		NR_Notify("!TEMPLATE: " + template);
+		return;
+	}
+	pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.5f;
+	entity = theGame.CreateEntity(template, pos, thePlayer.GetWorldRotation());
+	entity.AddTag('NR_ICE_DEBUG');
+	NR_Notify("Spawned = " + entity);
+}
+
+exec function icetest5() {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+	var pos : Vector;
+
+	template = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\quest\nr_stone_ice_tortilla_morph.w2ent", true);
+	if (!template) {
+		NR_Notify("!TEMPLATE: " + template);
+		return;
+	}
+	pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.5f;
+	entity = theGame.CreateEntity(template, pos, thePlayer.GetWorldRotation());
+	entity.AddTag('NR_ICE_DEBUG');
+	NR_Notify("Spawned = " + entity);
+}
+
+exec function icetest6() {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+	var pos : Vector;
+
+	template = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\quest\test_ice_wall.w2ent", true);
+	if (!template) {
+		NR_Notify("!TEMPLATE: " + template);
+		return;
+	}
+	pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.5f;
+	entity = theGame.CreateEntity(template, pos, thePlayer.GetWorldRotation());
+	entity.AddTag('NR_ICE_DEBUG');
+	NR_Notify("Spawned = " + entity);
+}
+
+exec function icetest7() {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+	var pos : Vector;
+
+	template = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\quest\test_ice_wall.w2ent", true);
+	if (!template) {
+		NR_Notify("!TEMPLATE: " + template);
+		return;
+	}
+	pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.5f;
+	entity = theGame.CreateEntity(template, pos, thePlayer.GetWorldRotation());
+	entity.AddTag('NR_ICE_DEBUG');
+	NR_Notify("Spawned = " + entity);
+}
+
+exec function icedestroy() {
+	var 	entities : array<CEntity>;
+	var             i, j : int;
+
+	theGame.GetEntitiesByTag('NR_ICE_DEBUG', entities);
+	for (i = 0; i < entities.Size(); i += 1) {
+		entities[i].Destroy();
+	}
+	NR_Notify("Destroyed = " + entities.Size());
+}
+
+exec function icemorph( ratio : float, blend : float ) {
+	var 	entity : CEntity;
+	var 	entities : array<CEntity>;
+    var    components : array<CComponent>;
+    var       manager : CMorphedMeshManagerComponent;
+    var             i, j : int;
+
+    theGame.GetEntitiesByTag('NR_ICE_DEBUG', entities);
+    NR_Notify("!ENTITY: " + entities.Size());
+    if (entities.Size() == 0) {
+    	return;
+    }
+    NRD("SOundbank loaded = " + theSound.SoundIsBankLoaded("monster_golem_ice.bnk"));
+    if (!theSound.SoundIsBankLoaded("monster_golem_ice.bnk")) {
+    	theSound.SoundLoadBank("monster_golem_ice.bnk", false);
+    }
+    for (i = 0; i < entities.Size(); i += 1) {
+    	entity = entities[i];
+    	entity.PlayEffect('glow');
+    	entity.StopAllEffectsAfter(blend);
+		entity.SoundEvent("monster_golem_ice_mv_recover");
+		components = entity.GetComponentsByClassName('CMorphedMeshManagerComponent');
+		if (components.Size() == 0) {
+		    NRD("NR_ICE_DEBUG: [ERROR] Not found morph managers for " + entity);
+		}
+		for (j = 0; j < components.Size(); j += 1) {
+		    manager = (CMorphedMeshManagerComponent) components[j];
+		    if (manager) {
+		        NRD("NR_ICE_DEBUG: [Info] Current morph ratio: " + manager.GetMorphBlend());
+		        manager.SetMorphBlend( ratio, blend );
+		        NRD("NR_ICE_DEBUG: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blend + " sec");
+		    }
+		}
+	}
+}
+
+exec function locstr(key: string) {
+	NR_Notify("STR = [" + GetLocStringByKeyExt(key) + "]");
+}
+
+exec function coloring(h1 : Uint16, l1 : Int8, s1 : Int8, h2 : Uint16, l2 : Int8, s2 : Int8)
+{
+    var template, temp : CEntityTemplate;
+    var colEntry : SEntityTemplateColoringEntry;
+    var col1 : CColorShift;
+    var col2 : CColorShift;
+    var ent, npcEntity : CEntity;
+    var pos : Vector;
+    var rot : EulerAngles;
+    var comp : CAppearanceComponent;    
+    
+    pos = thePlayer.GetWorldPosition() + VecConeRand(thePlayer.GetHeading(), 0, 2,2);
+    rot = thePlayer.GetWorldRotation();
+    rot.Yaw += 180;
+    
+        
+    npcEntity = theGame.GetEntityByTag('colshifttestnpc');
+    npcEntity.Destroy();
+        
+    temp = (CEntityTemplate)LoadResource( "dlc\dlccyberpunkprototypeattire\data\items\cyberpunk_armor\s_01a_cyberpunk_01.w2ent", true);
+    template = (CEntityTemplate)LoadResource( "characters\models\crowd_npc\nml_villager\torso\t1a_04_ma__nml_villager.w2ent", true);
+        
+    colEntry.appearance = 'test';
+    colEntry.componentName = 't1a_04_ma__nml_villager';
+
+
+    col1.hue = h1;
+    col1.saturation = s1;
+    col1.luminance = l1;
+
+    col2.hue = h2;
+    col2.saturation = s2;
+    col2.luminance = l2;
+
+    colEntry.colorShift1 = col1;
+    colEntry.colorShift2 = col2;
+    
+    if(temp.coloringEntries.Size() > 0)
+        temp.coloringEntries[0] = colEntry;
+    else
+        temp.coloringEntries.PushBack(colEntry);
+
+    npcEntity = theGame.CreateEntity( temp, pos, rot);
+    npcEntity.ApplyAppearance(colEntry.appearance);
+    npcEntity.AddTag('colshifttestnpc');
+    
+    
+    comp = (CAppearanceComponent)npcEntity.GetComponentByClassName('CAppearanceComponent');
+    comp.IncludeAppearanceTemplate(template);
+    
+    theGame.GetGuiManager().ShowNotification(" "+Int8ToInt(s1)+" "+Int8ToInt(l1)+" "+" "+Int8ToInt(s2)+" "+Int8ToInt(l2));
 }

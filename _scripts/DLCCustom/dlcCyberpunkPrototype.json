@@ -1,71 +1,71 @@
 {
   "dlc_id": "dlc_070_500",
   "dlc_name_key": "dlccyberpunkprototypeattire",
+  "dlc_name_str": "Cyberpunk Prototype Attire",
   "dlc_author_nickname": "Ard Carraigh",
-  "dlc_link": "https://www.nexusmods.com/witcher3/mods/7050",
+  "dlc_link": "nexusmods.com/witcher3/mods/7050",
   "dlc_appearance_templates": {
     "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/t_01_cyberpunk_meshes.w2ent": {
-      "template_slot": "ENR_RSlotTorso",
-      "template_name_key": "item_name_cyberpunk_jacket",
-      "template_rig": "male",
-	  "template_coloring": {
-		"t_02_cyberpunk": [95, -20, -20, 105, 50, -40]
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_name_cyberpunk_jacket",
+      "rig": "male",
+	  "coloring": {
+		"t_02_cyberpunk": [95, -20, -20, 105, 50, -40],
+		"t_01_cyberpunk": [95, -20, -20, 105, 50, -40]
 	  }
     },
 	"dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/t_01b_cyberpunk_meshes.w2ent": {
-      "template_slot": "ENR_RSlotTorso",
-      "template_name_key": "item_name_cyberpunk_jacket",
-      "template_rig": "male",
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_name_cyberpunk_jacket",
+      "rig": "male",
 	  "equip_variant": 2,
-	  "template_coloring": {
-		"t_02_cyberpunk": [307, -80, 70, 315, -50, 80]
+	  "coloring": {
+		"t_02a_cyberpunk": [307, -80, 70, 315, -50, 80]
 	  }
     },
     "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/l_01_cyberpunk_meshes.w2ent": {
-      "template_slot": "ENR_RSlotLegs",
-      "template_name_key": "item_name_cyberpunk_pants",
-      "template_rig": "male"
+      "slot": "ENR_RSlotLegs",
+      "name_key": "item_name_cyberpunk_pants",
+      "rig": "male"
     },
     "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/s_01_cyberpunk_01_meshes.w2ent": {
-      "template_slot": "ENR_RSlotShoes",
-      "template_name_key": "item_name_cyberpunk_converse_01",
-      "template_rig": "any"
+      "slot": "ENR_RSlotShoes",
+      "name_key": "item_name_cyberpunk_converse_01",
+      "rig": "any"
     },
     "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/s_01_cyberpunk_02_meshes.w2ent": {
-      "template_slot": "ENR_RSlotShoes",
-      "template_name_key": "item_name_cyberpunk_converse_02",
-      "template_rig": "any"
+      "slot": "ENR_RSlotShoes",
+      "name_key": "item_name_cyberpunk_converse_02",
+      "rig": "any"
     },
     "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/s_01_cyberpunk_03_meshes.w2ent": {
-      "template_slot": "ENR_RSlotShoes",
-      "template_name_key": "item_name_cyberpunk_converse_03",
-      "template_rig": "any"
+      "slot": "ENR_RSlotShoes",
+      "name_key": "item_name_cyberpunk_converse_03",
+      "rig": "any"
     },
     "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/s_01_cyberpunk_04_meshes.w2ent": {
-      "template_slot": "ENR_RSlotShoes",
-	  "template_name_key": "item_name_cyberpunk_converse_04",
-      "template_rig": "any"
+      "slot": "ENR_RSlotShoes",
+	  "name_key": "item_name_cyberpunk_converse_04",
+      "rig": "any"
     },
     "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/s_01_cyberpunk_05_meshes.w2ent": {
-      "template_slot": "ENR_RSlotShoes",
-      "template_name_key": "item_name_cyberpunk_converse_05",
-      "template_rig": "any"
+      "slot": "ENR_RSlotShoes",
+      "name_key": "item_name_cyberpunk_converse_05",
+      "rig": "any"
     }
   },
   "dlc_male_appearance_sets": {
-    "appearance_1": [
+    "ARMOR_cyberpunk_1": [
       "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/t_01_cyberpunk_meshes.w2ent",
       "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/l_01_cyberpunk_meshes.w2ent",
       "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/s_01_cyberpunk_02_meshes.w2ent",
-      "characters/models/common/man_average/hair/c_09_ma__hair.w2ent",
       "dlc/ep1/data/characters/models/main_npc/mirror_man/g_01_ma__mirror_man.w2ent"
     ],
-    "appearance_2": [
+    "ARMOR_cyberpunk_2": [
       "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/t_01b_cyberpunk_meshes.w2ent",
       "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/l_01_cyberpunk_meshes.w2ent",
       "dlc/dlccyberpunkprototypeattire/data/items/cyberpunk_armor/model/s_01_cyberpunk_05_meshes.w2ent",
-	  "characters/models/common/man_average/hair/c_08_ma__hair.w2ent",
-	  "characters/models/secondary_npc/burrows_soltis/g_01_ma__burrows_soltis.w2ent"
+	  "dlc/ep1/data/items/bodyparts/geralt_items/gloves/witcher_thief/g_01a_mg__thief.w2ent"
     ]
   },
   "dlc_female_appearance_sets": {

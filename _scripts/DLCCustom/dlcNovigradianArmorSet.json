@@ -1,0 +1,64 @@
+{
+  "dlc_id": "dlc_novigradarmor",
+  "dlc_name_key": "dlc_novigrad_name",
+  "dlc_name_str": "Novigradian Armor Set",
+  "dlc_author_nickname": "Zoltikrys",
+  "dlc_link": "nexusmods.com/witcher3/mods/6093",
+  "dlc_appearance_templates": {
+    "dlc/novigradarmor/data/player/armor/armor__novigrad/model/njacket.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_njacket_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/novigradarmor/data/player/armor/armor__novigrad/model/njacket_alt.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_njacket_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/novigradarmor/data/player/armor/armor__novigrad/model/ngloves.w2ent": {
+      "slot": "ENR_RSlotArms",
+      "name_key": "item_ngloves_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/novigradarmor/data/player/armor/armor__novigrad/model/nboots.w2ent": {
+      "slot": "ENR_RSlotShoes",
+      "name_key": "item_nboots_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/novigradarmor/data/player/armor/armor__novigrad/model/npants.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "name_key": "item_npants_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/novigradarmor/data/player/armor/armor__novigrad/model/npantsalt_shirt.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "name_key": "item_npants_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/novigradarmor/data/player/armor/armor__novigrad/model/npantsalt.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "name_key": "item_npants_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 3
+    }
+  },
+  "dlc_male_appearance_sets": {
+    "ARMOR_novigradian": [
+      "dlc/novigradarmor/data/player/armor/armor__novigrad/model/njacket_alt.w2ent",
+      "dlc/novigradarmor/data/player/armor/armor__novigrad/model/ngloves.w2ent",
+      "dlc/novigradarmor/data/player/armor/armor__novigrad/model/nboots.w2ent",
+      "dlc/novigradarmor/data/player/armor/armor__novigrad/model/npantsalt_shirt.w2ent"
+    ]
+  },
+  "dlc_female_appearance_sets": {
+  }
+}

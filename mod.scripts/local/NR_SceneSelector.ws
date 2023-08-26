@@ -1,16 +1,17 @@
 enum ENR_ScenePreviewFlags {
-	ENR_SPDontSaveOnAccept = 1,
-	ENR_SPForceUnloadSlotTemplates = 2
+	ENR_SPDontSaveOnAccept = 1,        		// for submenu nodes
+	ENR_SPForceUnloadAll = 2, 				// for NPC sets
+	ENR_SPForceUnloadAllExceptHeadHair = 4, // for NPC Armor sets
+	ENR_SPNPCSet = 8  						// marks real NPC sets
 }
 
 struct NR_ScenePreviewData {
 	editable var m_slots 	: array<int>;
 	editable var m_pathIDs 	: array<int>;
-	editable var m_nameIDs	: array<int>;
-	editable var m_appNames	: array<name>;
+	// --- editable var m_nameIDs	: array<int>;
+	// --- editable var m_appNames	: array<name>;
 	editable var m_headName	: name;
-	editable var m_coloringIndexes	: array<int>;
-	//editable var m_dontSaveOnAccept	: bool;
+	// --- editable var m_coloringIndexes	: array<int>;
 	editable var m_flags 	: int;
 }
 
@@ -18,19 +19,31 @@ struct NR_SceneNode {
 	editable var m_onPreviewChoice : array<NR_ScenePreviewData>;
 }
 
+struct NR_SceneCustomDLCInfo {
+	editable var m_dlcID : name;
+	editable var m_dlcNameKey : String;
+	editable var m_dlcNameStr : String;
+	editable var m_dlcAuthor : String;
+	editable var m_dlcLink : String;
+	editable var m_dlcCheckTemplatePath : String;
+}
+
 class NR_SceneSelector extends CEntity {
 	editable var 	m_nodesMale		: array<NR_SceneNode>;
 	editable var 	m_nodesFemale	: array<NR_SceneNode>;
 	editable var 	m_stringtable 	: array<String>;
+	editable var 	m_customDLCInfo : array<NR_SceneCustomDLCInfo>;
 	protected var 	m_dataIndex		: int;
 	protected var 	m_choiceOffset	: int;
 	default 		m_dataIndex		= -1;
+	default 		m_choiceOffset	= 0;
 
 	protected function StringByID(string_id : int) : String {
 		if (string_id < 0 || string_id >= m_stringtable.Size())
 			return "";
 		return m_stringtable[string_id];
 	}
+
 	public function GetTemplatesToUpdate(choiceIndex : int, isFemale : bool, out paths : array<String>, out itemList : array<String>, out headName : name) {
 		var i : int;	
 		var slot : ENR_AppearanceSlots;
@@ -89,7 +102,8 @@ class NR_SceneSelector extends CEntity {
 			return !(m_nodesMale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_flags & ENR_SPDontSaveOnAccept);
         }
 	}
-	public function ForceUnloadSlotTemplates(choiceIndex : int, isFemale : bool) : bool {
+
+	public function ShouldForceUnloadAllExceptHair(choiceIndex : int, isFemale : bool) : bool {
     	choiceIndex -= m_choiceOffset;
 		if (m_dataIndex < 0 || choiceIndex < 0)
 			return false;
@@ -97,12 +111,29 @@ class NR_SceneSelector extends CEntity {
 			if (m_dataIndex >= m_nodesFemale.Size() || choiceIndex >= m_nodesFemale[m_dataIndex].m_onPreviewChoice.Size())
 				return false;
 
-			return (m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_flags & ENR_SPForceUnloadSlotTemplates);
+			return (m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_flags & (ENR_SPForceUnloadAll | ENR_SPForceUnloadAllExceptHeadHair));
         } else {
         	if (m_dataIndex >= m_nodesMale.Size() || choiceIndex >= m_nodesMale[m_dataIndex].m_onPreviewChoice.Size())
 				return false;
 
-			return (m_nodesMale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_flags & ENR_SPForceUnloadSlotTemplates);
+			return (m_nodesMale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_flags & (ENR_SPForceUnloadAll | ENR_SPForceUnloadAllExceptHeadHair));
+        }
+	}
+
+	public function ShouldForceUnloadAll(choiceIndex : int, isFemale : bool) : bool {
+    	choiceIndex -= m_choiceOffset;
+		if (m_dataIndex < 0 || choiceIndex < 0)
+			return false;
+		if (isFemale) {
+			if (m_dataIndex >= m_nodesFemale.Size() || choiceIndex >= m_nodesFemale[m_dataIndex].m_onPreviewChoice.Size())
+				return false;
+
+			return (m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_flags & ENR_SPForceUnloadAll);
+        } else {
+        	if (m_dataIndex >= m_nodesMale.Size() || choiceIndex >= m_nodesMale[m_dataIndex].m_onPreviewChoice.Size())
+				return false;
+
+			return (m_nodesMale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_flags & ENR_SPForceUnloadAll);
         }
 	}
 
@@ -122,16 +153,23 @@ class NR_SceneSelector extends CEntity {
 			return m_nodesMale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_headName;
         }
     }*/
+
     public function GetPreviewDataIndex() : int {
     	return m_dataIndex;
     }
+
     public function ResetPreviewDataIndex() {
     	NRD("NR_SceneSelector::ResetPreviewDataIndex()");
     	m_dataIndex = -1;
     }
+
     public function SetPreviewDataIndex(newIndex : int, newChoiceOffset : int) {
     	//NRD("NR_SceneSelector::SetPreviewDataIndex()");
     	m_dataIndex = newIndex;
     	m_choiceOffset = newChoiceOffset;
+    }
+
+    public function ShowCustomDLCInfo() {
+    	
     }
 }

@@ -1,4 +1,4 @@
-class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
+statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 	var s_respectCaster	: bool;
 	var s_meteorNum 	: int;
 	var meteor 			: NR_MeteorProjectile;

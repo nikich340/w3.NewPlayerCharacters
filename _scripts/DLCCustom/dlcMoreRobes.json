@@ -1,0 +1,1432 @@
+{
+	"dlc_id": "dlc_kontusz",
+	"dlc_name_key": "dlc_kontusz",
+	"dlc_name_str": "More Robes",
+	"dlc_author_nickname": "ScoutBr0",
+	"dlc_link": "nexusmods.com/witcher3/mods/2144",
+	"dlc_appearance_templates": {
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/olgierd/olgierd_robe.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_olgierd_kontusz",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/olgierd/olgierd_robe_a.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_olgierd_kontusz",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/vlodimir/vlodimir_robe.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_vlodimir_kontusz",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/vlodimir/vlodimir_robe_a.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_vlodimir_kontusz",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/avallach/model/elven_traveler_kontusz_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_traveler_kontusz",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/avallach/model/elven_traveler_kontusz_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_traveler_kontusz",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/geels/model/elven_noble_kontusz_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_noble_kontusz",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/geels/model/elven_noble_medallion_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/geels/model/elven_noble_kontusz_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_noble_kontusz",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/detlaff/model/frock_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_frock",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/detlaff/model/frock_medallion.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/detlaff/model/frock_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_frock",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/regis/model/regis_body_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_regis",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/regis/model/belt.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/regis/model/regis_body_model_a.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_regis",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/detlaff/model/frock_pants_a_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_frock_pants",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/detlaff/model/frock_pants_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_frock_pants",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/emhyr/model/emhyr_robe_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_emhyr_robe",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/emhyr/model/emhyr_robe_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_emhyr_robe",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/voorhis_model_coloring_morerobes.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_voorhis_coat",
+			"rig": "male",
+			"coloring": {
+				"body_01_ma__voorhis_coloring_morerobes": [
+					132,
+					-100,
+					-60,
+					0,
+					-96,
+					-27
+				]
+			}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/voorhis/model/voorhis_medallion.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any"
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/torso_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_wh_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/arms/arms_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/ribs_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/ribs_back_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/wh_medallion_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/gloves/gloves_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_wh_gloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/legs/legs_1_a_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_wh_pants",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/legs/legs_2_a_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_wh_pants",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/boots/boots_1_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_wh_boots",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/boots/boots_2_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_wh_boots",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/t_01_mg__viper_v2_meshes_coloring_morerobes.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_black_viper_armor",
+			"rig": "male",
+			"coloring": {
+				"torso_coloring_morerobes": [
+					112,
+					-100,
+					-77,
+					343,
+					-100,
+					-60
+				],
+				"apex_coloring_morerobes": [
+					112,
+					-74,
+					-70,
+					343,
+					-78,
+					-50
+				],
+				"apex2_coloring_morerobes": [
+					112,
+					-74,
+					-70,
+					343,
+					-78,
+					-50
+				],
+				"apex3_coloring_morerobes": [
+					112,
+					-74,
+					-70,
+					343,
+					-78,
+					-50
+				]
+			}
+		},
+		"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/t_01a_mg__viper_v2_meshes_coloring_morerobes.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_black_viper_armor",
+			"rig": "male",
+			"coloring": {
+				"torso_coloring_morerobes": [
+					112,
+					-100,
+					-77,
+					343,
+					-100,
+					-60
+				],
+				"apex_coloring_morerobes": [
+					112,
+					-74,
+					-70,
+					343,
+					-78,
+					-50
+				],
+				"apex2_coloring_morerobes": [
+					112,
+					-74,
+					-70,
+					343,
+					-78,
+					-50
+				],
+				"apex3_coloring_morerobes": [
+					112,
+					-74,
+					-70,
+					343,
+					-78,
+					-50
+				]
+			},
+			"equip_variant": 2
+		},
+		"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/s_01_mg__viper_v2_meshes_coloring_morerobes.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_black_viper_boots",
+			"rig": "male",
+			"coloring": {
+				"shoes_coloring_morerobes": [
+					105,
+					-96,
+					-70,
+					343,
+					-78,
+					-50
+				]
+			}
+		},
+		"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/g_01_mg__viper_v2_meshes_coloring_morerobes.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_black_viper_gloves",
+			"rig": "male",
+			"coloring": {
+				"gloves_coloring_morerobes": [
+					112,
+					-96,
+					-76,
+					343,
+					-92,
+					-55
+				]
+			}
+		},
+		"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/l_01_mg__viper_v2_meshes_coloring_morerobes.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_black_viper_pants",
+			"rig": "male",
+			"coloring": {
+				"pants_coloring_morerobes": [
+					164,
+					-100,
+					-69,
+					326,
+					-88,
+					-51
+				]
+			}
+		},
+		"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/l_01a_mg__viper_v2_meshes_coloring_morerobes.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_black_viper_pants",
+			"rig": "male",
+			"coloring": {
+				"pants_coloring_morerobes": [
+					164,
+					-100,
+					-69,
+					326,
+					-88,
+					-51
+				]
+			},
+			"equip_variant": 2
+		},
+		"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/l_01a_mg__viper_v2_shirt_meshes_coloring_morerobes.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_black_viper_pants",
+			"rig": "male",
+			"coloring": {
+				"pants_coloring_morerobes": [
+					164,
+					-100,
+					-69,
+					326,
+					-88,
+					-51
+				]
+			},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/boots_01_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_nilfgaardian_boots_01",
+			"rig": "male",
+			"coloring": {}
+		},
+		"characters/models/crowd_npc/nilfgaard_knight/gloves/g_01_mb__nilfgaard_knight.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_nilfgaardian_gloves_01",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/gambeson/model/gambeson_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_gambeson",
+			"rig": "male",
+			"coloring": {
+				"gambeson": [
+					132,
+					-100,
+					-60,
+					0,
+					-96,
+					-27
+				]
+			},
+			"includes": [
+				"characters/models/crowd_npc/nilfgaard_squire/arms/ag_03_ma__nilfgaard_squire.w2ent",
+				"dlc/kontusz/data/items/bodyparts/geralt_items/armors/gambeson/model/gambeson_scarf_model.w2ent",
+				"dlc/kontusz/data/items/bodyparts/geralt_items/armors/gambeson/model/gambeson_hood_model.w2ent"
+			]
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/gambeson/model/gambeson_scarf_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"rig": "male",
+			"coloring": {
+				"gambeson_scarf": [
+					331,
+					-80,
+					-42,
+					0,
+					-96,
+					-27
+				]
+			}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/gambeson/model/gambeson_hood_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"rig": "male",
+			"coloring": {
+				"gambeson_hood": [
+					132,
+					-100,
+					-60,
+					0,
+					-96,
+					-27
+				]
+			}
+		},
+		"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/ag_03_ma__nilfgaard_squire_coloring_morerobes.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"rig": "male",
+			"coloring": {
+				"ag_03_ma__nilfgaard_squire_coloring_morerobes": [
+					280,
+					-99,
+					-10,
+					0,
+					-96,
+					-50
+				]
+			}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/gambeson/model/gambeson_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_gambeson",
+			"rig": "male",
+			"coloring": {
+				"gambeson_a": [
+					132,
+					-100,
+					-60,
+					0,
+					-96,
+					-100
+				]
+			},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/gambeson/model/gambeson_arm_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"rig": "male",
+			"coloring": {
+				"gambeson_arm": [
+					280,
+					-99,
+					-10,
+					0,
+					-96,
+					-50
+				]
+			}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_wanderer_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_pendant_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_armor_b_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_wanderer_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_wanderer_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_pants_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_wanderer_pants",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_pants_a_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_wanderer_pants",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_gloves_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_wanderer_gloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_gloves_a_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_wanderer_gloves",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_boots_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_wanderer_boots",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_warden_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_pendant_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_armor_b_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_warden_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_warden_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_pants_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_warden_pants",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_pants_a_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_warden_pants",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_gloves_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_warden_gloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_gloves_a_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_warden_gloves",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_boots_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_warden_boots",
+			"rig": "male",
+			"coloring": {
+				"warden_boots_model": [
+					333,
+					-70,
+					-60,
+					0,
+					-7,
+					-75
+				]
+			}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_hunter_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_armor_pendant.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_hunter_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_pants_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_hunter_pants",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_pants_a_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_hunter_pants",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_gloves_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_hunter_gloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_gloves_a_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_hunter_gloves",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_boots_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_hunter_boots",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/raven_set/model/raven_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_raven_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/raven_set/model/raven_pendant.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/raven_set/model/raven_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/raven_set/model/raven_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_raven_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/tracker_set/model/tracker_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_tracker_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/tracker_set/model/tracker_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/tracker_set/model/tracker_arms_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/tracker_set/model/tracker_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_tracker_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/eskel/model/eskel_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_eskel_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/eskel/model/eskel_armor_model_a.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_eskel_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/lambert/model/lambert_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_lambert_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/lambert/model/lambert_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/lambert/model/lambert_armor_model_a.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_lambert_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_oathbreaker_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_pendant_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_armor_b_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_oathbreaker_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_oathbreaker_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_pants_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_oathbreaker_pants",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_pants_a_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_oathbreaker_pants",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_gloves_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_oathbreaker_gloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_gloves_a_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_oathbreaker_gloves",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_boots_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_oathbreaker_boots",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/shiadhal/model/shiadhal_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_shiadhalarmor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/shiadhal/model/shiadhal_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/shiadhal/model/shiadhal_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_shiadhalarmor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/shiadhal/model/shiadhal_armor_b_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_shiadhalarmor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/astrogarus/model/astrogarus_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_astrogarus_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/astrogarus/model/astrogarus_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_astrogarus_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_hood_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_journeyman_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_medallion_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_hood_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_journeyman_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_pants_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_journeyman_pants",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_pants_model_a.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_journeyman_pants",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_gloves_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_journeyman_gloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_gloves_a_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_journeyman_gloves",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_boots_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_journeyman_boots",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_hood_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_kinslayer_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_pendant.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_hood_b_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_kinslayer_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_hood_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_kinslayer_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_pants_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_kinslayer_pants",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_pants_a_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_kinslayer_pants",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_gloves_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_kinslayer_gloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_gloves_a_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_kinslayer_gloves",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_boots_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_kinslayer_boots",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/quilted_armor/model/quilted_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_quilted_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/quilted_armor/model/quilted_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/quilted_armor/model/quilted_armor_model_a.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_quilted_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/quilted_armor/model/quilted_armor_model_b.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_quilted_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_bluestripes_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_hood_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_armor_b_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_bluestripes_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_bluestripes_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_pants_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_bluestripes_pants",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_pants_a_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"name_key": "item_name_bluestripes_pants",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_gloves_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_bluestripes_gloves",
+			"rig": "male",
+			"coloring": {},
+			"includes": [
+
+			]
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_gloves_a_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"name_key": "item_name_bluestripes_gloves",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_boots_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"name_key": "item_name_bluestripes_boots",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/seltkirk/model/seltkirk_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_seltkirk_armor",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/seltkirk/model/seltkirk_armor_b_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_seltkirk_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/seltkirk/model/seltkirk_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_seltkirk_armor",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/dearg_ruadhri/model/dearg_ruadhri_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_dearg_ruadhri",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/dearg_ruadhri/model/dearg_ruadhri_belt_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/dearg_ruadhri/model/dearg_ruadhri_b_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_dearg_ruadhri",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/dearg_ruadhri/model/dearg_ruadhri_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_dearg_ruadhri",
+			"rig": "male",
+			"coloring": {},
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/ofieri_mage/model/ofieri_mage_armor_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_ofieri_mage_armor",
+			"rig": "male"
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/ofieri_mage/model/ofieri_mage_armor_a_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_ofieri_mage_armor",
+			"rig": "male",
+			"equip_variant": 2
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/ofieri_mage/model/ofieri_mage_armor_b_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"name_key": "item_name_ofieri_mage_armor",
+			"rig": "male",
+			"equip_variant": 3
+		},
+		"dlc/kontusz/data/characters/models/cynthia/cynthia.w2ent": {
+			"slot": "ENR_RSlotBody",
+			"rig": "female",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/characters/models/cynthia/cynthia_hair.w2ent": {
+			"slot": "ENR_RSlotHair",
+			"rig": "female",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_emblem_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/detlaff/model/frock_boots_model.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/emhyr/model/emyhr_medallion_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/eskel/model/eskel_gloves_model.w2ent": {
+			"slot": "ENR_RSlotGloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/extensions/c_02_mg__witcher_br_kontusz.w2ent": {
+			"slot": "ENR_RSlotHair",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/extensions/models/c_01_mg__witcher_br02_model.w2ent": {
+			"slot": "ENR_RSlotHair",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/extensions/models/c_02_mg__witcher_model.w2ent": {
+			"slot": "ENR_RSlotHair",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_armor_no_arm_model.w2ent": {
+			"slot": "ENR_RSlotTorso",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_gloves_alt_model.w2ent": {
+			"slot": "ENR_RSlotGloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_boots_fur.w2ent": {
+			"slot": "ENR_RSlotShoes",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/feathers.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/fingerless_gloves_model.w2ent": {
+			"slot": "ENR_RSlotGloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/glove.w2ent": {
+			"slot": "ENR_RSlotGloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/helm_01_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/helm_02_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/pants_01_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/pants_02_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/raven_set/model/raven_gloves_model.w2ent": {
+			"slot": "ENR_RSlotGloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/other/belt.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/regis/model/regis_gloves_model.w2ent": {
+			"slot": "ENR_RSlotGloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/regis/model/regis_medallion.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/shiadhal/model/shiadhal_buckle_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/tracker_set/tracker_gloves.w2ent": {
+			"slot": "ENR_RSlotGloves",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/voorhis/model/voorhis_arms_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/eredin_helm_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/imlerith_helm_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_head_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_helm_1_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_helm_2_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_helm_3_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_helm_4_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_helm_5_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_helm_6_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_helm_7_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_helm_8_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/helms/wh_helm_9_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/legs/legs_1_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/legs/legs_2_model.w2ent": {
+			"slot": "ENR_RSlotLegs",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/ribs_2_model.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/shoulders_model.w2ent": {
+			"slot": "ENR_RSlotArms",
+			"rig": "male",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/other/belt_bag.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/other/belt_potions.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		},
+		"dlc/kontusz/data/items/other/nilfbelt.w2ent": {
+			"slot": "ENR_RSlotMisc",
+			"rig": "any",
+			"coloring": {}
+		}
+	},
+	"dlc_male_appearance_sets": {
+		"ARMOR_black_viper": [
+			"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/t_01a_mg__viper_v2_meshes_coloring_morerobes.w2ent",
+			"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/s_01_mg__viper_v2_meshes_coloring_morerobes.w2ent",
+			"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/g_01_mg__viper_v2_meshes_coloring_morerobes.w2ent",
+			"dlc/dlcnewreplacers/data/entities/colorings/dlc_custom/l_01a_mg__viper_v2_meshes_coloring_morerobes.w2ent"
+		],
+		"ARMOR_NOHAIR_blue_stripes": [
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_hood_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_armor_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_pendant.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_belt_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_pants_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_gloves_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/bluestripes_set/model/bluestripes_boots_model.w2ent"
+		],
+		"ARMOR_hunter": [
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_armor_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_armor_pendant.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_belt_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_pants_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_gloves_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_boots_model.w2ent"
+		],
+		"ARMOR_NOHAIR_journeyman": [
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_hood_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_medallion_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/tracker_set/model/tracker_arms_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/hunter_set/model/hunter_belt_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_pants_model_a.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_gloves_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/journeyman_set/model/journeyman_boots_model.w2ent"
+		],
+		"ARMOR_NOHAIR_kinslayer": [
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_hood_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_belt_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_pendant.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_pants_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_gloves_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/kinslayer_set/model/kinslayer_boots_model.w2ent"
+		],
+		"ARMOR_nilfgaardian_1": [
+			"characters/models/crowd_npc/nilfgaard_knight/torso/t3a_01_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/items/i_04_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/items/i_05_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/items/i_08_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/items/i_10_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/dress/d_01_mb__nilfgaard_knight.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/boots_01_model.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/gloves/g_01_mb__nilfgaard_knight.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/pants_01_model.w2ent"
+		],
+		"ARMOR_nilfgaardian_2": [
+			"characters/models/crowd_npc/nilfgaard_knight/torso/t3a_02_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/items/i_04_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/items/i_05_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/items/i_08_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/items/i_10_mb__nilfgaard_knight.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/dress/d_01_mb__nilfgaard_knight.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/boots_01_model.w2ent",
+			"characters/models/crowd_npc/nilfgaard_knight/gloves/g_01_mb__nilfgaard_knight.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/nilfgaard/model/pants_02_model.w2ent"
+		],
+		"ARMOR_oathbreaker": [
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_armor_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_pendant_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_belt_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_pants_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_gloves_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/oathbreaker_set/model/oathbreaker_boots_model.w2ent"
+		],
+		"ARMOR_wanderer": [
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_armor_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_pendant_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_belt_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_pants_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_gloves_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wanderer_set/model/wanderer_boots_model.w2ent"
+		],
+		"ARMOR_warden": [
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_armor_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_pendant_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_belt_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_pants_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_gloves_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/warden_set/model/warden_boots_model.w2ent"
+		],
+		"ARMOR_wild_hunt_1": [
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/torso_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/arms/arms_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/ribs_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/ribs_back_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/wh_medallion_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/gloves/gloves_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/legs/legs_1_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/boots/boots_1_model.w2ent"
+		],
+		"ARMOR_wild_hunt_2": [
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/torso_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/arms/arms_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/ribs_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/ribs_back_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/torso/wh_medallion_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/gloves/gloves_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/legs/legs_2_a_model.w2ent",
+			"dlc/kontusz/data/items/bodyparts/geralt_items/armors/wild_hunt/boots/boots_2_model.w2ent"
+		]
+	},
+	"dlc_female_appearance_sets": {
+		"Yessica": [
+			{
+				"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_52_wa__novigrad_citizen.w2ent",
+				"slot": "ENR_GSlotHead"
+			},
+			"dlc/kontusz/data/characters/models/cynthia/cynthia_hair.w2ent",
+			"dlc/kontusz/data/characters/models/cynthia/cynthia.w2ent"
+		]
+	}
+}

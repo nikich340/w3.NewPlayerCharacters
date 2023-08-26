@@ -183,12 +183,10 @@ production:
   settings:
     sceneid: 1
     strings-idspace: 5940
-    strings-idstart: 550
-    #find_safe_placement: false
-    #snap_to_terrain: false
+    strings-idstart: 600
 
   safe_placement: false
-  snap_to_terrain: true
+  snap_to_terrain: false
 
   placement: "PLAYER"
     # INFO: world coordinates of used origin:
@@ -307,23 +305,55 @@ dialogscript:
         function: NR_EnterScenePreviewState_S
         parameter:
           - stateName: CNAME_NR_ScenePreviewAppearance_DialogState
+    - NEXT: section_branch_main
+
+  section_branch_main:
+    #- PAUSE: 0.0
+    - NEXT:
+        condition: [ "nr_quest_track_SceneHelp", ">=", 1 ]
+        on_true: section_choice_main
+        on_false: script_show_scene_help_info
+
+  section_trans_main_to_itself:
+    - PAUSE: 0.0
     - NEXT: section_choice_main
 
   section_choice_main:
     - CHOICE:
-        - choice: ["[EXIT]", script_exit_state_blend, exit]
+        - choice: ["2115940550|[EXIT]", script_exit_state_blend, exit]
           emphasize: true
-        - choice: ["Change player type", section_choice_type]
+        - choice: ["2115940551|Change player type", section_choice_type]
           emphasize: true
-        - choice: ["Change player appearance", section_choice_player_appearance]
+        - choice: ["2115940552|Change player appearance", section_branch_player_appearance]
           emphasize: true
           condition: ["nr_player_type", ">", 2]
-        - choice: ["Change sorceress spells", section_blendout_exit_sorceress]
+        - choice: ["2115940553|Change player display name", section_trans_player_display_name_to_itself]
+          emphasize: true
+          condition: ["nr_player_type", ">", 2]
+        - choice: ["2115940554|Change sorceress spells", section_blendout_exit_sorceress]
           emphasize: true
           condition: ["nr_player_type", "=", 5]
-        - choice: ["2115940094|[Open teleport]", section_branch_teleport_master]
+        - choice: ["2115940580|Use female speech: [Auto (Recommended)]", script_switch_female_speech]
+          emphasize: true
+          condition: ["nr_speech_manual_control", "=", 0]
+        - choice: ["2115940581|Use female speech: [Always]", script_switch_female_speech]
+          emphasize: true
+          condition: ["nr_speech_manual_control", "=", 1]
+        - choice: ["2115940582|Use female speech: [Never]", script_switch_female_speech]
+          emphasize: true
+          condition: ["nr_speech_manual_control", "=", 2]
+        - choice: ["2115940094|Open teleport", section_branch_teleport_master]
           emphasize: true
           condition: ["nr_quest_master_met", ">=", 1]
+        - choice: ["2115940555|Show help", script_show_scene_help_info]
+          emphasize: true
+
+  section_branch_player_appearance:
+    #- PAUSE: 0.0
+    - NEXT:
+        condition: [ "nr_quest_track_AppearanceHelp", ">=", 1 ]
+        on_true: section_choice_player_appearance
+        on_false: script_show_appearance_help_info
 
   section_branch_teleport_master:
     #- PAUSE: 0.0
@@ -338,23 +368,22 @@ dialogscript:
 
   section_choice_type:
     - CHOICE:
-        - choice: ["Geralt (vanilla)", script_set_geralt]
+        - choice: ["2115940103|[BACK]", section_choice_main, exit]
+          emphasize: true
+        - choice: ["2115940559|Geralt (vanilla)", script_set_geralt]
           condition: [nr_player_type, "!=", 1]
           emphasize: true
-        - choice: ["Ciri (vanilla)", script_set_ciri]
+        - choice: ["2115940560|Ciri (vanilla)", script_set_ciri]
           condition: [nr_player_type, "!=", 2]
           emphasize: true
-        - choice: ["Witcher (custom)", script_set_witcher]
+        - choice: ["2115940561|Witcher (custom)", script_set_witcher]
           condition: [nr_player_type, "!=", 3]
           emphasize: true
-        - choice: ["Witcheress (custom)", script_set_witcheress]
+        - choice: ["2115940562|Witcheress (custom)", script_set_witcheress]
           condition: [nr_player_type, "!=", 4]
           emphasize: true
-        - choice: ["Sorceress (custom)", script_set_sorceress]
+        - choice: ["2115940563|Sorceress (custom)", script_set_sorceress]
           condition: [nr_player_type, "!=", 5]
-          emphasize: true
-
-        - choice: ["2115940103|[BACK]", section_choice_main, exit]
           emphasize: true
 
   script_set_geralt:
@@ -405,141 +434,274 @@ dialogscript:
           - value: 1
     - NEXT: section_fadeout_exit
 
+
+  section_trans_player_display_name_to_itself:
+    - PAUSE: 0.0
+    - NEXT: section_choice_player_display_name
+
+  section_choice_player_display_name:
+    - CHOICE:
+      - choice: ["2115940103|[BACK]", section_choice_main, exit]
+        emphasize: true
+      - choice: ["2115940579|[Apply RANDOM]", script_set_display_name_random]
+        emphasize: true
+      - choice: ["0000318188|Geralt", script_set_display_name_geralt]
+        emphasize: true
+
+  script_set_display_name_geralt:
+    - SCRIPT:
+        function: NR_SetPlayerDisplayName_S
+        parameter:
+          - nameID: 318188
+    - NEXT: section_trans_player_display_name_to_itself
+
+  script_set_display_name_random:
+    - SCRIPT:
+        function: NR_SetPlayerDisplayName_S
+        parameter:
+          - nameID: 1
+    - NEXT: section_trans_player_display_name_to_itself
+
+
   section_choice_player_appearance:
     - CHOICE:
         - choice: ["2115940103|[BACK]", section_choice_main, exit]
           emphasize: true
-        - choice: ["Switch stacking templates as items: [disabled]", script_switch_stacking]
+        - choice: ["2115940564|[Clear all slots and items]", script_clear_slotsitems_all]
+          emphasize: true
+        - choice: ["2115940565|Saved appearance sets", section_choice_saved_sets]
+          emphasize: true
+        - choice: ["2115940566|NPC appearance sets", section_trans_choice_npcs_main_to_itself]
+          emphasize: true
+        - choice: ["2115940567|Geralt armor sets", script_geralt_armor_sets]
+          emphasize: true
+        - choice: ["2115940568|Change slot templates (Appearance constuctor)", section_choice_slots_main]
+          emphasize: true
+        - choice: ["2115940569|Switch stacking templates as items: [disabled]", script_switch_stacking]
           emphasize: true
           condition: ["nr_scene_stacking_as_items", "<", 1]
-        - choice: ["Switch stacking templates as items: [enabled]", script_switch_stacking]
+        - choice: ["2115940570|Switch stacking templates as items: [enabled]", script_switch_stacking]
           emphasize: true
           condition: ["nr_scene_stacking_as_items", ">=", 1]
-        - choice: ["[Clear all slots and items]", script_clear_slotsitems_all]
+        - choice: ["2115940577|Show preview bodypart names: [disabled]", script_switch_preview_names]
           emphasize: true
-        - choice: ["Saved appearance sets", section_choice_saved_sets]
+          condition: ["nr_scene_show_preview_names", "<", 1]
+        - choice: ["2115940578|Show preview bodypart names: [enabled]", script_switch_preview_names]
           emphasize: true
-        - choice: ["NPC appearance sets", section_choice_main]
+          condition: ["nr_scene_show_preview_names", ">=", 1]
+        - choice: ["2115940571|Show custom DLCs info", script_show_custom_dlc_info]
+          emphasize: true
+        - choice: ["2115940555|Show help", script_show_appearance_help_info]
           emphasize: true
 
   section_choice_saved_sets:
     - CHOICE:
         - choice: ["2115940103|[BACK]", section_choice_player_appearance, exit]
           emphasize: true
-        - choice: ["Save current appearance set", script_user_sets_save]
+        - choice: ["2115940572|Save current appearance set", script_user_sets_save]
           emphasize: true
-        - choice: ["Load appearance set", section_choice_saved_sets_load]
+        - choice: ["2115940573|Load appearance set", section_choice_saved_sets_load]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 1]
-        - choice: ["Remove appearance set", section_choice_saved_sets_remove]
+        - choice: ["2115940574|Remove appearance set", section_choice_saved_sets_remove]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 1]
 
-  section_trans_choice_saved_sets_to_choice_saved_sets:
+  section_trans_choice_saved_sets_to_itself:
     - PAUSE: 0.0
     - NEXT: section_choice_saved_sets
 
   script_user_sets_save:
     - SCRIPT:
         function: NR_UserSetsSave_S
-    - NEXT: section_trans_choice_saved_sets_to_choice_saved_sets
+    - NEXT: section_trans_choice_saved_sets_to_itself
 
   section_choice_saved_sets_load:
     - CHOICE:
         - choice: ["2115940103|[BACK]", section_choice_saved_sets, exit]
           emphasize: true
-        - choice: ["Load set #1", script_saved_sets_load_0]
+        - choice: ["0001107617|.", script_saved_sets_load_0]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 1]
-        - choice: ["Load set #2", script_saved_sets_load_1]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #1"
+        - choice: ["0001107617|.", script_saved_sets_load_1]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 2]
-        - choice: ["Load set #3", script_saved_sets_load_2]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #2"
+        - choice: ["0001107617|.", script_saved_sets_load_2]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 3]
-        - choice: ["Load set #4", script_saved_sets_load_3]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #3"
+        - choice: ["0001107617|.", script_saved_sets_load_3]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 4]
-        - choice: ["Load set #5", script_saved_sets_load_4]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #4"
+        - choice: ["0001107617|.", script_saved_sets_load_4]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 5]
-        - choice: ["Load set #6", script_saved_sets_load_5]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #5"
+        - choice: ["0001107617|.", script_saved_sets_load_5]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 6]
-        - choice: ["Load set #7", script_saved_sets_load_6]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #6"
+        - choice: ["0001107617|.", script_saved_sets_load_6]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 7]
-        - choice: ["Load set #8", script_saved_sets_load_7]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #7"
+        - choice: ["0001107617|.", script_saved_sets_load_7]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 8]
-        - choice: ["Load set #9", script_saved_sets_load_8]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #8"
+        - choice: ["0001107617|.", script_saved_sets_load_8]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 9]
-        - choice: ["Load set #10", script_saved_sets_load_9]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #9"
+        - choice: ["0001107617|.", script_saved_sets_load_9]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 10]
-        - choice: ["Load set #11", script_saved_sets_load_10]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #10"
+        - choice: ["0001107617|.", script_saved_sets_load_10]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 11]
-        - choice: ["Load set #12", script_saved_sets_load_11]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #11"
+        - choice: ["0001107617|.", script_saved_sets_load_11]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 12]
-        - choice: ["Load set #13", script_saved_sets_load_12]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #12"
+        - choice: ["0001107617|.", script_saved_sets_load_12]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 13]
-        - choice: ["Load set #14", script_saved_sets_load_13]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #13"
+        - choice: ["0001107617|.", script_saved_sets_load_13]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 14]
-        - choice: ["Load set #15", script_saved_sets_load_14]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #14"
+        - choice: ["0001107617|.", script_saved_sets_load_14]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 15]
-        - choice: ["Load set #16", script_saved_sets_load_15]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #15"
+        - choice: ["0001107617|.", script_saved_sets_load_15]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 16]
-        - choice: ["Load set #17", script_saved_sets_load_16]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #16"
+        - choice: ["0001107617|.", script_saved_sets_load_16]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 17]
-        - choice: ["Load set #18", script_saved_sets_load_17]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #17"
+        - choice: ["0001107617|.", script_saved_sets_load_17]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 18]
-        - choice: ["Load set #19", script_saved_sets_load_18]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #18"
+        - choice: ["0001107617|.", script_saved_sets_load_18]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 19]
-        - choice: ["Load set #20", script_saved_sets_load_19]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #19"
+        - choice: ["0001107617|.", script_saved_sets_load_19]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 20]
-        - choice: ["Load set #21", script_saved_sets_load_20]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #20"
+        - choice: ["0001107617|.", script_saved_sets_load_20]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 21]
-        - choice: ["Load set #22", script_saved_sets_load_21]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #21"
+        - choice: ["0001107617|.", script_saved_sets_load_21]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 22]
-        - choice: ["Load set #23", script_saved_sets_load_22]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #22"
+        - choice: ["0001107617|.", script_saved_sets_load_22]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 23]
-        - choice: ["Load set #24", script_saved_sets_load_23]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #23"
+        - choice: ["0001107617|.", script_saved_sets_load_23]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 24]
-        - choice: ["Load set #25", script_saved_sets_load_24]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #24"
+        - choice: ["0001107617|.", script_saved_sets_load_24]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 25]
-        - choice: ["Load set #26", script_saved_sets_load_25]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #25"
+        - choice: ["0001107617|.", script_saved_sets_load_25]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 26]
-        - choice: ["Load set #27", script_saved_sets_load_26]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #26"
+        - choice: ["0001107617|.", script_saved_sets_load_26]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 27]
-        - choice: ["Load set #28", script_saved_sets_load_27]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #27"
+        - choice: ["0001107617|.", script_saved_sets_load_27]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 28]
-        - choice: ["Load set #29", script_saved_sets_load_28]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #28"
+        - choice: ["0001107617|.", script_saved_sets_load_28]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 29]
-        - choice: ["Load set #30", script_saved_sets_load_29]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #29"
+        - choice: ["0001107617|.", script_saved_sets_load_29]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 30]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940575} #30"
 
-  section_trans_choice_saved_sets_load_to_choice_saved_sets_load:
+  section_trans_choice_saved_sets_load_to_itself:
     - PAUSE: 0.0
     - NEXT: section_choice_saved_sets_load
 
@@ -548,307 +710,397 @@ dialogscript:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 0
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_1:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 1
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_2:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 2
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_3:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 3
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_4:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 4
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_5:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 5
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_6:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 6
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_7:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 7
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_8:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 8
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_9:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 9
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_10:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 10
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_11:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 11
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_12:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 12
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_13:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 13
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_14:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 14
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_15:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 15
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_16:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 16
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_17:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 17
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_18:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 18
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_19:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 19
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_20:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 20
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_21:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 21
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_22:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 22
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_23:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 23
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_24:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 24
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_25:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 25
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_26:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 26
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_27:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 27
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_28:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 28
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   script_saved_sets_load_29:
     - SCRIPT:
         function: NR_UserSetsLoad_S
         parameter:
           - setIndex: 29
-    - NEXT: section_trans_choice_saved_sets_load_to_choice_saved_sets_load
+    - NEXT: section_trans_choice_saved_sets_load_to_itself
 
   section_choice_saved_sets_remove:
     - CHOICE:
         - choice: ["2115940103|[BACK]", section_choice_saved_sets, exit]
           emphasize: true
-        - choice: ["Remove set #1", script_saved_sets_remove_0]
+        - choice: ["0001107617|.", script_saved_sets_remove_0]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 1]
-        - choice: ["Remove set #2", script_saved_sets_remove_1]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #1"
+        - choice: ["0001107617|.", script_saved_sets_remove_1]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 2]
-        - choice: ["Remove set #3", script_saved_sets_remove_2]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #2"
+        - choice: ["0001107617|.", script_saved_sets_remove_2]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 3]
-        - choice: ["Remove set #4", script_saved_sets_remove_3]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #3"
+        - choice: ["0001107617|.", script_saved_sets_remove_3]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 4]
-        - choice: ["Remove set #5", script_saved_sets_remove_4]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #4"
+        - choice: ["0001107617|.", script_saved_sets_remove_4]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 5]
-        - choice: ["Remove set #6", script_saved_sets_remove_5]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #5"
+        - choice: ["0001107617|.", script_saved_sets_remove_5]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 6]
-        - choice: ["Remove set #7", script_saved_sets_remove_6]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #6"
+        - choice: ["0001107617|.", script_saved_sets_remove_6]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 7]
-        - choice: ["Remove set #8", script_saved_sets_remove_7]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #7"
+        - choice: ["0001107617|.", script_saved_sets_remove_7]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 8]
-        - choice: ["Remove set #9", script_saved_sets_remove_8]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #8"
+        - choice: ["0001107617|.", script_saved_sets_remove_8]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 9]
-        - choice: ["Remove set #10", script_saved_sets_remove_9]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #9"
+        - choice: ["0001107617|.", script_saved_sets_remove_9]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 10]
-        - choice: ["Remove set #11", script_saved_sets_remove_10]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #10"
+        - choice: ["0001107617|.", script_saved_sets_remove_10]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 11]
-        - choice: ["Remove set #12", script_saved_sets_remove_11]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #11"
+        - choice: ["0001107617|.", script_saved_sets_remove_11]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 12]
-        - choice: ["Remove set #13", script_saved_sets_remove_12]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #12"
+        - choice: ["0001107617|.", script_saved_sets_remove_12]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 13]
-        - choice: ["Remove set #14", script_saved_sets_remove_13]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #13"
+        - choice: ["0001107617|.", script_saved_sets_remove_13]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 14]
-        - choice: ["Remove set #15", script_saved_sets_remove_14]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #14"
+        - choice: ["0001107617|.", script_saved_sets_remove_14]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 15]
-        - choice: ["Remove set #16", script_saved_sets_remove_15]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #15"
+        - choice: ["0001107617|.", script_saved_sets_remove_15]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 16]
-        - choice: ["Remove set #17", script_saved_sets_remove_16]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #16"
+        - choice: ["0001107617|.", script_saved_sets_remove_16]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 17]
-        - choice: ["Remove set #18", script_saved_sets_remove_17]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #17"
+        - choice: ["0001107617|.", script_saved_sets_remove_17]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 18]
-        - choice: ["Remove set #19", script_saved_sets_remove_18]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #18"
+        - choice: ["0001107617|.", script_saved_sets_remove_18]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 19]
-        - choice: ["Remove set #20", script_saved_sets_remove_19]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #19"
+        - choice: ["0001107617|.", script_saved_sets_remove_19]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 20]
-        - choice: ["Remove set #21", script_saved_sets_remove_20]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #20"
+        - choice: ["0001107617|.", script_saved_sets_remove_20]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 21]
-        - choice: ["Remove set #22", script_saved_sets_remove_21]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #21"
+        - choice: ["0001107617|.", script_saved_sets_remove_21]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 22]
-        - choice: ["Remove set #23", script_saved_sets_remove_22]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #22"
+        - choice: ["0001107617|.", script_saved_sets_remove_22]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 23]
-        - choice: ["Remove set #24", script_saved_sets_remove_23]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #23"
+        - choice: ["0001107617|.", script_saved_sets_remove_23]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 24]
-        - choice: ["Remove set #25", script_saved_sets_remove_24]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #24"
+        - choice: ["0001107617|.", script_saved_sets_remove_24]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 25]
-        - choice: ["Remove set #26", script_saved_sets_remove_25]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #25"
+        - choice: ["0001107617|.", script_saved_sets_remove_25]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 26]
-        - choice: ["Remove set #27", script_saved_sets_remove_26]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #26"
+        - choice: ["0001107617|.", script_saved_sets_remove_26]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 27]
-        - choice: ["Remove set #28", script_saved_sets_remove_27]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #27"
+        - choice: ["0001107617|.", script_saved_sets_remove_27]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 28]
-        - choice: ["Remove set #29", script_saved_sets_remove_28]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #28"
+        - choice: ["0001107617|.", script_saved_sets_remove_28]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 29]
-        - choice: ["Remove set #30", script_saved_sets_remove_29]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #29"
+        - choice: ["0001107617|.", script_saved_sets_remove_29]
           emphasize: true
           condition: ["nr_appearance_sets", ">=", 30]
+          scriptAction:
+            .class: "NR_FormattedLocChoiceAction"
+            str: "{2115940576} #30"
 
-  section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove:
+  section_trans_choice_saved_sets_remove_to_itself:
     - PAUSE: 0.0
     - NEXT: section_choice_saved_sets_remove
 
@@ -857,224 +1109,263 @@ dialogscript:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 0
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_1:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 1
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_2:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 2
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_3:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 3
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_4:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 4
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_5:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 5
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_6:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 6
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_7:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 7
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_8:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 8
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_9:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 9
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_10:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 10
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_11:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 11
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_12:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 12
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_13:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 13
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_14:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 14
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_15:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 15
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_16:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 16
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_17:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 17
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_18:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 18
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_19:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 19
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_20:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 20
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_21:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 21
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_22:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 22
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_23:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 23
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_24:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 24
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_25:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 25
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_26:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 26
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_27:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 27
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_28:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 28
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
   script_saved_sets_remove_29:
     - SCRIPT:
         function: NR_UserSetsRemove_S
         parameter:
           - setIndex: 29
-    - NEXT: section_trans_choice_saved_sets_remove_to_choice_saved_sets_remove
+    - NEXT: section_trans_choice_saved_sets_remove_to_itself
 
-  section_trans_choice_player_appearance_to_choice_player_appearance:
+  section_trans_choice_player_appearance_to_itself:
     - PAUSE: 0.0
     - NEXT: section_choice_player_appearance
+
+  script_show_custom_dlc_info:
+    - SCRIPT:
+        function: NR_ShowCustomDLCInfo_S
+    - NEXT: section_trans_choice_player_appearance_to_itself
+
+  script_show_appearance_help_info:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "AppearanceHelp"
+    - NEXT: section_trans_choice_player_appearance_to_itself
+
+  script_show_scene_help_info:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SceneHelp"
+    - NEXT: section_trans_main_to_itself
+
+  script_switch_female_speech:
+    - SCRIPT:
+        function: NR_SwitchFemaleSpeech_S
+    - NEXT: section_trans_main_to_itself
 
   script_switch_stacking:
     - SCRIPT:
         function: NR_SwitchIncludeAsItem_S
-    - NEXT: section_trans_choice_player_appearance_to_choice_player_appearance
+    - NEXT: section_trans_choice_player_appearance_to_itself
+
+  script_switch_preview_names:
+    - SCRIPT:
+        function: NR_SwitchPreviewNames_S
+    - NEXT: section_trans_choice_player_appearance_to_itself
 
   script_clear_slotsitems_all:
     - SCRIPT:
         function: NR_ClearAllSlots_S
-    - NEXT: section_trans_choice_player_appearance_to_choice_player_appearance
+    - NEXT: section_trans_choice_player_appearance_to_itself
+
+  script_apply_random_npc_set:
+    - SCRIPT:
+        function: NR_ApplyRandomNPCSet_S
+    - NEXT: section_trans_choice_npcs_main_to_itself
+
+  section_choice_slots_main:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", section_choice_player_appearance, exit]
+          emphasize: true
 
   section_fadeout_exit:
     - CUE: shot_fadeout_exit

@@ -1,0 +1,63 @@
+{
+  "dlc_id": "dlc_ghcarmors",
+  "dlc_name_key": "dlc_ghcarmors",
+  "dlc_name_str": "GHC Armors",
+  "dlc_author_nickname": "GHC",
+  "dlc_link": "nexusmods.com/witcher3/mods/2344",
+  "dlc_appearance_templates": {
+    "dlc/dlcghcarmors/data/armors/baron_armor/t_01_baron_meshes.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_name_baron_armor",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/dlcghcarmors/data/armors/baron_armor/t_01a_baron_meshes.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_name_baron_armor",
+      "rig": "male",
+      "coloring": {},
+	  "equip_variant": 2
+    },
+    "dlc/dlcghcarmors/data/armors/baron_armor/s_01_baron.w2ent": {
+      "slot": "ENR_RSlotShoes",
+      "name_key": "item_name_baron_boots",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/dlcghcarmors/data/armors/baron_armor/g_01_baron.w2ent": {
+      "slot": "ENR_RSlotArms",
+      "name_key": "item_name_baron_gloves",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/dlcghcarmors/data/armors/baron_armor/l_01_baron.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "name_key": "item_name_baron_legs",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/dlcghcarmors/data/armors/baron_armor/l_01a_baron.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "name_key": "item_name_baron_legs",
+      "rig": "male",
+      "coloring": {},
+	  "equip_variant": 2
+    },
+    "dlc/dlcghcarmors/data/armors/baron_armor/baron_medalion.w2ent": {
+      "slot": "ENR_RSlotMisc",
+      "rig": "male",
+      "coloring": {}
+    }
+  },
+  "dlc_male_appearance_sets": {
+    "ARMOR_baron": [
+      "dlc/dlcghcarmors/data/armors/baron_armor/t_01a_baron_meshes.w2ent",
+      "dlc/dlcghcarmors/data/armors/baron_armor/s_01_baron.w2ent",
+      "dlc/dlcghcarmors/data/armors/baron_armor/g_01_baron.w2ent",
+      "dlc/dlcghcarmors/data/armors/baron_armor/l_01_baron.w2ent",
+      "dlc/dlcghcarmors/data/armors/baron_armor/baron_medalion.w2ent"
+    ]
+  },
+  "dlc_female_appearance_sets": {
+  }
+}

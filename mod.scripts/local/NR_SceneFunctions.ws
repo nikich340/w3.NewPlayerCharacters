@@ -1,6 +1,7 @@
 // Appearance stuff
 storyscene function NR_SetPreviewDataIndex_S(player: CStoryScenePlayer, data_index : int, choice_offset : int) {
 	NR_GetPlayerManager().SetPreviewDataIndex(data_index, choice_offset);
+	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
 storyscene function NR_ClearAppearanceSlot_S(player: CStoryScenePlayer, slot_index : int) {
@@ -11,8 +12,8 @@ storyscene function NR_ClearItemSlot_S(player: CStoryScenePlayer, item_index : i
 	NR_GetPlayerManager().ClearItemSlot(item_index);
 }
 
-storyscene function NR_ClearAllSlots_S(player: CStoryScenePlayer, item_index : int) {
-	NR_GetPlayerManager().ResetAllAppearanceHeadHair();
+storyscene function NR_ApplyRandomNPCSet_S(player: CStoryScenePlayer) {
+	NR_GetPlayerManager().ApplyRandomNPCSet();
 }
 
 storyscene function NR_UserSetsSave_S(player: CStoryScenePlayer) {
@@ -27,12 +28,40 @@ storyscene function NR_UserSetsRemove_S(player: CStoryScenePlayer, setIndex : in
 	NR_GetPlayerManager().RemoveAppearanceSet(setIndex);
 }
 
+latent storyscene function NR_ShowCustomDLCInfo_S(player: CStoryScenePlayer) {
+	NR_GetPlayerManager().HideAppearanceInfo();
+	NR_GetPlayerManager().ShowCustomDLCInfo();
+}
+
+storyscene function NR_SetPlayerDisplayName_S(player: CStoryScenePlayer, nameID : int) {
+	NR_GetPlayerManager().SetPlayerDisplayName(nameID);
+	NR_GetPlayerManager().ShowAppearanceInfo();
+}
+
 storyscene function NR_SwitchIncludeAsItem_S(player: CStoryScenePlayer, slot_index : int) {
 	if (FactsQuerySum("nr_scene_stacking_as_items") < 1) {
 		FactsSet("nr_scene_stacking_as_items", 1);
 	} else {
 		FactsSet("nr_scene_stacking_as_items", 0);
 	}
+}
+
+storyscene function NR_SwitchPreviewNames_S(player: CStoryScenePlayer, slot_index : int) {
+	if (FactsQuerySum("nr_scene_show_preview_names") < 1) {
+		FactsSet("nr_scene_show_preview_names", 1);
+	} else {
+		FactsSet("nr_scene_show_preview_names", 0);
+	}
+	NR_GetPlayerManager().ShowAppearanceInfo();
+}
+
+storyscene function NR_SwitchFemaleSpeech_S(player: CStoryScenePlayer) {
+	var value : int;
+
+	value = FactsQuerySum("nr_speech_manual_control");
+	value = (value + 1) % 3;
+	FactsSet("nr_speech_manual_control", value);
+	NR_GetPlayerManager().UpdateSpeechSwitchFacts();
 }
 
 storyscene function NR_FactsSet_S(player: CStoryScenePlayer, factName : string, value : int) {

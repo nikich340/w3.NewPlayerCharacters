@@ -1,0 +1,203 @@
+{
+  "dlc_id": "dlc_006_005",
+  "dlc_name_key": "dlc_triss_appearance_overhaul",
+  "dlc_name_str": "Triss Appearance Overhaul",
+  "dlc_author_nickname": "Jato",
+  "dlc_link": "Ask ja.to on discord for dlc",
+  "dlc_appearance_templates": {
+    "dlc/trissappearanceoverhaul/custom_hair/hair_bangs.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/custom_hair/hair_base.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/custom_hair/hair_fringe.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/custom_hair/hair_loose.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/custom_hair/hair_ponytail.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/items/dlc6_accessories/triss_necklace_ornament.w2ent": {
+      "slot": "ENR_RSlotMisc",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/items/gloves/skellige_glove.w2ent": {
+      "slot": "ENR_RSlotGloves",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/items/tw1_necklace/tw1_necklace.w2ent": {
+      "slot": "ENR_RSlotMisc",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_basic.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_dress.w2ent": {
+      "slot": "ENR_RSlotDress",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_skellige.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_travel.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_travel_bloody.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/outfits/lingerie/triss_lingerie.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/outfits/masquerade_dress/masquerade_dress.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/outfits/masquerade_dress/masquerade_dress_shoes.w2ent": {
+      "slot": "ENR_RSlotShoes",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/trissappearanceoverhaul/outfits/naked/triss_naked.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    }
+  },
+  "dlc_male_appearance_sets": {
+  },
+  "dlc_female_appearance_sets": {
+	"triss": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/trissappearanceoverhaul/custom_hair/hair_base.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_bangs.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_ponytail.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_basic.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_dress.w2ent",
+      "dlc/trissappearanceoverhaul/items/tw1_necklace/tw1_necklace.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_32_wa__novigrad_citizen.w2ent"
+    ],
+	"triss_dress": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/trissappearanceoverhaul/custom_hair/hair_loose.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/masquerade_dress/masquerade_dress.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/masquerade_dress/masquerade_dress_shoes.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_32_wa__novigrad_citizen.w2ent"
+    ],
+	"triss_hooded_01": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/trissappearanceoverhaul/custom_hair/hair_base.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_bangs.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_ponytail.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_travel.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_dress.w2ent",
+      "dlc/trissappearanceoverhaul/items/tw1_necklace/tw1_necklace.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_32_wa__novigrad_citizen.w2ent"
+    ],
+	"triss_lingerie": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/trissappearanceoverhaul/custom_hair/hair_loose.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/lingerie/triss_lingerie.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_32_wa__novigrad_citizen.w2ent"
+    ],
+	"triss_lingerie": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/trissappearanceoverhaul/custom_hair/hair_loose.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/naked/triss_naked.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_32_wa__novigrad_citizen.w2ent"
+    ],
+	"triss_toussaint": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/trissappearanceoverhaul/custom_hair/hair_loose.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_basic.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_dress.w2ent",
+      "dlc/trissappearanceoverhaul/items/tw1_necklace/tw1_necklace.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_32_wa__novigrad_citizen.w2ent"
+    ],
+	"triss_skellige": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/trissappearanceoverhaul/custom_hair/hair_base.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_bangs.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_ponytail.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_skellige.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_dress.w2ent",
+      "dlc/trissappearanceoverhaul/items/tw1_necklace/tw1_necklace.w2ent",
+      "dlc/trissappearanceoverhaul/items/gloves/skellige_glove.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_32_wa__novigrad_citizen.w2ent"
+    ],
+	"triss_tortured": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_02_wa__triss_tortured.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/trissappearanceoverhaul/custom_hair/hair_base.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_bangs.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_ponytail.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_travel_bloody.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_dress.w2ent",
+      "dlc/trissappearanceoverhaul/items/tw1_necklace/tw1_necklace.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_32_wa__novigrad_citizen.w2ent"
+    ],
+	"triss_tortured_bloody": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_03_wa__triss_blood.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/trissappearanceoverhaul/custom_hair/hair_base.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_bangs.w2ent",
+      "dlc/trissappearanceoverhaul/custom_hair/hair_ponytail.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_travel_bloody.w2ent",
+      "dlc/trissappearanceoverhaul/outfits/cloth_dress/triss_outfit_dress.w2ent",
+      "dlc/trissappearanceoverhaul/items/tw1_necklace/tw1_necklace.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_32_wa__novigrad_citizen.w2ent"
+    ]
+  }
+}

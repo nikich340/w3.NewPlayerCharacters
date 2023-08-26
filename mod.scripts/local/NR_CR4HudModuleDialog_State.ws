@@ -1,10 +1,26 @@
 state NR_ScenePreviewAppearance_DialogState in CR4HudModuleDialog {
 	event OnEnterState( prevStateName : name )
     {
+        theInput.RegisterListener( this, 'OnBack', 'EnablePhotoMode' );
+        NR_GetPlayerManager().SetCanShowAppearanceInfo(true);
+    }
+
+    event OnBack( action : SInputAction )
+    {
+        /*var i : int;
+        NRD("OnBack: IsPressed = " + IsPressed(action) + ", IsReleased = " + IsReleased(action));
+        for (i = 0; i < parent.lastSetChoices.Size(); i += 1) {
+            NRD("CHOICE[" + i + "] = " + parent.lastSetChoices[i].description);
+        }*/
+        if( IsReleased( action ) ) {
+            OnDialogOptionSelected(0);
+            OnDialogOptionAccepted(0);
+        }
     }
     
     event OnDialogOptionSelected( index : int )
     {
+        // NR_Notify("OnDialogOptionSelected: " + parent.lastSetChoices[index].description);
         parent.OnDialogOptionSelected( index );
         NR_GetPlayerManager().OnDialogOptionSelected(index);
     }
@@ -17,6 +33,8 @@ state NR_ScenePreviewAppearance_DialogState in CR4HudModuleDialog {
 
     event OnLeaveState( nextStateName : name )
     {
+        theInput.UnregisterListener( this, 'EnablePhotoMode' );
+        NR_GetPlayerManager().SetCanShowAppearanceInfo(false);
     }
 }
 

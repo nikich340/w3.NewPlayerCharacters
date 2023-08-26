@@ -1,0 +1,58 @@
+{
+  "dlc_id": "dlc_005_257",
+  "dlc_name_key": "dlc_sorc_halloween",
+  "dlc_name_str": "Spooky Triss",
+  "dlc_author_nickname": "Jato",
+  "dlc_link": "Ask ja.to on discord for dlc",
+  "dlc_appearance_templates": {
+    "dlc/dlcsorc_halloween/characters/assets/triss/triss_torso.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "rig": "female",
+	  "template_coloring": {}
+    },
+	"dlc/dlcsorc_halloween/characters/assets/triss/triss_legs.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "rig": "female",
+	  "template_coloring": {}
+    },
+	"dlc/dlcsorc_halloween/characters/assets/triss/triss_legs_hat.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "rig": "female",
+	  "template_coloring": {}
+    },
+	"dlc/dlcsorc_halloween/characters/assets/triss/triss_necklace.w2ent": {
+      "slot": "ENR_RSlotMisc",
+      "rig": "female",
+	  "template_coloring": {}
+    },
+	"dlc/dlcsorc_halloween/characters/assets/triss/triss_hair.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+	  "template_coloring": {}
+    }
+  },
+  "dlc_male_appearance_sets": {
+  },
+  "dlc_female_appearance_sets": {
+	"triss_spooky": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlcsorc_halloween/characters/assets/triss/triss_hair.w2ent",
+      "dlc/dlcsorc_halloween/characters/assets/triss/triss_torso.w2ent",
+      "dlc/dlcsorc_halloween/characters/assets/triss/triss_legs.w2ent",
+      "dlc/dlcsorc_halloween/characters/assets/triss/triss_necklace.w2ent"
+    ],
+	"triss_spooky_bloody_face": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_03_wa__triss_blood.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlcsorc_halloween/characters/assets/triss/triss_hair.w2ent",
+      "dlc/dlcsorc_halloween/characters/assets/triss/triss_torso.w2ent",
+      "dlc/dlcsorc_halloween/characters/assets/triss/triss_legs.w2ent",
+      "dlc/dlcsorc_halloween/characters/assets/triss/triss_necklace.w2ent"
+    ]
+  }
+}

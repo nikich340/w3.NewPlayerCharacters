@@ -1,0 +1,164 @@
+{
+  "dlc_id": "dlc_048_840",
+  "dlc_name_key": "dlccirialternativeoutfit",
+  "dlc_name_str": "Ciri Alternative look",
+  "dlc_author_nickname": "Ard Carraigh",
+  "dlc_link": "nexusmods.com/witcher3/mods/4884",
+  "dlc_appearance_templates": {
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_bandaged.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_dirty.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_fur.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_hooded.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_hooded_02.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_no_dangles.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_tous.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_wounded.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/c_06_wa__ciri_dlc_cao.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/h_01_wa__ciri_dlc_cao_masked.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    }
+  },
+  "dlc_male_appearance_sets": {
+  },
+  "dlc_female_appearance_sets": {
+    "ciri": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao.w2ent"
+    ],
+	"ciri_wounded": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri_wounded.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_wounded.w2ent"
+    ],
+	"ciri_bandaged": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_bandaged.w2ent"
+    ],
+	"ciri_dudu": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri_dudu.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao.w2ent"
+    ],
+	"ciri_masked": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/dlc_custom/nr_h_01_wa__ciri_dlc_cao_masked.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao.w2ent"
+    ],
+	"ciri_hooded": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/c_06_wa__ciri_dlc_cao.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_hooded.w2ent"
+    ],
+	"ciri_hooded_2": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_hooded_02.w2ent"
+    ],
+	"ciri_crying": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_04_wa__ciri_crying.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao.w2ent"
+    ],
+    "ciri_no_dangles": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_no_dangles.w2ent"
+    ],
+    "ciri_toussaint": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_tous.w2ent"
+    ],
+    "ciri_winter": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_fur.w2ent"
+    ],
+    "ciri_winter_crying": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_04_wa__ciri_crying.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "characters/models/main_npc/ciri/c_01_wa__ciri.w2ent",
+      "dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/body_01_wa__ciri_dlc_cao_fur.w2ent"
+    ]
+  }
+}

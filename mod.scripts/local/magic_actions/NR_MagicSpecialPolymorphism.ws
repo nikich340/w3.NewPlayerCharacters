@@ -1,4 +1,4 @@
-class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
+statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 	var transformNPC 	: CNewNPC;
 	var idleActionId 	: int;
 	var appearanceName 	: name;

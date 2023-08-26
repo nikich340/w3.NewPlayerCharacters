@@ -1,0 +1,57 @@
+{
+  "dlc_id": "dlc_rogue",
+  "dlc_name_key": "dlc_rogue",
+  "dlc_name_str": "Rogue Armor Set",
+  "dlc_author_nickname": "Rokenze & Teresatiger",
+  "dlc_link": "nexusmods.com/witcher3/mods/3792",
+  "dlc_appearance_templates": {
+    "dlc/dlcrogue/data/items/roguearmor.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "roguewitcherarmor",
+      "rig": "male",
+      "template_coloring": {}
+    },
+    "dlc/dlcrogue/data/items/roguepants1.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "name_key": "roguewitcherpants",
+      "rig": "male",
+      "template_coloring": {}
+    },
+    "dlc/dlcrogue/data/items/roguepants1a.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "name_key": "roguewitcherpants",
+      "rig": "male",
+      "template_coloring": {},
+	  "equip_variant": 2
+    },
+    "dlc/dlcrogue/data/items/roguegloves1.w2ent": {
+      "slot": "ENR_RSlotArms",
+      "name_key": "roguewitchergloves",
+      "rig": "male",
+      "template_coloring": {}
+    },
+    "dlc/dlcrogue/data/items/roguegloves1a.w2ent": {
+      "slot": "ENR_RSlotArms",
+      "name_key": "roguewitchergloves",
+      "rig": "male",
+      "template_coloring": {},
+	  "equip_variant": 2
+    },
+    "dlc/dlcrogue/data/items/rogueshoes.w2ent": {
+      "slot": "ENR_RSlotShoes",
+      "name_key": "roguewitchershoes",
+      "rig": "male",
+      "template_coloring": {}
+    }
+  },
+  "dlc_male_appearance_sets": {
+    "ARMOR_rogue": [
+      "dlc/dlcrogue/data/items/roguearmor.w2ent",
+      "dlc/dlcrogue/data/items/roguepants1a.w2ent",
+      "dlc/dlcrogue/data/items/roguegloves1a.w2ent",
+      "dlc/dlcrogue/data/items/rogueshoes.w2ent"
+    ]
+  },
+  "dlc_female_appearance_sets": {
+  }
+}

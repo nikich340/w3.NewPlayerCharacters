@@ -7,7 +7,6 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	default inventoryTemplate 	= "nr_replacer_witcher_inv";
 
 	public function GetNameID() : int {
-		//displayName = 318188;
 		return 452675;   // 0000452675|70994a4f|-1.000|Witcher
 	}
 
@@ -140,6 +139,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 
 		return ret;
 	}
+	
 	/* WRAPPER: TODO: Check why it here? */
 	public function SetupCombatAction( action : EBufferActionType, stage : EButtonStage )
 	{

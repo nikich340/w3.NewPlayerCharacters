@@ -1,0 +1,69 @@
+{
+  "dlc_id": "dlc_wiecej",
+  "dlc_name_key": "dlc_wiecej_name",
+  "dlc_name_str": "Book Inspired set Cos Wiecej",
+  "dlc_author_nickname": "ZOST and Bjorn18",
+  "dlc_link": "nexusmods.com/witcher3/mods/5986",
+  "dlc_appearance_templates": {
+    "dlc/wiecej/data/parts/warmor/wiecejlong.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_wiecej_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/wiecej/data/parts/warmor/wiecejalt.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_wiecej_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/wiecej/data/parts/wgloves/wgloves.w2ent": {
+      "slot": "ENR_RSlotArms",
+      "name_key": "item_wgloves_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/wiecej/data/parts/wgloves/wgloves2.w2ent": {
+      "slot": "ENR_RSlotArms",
+      "name_key": "item_wgloves_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/wiecej/data/parts/wboots/wboots.w2ent": {
+      "slot": "ENR_RSlotShoes",
+      "name_key": "item_wboots_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/wiecej/data/parts/wpantsr/wpants.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "name_key": "item_wpants_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/wiecej/data/parts/wpantsr/wpantsalt.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "name_key": "item_wpants_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    }
+  },
+  "dlc_male_appearance_sets": {
+    "ARMOR_cos_wiecej_1": [
+      "dlc/wiecej/data/parts/warmor/wiecejalt.w2ent",
+      "dlc/wiecej/data/parts/wgloves/wgloves.w2ent",
+      "dlc/wiecej/data/parts/wboots/wboots.w2ent",
+      "dlc/wiecej/data/parts/wpantsr/wpantsalt.w2ent"
+    ],
+    "ARMOR_cos_wiecej_2": [
+      "dlc/wiecej/data/parts/warmor/wiecejalt.w2ent",
+      "dlc/wiecej/data/parts/wgloves/wgloves2.w2ent",
+      "dlc/wiecej/data/parts/wboots/wboots.w2ent",
+      "dlc/wiecej/data/parts/wpantsr/wpantsalt.w2ent"
+    ]
+  },
+  "dlc_female_appearance_sets": {
+  }
+}

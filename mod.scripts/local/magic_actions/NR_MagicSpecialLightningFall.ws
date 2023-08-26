@@ -1,4 +1,4 @@
-class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
+statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 	protected var entityTemplate2 : CEntityTemplate;
 	protected var lightningEntity : CGameplayEntity;
 	protected var s_respectCaster: bool;

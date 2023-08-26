@@ -148,6 +148,7 @@ function NR_ModuloUint64(x : Uint64, y : Uint64) : Uint64 {
 }
 
 // returns string representation of uint64
+// why not use vanilla Uint64ToString ?
 function NR_Uint64ToString(value : Uint64) : String {
 	var str : String;
 	var zero, ten : Uint64;
@@ -219,5 +220,6 @@ exec function nr_testhash(text : String) {
 	var hash1, hash2 : Uint64;
 	hash1 = NR_PolyRollHash(text);
 	hash2 = NR_PolyRollHash2(text);
-	NR_Notify("hash1 = (" + NR_Uint64ToString(hash1) + "), hash2 = (" + NR_Uint64ToString(hash2) + ")");
+	NR_Notify("hash1 = (" + Uint64ToString(hash1) + "), hash2 = (" + Uint64ToString(hash2) + ")");
 }
+

@@ -51,6 +51,6 @@ class NR_FormattedLocChoiceAction extends CStorySceneChoiceLineActionScripted
 	
 	function GetActionIcon() : EDialogActionIcon 	
 	{ 
-		return DialogAction_BRIBE;
+		return DialogAction_NONE;
 	}
 }

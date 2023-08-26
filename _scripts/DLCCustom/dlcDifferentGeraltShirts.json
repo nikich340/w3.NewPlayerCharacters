@@ -1,0 +1,288 @@
+{
+  "dlc_id": "dlc_shirtsmod",
+  "dlc_name_key": "dlc_mshirts_name",
+  "dlc_name_str": "Different Geralt shirts",
+  "dlc_author_nickname": "Bjorn18",
+  "dlc_link": "nexusmods.com/witcher3/mods/6339",
+  "dlc_appearance_templates": {
+    "dlc/shirtpack/data/shirt/baseball/flanelbb.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_bb_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/baseball/flanelbb2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_bb_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/csmith/flanelcs.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_cs_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/csmith/flanelcs2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_cs_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/milfguard/flanelmg.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_mg_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/milfguard/flanelmg2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_mg_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/odaium/flanelod.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_od_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/odaium/flanelod2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_od_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/ravred/flanelrr.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_rr_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/ravred/flanelrr2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_rr_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/ravreddva/flanelrrd.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_rrd_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/ravreddva/flanelrrd2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_rrd_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/slavstav/flanelslavstav.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_slavstav_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/slavstav/flanelslavstav2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_slavstav_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/slavgerry/flanelslavg.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_slavg_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/slavgerry/flanelslavg2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_slavg_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/sswinger/flanelsswinger.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_sswinger_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/sswinger/flanelsswinger2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_sswinger_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/temeria/flaneltemeria.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_temeria_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/temeria/flaneltemeria2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_temeria_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    },
+    "dlc/shirtpack/data/shirt/regis/flanelreg.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_reg_name",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/shirtpack/data/shirt/regis/flanelreg2.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "item_reg_name",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    }
+  },
+  "dlc_male_appearance_sets": {
+	"ARMOR_baseball_grey_shirt": [
+		"dlc/shirtpack/data/shirt/baseball/flanelbb2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_charles_smith_shirt": [
+		"dlc/shirtpack/data/shirt/csmith/flanelcs2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_dilfgaard_shirt": [
+		"dlc/shirtpack/data/shirt/milfguard/flanelmg2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_gaunter_shirt": [
+		"dlc/shirtpack/data/shirt/odaium/flanelod2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_redanian_shirt": [
+		"dlc/shirtpack/data/shirt/ravred/flanelrr2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_redanian_shirt_2": [
+		"dlc/shirtpack/data/shirt/ravreddva/flanelrrd2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_regis_shirt": [
+		"dlc/shirtpack/data/shirt/regis/flanelreg2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_slavurdija_shirt": [
+		"dlc/shirtpack/data/shirt/slavgerry/flanelslavg2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_slavstav_shirt": [
+		"dlc/shirtpack/data/shirt/slavstav/flanelslavstav2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_summer_shirt": [
+		"dlc/shirtpack/data/shirt/sswinger/flanelsswinger2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	],
+	"ARMOR_summer_shirt": [
+		"dlc/shirtpack/data/shirt/temeria/flaneltemeria2.w2ent",
+		"items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent",
+		{
+			"slot": "ENR_RSlotLegs",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_l_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		},
+		{
+			"slot": "ENR_RSlotShoes",
+			"path": "dlc/dlcnewreplacers/data/entities/colorings/vanilla_secondary/nr_s_01_mg__viper_lvl3_meshes_coloring_4.w2ent"
+		}
+	]
+  },
+  "dlc_female_appearance_sets": {
+  }
+}

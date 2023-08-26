@@ -127,11 +127,17 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		super.OnBlockingSceneEnded( output );
 	}
 	
+	public function GoToStateIfNew( newState : name, optional keepStack : bool, optional forceEvents : bool  )
+	{
+		NRD("GoToStateIfNew: newState = " + newState);
+		super.GoToStateIfNew(newState, keepStack, forceEvents);
+	}
+
 	// TODO: Remove this later!!
-	//event OnAnimEventBlend( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
-	//{
-		//NR_Notify("OnAnimEventBlend:: eventName = " + animEventName + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
-	//}
+	event OnAnimEventBlend( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
+	{
+		//NR_Notify("OnAnimEventBlend: (" + animEventName + ") " + GetAnimNameFromEventAnimInfo(animInfo));
+	}
 
 	public function NR_RestoreQuen( quenHealth : float, quenDuration : float ) : bool
 	{
@@ -164,6 +170,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		if ( (CBaseGameplayEffect)damageAction.causer )
         	isGameplayEffect = true;
 
+        // damageAction.GetBuffSourceName() != "petard"
         if ( !isGameplayEffect && (damageAction.GetEffects( effectInfos ) > 0 || damageAction.DealsAnyDamage()) ) {
         	NRD("ReactToBeingHit: buffSourceName = " + damageAction.GetBuffSourceName() + ", attacker = " + damageAction.attacker + ", causer = " + damageAction.causer);
         	magicManager.AddActionEvent('BreakMagicAttack', 'ReactToBeingHit');

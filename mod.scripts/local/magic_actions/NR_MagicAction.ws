@@ -198,6 +198,9 @@ abstract statemachine class NR_MagicAction {
 		var newPos, normalCollision : Vector;
 		var foundDestroyable		: bool;
 
+		if (isOnHorse) {
+			staticOffsetZ *= 2;
+		}
 		// calculate real target rot,pos
 		rot = thePlayer.GetWorldRotation();
 		if (target) {

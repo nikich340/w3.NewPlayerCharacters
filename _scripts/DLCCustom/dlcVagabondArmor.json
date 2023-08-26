@@ -1,0 +1,26 @@
+{
+  "dlc_id": "vagabondarmor",
+  "dlc_name_key": "vagabondarmor",
+  "dlc_name_str": "Vagabond Armor set",
+  "dlc_author_nickname": "CraniumJ",
+  "dlc_link": "nexusmods.com/witcher3/mods/3278",
+  "dlc_appearance_templates": {
+    "dlc/vagabond/data/items/t_01_vagabond.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "modva_item_name_vagabond_armor",
+      "rig": "male",
+      "coloring": {}
+    },
+    "dlc/vagabond/data/items/t_01a_vagabond.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "name_key": "modva_item_name_vagabond_armor",
+      "rig": "male",
+      "coloring": {},
+      "equip_variant": 2
+    }
+  },
+  "dlc_male_appearance_sets": {
+  },
+  "dlc_female_appearance_sets": {
+  }
+}

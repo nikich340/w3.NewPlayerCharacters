@@ -70,17 +70,16 @@ statemachine class NR_PlayerManager {
 	protected saved var m_savedPlayerType : ENR_PlayerType;
 	default          m_savedPlayerType = ENR_PlayerGeralt;
 
-	protected saved var 		m_headName 	: name;
-	//protected saved var m_hairstyleName : name;
+	protected saved var 				 m_headNames : array< name >;
 	public saved var           m_appearanceTemplates : array< array<String> >;
-	public saved var    m_appearanceTemplateIsLoaded : array< array<bool> >;
+	public 		 var    m_appearanceTemplateIsLoaded : array< array<bool> >;
 	public saved var           	   m_appearanceItems : array< array<String> >;
-	public saved var        m_appearanceItemIsLoaded : array< array<bool> >;
+	public 		 var        m_appearanceItemIsLoaded : array< array<bool> >;
 	public saved var 				m_appearanceSets : array< array<NR_AppearanceSet> >;
-	public saved var 				m_displayNameIDs : array<int>;
-
+	public saved var 				m_displayNameIDs : array< int >;
 
 	protected var  				 m_canShowAppearanceInfo : bool;
+	protected var  			   m_appearanceInfoTextExtra : String;
 	protected var  					m_appearanceInfoText : String;
 	protected var  					   m_headPreviewName : name;
 	protected var    		m_appearancePreviewTemplates : array<String>;
@@ -88,12 +87,13 @@ statemachine class NR_PlayerManager {
 
 	protected saved	var m_magicDataMaps : array<NR_Map>;
 	protected saved	var m_activeSceneBlocks : NR_Map;
+	protected saved var m_dataFormatVersion : int;
+	default 			m_dataFormatVersion = -1;
 	const 			var ST_Universal	: int;
-	default 			ST_Universal 	= 5; // EnumGetMax(ESignType); 
+	default 			ST_Universal 	= 5; // EnumGetMax(ESignType);
 
-	default m_headPreviewName = '';
-	default 	   m_headName = 'head_0';
-	//default m_hairstyleName = 'Long Loose Hairstyle';
+	protected saved var m_typeChangeLocked : bool;
+	default  			m_typeChangeLocked = false;
 
 	protected saved var m_geraltSavedItems  : array<name>;
 	protected saved var m_geraltDataSaved : Bool;
@@ -108,14 +108,20 @@ statemachine class NR_PlayerManager {
 	protected var m_playerChangeRequested 	: Bool;
 	default    m_playerChangeRequested 		= false;
 
+	// DEBUG
+	public var m_debugLatentObject : CObject;
+
 	// once is called after entity created //
 	public function Init() {
 		var i, j, typesCount, slotsCount : int;
 
-		typesCount = EnumGetMax('ENR_PlayerType');
-		slotsCount = EnumGetMax('ENR_AppearanceSlots');
+		m_dataFormatVersion = 1;
+		typesCount = EnumGetMax('ENR_PlayerType') + 1;
+		slotsCount = EnumGetMax('ENR_AppearanceSlots') + 1;
 		m_geraltSavedItems.Resize( slotsCount );
 		
+		m_appearanceSets.Resize( 2 );
+		m_headNames.Resize( typesCount );
 		m_appearanceItems.Resize( typesCount );
 		m_appearanceItemIsLoaded.Resize( typesCount );
 		m_appearanceTemplates.Resize( typesCount );
@@ -124,7 +130,32 @@ statemachine class NR_PlayerManager {
 		for (i = 0; i < typesCount; i += 1) {
 			m_appearanceTemplates[i].Resize( slotsCount );
 			m_appearanceTemplateIsLoaded[i].Resize( slotsCount );
+			m_headNames[i] = 'head_0';
 		}
+
+		// Witcher - Vesemir
+		m_headNames[ENR_PlayerWitcher] = 'nr_h_01_mb__vesemir';
+		m_appearanceTemplates[ENR_PlayerWitcher][ENR_RSlotBody] = "characters/models/main_npc/vesemir/body_01__vesemir.w2ent";
+		m_appearanceTemplates[ENR_PlayerWitcher][ENR_RSlotHair] = "characters/models/main_npc/vesemir/c_01_mb__vesemir.w2ent";
+
+		// Witcheress - Rosa var Attre
+		m_headNames[ENR_PlayerWitcheress] = 'nr_h_01_wa__edna';
+		m_appearanceTemplates[ENR_PlayerWitcheress][ENR_RSlotHair] = "characters/models/common/woman_average/hair/c_09_wa__hair_01.w2ent";
+		m_appearanceTemplates[ENR_PlayerWitcheress][ENR_RSlotTorso] = "dlc/dlcnewreplacers/data/entities/colorings/vanilla_main/nr_t3d_02_wa__skellige_warrior_woman_coloring_9.w2ent";
+		m_appearanceTemplates[ENR_PlayerWitcheress][ENR_RSlotArms] = "dlc/dlcnewreplacers/data/entities/colorings/vanilla_main/nr_a_01_wa__skellige_warrior_woman_coloring_3.w2ent";
+		m_appearanceTemplates[ENR_PlayerWitcheress][ENR_RSlotGloves] = "characters/models/common/woman_average/body/a2g_02_wa__body.w2ent";
+		m_appearanceTemplates[ENR_PlayerWitcheress][ENR_RSlotLegs] = "dlc/dlcnewreplacers/data/entities/colorings/vanilla_main/nr_l2_06_wa__novigrad_citizen_coloring_6.w2ent";
+		m_appearanceTemplates[ENR_PlayerWitcheress][ENR_RSlotShoes] = "dlc/dlcnewreplacers/data/entities/colorings/dlc_main/nr_s_05_wa__novigrad_citizen_coloring_23.w2ent";
+		m_appearanceItems[ENR_PlayerWitcheress].PushBack( "characters/models/crowd_npc/novigrad_citizen_woman/items/i_10_wa__novigrad_citizen.w2ent" );
+		m_appearanceItems[ENR_PlayerWitcheress].PushBack( "characters/models/crowd_npc/novigrad_citizen_woman/items/i_08_wa__novigrad_citizen.w2ent" );
+
+		// Sorceress - Triss
+		m_headNames[ENR_PlayerSorceress] = 'nr_h_01_wa__triss';
+		m_appearanceTemplates[ENR_PlayerSorceress][ENR_RSlotBody] = "characters/models/main_npc/triss/body_03_wa__triss.w2ent";
+		m_appearanceTemplates[ENR_PlayerSorceress][ENR_RSlotHair] = "characters/models/main_npc/triss/c_01_wa__triss.w2ent";
+		m_appearanceTemplates[ENR_PlayerSorceress][ENR_RSlotShoes] = "dlc/dlcnewreplacers/data/entities/colorings/vanilla_main/nr_s_01_wa__novigrad_prostitute_coloring_10.w2ent";
+		m_appearanceItems[ENR_PlayerSorceress].PushBack( "characters/models/crowd_npc/novigrad_citizen_woman/items/i_31_wa__novigrad_citizen.w2ent" );
+		
 
 		m_displayNameIDs.Resize( typesCount );
 		m_displayNameIDs[ENR_PlayerUnknown] = 318188;
@@ -214,6 +245,10 @@ statemachine class NR_PlayerManager {
 		map = m_magicDataMaps;
 	}
 
+	public function GetDataFormatVersion() : int {
+		return m_dataFormatVersion;
+	}
+
 	// makes manager know that player change was initiated //
 	public function SetPlayerChangeRequested(isRequested : bool) {
 		m_playerChangeRequested = isRequested;
@@ -238,45 +273,45 @@ statemachine class NR_PlayerManager {
 		NRD("OnDialogOptionSelected: index = " + index + ", dataIndex = " + m_sceneSelector.GetPreviewDataIndex() + ", forceUnloadAll = " + forceUnloadAll + ", forceUnloadAllExceptHair = " + forceUnloadAllExceptHair);
 		// unload saved and load preview
 		for (slot = ENR_RSlotHair; slot < ENR_RSlotMisc; slot += 1) {
-			NRD("OnDialogOptionSelected: slot = " + slot + ", preview = [" + m_appearancePreviewTemplates[slot] + "]");
+			// NRD("OnDialogOptionSelected: slot = " + slot + ", preview = [" + m_appearancePreviewTemplates[slot] + "]");
 			if (m_appearancePreviewTemplates[slot] != "" || forceUnloadAll || (forceUnloadAllExceptHair && slot != ENR_RSlotHair)) {
 				// unload saved
-				if (m_appearanceTemplateIsLoaded[slot]) {
+				if (m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot]) {
 					// unload saved
-					ExcludeAppearanceTemplate(m_appearanceTemplates[slot]);
-					m_appearanceTemplateIsLoaded[slot] = false;
+					ExcludeAppearanceTemplate(m_appearanceTemplates[GetCurrentPlayerType()][slot]);
+					m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = false;
 					changes = true;
 				}
 				// load preview if any
 				if (m_appearancePreviewTemplates[slot] != "") {
 					NRD("OnDialogOptionSelected: load preview[" + slot + "] = " + m_appearancePreviewTemplates[slot]);
-					IncludeAppearanceTemplate(m_appearancePreviewTemplates[slot], true);
+					IncludeAppearanceTemplate(m_appearancePreviewTemplates[slot]);
 				}
-			} else if (m_appearanceTemplates[slot] != "" && !m_appearanceTemplateIsLoaded[slot]) {
-				NRD("OnDialogOptionSelected: load saved[" + slot + "] = " + m_appearancePreviewTemplates[slot]);
+			} else if (m_appearanceTemplates[GetCurrentPlayerType()][slot] != "" && !m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot]) {
+				NRD("OnDialogOptionSelected: load saved[" + slot + "] = " + m_appearanceTemplates[GetCurrentPlayerType()][slot]);
 				changes = true;
 				// load saved
-				IncludeAppearanceTemplate(m_appearanceTemplates[slot]);
-				m_appearanceTemplateIsLoaded[slot] = true;
+				IncludeAppearanceTemplate(m_appearanceTemplates[GetCurrentPlayerType()][slot]);
+				m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = true;
 			}
 			// else do nothing
 		}
 
 		// handle items
-		for (i = 0; i < m_appearanceItems.Size(); i += 1) {
-			if ((forceUnloadAll || forceUnloadAllExceptHair) && m_appearanceItemIsLoaded[i]) {
-				ExcludeAppearanceTemplate(m_appearanceItems[i], true);
-				m_appearanceItemIsLoaded[i] = false;
-			} else if (!forceUnloadAll && !forceUnloadAllExceptHair && !m_appearanceItemIsLoaded[i]) {
-				IncludeAppearanceTemplate(m_appearanceItems[i], true);
-				m_appearanceItemIsLoaded[i] = true;
+		for (i = 0; i < m_appearanceItems[GetCurrentPlayerType()].Size(); i += 1) {
+			if ((forceUnloadAll || forceUnloadAllExceptHair) && m_appearanceItemIsLoaded[GetCurrentPlayerType()][i]) {
+				ExcludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
+				m_appearanceItemIsLoaded[GetCurrentPlayerType()][i] = false;
+			} else if (!forceUnloadAll && !forceUnloadAllExceptHair && !m_appearanceItemIsLoaded[GetCurrentPlayerType()][i]) {
+				IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
+				m_appearanceItemIsLoaded[GetCurrentPlayerType()][i] = true;
 			}
 		}
 
 		// load preview items
 		for (i = 0; i < m_appearancePreviewItems.Size(); i += 1) {
 			changes = true;
-			IncludeAppearanceTemplate(m_appearancePreviewItems[i], true);
+			IncludeAppearanceTemplate(m_appearancePreviewItems[i]);
 		}
 
 		// load preview head
@@ -285,17 +320,13 @@ statemachine class NR_PlayerManager {
 			changes = true;
 			LoadHead(m_headPreviewName);
 		// or load saved if no valid preview head and loaded != saved
-		} else if (thePlayer.GetRememberedCustomHead() != m_headName) {
+		} else if (thePlayer.GetRememberedCustomHead() != m_headNames[GetCurrentPlayerType()]) {
 			changes = true;
-			LoadHead(m_headName);
+			LoadHead(m_headNames[GetCurrentPlayerType()]);
 		}
-		//NR_Notify("PreviewHead = " + m_headPreviewName + ", Cur: " + GetCurrentHeadName() + ", Remembered: " + thePlayer.GetRememberedCustomHead() + ", Saved: " + m_headName);
-
-		// update notify info
-		//if (changes) {
-		//	UpdateAppearanceInfo();
-		//}
-		UpdateAppearanceInfo();
+		
+		if (changes)
+			UpdateAppearanceInfo();
 	}
 	// scene (preview) stuff functions //
 	public function OnDialogOptionAccepted(index : int) {
@@ -357,31 +388,34 @@ statemachine class NR_PlayerManager {
 				UpdateHead('nr_h_01_wa__yennefer');	/* set default yennefer head */
 			else
 				UpdateHead('head_0');	/* set default geralt head */
-			UpdateAppearanceInfo();
 			return;
 		}
-		if (m_appearanceTemplates[slot] != "") {
-			if (m_appearanceTemplateIsLoaded[slot]) {
-				ExcludeAppearanceTemplate(m_appearanceTemplates[slot]);
-				m_appearanceTemplateIsLoaded[slot] = false;
+		if (m_appearanceTemplates[GetCurrentPlayerType()][slot] != "") {
+			if (m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot]) {
+				ExcludeAppearanceTemplate(m_appearanceTemplates[GetCurrentPlayerType()][slot]);
+				m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = false;
 			}
 
-			m_appearanceTemplates[slot] = "";
-			UpdateAppearanceInfo();
+			m_appearanceTemplates[GetCurrentPlayerType()][slot] = "";
 		}
 	}
 
 	// scene (preview) stuff functions //
 	public function SaveAppearanceSet() {
 		var set : NR_AppearanceSet;
-		set = new NR_AppearanceSet in this;
-		set.appearanceTemplates = m_appearanceTemplates;
-		set.appearanceItems = m_appearanceItems;
-		set.headName = m_headName;
 
-		m_appearanceSets.PushBack(set);
-		thePlayer.DisplayHudMessage( GetLocStringById(2115940097) + IntToString(m_appearanceSets.Size()) );
-		FactsSet("nr_appearance_sets", m_appearanceSets.Size());
+		set = new NR_AppearanceSet in this;
+		set.appearanceTemplates = m_appearanceTemplates[GetCurrentPlayerType()];
+		set.appearanceItems = m_appearanceItems[GetCurrentPlayerType()];
+		set.headName = m_headNames[GetCurrentPlayerType()];
+
+		m_appearanceSets[IsFemaleInt()].PushBack(set);
+		m_appearanceInfoTextExtra = GetLocStringById(2115940097) + IntToString(m_appearanceSets[IsFemaleInt()].Size());
+
+		if (IsFemaleInt())
+			FactsSet("nr_appearance_sets_female", m_appearanceSets[1].Size());
+		else
+			FactsSet("nr_appearance_sets_male", m_appearanceSets[0].Size());
 	}
 
 	// scene (preview) stuff functions //
@@ -389,35 +423,39 @@ statemachine class NR_PlayerManager {
 		var 	i 		: int;
 		var 	slot 	: int;
 
-		if (setIndex < 0 || setIndex >= m_appearanceSets.Size())
+		if (setIndex < 0 || setIndex >= m_appearanceSets[IsFemaleInt()].Size())
 			return;
 
 		ResetAllAppearanceHeadHair();
-		m_appearanceTemplates = m_appearanceSets[setIndex].appearanceTemplates;
-		m_appearanceItems = m_appearanceSets[setIndex].appearanceItems;
+		m_appearanceTemplates[GetCurrentPlayerType()] = m_appearanceSets[IsFemaleInt()][setIndex].appearanceTemplates;
+		m_appearanceItems[GetCurrentPlayerType()] = m_appearanceSets[IsFemaleInt()][setIndex].appearanceItems;
 		LoadAppearanceTemplates();
-		UpdateHead(m_appearanceSets[setIndex].headName);
-		UpdateAppearanceInfo();
+		UpdateHead(m_appearanceSets[IsFemaleInt()][setIndex].headName);
+		m_appearanceInfoTextExtra = GetLocStringById(2115940585) + IntToString(setIndex);
 	}
 
 	// scene (preview) stuff functions //
 	public function RemoveAppearanceSet(setIndex : int) {
-		if (setIndex < 0 || setIndex >= m_appearanceSets.Size())
+		if (setIndex < 0 || setIndex >= m_appearanceSets[IsFemaleInt()].Size())
 			return;
 
-		m_appearanceSets.Erase(setIndex);
+		m_appearanceSets[IsFemaleInt()].Erase(setIndex);
+		m_appearanceInfoTextExtra = GetLocStringById(2115940586) + IntToString(setIndex);
+
+		if (IsFemaleInt())
+			FactsSet("nr_appearance_sets_female", m_appearanceSets[1].Size());
+		else
+			FactsSet("nr_appearance_sets_male", m_appearanceSets[0].Size());
 	}
 
 	// scene (preview) stuff functions //
 	public function ClearItemSlot(item_index : int) {
 		if (item_index == -1) {
-			for (item_index = m_appearanceItems.Size() - 1; item_index >= 0; item_index -= 1) {
-				UpdateAppearanceItem("", true, item_index);
+			for (item_index = m_appearanceItems[GetCurrentPlayerType()].Size() - 1; item_index >= 0; item_index -= 1) {
+				UpdateAppearanceItem("", item_index);
 			}
-			UpdateAppearanceInfo();
-		} else if (item_index > 0 && item_index <= m_appearanceItems.Size()) {
-			UpdateAppearanceItem("", true, item_index - 1);
-			UpdateAppearanceInfo();
+		} else if (item_index > 0 && item_index <= m_appearanceItems[GetCurrentPlayerType()].Size()) {
+			UpdateAppearanceItem("", item_index - 1);
 		}
 	}
 
@@ -474,6 +512,32 @@ statemachine class NR_PlayerManager {
 			return StrBeforeLast( StrAfterLast(templateName, "/"), "." );
 	}
 
+	// stuff function
+	public function GetSlotLocStr(slot : ENR_AppearanceSlots) : String {
+		switch (slot) {
+			case ENR_RSlotBody:
+				return GetLocStringById(2115940106);
+			case ENR_GSlotHead:
+				return GetLocStringById(2115940107);
+			case ENR_RSlotHair:
+				return GetLocStringById(2115940108);
+			case ENR_RSlotTorso:
+				return GetLocStringById(2115940109);
+			case ENR_RSlotArms:
+				return GetLocStringById(2115940110);
+			case ENR_RSlotGloves:
+				return GetLocStringById(2115940111);
+			case ENR_RSlotDress:
+				return GetLocStringById(2115940112);
+			case ENR_RSlotLegs:
+				return GetLocStringById(2115940113);
+			case ENR_RSlotShoes:
+				return GetLocStringById(2115940114);
+			case ENR_RSlotMisc:
+				return GetLocStringById(2115940115);
+		}
+	}
+
 	// scene (preview) stuff functions //
 	public function SetCanShowAppearanceInfo(canShow : bool) {
 		if (!canShow)
@@ -502,7 +566,7 @@ statemachine class NR_PlayerManager {
 
 	// scene (preview) stuff functions //
 	public function UpdateAppearanceInfo() {
-		var 		i : int;
+		var 	slot, i : int;
 		var SLOT_STR, NBSP, BR : String;
 		var 	text : String;
 		var showPreview : bool;
@@ -519,57 +583,39 @@ statemachine class NR_PlayerManager {
 		NBSP = "&nbsp;";
 		SLOT_STR = GetLocStringById(2115940105);
 
-		text = "<b>" + GetLocStringById(2115940583) + "</b>" + BR + BR;
+		text = GetLocStringById(2115940583) + BR;
+		if (m_appearanceInfoTextExtra != "") {
+			text += "  " + NR_StrBlue( m_appearanceInfoTextExtra, /*dark*/ true ) + BR;
+			m_appearanceInfoTextExtra = "";
+		}
+		text += BR;
 		text += "<font color=\"22\">" + GetLocStringById(2115940117) + ":" + NBSP + NR_StrBlue( GetCurrentPlayerTypeLocStr(), /*dark*/ true ) + BR;
 		text += GetLocStringById(2115940558) + ":" + NBSP + NR_StrGreen( GetPlayerDisplayNameLocStr(), /*dark*/ true ) + BR;
-		text += "<font color='#000080'>(" + GetLocStringById(2115940106) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotBody]);
+		text += "<font color='#000080'>(" + GetSlotLocStr(ENR_RSlotBody) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[GetCurrentPlayerType()][ENR_RSlotBody]);
 		if (showPreview && m_appearancePreviewTemplates[ENR_RSlotBody] != "") {
 			text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[ENR_RSlotBody]) + ">"; 
 		}
 		text += BR;
-		text += "<font color='#000080'>(" + GetLocStringById(2115940107) + ")</font>" + NBSP + "=" + NBSP + NameToString(m_headName); 
+		text += "<font color='#000080'>(" + GetSlotLocStr(ENR_GSlotHead) + ")</font>" + NBSP + "=" + NBSP + NameToString(m_headNames[GetCurrentPlayerType()]); 
 		if (showPreview && IsNameValid(m_headPreviewName)) {
 			text += NBSP + "<" + NameToString(m_headPreviewName) + ">"; 
 		}
 		text += BR;
-		text += "<font color='#000080'>(" + GetLocStringById(2115940108) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotHair]);
-		if (showPreview && m_appearancePreviewTemplates[ENR_RSlotHair] != "") {
-			text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[ENR_RSlotHair]) + ">"; 
+
+		for (slot = ENR_RSlotHair; slot < ENR_RSlotMisc; slot += 1) {
+			if (slot == ENR_RSlotBody)
+				continue;
+
+			text += "<font color='#000080'>(" + GetSlotLocStr(slot) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[GetCurrentPlayerType()][slot]);
+			if (showPreview && m_appearancePreviewTemplates[slot] != "") {
+				text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[slot]) + ">"; 
+			}
+			text += BR;
 		}
-		text += BR;
-		text += "<font color='#000080'>(" + GetLocStringById(2115940109) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotTorso]);
-		if (showPreview && m_appearancePreviewTemplates[ENR_RSlotTorso] != "") {
-			text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[ENR_RSlotTorso]) + ">"; 
-		}
-		text += BR;
-		text += "<font color='#000080'>(" + GetLocStringById(2115940110) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotArms]);
-		if (showPreview && m_appearancePreviewTemplates[ENR_RSlotArms] != "") {
-			text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[ENR_RSlotArms]) + ">"; 
-		}
-		text += BR;
-		text += "<font color='#000080'>(" + GetLocStringById(2115940111) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotGloves]);
-		if (showPreview && m_appearancePreviewTemplates[ENR_RSlotGloves] != "") {
-			text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[ENR_RSlotGloves]) + ">"; 
-		}
-		text += BR;
-		text += "<font color='#000080'>(" + GetLocStringById(2115940112) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotDress]);
-		if (showPreview && m_appearancePreviewTemplates[ENR_RSlotDress] != "") {
-			text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[ENR_RSlotDress]) + ">"; 
-		}
-		text += BR;
-		text += "<font color='#000080'>(" + GetLocStringById(2115940113) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotLegs]);
-		if (showPreview && m_appearancePreviewTemplates[ENR_RSlotLegs] != "") {
-			text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[ENR_RSlotLegs]) + ">"; 
-		}
-		text += BR;
-		text += "<font color='#000080'>(" + GetLocStringById(2115940114) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[ENR_RSlotShoes]);
-		if (showPreview && m_appearancePreviewTemplates[ENR_RSlotShoes] != "") {
-			text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[ENR_RSlotShoes]) + ">"; 
-		}
-		text += BR;
-		text += "<font color='#003000'>(" + GetLocStringById(2115940115) + ")</font>" + NBSP + "=" + NBSP + IntToString(m_appearanceItems.Size()) + NBSP + GetLocStringById(1084753) + BR; 
-		for (i = 0; i < m_appearanceItems.Size(); i += 1) {
-			text += NBSP + NBSP + "<font color='#003000'>" + IntToString(i + 1) + ".</font>" + NBSP + GetTemplateFriendlyName(m_appearanceItems[i]) + BR; 
+
+		text += "<font color='#003000'>(" + GetSlotLocStr(ENR_RSlotMisc) + ")</font>" + NBSP + "=" + NBSP + IntToString(m_appearanceItems[GetCurrentPlayerType()].Size()) + NBSP + GetLocStringById(1084753) + BR; 
+		for (i = 0; i < m_appearanceItems[GetCurrentPlayerType()].Size(); i += 1) {
+			text += NBSP + NBSP + "<font color='#003000'>" + IntToString(i + 1) + ".</font>" + NBSP + GetTemplateFriendlyName(m_appearanceItems[GetCurrentPlayerType()][i]) + BR; 
 		}
 		text += "</font>";
 		if (text != m_appearanceInfoText) {
@@ -614,43 +660,6 @@ statemachine class NR_PlayerManager {
 		m_sceneSelector.SetPreviewDataIndex(-1, 0);
 	}
 
-	// Helper function (when player type changed from scene and female<->non-female) //
-	function SetDefaultAppearance(type : ENR_PlayerType) {
-		switch (type) {
-			case ENR_PlayerWitcher:
-				ResetAllAppearanceHeadHair();
-				UpdateHead('nr_h_01_ma__eskel');
-				//UpdateHair('NR Eskel Hairstyle');
-				UpdateAppearanceTemplate(/*path*/ "characters/models/secondary_npc/eskel/body_01_ma__eskel.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-				break;
-			case ENR_PlayerWitcheress:
-				ResetAllAppearanceHeadHair();
-				UpdateHead('nr_h_01_wa__edna');
-				//UpdateHair('NR Rosa Hairstyle');
-				UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/c_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
-				UpdateAppearanceTemplate(/*path*/ "characters/models/common/woman_average/body/a2g_02_wa__body.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-				UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/torso/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
-				//UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_GSlotArmor, /*isDepotPath*/ true);
-				UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/arms/a_01_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotArms, /*isDepotPath*/ true);
-				UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/legs/l2_06_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
-				UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/shoes/s_05_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotShoes, /*isDepotPath*/ true);
-				UpdateAppearanceItem(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_10_wa__novigrad_citizen.w2ent", /*isDepotPath*/ true, /*itemIndex*/ -1);
-				UpdateAppearanceItem(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_08_wa__novigrad_citizen.w2ent", /*isDepotPath*/ true, /*itemIndex*/ -1);
-		
-			case ENR_PlayerSorceress:
-				ResetAllAppearanceHeadHair();
-				UpdateHead('nr_h_01_wa__yennefer');
-				//UpdateHair('NR Yennefer Hairstyle');
-				UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/c_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
-				UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-				UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
-				UpdateAppearanceItem(/*path*/ "characters/models/main_npc/yennefer/pendant_01_wa__yennefer.w2ent", /*isDepotPath*/ true, /*itemIndex*/ -1);
-				break;
-			default:
-				break;
-		}
-	}
-
 	// Helper function //
 	function GetCurrentPlayerType() : ENR_PlayerType {
 		var replacer : NR_ReplacerWitcher;
@@ -690,6 +699,11 @@ statemachine class NR_PlayerManager {
 	// True if current player/replacer has female gender //
 	public function IsFemale() : Bool {
 		return IsFemaleType(m_savedPlayerType);
+	}
+
+	// True if current player/replacer has female gender //
+	public function IsFemaleInt() : int {
+		return (int)IsFemale();
 	}
 
 	// Helper function //
@@ -768,7 +782,7 @@ statemachine class NR_PlayerManager {
 		//	CreateAttachment(thePlayer);
 
 		for (i = ENR_RSlotHair; i < ENR_RSlotMisc; i += 1) {
-			m_appearanceTemplateIsLoaded[i] = false;
+			m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][i] = false;
 		}
 
 		if ( currentPlayerType != m_savedPlayerType ) {
@@ -820,6 +834,7 @@ statemachine class NR_PlayerManager {
 		if (IsFemaleType(m_savedPlayerType)) {
 			FactsAdd("nr_player_female", 1);
 		}
+		UpdateSpeechSwitchFacts();
 	}
 
 	function UpdateSpeechSwitchFacts() {
@@ -835,8 +850,24 @@ statemachine class NR_PlayerManager {
 		}
 	}
 
-	function SetInStoryScene(val : Bool) {
+	function SetInStoryScene(val : bool) {
 		inStoryScene = val;
+	}
+
+	// quest API
+	public function SetTypeChangeLocked(locked : bool, reason : String) {
+		m_typeChangeLocked = locked;
+		NRD("NR_PlayerManager.SetTypeLocked: " + locked + "(" + reason + ")");
+		if (locked) {
+			FactsSet("nr_player_type_change_locked", 1);
+		} else {
+			FactsSet("nr_player_type_change_locked", 0);
+		}
+	}
+
+	// quest API
+	public function IsTypeChangeLocked() : bool {
+		return m_typeChangeLocked;
 	}
 
 	function NR_DebugPrintData() {
@@ -852,17 +883,19 @@ statemachine class NR_PlayerManager {
 		var       i, j : int;
 
 		for (i = ENR_RSlotHair; i < ENR_RSlotMisc; i += 1) {
-			if (m_appearanceTemplates[i] == "")
+			if (m_appearanceTemplates[GetCurrentPlayerType()][i] == "")
 				continue;
-			templateResource = (CEntityTemplate)LoadResource( m_appearanceTemplates[i], true );
+			
+			templateResource = (CEntityTemplate)LoadResource( m_appearanceTemplates[GetCurrentPlayerType()][i], true );
 			if (templateResource)
 				extraTemplateResources.PushBack(templateResource);
 		}
 
-		for (i = 0; i < m_appearanceItems.Size(); i += 1) {
-			if (m_appearanceItems[i] == "")
+		for (i = 0; i < m_appearanceItems[GetCurrentPlayerType()].Size(); i += 1) {
+			if (m_appearanceItems[GetCurrentPlayerType()][i] == "")
 				continue;
-			templateResource = (CEntityTemplate)LoadResource( m_appearanceItems[i], true );
+			
+			templateResource = (CEntityTemplate)LoadResource( m_appearanceItems[GetCurrentPlayerType()][i], true );
 			if (templateResource)
 				extraTemplateResources.PushBack(templateResource);
 		}
@@ -923,11 +956,11 @@ statemachine class NR_PlayerManager {
 
 	// Updates saved replacer head item and load it //
 	function UpdateHead(newHeadName : name) {
-		m_headName = newHeadName;
+		m_headNames[GetCurrentPlayerType()] = newHeadName;
 		if (!IsReplacerActive())
 			return;
 
-		LoadHead(m_headName);
+		LoadHead(newHeadName);
 	}
 
 	// Removes geralt hair item (part of NR_FixPlayer) <- to use c_ app template for replacers //
@@ -1127,12 +1160,12 @@ statemachine class NR_PlayerManager {
 			template = (CEntityTemplate)LoadResource( templateName, true );
 			if (template) {
 				appearanceComponent.IncludeAppearanceTemplate(template);
-				NRD("INCLUDE: template: " + templateName + " = " + template);
+				NRD("IncludeAppearanceTemplate: INCLUDE: template: " + templateName + " = " + template);
 			} else {
-				NRD("ERROR: can't load template: " + templateName);
+				NRD("IncludeAppearanceTemplate: ERROR: can't load template: " + templateName);
 			}
 		} else {
-			NRE("ERROR: AppearanceComponent not found!");
+			NRE("IncludeAppearanceTemplate: ERROR: AppearanceComponent not found!");
 		}
 	}
 
@@ -1151,12 +1184,12 @@ statemachine class NR_PlayerManager {
 			template = (CEntityTemplate)LoadResource( templateName, true );
 			if (template) {
 				appearanceComponent.ExcludeAppearanceTemplate(template);
-				NRD("EXCLUDE: template: " + templateName + " = " + template);
+				NRD("ExcludeAppearanceTemplate: template: " + templateName + " = " + template);
 			} else {
-				NRD("ERROR: can't load template: " + templateName);
+				NRD("ExcludeAppearanceTemplate: ERROR: can't load template: " + templateName);
 			}
 		} else {
-			NRE("ERROR: AppearanceComponent not found!");
+			NRE("ExcludeAppearanceTemplate: ERROR: AppearanceComponent not found!");
 		}
 	}
 
@@ -1168,38 +1201,38 @@ statemachine class NR_PlayerManager {
 
 		for (slot = ENR_RSlotHair; slot < ENR_RSlotMisc; slot += 1) {
 			if (m_appearancePreviewTemplates[slot] == "") {
-				if (m_appearanceTemplates[slot] != "" && (forceUnloadAll || (forceUnloadAllExceptHair && slot != ENR_RSlotHair))) {
-					m_appearanceTemplates[slot] = "";
-					m_appearanceTemplateIsLoaded[slot] = false;
+				if (m_appearanceTemplates[GetCurrentPlayerType()][slot] != "" && (forceUnloadAll || (forceUnloadAllExceptHair && slot != ENR_RSlotHair))) {
+					m_appearanceTemplates[GetCurrentPlayerType()][slot] = "";
+					m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = false;
 					anyChanges = true;
 				}
 				continue;
 			}
 			
 			anyChanges = true;
-			m_appearanceTemplates[slot] = m_appearancePreviewTemplates[slot];
-			m_appearanceTemplateIsLoaded[slot] = true;
+			m_appearanceTemplates[GetCurrentPlayerType()][slot] = m_appearancePreviewTemplates[slot];
+			m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = true;
 
 			m_appearancePreviewTemplates[slot] = "";
 		}
 
 		// remove all old items if needed
 		if (forceUnloadAll || forceUnloadAllExceptHair) {
-			for (i = m_appearanceItems.Size() - 1; i >= 0; i -= 1) {
-				UpdateAppearanceItem("", true, i);
+			for (i = m_appearanceItems[GetCurrentPlayerType()].Size() - 1; i >= 0; i -= 1) {
+				UpdateAppearanceItem("", i);
 			}
 		}
 
 		for (i = 0; i < m_appearancePreviewItems.Size(); i += 1) {
 			anyChanges = true;
-			ExcludeAppearanceTemplate(m_appearancePreviewItems[i], true);  // avoid twice-loaded template
-			UpdateAppearanceItem(m_appearancePreviewItems[i], true, -1);
+			ExcludeAppearanceTemplate(m_appearancePreviewItems[i]);  // avoid twice-loaded template
+			UpdateAppearanceItem(m_appearancePreviewItems[i], -1);
 		}
 		m_appearancePreviewItems.Clear();
 
 		if (IsNameValid(m_headPreviewName)) {
 			anyChanges = true;
-			m_headName = m_headPreviewName;
+			m_headNames[GetCurrentPlayerType()] = m_headPreviewName;
 		}
 		m_headPreviewName = '';
 
@@ -1215,60 +1248,60 @@ statemachine class NR_PlayerManager {
 			if (m_appearancePreviewTemplates[slot] == "")
 				continue;
 
-			ExcludeAppearanceTemplate(m_appearancePreviewTemplates[slot], true);
+			ExcludeAppearanceTemplate(m_appearancePreviewTemplates[slot]);
 			m_appearancePreviewTemplates[slot] = "";
 		}
 		for (i = 0; i < m_appearancePreviewItems.Size(); i += 1) {
-			ExcludeAppearanceTemplate(m_appearancePreviewItems[i], true);
+			ExcludeAppearanceTemplate(m_appearancePreviewItems[i]);
 		}
 		m_appearancePreviewItems.Clear();
 		m_headPreviewName = '';
 	}
 
 	// Updates template in given slot: Exclude old + Include new (if new != "") //
-	function UpdateAppearanceTemplate(templateName : String, slot : ENR_AppearanceSlots, isDepotPath : bool) {
-		if (IsReplacerActive() && m_appearanceTemplateIsLoaded[slot]) {
-			ExcludeAppearanceTemplate(m_appearanceTemplates[slot]);
-			m_appearanceTemplateIsLoaded[slot] = false;
+	function UpdateAppearanceTemplate(templateName : String, slot : ENR_AppearanceSlots) {
+		if (IsReplacerActive() && m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot]) {
+			ExcludeAppearanceTemplate(m_appearanceTemplates[GetCurrentPlayerType()][slot]);
+			m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = false;
 		}
 
-		m_appearanceTemplates[slot] = templateName;
+		m_appearanceTemplates[GetCurrentPlayerType()][slot] = templateName;
 
-		if (IsReplacerActive() && m_appearanceTemplates[slot] != "" && !m_appearanceTemplateIsLoaded[slot]) {
-			IncludeAppearanceTemplate(m_appearanceTemplates[slot]);
-			m_appearanceTemplateIsLoaded[slot] = true;
+		if (IsReplacerActive() && m_appearanceTemplates[GetCurrentPlayerType()][slot] != "" && !m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot]) {
+			IncludeAppearanceTemplate(m_appearanceTemplates[GetCurrentPlayerType()][slot]);
+			m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = true;
 		}
 	}
 
 	// Updates template ITEM (slot == ENR_RSlotMisc) in given slot: Exclude old + Include new (if new != "") //
 	// itemIndex: defines if given template should be appended (-1) or replace existing [0; itemCount - 1]
 	function UpdateAppearanceItem(templateName : String, itemIndex : int) {
-		if (itemIndex < 0 || itemIndex >= m_appearanceItems.Size()) {
+		if (itemIndex < 0 || itemIndex >= m_appearanceItems[GetCurrentPlayerType()].Size()) {
 			// CREATE cell
-			m_appearanceItems.PushBack(templateName);
-			m_appearanceItemIsLoaded.PushBack(false);
-			itemIndex = m_appearanceItems.Size() - 1;
+			m_appearanceItems[GetCurrentPlayerType()].PushBack(templateName);
+			m_appearanceItemIsLoaded[GetCurrentPlayerType()].PushBack(false);
+			itemIndex = m_appearanceItems[GetCurrentPlayerType()].Size() - 1;
 			FactsAdd("nr_appearance_item_" + IntToString(itemIndex + 1), 1);
 		} else {
 			// UNLOAD cell
-			if (m_appearanceItems[itemIndex] != "" && m_appearanceItemIsLoaded[itemIndex]) {
-				ExcludeAppearanceTemplate(m_appearanceItems[itemIndex]);
-				m_appearanceItemIsLoaded[itemIndex] = false;
+			if (m_appearanceItems[GetCurrentPlayerType()][itemIndex] != "" && m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex]) {
+				ExcludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][itemIndex]);
+				m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex] = false;
 			}
-			m_appearanceItems[itemIndex] = templateName;
+			m_appearanceItems[GetCurrentPlayerType()][itemIndex] = templateName;
 		}
 
-		if (m_appearanceItems[itemIndex] == "") {
+		if (m_appearanceItems[GetCurrentPlayerType()][itemIndex] == "") {
 			// REMOVE cell //
-			m_appearanceItems.Erase(itemIndex);
-			m_appearanceItemIsLoaded.Erase(itemIndex);
-			itemIndex = m_appearanceItems.Size();
+			m_appearanceItems[GetCurrentPlayerType()].Erase(itemIndex);
+			m_appearanceItemIsLoaded[GetCurrentPlayerType()].Erase(itemIndex);
+			itemIndex = m_appearanceItems[GetCurrentPlayerType()].Size();
 			if (FactsDoesExist("nr_appearance_item_" + IntToString(itemIndex + 1)))
 				FactsRemove("nr_appearance_item_" + IntToString(itemIndex + 1));
-		} else if (!m_appearanceItemIsLoaded[itemIndex]) {
+		} else if (!m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex]) {
 			// LOAD cell //
-			IncludeAppearanceTemplate(m_appearanceItems[itemIndex]);
-			m_appearanceItemIsLoaded[itemIndex] = true;
+			IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][itemIndex]);
+			m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex] = true;
 		}
 	}
 
@@ -1278,13 +1311,13 @@ statemachine class NR_PlayerManager {
 		var i	 : int;
 
 		for (slot = ENR_RSlotHair; slot < ENR_RSlotMisc; slot += 1) {
-			if (m_appearanceTemplates[slot] != "" && !m_appearanceTemplateIsLoaded[slot]) {
-				IncludeAppearanceTemplate(m_appearanceTemplates[slot]);
-				m_appearanceTemplateIsLoaded[slot] = true;
+			if (m_appearanceTemplates[GetCurrentPlayerType()][slot] != "" && !m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot]) {
+				IncludeAppearanceTemplate(m_appearanceTemplates[GetCurrentPlayerType()][slot]);
+				m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = true;
 			}
 		}
-		for (i = 0; i < m_appearanceItems.Size(); i += 1) {
-			IncludeAppearanceTemplate(m_appearanceItems[i]);
+		for (i = 0; i < m_appearanceItems[GetCurrentPlayerType()].Size(); i += 1) {
+			IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
 		}
 	}
 
@@ -1294,13 +1327,13 @@ statemachine class NR_PlayerManager {
 		var i	 : int;
 
 		for (slot = ENR_RSlotHair; slot < ENR_RSlotMisc; slot += 1) {
-			if (m_appearanceTemplates[slot] != "") {
-				ExcludeAppearanceTemplate(m_appearanceTemplates[slot]);
-				m_appearanceTemplateIsLoaded[slot] = false;
+			if (m_appearanceTemplates[GetCurrentPlayerType()][slot] != "") {
+				ExcludeAppearanceTemplate(m_appearanceTemplates[GetCurrentPlayerType()][slot]);
+				m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = false;
 			}
 		}
-		for (i = 0; i < m_appearanceItems.Size(); i += 1) {
-			ExcludeAppearanceTemplate(m_appearanceItems[i]);
+		for (i = 0; i < m_appearanceItems[GetCurrentPlayerType()].Size(); i += 1) {
+			ExcludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
 		}
 	}
 
@@ -1309,16 +1342,17 @@ statemachine class NR_PlayerManager {
 		var slot, item_index : int;
 		/* Set all slots to nothing, will unload if any template was loaded */
 		for (slot = ENR_RSlotHair; slot < ENR_RSlotMisc; slot += 1) {
-			if (m_appearanceTemplates[slot] == "")
+			if (m_appearanceTemplates[GetCurrentPlayerType()][slot] == "")
 				continue;
 
-			UpdateAppearanceTemplate("", slot, true);
+			UpdateAppearanceTemplate("", slot);
 		}
-		for (item_index = m_appearanceItems.Size() - 1; item_index >= 0; item_index -= 1) {
-			UpdateAppearanceItem("", true, item_index);
+		
+		NRD("ResetAllAppearanceHeadHair: m_appearanceItems size = " + m_appearanceItems[GetCurrentPlayerType()].Size());
+		for (item_index = m_appearanceItems[GetCurrentPlayerType()].Size() - 1; item_index >= 0; item_index -= 1) {
+			UpdateAppearanceItem("", item_index);
 		}
-		NRD("ResetAllAppearanceHeadHair: m_appearanceItems size = " + m_appearanceItems.Size());
-
+		
 		if (IsFemale())
 			UpdateHead('nr_h_01_wa__yennefer');	/* set default yennefer head */
 		else
@@ -1336,11 +1370,11 @@ statemachine class NR_PlayerManager {
 			NRE("NR_FixReplacer: !m_stringsStorage");
 		}
 
-		NRD("NR_FixReplacer: Head = " + m_headName + ", templatesN = " + IntToString(m_appearanceTemplates.Size()));
+		NRD("NR_FixReplacer: Head = " + m_headNames[GetCurrentPlayerType()]);
 		UnmountEquipment();
-		RemoveHair();			/* saves and remove geralt hair */
-		UpdateHead(m_headName);	/* saves and replace geralt head */
-		LoadAppearanceTemplates();  /* load saved replacer templates */
+		RemoveHair();										/* saves and remove geralt hair */
+		UpdateHead(m_headNames[GetCurrentPlayerType()]);	/* saves and replace geralt head */
+		LoadAppearanceTemplates();  						/* load saved replacer templates */
 		m_geraltDataSaved = true;
 	}
 
@@ -1374,11 +1408,15 @@ state GameLaunched in NR_PlayerManager {
 	}
 
 	entry function GameLaunched() {
+		var startTime : float;
+
+		startTime = theGame.GetEngineTimeAsSeconds();
 		NRD("NR_PlayerManager::GameLaunched: GameLaunched");
 		parent.OnStarted();
 		while (thePlayer.GetComponentsCountByClassName( 'CAppearanceComponent' ) < 1) {
 			Sleep(0.05f);
 		}
+		NRD("NR_PlayerManager::GameLaunched: Player's ready after: " + (theGame.GetEngineTimeAsSeconds() - startTime));
 		parent.OnPlayerSpawned();
 		NRD("NR_PlayerManager::GameLaunched: -> Idle");
 		parent.GotoState('Idle');
@@ -1464,7 +1502,7 @@ function NR_ChangePlayer(playerType : ENR_PlayerType) {
 
 function NR_GetPlayerManager() : NR_PlayerManager
 {
-	if ( !theGame.nr_playerManager ) {
+	if ( !theGame.nr_playerManager || theGame.nr_playerManager.GetDataFormatVersion() < 1 ) {
 		NR_CreatePlayerManager( theGame );
 	}
 	NRD("NR_GetPlayerManager: " + theGame.nr_playerManager);
@@ -1473,7 +1511,7 @@ function NR_GetPlayerManager() : NR_PlayerManager
 }
 
 function NR_OnGameStarted(theGameObject : CR4Game) {
-	if ( !theGameObject.nr_playerManager ) {
+	if ( !theGameObject.nr_playerManager || theGameObject.nr_playerManager.GetDataFormatVersion() < 1 ) {
 		NR_CreatePlayerManager( theGameObject );
 	}
 	NRD("theGame.OnGameStarted: PlayerManager -> GameLaunched.");
@@ -1481,7 +1519,7 @@ function NR_OnGameStarted(theGameObject : CR4Game) {
 }
 
 function NR_CreatePlayerManager(theGameObject : CR4Game) {
-	if ( !theGameObject.nr_playerManager ) {
+	if ( !theGameObject.nr_playerManager || theGameObject.nr_playerManager.GetDataFormatVersion() < 1 ) {
 		theGameObject.nr_playerManager = new NR_PlayerManager in theGameObject;
 		NRD("theGame.OnGameStarted: PlayerManager just created.");
 		theGameObject.nr_playerManager.Init();
@@ -1494,20 +1532,14 @@ exec function nrPlayer(playerType : int) {
 	NR_ChangePlayer((int)playerType);
 }
 
-exec function nrLoad(templateName : String, slot : ENR_AppearanceSlots, optional isDepotPath : bool) {
-	if (isDepotPath)
-		NR_GetPlayerManager().UpdateAppearanceTemplate(templateName, slot, /*isDepotPath*/ true);
-	else
-		NR_GetPlayerManager().UpdateAppearanceTemplate(templateName, slot, /*isDepotPath*/ false);
+exec function nrLoad(templateName : String, slot : ENR_AppearanceSlots) {
+	NR_GetPlayerManager().UpdateAppearanceTemplate(templateName, slot);
 }
 // nrLoad(dlc/ep1/data/items/bodyparts/geralt_items/trunk/common_light/armor_stand/t_02_mg__wedding_suit_armor_stand.w2ent, ENR_GSlotArmor, true)
 // nrLoad(dlc/bob/data/items/bodyparts/geralt_items/trunk/armor_vampire/armor_stand/q704_t_01a_mg__vampire_armor_stand.w2ent, ENR_GSlotArmor, true)
 
-exec function nrUnload(slot : ENR_AppearanceSlots, optional isDepotPath : bool) {
-	if (isDepotPath)
-		NR_GetPlayerManager().UpdateAppearanceTemplate("", slot, /*isDepotPath*/ true);
-	else
-		NR_GetPlayerManager().UpdateAppearanceTemplate("", slot, /*isDepotPath*/ false);
+exec function nrUnload(slot : ENR_AppearanceSlots) {
+	NR_GetPlayerManager().UpdateAppearanceTemplate("", slot);
 }
 
 exec function nrHead(m_headName : name) {
@@ -1582,7 +1614,7 @@ exec function toEskel() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_eskel');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/secondary_npc/eskel/body_01_ma__eskel.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/secondary_npc/eskel/body_01_ma__eskel.w2ent", /*slot*/ ENR_RSlotBody);
 		NR_ChangePlayer(ENR_PlayerWitcher);
 	}
 }
@@ -1593,7 +1625,7 @@ exec function toEskel2() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_eskel');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlcnewreplacers\data\entities\colorings\dlc_main\nr_l0s_02_ma__novigrad_citizen_coloring_8.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc\dlcnewreplacers\data\entities\colorings\dlc_main\nr_l0s_02_ma__novigrad_citizen_coloring_8.w2ent", /*slot*/ ENR_RSlotBody);
 		NR_ChangePlayer(ENR_PlayerWitcher);
 	}
 }
@@ -1604,7 +1636,7 @@ exec function toLambert() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_lambert');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/secondary_npc/lambert/body_01_ma__lambert.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/secondary_npc/lambert/body_01_ma__lambert.w2ent", /*slot*/ ENR_RSlotBody);
 		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
 	}
 }
@@ -1636,9 +1668,9 @@ exec function toTrissDress(dressNum : int) {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_h_01_wa__triss');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ dress, /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/c_01_wa__triss.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody);
+		manager.UpdateAppearanceTemplate(/*path*/ dress, /*slot*/ ENR_RSlotDress);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/c_01_wa__triss.w2ent", /*slot*/ ENR_RSlotHair);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 	NR_Notify("Dress = " + dress);
@@ -1650,8 +1682,8 @@ exec function toTriss() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_h_01_wa__triss');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/c_01_wa__triss.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/c_01_wa__triss.w2ent", /*slot*/ ENR_RSlotHair);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 }
@@ -1662,9 +1694,9 @@ exec function toYen() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_yennefer');
 		manager.RemoveHair();
-		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/pendant_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotMisc1, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/pendant_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotMisc1);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 }
@@ -1675,8 +1707,8 @@ exec function toEmhyr() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_emhyr');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/emhyr/body_01_ma__emhyr.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/common/man_average/body/g_01_ma__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/emhyr/body_01_ma__emhyr.w2ent", /*slot*/ ENR_RSlotBody);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/common/man_average/body/g_01_ma__body.w2ent", /*slot*/ ENR_RSlotGloves);
 		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
 	}
 }
@@ -1690,10 +1722,10 @@ exec function toYenJoke2() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_yennefer');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/trunk/bare/t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/legs/casual_non_combat/l_02_mg__casual_skellige_pants.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/shoes/common_heavy/s_02_mg__common_heavy_lvl4.w2ent", /*slot*/ ENR_RSlotShoes, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/trunk/bare/t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/legs/casual_non_combat/l_02_mg__casual_skellige_pants.w2ent", /*slot*/ ENR_RSlotLegs);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/shoes/common_heavy/s_02_mg__common_heavy_lvl4.w2ent", /*slot*/ ENR_RSlotShoes);
 		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
 	}
 }
@@ -1705,10 +1737,10 @@ exec function toYenJoke3() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_yennefer');
 		manager.RemoveHair();
-		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/trunk/bare/t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/legs/bare/l_01_mg__body_underwear.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/shoes/bare/s_01_mg__body.w2ent", /*slot*/ ENR_RSlotShoes, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/trunk/bare/t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/legs/bare/l_01_mg__body_underwear.w2ent", /*slot*/ ENR_RSlotLegs);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/shoes/bare/s_01_mg__body.w2ent", /*slot*/ ENR_RSlotShoes);
 		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
 	}
 }
@@ -1719,8 +1751,8 @@ exec function toTrissDLC() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_triss_dlc');
 		//manager.UpdateHair('NR Triss Hairstyle DLC');
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 }
@@ -1731,9 +1763,9 @@ exec function toYenn() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_yennefer');
 		//manager.UpdateHair('NR Yennefer Hairstyle');
-		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/pendant_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotMisc1, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/pendant_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotMisc1);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs);
 		NR_ChangePlayer(ENR_PlayerSorceress); // change player type in the last queue
 	}
 }
@@ -1744,8 +1776,8 @@ exec function toTrisss() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_h_01_wa__triss');
 		//manager.UpdateHair('NR Triss Hairstyle DLC');
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair);
 		NR_ChangePlayer(ENR_PlayerSorceress); // change player type in the last queue
 	}
 }
@@ -1755,7 +1787,7 @@ exec function toTrisss2() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_triss');
 		//manager.UpdateHair('NR Triss Hairstyle');
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody);
 		NR_ChangePlayer(ENR_PlayerSorceress); // change player type in the last queue
 	}
 }
@@ -1766,18 +1798,18 @@ exec function toRosa() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_rosa');
 		//manager.RemoveHair(); -> not required!
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/h_00_mg__rosa.w2ent", /*slot*/ ENR_GSlotHead, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/bob/data/characters/models/main_npc/oriana/body_01_wa__oriana.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/ep1/data/characters/models/secondary_npc/shani/c_01_wa__shani_hair.w2ent", /*slot*/ ENR_RSlotHair, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/common/woman_average/body/a2g_02_wa__body.w2ent", /*slot*/ ENR_RSlotGloves, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/torso/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_GSlotArmor, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/nr_rosa_body_test.w2ent", /*slot*/ ENR_GSlotArmor, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/arms/a_01_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotArms, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/legs/l2_06_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/shoes/s_05_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotShoes, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_10_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc1, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_08_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc2, /*isDepotPath*/ true);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/h_00_mg__rosa.w2ent", /*slot*/ ENR_GSlotHead);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/bob/data/characters/models/main_npc/oriana/body_01_wa__oriana.w2ent", /*slot*/ ENR_RSlotDress);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/ep1/data/characters/models/secondary_npc/shani/c_01_wa__shani_hair.w2ent", /*slot*/ ENR_RSlotHair);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/common/woman_average/body/a2g_02_wa__body.w2ent", /*slot*/ ENR_RSlotGloves);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/torso/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotTorso);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_GSlotArmor);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/nr_rosa_body_test.w2ent", /*slot*/ ENR_GSlotArmor);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/arms/a_01_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotArms);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/legs/l2_06_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotLegs);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/shoes/s_05_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotShoes);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_10_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc1);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_08_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc2);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 }
@@ -1790,22 +1822,22 @@ exec function toDress(num : int) {
 	}
 	if (num == 1) {
 		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_03_wa__bob_woman_noble.w2ent");
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_03_wa__bob_woman_noble_px.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_03_wa__bob_woman_noble_px.w2ent", /*slot*/ ENR_RSlotDress);
 	} else if (num == 2) {
 		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px.w2ent");
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px.w2ent", /*slot*/ ENR_RSlotDress);
 	} else if (num == 3) {
 		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p01.w2ent");
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p01.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p01.w2ent", /*slot*/ ENR_RSlotDress);
 	} else if (num == 4) {
 		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p02.w2ent");
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p02.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p02.w2ent", /*slot*/ ENR_RSlotDress);
 	} else if (num == 5) {
 		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p03.w2ent");
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p03.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p03.w2ent", /*slot*/ ENR_RSlotDress);
 	} else if (num == 6) {
 		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/body_01_wa__oriana.w2ent");
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/body_01_wa__oriana.w2ent", /*slot*/ ENR_RSlotDress, /*isDepotPath*/ true);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/body_01_wa__oriana.w2ent", /*slot*/ ENR_RSlotDress);
 	}
 }
 
@@ -1815,16 +1847,16 @@ exec function toRosa2() {
 		manager.ResetAllAppearanceHeadHair();
 		manager.UpdateHead('nr_head_rosa');
 		//manager.UpdateHair('');
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/ep1/data/characters/models/secondary_npc/shani/c_01_wa__shani.w2ent", /*slot*/ ENR_RSlotMisc3, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "dlc/bob/data/characters/models/main_npc/vivienne_de_tabris/vivienne_de_tabris.w2ent", /*slot*/ ENR_RSlotBody, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/torso/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotTorso, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_GSlotArmor, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/nr_rosa_body_test.w2ent", /*slot*/ ENR_GSlotArmor, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/arms/a_01_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotArms, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/legs/l2_06_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotLegs, /*isDepotPath*/ true);
-		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/shoes/s_05_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotShoes, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_10_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc1, /*isDepotPath*/ true);
-		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_08_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc2, /*isDepotPath*/ true);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/ep1/data/characters/models/secondary_npc/shani/c_01_wa__shani.w2ent", /*slot*/ ENR_RSlotMisc3);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/bob/data/characters/models/main_npc/vivienne_de_tabris/vivienne_de_tabris.w2ent", /*slot*/ ENR_RSlotBody);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/torso/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotTorso);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_GSlotArmor);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/nr_rosa_body_test.w2ent", /*slot*/ ENR_GSlotArmor);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/arms/a_01_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotArms);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/legs/l2_06_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotLegs);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/shoes/s_05_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotShoes);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_10_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc1);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_08_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc2);
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 }

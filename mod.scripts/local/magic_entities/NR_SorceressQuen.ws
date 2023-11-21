@@ -6,6 +6,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	editable var cameraShakeStrength 	: float;
 	protected var magicManager 			: NR_MagicManager;
 	protected var drainStamina, s_counterLightning 	: bool;
+	protected var m_cachedEffectName 	: name;
 	default playOnOwner = false;
 	default cameraShakeStrength = 0.2f;
 
@@ -130,11 +131,15 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	}
 
 	public function FxName() : name {
-		return magicManager.SphereFxName();
+		if (!IsNameValid(m_cachedEffectName))
+			m_cachedEffectName = magicManager.SphereFxName();
+		return m_cachedEffectName;
 	}
 
 	public function FxAltName() : name {
-		return magicManager.SphereFxName();
+		if (!IsNameValid(m_cachedEffectName))
+			m_cachedEffectName = magicManager.SphereFxName();
+		return m_cachedEffectName;
 	}
 
 	protected function LaunchEffect(enable : bool) {

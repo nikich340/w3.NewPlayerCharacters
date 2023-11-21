@@ -1,0 +1,21 @@
+1) man_base -> woman_base
+2) woman slots + missed from man + fx_cast_push, fx_cast_lumos
+3) cooked effects: man_base -> woman_base
+4) + cooked effects from sorceress
+5) rig: dlc/dlcnewreplacers/data/rigs/merged_woman_base.w2rig
+6) scabbards_skeleton component: transform: Y (Float) : +0.0500
+7) h_mg__neck_transition: characters/models/common/woman_average/body/model/h_wa__neck_transition.w2mesh
+8) torso3effect: transform (EngineTransform): Pitch (Float) : 270.0039, Yaw (Float) : 9.0660, Roll (Float) : 359.9941
+9) CSkeletonBoneSlot (torso2 parentSlot): boneIndex (Uint32): 11
+10) banks dependencies:
+	0 (CName) : grunt_vo_sentry_female.bnk
+	1 (CName) : magic_filippa.bnk
+	2 (CName) : magic_keira.bnk
+	3 (CName) : magic_yennefer.bnk
+	4 (CName) : magic_triss.bnk
+	5 (CName) : magic_man_mage.bnk
+11) eventsOnAttach (array:StringAnsi)
+	0 (StringAnsi) : set_entity_gender_female
+	1 (StringAnsi) : set_entity_name_ciri
+12) CAnimAnimsetsParam: BehParam, MimicAnimset - REMOVED
+13) CAnimGlobalParam: skeletonType (ESkeletonType) : Woman

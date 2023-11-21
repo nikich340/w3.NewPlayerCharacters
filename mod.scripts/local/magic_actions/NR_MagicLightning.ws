@@ -154,7 +154,7 @@ class NR_MagicLightning extends NR_MagicAction {
 	}
 
 	// Just a visual fx
-	latent function OnPerformReboundFromPosToPos(newPos : Vector, fromPos : Vector) {
+	latent function OnPerformReboundFromPosToPos(newPos : Vector, fromPos : Vector, playHitFx : bool) {
 		var lightningEntity, dummyEntity2 : CEntity;
 		var entities 		: array<CGameplayEntity>;
 		var i				: int;
@@ -163,8 +163,10 @@ class NR_MagicLightning extends NR_MagicAction {
 		dummyEntity2 = theGame.CreateEntity( entityTemplate, newPos );
 		
 		lightningEntity.PlayEffect(m_fxNameMain, dummyEntity2);
-		Sleep(0.2f);
-		dummyEntity2.PlayEffect(m_fxNameHit);
+		if (playHitFx) {
+			Sleep(0.3f);
+			dummyEntity2.PlayEffect(m_fxNameHit);
+		}
 
 		lightningEntity.DestroyAfter(5.f);
 		dummyEntity2.DestroyAfter(5.f);

@@ -267,6 +267,21 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			str.AddDirAttack( 'woman_sorceress_effect_immobile_nulify', AD_Front, ADIST_Medium );
 			str.AddAttack( 'woman_sorceress_effect_immobile_nulify', ADIST_Medium );
 		}
+
+		aspect = comboDefinition.CreateComboAspect( 'AttackIdle' );
+		
+		{
+			str = aspect.CreateComboString( false );
+
+			str.AddDirAttack( 'woman_sorceress_effect_immobile_nulify', AD_Front, ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_effect_immobile_nulify', ADIST_Medium );
+		}	
+		{
+			str = aspect.CreateComboString( true );
+
+			str.AddDirAttack( 'woman_sorceress_effect_immobile_nulify', AD_Front, ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_effect_immobile_nulify', ADIST_Medium );
+		}
 	}
 	
 	private final function CreateAttackLightAspect()
@@ -480,6 +495,19 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			str = aspect.CreateComboString( true );		
 			str.AddDirAttack( 'woman_sorceress_special_attack_fireball_lp', AD_Front, ADIST_Medium );	
 			str.AddAttack( 'woman_sorceress_special_attack_fireball_lp', ADIST_Medium );
+		}
+
+		/* 3.333 (1.1) */
+		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialShield' );
+		{
+			str = aspect.CreateComboString( false );
+			str.AddDirAttack( 'woman_sorceress_special_quen_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_special_quen_rp', ADIST_Medium );
+		}			
+		{
+			str = aspect.CreateComboString( true );		
+			str.AddDirAttack( 'woman_sorceress_special_quen_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_special_quen_lp', ADIST_Medium );
 		}
 
 		/* 3.0 (2.0) */

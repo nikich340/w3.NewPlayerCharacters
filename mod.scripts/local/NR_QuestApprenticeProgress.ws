@@ -9,6 +9,11 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
         return false;
     }
 
+    // is waiting to change type (should be in fade but anyway)
+    if (FactsQuerySum("nr_scene_player_change_requested") > 0) {
+        return false;
+    }
+
     // First Time
     if ( !FactsQuerySum("nr_quest_track_FirstTime") ) {
         NR_ShowTutorial( "FirstTime", /*fullscreen*/ true );
@@ -91,8 +96,6 @@ latent function NR_ShowTutorial(type : String, fullscreen : bool, optional remin
     else if (type == "SceneHelp") {
         popupData.messageTitle = GetLocStringById(397231);
         popupData.messageText = NR_FormatLocString( GetLocStringById(2115940556) );
-        popupData.blockInput = false;
-        popupData.pauseGame = false;
     }
     else if (StrStartsWith(type, "SorceressLevel")) {
         //if (!reminder) {
@@ -190,7 +193,7 @@ function NR_ShowMagicSkillStats(fullscreen : bool) {
     popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialShield);
 
     popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialLightningFall);
-    popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialHeal);
+    popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialField);
     popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialMeteorFall);
     popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialLumos);
     popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialPolymorphism);

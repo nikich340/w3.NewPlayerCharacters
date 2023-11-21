@@ -37,7 +37,7 @@ class NR_MagicSpecialShield extends NR_MagicAction {
 
 		if ( IsInSetupScene() ) {
 			thePlayer.PlayEffect( m_fxNameMain );
-			Sleep( 2.f );
+			Sleep( 2.5f );
 			thePlayer.StopEffect( m_fxNameMain );
 		}
 		return OnPerformed(true, scriptedPerform);

@@ -1,6 +1,6 @@
 /* String hashing algos and Uint64 helper methods */
 
-function NR_CharCode(char : String) : int {
+/* API */ function NR_CharCode(char : String) : int {
 	switch (char) {
 	    case "_":
 	        return 1;
@@ -130,16 +130,19 @@ function NR_CharCode(char : String) : int {
 	        return 63;
 	    case "9":
 	        return 64;
+	    case ":":
+	        return 65;
 	    // should never happen
 	    default:
 	    	NRE("NR_CharCode: unsupported: " + char);
-	    	return 65;
+	    	return 66;
 	}
 }
 
 // returns x % y
-function NR_ModuloUint64(x : Uint64, y : Uint64) : Uint64 {
+/* API */ function NR_ModuloUint64(x : Uint64, y : Uint64) : Uint64 {
 	var p : Uint64;
+	
 	if (x < y)
 		return x;
 
@@ -148,7 +151,8 @@ function NR_ModuloUint64(x : Uint64, y : Uint64) : Uint64 {
 }
 
 // returns string representation of uint64
-// why not use vanilla Uint64ToString ?
+// Use vanilla Uint64ToString!
+/*
 function NR_Uint64ToString(value : Uint64) : String {
 	var str : String;
 	var zero, ten : Uint64;
@@ -166,9 +170,11 @@ function NR_Uint64ToString(value : Uint64) : String {
 	}
 	return str;
 }
+*/
+
 
 // uses simple polynomial rolling algo to get uint64 hash
-function NR_PolyRollHash(text : String) : Uint64 {
+/* API */ function NR_PolyRollHash(text : String) : Uint64 {
 	var P, PPow, MOD, hash : Uint64;
 	var i, code : int;
 
@@ -188,7 +194,7 @@ function NR_PolyRollHash(text : String) : Uint64 {
 }
 
 // uses simple polynomial rolling algo to get uint64 hash (another module)
-function NR_PolyRollHash2(text : String) : Uint64 {
+/* API */ function NR_PolyRollHash2(text : String) : Uint64 {
 	var P, PPow, MOD, hash : Uint64;
 	var i, code : int;
 
@@ -207,7 +213,7 @@ function NR_PolyRollHash2(text : String) : Uint64 {
 	return hash;
 }
 
-// prints code of char for given index
+// example: prints code of char for given index
 exec function nr_testchar(text : String, charIndex : int) {
 	var char : String;
 
@@ -215,11 +221,10 @@ exec function nr_testchar(text : String, charIndex : int) {
 	NR_Notify("code[" + charIndex + "] = (" + char + ") " + NR_CharCode(char));
 }
 
-// prints hashes of given string
+// example: prints hashes of given string
 exec function nr_testhash(text : String) {
 	var hash1, hash2 : Uint64;
 	hash1 = NR_PolyRollHash(text);
 	hash2 = NR_PolyRollHash2(text);
 	NR_Notify("hash1 = (" + Uint64ToString(hash1) + "), hash2 = (" + Uint64ToString(hash2) + ")");
 }
-

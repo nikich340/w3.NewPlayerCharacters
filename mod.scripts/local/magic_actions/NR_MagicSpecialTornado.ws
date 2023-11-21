@@ -56,14 +56,14 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 			return OnPerformed(false, scriptedPerform);
 		}
 
-		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
-							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );
 		if (IsInSetupScene()) {
 			pos = MidPosInScene(/*far*/ true);
 			s_lifetime = 5.f;
 			s_curseChance = 0;
 			target = NULL;
 		} else {
+			NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
+							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );
 			pos += VecRingRand(0.f, 1.f);
 		}
 		m_tornadoEntity = (NR_TornadoEntity)theGame.CreateEntity(entityTemplate, pos, rot);

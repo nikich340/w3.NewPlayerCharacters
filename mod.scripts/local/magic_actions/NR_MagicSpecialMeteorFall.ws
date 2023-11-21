@@ -6,6 +6,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 	
 	default actionType = ENR_SpecialMeteorFall;
 	default actionSubtype = ENR_SpecialAbstractAlt;
+	default drainStaminaOnPerform = false;
 
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
@@ -33,8 +34,12 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
-		s_interval = s_lifetime;
-		s_lifetime = 0.25f; // how long should spell work after anim ends
+		if (IsInSetupScene()) {
+			s_lifetime = 3.f;
+		} else {
+			s_lifetime = 0.2f; // how long should spell work after anim ends
+		}
+		s_interval = 0.25f;
 
 		resourceName = MeteorEntityName();
 		NRD("MeteorEntityName = " + resourceName);
@@ -60,11 +65,12 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 
 	latent function BreakAction() {
 		super.BreakAction();
-		GotoState('Stop');
+		if (GetCurrentStateName() == 'Active')
+			GotoState('Stop');
 	}
 
 	public function ContinueAction() {
-		s_lifetime = 0.25f;
+		s_lifetime = 0.2f;
 	}
 	
 	latent function ShootMeteor(cursed : bool, center : Vector) : bool {
@@ -157,15 +163,17 @@ state Cursed in NR_MagicSpecialMeteorFall {
 
 	entry function Curse() {
 		var playerPosition : Vector;
+		var cursedInterval : float;
 		
 		Sleep(2.f);
-	
 		parent.s_lifetime = 2.f;
+		cursedInterval = parent.s_interval * 3.f;
+		
 		while (parent.s_lifetime > 0.f) {
-			parent.s_lifetime -= parent.s_interval * 2.f;
+			parent.s_lifetime -= cursedInterval;
 			// shoot at player pos from past
 			playerPosition = thePlayer.GetWorldPosition();
-			Sleep(parent.s_interval);
+			Sleep(cursedInterval);
 			parent.ShootMeteor(/*cursed*/ true, playerPosition);
 		}
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source

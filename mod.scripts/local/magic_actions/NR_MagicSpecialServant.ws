@@ -1,11 +1,11 @@
 statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
-	var golemEntities 		: array<CNewNPC>;
-	var golemEntitiesBehIds : array<int>;
+	var servantEntities 		: array<CNewNPC>;
+	var servantEntitiesBehIds 	: array<int>;
+	var servantTemplates 		: array<CEntityTemplate>;
 	var s_follower 		: bool;
-	var s_minionCount 	: int;
+	var s_servantCount 	: int;
 	default actionType 		= ENR_SpecialServant;
 	default actionSubtype = ENR_SpecialAbstract;
-	default s_minionCount = 1;
 	
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
@@ -28,7 +28,7 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 				ActionAbilityUnlock("Barghest");
 				break;
 			case 2:
-				ActionAbilityUnlock("Endrega");
+				ActionAbilityUnlock("Endriaga");
 				break;
 			case 3:
 				ActionAbilityUnlock("Arachnomorph");
@@ -40,12 +40,18 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 				ActionAbilityUnlock("Followers");
 				break;
 			case 6:
-				ActionAbilityUnlock("EarthElemental");
+				ActionAbilityUnlock("Gargoyle");
 				break;
 			case 7:
-				ActionAbilityUnlock("IceElemental");
+				ActionAbilityUnlock("TwoServants");
 				break;
 			case 8:
+				ActionAbilityUnlock("EarthElemental");
+				break;
+			case 9:
+				ActionAbilityUnlock("IceElemental");
+				break;
+			case 10:
 				ActionAbilityUnlock("FireElemental");
 				break;
 		}
@@ -54,41 +60,50 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 
 	latent function OnPrepare() : bool {
 		var i 			: int;
+		var template 	: CEntityTemplate;
+		var depotPath 	: String;
 
 		super.OnPrepare();
 		s_follower = IsActionAbilityUnlocked("Followers");
+		s_servantCount = 1;
+		if (IsActionAbilityUnlocked("TwoServants")) {
+			s_servantCount += 1;
+		}
 
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( 'nr_golem_spawn_fx' );
 		m_fxNameMain = SpawnFxName();
+		for (i = 0; i < s_servantCount; i += 1) {
+			depotPath = map[sign].getS("entity_" + IntToString(i) + "_" + ENR_MAToName(actionType), "quests/part_3/quest_files/q501_eredin/characters/q501_wild_hunt_tier_1.w2ent");
+			template = (CEntityTemplate)LoadResourceAsync( depotPath, true );
+			NRD("Loading servant[" + i + "] = " + template);
+			servantTemplates.PushBack(template);
+		}
 
 		return OnPrepared(true);
 	}
 
-	latent function SpawnMinion(position : Vector) : bool {
+	latent function SpawnMinion(position : Vector, template : CEntityTemplate) : bool {
 		var golemNPC 	: CNewNPC;
 		var aiTree 		: CAIFollowSideBySideAction;
 		var behId 		: int;
-		var depotPath 	: String;
 		var servants    : array<CEntity>;
 		var actor    	: CActor;
 		var num 		: int;
 
 		// get number of alive servants
-		theGame.GetEntitiesByTag('NR_Servant', servants);
-		for (i = 0; i < servants.Size(); i += 1) {
-			actor = (CActor)servants[i];
-			if (actor && actor.IsAlive()) {
-				num += 1;
-			}
-		}
-
-		depotPath = map[sign].getS("entity_" + IntToString(num) + "_" + ENR_MAToName(actionType), "quests/part_3/quest_files/q501_eredin/characters/q501_wild_hunt_tier_1.w2ent");
-		entityTemplate = (CEntityTemplate)LoadResourceAsync( depotPath, true );
+		//theGame.GetEntitiesByTag('NR_Servant', servants);
+		//num = 0;
+		//for (i = 0; i < servants.Size(); i += 1) {
+		//	actor = (CActor)servants[i];
+		//	if (actor && actor.IsAlive()) {
+		//		num += 1;
+		//	}
+		//}
 
 		// use fx pos
-		golemNPC = (CNewNPC)theGame.CreateEntity(entityTemplate, position, rot);
+		golemNPC = (CNewNPC)theGame.CreateEntity(template, position, rot);
 		if (!golemNPC) {
-			NRE("SpawnMinion: golemNPC is invalid, depotPath = " + depotPath + ", template = " + entityTemplate);
+			NRE("SpawnMinion: golemNPC is invalid, template = " + template);
 			return false;
 		}
 
@@ -104,10 +119,10 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 			aiTree.OnCreated(); // Once we're done initializing behavior tree
 			aiTree.params.moveType = MT_Walk;
 			behId = golemNPC.ForceAIBehavior( aiTree, BTAP_AboveEmergency );
-			golemEntitiesBehIds.PushBack(behId);
+			servantEntitiesBehIds.PushBack(behId);
 		}
 
-		golemEntities.PushBack(golemNPC);
+		servantEntities.PushBack(golemNPC);
 		return true;
 	}
 
@@ -122,12 +137,21 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 			return OnPerformed(false, scriptedPerform);
 		}
 
-		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
+		if (IsInSetupScene()) {
+			pos = MidPosInScene(/*far*/ false);
+			s_lifetime = 5.f;
+			s_curseChance = 0;
+		} else {
+			NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );
+		}
 
-		for ( i = 0; i < s_minionCount; i += 1 ) {
+		for ( i = 0; i < s_servantCount; i += 1 ) {
 			// randomize position
-			pos = pos + VecRingRand(2.f, 4.f);
+			if (IsInSetupScene())
+				pos = pos + VecRingRand(0.5f, 1.f);
+			else
+				pos = pos + VecRingRand(1.f, 3.f);
 			// check where physics obstacle if needed
 			if (theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 1.f + Vector(0,0,1.5f), pos, newPos, normalCollision, standartCollisions))
 			{
@@ -148,8 +172,8 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 
 		Sleep(0.1f);
 
-		for ( i = 0; i < s_minionCount; i += 1 ) {
-			ret = SpawnMinion(golemPositions[i]);
+		for ( i = 0; i < s_servantCount; i += 1 ) {
+			ret = SpawnMinion(golemPositions[i], servantTemplates[i]);
 			if ( !ret ) {
 				return OnPerformed(false, scriptedPerform);
 			}
@@ -229,8 +253,8 @@ state Active in NR_MagicSpecialServant {
 		var i : int;
 		// cancel following player
 		if (parent.s_follower) {
-			for ( i = 0; i < parent.s_minionCount; i += 1 ) {
-				parent.golemEntities[i].CancelAIBehavior(parent.golemEntitiesBehIds[i]);
+			for ( i = 0; i < parent.s_servantCount; i += 1 ) {
+				parent.servantEntities[i].CancelAIBehavior(parent.servantEntitiesBehIds[i]);
 			}
 		}
 		NRD("Active: OnLeaveState.");
@@ -242,16 +266,16 @@ state Stop in NR_MagicSpecialServant {
 	{
 		NRD("Stop: OnEnterState.");
 		parent.inPostState = true;
-		Stop();
+		RunStop();
 		parent.inPostState = false;
 	}
 
-	entry function Stop() {
+	entry function RunStop() {
 		var i : int;
 
-		for ( i = 0; i < parent.s_minionCount; i += 1 ) {
+		for ( i = 0; i < parent.s_servantCount; i += 1 ) {
 			Sleep(0.1f);
-			parent.golemEntities[i].Kill('NR_MagicSpecialServant', true);
+			parent.servantEntities[i].Kill('NR_MagicSpecialServant', true);
 		}
 	}
 
@@ -268,17 +292,17 @@ state Cursed in NR_MagicSpecialServant {
 	{
 		NRD("Cursed: OnEnterState.");
 		parent.inPostState = true;
-		Curse();
+		RunCurse();
 	}
 
-	entry function Curse() {
+	entry function RunCurse() {
 		var i : int;
 
 		Sleep(0.5f);
-		for ( i = 0; i < parent.s_minionCount; i += 1 ) {
+		for ( i = 0; i < parent.s_servantCount; i += 1 ) {
 			Sleep(0.1f);
-			parent.golemEntities[i].ResetTemporaryAttitudeGroup(AGP_Default);
-			parent.golemEntities[i].SetAttitude( thePlayer, AIA_Hostile );
+			parent.servantEntities[i].ResetTemporaryAttitudeGroup(AGP_Default);
+			parent.servantEntities[i].SetAttitude( thePlayer, AIA_Hostile );
 		}
 
 		Sleep( parent.s_lifetime * 0.5f );

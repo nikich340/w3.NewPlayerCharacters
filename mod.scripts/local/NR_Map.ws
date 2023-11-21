@@ -11,6 +11,7 @@
 	LogChannel('DEBUG', "map[some name] = " + map.getN("some name"));
 	LogChannel('DEBUG', "map[non existing name] = " + map.getN("non existing name", 'default_value'));
 */
+
 enum ENR_UnionType {
 	ENR_NULL,
 	ENR_Name,
@@ -18,6 +19,7 @@ enum ENR_UnionType {
 	ENR_Int,
 	ENR_Float
 }
+
 struct NR_Union {
 	var type : ENR_UnionType;
 	var key  : String;
@@ -26,8 +28,10 @@ struct NR_Union {
 	var valI : int;
 	var valF : float;
 }
+
 function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, optional _valS : String, optional _valI : int, optional _valF : float) : NR_Union {
 	var u : NR_Union;
+
 	u.key = _key;
 	u.type = _type;
 	switch (_type) {
@@ -52,21 +56,34 @@ function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, o
 class NR_Map {
 	protected var values 	: array<NR_Union>;
 	protected var i 				: int;
-	function keyIndex(_key : String) : int {
+
+	/* API */ public function getKeys() : array<String> {
+		var keys : array<String>;
+
+		for (i = 0; i < values.Size(); i += 1) {
+			keys.PushBack(values[i].key);
+		}
+
+		return keys;
+	}
+
+	protected function keyIndex(_key : String) : int {
 		for (i = 0; i < values.Size(); i += 1) {
 			if (values[i].key == _key)
 				return i;
 		}
 		return -1;
 	}
-	function keyType(_key : String) : ENR_UnionType {
+
+	/* API */ public function keyType(_key : String) : ENR_UnionType {
 		i = keyIndex(_key);
 		if (i < 0)
 			return ENR_NULL;
 
 		return values[i].type;
 	}
-	function removeKey(_key : String) : bool {
+
+	/* API */ public function removeKey(_key : String) : bool {
 		i = keyIndex(_key);
 		if (i < 0)
 			return false;
@@ -74,36 +91,41 @@ class NR_Map {
 		values.Erase(i);
 		return true;
 	}
-	function hasKey(_key : String) : bool {
+
+	/* API */ public function hasKey(_key : String) : bool {
 		i = keyIndex(_key);
 		return (i >= 0);
 	}
-	function getI(_key : String, optional defaultValue : int) : int {
+
+	/* API */ public function getI(_key : String, optional defaultValue : int) : int {
 		i = keyIndex(_key);
 		if (i < 0)
 			return defaultValue;
 		return values[i].valI;
 	}
-	function getF(_key : String, optional defaultValue : float) : float {
+
+	/* API */ public function getF(_key : String, optional defaultValue : float) : float {
 		i = keyIndex(_key);
 		if (i < 0)
 			return defaultValue;
 		return values[i].valF;
 	}
-	function getN(_key : String, optional defaultValue : name) : name {
+
+	/* API */ public function getN(_key : String, optional defaultValue : name) : name {
 		i = keyIndex(_key);
 		if (i < 0)
 			return defaultValue;
 		return values[i].valN;
 	}
-	function getS(_key : String, optional defaultValue : String) : String {
+
+	/* API */ public function getS(_key : String, optional defaultValue : String) : String {
 		i = keyIndex(_key);
 		if (i < 0)
 			return defaultValue;
 		return values[i].valS;
 	}
 
-	function setF(_key : String, _valF : float) : bool {
+	/* API */ public function setF(_key : String, _valF : float) : bool {
 		i = keyIndex(_key);
 		if (i < 0) {
 			values.PushBack(NR_Union(_key, ENR_Float, , , , _valF));
@@ -116,7 +138,8 @@ class NR_Map {
 			return false;
 		}		
 	}
-	function setI(_key : String, _valI : int) : bool {
+
+	/* API */ public function setI(_key : String, _valI : int) : bool {
 		i = keyIndex(_key);
 		if (i < 0) {
 			values.PushBack(NR_Union(_key, ENR_Int, , , _valI));
@@ -129,7 +152,8 @@ class NR_Map {
 			return false;
 		}		
 	}
-	function setN(_key : String, _valN : name) : bool {
+
+	/* API */ public function setN(_key : String, _valN : name) : bool {
 		i = keyIndex(_key);
 		if (i < 0) {
 			values.PushBack(NR_Union(_key, ENR_Name, _valN));
@@ -142,7 +166,8 @@ class NR_Map {
 			return false;
 		}		
 	}
-	function setS(_key : String, _valS : String) : bool {
+
+	/* API */ public function setS(_key : String, _valS : String) : bool {
 		i = keyIndex(_key);
 		if (i < 0) {
 			values.PushBack(NR_Union(_key, ENR_String, , _valS));

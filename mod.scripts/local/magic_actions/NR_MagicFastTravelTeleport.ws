@@ -53,7 +53,7 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 		if (IsInSetupScene()) {
 			safePosFound = true;
 		} else {
-			safePosFound = NR_GetSafeTeleportPoint( m_teleportPos );
+			safePosFound = NR_GetSafeTeleportPoint( m_teleportPos, /*allowUnderwater*/ true );
 		}
 		m_teleportZ = TeleportZ();
 		m_teleportPos.Z += m_teleportZ;
@@ -64,7 +64,7 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 			thePlayer.DisplayHudMessage(GetLocStringByKeyExt( "menu_cannot_perform_action_here" ));
 			return OnPrepared(false);
 		}
-		if ( VecDistanceSquared(pos, m_teleportPos) < 1.5f ) {
+		if ( VecDistanceSquared(pos, m_teleportPos) < 1.4f ) {
 			NRD("NR_MagicFastTravelTeleport: Teleport pos is too close");
 			thePlayer.DisplayHudMessage(GetLocStringByKeyExt( "menu_cannot_perform_action_here" ));
 			return OnPrepared(false);

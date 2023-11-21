@@ -1,8 +1,9 @@
 statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	public var magicManager 	: NR_MagicManager;
-	public var nr_signOwner 	: W3SignOwnerPlayer;
+	public var nr_signOwner 	: W3SignOwnerSorceress;
 	protected saved var nr_quenEntity 	: NR_SorceressQuen;
 	protected saved var nr_lumosActive	: bool;
+	protected saved var nr_lumosFxName	: name;
 	protected var nr_targetDist : float;
 
 	default nr_lumosActive 	  = false;
@@ -44,7 +45,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		super.SetGuarded(false);
 		
 		// signOwner is private in W3PlayerWitcher.. add our own!
-		nr_signOwner = new W3SignOwnerPlayer in this;
+		nr_signOwner = new W3SignOwnerSorceress in this;
 		nr_signOwner.Init( this );
 
 		NR_SetTargetDist( 0.0, 0 );
@@ -56,15 +57,18 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		magicManager.Init();
 		magicManager.GotoState('MagicLoop');
 		// launch lumos fx if was active
-		if (nr_lumosActive)
-			magicManager.LumosFX(/*enable*/ true);
+		if (nr_lumosActive) {
+			magicManager.LumosFX(/*enable*/ true, nr_lumosFxName);
+		}
+		NRD("Sorceress.NR_LaunchMagicManager: nr_lumosActive = " + nr_lumosActive);
 
 		NR_RestoreQuen(savedQuenHealth, savedQuenDuration);
 	}
 
-	function SetLumosActive(active : bool) {
+	function SetLumosActive(active : bool, fxName : name) {
 		NRD("SetLumosActive: " + active);
 		nr_lumosActive = active;
+		nr_lumosFxName = fxName;
 	}
 
 	timer function NR_SetTargetDist( delta : float, id : int ) {
@@ -222,7 +226,9 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 		// destroy old shield
 		if (nr_quenEntity) {
+			NRD("Destroy old quen = " + nr_quenEntity);
 			nr_quenEntity.GotoState('Expired');
+			nr_quenEntity.DestroyAfter(5.f);
 		}
 		nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
 		return nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen) );

@@ -30,6 +30,8 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 
 	public function SetActive(active : bool) {
 		isActive = active;
+		// for gamesave
+		NR_GetReplacerSorceress().SetLumosActive(active, m_fxNameMain);
 	}
 
 	/* Non-latent version */

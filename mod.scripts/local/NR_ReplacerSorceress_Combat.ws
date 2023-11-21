@@ -41,6 +41,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	protected var startupBuff 	: CBaseGameplayEffect;
 	protected var isInCriticalState	: bool;
 	
+	protected var magicAnimBlendTime : float;
+	default magicAnimBlendTime = 0.3f;
+	
 	
 	private var realCombat : bool;
 	private var lastVitality : float;
@@ -1359,7 +1362,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		}
 		
 		NRD("SS: BuildCombo()");
-		comboPlayer.SetDurationBlend( 0.4f );
+		comboPlayer.SetDurationBlend( magicAnimBlendTime );
 		
 		
 		CleanUpComboStuff();
@@ -1636,6 +1639,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.magicManager.CorrectAspectAction( actionType, aspectName );
 		if ( parent.magicManager.IsLongMagicAction(actionType) ) {
 			TryPeformLongMagicAttack( aspectName, actionType );
+			return;
 		}
 
 		if ( !parent.magicManager.IsActionLearned(actionType) ) {
@@ -1646,12 +1650,11 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		if ( parent.magicManager.HasStaminaForAction(actionType) ) {
 			parent.magicManager.SetActionType( actionType );
 			NRD("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
-			// separate thing for sorceress quen
+			// activate sorceress "quen"
 			if (actionType == ENR_SpecialShield) {
 				parent.CastQuen();
-			} else {
-				NRD("PlayAttack: aspect = " + aspectName + ", = " + comboPlayer.PlayAttack( aspectName ));
 			}
+			NRD("PlayAttack: aspect = " + aspectName + ", = " + comboPlayer.PlayAttack( aspectName ));
 		} else {
 			parent.magicManager.SetActionType( ENR_Unknown );
 			comboPlayer.PlayAttack( 'AttackNoStamina' );
@@ -1681,12 +1684,14 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 		parent.magicManager.SetActionType( actionType );
 		// manually push action to Active state
+		playRet = comboPlayer.PlayAttack( aspectName );
+
 		parent.magicManager.AddActionEvent( 'InitAction', 'TryPeformLongMagicAttack' );
 		parent.magicManager.AddActionEvent( 'Prepare', 'TryPeformLongMagicAttack' );
-		parent.magicManager.AddActionEvent( 'PerformMagicAttack', 'TryPeformLongMagicAttack' );
+		Sleep(0.2f);
 		parent.magicManager.DrainStaminaForAction( actionType );
+		parent.magicManager.AddActionEvent( 'PerformMagicAttack', 'TryPeformLongMagicAttack' );		
 		
-		playRet = comboPlayer.PlayAttack( aspectName );
 		// unwanted actions may break anim
 		virtual_parent.BlockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
 		virtual_parent.BlockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
@@ -1703,6 +1708,11 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 		virtual_parent.OnCombatActionStart();
 
+		// checks if:
+		// 	- Sign button is pressed
+		// 	- Has stamina for passed time
+		// -> generates ContinueAction events for MagicManager to prolong action
+		// -> plays anim again when it's over
 		while ( theInput.IsActionPressed( 'CastSign' ) ) {
 			SleepOneFrame();
 			ResetTimeToEndCombat();  // don't allow to exit combat state
@@ -1728,24 +1738,30 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		}
 
 		// we can't stop anim if it's still in blend-in
-		if (currentTime - startTime < 0.2f) {
-			Sleep(0.2f);
+		if (currentTime - startTime < magicAnimBlendTime) {
+			Sleep(magicAnimBlendTime - (currentTime - startTime));
 		}
 
 		NRD("TryPeformLongMagicAttack: OnInterruptAttack");
+		comboPlayer.StopAttack();
 		OnInterruptAttack();
 		parent.RaiseForceEvent( 'AnimEndAUX' );
-		parent.OnPlayerActionEnd();
+		// virtual_parent.OnPlayerActionEnd();
 		//parent.RaiseEvent( 'ForceBlendOut' ); <-- intermediate anim end
 
-		// small pause before allowing new action
-		Sleep(0.2f);
+		// comboPlayer.PlayAttack('AttackIdle');
+		// virtual_parent.OnCombatActionStart();
+
+		// let blend-out before allowing new action
+		// Sleep(magicAnimBlendTime);
+		
 		virtual_parent.UnblockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
 		virtual_parent.UnblockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
 		virtual_parent.UnblockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
 		virtual_parent.UnblockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
 		virtual_parent.UnblockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
 		virtual_parent.UnblockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
+		OnCombatActionEnd();
 
 		return true;
 	}

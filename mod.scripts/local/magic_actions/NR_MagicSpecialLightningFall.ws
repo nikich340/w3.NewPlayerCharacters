@@ -3,17 +3,19 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 	protected var lightningEntity : CGameplayEntity;
 	protected var s_respectCaster: bool;
 	protected var s_lightningNum : int;
-	protected var s_interval 	: float;
-	protected var meteor 		 : NR_MeteorProjectile;
+	protected var s_interval 	  : float;
+	protected var meteor 		  : NR_MeteorProjectile;
+	protected var savedWeather 	  : name;
 
 	default actionType = ENR_SpecialLightningFall;
 	default actionSubtype = ENR_SpecialAbstractAlt;
+	default drainStaminaOnPerform = false;
 
 	latent function OnInit() : bool {
 		var sceneInputs : array<int>;
 		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 40);
 
-		if ( voicelineChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
 			NRD("PlayScene!");
 			sceneInputs.PushBack(18);
 			sceneInputs.PushBack(19);
@@ -35,8 +37,12 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
-		s_interval = s_lifetime;
-		s_lifetime = 0.25f;
+		if (IsInSetupScene()) {
+			s_lifetime = 3.f;
+		} else {
+			s_lifetime = 0.2f;
+		}
+		s_interval = 0.15f;
 
 		entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_dummy_hit_fx");
 		entityTemplate2 = (CEntityTemplate)LoadResourceAsync("nr_lightning_fx");
@@ -47,6 +53,8 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		
 		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
 		s_lightningNum = SkillMaxApplies();
+		savedWeather = GetWeatherConditionName();
+		RequestWeatherChangeTo('WT_Rain_Storm', 1.f, false);
 
 		return OnPrepared(true);
 	}
@@ -65,11 +73,15 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 
 	latent function BreakAction() {
 		super.BreakAction();
-		GotoState('Stop');
+
+		RequestWeatherChangeTo(savedWeather, 2.f, false);
+		if (GetCurrentStateName() == 'Active') {
+			GotoState('Stop');
+		}
 	}
 
 	public function ContinueAction() {
-		s_lifetime = 0.25f;
+		s_lifetime = 0.2f;
 	}
 	
 	latent function ShootLightning(cursed : bool, center : Vector) : bool {
@@ -305,6 +317,7 @@ state Active in NR_MagicSpecialLightningFall {
 	entry function RunWait() {
 		var i : int;
 	
+		Sleep(0.5f);
 		while (parent.s_lifetime > 0.f) {
 			parent.s_lifetime -= parent.s_interval;
 			Sleep(parent.s_interval);
@@ -334,19 +347,22 @@ state Cursed in NR_MagicSpecialLightningFall {
 	entry function Curse() {
 		var playerPosition : Vector;
 		var i : int;
+		var cursedInterval : float;
 		
 		Sleep(2.f);
-	
 		parent.s_lifetime = 2.f;
+		cursedInterval = parent.s_interval * 4.f;
+
 		while (parent.s_lifetime > 0.f) {
-			parent.s_lifetime -= parent.s_interval * 2.f;
+			parent.s_lifetime -= cursedInterval;
 			// shoot at player pos from past
 			playerPosition = thePlayer.GetWorldPosition();
-			Sleep(parent.s_interval * 2.f);
-			for (i = 1; i <= parent.s_lightningNum; i += 1) {
-				parent.ShootLightning(/*cursed*/ true, playerPosition);
-				SleepOneFrame();
-			}
+			Sleep(cursedInterval);
+			parent.ShootLightning(/*cursed*/ true, playerPosition);
+			//for (i = 1; i <= parent.s_lightningNum; i += 1) {
+			//	parent.ShootLightning(/*cursed*/ true, playerPosition);
+			//	SleepOneFrame();
+			//}
 		}
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
@@ -361,6 +377,7 @@ state Stop in NR_MagicSpecialLightningFall {
 	event OnEnterState( prevStateName : name )
 	{
 		NRD("Stop: OnEnterState: " + this);
+		RequestWeatherChangeTo(parent.savedWeather, 2.f, false);
 		parent.inPostState = false;
 	}
 

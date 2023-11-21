@@ -1,0 +1,268 @@
+#
+# quest structure subsegment: golem_crafting
+# 
+# (version: 555, saved: 2023-11-11 22:35:05)
+#
+---
+structure:
+  segments:
+    golem_crafting:
+      blocks:
+        in:
+          ".editor": [ -343.0, 253.0 ]
+          next:
+            - waituntil.golem_creation_started
+        
+        scene.Golem_crafting_scene:
+          ".editor":
+            pos: [ 496.0, 172.0 ]
+            in: [ Input ]
+            out: [ fail_explosion, fail_fire, fail_stone, fail_tortilla, success ]
+          scene: 10.golem_crafting.yml
+          placement: prologue/ship
+          interruptable: true
+          _fadein: true
+          next.fail_explosion:
+            - script.RIP_player
+          next.fail_fire:
+            - script.Spawn_Ifryt
+            - script.fadein
+            - script.Wait_half
+          next.fail_stone:
+            - script.Spawn_earth_elemental
+            - script.fadein
+            - script.Wait_half
+          next.fail_tortilla:
+            - script.reset_golem_start_fact
+            - script.fadein
+            - script.Wait_half
+          next.success:
+            - script.fadein
+            - spawn.spawn_celestine
+        
+        scene.failed_master_comment:
+          ".editor":
+            pos: [ 887.0, 257.0 ]
+            in: [ crafting_failed ]
+            out: [ Output ]
+          scene: 07.master_oneliners.yml
+          placement: ~PLAYER
+          interruptable: false
+          _fadein: false
+          next: ".done"
+        
+        waituntil.golem_creation_started:
+          factdb: [ nr_scene_golem_start, ">=", 1 ]
+          ".editor":
+            pos: [ -59.0, 171.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - scene.Golem_crafting_scene: Input
+            - waituntil.scene_thunder
+            - waituntil.scene_flow_fx
+            - waituntil.scene_morph
+            - addfact.add_attemp_count
+        
+        waituntil.new_wait_until_fact:
+          factdb: [ nr_magic_skill_ENR_SpecialServant, ">=", 1 ]
+          ".editor":
+            pos: [ -118.0, 3.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next: ".done"
+        
+        waituntil.scene_flow_fx:
+          factdb: [ nr_scene_crafting_flow_fx, ">=", 1 ]
+          ".editor":
+            pos: [ 112.0, -54.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.NR_ProcessSorceressFlowFx_Q
+        
+        waituntil.scene_flow_fx_disable:
+          factdb: [ nr_scene_crafting_flow_fx, "<", 1 ]
+          ".editor":
+            pos: [ 434.0, -185.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.stop_flow_effects
+        
+        waituntil.scene_morph:
+          factdb: [ nr_scene_crafting_morph, ">=", 1 ]
+          ".editor":
+            pos: [ 129.0, 50.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.NR_ProcessGolemMorph_Q
+        
+        waituntil.scene_thunder:
+          factdb: [ nr_scene_crafting_thunder, ">=", 1 ]
+          ".editor":
+            pos: [ 87.0, -144.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.NR_ProcessMasterThunder_Q
+        
+        script.NR_ProcessGolemMorph_Q:
+          ".editor":
+            pos: [ 295.0, -27.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ProcessGolemMorph_Q
+          next:
+            - script.reset_morph_fact
+        
+        script.NR_ProcessMasterThunder_Q:
+          ".editor":
+            pos: [ 260.0, -228.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ProcessMasterThunder_Q
+          next: ".done"
+        
+        script.NR_ProcessSorceressFlowFx_Q:
+          ".editor":
+            pos: [ 271.0, -130.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ProcessSorceressFlowFx_Q
+          next:
+            - waituntil.scene_flow_fx_disable
+        
+        script.RIP_player:
+          ".editor":
+            pos: [ 744.0, -39.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: KillPlayer
+          parameter:
+            - ignoreImmortalityMode: true
+          next: ".done"
+        
+        script.Spawn_Ifryt:
+          ".editor":
+            pos: [ 100.0, 321.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_SpawnHostileEntity_Q
+          parameter:
+            - path: dlc/dlcnewreplacers/data/entities/nr_mq4006_ifryt_fixed.w2ent
+            - relativeLevel: -15
+            - x: -239.1377563477
+            - y: -308.9006347656
+            - z: 40.3846511841
+            - yaw: 130.4000244141
+          next:
+            - script.reset_golem_start_fact
+        
+        script.Spawn_earth_elemental:
+          ".editor":
+            pos: [ 105.0, 419.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_SpawnHostileEntity_Q
+          parameter:
+            - path: dlc/dlcnewreplacers/data/entities/nr_q502_dao_fixed.w2ent
+            - relativeLevel: -10
+            - x: -239.1377563477
+            - y: -308.9006347656
+            - z: 40.3846511841
+            - yaw: 130.4000244141
+          next:
+            - script.reset_golem_start_fact
+        
+        script.Wait_half:
+          ".editor":
+            pos: [ 708.0, 209.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_Wait_Q
+          parameter:
+            - sec: 0.5
+          next:
+            - scene.failed_master_comment: crafting_failed
+            - addfact.add_failed_fact
+        
+        script.fadein:
+          ".editor":
+            pos: [ 744.0, 61.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: FadeInQuest
+          parameter:
+            - fadeTime: 0.5
+          next: ".done"
+        
+        script.reset_golem_start_fact:
+          ".editor":
+            pos: [ 555.0, 445.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_scene_golem_start
+          next:
+            - waituntil.golem_creation_started
+        
+        script.reset_morph_fact:
+          ".editor":
+            pos: [ 465.0, -97.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_scene_crafting_morph
+          next: ".done"
+        
+        script.stop_flow_effects:
+          ".editor":
+            pos: [ 604.0, -260.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: PlayEffectQuest
+          parameter:
+            - entityTag: cname_PLAYER
+            - effectName: cname_energy_flow_water_r
+            - activate: false
+            - persistentEffect: false
+            - deactivateAll: true
+            - preventEffectStacking: false
+          next: ".done"
+        
+        spawn.spawn_celestine:
+          ".editor":
+            pos: [ 687.0, 304.0 ]
+            hint: spawn-only
+            in: []
+            out: []
+          phase: arena_phase
+          spawnsets:
+            - comm_master_golem
+          next:
+            - addfact.add_success_fact
+        
+        addfact.add_attemp_count:
+          ".editor": [ 123.0, 111.0 ]
+          value: [ nr_scene_golem_attemps, 1 ]
+          next: ".done"
+        
+        addfact.add_failed_fact:
+          ".editor": [ 888.0, 153.0 ]
+          value: [ nr_golem_crafting_failed, 1 ]
+          next: ".done"
+        
+        addfact.add_success_fact:
+          ".editor": [ 841.0, 372.0 ]
+          value: [ nr_golem_crafting_success, 1 ]
+          next:
+            - out
+        
+        out:
+          ".editor": [ 1017.0, 446.0 ]
+          next: ".done"
+        

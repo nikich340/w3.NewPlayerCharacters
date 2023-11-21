@@ -28,6 +28,10 @@ dialogscript:
     - nr_master_mage: "2115940070|Qued se creoest?"
     - NEXT: section_exit
 
+  section_start_crafting_failed:
+    - nr_master_mage: "2115940951|You've made a right mess of it! The elements of earth and water should have been mixed in equal parts, not skewed like this!"
+    - NEXT: section_exit
+
   section_start_stone_activated:
     - NEXT: section_randomizer_stone_activated
 

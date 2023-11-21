@@ -1,0 +1,7 @@
+items:
+  notices:
+    sorceress_training_notice:
+      name: "Be careful on the Vyzima road"
+      description: "Notice about strange things on the road to Vyzima."
+      text: "Good people! Be careful on the road to Vyzima!<br>The last week I rode to my daughter, there was a rumbling, blazing thing over me, that my horse rushed into bushes. And then I noticed a pile of ice in the sky for a moment, and then it was gone.<br>You'll say I were drunk, however I was sober that day!<br>"
+      # Люди добрые! Будьте внимательны по дороге в Вызиму!<br>Я как в прошлый раз к дочке ездил, так надо мной как громыхнуло, полыхнуло, что у меня лошадь в кусты ринулась. И на миг куча льда в небе появилась, а потом исчезла.<br>Скажете показалось попьяни, да вот только трезвый я был в тот день!<br>

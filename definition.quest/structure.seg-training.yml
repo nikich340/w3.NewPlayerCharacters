@@ -1,7 +1,7 @@
 #
 # quest structure subsegment: training
 # 
-# (version: 498, saved: 2023-07-30 17:54:01)
+# (version: 555, saved: 2023-11-11 22:35:05)
 #
 ---
 structure:
@@ -23,6 +23,26 @@ structure:
           next:
             - script.Control_tutorial
             - waituntil.control_performed
+        
+        waituntil.Field_performed:
+          factdb: [ nr_magic_performed_ENR_SpecialField, ">=", 5 ]
+          ".editor":
+            pos: [ 401.0, 1318.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - objective.practise_field: Success
+            - script.reset_practising_fact
+        
+        waituntil.Field_spell_fact:
+          factdb: [ nr_magic_learning_ENR_SpecialField, ">=", 1 ]
+          ".editor":
+            pos: [ 226.0, 1247.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - script.Field_spell_tutorial
+            - waituntil.Field_performed
         
         waituntil.MeteorFall_fact:
           factdb: [ nr_magic_learning_ENR_SpecialMeteorFall, ">=", 1 ]
@@ -124,26 +144,6 @@ structure:
             - script.Tornado_tutorial
             - waituntil.tornado_performed
         
-        waituntil.Unknown_performed:
-          factdb: [ nr_magic_performed_ENR_SpecialHeal, ">=", 5 ]
-          ".editor":
-            pos: [ 401.0, 1318.0 ]
-            in: [ In ]
-            out: [ Out ]
-          next:
-            - objective.practise_unknown: Success
-            - script.reset_practising_fact
-        
-        waituntil.Unknown_spell_fact:
-          factdb: [ nr_magic_learning_ENR_SpecialHeal, ">=", 1 ]
-          ".editor":
-            pos: [ 226.0, 1247.0 ]
-            in: [ In ]
-            out: [ Out ]
-          next:
-            - script.Unknown_spell_tutorial
-            - waituntil.Unknown_performed
-        
         waituntil.apprentice:
           factdb: [ nr_master_apprentice, ">=", 1 ]
           ".editor":
@@ -153,7 +153,7 @@ structure:
           next:
             - objective.talk_to_mage: Success
             - waituntil.just_learned_fact
-            - objective.become_archi: Activate
+            - objective.become_archimistress: Activate
         
         waituntil.control_performed:
           factdb: [ nr_magic_performed_ENR_SpecialControl, ">=", 7 ]
@@ -287,6 +287,19 @@ structure:
             - objective.practise_control: Activate
             - addfact.ENR_SpecialControl
         
+        script.Field_spell_tutorial:
+          ".editor":
+            pos: [ 401.0, 1246.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: NR_ShowTutorial_Q
+          parameter:
+            - type: SorceressSkillField
+            - delay: 0.6000000238
+          next:
+            - objective.practise_field: Activate
+            - addfact.ENR_SpecialField
+        
         script.MeteorFall_tutorial:
           ".editor":
             pos: [ 417.0, 1381.0 ]
@@ -365,19 +378,6 @@ structure:
             - objective.practise_tornado: Activate
             - addfact.ENR_SpecialTornado
         
-        script.Unknown_spell_tutorial:
-          ".editor":
-            pos: [ 401.0, 1246.0 ]
-            in: [ In ]
-            out: [ Out ]
-          function: NR_ShowTutorial_Q
-          parameter:
-            - type: SorceressSkillTODO!!!
-            - delay: 0.6000000238
-          next:
-            - objective.practise_unknown: Activate
-            - addfact.ENR_SpecialHeal
-        
         script.Unlock_hound_servant:
           ".editor":
             pos: [ 779.0, 944.0 ]
@@ -439,6 +439,16 @@ structure:
             - factID: cname_nr_magic_learning_ENR_SpecialControl
           next: ".done"
         
+        script.reset_field_fact:
+          ".editor":
+            pos: [ 783.0, 1252.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_magic_learning_ENR_SpecialField
+          next: ".done"
+        
         script.reset_ftt_fact:
           ".editor":
             pos: [ 744.0, 215.0 ]
@@ -447,16 +457,6 @@ structure:
           function: ResetFactQuest
           parameter:
             - factID: cname_nr_magic_learning_ENR_FastTravelTeleport
-          next: ".done"
-        
-        script.reset_heal_fact:
-          ".editor":
-            pos: [ 783.0, 1252.0 ]
-            in: [ In ]
-            out: [ Out ]
-          function: ResetFactQuest
-          parameter:
-            - factID: cname_nr_magic_learning_ENR_SpecialHeal
           next: ".done"
         
         script.reset_heavy_fact:
@@ -607,7 +607,7 @@ structure:
             - waituntil.Meteor_fact
             - waituntil.Servant_fact
             - waituntil.Thunder_fact
-            - waituntil.Unknown_spell_fact
+            - waituntil.Field_spell_fact
             - waituntil.MeteorFall_fact
             - waituntil.Polymorphism_fact
         
@@ -620,8 +620,8 @@ structure:
             - waituntil.failed
             - waituntil.apprentice
         
-        objective.become_archi:
-          ".editor": [ -113.0, 324.0 ]
+        objective.become_archimistress:
+          ".editor": [ -96.0, 346.0 ]
           objective: sorceress_quest/find_master/become_archi
           notify: true
           track: false
@@ -630,6 +630,13 @@ structure:
         objective.practise_control:
           ".editor": [ 573.0, 774.0 ]
           objective: sorceress_quest/find_master/practise_control
+          notify: true
+          track: false
+          next: ".done"
+        
+        objective.practise_field:
+          ".editor": [ 574.0, 1313.0 ]
+          objective: sorceress_quest/find_master/practise_field
           notify: true
           track: false
           next: ".done"
@@ -697,13 +704,6 @@ structure:
           track: false
           next: ".done"
         
-        objective.practise_unknown:
-          ".editor": [ 574.0, 1313.0 ]
-          objective: sorceress_quest/find_master/practise_mistress_unknown
-          notify: true
-          track: false
-          next: ".done"
-        
         objective.talk_to_mage:
           ".editor": [ -341.0, 189.0 ]
           objective: sorceress_quest/find_master/talk_with_mage
@@ -750,11 +750,11 @@ structure:
           next:
             - script.reset_control_fact
         
-        addfact.ENR_SpecialHeal:
+        addfact.ENR_SpecialField:
           ".editor": [ 568.0, 1248.0 ]
-          value: [ nr_magic_skill_ENR_SpecialHeal, 1 ]
+          value: [ nr_magic_skill_ENR_SpecialField, 1 ]
           next:
-            - script.reset_heal_fact
+            - script.reset_field_fact
         
         addfact.ENR_SpecialLightningFall:
           ".editor": [ 569.0, 1106.0 ]

@@ -2,6 +2,26 @@
 # definition of entities
 #
 templates:
+  nr_radish_cooker:
+    entityObject:
+      ".type": NR_AssetCooker
+      #cookTemplates:
+      #  - "dlc/dlcnewreplacers/data/entities/nr_golem_ice.w2ent"
+      #  - "dlc/dlcnewreplacers/data/entities/nr_golem_ice_morph.w2ent"
+      #  - "dlc/dlcnewreplacers/data/entities/nr_elemental_dao_lvl3__ice_fixed.w2ent"
+      cookScenes:
+        - "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
+        - "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
+        - "dlc/dlcnewreplacers/data/scenes/02.magic_lines.w2scene"
+        - "dlc/dlcnewreplacers/data/scenes/03.player_change_sorceress.w2scene"
+      cookMeshes:
+        - ".type": CMeshComponent
+          isStreamed: true
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_golem_ice.w2mesh"
+        - ".type": CMeshComponent
+          isStreamed: true
+          mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_golem_ice_stone_form.w2mesh"
+
   nr_aard_proj_blast:
     includes:
       - "gameplay/templates/signs/pc_aard_proj_blast.w2ent"
@@ -36,178 +56,17 @@ templates:
   #    ".type": NR_SpecialIntStorage
   #    #u8: [1, 2, 3]
   #    #u16: [1, 2, 3]
-  nr_scene_trigger_woman:
-    entityObject:
-      .type: NR_SceneTrigger
-      isReusable: true
-      isInteractive: true
-      interactionAnim: PEA_ExamineEyeLevel
-      interactionAnimTime: 1.0
-      sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
-      sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
-      components:
-        SceneTriggerComp:
-          ".type": CInteractionComponent
-          #transform:
-          #  pos: [ 0.0, 0.0, 0.01 ]
-          #  rot: [ 0.0, 0.0, 0.0 ]
-          iconOffset: [0.0, 0.0, 1.2, 0.0]
-          isEnabledInCombat: false
-          actionName: "Use"
-        Mesh:
-          ".type": CStaticMeshComponent
-          isStreamed: true
-          transform:
-            pos: [ 0.0, 0.0, 0.0 ]
-            rot: [ 0.0, 0.0, 0.0 ]
-            scale: [ 1.1, 1.1, 1.1 ]
-          drawableFlags:
-            - DF_IsVisible
-            - DF_CastShadows
-          lightChannels:
-            - LC_Characters
-          mesh: dlc/ep1/data/items/quest_items/q601/model/q601_item_statue.w2mesh
-
-  nr_scene_trigger_raven:
-    entityObject:
-      .type: NR_SceneTrigger
-      isReusable: true
-      isInteractive: true
-      interactionAnim: PEA_ExamineEyeLevel
-      interactionAnimTime: 1.0
-      sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
-      sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
-      components:
-        SceneTriggerComp:
-          ".type": CInteractionComponent
-          iconOffset: [0.0, 0.0, 1.2, 0.0]
-          isEnabledInCombat: false
-          actionName: "Use"
-        Mesh:
-          ".type": CStaticMeshComponent
-          isStreamed: true
-          transform:
-            pos: [ 0.0, 0.0, 0.0 ]
-            rot: [ 0.0, 0.0, 0.0 ]
-            scale: [ 0.6, 0.6, 0.6 ]
-          drawableFlags:
-            - DF_IsVisible
-            - DF_CastShadows
-          lightChannels:
-            - LC_Characters
-          mesh: dlc/bob/data/environment/decorations/gameplay/rich_district/statues/statue_bridge/model/statue_bridge_02.w2mesh
-  
-  nr_scene_trigger_sword:
-    entityObject:
-      .type: NR_SceneTrigger
-      isReusable: true
-      isInteractive: true
-      interactionAnim: PEA_ExamineEyeLevel
-      interactionAnimTime: 1.0
-      sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
-      sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
-      components:
-        SceneTriggerComp:
-          ".type": CInteractionComponent
-          iconOffset: [0.0, 0.0, 1.2, 0.0]
-          isEnabledInCombat: false
-          actionName: "Use"
-        Mesh:
-          ".type": CStaticMeshComponent
-          isStreamed: true
-          transform:
-            pos: [ 0.0, 0.0, 0.0 ]
-            rot: [ 0.0, 0.0, 0.0 ]
-            scale: [ 0.6, 0.6, 0.6 ]
-          drawableFlags:
-            - DF_IsVisible
-            - DF_CastShadows
-          lightChannels:
-            - LC_Characters
-          mesh: dlc/bob/data/environment/decorations/gameplay/rich_district/statues/statue_bridge/model/statue_bridge_01.w2mesh
-    
-  nr_scene_trigger_elder1:
-    entityObject:
-      .type: NR_SceneTrigger
-      isReusable: true
-      isInteractive: true
-      interactionAnim: PEA_ExamineEyeLevel
-      interactionAnimTime: 1.0
-      sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
-      sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
-      components:
-        SceneTriggerComp:
-          ".type": CInteractionComponent
-          iconOffset: [0.0, 0.0, 1.2, 0.0]
-          isEnabledInCombat: false
-          actionName: "Use"
-        Mesh:
-          ".type": CStaticMeshComponent
-          isStreamed: true
-          transform:
-            pos: [ 0.0, 0.0, 0.0 ]
-            rot: [ 0.0, 0.0, 0.0 ]
-            scale: [ 0.7, 0.7, 0.7 ]
-          drawableFlags:
-            - DF_IsVisible
-            - DF_CastShadows
-          lightChannels:
-            - LC_Characters
-          mesh: environment/decorations/elven_puzzle_statue/elven_statue_elven_statue.w2mesh
-
-  nr_scene_trigger_elder2:
-    entityObject:
-      .type: NR_SceneTrigger
-      isReusable: true
-      isInteractive: true
-      interactionAnim: PEA_ExamineEyeLevel
-      interactionAnimTime: 1.0
-      sceneMale: "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
-      sceneFemale: "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
-      components:
-        SceneTriggerComp:
-          ".type": CInteractionComponent
-          iconOffset: [0.0, 0.0, 1.2, 0.0]
-          isEnabledInCombat: false
-          actionName: "Use"
-        Mesh:
-          ".type": CStaticMeshComponent
-          isStreamed: true
-          transform:
-            pos: [ 0.0, 0.0, 0.0 ]
-            rot: [ 0.0, 0.0, 0.0 ]
-            scale: [ 0.22, 0.22, 0.22 ]
-          drawableFlags:
-            - DF_IsVisible
-            - DF_CastShadows
-          lightChannels:
-            - LC_Characters
-          mesh: environment/decorations/elven_puzzle_statue/elven_statue_plinth.w2mesh
-        Mesh2:
-          ".type": CStaticMeshComponent
-          isStreamed: true
-          transform:
-            pos: [ 0.0, 0.0, 0.0 ]
-            rot: [ 0.0, 0.0, 0.0 ]
-            scale: [ 0.22, 0.22, 0.22 ]
-          drawableFlags:
-            - DF_IsVisible
-            - DF_CastShadows
-          lightChannels:
-            - LC_Characters
-          mesh: environment/architecture/elven/statues/elven_statue_shield/elven_statue_shield_green.w2mesh
-  
-  #nr_anims_demo:
+  # nr_anims_demo:
   #  entityObject:
   #    ".type": NR_AnimsDemo
   #    tags:
   #      - NR_AnimsDemo
 
-  nr_player_manager:
-    entityObject:
-      ".type": NR_PlayerManager
-      tags:
-        - nr_player_manager
+  # nr_player_manager:
+  #  entityObject:
+  #    ".type": NR_PlayerManager
+  #    tags:
+  #      - nr_player_manager
 
   nr_breathing_bubble: # dlc/dlcnewreplacers/data/entities/nr_breathing_bubble.w2ent:breathing_bubble
     entityObject:

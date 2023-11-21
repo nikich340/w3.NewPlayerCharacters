@@ -1,7 +1,7 @@
 #
 # quest structure root segment
 # 
-# (version: 498, saved: 2023-07-30 17:54:01)
+# (version: 555, saved: 2023-11-11 22:35:05)
 #
 ---
 structure:
@@ -14,9 +14,18 @@ structure:
           - changelayers.hide_master_location
           - waituntil.REMOVE_DEV_0
       
+      subsegment.GOLEM_CRAFTING:
+        ".editor":
+          pos: [ 6349.0, 2087.0 ]
+          in: [ In ]
+          out: [ Out ]
+        segment: golem_crafting
+        next:
+          - interaction.celestine_dg: Input
+      
       subsegment.TRAINING:
         ".editor":
-          pos: [ 6254.0, 1559.0 ]
+          pos: [ 6356.0, 1989.0 ]
           in: [ In ]
           out: [ Out ]
         segment: training
@@ -134,12 +143,24 @@ structure:
         _fadein: false
         next: ".done"
       
-      scene.not_sorceress_comment:
+      scene.not_sorceress_comment_female:
         ".editor":
-          pos: [ 1703.0, 756.0 ]
+          pos: [ 1692.0, 764.0 ]
           in: [ not_sorceress ]
           out: [ Output ]
         scene: 02.magic_lines.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: false
+        next.Output:
+          - waituntil.Wait_crystal_examined
+      
+      scene.not_sorceress_comment_male:
+        ".editor":
+          pos: [ 1685.0, 643.0 ]
+          in: [ Input ]
+          out: [ Output ]
+        scene: 09.geralt_lines.yml
         placement: ~PLAYER
         interruptable: true
         _fadein: false
@@ -197,7 +218,7 @@ structure:
       
       scene.treatment_scene:
         ".editor":
-          pos: [ 5605.0, 1549.0 ]
+          pos: [ 5557.0, 1534.0 ]
           in: [ Input ]
           out: [ Output ]
         scene: 06.sorceress_treatment.yml
@@ -207,11 +228,22 @@ structure:
         next.Output:
           - script.reset_stone_activated_fact
           - addfact.Master_met_fact
-          - script.Fade_in_1s
+          - waituntil.wait_1s_a
+      
+      interaction.celestine_dg:
+        ".editor":
+          pos: [ 6534.0, 2176.0 ]
+          in: [ Input ]
+          out: [ Output ]
+        scene: 12.golem_dialog.yml
+        placement: ~PLAYER
+        interruptable: true
+        actor: [ nr_celestine ]
+        next: ".done"
       
       interaction.master_ready_to_study:
         ".editor":
-          pos: [ 3666.0, 1583.0 ]
+          pos: [ 3679.0, 1626.0 ]
           in: [ Input ]
           out: [ Output ]
         scene: 08.sorceress_study.yml
@@ -227,7 +259,7 @@ structure:
           in: [ In ]
           out: [ Out ]
         next:
-          - waituntil.check_time_range
+          - waituntil.wait_time_range
       
       waituntil.1s:
         elapsed: "00:00:01"
@@ -278,11 +310,11 @@ structure:
       waituntil.1s_e:
         elapsed: "00:00:01"
         ".editor":
-          pos: [ 3600.0, 2063.0 ]
+          pos: [ 3735.0, 2119.0 ]
           in: [ In ]
           out: [ Out ]
         next:
-          - script.Is_magic_stone_active_b
+          - script.Is_creating_golem
       
       waituntil.1s_f:
         elapsed: "00:00:01"
@@ -425,8 +457,7 @@ structure:
           pos: [ 6874.0, 1370.0 ]
           in: [ In ]
           out: [ Out ]
-        next:
-          - scene.stone_activated_comment: stone_activated
+        next: ".done"
       
       waituntil.7_s:
         elapsed: "00:00:07"
@@ -510,15 +541,6 @@ structure:
           out: [ Out ]
         next:
           - addfact.set_fact_stone_activated
-      
-      waituntil.check_time_range:
-        time: [ "18:00", "23:00" ]
-        ".editor":
-          pos: [ 6455.0, 914.0 ]
-          in: [ In ]
-          out: [ Out ]
-        next:
-          - script.check_auto_activate_stone_chance
       
       waituntil.fact_stop_mus_p2:
         factdb: [ nr_scene_treatment_mus_part2_play, ">=", 2 ]
@@ -651,11 +673,11 @@ structure:
       waituntil.ship_time_range:
         time: [ "00:00", "17:30" ]
         ".editor":
-          pos: [ 3403.0, 1898.0 ]
+          pos: [ 3374.0, 1888.0 ]
           in: [ In ]
           out: [ Out ]
         next:
-          - script.Is_magic_stone_active_b
+          - script.Is_creating_golem
       
       waituntil.stone_activated_fact:
         factdb: [ nr_magic_stone_activated, ">=", 1 ]
@@ -695,14 +717,23 @@ structure:
           - script.stop_mind_control
           - script.toxic_100_75
       
-      waituntil.wait_2s:
-        elapsed: "00:00:02"
+      waituntil.wait_1s_a:
+        elapsed: "00:00:01"
         ".editor":
-          pos: [ 1633.0, 614.0 ]
+          pos: [ 5757.0, 1608.0 ]
           in: [ In ]
           out: [ Out ]
         next:
-          - scene.not_sorceress_comment: not_sorceress
+          - script.Fade_in_2s
+      
+      waituntil.wait_2s:
+        elapsed: "00:00:02"
+        ".editor":
+          pos: [ 1672.0, 524.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.Is_Female
       
       waituntil.wait_inside_nb_area:
         inside: [ prologue/nb_area, PLAYER ]
@@ -729,7 +760,16 @@ structure:
           in: [ In ]
           out: [ Out ]
         next:
-          - waituntil.check_time_range
+          - waituntil.wait_time_range
+      
+      waituntil.wait_time_range:
+        time: [ "18:00", "23:00" ]
+        ".editor":
+          pos: [ 6455.0, 914.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.check_auto_activate_stone_chance
       
       script.Add_chameleon_potion:
         ".editor":
@@ -760,12 +800,12 @@ structure:
       
       script.ChangePlayer_Q:
         ".editor":
-          pos: [ 1596.0, -497.0 ]
+          pos: [ 1609.0, -498.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_ChangePlayer_Q
         next:
-          - script.Remove_scene_type_change_fact
+          - script.wait_500_ms_a
       
       script.Check_activated_before:
         ".editor":
@@ -811,14 +851,14 @@ structure:
         next:
           - script.reset_ship_portal_fact
       
-      script.Fade_in_1s:
+      script.Fade_in_2s:
         ".editor":
-          pos: [ 5863.0, 1547.0 ]
+          pos: [ 5904.0, 1526.0 ]
           in: [ In ]
           out: [ Out ]
         function: FadeInQuest
         parameter:
-          - fadeTime: 1.0
+          - fadeTime: 2.0
         next: ".done"
       
       script.Fade_out_half_sec:
@@ -848,7 +888,7 @@ structure:
       
       script.Hide_master_b:
         ".editor":
-          pos: [ 3763.0, 2016.0 ]
+          pos: [ 3931.0, 2039.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_HideMaster_Q
@@ -866,6 +906,17 @@ structure:
         next:
           - script.Add_chameleon_potion
       
+      script.Is_Female:
+        ".editor":
+          pos: [ 1530.0, 703.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_IsPlayerFemale_Q
+        next.False:
+          - scene.not_sorceress_comment_male: Input
+        next.True:
+          - scene.not_sorceress_comment_female: not_sorceress
+      
       script.Is_Sorceress:
         ".editor":
           pos: [ 2003.0, 877.0 ]
@@ -880,6 +931,21 @@ structure:
           - waituntil.1s_a
           - script.fade_out_1s
       
+      script.Is_creating_golem:
+        ".editor":
+          pos: [ 3552.0, 1962.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_CheckFactCond_Q
+        parameter:
+          - factName: nr_master_golem_in_process
+          - factCond: ">="
+          - factVal: 1
+        next.False:
+          - script.Is_magic_stone_active_b
+        next.True:
+          - waituntil.1s_e
+      
       script.Is_in_scene:
         ".editor":
           pos: [ 6530.0, 1220.0 ]
@@ -893,7 +959,7 @@ structure:
       
       script.Is_magic_stone_active_b:
         ".editor":
-          pos: [ 3591.0, 1955.0 ]
+          pos: [ 3724.0, 1999.0 ]
           in: [ In ]
           out: [ "False", "True" ]
         function: NR_CheckFactCond_Q
@@ -1028,14 +1094,14 @@ structure:
       
       script.Remove_scene_type_change_fact:
         ".editor":
-          pos: [ 1726.0, -385.0 ]
+          pos: [ 1721.0, -654.0 ]
           in: [ In ]
           out: [ Out ]
         function: RemoveFactQuest
         parameter:
           - factId: cname_nr_scene_player_change_requested
         next:
-          - script.wait_500_ms_a
+          - script.check_if_female
       
       script.Remove_setup_scene_fact:
         ".editor":
@@ -1208,7 +1274,7 @@ structure:
       
       script.Wait_half_sec_b:
         ".editor":
-          pos: [ 5427.0, 1458.0 ]
+          pos: [ 5407.0, 1456.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_Wait_Q
@@ -1244,7 +1310,6 @@ structure:
           - waituntil.1_real_sec
         next.True:
           - script.Is_in_scene
-          - script.new_logmsg
       
       script.check_if_female:
         ".editor":
@@ -1306,17 +1371,6 @@ structure:
           - waituntil.scene_meteors_spawn_fact
         next.True:
           - waituntil.1s_loop_b
-      
-      script.new_logmsg:
-        ".editor":
-          pos: [ 6856.0, 1180.0 ]
-          in: [ In ]
-          out: [ Out ]
-        function: radLog
-        parameter:
-          - logChannel: cname_NEWREPLACERS
-          - msg: MAGIC STONE AUTO ACTIVATION!
-        next: ".done"
       
       script.new_logmsg_2:
         ".editor":
@@ -1645,14 +1699,14 @@ structure:
       
       script.wait_500_ms_a:
         ".editor":
-          pos: [ 1739.0, -658.0 ]
+          pos: [ 1754.0, -414.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_Wait_Q
         parameter:
           - sec: 0.5
         next:
-          - script.check_if_female
+          - script.Remove_scene_type_change_fact
       
       changelayers.hide_extra_walls:
         ".editor":
@@ -1700,7 +1754,7 @@ structure:
       
       changelayers.show_extra_walls:
         ".editor":
-          pos: [ 3491.0, 576.0 ]
+          pos: [ 3510.0, 578.0 ]
           hint: show-only
           in: []
           out: []
@@ -1777,7 +1831,7 @@ structure:
       
       despawn.despawn_master_stone:
         ".editor":
-          pos: [ 3984.0, 2099.0 ]
+          pos: [ 4097.0, 2122.0 ]
           hint: despawn-only
           in: []
           out: []
@@ -1821,6 +1875,7 @@ structure:
           - script.Is_near_master
           - subsegment.TRAINING
           - waituntil.5_min
+          - subsegment.GOLEM_CRAFTING
       
       addfact.add_fact_stone_activated:
         ".editor": [ 4017.0, 886.0 ]

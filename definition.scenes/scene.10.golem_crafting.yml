@@ -1,0 +1,1646 @@
+#-- STORYBOARD UI - SCENE DUMP -------------------------------------------------
+repository:
+  actors:
+    nr_master_mage:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\nr_master_mage.w2ent"
+      appearance: [ "nr_master_mage" ]
+
+    sorceress:
+      template: "dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent"
+      # appearance: [ "triss" ]
+
+    nr_golem_celestine:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_golem_celestine_nosound.w2ent"
+      appearance: [ "nr_celestine", "nr_celestine_stone_morph", "nr_stone_tortilla_morph", "nr_ground_golem_stone_morph", "nr_fire_elemental_stone_morph" ]
+
+  props:
+    q403_meteorite_strong:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_q403_meteorite_strong.w2ent"
+
+  animations:
+    anim_100001_monster_elemental_tpose:
+      animation: "monster_elemental_tpose"
+      frames: 300
+
+    anim_6701_add_gesture_explain_12:
+      animation: "add_gesture_explain_12"
+      frames: 206
+
+    anim_8339_casting_and_holding_spell_start:
+      animation: "casting_and_holding_spell_start"
+      frames: 106
+
+    anim_12077_woman_sorceress_idle_rp_02:
+      animation: "woman_sorceress_idle_rp_02"
+      frames: 113
+
+    anim_8338_casting_and_holding_spell_loop_01:
+      animation: "casting_and_holding_spell_loop_01"
+      frames: 127
+
+    anim_12041_woman_sorceress_attack_rock_bhand_rp:
+      animation: "woman_sorceress_attack_rock_bhand_rp"
+      frames: 90
+
+    anim_8340_casting_and_holding_spell_stop:
+      animation: "casting_and_holding_spell_stop"
+      frames: 86
+
+    anim_10044_monster_elemental_cannonball_idle:
+      animation: "monster_elemental_cannonball_idle"
+      frames: 97
+
+    anim_10086_monster_elemental_wander_1:
+      animation: "monster_elemental_wander_1"
+      frames: 80
+
+    anim_6705_add_gesture_question_04:
+      animation: "add_gesture_question_04"
+      frames: 89
+
+    anim_10087_monster_elemental_wander_2:
+      animation: "monster_elemental_wander_2"
+      frames: 80
+
+    anim_10064_monster_elemental_idle:
+      animation: "monster_elemental_idle"
+      frames: 80
+
+    anim_10082_monster_elemental_taunt_1:
+      animation: "monster_elemental_taunt_1"
+      frames: 120
+
+    anim_10083_monster_elemental_taunt_2:
+      animation: "monster_elemental_taunt_2"
+      frames: 99
+
+    anim_7114_high_standing_determined_to_high_standing_aggressive:
+      animation: "high_standing_determined_to_high_standing_aggressive"
+      frames: 125
+
+    anim_6923_high_standing_aggressive_gesture_left_hand_flick_1:
+      animation: "high_standing_aggressive_gesture_left_hand_flick_1"
+      frames: 78
+
+    anim_6920_high_standing_aggressive_exit_leftside:
+      animation: "high_standing_aggressive_exit_leftside"
+      frames: 119
+
+    anim_12757_high_standing_sad_idle:
+      animation: "high_standing_sad_idle"
+      frames: 589
+
+    anim_8196_man_geralt_ex_hit:
+      animation: "man_geralt_ex_hit"
+      frames: 34
+
+    anim_12061_woman_sorceress_effect_knockdownfar_f_start:
+      animation: "woman_sorceress_effect_knockdownfar_f_start"
+      frames: 60
+
+    anim_6953_high_standing_bored_gesture_explaining_02:
+      animation: "high_standing_bored_gesture_explaining_02"
+      frames: 92
+
+    anim_12060_woman_sorceress_effect_knockdown_f_stop:
+      animation: "woman_sorceress_effect_knockdown_f_stop"
+      frames: 65
+
+    anim_10066_monster_elemental_move_idle_to_walk_l135:
+      animation: "monster_elemental_move_idle_to_walk_l135"
+      frames: 30
+
+    anim_10070_monster_elemental_move_idle_to_walk_r180:
+      animation: "monster_elemental_move_idle_to_walk_r180"
+      frames: 30
+
+  animations.mimic:
+    mimicsanim_338_nod_head_accent_face:
+      animation: "nod_head_accent_face"
+      frames: 55
+
+    mimicsanim_505_geralt_reaction_sad_face:
+      animation: "geralt_reaction_sad_face"
+      frames: 180
+
+  actor.poses:
+    pose_0_high_standing_determined_idle:
+      idle_anim: "high_standing_determined_idle"
+
+    pose_2127_High_Standing_Determined:
+      name: "Standing"
+      emotional_state: "Determined"
+      status: "High"
+      idle_anim: "high_standing_determined_idle"
+
+    pose_0_monster_elemental_idle:
+      idle_anim: "monster_elemental_idle"
+
+    pose_1_monster_elemental_tpose:
+      idle_anim: "monster_elemental_tpose"
+
+    pose_1625_casting_and_holding_spell_loop_01:
+      idle_anim: "casting_and_holding_spell_loop_01"
+
+    pose_879_woman_sorceress_idle_rp_02:
+      idle_anim: "woman_sorceress_idle_rp_02"
+
+    pose_2140_High_Standing_Sad:
+      name: "Standing"
+      emotional_state: "Sad"
+      status: "High"
+      idle_anim: "high_standing_sad_idle"
+
+    pose_2121_High_Standing_Aggressive:
+      name: "Standing"
+      emotional_state: "Aggressive"
+      status: "High"
+      idle_anim: "high_standing_aggressive_idle"
+
+    pose_2137_High_Standing_Bored:
+      name: "Standing"
+      emotional_state: "Bored"
+      status: "High"
+      idle_anim: "high_standing_bored_idle"
+
+  cameras:
+    cam_1_Shot1_intro:
+      fov: 40.0
+      transform:
+        pos: [ 6.6502680779, 17.6170635223, -0.2989196479 ]
+        rot: [ 0.0, 353.8250122070, 163.6947021484 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_2_Shot2b_mage_explains:
+      fov: 35.0
+      transform:
+        pos: [ 3.3243100643, 11.5646657944, -0.3489226997 ]
+        rot: [ 0.0, 355.6499938965, 185.3698730469 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 1.0, 5.0 ]
+        focus: [ 1.0, 5.0 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_3_Shot3_mage_cast_blend1:
+      fov: 35.0
+      transform:
+        pos: [ 5.1442561150, 12.1047048569, -0.3989257216 ]
+        rot: [ 0.0, 354.0749816895, 143.8950805664 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_4_Shot3_mage_cast_blend2:
+      fov: 35.0
+      transform:
+        pos: [ 5.1442561150, 12.1047048569, -0.3989257216 ]
+        rot: [ 0.0, 7.6749901772, 161.9193725586 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_5_Shot3_spell_choice:
+      fov: 35.0
+      transform:
+        pos: [ 5.9686121941, 9.4321584702, -0.3989257216 ]
+        rot: [ 0.0, 354.9750061035, 77.6443481445 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_6_Shot3_spell_phrase:
+      fov: 25.0
+      transform:
+        pos: [ 4.6816096306, 11.1918020248, -0.3989257216 ]
+        rot: [ 0.0, 356.0, 114.8938598633 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_7_Shot3_spell_flow_start:
+      fov: 35.0
+      transform:
+        pos: [ 5.0901942253, 16.6214580536, -0.3989257216 ]
+        rot: [ 0.0, 351.2250061035, 173.2452392578 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_8_Shot3_golem_morph:
+      fov: 35.0
+      transform:
+        pos: [ 0.5922698379, 12.6028738022, -0.1739120334 ]
+        rot: [ 0.0, 349.1749877930, 250.9454650879 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_9_Shot4_dg_to_golem:
+      fov: 35.0
+      transform:
+        pos: [ 1.1593474150, 11.6237783432, -0.3238753974 ]
+        rot: [ 0.0, 352.9750061035, 258.0212097168 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_10_Shot4_dg_wander2_sidecam:
+      fov: 35.0
+      transform:
+        pos: [ 1.7433012724, 13.7571096420, -0.3239211738 ]
+        rot: [ 0.0, 352.3750000000, 225.3703002930 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_11_Shot4_dg_to_mages:
+      fov: 30.0
+      transform:
+        pos: [ 5.0800166130, 13.3232107162, -0.4739302993 ]
+        rot: [ 0.0, 356.4750061035, 154.0197753906 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_14_Shot5_fail_tortilla_1:
+      fov: 35.0
+      transform:
+        pos: [ 1.1593474150, 11.6237783432, -0.3238753974 ]
+        rot: [ 0.0, 346.2999877930, 254.7963256836 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_17_Shot5_fail_explode_1:
+      fov: 40.0
+      transform:
+        pos: [ 0.1350555271, 12.1052846909, 0.0760803148 ]
+        rot: [ 0.0, 348.5750122070, 252.9958190918 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_18_Shot5_fail_explode_2:
+      fov: 40.0
+      transform:
+        pos: [ 0.1350555271, 12.1052846909, 0.0760803148 ]
+        rot: [ 0.0, 346.7000122070, 224.2711791992 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_19_Shot4_dg_to_stone_blend1:
+      fov: 40.0
+      transform:
+        pos: [ 0.4356078804, 11.6112661362, -0.4739302993 ]
+        rot: [ 0.0, 354.1000061035, 257.7699584961 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_21_Shot4_dg_to_stone_blend2:
+      fov: 30.0
+      transform:
+        pos: [ 0.4356078804, 11.6112661362, -0.4739302993 ]
+        rot: [ 0.0, 357.9750061035, 281.1950073242 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+    cam_22_Shot4_dg_red_alert:
+      fov: 30.0
+      transform:
+        pos: [ 8.1107168198, 15.8029165268, -0.4739302993 ]
+        rot: [ 0.0, 356.4750061035, 144.3945312500 ]
+      zoom: 0.0
+      dof:
+        aperture: [ 28.2495002747, 1.2700699568 ]
+        blur: [ 2.0836489201, 5.0836486816 ]
+        focus: [ 2.5836489201, 3.5836489201 ]
+        intensity: 0.2500000000
+      event_generator:
+        plane: "Medium"
+        tags: [ "ext" ]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 820
+
+  placement: "newreplacers_prologue_ship_sp"
+    # INFO: world coordinates of used origin:
+      #pos: [ -246.2030029297, -320.9024963379, 43.0 ]
+      #rot: [ 0.0, 0.0, 0.0 ]
+
+  assets:
+    actors:
+      nr_master_mage:
+        repo: "nr_master_mage"
+        #by_voicetag: true
+        appearance: "nr_master_mage"
+        tags: [ "nr_master_mage" ]
+
+      sorceress:
+        repo: "sorceress"
+        by_voicetag: false
+        tags: [ "PLAYER" ]
+
+      nr_golem_celestine:
+        repo: "nr_golem_celestine"
+        #by_voicetag: true
+        appearance: "nr_celestine_stone_morph"
+        tags: [ "nr_celestine" ]
+
+    props:
+      q403_meteorite_strong:
+        repo: "q403_meteorite_strong"
+
+    cameras:
+      cam_1_Shot1_intro:
+        repo: "cam_1_Shot1_intro"
+
+      cam_2_Shot2b_mage_explains:
+        repo: "cam_2_Shot2b_mage_explains"
+
+      cam_3_Shot3_mage_cast_blend1:
+        repo: "cam_3_Shot3_mage_cast_blend1"
+
+      cam_4_Shot3_mage_cast_blend2:
+        repo: "cam_4_Shot3_mage_cast_blend2"
+
+      cam_5_Shot3_spell_choice:
+        repo: "cam_5_Shot3_spell_choice"
+
+      cam_6_Shot3_spell_phrase:
+        repo: "cam_6_Shot3_spell_phrase"
+
+      cam_7_Shot3_spell_flow_start:
+        repo: "cam_7_Shot3_spell_flow_start"
+
+      cam_8_Shot3_golem_morph:
+        repo: "cam_8_Shot3_golem_morph"
+
+      cam_9_Shot4_dg_to_golem:
+        repo: "cam_9_Shot4_dg_to_golem"
+
+      cam_10_Shot4_dg_wander2_sidecam:
+        repo: "cam_10_Shot4_dg_wander2_sidecam"
+
+      cam_11_Shot4_dg_to_mages:
+        repo: "cam_11_Shot4_dg_to_mages"
+
+      cam_14_Shot5_fail_tortilla_1:
+        repo: "cam_14_Shot5_fail_tortilla_1"
+
+      cam_17_Shot5_fail_explode_1:
+        repo: "cam_17_Shot5_fail_explode_1"
+
+      cam_18_Shot5_fail_explode_2:
+        repo: "cam_18_Shot5_fail_explode_2"
+
+      cam_19_Shot4_dg_to_stone_blend1:
+        repo: "cam_19_Shot4_dg_to_stone_blend1"
+
+      cam_21_Shot4_dg_to_stone_blend2:
+        repo: "cam_21_Shot4_dg_to_stone_blend2"
+
+      cam_22_Shot4_dg_red_alert:
+        repo: "cam_22_Shot4_dg_red_alert"
+
+    animations:
+      nr_golem_celestine_monster_elemental_tpose:
+        actor: "nr_golem_celestine"
+        repo: "anim_100001_monster_elemental_tpose"
+        #duration: 10.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_add_gesture_explain_12:
+        actor: "nr_master_mage"
+        repo: "anim_6701_add_gesture_explain_12"
+        #duration: 6.8666667938
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_casting_and_holding_spell_start:
+        actor: "nr_master_mage"
+        repo: "anim_8339_casting_and_holding_spell_start"
+        #duration: 3.5333333015
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_idle_rp_02:
+        actor: "sorceress"
+        repo: "anim_12077_woman_sorceress_idle_rp_02"
+        #duration: 3.7666666508
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_casting_and_holding_spell_loop_01:
+        actor: "nr_master_mage"
+        repo: "anim_8338_casting_and_holding_spell_loop_01"
+        #duration: 4.2333331108
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_attack_rock_bhand_rp:
+        actor: "sorceress"
+        repo: "anim_12041_woman_sorceress_attack_rock_bhand_rp"
+        #duration: 3.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_casting_and_holding_spell_stop:
+        actor: "nr_master_mage"
+        repo: "anim_8340_casting_and_holding_spell_stop"
+        #duration: 2.8666665554
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_cannonball_idle:
+        actor: "nr_golem_celestine"
+        repo: "anim_10044_monster_elemental_cannonball_idle"
+        #duration: 3.2333333492
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_wander_1:
+        actor: "nr_golem_celestine"
+        repo: "anim_10086_monster_elemental_wander_1"
+        #duration: 2.6666667461
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_add_gesture_question_04:
+        actor: "nr_master_mage"
+        repo: "anim_6705_add_gesture_question_04"
+        #duration: 2.9666666985
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_wander_2:
+        actor: "nr_golem_celestine"
+        repo: "anim_10087_monster_elemental_wander_2"
+        #duration: 2.6666667461
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_idle:
+        actor: "nr_golem_celestine"
+        repo: "anim_10064_monster_elemental_idle"
+        #duration: 2.6666667461
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_taunt_1:
+        actor: "nr_golem_celestine"
+        repo: "anim_10082_monster_elemental_taunt_1"
+        #duration: 4.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_taunt_2:
+        actor: "nr_golem_celestine"
+        repo: "anim_10083_monster_elemental_taunt_2"
+        #duration: 3.2999999523
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_high_standing_determined_to_high_standing_aggressive:
+        actor: "nr_master_mage"
+        repo: "anim_7114_high_standing_determined_to_high_standing_aggressive"
+        #duration: 4.1666665077
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_high_standing_aggressive_gesture_left_hand_flick_1:
+        actor: "nr_master_mage"
+        repo: "anim_6923_high_standing_aggressive_gesture_left_hand_flick_1"
+        #duration: 2.5999999046
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_high_standing_aggressive_exit_leftside:
+        actor: "nr_master_mage"
+        repo: "anim_6920_high_standing_aggressive_exit_leftside"
+        #duration: 3.9666666985
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_high_standing_sad_idle:
+        actor: "sorceress"
+        repo: "anim_12757_high_standing_sad_idle"
+        #duration: 19.6333332062
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_man_geralt_ex_hit:
+        actor: "nr_master_mage"
+        repo: "anim_8196_man_geralt_ex_hit"
+        #duration: 1.1333333254
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_effect_knockdownfar_f_start:
+        actor: "sorceress"
+        repo: "anim_12061_woman_sorceress_effect_knockdownfar_f_start"
+        #duration: 2.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_master_mage_high_standing_bored_gesture_explaining_02:
+        actor: "nr_master_mage"
+        repo: "anim_6953_high_standing_bored_gesture_explaining_02"
+        #duration: 3.0666666031
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_woman_sorceress_effect_knockdown_f_stop:
+        actor: "sorceress"
+        repo: "anim_12060_woman_sorceress_effect_knockdown_f_stop"
+        #duration: 2.1666667461
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_move_idle_to_walk_l135:
+        actor: "nr_golem_celestine"
+        repo: "anim_10066_monster_elemental_move_idle_to_walk_l135"
+        #duration: 1.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_move_idle_to_walk_r180:
+        actor: "nr_golem_celestine"
+        repo: "anim_10070_monster_elemental_move_idle_to_walk_r180"
+        #duration: 1.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+    animations.mimic:
+      sorceress_nod_head_accent_face:
+        actor: "sorceress"
+        repo: "mimicsanim_338_nod_head_accent_face"
+        #duration: 0.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.5000000000
+        blendout: 0.5000000000
+
+      sorceress_geralt_reaction_sad_face:
+        actor: "sorceress"
+        repo: "mimicsanim_505_geralt_reaction_sad_face"
+        #duration: 0.0
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.5000000000
+        blendout: 0.5000000000
+
+    actor.poses:
+      nr_master_mage_high_standing_determined_idle:
+        actor: "nr_master_mage"
+        repo: "pose_0_high_standing_determined_idle"
+
+      sorceress_High_Standing_Determined:
+        actor: "sorceress"
+        repo: "pose_2127_High_Standing_Determined"
+
+      nr_golem_celestine_monster_elemental_idle:
+        actor: "nr_golem_celestine"
+        repo: "pose_0_monster_elemental_idle"
+
+      nr_golem_celestine_monster_elemental_tpose_pose:
+        actor: "nr_golem_celestine"
+        repo: "pose_1_monster_elemental_tpose"
+
+      nr_master_mage_casting_and_holding_spell_loop_01:
+        actor: "nr_master_mage"
+        repo: "pose_1625_casting_and_holding_spell_loop_01"
+
+      sorceress_woman_sorceress_idle_rp_02:
+        actor: "sorceress"
+        repo: "pose_879_woman_sorceress_idle_rp_02"
+
+      sorceress_High_Standing_Sad:
+        actor: "sorceress"
+        repo: "pose_2140_High_Standing_Sad"
+
+      nr_master_mage_High_Standing_Aggressive:
+        actor: "nr_master_mage"
+        repo: "pose_2121_High_Standing_Aggressive"
+
+      nr_master_mage_High_Standing_Bored:
+        actor: "nr_master_mage"
+        repo: "pose_2137_High_Standing_Bored"
+
+    soundbanks:
+      - magic_djinn  # magic_djinn_sq202_02_djinn_appears
+      - magic_sorceress  # magic_sorceress_vfx_lightning_bolt, magic_sorceress_vfx_lightning_fx_loop_start, magic_sorceress_vfx_lightning_fx_loop_stop
+      # - magic_geralt  # magic_geralt_healing_loop, magic_geralt_healing_loop_end
+      - monster_golem_ice  # monster_golem_ice_mv_recover
+      - monster_golem_ifryt  # monster_golem_ifryt_mv_recover
+      - monster_golem_dao  # monster_golem_dao_mv_recover
+
+    mimics:
+      nr_master_mage_focused:
+        actor: nr_master_mage
+        repo: focused
+        duration: 1.0
+        weight: 0.8
+
+storyboard:
+  defaults:
+    placement:
+      nr_master_mage: [[ 3.9106290340, 9.5011892319, -2.0427739620 ], [ 0.0, 0.0, 350.0 ]]
+      sorceress: [[ 3.2008969784, 10.6802968979, -2.0187604427 ], [ 0.0, 0.0, 300.0 ]]
+      nr_golem_celestine: [[ 5.7895503044, 11.7545766830, -2.4932706356 ], [ 0.0, 0.0, 109.7999725342 ]]
+      # - actor.placement: [0.0, nr_master_mage, [ 3.9106290340, 9.5011892319, -2.0427739620 ], [ 0.0, 0.0, 350.5000000000 ]]
+      # - actor.placement: [0.0, sorceress, [ 3.1558835506, 10.6427602768, -2.0187604427 ], [ 0.0, 0.0, 296.5000305176 ]]
+
+    actor.pose:
+      nr_master_mage: nr_master_mage_casting_and_holding_spell_loop_01
+      sorceress: sorceress_woman_sorceress_idle_rp_02
+      nr_golem_celestine: nr_golem_celestine_monster_elemental_tpose_pose
+
+
+  section_start:
+    # shot Shot1 intro
+    shot_1:
+      # diff pose and placement at start
+      - actor.placement: [0.0, nr_master_mage, [ 3.9106290340, 9.5011892319, -2.0427739620 ], [ 0.0, 0.0, 329.0 ]]
+      - actor.placement: [0.0, sorceress, [ 3.2008969784, 10.6802968979, -2.0187604427 ], [ 0.0, 0.0, 257.3000183105 ]]
+      - actor.placement: [0.0, nr_golem_celestine, [ 5.7895503044, 11.7545766830, -2.4932706356 ], [ 0.0, 0.0, 142.6005859375 ]]
+      - actor.pose: [0.0, nr_master_mage_high_standing_determined_idle]
+      - actor.pose: [0.0, sorceress_High_Standing_Determined]
+      - cam: [0.0, cam_1_Shot1_intro]
+      - world.weather: [0.0, WT_Clear, 0]
+      - fade.in: [0.0, 1.0]
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+
+    # shot Shot2b mage explains
+    shot_2:
+      # - actor.placement: [0.0, nr_golem_celestine, [ 5.7895503044, 11.7545766830, -2.4932706356 ], [ 0.0, 0.0, 115.4999694824 ]]
+      - cam: [0.0, cam_2_Shot2b_mage_explains]
+      - actor.anim.additive: 
+          .@pos: [0.25, nr_master_mage_add_gesture_explain_12]
+          blendin: 0.5
+          blendout: 0.5
+
+      - actor.anim.mimic: 
+          .@pos: [0.75, sorceress_nod_head_accent_face]
+          blendin: 0.3
+          blendout: 0.3
+
+      - actor.lookat: [0.05, nr_master_mage, sorceress]
+      - actor.lookat: [0.2, sorceress, nr_master_mage]
+
+    # shot Shot3 mage cast blend1
+    shot_3:
+      - cam.blend.start: [0.0, cam_3_Shot3_mage_cast_blend1, smooth]
+      # - world.weather: [0.0, WT_Heavy_Clouds, 7]
+      - world.weather: [0.0, WT_Rain_Storm, 7]
+
+      - actor.anim: 
+          .@pos: [0.0, nr_master_mage_casting_and_holding_spell_start]
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_master_mage_casting_and_holding_spell_loop_01]
+      - actor.lookat: [0.5, nr_master_mage, nr_golem_celestine]    
+
+    # shot Shot3 mage cast blend2
+    shot_4a:
+      - actor.effect.start: [0.0, nr_master_mage, q303_hand_fx_l]
+      # - actor.effect.stop: [0.7, nr_master_mage, generic_spell_lh]
+
+      - cam.blend.end: [0.8, cam_4_Shot3_mage_cast_blend2, smooth]
+      - actor.sound: [0.8, nr_master_mage, magic_djinn_sq202_02_djinn_appears]
+      # - actor.anim: [0.0, nr_master_mage_casting_and_holding_spell_loop_01]
+      # - actor.anim: [0.0, sorceress_woman_sorceress_idle_rp_02]
+      - actor.anim: 
+          .@pos: [0.0, sorceress_woman_sorceress_idle_rp_02]
+          blendin: 1.0
+          blendout: 0.5
+      - actor.pose: [0.5, sorceress_woman_sorceress_idle_rp_02]
+
+    shot_4b:
+      - world.addfact: [0.05, nr_scene_crafting_thunder, 1]
+      - world.addfact: [0.82, nr_scene_crafting_thunder, 1]
+
+    shot_4c:
+      - world.addfact: [0.16, nr_scene_crafting_thunder, 1]
+      - world.addfact: [0.43, nr_scene_crafting_thunder, 1]
+      - world.addfact: [0.84, nr_scene_crafting_thunder, 1]
+      - world.addfact: [0.91, nr_scene_crafting_thunder, 1]
+      - world.addfact: [0.95, nr_scene_crafting_thunder, 1]
+
+      - actor.lookat: [0.95, nr_master_mage, sorceress]
+
+
+  section_choice_spell:
+    # shot Shot3 spell choice
+    CHOICE_1:
+      # - cam: [0.0, cam_5_Shot3_spell_choice]
+      - cam: [0.0, cam_7_Shot3_spell_flow_start]
+      - actor.effect.start: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      - actor.lookat: [0.0, nr_master_mage, sorceress]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+
+
+  section_spell_water:
+    # shot Shot3 spell phrase
+    shot_common_1w:
+      - cam: [0.0, cam_6_Shot3_spell_phrase]
+      - actor.effect.start: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      - actor.appearance: [0.0, nr_golem_celestine, nr_stone_tortilla_morph]
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+      - cam.blend.start: [0.8, cam_7_Shot3_spell_flow_start, smooth]
+      - actor.effect.stop: [0.9, sorceress, hand_fx_yennefer_seagreen]
+      - actor.effect.start: [0.9, sorceress, q210_portal_spell_blue]
+
+    # shot Shot3 spell flow start
+    shot_common_2w:
+      # - actor.placement: [0.0, nr_master_mage, [ 3.9106290340, 9.5011892319, -2.0427739620 ], [ 0.0, 0.0, 333.1000061035 ]]
+      # - actor.effect.start: [0.0, sorceress, energy_flow_water_r]
+      # - actor.effect.stop: [1.0, sorceress, energy_flow_water_r]
+
+      - actor.anim: # 3.0s, Shoot event at 1.9s -> # 3.6s, Shoot event at 2.28s
+          .@pos: [0.0, sorceress_woman_sorceress_attack_rock_bhand_rp]
+          blendin: 0.4
+          blendout: 0.4
+          stretch: 1.2
+
+      # 1.5 -> 2.1
+      # R: water = 1, earth = 2, fire = 4, air = 8
+      # L: water = 16, earth = 32, fire = 64, air = 128
+      
+      - world.addfact: [0.5, nr_scene_crafting_flow_fx, 17]
+      - world.addfact: [0.7, nr_scene_crafting_flow_fx, -17]
+      - actor.effect.stop: [0.75, sorceress, q210_portal_spell_blue]
+      - actor.effect.start: [0.75, sorceress, hand_fx_yennefer_seagreen]
+
+      # Morph lasts 2s
+      - world.addfact: [0.6, nr_scene_crafting_morph, 1]
+      - actor.sound: [0.5, nr_golem_celestine, set_monster_golem_ice_armour_type_monster_ice]
+      - actor.sound: [0.6, nr_golem_celestine, monster_golem_ice_mv_recover]
+
+    # shot Shot3 golem morph
+    shot_common_3w:
+      - cam.blend.end: [0.5, cam_8_Shot3_golem_morph, smooth]
+      # - actor.anim:
+      #    .@pos: [0.0, nr_golem_celestine_monster_elemental_cannonball_idle]
+      #    blendin: 0.5
+      #    blendout: 0.5
+      # - actor.pose: [0.0, nr_golem_celestine_monster_elemental_idle]
+      # - actor.effect.start: [0.0, nr_golem_celestine, trail_spawn]
+      - world.addfact: [0.1, nr_scene_crafting_thunder, -7]
+      - actor.anim:
+          .@pos: [0.0, nr_master_mage_casting_and_holding_spell_stop]
+          # clipfront: 0.5
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_master_mage_high_standing_determined_idle]
+
+      # - actor.placement: [0.0, nr_golem_celestine, [ 5.7895503044, 11.7545766830, -2.4932706356 ], [ 0.0, 0.0, 99.3999862671 ]]
+      - actor.lookat: [0.5, nr_master_mage, sorceress]
+      - actor.lookat: [0.8, sorceress, nr_master_mage]
+
+    # shot Shot5 fail tortilla 1
+    shot_water_1:
+      - cam: [0.0, cam_14_Shot5_fail_tortilla_1]
+
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+      - actor.anim:
+          .@pos: [0.0, sorceress_high_standing_sad_idle]
+          blendin: 1.0
+          blendout: 0.5
+          clipend: 1.0
+      - actor.effect.stop: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      - actor.pose: [0.5, sorceress_High_Standing_Sad]
+      
+      - actor.anim: 
+          .@pos: [0.0, nr_master_mage_high_standing_determined_to_high_standing_aggressive]
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_master_mage_High_Standing_Aggressive]
+
+    # shot Shot5 fail tortilla 2
+    shot_water_2:
+      - actor.anim.additive:
+          .@pos: [0.0, nr_master_mage_high_standing_aggressive_gesture_left_hand_flick_1]
+          blendin: 0.5
+          blendout: 0.5
+      - actor.effect.start: [0.15, nr_master_mage, generic_spell_lh]
+      - actor.effect.stop: [0.55, nr_master_mage, generic_spell_lh]
+      - actor.effect.start: [0.3, nr_golem_celestine, death_no_particles]
+      # - actor.hide: [0.9, nr_golem_celestine]
+
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+
+    shot_water_fade:
+      - fade.out: [0.0, 0.5]
+
+    # shot Shot5 fail tortilla 3 unused
+    # shot_water_3:
+    #  - actor.anim: [0.0, nr_master_mage_high_standing_aggressive_exit_leftside]
+    #  - actor.anim: [0.0, sorceress_high_standing_sad_idle]
+    #  - actor.anim: [0.0, nr_golem_celestine_monster_elemental_tpose]
+    #  - actor.anim.mimic: [0.0, sorceress_geralt_reaction_sad_face]
+    #  - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+    #  - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+
+
+  section_spell_earth:
+    # shot Shot3 spell phrase
+    shot_common_1e:
+      - cam: [0.0, cam_6_Shot3_spell_phrase]
+      - actor.effect.start: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      - actor.appearance: [0.0, nr_golem_celestine, nr_ground_golem_stone_morph]
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+      - cam.blend.start: [0.8, cam_7_Shot3_spell_flow_start, smooth]
+      - actor.effect.stop: [0.9, sorceress, hand_fx_yennefer_seagreen]
+      - actor.effect.start: [0.9, sorceress, q210_portal_spell_yellow]
+
+    # shot Shot3 spell flow start
+    shot_common_2e:
+      # - actor.placement: [0.0, nr_master_mage, [ 3.9106290340, 9.5011892319, -2.0427739620 ], [ 0.0, 0.0, 333.1000061035 ]]
+      # - actor.effect.start: [0.0, sorceress, energy_flow_water_r]
+      # - actor.effect.stop: [1.0, sorceress, energy_flow_water_r]
+      
+      - actor.anim: # 3.0s, Shoot event at 1.9s -> # 3.6s, Shoot event at 2.28s
+          .@pos: [0.0, sorceress_woman_sorceress_attack_rock_bhand_rp]
+          blendin: 0.4
+          blendout: 0.4
+          stretch: 1.2
+
+      # 1.5 -> 3.0
+      # R: water = 1, earth = 2, fire = 4, air = 8
+      # L: water = 16, earth = 32, fire = 64, air = 128
+      - world.addfact: [0.5, nr_scene_crafting_flow_fx, 34]
+      - world.addfact: [0.7, nr_scene_crafting_flow_fx, -34]
+      - actor.effect.stop: [0.75, sorceress, q210_portal_spell_yellow]
+      - actor.effect.start: [0.75, sorceress, hand_fx_yennefer_seagreen]
+
+      # Morph lasts 2s
+      - world.addfact: [0.6, nr_scene_crafting_morph, 1]
+      - actor.sound: [0.5, nr_golem_celestine, set_monster_golem_dao_armour_type_monster_stone]
+      - actor.sound: [0.6, nr_golem_celestine, monster_golem_dao_mv_recover]
+      
+
+    # shot Shot3 golem morph
+    shot_common_3e:
+      - cam.blend.end: [0.5, cam_8_Shot3_golem_morph, smooth]
+      - actor.anim:
+          .@pos: [0.25, nr_golem_celestine_monster_elemental_cannonball_idle]
+          clipfront: 1.0
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_golem_celestine_monster_elemental_idle]
+      # - actor.effect.start: [0.25, nr_golem_celestine, trail_spawn]
+      # - actor.effect.stop: [0.5, nr_golem_celestine, trail_spawn]
+      - world.addfact: [0.1, nr_scene_crafting_thunder, -7]
+      - actor.anim:
+          .@pos: [0.0, nr_master_mage_casting_and_holding_spell_stop]
+          # clipfront: 0.5
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_master_mage_high_standing_determined_idle]
+
+      # - actor.placement: [0.0, nr_golem_celestine, [ 5.7895503044, 11.7545766830, -2.4932706356 ], [ 0.0, 0.0, 99.3999862671 ]]
+      - actor.lookat: [0.5, nr_master_mage, sorceress]
+      - actor.lookat: [0.8, sorceress, nr_master_mage]
+
+    shot_earth_1:
+      - actor.placement: [0.0, nr_golem_celestine, [ 5.7895503044, 11.7545766830, -2.4932706356 ], [ 0.0, 0.0, 109.7999725342 ]]
+      - cam: [0.0, cam_9_Shot4_dg_to_golem]
+      - actor.anim: 
+          .@pos: [0.0, nr_golem_celestine_monster_elemental_taunt_1]
+          blendin: 0.5
+          blendout: 0.5
+          motionExtraction: true
+
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+
+      - actor.lookat: [0.4, sorceress, nr_golem_celestine]
+      
+      - actor.anim: 
+          .@pos: [0.0, nr_master_mage_high_standing_determined_to_high_standing_aggressive]
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_master_mage_High_Standing_Aggressive]
+
+    shot_earth_fade:
+      - actor.effect.stop: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      - fade.out: [0.0, 0.5]
+
+
+  section_spell_fire_earth:
+    # shot Shot3 spell phrase
+    shot_common_1fe:
+      - cam: [0.0, cam_6_Shot3_spell_phrase]
+      - actor.effect.start: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      - actor.appearance: [0.0, nr_golem_celestine, nr_fire_elemental_stone_morph]
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+      - cam.blend.start: [0.8, cam_7_Shot3_spell_flow_start, smooth]
+      - actor.effect.stop: [0.9, sorceress, hand_fx_yennefer_seagreen]
+      - actor.effect.start: [0.9, sorceress, q210_portal_spell_orange]
+
+    # shot Shot3 spell flow start
+    shot_common_2fe:
+      # - actor.placement: [0.0, nr_master_mage, [ 3.9106290340, 9.5011892319, -2.0427739620 ], [ 0.0, 0.0, 333.1000061035 ]]
+      # - actor.effect.start: [0.0, sorceress, energy_flow_water_r]
+      # - actor.effect.stop: [1.0, sorceress, energy_flow_water_r]
+
+      - actor.anim: # 3.0s, Shoot event at 1.9s -> # 3.6s, Shoot event at 2.28s
+          .@pos: [0.0, sorceress_woman_sorceress_attack_rock_bhand_rp]
+          blendin: 0.4
+          blendout: 0.4
+          stretch: 1.2
+
+      # 1.5 -> 3.0
+      # R: water = 1, earth = 2, fire = 4, air = 8
+      # L: water = 16, earth = 32, fire = 64, air = 128
+      - world.addfact: [0.5, nr_scene_crafting_flow_fx, 36]
+      - world.addfact: [0.7, nr_scene_crafting_flow_fx, -36]
+      - actor.effect.stop: [0.75, sorceress, q210_portal_spell_orange]
+      - actor.effect.start: [0.75, sorceress, hand_fx_yennefer_seagreen]
+
+      # Morph lasts 2s
+      - world.addfact: [0.6, nr_scene_crafting_morph, 1]
+      - actor.sound: [0.5, nr_golem_celestine, set_monster_golem_ifryt_armour_type_monster_stone]
+      - actor.sound: [0.6, nr_golem_celestine, monster_golem_ifryt_mv_recover]
+
+    # shot Shot3 golem morph
+    shot_common_3fe:
+      - cam.blend.end: [0.5, cam_8_Shot3_golem_morph, smooth]
+      - actor.anim:
+          .@pos: [0.25, nr_golem_celestine_monster_elemental_cannonball_idle]
+          clipfront: 1.0
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_golem_celestine_monster_elemental_idle]
+      # - actor.effect.start: [0.25, nr_golem_celestine, trail_spawn]
+      # - actor.effect.stop: [0.5, nr_golem_celestine, trail_spawn]
+      - world.addfact: [0.1, nr_scene_crafting_thunder, -7]
+      - actor.anim:
+          .@pos: [0.0, nr_master_mage_casting_and_holding_spell_stop]
+          # clipfront: 0.5
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_master_mage_high_standing_determined_idle]
+
+      # - actor.placement: [0.0, nr_golem_celestine, [ 5.7895503044, 11.7545766830, -2.4932706356 ], [ 0.0, 0.0, 99.3999862671 ]]
+      - actor.lookat: [0.5, nr_master_mage, sorceress]
+      - actor.lookat: [0.8, sorceress, nr_master_mage]
+
+    shot_fire_earth_1:
+      - actor.placement: [0.0, nr_golem_celestine, [ 5.7895503044, 11.7545766830, -2.4932706356 ], [ 0.0, 0.0, 109.7999725342 ]]
+      - cam: [0.0, cam_9_Shot4_dg_to_golem]
+      - actor.anim: 
+          .@pos: [0.0, nr_golem_celestine_monster_elemental_taunt_2]
+          blendin: 0.5
+          blendout: 0.5
+          motionExtraction: true
+
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+
+      - actor.lookat: [0.4, sorceress, nr_golem_celestine]
+      
+      - actor.anim: 
+          .@pos: [0.0, nr_master_mage_high_standing_determined_to_high_standing_aggressive]
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_master_mage_High_Standing_Aggressive]
+
+    shot_fire_earth_fade:
+      - actor.effect.stop: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      - fade.out: [0.0, 0.5]
+
+
+  section_spell_air_earth:
+    # shot Shot3 spell phrase
+    shot_common_1ae:
+      - cam: [0.0, cam_6_Shot3_spell_phrase]
+      - actor.effect.start: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      - actor.appearance: [0.0, nr_golem_celestine, nr_ground_golem_stone_morph]
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+      - cam.blend.start: [0.8, cam_7_Shot3_spell_flow_start, smooth]
+      - actor.effect.stop: [0.9, sorceress, hand_fx_yennefer_seagreen]
+      - actor.effect.start: [0.9, sorceress, q210_portal_spell_white]
+
+    # shot Shot3 spell flow start
+    shot_common_2ae:
+      # - actor.placement: [0.0, nr_master_mage, [ 3.9106290340, 9.5011892319, -2.0427739620 ], [ 0.0, 0.0, 333.1000061035 ]]
+      # - actor.effect.start: [0.0, sorceress, energy_flow_water_r]
+      # - actor.effect.stop: [1.0, sorceress, energy_flow_water_r]
+      
+      - actor.anim: # 3.0s, Shoot event at 1.9s -> # 3.6s, Shoot event at 2.28s
+          .@pos: [0.0, sorceress_woman_sorceress_attack_rock_bhand_rp]
+          blendin: 0.4
+          blendout: 0.4
+          stretch: 1.2
+
+      # 1.5 -> 3.0
+      # R: water = 1, earth = 2, fire = 4, air = 8
+      # L: water = 16, earth = 32, fire = 64, air = 128
+      - world.addfact: [0.5, nr_scene_crafting_flow_fx, 40]
+      - world.addfact: [0.7, nr_scene_crafting_flow_fx, -40]
+      - actor.effect.stop: [0.75, sorceress, q210_portal_spell_white]
+      - actor.effect.start: [0.75, sorceress, hand_fx_yennefer_seagreen]
+
+    # shot Shot3 golem morph
+    shot_air_earth_1:
+      - cam.blend.key: [0.0, cam_8_Shot3_golem_morph]
+      - world.addfact: [0.0, nr_scene_crafting_thunder, -7]
+      - actor.effect.start: [0.0, nr_golem_celestine, attack_special]
+
+      - prop.placement: [0.0, q403_meteorite_strong, [ 5.7895503044, 11.7545766830, -2.0 ], [ 0.0, 0.0, 142.6005859375 ]]
+      - prop.effect.start: [0.0, q403_meteorite_strong, smoke]
+      - prop.effect.start: [0.0, q403_meteorite_strong, explosion]
+           
+      - actor.anim:
+          .@pos: [0.05, nr_master_mage_man_geralt_ex_hit]
+          blendin: 0.2
+          blendout: 0.0
+          motionExtraction: true
+
+      - actor.effect.stop: [0.05, sorceress, hand_fx_yennefer_seagreen]
+      - actor.anim:
+          .@pos: [0.05, sorceress_woman_sorceress_effect_knockdownfar_f_start]
+          blendin: 0.2
+          blendout: 0.0
+          motionExtraction: true
+
+      - cam.blend.end: [0.1, cam_17_Shot5_fail_explode_1, rapid]
+      - prop.effect.stop: [0.1, q403_meteorite_strong, smoke]
+      - actor.hide: [0.1, nr_golem_celestine]
+
+    shot_air_earth_fade:
+      - fade.out: [0.0, 0.5]
+
+    # shot Shot5 fail explode 2
+    # shot_air_2_unused:
+    #  - actor.placement: [0.0, nr_master_mage, [ 3.2735440731, 8.1990957260, -2.0427739620 ], [ 0.0, 0.0, 49.9999961853 ]]
+    #  - actor.placement: [0.0, sorceress, [ 1.0214079618, 9.6302785873, -1.6310002804 ], [ 0.0, 0.0, 270.7000122070 ]]
+    #  - actor.pose: [0.0, nr_master_mage_High_Standing_Bored]
+    #  - actor.pose: [0.0, sorceress_High_Standing_Sad]
+    #  - actor.effect.start: [0.0, nr_golem_celestine, attack_special]
+    #  - actor.effect.stop: [1.0, nr_golem_celestine, attack_special]
+    #  - prop.placement: [0.0, q403_meteorite_strong, [ -4.4197535515, 12.1712942123, -1.3928335905 ], [ 0.0, 0.0, 0.0 ]]
+    #  - prop.effect.start: [0.0, q403_meteorite_strong, smoke]
+    #  - prop.effect.stop: [1.0, q403_meteorite_strong, smoke]
+    #  - cam: [0.0, cam_18_Shot5_fail_explode_2]
+    #  - actor.anim: [0.0, nr_master_mage_high_standing_bored_gesture_explaining_02]
+    #  - actor.anim: [0.0, sorceress_woman_sorceress_effect_knockdown_f_stop]
+    #  - actor.anim: [0.0, nr_golem_celestine_monster_elemental_tpose]
+    #  - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+    #  - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+
+
+  section_spell_water_earth:
+        # shot Shot3 spell phrase
+    shot_common_1we:
+      - cam: [0.0, cam_6_Shot3_spell_phrase]
+      - actor.effect.start: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      # - actor.placement: [0.0, nr_golem_celestine, [ 5.7895503044, 11.7545766830, -2.4932706356 ], [ 0.0, 0.0, 109.7999725342 ]]
+      - actor.appearance: [0.0, nr_golem_celestine, nr_celestine_stone_morph]
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+      - cam.blend.start: [0.8, cam_7_Shot3_spell_flow_start, smooth]
+      - actor.effect.stop: [0.9, sorceress, hand_fx_yennefer_seagreen]
+      - actor.effect.start: [0.9, sorceress, q210_portal_spell_seagreen]
+
+    # shot Shot3 spell flow start
+    shot_common_2we:
+      # - actor.placement: [0.0, nr_master_mage, [ 3.9106290340, 9.5011892319, -2.0427739620 ], [ 0.0, 0.0, 333.1000061035 ]]
+      # - actor.effect.start: [0.0, sorceress, energy_flow_water_r]
+      # - actor.effect.stop: [1.0, sorceress, energy_flow_water_r]
+
+      - actor.anim: # 3.0s, Shoot event at 1.9s -> # 3.6s, Shoot event at 2.28s
+          .@pos: [0.0, sorceress_woman_sorceress_attack_rock_bhand_rp]
+          blendin: 0.4
+          blendout: 0.4
+          stretch: 1.2
+
+      # 1.5 -> 3.0
+      # R: water = 1, earth = 2, fire = 4, air = 8
+      # L: water = 16, earth = 32, fire = 64, air = 128
+      - world.addfact: [0.5, nr_scene_crafting_flow_fx, 33]
+      - world.addfact: [0.7, nr_scene_crafting_flow_fx, -33]
+      - actor.effect.stop: [0.75, sorceress, q210_portal_spell_seagreen]
+      - actor.effect.start: [0.75, sorceress, hand_fx_yennefer_seagreen]
+
+      # Morph lasts 2s
+      - world.addfact: [0.6, nr_scene_crafting_morph, 1]
+      - actor.sound: [0.5, nr_golem_celestine, set_monster_golem_ice_armour_type_monster_ice]
+      - actor.sound: [0.6, nr_golem_celestine, monster_golem_ice_mv_recover]
+
+    # shot Shot3 golem morph
+    shot_common_3we:
+      - cam.blend.end: [0.5, cam_8_Shot3_golem_morph, smooth]
+      - actor.anim:
+          .@pos: [0.25, nr_golem_celestine_monster_elemental_cannonball_idle]
+          clipfront: 1.0
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_golem_celestine_monster_elemental_idle]
+      # - actor.effect.start: [0.25, nr_golem_celestine, trail_spawn]
+      # - actor.effect.stop: [0.5, nr_golem_celestine, trail_spawn]
+      - world.addfact: [0.1, nr_scene_crafting_thunder, -7]
+      - actor.anim:
+          .@pos: [0.0, nr_master_mage_casting_and_holding_spell_stop]
+          # clipfront: 0.5
+          blendin: 0.5
+          blendout: 0.5
+      - actor.pose: [0.5, nr_master_mage_high_standing_determined_idle]
+
+      - actor.lookat: [0.7, nr_master_mage, sorceress]
+      - actor.lookat: [0.8, sorceress, nr_master_mage]
+      # - cam: [0.999, cam_10_Shot4_dg_wander2_sidecam]
+
+    # shot Shot4 dg to golem
+    # [3.8264]2115940952|Hey… What is your name? What is your goal?
+    shot_water_earth_1:
+      - actor.anim: 
+          .@pos: [0.0, nr_golem_celestine_monster_elemental_wander_1]
+          blendin: 0.5
+          blendout: 0.5
+
+      - cam: [0.4, cam_11_Shot4_dg_to_mages]
+
+      - actor.lookat: [0.0, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.0, sorceress, nr_golem_celestine]
+
+    shot_water_earth_2:
+      - cam: [0.0, cam_9_Shot4_dg_to_golem]
+      - actor.anim: 
+          .@pos: [0.3, nr_golem_celestine_monster_elemental_wander_2]
+          blendin: 0.5
+          blendout: 0.5
+
+      - cam: [0.85, cam_11_Shot4_dg_to_mages]
+      - actor.lookat: [0.9, nr_master_mage, sorceress]
+      - actor.lookat: [0.95, sorceress, nr_master_mage]
+
+    # Brilliant!
+    shot_water_earth_3:
+      - actor.anim.additive: 
+          .@pos: [0.25, nr_master_mage_add_gesture_explain_12]
+          blendin: 0.5
+          blendout: 0.5
+
+      - actor.lookat: [0.7, nr_master_mage, nr_golem_celestine]
+      - actor.lookat: [0.8, sorceress, nr_golem_celestine]
+
+    shot_water_earth_4:
+      - cam: [0.0, cam_9_Shot4_dg_to_golem]
+
+    shot_water_earth_5:
+      - cam: [0.0, cam_11_Shot4_dg_to_mages]
+
+    shot_water_earth_6:
+      - world.addfact: [0.0, nr_magic_stone_activated, 3]
+      - cam.blend.start: [0.0, cam_19_Shot4_dg_to_stone_blend1, smooth]
+      - cam.blend.end: [0.999, cam_21_Shot4_dg_to_stone_blend2, smooth]
+
+      # nr_golem_celestine_monster_elemental_move_idle_to_walk_r180
+      - actor.anim: 
+          .@pos: [0.0, nr_golem_celestine_monster_elemental_move_idle_to_walk_r180]
+          blendin: 0.3
+          blendout: 0.3
+          stretch: 1.4
+          motionExtraction: true
+
+    shot_water_earth_7:
+      - cam: [0.0, cam_22_Shot4_dg_red_alert]
+      - actor.anim: 
+          .@pos: [0.0, nr_golem_celestine_monster_elemental_taunt_1]
+          blendin: 0.3
+          blendout: 0.3
+          motionExtraction: true
+
+    shot_water_earth_fade:
+      - actor.effect.stop: [0.0, sorceress, hand_fx_yennefer_seagreen]
+      - fade.out: [0.0, 0.5]
+
+
+dialogscript:
+  player: "sorceress"
+  actors: [ "nr_master_mage", "sorceress", "nr_golem_celestine" ]
+  props: [ "q403_meteorite_strong" ]
+
+  section_start:
+    # shot Shot1 intro
+    - CUE: shot_1
+    - PAUSE: 1.5
+    # (longest) anim: monster_elemental_tpose: 10.000000
+    # shot Shot2b mage explains
+    - CUE: shot_2
+    - nr_master_mage: "[12.8238000870]2115940949|So, let us begin. I will summon the enlivening thunder, and while I do, you shall infuse it with the elements of earth and water, maintaining an equal balance."
+    # (longest) anim: add_gesture_explain_12: 6.866667
+    # shot Shot3 mage cast blend1
+    - CUE: shot_3
+    # (longest) anim: woman_sorceress_idle_rp_02
+    - PAUSE: 1.0
+    # - PAUSE: 3.7666666508
+    # shot Shot3 mage cast blend1
+    - CUE: shot_4a
+    - nr_master_mage: "[4.6967000961]2115940950|Me galwad iersann sigellen aep vita!"
+    - CUE: shot_4b
+    - PAUSE: 0.5
+    - CUE: shot_4c
+    - nr_master_mage: "[4.6967000961]2115940950|Me galwad iersann sigellen aep vita!"
+    - PAUSE: 1.5
+    # (longest) anim: casting_and_holding_spell_loop_01: 4.233333
+    - NEXT: section_choice_spell
+
+  section_choice_spell:
+    - CHOICE:
+      - choice: [ "2115940990|Me aedit'ef a'lagi as te! [I breathe Water into you!]", section_spell_water]
+        condition: [ "nr_golem_crafting_failed", "<", 1 ]
+        emphasize: true
+      - choice: [ "2115940301|Me aedit'ef a'lagi as te! [I breathe Water into you!]", section_spell_water]
+        condition: [ "nr_golem_crafting_failed", ">=", 1 ]
+        emphasize: true
+
+      - choice: [ "2115940992|Me aedit'ef a'ear as te!", section_spell_earth]
+        condition: [ "nr_golem_crafting_failed", "<", 1 ]
+        emphasize: true
+      - choice: [ "2115940303|Me aedit'ef a'ear as te! [I breathe Earth into you!]", section_spell_earth]
+        condition: [ "nr_golem_crafting_failed", ">=", 1 ]
+        emphasize: true
+
+      - choice: [ "2115940991|Me aedit'ef a'enye shed a'ear as te!", section_spell_fire_earth]
+        condition: [ "nr_golem_crafting_failed", "<", 1 ]
+        emphasize: true
+      - choice: [ "2115940302|Me aedit'ef a'enye shed a'ear as te! [I breathe Fire and Earth into you!]", section_spell_fire_earth]
+        condition: [ "nr_golem_crafting_failed", ">=", 1 ]
+        emphasize: true
+
+      - choice: [ "2115940989|Me aedit'ef a'lagi shed a'ear as te!", section_spell_water_earth]
+        condition: [ "nr_golem_crafting_failed", "<", 1 ]
+        emphasize: true
+      - choice: [ "2115940300|Me aedit'ef a'lagi shed a'ear as te! [I breathe Water and Earth into you!]", section_spell_water_earth]
+        condition: [ "nr_golem_crafting_failed", ">=", 1 ]
+        emphasize: true
+
+      - choice: [ "2115940993|Me aedit'ef a'eire shed a'ear as te!", section_spell_air_earth]
+        condition: [ "nr_golem_crafting_failed", "<", 1 ]
+        emphasize: true
+      - choice: [ "2115940304|Me aedit'ef a'eire shed a'ear as te! [I breathe Air and Earth into you!]", section_spell_air_earth]
+        condition: [ "nr_golem_crafting_failed", ">=", 1 ]
+        emphasize: true
+
+      - TIME_LIMIT: 7.0
+
+  section_spell_water:
+    - CUE: shot_common_1w
+    - sorceress: "2115940990|Me aedit'ef a'lagi as te!"
+
+    - CUE: shot_common_2w
+    - PAUSE: 3.0
+
+    - CUE: shot_common_3w
+    - PAUSE: 2.0
+
+    # shot Shot5 fail tortilla 1
+    - CUE: shot_water_1
+    # (longest) anim: monster_elemental_tpose
+    - PAUSE: 2.0
+    # shot Shot5 fail tortilla 2
+    - CUE: shot_water_2
+    # (longest) anim: monster_elemental_tpose
+    - PAUSE: 2.0
+    - PAUSE: 1.0
+
+    - CUE: shot_water_fade
+    - PAUSE: 0.5
+
+    # shot Shot5 fail tortilla 3 unused
+    # - CUE: shot_water_3
+    # - PAUSE: 19.6333332062
+    - NEXT: section_exit_fail_tortilla
+
+  section_exit_fail_tortilla:
+    - OUTPUT: fail_tortilla
+    - BLACKSCREEN: true
+    - EXIT
+
+  section_spell_earth:
+    - CUE: shot_common_1e
+    - sorceress: "2115940992|Me aedit'ef a'ear as te!"
+
+    - CUE: shot_common_2e
+    - PAUSE: 3.0
+
+    - CUE: shot_common_3e
+    - PAUSE: 2.0
+
+    # shot Shot5 fail tortilla 1
+    - CUE: shot_earth_1
+    - PAUSE: 3.0
+
+    - CUE: shot_earth_fade
+    - PAUSE: 0.5
+
+    - NEXT: section_exit_fail_stone
+
+  section_exit_fail_stone:
+    - OUTPUT: fail_stone
+    - BLACKSCREEN: true
+    - EXIT
+
+
+  section_spell_fire_earth:
+    - CUE: shot_common_1fe
+    - sorceress: "2115940991|Me aedit'ef a'enye shed a'ear as te!"
+
+    - CUE: shot_common_2fe
+    - PAUSE: 3.0
+
+    - CUE: shot_common_3fe
+    - PAUSE: 2.0
+
+    # shot Shot5 fail tortilla 1
+    - CUE: shot_fire_earth_1
+    - PAUSE: 3.0
+
+    - CUE: shot_fire_earth_fade
+    - PAUSE: 0.5
+
+    - NEXT: section_exit_fail_fire
+
+  section_exit_fail_fire:
+    - OUTPUT: fail_fire
+    - BLACKSCREEN: true
+    - EXIT
+
+
+  section_spell_air_earth:
+    - CUE: shot_common_1ae
+    - sorceress: "2115940993|Me aedit'ef a'eire shed a'ear as te!"
+
+    - CUE: shot_common_2ae
+    - PAUSE: 3.0
+
+    - CUE: shot_air_earth_1
+    - PAUSE: 2.0
+
+    - CUE: shot_air_earth_fade
+    - PAUSE: 0.5
+
+    - NEXT: section_exit_fail_explosion
+
+  section_exit_fail_explosion:
+    - OUTPUT: fail_explosion
+    - BLACKSCREEN: true
+    - EXIT
+
+
+  # nr_magic_stone_activated = 2
+  section_spell_water_earth:
+    - CUE: shot_common_1we
+    - sorceress: "2115940989|Me aedit'ef a'lagi shed a'ear as te!"
+
+    - CUE: shot_common_2we
+    - PAUSE: 3.0
+
+    - CUE: shot_common_3we
+    - PAUSE: 2.0
+
+    - PAUSE: 0.5
+    - CUE: shot_water_earth_1
+    - nr_master_mage: "[3.8264]2115940952|Hey… What is your name? What is your goal?"
+
+    - CUE: shot_water_earth_2
+    - nr_golem_celestine: "[10.4376]2115940953|I am Celestine. I protect my creators, master and mistress. And do what they order."
+
+    - CUE: shot_water_earth_3
+    - nr_master_mage: "[10.0292]2115940954|Brilliant! We have succeeded! The aspect of water gives him extraordinary mindset. Welcome to my ship, Celestine."
+
+    - CUE: shot_water_earth_4
+    - nr_golem_celestine: "2115940955|Thank you, master."
+
+    - CUE: shot_water_earth_5
+    - sorceress: "2100001893|Hah. Did it."
+    # - sorceress: "0000550776|Indeed."
+
+    - CUE: shot_water_earth_6
+    - PAUSE: 1.5
+
+    - CUE: shot_water_earth_7
+    - nr_golem_celestine: "[2.1450]2115940980|Red Alert!"
+    - PAUSE: 1.0
+
+    - CUE: shot_water_earth_fade
+    - PAUSE: 0.5
+
+    - NEXT: section_exit_success
+
+  section_exit_success:
+    - OUTPUT: success
+    - BLACKSCREEN: true
+    - EXIT

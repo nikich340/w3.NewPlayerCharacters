@@ -1,0 +1,32 @@
+repository:
+  actors:
+    geralt:
+      template: "gameplay\\templates\\characters\\player\\player.w2ent"
+      #appearance: [ "nr_player" ]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 800
+
+  gameplay: true
+  cinematic_subtitles: true
+
+  assets:
+    actors:
+      geralt:
+        repo: "geralt"
+        by_voicetag: false
+        tags: [ "PLAYER" ]
+
+dialogscript:
+  player: "geralt"
+  actors: [ "geralt" ]
+
+  section_start_not_sorceress: # quest
+    - geralt: "2115940081|Wish I were a sorceress…"
+    - NEXT: section_exit
+
+  section_exit:
+    - EXIT

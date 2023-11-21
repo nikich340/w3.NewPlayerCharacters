@@ -1,0 +1,465 @@
+repository:
+  actors:
+    sorceress:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\sorceress.w2ent"
+      appearance: ["triss"]
+
+    nr_golem_celestine:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_golem_celestine.w2ent"
+      appearance: ["nr_celestine"]
+
+  animations:
+    anim_12762_high_standing2_determined_gesture_greeting:
+      animation: "high_standing2_determined_gesture_greeting"
+      frames: 97
+
+    anim_10087_monster_elemental_wander_2:
+      animation: "monster_elemental_wander_2"
+      frames: 80
+
+    anim_12764_high_standing2_determined_gesture_question_01:
+      animation: "high_standing2_determined_gesture_question_01"
+      frames: 129
+
+    anim_10086_monster_elemental_wander_1:
+      animation: "monster_elemental_wander_1"
+      frames: 80
+
+    anim_12760_high_standing2_determined_gesture_explain_01:
+      animation: "high_standing2_determined_gesture_explain_01"
+      frames: 249
+
+    anim_12761_high_standing2_determined_gesture_explain_02:
+      animation: "high_standing2_determined_gesture_explain_02"
+      frames: 143
+
+    anim_12763_high_standing2_determined_gesture_handcuffs:
+      animation: "high_standing2_determined_gesture_handcuffs"
+      frames: 487
+
+    anim_12765_high_standing2_determined_gesture_question_02:
+      animation: "high_standing2_determined_gesture_question_02"
+      frames: 109
+
+  actor.poses:
+    pose_2128_High_Standing2_Determined:
+      name: "Standing2"
+      emotional_state: "Determined"
+      status: "High"
+      idle_anim: "high_standing_determined2_idle"
+
+    pose_0_monster_elemental_idle:
+      idle_anim: "monster_elemental_idle"
+
+    pose_833_monster_elemental_idle:
+      idle_anim: "monster_elemental_idle"
+
+  cameras:
+    cam_1_Shot_to_sorc:
+      fov: 20.0
+      transform:
+        pos: [1.4888484478, 2.2206826210, 2.0600202084]
+        rot: [0.0, 348.7999877930, 138.4499053955]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495422363, 1.2700729370]
+        blur: [0.0, 5.0]
+        focus: [2.1400001049, 2.5000000000]
+        intensity: 1.0
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+    cam_2_Shot_to_golem:
+      fov: 20.0
+      transform:
+        pos: [0.4078342319, -0.9433993101, 1.4649809599]
+        rot: [0.0, 10.8500061035, 15.3000259399]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495422363, 1.2700729370]
+        blur: [0.0, 2.5000000000]
+        focus: [2.0199999809, 5.0]
+        intensity: 1.0
+      event_generator:
+        plane: "Closeup"
+        tags: ["ext"]
+
+    cam_3_Shot_to_sorc_gesture1:
+      fov: 20.0
+      transform:
+        pos: [1.4881681204, 2.2198007107, 2.0600202084]
+        rot: [0.0, 348.8999938965, 138.6249237061]
+      zoom: 0.0
+      dof:
+        aperture: [28.2495422363, 1.2700729370]
+        blur: [0.0, 5.0]
+        focus: [2.1400001049, 2.5000000000]
+        intensity: 1.0
+      event_generator:
+        plane: "Medium"
+        tags: ["ext"]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 840
+
+  placement: "PLAYER"
+    # INFO: world coordinates of used origin:
+      #pos: [ -238.4715118408, -306.0504455566, 40.3385238647 ]
+      #rot: [ 0.0, 47.1156921387, 0.0 ]
+  safe_placement: false
+  snap_to_terrain: false
+
+  assets:
+    actors:
+      sorceress:
+        repo: "sorceress"
+        #by_voicetag: true
+        appearance: "triss"
+        tags: ["PLAYER"]
+
+      nr_golem_celestine:
+        repo: "nr_golem_celestine"
+        #by_voicetag: true
+        appearance: "nr_celestine"
+        tags: ["nr_celestine"]
+
+    cameras:
+      cam_1_Shot_to_sorc:
+        repo: "cam_1_Shot_to_sorc"
+
+      cam_2_Shot_to_golem:
+        repo: "cam_2_Shot_to_golem"
+
+      cam_3_Shot_to_sorc_gesture1:
+        repo: "cam_3_Shot_to_sorc_gesture1"
+
+    animations:
+      sorceress_high_standing2_determined_gesture_greeting:
+        actor: "sorceress"
+        repo: "anim_12762_high_standing2_determined_gesture_greeting"
+        #duration: 3.2333333492
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_wander_2:
+        actor: "nr_golem_celestine"
+        repo: "anim_10087_monster_elemental_wander_2"
+        #duration: 2.6666667461
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_high_standing2_determined_gesture_question_01:
+        actor: "sorceress"
+        repo: "anim_12764_high_standing2_determined_gesture_question_01"
+        #duration: 4.3000001907
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      nr_golem_celestine_monster_elemental_wander_1:
+        actor: "nr_golem_celestine"
+        repo: "anim_10086_monster_elemental_wander_1"
+        #duration: 2.6666667461
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_high_standing2_determined_gesture_explain_01:
+        actor: "sorceress"
+        repo: "anim_12760_high_standing2_determined_gesture_explain_01"
+        #duration: 8.3000001907
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_high_standing2_determined_gesture_explain_02:
+        actor: "sorceress"
+        repo: "anim_12761_high_standing2_determined_gesture_explain_02"
+        #duration: 4.7666668892
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_high_standing2_determined_gesture_handcuffs:
+        actor: "sorceress"
+        repo: "anim_12763_high_standing2_determined_gesture_handcuffs"
+        #duration: 16.2333335876
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+      sorceress_high_standing2_determined_gesture_question_02:
+        actor: "sorceress"
+        repo: "anim_12765_high_standing2_determined_gesture_question_02"
+        #duration: 3.6333334446
+        #weight: 0.6000000238
+        #clipfront: 0.0
+        #clipend: 99.0
+        #stretch: 1.0
+        blendin: 0.0
+        blendout: 0.0
+
+    actor.poses:
+      sorceress_High_Standing2_Determined:
+        actor: "sorceress"
+        repo: "pose_2128_High_Standing2_Determined"
+
+      nr_golem_celestine_monster_elemental_idle:
+        actor: "nr_golem_celestine"
+        repo: "pose_0_monster_elemental_idle"
+
+storyboard:
+  defaults:
+    placement:
+      sorceress: [[0.0, -0.5, 0.0], [0.0, 0.0, 0.0]]
+      nr_golem_celestine: [[0.0, 1.5, 0.0], [0.0, 0.0, 180.0]]
+
+    actor.pose:
+      sorceress: sorceress_High_Standing2_Determined
+      nr_golem_celestine: nr_golem_celestine_monster_elemental_idle
+
+  section_greeting_a:
+    shot_greeting_a:
+      - cam: [0.0, cam_2_Shot_to_golem]
+    shot_greeting_a2:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.anim.additive:
+          .@pos: [0.0, sorceress_high_standing2_determined_gesture_greeting]
+          blendin: 0.5
+          blendout: 0.5
+
+
+  section_greeting_b:
+    shot_greeting_b:
+      - cam: [0.0, cam_2_Shot_to_golem]
+    shot_greeting_b2:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.anim.additive:
+          .@pos: [0.0, sorceress_high_standing2_determined_gesture_greeting]
+          blendin: 0.5
+          blendout: 0.5
+
+
+  section_choice_main:
+    CHOICE_1:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - cam: [0.5, cam_2_Shot_to_golem]
+      - actor.anim.additive:
+          .@pos: [0.6, nr_golem_celestine_monster_elemental_wander_1]
+          blendin: 0.5
+          blendout: 0.5
+
+
+  section_golem_q1:
+    shot_golem_q1_a:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.anim.additive:
+          .@pos: [0.0, sorceress_high_standing2_determined_gesture_explain_01]
+          blendin: 0.5
+          blendout: 0.5
+
+    shot_golem_q1_b:
+      - cam: [0.0, cam_2_Shot_to_golem]
+  section_golem_q2:
+    shot_golem_q2_a:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.anim.additive:
+          .@pos: [0.0, sorceress_high_standing2_determined_gesture_explain_02]
+          blendin: 0.5
+          blendout: 0.5
+
+    shot_golem_q2_b:
+      - cam: [0.0, cam_2_Shot_to_golem]
+  section_golem_q3:
+    shot_golem_q3_a:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.anim.additive:
+          .@pos: [0.0, sorceress_high_standing2_determined_gesture_handcuffs]
+          blendin: 0.5
+          blendout: 0.5
+
+    shot_golem_q3_b:
+      - cam: [0.0, cam_2_Shot_to_golem]
+  section_golem_q4:
+    shot_golem_q4_a:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.anim.additive:
+          .@pos: [0.0, sorceress_high_standing2_determined_gesture_question_01]
+          blendin: 0.5
+          blendout: 0.5
+
+    shot_golem_q4_b:
+      - cam: [0.0, cam_2_Shot_to_golem]
+  section_golem_q5:
+    shot_golem_q5_a:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.anim.additive:
+          .@pos: [0.0, sorceress_high_standing2_determined_gesture_question_02]
+          blendin: 0.5
+          blendout: 0.5
+
+    shot_golem_q5_b:
+      - cam: [0.0, cam_2_Shot_to_golem]
+  section_golem_q6:
+    shot_golem_q6_a:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.anim.additive:
+          .@pos: [0.0, sorceress_high_standing2_determined_gesture_explain_01]
+          blendin: 0.5
+          blendout: 0.5
+
+    shot_golem_q6_b:
+      - cam: [0.0, cam_2_Shot_to_golem]
+  section_goodbye_a:
+    shot_goodbye_a:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.gamestate: [0.99, nr_golem_celestine]
+      - actor.gamestate: [0.99, sorceress]
+      - cam.blend.togame: [0.99, cam_2_Shot_to_golem]
+  section_goodbye_b:
+    shot_goodbye_b:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.gamestate: [0.99, nr_golem_celestine]
+      - actor.gamestate: [0.99, sorceress]
+      - cam.blend.togame: [0.99, cam_2_Shot_to_golem]
+  section_goodbye_c:
+    shot_goodbye_c:
+      - cam: [0.0, cam_1_Shot_to_sorc]
+      - actor.gamestate: [0.99, nr_golem_celestine]
+      - actor.gamestate: [0.99, sorceress]
+      - cam.blend.togame: [0.99, cam_2_Shot_to_golem]
+dialogscript:
+  actors: ["sorceress", "nr_golem_celestine"]
+  player: "sorceress"
+
+  section_start:
+    - PAUSE: 0.0
+    - NEXT: section_randomizer_greeting
+
+  section_randomizer_greeting:
+    - section_greeting_a
+    - section_greeting_b
+
+  section_greeting_a:
+    - CUE: shot_greeting_a
+    - nr_golem_celestine: "2115940956|Mistress. A pleasure."
+    - CUE: shot_greeting_a2
+    - PAUSE: 3.3
+    - NEXT: section_choice_main
+
+  section_greeting_b:
+    - CUE: shot_greeting_b
+    - nr_golem_celestine: "2115940957|Morning. Nice day."
+    - CUE: shot_greeting_b2
+    - PAUSE: 3.3
+    - NEXT: section_choice_main
+
+  section_choice_main:
+    - CHOICE:
+        - choice: ["2115940958|Are you aware of yourself?", section_golem_q1]
+          emphasize: true
+        - choice: ["2115940960|Do you have any wishes?", section_golem_q2]
+          emphasize: true
+        - choice: ["2115940962|What will you do if we disappear?", section_golem_q3]
+          emphasize: true
+        - choice: ["2115940964|How much is eight plus four?", section_golem_q4]
+          emphasize: true
+        - choice: ["2115940966|Do you like this place?", section_golem_q5]
+          emphasize: true
+        - choice: ["2115940968|Are you experiencing emotions?", section_golem_q6]
+          emphasize: true
+        - choice: ["2115940867|See you later.", section_randomizer_goodbye, exit]
+          emphasize: false
+
+  section_golem_q1:
+    - CUE: shot_golem_q1_a
+    - sorceress: "2115940958|Are you aware of yourself?"
+    - CUE: shot_golem_q1_b
+    - nr_golem_celestine: "2115940959|I was in the earth, water, air. Everywhere. And now I am here."
+    - NEXT: section_choice_main
+
+  section_golem_q2:
+    - CUE: shot_golem_q2_a
+    - sorceress: "2115940960|Do you have any wishes?"
+    - CUE: shot_golem_q2_b
+    - nr_golem_celestine: "2115940961|Calmness. Silence. Slowness."
+    - NEXT: section_choice_main
+
+  section_golem_q3:
+    - CUE: shot_golem_q3_a
+    - sorceress: "2115940962|What will you do if we disappear?"
+    - CUE: shot_golem_q3_b
+    - nr_golem_celestine: "2115940963|Fulfill your last will. Protect your property."
+    - NEXT: section_choice_main
+
+  section_golem_q4:
+    - CUE: shot_golem_q4_a
+    - sorceress: "2115940964|How much is eight plus four?"
+    - CUE: shot_golem_q4_b
+    - nr_golem_celestine: "2115940965|Hmm.. Ten two."
+    - NEXT: section_choice_main
+
+  section_golem_q5:
+    - CUE: shot_golem_q5_a
+    - sorceress: "2115940966|Do you like this place?"
+    - CUE: shot_golem_q5_b
+    - nr_golem_celestine: "2115940967|Yes. It is quiet, blue, beautiful."
+    - NEXT: section_choice_main
+
+  section_golem_q6:
+    - CUE: shot_golem_q6_a
+    - sorceress: "2115940968|Are you experiencing emotions?"
+    - CUE: shot_golem_q6_b
+    - nr_golem_celestine: "2115940969|I follow the algorithm. Anything outside of it is an annoyance. The rest is a calmness."
+    - NEXT: section_choice_main
+
+  section_randomizer_goodbye:
+    - section_goodbye_a
+    - section_goodbye_b
+    - section_goodbye_c
+
+  section_goodbye_a:
+    - CUE: shot_goodbye_a
+    - sorceress: "2115940867|See you later."
+    - NEXT: section_exit
+
+  section_goodbye_b:
+    - CUE: shot_goodbye_b
+    - sorceress: "2115940868|Farewell."
+    - NEXT: section_exit
+
+  section_goodbye_c:
+    - CUE: shot_goodbye_c
+    - sorceress: "2115940869|So long."
+    - NEXT: section_exit
+
+  section_exit:
+    - EXIT
+

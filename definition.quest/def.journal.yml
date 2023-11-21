@@ -1,0 +1,64 @@
+journals:
+  quests:
+    sorceress_quest:
+      title: "Becoming an Arch-mistress"
+      type: "Side"
+      world: prologue   # optional, if empty every objective requires world
+      level: 1
+      description:
+        - start_descr: "Your magic Path begins.<br>"
+        - investigate_strange_area_descr: "After reading the advertisement, sorceress suspected an interesting case.<br>"
+        - after_spider_descr: "After reading the advertisement, sorceress suspected an interesting case.<br>"
+        # Прочитав объявление, чародейка заподозрила интересный случай.
+
+      instructions:
+        find_master:
+          - check_noticeboard:
+              caption: "Check noticeboard"
+              mappins:
+                - nb_pin
+
+          - investigate_strange_area:
+              caption: "Investigate area"
+              mappins:
+                - [ investigate_strange_area, 32 ]
+
+          - talk_with_mage:
+              caption: "Talk to mage."
+
+          - become_archi:
+              caption: "Become an Arch-mistress."
+
+          - practise_heavy:
+              caption: "Practise heavy attacks 13 times."
+
+          - practise_ftt:
+              caption: "Practise fast travel Teleport 3 times."
+
+          - practise_tornado:
+              caption: "Practise Tornado spell 7 times."
+
+          - practise_control:
+              caption: "Practise Control spell 7 times."
+
+          - practise_shield:
+              caption: "Practise Shield spell 7 times."
+
+          - practise_meteor:
+              caption: "Practise Meteor spell 7 times."
+
+          - practise_servant:
+              caption: "Practise Servant spell 7 times."
+
+          - practise_alzur_thunder:
+              caption: "Practise Alzur's thunder spell 5 times."
+
+          - practise_field:
+              caption: "Practise Gravitational Field spell 5 times."
+
+          - practise_melgar_fire:
+              caption: "Practise Melgar's fire spell 5 times."
+
+          - practise_polymorphism:
+              caption: "Practise Polymorphism spell 5 times."
+              

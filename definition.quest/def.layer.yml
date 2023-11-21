@@ -168,6 +168,8 @@ layers:
       snow_arena_9: [-231.21844482409995, -316.3665466309, 41.7458457947, 27.9999885559]
 
       snow_arena_center: [-237.56506347649997, -304.7667541504, 40.3227920532, 120.1999359131]
+      
+      snow_arena_celestine: [ -241.7316741943, -308.7763061523, 40.6181297302, -40.4000053406 ]
 
     actionpoints:
       stone_casting_spell: [-226.27468872059995, -302.1538391113, 41.6939430237, 288.5999145508, "quest_man/nr_q210_avallach_holds_spell_with_staff"]
@@ -1432,6 +1434,7 @@ layers:
         template: "W3MonsterClue:dlc\\dlcnewreplacers\\data\\entities\\nr_place_of_power_cross.w2ent"
         pos: [-224.49894714349995, -301.5534973145, 41.7747077942]
         rot: [0.0, 0.0, 112.0000381470]
+
       ship_bed:
         .type: "CEntity"
         .debug:
@@ -1447,6 +1450,43 @@ layers:
             isStreamed: false
             drawableFlags: ["IsVisible", "CastShadows"]
             mesh: "dlc/bob/data/environment/decorations/gameplay/rich_district/furniture/beds/rich_bed_single.w2mesh"
+
+      nav_denied1:
+        ".type": CGameplayEntity
+        transform:
+          pos: [ -270.6989746094, -299.5939941406, 43.1572151184 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 1.0, 1.0, 1.0 ]
+        components:
+          CDeniedAreaComponent0:
+            .type: "CDeniedAreaComponent"
+            height: 4.0
+            worldPoints:
+              - [ -270.6989746094, -299.5939941406, 43.1572151184, 1.0 ]
+              - [ -274.7425537109, -295.8443298340, 43.1572151184, 1.0 ]
+              - [ -276.4148864746, -298.2497863770, 43.1572151184, 1.0 ]
+              - [ -272.0809326172, -301.4960937500, 43.1572151184, 1.0 ]
+            isEnabled: true
+            # canBeDisabled: false
+            collisionType: PLC_Immediate
+
+      ship_extra_stairs_to_arena: 
+        .type: "CEntity"
+        .debug: 
+          mesh: "dlc/bob/data/environment/architecture/harbour/bob_harbour_objects_set/bob_harbour_wood_stairs_short.w2mesh"
+          meshpreview: "dlc/modtemplates/radishquestui/meshes/bob_harbour_wood_stairs_short.w2ent"
+        transform: 
+          pos: [ -252.4987792969, -311.1793823242, 44.1006355286 ]
+          rot: [ 0.0, 0.0, 140.8000030518 ]
+          scale: [ 0.55, 0.5, 0.5 ]
+        streamingDistance: 100
+        components: 
+          mesh: 
+            .type: "CStaticMeshComponent"
+            isStreamed: false
+            drawableFlags: [ "IsVisible", "CastShadows" ]
+            mesh: "dlc/bob/data/environment/architecture/harbour/bob_harbour_objects_set/bob_harbour_wood_stairs_short.w2mesh"
+
 
       ship_bed_table:
         template: "W3AnimatedContainer:dlc\\bob\\data\\gameplay\\container_definitions\\ep2_loot_hotel_silver__deco_rich_bed_table_a.w2ent"

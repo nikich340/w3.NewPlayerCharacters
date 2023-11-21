@@ -1,0 +1,65 @@
+repository:
+  actors:
+    nr_golem_celestine:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_golem_celestine.w2ent"
+      appearance: [ "nr_celestine" ]
+
+production:
+  settings:
+    sceneid: 1
+    strings-idspace: 5940
+    strings-idstart: 830
+
+  gameplay: true
+  cinematic_subtitles: true
+
+  assets:
+    actors:
+      nr_golem_celestine:
+        repo: "nr_golem_celestine"
+        #by_voicetag: true
+        appearance: "nr_celestine"
+        tags: [ "nr_celestine" ]
+
+dialogscript:
+  player: "nr_golem_celestine"
+  actors: [ "nr_golem_celestine" ]
+
+  section_start_comment_1:
+    - nr_golem_celestine: "2115940972|I am strong as a rock."
+    - NEXT: section_exit
+
+  section_start_comment_2:
+    - nr_golem_celestine: "2115940973|I am nice as a crystal."
+    - NEXT: section_exit
+
+  section_start_comment_3:
+    - nr_golem_celestine: "2115940974|I am smart as water."
+    - NEXT: section_exit
+
+  section_start_combat_start_1:
+    - nr_golem_celestine: "2115940979|Intruders!"
+    - NEXT: section_exit
+
+  section_start_combat_start_2:
+    - nr_golem_celestine: "2115940980|Red Alert!"
+    - NEXT: section_exit
+
+  section_start_combat_start_3:
+    - nr_golem_celestine: "2115940981|Going into combat mode!"
+    - NEXT: section_exit
+
+  section_start_combat_end_1:
+    - nr_golem_celestine: "2115940982|Calmness has been restored."
+    - NEXT: section_exit
+
+  section_start_combat_end_2:
+    - nr_golem_celestine: "2115940983|Intruders have been eliminated."
+    - NEXT: section_exit
+
+  section_start_combat_end_3:
+    - nr_golem_celestine: "2115940984|The creator's safety is ensured."
+    - NEXT: section_exit
+
+  section_exit:
+    - EXIT

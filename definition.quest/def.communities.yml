@@ -51,6 +51,24 @@ communities:
               - prologue/cat_sit_4
               - prologue/cat_sit_table
 
+  comm_master_golem:
+    actors:
+      celestine:
+        template: "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_golem_celestine.w2ent"
+        appearances: [ "nr_celestine" ]
+        tags: [ "nr_celestine" ]
+
+    phases:
+      arena_phase:
+        celestine:
+          add_tags: [ "nr_celestine_arena_phase" ]
+          attitude: player
+          immortality: immortal
+          use_last_ap: false
+          start_in_ap: false
+          spawn_at: prologue/snow_arena_celestine
+          guard: prologue/snow_arena_area
+
   comm_master_mage:
     actors:
       master_mage:

@@ -1,0 +1,188 @@
+templates:  
+  nr_golem_celestine:
+    includes:
+      - "characters\\npc_entities\\monsters\\elemental_dao_lvl3__ice.w2ent"
+    entityObject:
+      ".type": NR_AdvancedNPC
+      displayName: "Celestine"
+      voiceTag: "NR_CELESTINE"
+      idTag: auto
+      pelvisBoneName: k_pelvis_g
+      torsoBoneName: k_torso2_g
+      headBoneName: k_head_g
+      useSoundValue: true
+      soundValue: 75
+      isInteractionActivator: true
+      # NR_AdvancedNPC
+      commentTimeIntervalMin: 60.0
+      commentTimeIntervalMax: 600.0
+      commentCombatStartChance: 50
+      commentCombatEndChance: 50
+      commentScene: dlc/dlcnewreplacers/data/scenes/11.golem_lines.w2scene
+      commentInputNames: [ "comment_1", "comment_2", "comment_2" ]
+      commentCombatStartInputNames: [ "combat_start_1", "combat_start_2", "combat_start_3" ]
+      commentCombatEndInputNames: [ "combat_end_1", "combat_end_2", "combat_end_3" ]
+      components:
+        CAppearanceComponent0:
+          ".type": CAppearanceComponent
+          forcedAppearance: nr_celestine
+        # doesn't work
+        # voiceset_celestine:
+        #  ".type": CStorySceneComponent
+        #  storyScene: "dlc\\dlcnewreplacers\\data\\scenes\\11.golem_lines.w2scene"
+        talk:
+          ".type": CInteractionComponent
+          actionName: "Talk"
+          reportToScript: true
+
+    appearances:
+      nr_celestine:
+        ".type": CEntityAppearance
+        voicetag: "NR_CELESTINE"
+        includedTemplates:
+          - "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_golem_ice.w2ent"
+      
+      nr_celestine_stone_morph:
+        ".type": CEntityAppearance
+        voicetag: "NR_CELESTINE"
+        includedTemplates:
+          - "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_golem_ice_stone_morph.w2ent"
+      
+      nr_stone_tortilla_morph:
+        ".type": CEntityAppearance
+        voicetag: "NR_CELESTINE"
+        includedTemplates:
+          - "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_stone_ice_tortilla_morph.w2ent"
+
+      nr_ground_golem_stone_morph:
+        ".type": CEntityAppearance
+        voicetag: "NR_CELESTINE"
+        includedTemplates:
+          - "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_ground_golem_stone_morph.w2ent"
+
+      nr_fire_elemental_stone_morph:
+        ".type": CEntityAppearance
+        voicetag: "NR_CELESTINE"
+        includedTemplates:
+          - "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_fire_elemental_stone_morph.w2ent"
+
+    voicetagAppearances:  #array:2,0,VoicetagAppearancePair
+      - ".type": VoicetagAppearancePair
+        voicetag: "NR_CELESTINE"
+        appearance: nr_celestine
+      - ".type": VoicetagAppearancePair
+        voicetag: "NR_CELESTINE"
+        appearance: nr_celestine_stone_morph
+      - ".type": VoicetagAppearancePair
+        voicetag: "NR_CELESTINE"
+        appearance: nr_stone_tortilla_morph
+      - ".type": VoicetagAppearancePair
+        voicetag: "NR_CELESTINE"
+        appearance: nr_ground_golem_stone_morph
+      - ".type": VoicetagAppearancePair
+        voicetag: "NR_CELESTINE"
+        appearance: nr_fire_elemental_stone_morph
+          
+    usedAppearances:
+      - nr_celestine
+      - nr_celestine_stone_morph
+      - nr_stone_tortilla_morph
+      - nr_ground_golem_stone_morph
+      - nr_fire_elemental_stone_morph
+
+    templateParams:  #array:2,0,ptr:CEntityTemplateParam
+      - ".type": CAnimAnimsetsParam
+        name: "nr_elemental"
+        componentName: "elemental_base"
+        animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          - dlc/dlcnewreplacers/data/animations/nr_monster_elemental.w2anims
+
+      - ".type": CAIProfile
+        senseVisionParams:
+          ".type": CAISenseParams
+          rangeMax: 20.0000
+          rangeAngle: 360.0000
+          testLOS: false
+        attitudeGroup: player
+        
+      - ".type": CCharacterStatsParam
+        name: "additional abilities"
+        abilities:
+          - Wave
+          - nr_mon_ice_golem_fixed
+          - GroundSlam
+          - ThrowIce
+          - InstantKillImmune
+
+    effects:
+      death_no_particles:
+        ".type": CFXDefinition
+        trackGroups:  #array:2,0,ptr:CFXTrackGroup
+          set_dissolve:
+            ".type": CFXTrackGroup
+            ## name: "set_dissolve"
+            tracks:  #array:2,0,ptr:CFXTrack
+              set_dissolve:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemSetDissolve
+                    timeBegin: 1.5431
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                ## name: "set_dissolve"
+            isExpanded: true
+            trackGroupColor: [ 232, 226, 191, 100 ]
+          audio:
+            ".type": CFXTrackGroup
+            ## name: "audio"
+            tracks:  #array:2,0,ptr:CFXTrack
+              sfx:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemSoundEvent
+                    timeBegin: 0.0139
+                    ## buffername: 
+                    ## count: 0
+                    ## unk: 0
+                    soundEventName: monster_golem_ice_vfx_death
+                    maxDistance: 45.0000
+                ## name: "sfx"
+            trackGroupColor: [ 233, 201, 139, 100 ]
+          shader:
+            ".type": CFXTrackGroup
+            ## name: "shader"
+            tracks:  #array:2,0,ptr:CFXTrack
+              asd:
+                ".type": CFXTrack
+                trackItems:  #array:2,0,ptr:CFXTrackItem
+                  - ".type": CFXTrackItemMaterialOverride
+                    timeBegin: -0.0006
+                    timeDuration: 8.6553
+                    ## buffername: MaterialOverride
+                    ## count: 4
+                    ## unk: 1
+                    interpolation:
+                      - [ -2.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -2.3333, 4.0000, 1.0000, 1.0000 ]
+                      - [ -2.6667, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                      - [ -3.0000, 4.0000, 1.0000, 1.0000 ]
+                    material: dlc/dlcnewreplacers/data/materials/golem_tortilla_dissolve.w2mi
+                ## name: "asd"
+            trackGroupColor: [ 146, 141, 146, 100 ]
+        length: 9.6611
+        loopStart: 0.4409
+        ## name: death
+        showDistance: 40.0000

@@ -7,7 +7,7 @@ class NR_MagicSpecialShield extends NR_MagicAction {
 		var sceneInputs : array<int>;
 		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 40);
 
-		if ( voicelineChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
 			NRD("PlayScene!");
 			sceneInputs.PushBack(22);
 			sceneInputs.PushBack(23);

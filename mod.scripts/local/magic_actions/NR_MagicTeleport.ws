@@ -69,7 +69,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		}
 
 		thePlayer.PlayEffect( m_fxNameExtra );
-		if (IsActionAbilityUnlocked("AutoCounterPush") && RandRange(100) < 40 + SkillLevel()) {
+		if (IsActionAbilityUnlocked("AutoCounterPush") && SkillLevel() * 2 + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			PerformAutoPush();
 		}
 

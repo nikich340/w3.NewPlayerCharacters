@@ -6,7 +6,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 		var sceneInputs : array<int>;
 		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 25);
 
-		if ( voicelineChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
 			sceneInputs.PushBack(6);
 			sceneInputs.PushBack(7);
 			PlayScene( sceneInputs );
@@ -52,7 +52,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 				dismembermentComp.GetWoundsNames( wounds, WTF_Explosion );
 	
 				if ( wounds.Size() > 0 )
-					usedWound = wounds[ RandRange( wounds.Size() ) ];
+					usedWound = wounds[ NR_GetRandomGenerator().next( wounds.Size() ) ];
 						
 				target.SetDismembermentInfo( usedWound, Vector( 0, 0, 10 ), /*forceRagdoll*/ true );
 				target.AddTimer( 'DelayedDismemberTimer', 0.05f );

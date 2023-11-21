@@ -184,7 +184,7 @@ state Active in NR_TornadoEntity {
 		} else {
 			damage = basicEssence + addEssence * thePlayer.GetLevel();
 		}
-		damage = damage * RandRangeF(randMax, randMin);
+		damage = damage * NR_GetRandomGenerator().nextRangeF(randMin, randMax);
 
 		if (damageTarget) {
 			damage = MinF(maxDamage, damage);

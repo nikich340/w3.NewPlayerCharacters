@@ -18,7 +18,7 @@ abstract statemachine class NR_MagicSpecialAction extends NR_MagicAction {
 	/* -> Stop/Curse */
 	latent function StopAction() {
 		NRD("StopAction: GenericSpecial: isCursed = " + isCursed + ", s_curseChance = " + s_curseChance);
-		if ( !isCursed && RandRange(100) + 1 <= s_curseChance ) {
+		if ( !isCursed && s_curseChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
 			NRD("GenericSpecial: Cursed!");
 			GetWitcherPlayer().DisplayHudMessage(GetLocStringById(2115940159) + ENR_MAToLocString(actionType));
 			isCursed = true;

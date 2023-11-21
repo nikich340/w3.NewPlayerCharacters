@@ -182,7 +182,7 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         
         if ( teleportToActorHeading )
         {
-            averageDistance = RandRangeF( minDistance, maxDistance );
+            averageDistance = NR_GetRandomGenerator().nextRangeF( minDistance, maxDistance );
             requestedFacingDirectionNoiseAngle *= -1;
             heading = npc.GetHeading() + 180 + requestedFacingDirectionNoiseAngle;
             randVec = VecFromHeading( heading ) * averageDistance;
@@ -190,7 +190,7 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         
         else if ( teleportAwayFromActorHeading )
         {
-            averageDistance = RandRangeF( minDistance, maxDistance );
+            averageDistance = NR_GetRandomGenerator().nextRangeF( minDistance, maxDistance );
             requestedFacingDirectionNoiseAngle *= -1;
             heading = npc.GetHeading() + requestedFacingDirectionNoiseAngle;
             randVec = VecFromHeading( heading ) * averageDistance;
@@ -307,7 +307,7 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         {
             
             
-            positionOffset.X = RandRangeF( maxDistance,minDistance );
+            positionOffset.X = NR_GetRandomGenerator().nextRangeF( minDistance, maxDistance );
             
             whereTo = thePlayer.GetWorldPosition() + theCamera.GetCameraRight() * positionOffset.X;
         }
@@ -315,7 +315,7 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         {
             
             
-            positionOffset.X = RandRangeF( maxDistance, minDistance) *-1;
+            positionOffset.X = NR_GetRandomGenerator().nextRangeF( minDistance, maxDistance) *-1;
             
             whereTo = thePlayer.GetWorldPosition() + theCamera.GetCameraRight() * positionOffset.X;
         }

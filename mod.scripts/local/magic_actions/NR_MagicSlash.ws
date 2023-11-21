@@ -10,7 +10,7 @@ class NR_MagicSlash extends NR_MagicAction {
 		var sceneInputs : array<int>;
 		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 5);
 
-		if ( voicelineChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
 			sceneInputs.PushBack(3);
 			sceneInputs.PushBack(4);
 			sceneInputs.PushBack(5);

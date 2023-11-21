@@ -361,7 +361,7 @@ function NR_FinalizeColor(color : ENR_MagicColor) : ENR_MagicColor {
 	if (color != ENR_ColorRandom)
 		return color;
 	
-	return (ENR_MagicColor)RandRange(10 + 1, 2);
+	return (ENR_MagicColor)NR_GetRandomGenerator().nextRange(2, 10);
 }
 
 function ENR_MCToStringShort(color : ENR_MagicColor) : String {

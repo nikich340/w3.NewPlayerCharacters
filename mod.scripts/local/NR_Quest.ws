@@ -29,9 +29,6 @@ quest function NR_ChangePlayer_Q() {
 
     newPlayerType = (ENR_PlayerType)FactsQuerySum("nr_scene_player_change_type");
     NRD("NR_ChangePlayer_Q: scene change to -> " + newPlayerType);
-    if ( nr_manager.IsFemale() != nr_manager.IsFemaleType(newPlayerType) ) {
-        nr_manager.SetDefaultAppearance(newPlayerType);
-    }
     NR_ChangePlayer(newPlayerType);
     FactsRemove("nr_scene_player_change_type"); 
 }
@@ -90,7 +87,7 @@ quest function NR_CheckFactCond_Q(factName : string, factCond : string, factVal 
 }
 
 quest function NR_CheckRandomChance_Q( chance : int, maxChance : int ) : bool {
-    return chance >= RandRange(maxChance) + 1;
+    return chance >= NR_GetRandomGenerator().nextRange(1, maxChance);
 }
 
 latent quest function NR_CheckEntitiesAlive_Q( tag : name, moreThan : int ) : bool {
@@ -134,7 +131,7 @@ latent quest function NR_UseCrossStoneBossSpider_Q() {
     PreloadEffectForEntityTemplate(teleportTemplate, 'teleport_fx');
     PreloadEffectForEntityTemplate(crossTemplate, 'cross');
 
-    NR_ShowLightningFx(pos + Vector(0,0,1.f), stoneEntity.GetWorldPosition() + Vector(0,0,1.8f), 'lightning_keira_red', 'hit_electric_red');
+    NR_ShowLightningFx(stoneEntity.GetWorldPosition() + Vector(0,0,1.8f), pos + Vector(0,0,1.f), true, 'lightning_keira_red', 'hit_electric_red');
 
     crossEntity = (CEntity)theGame.CreateEntity(crossTemplate, pos + VecFromHeading(265 + 90.f) * 3.f + Vector(0,0,2.f), EulerAngles(0, 265 + 180.f, 0));
     crossEntity.StopAllEffectsAfter(3.f);
@@ -175,16 +172,18 @@ latent quest function NR_UseCrossStone_Q() {
     var crossEntity                     : CEntity;
     var npc                             : CNewNPC;
     var pos_indexes                     : array<int>;
-    var skillsLearned, entityLevel         : int;
-    var triggeredByPlayer               : bool;
+    var skillsLearned, entityLevel      : int;
+    var triggerType                     : int;
     var i, idx, prev_idx, pidx, prev_pidx, numberToSpawn1, numberToSpawn2, levelReduct : int;
     
     stoneEntity = theGame.GetEntityByTag('nr_interactive_ship_stone');
     stoneEntity.StopEffect('ready');
     stoneEntity.PlayEffect('use');
-    triggeredByPlayer = FactsQuerySum("nr_magic_stone_activated") == 1;
+    triggerType = FactsQuerySum("nr_magic_stone_activated");
+    // 1 = player, 2 = auto, 3 = scene (longer activation)
+
     skillsLearned = FactsQuerySum("nr_magic_skill_learned");
-    NRD("NR_UseCrossStone_Q, skillsLearned = " + skillsLearned + " triggeredByPlayer = " + triggeredByPlayer);
+    NRD("NR_UseCrossStone_Q, skillsLearned = " + skillsLearned + " triggerType = " + triggerType);
 
     teleportTemplate = (CEntityTemplate)LoadResourceAsync("dlc/dlcnewreplacers/data/entities/magic/ft_teleport/nr_q109_keira_teleport_red.w2ent", true);
     crossTemplate = (CEntityTemplate)LoadResourceAsync("dlc/dlcnewreplacers/data/entities/nr_cross_effect.w2ent", true);
@@ -256,6 +255,10 @@ latent quest function NR_UseCrossStone_Q() {
         levelReduct -= 1;
     }
 
+    if (triggerType == 3) {
+        // longer activation for scenes
+        Sleep(3.f);
+    }
     Sleep(3.f);
     stoneEntity.PlayEffect('success');
 
@@ -264,7 +267,7 @@ latent quest function NR_UseCrossStone_Q() {
     for (i = 0; i < numberToSpawn1 + numberToSpawn2; i += 1) {
         pidx = RandDifferent(prev_pidx, spawnPositions.Size());
         pos_indexes.PushBack(pidx);
-        NR_ShowLightningFx(spawnPositions[pidx] + Vector(0,0,1.f), stoneEntity.GetWorldPosition() + Vector(0,0,1.8f), 'lightning_lynx_red', 'hit_electric_red');
+        NR_ShowLightningFx(stoneEntity.GetWorldPosition() + Vector(0,0,1.8f), spawnPositions[pidx] + Vector(0,0,1.f), true, 'lightning_lynx_red', 'hit_electric_red');
 
         crossEntity = (CEntity)theGame.CreateEntity(crossTemplate, spawnPositions[pidx] + Vector(0,0,4.f), EulerAngles(0, spawnYaws[pidx] + 180.f, 0));
         crossEntity.PlayEffect('cross');
@@ -291,7 +294,7 @@ latent quest function NR_UseCrossStone_Q() {
         npc = (CNewNPC)theGame.CreateEntity(template, spawnPositions[pidx], EulerAngles(0, spawnYaws[pidx], 0));
         npc.AddTag('nr_cross_stone_entity');
         npc.AddTag('fairytale_witch');  // hack for CBehTreeTaskCSEffect.CanSwimOrFly to avoid killing
-        entityLevel = Max(1, thePlayer.GetLevel() - levelReduct + RandRange(skillsLearned));
+        entityLevel = Max(1, thePlayer.GetLevel() - levelReduct + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
         NRD("NR_UseCrossStone_Q: Spawn npc tier1[" + i + "] = (" + idx + ")(" + pidx + ") = " + npc);
         Sleep(0.2f);
@@ -306,7 +309,7 @@ latent quest function NR_UseCrossStone_Q() {
         npc = (CNewNPC)theGame.CreateEntity(template, spawnPositions[pidx], EulerAngles(0, spawnYaws[pidx], 0));
         npc.AddTag('nr_cross_stone_entity');
         npc.AddTag('fairytale_witch');  // hack for CBehTreeTaskCSEffect.CanSwimOrFly to avoid killing
-        entityLevel = Max(1, thePlayer.GetLevel() - levelReduct - 2 + RandRange(skillsLearned));
+        entityLevel = Max(1, thePlayer.GetLevel() - levelReduct - 2 + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
         NRD("NR_UseCrossStone_Q: Spawn npc tier2[" + i + "] = (" + idx + ")(" + pidx + ") = " + npc);
         Sleep(0.2f);
@@ -632,4 +635,137 @@ quest function NR_IsSceneBlockActive_Q( questPath : name, sceneBlockId : int ) :
     active = NR_GetPlayerManager().IsSceneBlockActive( questPath, sceneBlockId );
     NRD("NR_IsSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
     return active;
+}
+
+latent quest function NR_ProcessMasterThunder_Q() {
+    var i, factVal, oldFactVal : int;
+    var interval : float;
+    var skyPos : Vector;
+    var masterComp, golemComp : CComponent;
+    var entity : CEntity;
+    var lightningEntities : array<CEntity>;
+    var golem, master : CActor;
+
+    var height : float = 30.f;
+    var radiusMax : float = 15.f;
+    var started : bool = false;
+
+    master = theGame.GetActorByTag('nr_master_mage');
+    if ( !NR_FindActorInScene('NR_CELESTINE', golem) ) {
+        return;
+    }
+
+    masterComp = master.GetComponent("l_hand_component");
+    golemComp = golem.GetComponent("grassCollider");
+
+    while (true) {
+        SleepOneFrame();
+        factVal = FactsQuerySum("nr_scene_crafting_thunder");
+        if (!factVal)
+            break;
+
+        if (factVal == oldFactVal)
+            continue;
+
+        oldFactVal = factVal;
+        skyPos = master.GetWorldPosition() + VecRingRand(1.f, radiusMax) + Vector(0,0,height);
+        entity = NR_StartLightningToNode(skyPos, masterComp, 'lightning_loop_blue', 'hit_electric_blue');
+        lightningEntities.PushBack( entity );
+        Sleep(0.05f);
+        master.SoundEvent("magic_sorceress_vfx_lightning_bolt");
+
+        if (factVal == 7) {
+            Sleep(0.1f);
+            entity = NR_StartLightningToNode(golemComp.GetWorldPosition(), masterComp, 'lightning_loop_blue', 'hit_electric_blue');
+            lightningEntities.PushBack( entity );
+        }
+    }
+
+    for (i = 0; i < lightningEntities.Size(); i += 1) {
+        NRD("Stop effects: [" + i + "] " + lightningEntities[i]);
+        lightningEntities[i].StopAllEffects();
+        lightningEntities[i].DestroyAfter(5.f);
+    }
+}
+
+quest function NR_ProcessSorceressFlowFx_Q() {
+    var golem : CActor;
+    var golemComp : CComponent;
+    var factVal : int;
+
+    if ( !NR_FindActorInScene('NR_CELESTINE', golem) ) {
+        return;
+    }
+    golemComp = golem.GetComponent('grassCollider');  // grassCollider2 = l_toe
+    factVal = FactsQuerySum("nr_scene_crafting_flow_fx");
+    // R: water = 1, earth = 2, fire = 4, air = 8
+    // L: water = 16, earth = 32, fire = 64, air = 128
+    if (factVal & 1) {
+        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_water_r");
+        thePlayer.PlayEffect('energy_flow_water_r', golemComp);
+    } else if (factVal & 2) {
+        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_r");
+        thePlayer.PlayEffect('energy_flow_ground_r', golemComp);
+    } else if (factVal & 4) {
+        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_r");
+        thePlayer.PlayEffect('energy_flow_fire_r', golemComp);
+    } else if (factVal & 8) {
+        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_air_r");
+        thePlayer.PlayEffect('energy_flow_air_r', golemComp);
+    }
+
+    if (factVal & 16) {
+        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_water_l");
+        thePlayer.PlayEffect('energy_flow_water_l', golemComp);
+    } else if (factVal & 32) {
+        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_l");
+        thePlayer.PlayEffect('energy_flow_ground_l', golemComp);
+    } else if (factVal & 64) {
+        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_l");
+        thePlayer.PlayEffect('energy_flow_fire_l', golemComp);
+    } else if (factVal & 128) {
+        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_air_l");
+        thePlayer.PlayEffect('energy_flow_air_l', golemComp);
+    }
+}
+
+quest function NR_ProcessGolemMorph_Q() {
+    var     golem : CActor;
+    var    components : array<CComponent>;
+    var       manager : CMorphedMeshManagerComponent;
+    var             i, j : int;
+    var ratio       : float = 1.f;
+    var blendTime   : float = 2.f;
+
+    if ( !NR_FindActorInScene('NR_CELESTINE', golem) ) {
+        return;
+    }
+    components = golem.GetComponentsByClassName('CMorphedMeshManagerComponent');
+    NRD("NR_ProcessGolemMorph_Q: Celestine app = " + golem.GetAppearance());
+    if (components.Size() == 0) {
+        NRD("NR_ProcessGolemMorph_Q: [ERROR] Not found morph managers for " + golem);
+    }
+    for (j = 0; j < components.Size(); j += 1) {
+        manager = (CMorphedMeshManagerComponent) components[j];
+        if (manager) {
+            NRD("NR_ProcessGolemMorph_Q: [Info] Current morph ratio: " + manager.GetMorphBlend());
+            manager.SetMorphBlend( ratio, blendTime );
+            NRD("NR_ProcessGolemMorph_Q: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blendTime + " sec");
+        }
+    }
+}
+
+latent quest function NR_SpawnHostileEntity_Q(path : String, relativeLevel : int, x : float, y : float, z : float, yaw : float) {
+    var template : CEntityTemplate;
+    var npc     : CNewNPC;
+
+    template = (CEntityTemplate)LoadResourceAsync(path, true);
+    if (!template) {
+        NRD("NR_SpawnHostileEntity_Q: !template: " + path);
+        return;
+    }
+    npc = (CNewNPC)theGame.CreateEntity(template, Vector(x,y,z), EulerAngles(0.f, yaw, 0.f));
+    npc.SetLevel(Max(1, thePlayer.GetLevel() + relativeLevel));
+    npc.AddTag('NR_SpawnHostileEntity_Q');
+    npc.AddTag('fairytale_witch');
 }

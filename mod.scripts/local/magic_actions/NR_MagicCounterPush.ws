@@ -34,7 +34,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 
 		pos -= thePlayer.GetHeadingVector() * 0.7f;
 		s_fullSphere = !isManual && IsActionAbilityUnlocked("FullBlast");
-		if (!isManual && RandRange(100) + 1 <= 20 + SkillLevel()) {
+		if (!isManual && SkillLevel() + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			s_freeze = IsActionAbilityUnlocked("Freezing") && BuffType() == 1;
 			if (!s_freeze) {
 				s_burn = IsActionAbilityUnlocked("Burning") && BuffType() == 2;

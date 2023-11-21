@@ -50,7 +50,7 @@ abstract statemachine class NR_MagicAction {
 
 		phraseInputs.PushBack(1);
 		...
-		if ( phraseChance >= RandRange(100) + 1 )
+		if ( phraseChance >= NR_GetRandomGenerator().nextRange(1, 100) )
 			PlayScene( phraseInputs);
 		*/
 		return true;
@@ -71,7 +71,7 @@ abstract statemachine class NR_MagicAction {
 			NRE("PlayScene: NULL scene!");
 			return false;
 		}
-		input_index = inputs[ RandRange( inputs.Size() ) ];
+		input_index = inputs[ NR_GetRandomGenerator().next( inputs.Size() ) ];
 		//NR_Notify("Play scene: [" + "spell_" + IntToString(input_index) + "]");
 
 		theGame.GetStorySceneSystem().PlayScene(scene, "spell_" + IntToString(input_index));
@@ -93,12 +93,16 @@ abstract statemachine class NR_MagicAction {
 
 	function OnPrepared(result : bool) : bool {
 		isPrepared = result;
+
+		if (isPrepared && target) {
+			target.SignalGameplayEvent( 'DodgeSign' );
+		}
 		return result;
 	}
 
 	latent function OnPerform(optional scriptedPerform : bool) : bool {
 		// perform action, fx
-		NRD("OnPerform: " + actionType);
+		NRD("OnPerform: " + actionType + ", isPrepared: " + isPrepared);
 		return isPrepared && !isBroken && !isPerformed;
 	}
 
@@ -123,9 +127,9 @@ abstract statemachine class NR_MagicAction {
 			//NRD("OnPerformed: " + "nr_magic_performed_" + ENR_MAToName(actionType) + "=" + FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType)));
 			CheckSkillLevelup();
 		}
-		if (isOnHorse) {
-			NR_GetMagicManager().SetMiscStateActionsBlocked(false);
-		}
+		//if (isOnHorse) {
+		//	NR_GetMagicManager().SetMiscStateActionsBlocked(false);
+		//}
 		return result;
 	}
 
@@ -134,23 +138,21 @@ abstract statemachine class NR_MagicAction {
 
 		newSkillLevel = PerformedCount() / performsToLevelup;
 		if (newSkillLevel > SkillLevel() && newSkillLevel <= 10) {
-			SetSkillLevel( newSkillLevel );
+			SetSkillLevel(newSkillLevel);
 			NR_GetMagicManager().ShowSkillLevelup( actionType );
 		}
 	}
 
 	function PerformedCount() : int {
-		return FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType));
+		return NR_GetMagicManager().GetActionPerformedCount(actionType);
+	}
+
+	function SetSkillLevel(newLevel : int) {
+		NR_GetMagicManager().SetActionSkillLevel( actionType, newLevel);
 	}
 
 	function SkillLevel() : int {
-		return map[ST_Universal].getI("level_" + ENR_MAToName(actionType), 0);
-	}
-
-	protected function SetSkillLevel(newLevel : int) {
-		// this is basic logic, override it in children classes (add special handles)
-		// FactsAdd("nr_magic_" + ENR_MAToName(type) + "_" + abilityName, 1)
-		map[ST_Universal].setI("level_" + ENR_MAToName(actionType), newLevel);
+		return NR_GetMagicManager().GetActionSkillLevel(actionType);
 	}
 
 	protected function ActionAbilityUnlock(abilityName : String) {
@@ -162,6 +164,8 @@ abstract statemachine class NR_MagicAction {
 	}
 
 	// + x% to damage
+	// invert = false: [1.0, ..]
+	// invert = true: [.., 1.0]
 	function SkillTotalDamageMultiplier(optional invert : bool) : float {
 		if (!invert)
 			return (100.f + NR_GetMagicManager().GetGeneralDamageBonus() + NR_GetMagicManager().GetActionDamageBonus(actionType)) / 100.f;
@@ -195,7 +199,7 @@ abstract statemachine class NR_MagicAction {
 	latent function NR_CalculateTarget(tryFindDestroyable : bool, makeStaticTrace : bool, targetOffsetZ : float, staticOffsetZ : float)
 	{
 		var Z						: float;
-		var newPos, normalCollision : Vector;
+		var startPos, newPos, normalCollision : Vector;
 		var foundDestroyable		: bool;
 
 		if (isOnHorse) {
@@ -236,7 +240,11 @@ abstract statemachine class NR_MagicAction {
 
 				// check where physics obstacle if needed
 				//if (makeStaticTrace && theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 1.f + Vector(0,0,1.5f), pos, newPos, normalCollision, standartCollisions)) {
-				if (makeStaticTrace && theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.f + Vector(0,0,1.5f), pos, newPos, normalCollision, standartCollisions)) {
+				startPos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.f + Vector(0,0,1.5f);
+				if (isOnHorse)
+					startPos += thePlayer.GetHeadingVector() * 3.f + Vector(0,0,1.f);
+
+				if (makeStaticTrace && theGame.GetWorld().StaticTrace(startPos, pos, newPos, normalCollision, standartCollisions)) {
 					pos = newPos;
 				}
 			}
@@ -337,7 +345,7 @@ abstract statemachine class NR_MagicAction {
 		} else {
 			damage = basicEssence + addEssence * thePlayer.GetLevel();
 		}
-		damage = damage * RandRangeF(randMax, randMin);
+		damage = damage * NR_GetRandomGenerator().nextRangeF(randMin, randMax);
 
 		if (damageTarget) {
 			damage = MinF(maxDamage, damage);

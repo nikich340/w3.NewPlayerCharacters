@@ -1046,7 +1046,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		for ( i = 0; i < numOfAnims; i += 1 )
 		{
-			rand = RandRange( linearSequence.Size(), 0 );
+			rand = NR_GetRandomGenerator().next( linearSequence.Size() );
 			playList.PushBack( linearSequence[ rand ] );
 			linearSequence.Erase( rand );
 		}
@@ -1839,7 +1839,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			/* CHECK IF FINISHER POSSIBLE */
 			if ( parent.slideTarget && attackTarget && CanPerformFinisherOnAliveTarget(attackTarget)
 			&& attackTarget.GetHealthPercents() <= parent.magicManager.GetMaxHealthPercForFinisher()
-				&& RandRange(100) < parent.magicManager.GetChancePercForFinisher(attackTarget) )
+				&& parent.magicManager.GetChancePercForFinisher(attackTarget) >= NR_GetRandomGenerator().nextRange(1, 100) )
 			{
 					TryPeformMagicAttack( 'AttackFinisher', ENR_RipApart );
 			} else if( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )

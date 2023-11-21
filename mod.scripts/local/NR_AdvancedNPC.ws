@@ -12,17 +12,17 @@ statemachine class NR_AdvancedNPC extends CNewNPC {
 	{
 		super.OnSpawned( spawnData );
 		NRD("NR_AdvancedNPC.OnSpawned");
-		AddTimer('PlayVoicesetTimer', RandRangeF(commentTimeIntervalMax, commentTimeIntervalMin), false);
+		AddTimer('PlayVoicesetTimer', NR_GetRandomGenerator().nextRangeF(commentTimeIntervalMin, commentTimeIntervalMax), false);
 	}
 
 	timer function PlayVoicesetTimer( time : float , id : int)
 	{
-		AddTimer('PlayVoicesetTimer', RandRangeF(commentTimeIntervalMax, commentTimeIntervalMin), false);
+		AddTimer('PlayVoicesetTimer', NR_GetRandomGenerator().nextRangeF(commentTimeIntervalMin, commentTimeIntervalMax), false);
 		NRD("NR_AdvancedNPC.PlayVoicesetTimer");
 		if( !IsInCombat() && commentInputNames.Size() > 0 )
 		{
 			NRD("NR_AdvancedNPC.PlayVoicesetTimer: Play");
-			PlayComment( commentInputNames[RandRange(commentInputNames.Size())] );
+			PlayComment( commentInputNames[NR_GetRandomGenerator().next(commentInputNames.Size())] );
 		}
 	}
 	
@@ -33,9 +33,9 @@ statemachine class NR_AdvancedNPC extends CNewNPC {
 		super.OnCombatModeSet( toggle );
 		NRD("NR_AdvancedNPC.OnCombatModeSet");
 		if (toggle && commentCombatStartInputNames.Size() > 0 && commentCombatStartChance >= NR_GetRandomGenerator().nextRange(1, 100)) {
-			PlayComment( commentCombatStartInputNames[RandRange(commentCombatStartInputNames.Size())] );
+			PlayComment( commentCombatStartInputNames[NR_GetRandomGenerator().next(commentCombatStartInputNames.Size())] );
 		} else if (!toggle && commentCombatEndInputNames.Size() > 0 && commentCombatEndChance >= NR_GetRandomGenerator().nextRange(1, 100)) {
-			PlayComment( commentCombatEndInputNames[RandRange(commentCombatEndInputNames.Size())] );
+			PlayComment( commentCombatEndInputNames[NR_GetRandomGenerator().next(commentCombatEndInputNames.Size())] );
 		}
 		NRD("(" + this + ") OnCombatModeSet = " + toggle);
 	}

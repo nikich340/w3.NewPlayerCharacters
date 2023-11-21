@@ -14,7 +14,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		var sceneInputs : array<int>;
 		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 25);
 
-		if ( voicelineChance >= RandRange(100) + 1 ) {
+		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
 			NRD("PlayScene!");
 			sceneInputs.PushBack(3);
 			sceneInputs.PushBack(4);
@@ -80,7 +80,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			lProjectiles.PushBack(projectile);
 
 			raiseObjectsHeightNoise = 0.5f;
-			spawnPos.Z += ((CMovingPhysicalAgentComponent)thePlayer.GetMovingAgentComponent()).GetCapsuleHeight() * RandRangeF( 1.f + raiseObjectsHeightNoise, 1.f - raiseObjectsHeightNoise );
+			spawnPos.Z += ((CMovingPhysicalAgentComponent)thePlayer.GetMovingAgentComponent()).GetCapsuleHeight() * NR_GetRandomGenerator().nextRangeF( 1.f - raiseObjectsHeightNoise, 1.f + raiseObjectsHeightNoise );
 			lFinalPositions.PushBack( spawnPos );
 		}
 		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ false, 
@@ -137,7 +137,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 
 			distToTarget = VecDistance2D( pos, thePlayer.GetWorldPosition() );
 			// a bit randomness
-			pos = pos + Vector(RandRangeF(randNoise, -randNoise), RandRangeF(randNoise, -randNoise), RandRangeF(randNoise, -randNoise));
+			pos = pos + Vector(NR_GetRandomGenerator().nextRangeF(-randNoise, randNoise), NR_GetRandomGenerator().nextRangeF(-randNoise, randNoise), NR_GetRandomGenerator().nextRangeF(-randNoise, randNoise));
 			// shooting
 			range = 100.f;
 			if (target) {
@@ -356,7 +356,7 @@ state Break in NR_MagicRock {
 			projectile.StopEffect( parent.m_fxNameMain );
 			
 			// dropping
-			range = RandRangeF( 1, 0 );
+			range = NR_GetRandomGenerator().nextRangeF( 0, 1 );
 			spawnPos = projectile.GetWorldPosition() + projectile.GetHeadingVector() * range;
 			projectile.ShootProjectileAtPosition( projectile.projAngle, 5, spawnPos, range, parent.standartCollisions );
 			projectile.DestroyAfter(10.f);

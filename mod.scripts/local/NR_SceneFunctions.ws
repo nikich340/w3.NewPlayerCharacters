@@ -6,10 +6,12 @@ storyscene function NR_SetPreviewDataIndex_S(player: CStoryScenePlayer, data_ind
 
 storyscene function NR_ClearAppearanceSlot_S(player: CStoryScenePlayer, slot_index : int) {
 	NR_GetPlayerManager().ClearAppearanceSlot((ENR_AppearanceSlots)slot_index);
+	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
 storyscene function NR_ClearItemSlot_S(player: CStoryScenePlayer, item_index : int) {
 	NR_GetPlayerManager().ClearItemSlot(item_index);
+	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
 storyscene function NR_ApplyRandomNPCSet_S(player: CStoryScenePlayer) {
@@ -18,14 +20,17 @@ storyscene function NR_ApplyRandomNPCSet_S(player: CStoryScenePlayer) {
 
 storyscene function NR_UserSetsSave_S(player: CStoryScenePlayer) {
 	NR_GetPlayerManager().SaveAppearanceSet();
+	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
 storyscene function NR_UserSetsLoad_S(player: CStoryScenePlayer, setIndex : int) {
 	NR_GetPlayerManager().LoadAppearanceSet(setIndex);
+	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
 storyscene function NR_UserSetsRemove_S(player: CStoryScenePlayer, setIndex : int) {
 	NR_GetPlayerManager().RemoveAppearanceSet(setIndex);
+	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
 latent storyscene function NR_ShowCustomDLCInfo_S(player: CStoryScenePlayer) {
@@ -103,6 +108,7 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 storyscene function NR_ShowMagicInfo_S(player: CStoryScenePlayer, sectionName : name) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
+	NRD("NR_ShowMagicInfo_S: sectionName = " + sectionName);
 	if (!magicManager) {
 		NRE("NR_SetMagicInSetupScene_S: NULL magicManager!");
 		return;
@@ -141,6 +147,20 @@ storyscene function NR_SetMagicActionType_S(player: CStoryScenePlayer, actionTyp
 		return;
 	}
 	magicManager.SetActionType((ENR_MagicAction)actionType);
+}
+
+storyscene function NR_SimulateLongMagicAction_S(player: CStoryScenePlayer, actionType : int) {
+	var magicManager : NR_MagicManager = NR_GetMagicManager();
+
+	NRD("NR_SimulateLongMagicAction_S: actionType = " + ENR_MAToName((ENR_MagicAction)actionType));
+	if (!magicManager) {
+		NRE("NR_SetMagicInSetupScene_S: NULL magicManager!");
+		return;
+	}
+	magicManager.SetActionType((ENR_MagicAction)actionType);
+	magicManager.AddActionEvent( 'InitAction', 'SimulateLongMagicAction' );
+	magicManager.AddActionEvent( 'Prepare', 'SimulateLongMagicAction' );
+	magicManager.AddActionEvent( 'PerformMagicAttack', 'SimulateLongMagicAction' );
 }
 
 storyscene function NR_SetMagicLightRatio_S(player: CStoryScenePlayer, slashNum : int, throwNum : int) {
@@ -223,10 +243,10 @@ latent storyscene function NR_CreatePortal_S(player: CStoryScenePlayer, waypoint
 	NR_CreatePortal( waypointTag, worldName, activeTime );
 }
 
-/*latent storyscene function NR_ChooseMagicParamPercent_S(player: CStoryScenePlayer, signName : name, varName : String)
+latent storyscene function NR_ChooseMagicParamPercent_S(player: CStoryScenePlayer, signName : name, varName : String)
 {
 	var magicManager 	: NR_MagicManager = NR_GetMagicManager();
-	var popupData 		: BettingSliderData; // custom class here!
+	var popupData 		: NR_MagicSliderData;
 	var hud 			: CR4ScriptedHud;
 	var dialogueModule 	: CR4HudModuleDialog;
 	var value 			: int;
@@ -237,47 +257,28 @@ latent storyscene function NR_CreatePortal_S(player: CStoryScenePlayer, waypoint
 		dialogueModule = (CR4HudModuleDialog)hud.GetHudModule("DialogModule");
 		dialogueModule.OnDialogPreviousSentenceSet("");
 		dialogueModule.OnDialogSentenceSet("");
-		popupData = new BettingSliderData in magicManager;
+		popupData = new NR_MagicSliderData in magicManager;
 		
 		popupData.ScreenPosX = 0.62;
 		popupData.ScreenPosY = 0.65;
-		popupData.SetMessageTitle( GetLocStringByKeyExt("panel_hud_dialogue_title_bet"));
-		popupData.dialogueRef = magicManager;
+		popupData.SetMessageTitle( GetLocStringById(2115940587));
+		// popupData.dialogueRef = dialogueModule;
 		popupData.BlurBackground = false;  
 		
-		popupData.minValue = 1;
-		popupData.maxValue = rewrd.gold;
-		
-		if( overrideCurrent > 0 )
-		{
-			popupData.currentValue = Max (1, Min( rewrd.gold, thePlayer.GetMoney() ) * overrideCurrent / 100);
-		}
-		else
-		{
-			popupData.currentValue = rewrd.gold;
-		}
+		popupData.minValue = 0;
+		popupData.maxValue = 100;
+		popupData.currentValue = magicManager.GetParamInt(signName, varName);
+		popupData.signName = signName;
+		popupData.varName = varName;
 
 		theGame.RequestMenu('PopupMenu', popupData);
-	}
-	NRD("NR_ChooseMagicParamPercent_S: [" + signName + "] (" + varName + ")");
-	if (!magicManager) {
-		NRE("NR_SetMagicSettingInt_S: NULL magicManager!");
-		return;
-	}
-	value = magicManager.GetParamInt(signName, varName);
-
-	hud = (CR4ScriptedHud)theGame.GetHud();
-	if( hud )
-	{
-		dialogueModule = (CR4HudModuleDialog)hud.GetHudModule("DialogModule");
-		dialogueModule.OpenBetPopup('nr_fake_reward_100', value);
-		while( dialogueModule.IsPopupOpened() )
-		{
+		while ( !popupData.IsCompleted() ) {
 			SleepOneFrame();
 		}
+		theGame.CloseMenu('PopupMenu');
 	}
 
-	magicManager.SetParamInt(signName, varName, varValue);
+	NRD("NR_ChooseMagicParamPercent_S: [" + signName + "] (" + varName + ")");
 	magicManager.UpdateMagicInfo();
 }
-*/
+

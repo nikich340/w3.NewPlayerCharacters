@@ -85,6 +85,26 @@ repository:
       frames: 84
       #duration 8 sec
 
+    nr_ciri_targeting_for_triss_meteorite_lp_loop:
+      animation: "nr_ciri_targeting_for_triss_meteorite_lp_loop"
+      frames: 121
+
+    nr_margerita_naglfar_arrives_loop_01:
+      animation: "nr_margerita_naglfar_arrives_loop_01"
+      frames: 83
+
+    nr_q403_yennefer_chanting_spell:
+      animation: "nr_q403_yennefer_chanting_spell"
+      frames: 321
+
+    nr_sorceress_casting_short_spell_loop:
+      animation: "nr_sorceress_casting_short_spell_loop"
+      frames: 176
+
+    nr_yennefer_naglfar_arrives_loop_01:
+      animation: "nr_yennefer_naglfar_arrives_loop_01"
+      frames: 123
+
     # SBUI ANIMS
     anim_100013_woman_sorceress_attack_slash_left_lp:
       animation: "woman_sorceress_attack_slash_left_lp"
@@ -206,7 +226,7 @@ production:
   settings:
     sceneid: 1
     strings-idspace: 5940
-    strings-idstart: 200
+    strings-idstart: 350
 
   safe_placement: false
   snap_to_terrain: true
@@ -511,15 +531,19 @@ dialogscript:
           emphasize: true
         - choice: ["2115940103|[BACK]", script_remove_scene_callbacks_back, exit]
           emphasize: true
-        - choice: ["2115940143|Hand effect", script_info_hand, axii]
+        - choice: ["2115940587|Set spell voiceline chance", script_info_spell_voicelines]
           emphasize: true
-        - choice: ["2115940144|Teleport", script_info_teleport, axii]
+        - choice: ["2115940143|Hand effect", script_info_hand]
           emphasize: true
-        - choice: ["2115940118|Light attacks", script_info_light, axii]
+        - choice: ["2115940144|Teleport", script_info_teleport]
           emphasize: true
-        - choice: ["2115940146|Heavy attacks", script_info_heavy, axii]
+        - choice: ["2115940118|Light attacks", script_info_light]
           emphasize: true
-        - choice: ["2115940152|Special spells", section_fadeout_exit_back, axii]
+        - choice: ["2115940146|Heavy attacks", script_info_heavy]
+          emphasize: true
+        - choice: ["2115940152|Special spells", script_info_special]
+          emphasize: true
+        - choice: ["2115940158|Alt special spells", script_info_special_alt]
           emphasize: true
 
   # LIGHT: RATIO

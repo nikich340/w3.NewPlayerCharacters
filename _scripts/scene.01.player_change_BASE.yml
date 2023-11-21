@@ -324,6 +324,7 @@ dialogscript:
           emphasize: true
         - choice: ["2115940551|Change player type", section_choice_type]
           emphasize: true
+          condition: ["nr_player_type_change_locked", "<", 1]
         - choice: ["2115940552|Change player appearance", section_branch_player_appearance]
           emphasize: true
           condition: ["nr_player_type", ">", 2]
@@ -502,10 +503,10 @@ dialogscript:
           emphasize: true
         - choice: ["2115940573|Load appearance set", section_choice_saved_sets_load]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 1]
+          condition: ["nr_appearance_sets_female", ">=", 1]
         - choice: ["2115940574|Remove appearance set", section_choice_saved_sets_remove]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 1]
+          condition: ["nr_appearance_sets_female", ">=", 1]
 
   section_trans_choice_saved_sets_to_itself:
     - PAUSE: 0.0
@@ -522,181 +523,181 @@ dialogscript:
           emphasize: true
         - choice: ["0001107617|.", script_saved_sets_load_0]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 1]
+          condition: ["nr_appearance_sets_female", ">=", 1]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #1"
         - choice: ["0001107617|.", script_saved_sets_load_1]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 2]
+          condition: ["nr_appearance_sets_female", ">=", 2]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #2"
         - choice: ["0001107617|.", script_saved_sets_load_2]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 3]
+          condition: ["nr_appearance_sets_female", ">=", 3]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #3"
         - choice: ["0001107617|.", script_saved_sets_load_3]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 4]
+          condition: ["nr_appearance_sets_female", ">=", 4]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #4"
         - choice: ["0001107617|.", script_saved_sets_load_4]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 5]
+          condition: ["nr_appearance_sets_female", ">=", 5]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #5"
         - choice: ["0001107617|.", script_saved_sets_load_5]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 6]
+          condition: ["nr_appearance_sets_female", ">=", 6]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #6"
         - choice: ["0001107617|.", script_saved_sets_load_6]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 7]
+          condition: ["nr_appearance_sets_female", ">=", 7]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #7"
         - choice: ["0001107617|.", script_saved_sets_load_7]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 8]
+          condition: ["nr_appearance_sets_female", ">=", 8]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #8"
         - choice: ["0001107617|.", script_saved_sets_load_8]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 9]
+          condition: ["nr_appearance_sets_female", ">=", 9]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #9"
         - choice: ["0001107617|.", script_saved_sets_load_9]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 10]
+          condition: ["nr_appearance_sets_female", ">=", 10]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #10"
         - choice: ["0001107617|.", script_saved_sets_load_10]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 11]
+          condition: ["nr_appearance_sets_female", ">=", 11]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #11"
         - choice: ["0001107617|.", script_saved_sets_load_11]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 12]
+          condition: ["nr_appearance_sets_female", ">=", 12]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #12"
         - choice: ["0001107617|.", script_saved_sets_load_12]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 13]
+          condition: ["nr_appearance_sets_female", ">=", 13]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #13"
         - choice: ["0001107617|.", script_saved_sets_load_13]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 14]
+          condition: ["nr_appearance_sets_female", ">=", 14]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #14"
         - choice: ["0001107617|.", script_saved_sets_load_14]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 15]
+          condition: ["nr_appearance_sets_female", ">=", 15]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #15"
         - choice: ["0001107617|.", script_saved_sets_load_15]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 16]
+          condition: ["nr_appearance_sets_female", ">=", 16]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #16"
         - choice: ["0001107617|.", script_saved_sets_load_16]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 17]
+          condition: ["nr_appearance_sets_female", ">=", 17]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #17"
         - choice: ["0001107617|.", script_saved_sets_load_17]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 18]
+          condition: ["nr_appearance_sets_female", ">=", 18]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #18"
         - choice: ["0001107617|.", script_saved_sets_load_18]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 19]
+          condition: ["nr_appearance_sets_female", ">=", 19]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #19"
         - choice: ["0001107617|.", script_saved_sets_load_19]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 20]
+          condition: ["nr_appearance_sets_female", ">=", 20]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #20"
         - choice: ["0001107617|.", script_saved_sets_load_20]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 21]
+          condition: ["nr_appearance_sets_female", ">=", 21]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #21"
         - choice: ["0001107617|.", script_saved_sets_load_21]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 22]
+          condition: ["nr_appearance_sets_female", ">=", 22]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #22"
         - choice: ["0001107617|.", script_saved_sets_load_22]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 23]
+          condition: ["nr_appearance_sets_female", ">=", 23]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #23"
         - choice: ["0001107617|.", script_saved_sets_load_23]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 24]
+          condition: ["nr_appearance_sets_female", ">=", 24]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #24"
         - choice: ["0001107617|.", script_saved_sets_load_24]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 25]
+          condition: ["nr_appearance_sets_female", ">=", 25]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #25"
         - choice: ["0001107617|.", script_saved_sets_load_25]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 26]
+          condition: ["nr_appearance_sets_female", ">=", 26]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #26"
         - choice: ["0001107617|.", script_saved_sets_load_26]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 27]
+          condition: ["nr_appearance_sets_female", ">=", 27]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #27"
         - choice: ["0001107617|.", script_saved_sets_load_27]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 28]
+          condition: ["nr_appearance_sets_female", ">=", 28]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #28"
         - choice: ["0001107617|.", script_saved_sets_load_28]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 29]
+          condition: ["nr_appearance_sets_female", ">=", 29]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #29"
         - choice: ["0001107617|.", script_saved_sets_load_29]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 30]
+          condition: ["nr_appearance_sets_female", ">=", 30]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #30"
@@ -921,181 +922,181 @@ dialogscript:
           emphasize: true
         - choice: ["0001107617|.", script_saved_sets_remove_0]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 1]
+          condition: ["nr_appearance_sets_female", ">=", 1]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #1"
         - choice: ["0001107617|.", script_saved_sets_remove_1]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 2]
+          condition: ["nr_appearance_sets_female", ">=", 2]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #2"
         - choice: ["0001107617|.", script_saved_sets_remove_2]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 3]
+          condition: ["nr_appearance_sets_female", ">=", 3]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #3"
         - choice: ["0001107617|.", script_saved_sets_remove_3]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 4]
+          condition: ["nr_appearance_sets_female", ">=", 4]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #4"
         - choice: ["0001107617|.", script_saved_sets_remove_4]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 5]
+          condition: ["nr_appearance_sets_female", ">=", 5]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #5"
         - choice: ["0001107617|.", script_saved_sets_remove_5]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 6]
+          condition: ["nr_appearance_sets_female", ">=", 6]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #6"
         - choice: ["0001107617|.", script_saved_sets_remove_6]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 7]
+          condition: ["nr_appearance_sets_female", ">=", 7]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #7"
         - choice: ["0001107617|.", script_saved_sets_remove_7]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 8]
+          condition: ["nr_appearance_sets_female", ">=", 8]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #8"
         - choice: ["0001107617|.", script_saved_sets_remove_8]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 9]
+          condition: ["nr_appearance_sets_female", ">=", 9]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #9"
         - choice: ["0001107617|.", script_saved_sets_remove_9]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 10]
+          condition: ["nr_appearance_sets_female", ">=", 10]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #10"
         - choice: ["0001107617|.", script_saved_sets_remove_10]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 11]
+          condition: ["nr_appearance_sets_female", ">=", 11]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #11"
         - choice: ["0001107617|.", script_saved_sets_remove_11]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 12]
+          condition: ["nr_appearance_sets_female", ">=", 12]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #12"
         - choice: ["0001107617|.", script_saved_sets_remove_12]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 13]
+          condition: ["nr_appearance_sets_female", ">=", 13]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #13"
         - choice: ["0001107617|.", script_saved_sets_remove_13]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 14]
+          condition: ["nr_appearance_sets_female", ">=", 14]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #14"
         - choice: ["0001107617|.", script_saved_sets_remove_14]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 15]
+          condition: ["nr_appearance_sets_female", ">=", 15]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #15"
         - choice: ["0001107617|.", script_saved_sets_remove_15]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 16]
+          condition: ["nr_appearance_sets_female", ">=", 16]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #16"
         - choice: ["0001107617|.", script_saved_sets_remove_16]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 17]
+          condition: ["nr_appearance_sets_female", ">=", 17]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #17"
         - choice: ["0001107617|.", script_saved_sets_remove_17]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 18]
+          condition: ["nr_appearance_sets_female", ">=", 18]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #18"
         - choice: ["0001107617|.", script_saved_sets_remove_18]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 19]
+          condition: ["nr_appearance_sets_female", ">=", 19]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #19"
         - choice: ["0001107617|.", script_saved_sets_remove_19]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 20]
+          condition: ["nr_appearance_sets_female", ">=", 20]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #20"
         - choice: ["0001107617|.", script_saved_sets_remove_20]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 21]
+          condition: ["nr_appearance_sets_female", ">=", 21]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #21"
         - choice: ["0001107617|.", script_saved_sets_remove_21]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 22]
+          condition: ["nr_appearance_sets_female", ">=", 22]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #22"
         - choice: ["0001107617|.", script_saved_sets_remove_22]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 23]
+          condition: ["nr_appearance_sets_female", ">=", 23]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #23"
         - choice: ["0001107617|.", script_saved_sets_remove_23]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 24]
+          condition: ["nr_appearance_sets_female", ">=", 24]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #24"
         - choice: ["0001107617|.", script_saved_sets_remove_24]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 25]
+          condition: ["nr_appearance_sets_female", ">=", 25]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #25"
         - choice: ["0001107617|.", script_saved_sets_remove_25]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 26]
+          condition: ["nr_appearance_sets_female", ">=", 26]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #26"
         - choice: ["0001107617|.", script_saved_sets_remove_26]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 27]
+          condition: ["nr_appearance_sets_female", ">=", 27]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #27"
         - choice: ["0001107617|.", script_saved_sets_remove_27]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 28]
+          condition: ["nr_appearance_sets_female", ">=", 28]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #28"
         - choice: ["0001107617|.", script_saved_sets_remove_28]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 29]
+          condition: ["nr_appearance_sets_female", ">=", 29]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #29"
         - choice: ["0001107617|.", script_saved_sets_remove_29]
           emphasize: true
-          condition: ["nr_appearance_sets", ">=", 30]
+          condition: ["nr_appearance_sets_female", ">=", 30]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #30"

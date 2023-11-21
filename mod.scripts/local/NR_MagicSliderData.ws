@@ -24,7 +24,7 @@ class NR_MagicSliderData extends DialogueSliderData
 			// invalid value
 			if ( currentValue > 100 )
 			{
-				theGame.GetGuiManager().ShowNotification( GetLocStringById("1223566") );
+				theGame.GetGuiManager().ShowNotification( GetLocStringById(1223566) );
 				return;
 			}
 			

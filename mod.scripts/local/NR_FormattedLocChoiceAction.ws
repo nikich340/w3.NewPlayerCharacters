@@ -54,3 +54,29 @@ class NR_FormattedLocChoiceAction extends CStorySceneChoiceLineActionScripted
 		return DialogAction_NONE;
 	}
 }
+
+class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
+{
+	editable var str : String;
+	editable var type : name;
+	editable var factName : string;
+	editable var factOperator : int;  // ECompareOp
+	editable var factValue : int;
+
+	function CanUseAction() : bool {
+		if (StrLen(factName) > 0 && !ProcessCompare((ECompareOp)factOperator, FactsQuerySum(factName), factValue)) {
+			return false;
+		}
+		return NR_GetMagicManager().IsActionLearned(ENR_NameToMA(type));
+	}
+
+	function GetActionText() : string			
+	{
+		return NR_FormatLocString(str);
+	}
+	
+	function GetActionIcon() : EDialogActionIcon 	
+	{ 
+		return DialogAction_NONE;
+	}
+}

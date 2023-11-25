@@ -124,8 +124,10 @@ class NR_RandomGenerator extends CEntity {
     /* Random value in range [0, n-1]. */
     public function nextU(n : Uint64) : Uint64 {
     	var limit, bits : Uint64;
-        if (n <= IntToUint64(0))
+        if (n <= IntToUint64(0)) {
             NRE("random_t::next(long long n): n must be positive");
+            return n;
+        }
 
         limit = __longlong_max / n * n;
 

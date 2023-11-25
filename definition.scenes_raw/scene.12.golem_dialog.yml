@@ -71,7 +71,7 @@ repository:
         tags: [ "ext" ]
 
     cam_2_Shot_to_golem:
-      fov: 20.0
+      fov: 25.0
       transform:
         pos: [ 0.4078342319, -0.9433993101, 1.4649809599 ]
         rot: [ 0.0, 10.8500061035, 15.3000259399 ]
@@ -402,14 +402,16 @@ dialogscript:
     - CUE: shot_greeting_a
     - nr_golem_celestine: "2115940956|Mistress. A pleasure."
     - CUE: shot_greeting_a2
-    - PAUSE: 3.3
+    - PAUSE: 1.0
+    - sorceress: "2100002905|Greetings."
     - NEXT: section_choice_main
 
   section_greeting_b:
     - CUE: shot_greeting_b
     - nr_golem_celestine: "2115940957|Morning. Nice day."
     - CUE: shot_greeting_b2
-    - PAUSE: 3.3
+    - PAUSE: 1.0
+    - sorceress: "2100013323|Greetings."
     - NEXT: section_choice_main
 
   section_choice_main:

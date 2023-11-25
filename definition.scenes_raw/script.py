@@ -4,7 +4,7 @@ import time
 
 import random
 import ruamel.yaml
-from ruamel.yaml import comments, CommentedMap, CommentedSeq
+from ruamel.yaml import comments, CommentedMap, CommentedSeq, YAML
 from ruamel import yaml
 from pathlib import Path
 from shutil import copy2
@@ -27,7 +27,9 @@ def read_yml_nicely(path):
     print(f"YML load {path}")
     with open(path, mode="r", encoding="utf-8") as yf:
             start_t = time.time()
-            yml = yaml.load(yf, Loader=yaml.RoundTripLoader, preserve_quotes=True)
+            yaml_loader = YAML(typ="rt")
+            yaml_loader.preserve_quotes = True
+            yml = yaml_loader.load(yf)
             end_t = time.time()
             print(f"YML loaded in: {end_t - start_t} s")
     return yml

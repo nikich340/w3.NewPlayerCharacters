@@ -11,7 +11,7 @@ communities:
         master_cat:
           add_tags: [ "nr_master_cat_ship_phase" ]
           scripted: NR_ApplyAppearanceIfPossibleInitializer
-          attitude: player
+          attitude: friendly_to_player
           immortality: immortal
           use_last_ap: true
           start_in_ap: true
@@ -56,13 +56,13 @@ communities:
       celestine:
         template: "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_golem_celestine.w2ent"
         appearances: [ "nr_celestine" ]
-        tags: [ "nr_celestine" ]
+        tags: [ "nr_celestine", "vip" ]
 
     phases:
       arena_phase:
         celestine:
           add_tags: [ "nr_celestine_arena_phase" ]
-          attitude: player
+          attitude: friendly_to_player
           immortality: immortal
           use_last_ap: false
           start_in_ap: false
@@ -74,7 +74,7 @@ communities:
       master_mage:
         template: "dlc/dlcnewreplacers/data/entities/nr_master_mage.w2ent"
         appearances: [ "nr_master_mage" ]
-        tags: [ "nr_master_mage" ]
+        tags: [ "nr_master_mage", "vip" ]
 
 
     phases:
@@ -82,7 +82,7 @@ communities:
         master_mage:
           add_tags: [ "nr_master_mage_ship_phase" ]
           scripted: NR_PlayTeleportInScriptedInitializer
-          attitude: player
+          attitude: friendly_to_player
           immortality: immortal
           use_last_ap: true
           start_in_ap: true
@@ -106,7 +106,7 @@ communities:
               - prologue/ship_eat_1
               - prologue/ship_eat_2
             "16:00":
-              - prologue/ship_sit_on_mast
+              # - prologue/ship_sit_on_mast
               - prologue/ship_stand_on_mast
               - prologue/ship_stand_on_mast2
             # stone_phase: [18:00, 23:59]
@@ -116,7 +116,7 @@ communities:
         master_mage:
           add_tags: [ "nr_master_mage_stone_phase" ]
           scripted: NR_PlayTeleportInScriptedInitializer
-          attitude: player
+          attitude: friendly_to_player
           immortality: immortal
           use_last_ap: true
           start_in_ap: true

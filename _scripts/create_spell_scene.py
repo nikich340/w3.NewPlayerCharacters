@@ -31,6 +31,7 @@ class STR(StrEnum):
     projectile = "2115940142"
     hand_effect = "2115940143"
     teleport = "2115940144"
+    gp_teleport = "2115940589"
     ft_teleport = "2115940145"
     heavy_attacks = "2115940146"
     heavy_ratio = "2115940147"
@@ -52,7 +53,8 @@ class STR(StrEnum):
     lumos = "2115940165"
     polymorphism = "2115940166"
     set_spell_voiceline_chance = "2115940587"
-    effect = "1226888"
+    effect = "0001226888"
+    water_trap = "2115940168"
 
 class ECompareOp(IntEnum):
     CO_Lesser = 0
@@ -272,9 +274,9 @@ m_sorc_anims = {
     ],
     "AttackSpecialTransform": [
         {
-            "name": "woman_sorceress_transform_lp",
-            "perform": 1.6667,
-            "duration": 4.166
+            "name": "woman_sorceress_special_attack_electricity_lp",
+            "perform": 1.7,
+            "duration": 3.3333
         }
     ],
     # long alt (looped)
@@ -381,7 +383,8 @@ class ENR_MA(IntEnum):
     ENR_SpecialField = auto()
     ENR_Teleport = auto()
     ENR_HandFx = auto()
-    ENR_FastTravelTeleport = auto()
+    ENR_FastTravelTeleport = auto(),
+    ENR_WaterTrap = auto()
 
 class ENR_MC(IntEnum):
     ENR_ColorBlack = 0
@@ -580,7 +583,7 @@ def add_slash_color_option(sign: list):
     action = ENR_MA.ENR_Slash
     cast_anim = m_sorc_anims["AttackLightSlash"][0]
     willey_anim_name = "hit1"
-    forbidden_colors = {"Black", "Grey", "Special1", "Special2", "Special3"}
+    forbidden_colors = {"Black", "Grey", "Special2", "Special3"}
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors)
 
 # special case (2 subtypes)
@@ -780,7 +783,7 @@ def add_teleport_type_option(sign: list):
     # not_colorized_types = { "ofieri" }
     suffix = "type"
     prefix = "teleport"
-    choice_str0 = STR.teleport
+    choice_str0 = STR.gp_teleport
     choice_str1 = STR.type
     action = ENR_MA.ENR_Teleport
     cast_anim = m_sorc_anims["AttackTeleport"][0]
@@ -790,7 +793,7 @@ def add_teleport_type_option(sign: list):
 def add_teleport_color_option(sign: list):
     suffix = "color"
     prefix = "teleport"
-    choice_str0 = STR.teleport
+    choice_str0 = STR.gp_teleport
     choice_str1 = STR.color
     action = ENR_MA.ENR_Teleport
     cast_anim = m_sorc_anims["AttackTeleport"][0]
@@ -890,7 +893,7 @@ def add_generic_type_option(action_types, sign, suffix, prefix, choice_str0, cho
 
         connect_sections([script_set_section, preview_type_script_section])
         script_action = {
-            ".class": "NR_FormattedLocChoiceAction",
+            ".class": "NR_FormattedMagicChoiceAction",
             "str": f"{{{sign[1]}}}: {{{choice_str0}}}: "
         }
         if dlc_names and len(dlc_names) > type_i and dlc_names[type_i]:
@@ -1337,6 +1340,20 @@ def add_special_alt_polymorphism_type_option(sign: list):
     add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, fact_condition=fact_condition)
     '''
 
+def add_special_alt_polymorphism_color_option(sign: list):
+    lsign = sign[0].lower()
+    suffix = "polymorphism_color"
+    prefix = "special_alt"
+    choice_str0 = STR.polymorphism
+    choice_str1 = STR.color
+    action = ENR_MA.ENR_SpecialPolymorphism
+    cast_anim = m_sorc_anims["AttackSpecialTransform"][0]
+    willey_anim_name = str()  # "hit1"
+    fact_condition = [f"nr_type_special_alt_{lsign}", "=", action.value]
+    forbidden_colors = {"Black", "Grey", "Special1", "Special2", "Special3"}
+    add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name,
+                             forbidden_colors, fact_condition=fact_condition)
+
 def add_special_alt_polymorphism_cat_appearance_option(sign: list):
     lsign = sign[0].lower()
     appearances = ["random", "cat_vanilla_01", "cat_vanilla_02", "cat_vanilla_03"]
@@ -1395,6 +1412,8 @@ def main():
     add_dummy_section("section_spell_voicelines_entry", 0.0)
     connect_sections(["script_info_spell_voicelines", "section_spell_voicelines_entry", "section_choice_spell_voicelines"])
     voiceline_types = [
+        ENR_MA.ENR_FastTravelTeleport,
+        ENR_MA.ENR_CounterPush,
         ENR_MA.ENR_Slash,
         ENR_MA.ENR_Lightning,
         ENR_MA.ENR_ProjectileWithPrepare,
@@ -1410,9 +1429,12 @@ def main():
         ENR_MA.ENR_SpecialField,
         ENR_MA.ENR_SpecialMeteorFall,
         ENR_MA.ENR_SpecialLumos,
-        ENR_MA.ENR_SpecialPolymorphism
+        ENR_MA.ENR_SpecialPolymorphism,
+        ENR_MA.ENR_WaterTrap,
     ]
     voiceline_strs = [
+        STR.ft_teleport,
+        STR.push,
         STR.slash,
         STR.lightning,
         STR.projectile,
@@ -1428,7 +1450,8 @@ def main():
         STR.field,
         STR.melgar_fire,
         STR.lumos,
-        STR.polymorphism
+        STR.polymorphism,
+        STR.water_trap
     ]
     for i, action_type in enumerate(voiceline_types):
         script_section = f"script_set_spell_voicelines_{action_type.name.lower()}"
@@ -1652,6 +1675,7 @@ def main():
         add_special_alt_field_color_option(sign)
         add_special_alt_lumos_color_option(sign)
         add_special_alt_polymorphism_type_option(sign)
+        add_special_alt_polymorphism_color_option(sign)
         add_special_alt_polymorphism_cat_appearance_option(sign)
 
         # unlocked fact: nr_magic_skill_ENR_Teleport

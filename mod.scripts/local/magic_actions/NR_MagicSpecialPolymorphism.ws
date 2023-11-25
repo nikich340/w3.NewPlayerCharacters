@@ -34,9 +34,9 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 
 			// Dhu's cats: https://www.nexusmods.com/witcher3/mods/3527
 			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
-				appearanceName = map[sign].getN("app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_20');
+				appearanceName = map[sign].getN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_20');
 			else
-				appearanceName = map[sign].getN("app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_01');
+				appearanceName = map[sign].getN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_01');
 
 			if ( appearanceName == 'random' ) {
 				if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
@@ -81,6 +81,26 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		transformNPC.ApplyAppearance( appearanceName );
 		transformNPC.AddTag('NR_TRANSFORM_NPC');
 		transformNPC.SetAttitude( thePlayer, AIA_Friendly );
+
+		if (IsInSetupScene()) {
+			// fast transform without changing thePlayer state
+			pos.Z += 2.f;
+			((CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent()).SetAnimatedMovement(false);
+			// ((CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent()).SetGravity(false);
+			transformNPC.Teleport(pos);
+
+			NR_GetMagicManager().HandFX(false);
+			thePlayer.SetVisibility(false);
+			Sleep(2.5f);
+			transformNPC.PlayEffect('disappear');
+			Sleep(0.5f);
+			thePlayer.PlayEffect(m_fxNameMain);
+			thePlayer.SetVisibility(true);
+			NR_GetMagicManager().HandFX(true, false);
+
+			transformNPC.Destroy();
+			return OnPerformed(true, scriptedPerform);
+		}
 
 		thePlayer.CreateAttachment(transformNPC);
 		thePlayer.GotoState('NR_Transformed');

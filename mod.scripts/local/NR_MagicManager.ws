@@ -770,6 +770,7 @@ statemachine class NR_MagicManager {
 	}
 	public function MageLocId(characterName : name) : int {
 		switch (characterName) {
+			// characters
 			case 'yennefer':
 				return 162823;
 			case 'keira':
@@ -794,6 +795,28 @@ statemachine class NR_MagicManager {
 				return 1224932;
 			case 'wild_hunt':
 				return 535322;
+			// animals
+			case 'cat':
+				return 1085583;
+			// minions
+			case 'wild_hunt_hound':
+				return 1050491;
+			case 'barghest':
+				return 1174826;
+			case 'endriaga':
+				return 447384;
+			case 'arachnomorph':
+				return 1130394;
+			case 'arachas':
+				return 466798;
+			case 'gargoyle':
+				return 1080238;
+			case 'earth_elemental':
+				return 572370;
+			case 'ice_elemental':
+				return 1084776;
+			case 'fire_elemental':
+				return 1084974;
 			default:
 				return 147158; // Error
 		}
@@ -801,7 +824,6 @@ statemachine class NR_MagicManager {
 
 	public function ShowMagicInfo(sectionName : name) {
 		var 		s, i, j : int;
-		var 	skillsList : array<String>;
 		var 	NBSP, BR : String;
 		var 	text : String;
 		var styleName : name;
@@ -886,10 +908,56 @@ statemachine class NR_MagicManager {
 			}
 		} else if (sectionName == 'special') {
 			text += "<font color='#004e01'>[{2115940152}]</font><br>";
-			// todo
+            for (s = ST_Aard; s < ST_Universal; s += 1) {
+                if (eqSign == s) {
+                    text += "=> ";
+                }
+                text += "({" + SignLocId(s) + "}):{ }";
+                
+                typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_SpecialAbstract), ENR_SpecialMeteor);
+                color = sMap[s].getI("color_" + ENR_MAToName((ENR_MagicAction)typeId), ENR_ColorWhite);
+                styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName((ENR_MagicAction)typeId), 'yennefer') );
+                if (typeId == ENR_SpecialControl) {
+                    text += "{2115940154}";
+                } else if (typeId == ENR_SpecialTornado) {
+                    text += "{2115940153}:{ }" + ColorFormattedValue(styleId, ENR_ColorBlack);
+                } else if (typeId == ENR_SpecialMeteor) {
+                    text += "{2115940155}:{ }" + ColorFormattedValue(styleId, color);
+                } else if (typeId == ENR_SpecialShield) {
+                    text += "{2115940156}:{ }" + ColorFormattedValue(ColorLocId(color), color);
+                } else if (typeId == ENR_SpecialServant) {
+                    text += ColorFormattedText("{2115940157}:{ }", color);
+                    text += "{" + MageLocId( sMap[s].getN("entity_0_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound') ) + "}";
+                    if (IsActionAbilityUnlocked(ENR_SpecialServant, "TwoServants")) {
+                    	text += "/{" + MageLocId( sMap[s].getN("entity_1_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound') ) + "}";
+                    }
+                }
+                text += BR;
+            }
 		} else if (sectionName == 'special_alt') {
 			text += "<font color='#004e01'>[{2115940158}]</font><br>";
-			// todo
+            for (s = ST_Aard; s < ST_Universal; s += 1) {
+                if (eqSign == s) {
+                    text += "=> ";
+                }
+                text += "({" + SignLocId(s) + "}):{ }";
+                
+                typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialLightningFall);
+                color = sMap[s].getI("color_" + ENR_MAToName((ENR_MagicAction)typeId), ENR_ColorWhite);
+                styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName((ENR_MagicAction)typeId), 'yennefer') );
+                if (typeId == ENR_SpecialLightningFall) {
+                    text += "{2115940162}:{ }" + ColorFormattedValue(styleId, color);
+                } else if (typeId == ENR_SpecialField) {
+                    text += "{2115940163}:{ }" + ColorFormattedValue(ColorLocId(color), color);
+                } else if (typeId == ENR_SpecialMeteorFall) {
+                    text += "{2115940164}:{ }" + ColorFormattedValue(styleId, color);
+                } else if (typeId == ENR_SpecialLumos) {
+                    text += "{2115940165}:{ }" + ColorFormattedValue(ColorLocId(color), color);
+                } else if (typeId == ENR_SpecialPolymorphism) {
+                    text += "{2115940157}:{ }" + ColorFormattedValue(styleId, color);
+                }
+                text += BR;
+            }
 		} else {
 			text += "<font color='#004e01'>Unknown type: " + sectionName + "</font><br>";
 		}
@@ -941,7 +1009,6 @@ statemachine class NR_MagicManager {
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_WaterTrap), 50.f);
 	}
 
-	// TODO!!! Make it work
 	function SetDefaults_Duration() {
 		// duration_<AttackType> in sec
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialServant), 60.f);
@@ -1083,8 +1150,8 @@ statemachine class NR_MagicManager {
 
 			// GOLEM
 			sMap[i].setI("color_" + ENR_MAToName(ENR_SpecialServant), ENR_ColorViolet);
-			sMap[i].setS("entity_0_" + ENR_MAToName(ENR_SpecialServant), "quests/part_3/quest_files/q501_eredin/characters/q501_wild_hunt_tier_1.w2ent");
-			sMap[i].setS("entity_1_" + ENR_MAToName(ENR_SpecialServant), "dlc\dlcnewreplacers\data\entities\nr_elemental_dao_lvl3__ice_fixed.w2ent");
+			sMap[i].setN("entity_0_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound');
+			sMap[i].setN("entity_1_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound');
 		}
 	}
 
@@ -1096,13 +1163,6 @@ statemachine class NR_MagicManager {
 		sMap[ST_Igni].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialMeteorFall);
 		sMap[ST_Quen].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialLumos);
 		sMap[ST_Yrden].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialPolymorphism);
-		/*
-		sMap[ST_Aard].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialLightningFall);
-		sMap[ST_Axii].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialControl);
-		sMap[ST_Igni].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialMeteorFall);
-		sMap[ST_Quen].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialLumos);
-		sMap[ST_Yrden].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialPolymorphism);
-		*/
 
 		for (i = 0; i <= ST_Universal; i += 1) {
 			// LIGHTNING FALL
@@ -1120,7 +1180,7 @@ statemachine class NR_MagicManager {
 			sMap[i].setI("color_" + ENR_MAToName(ENR_SpecialLumos), ENR_ColorWhite);
 
 			// TRANSFORM
-			// TODO!
+			sMap[i].setN("style_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat');
 		}
 	}
 
@@ -1553,7 +1613,7 @@ statemachine class NR_MagicManager {
 	}
 
 	public function GetShieldDamageAbsorption() : int {
-		return 100 * (5 + GetActionSkillLevel(ENR_SpecialShield) / 2);
+		return (int)(100 * (3.f + GetActionSkillLevel(ENR_SpecialShield) / 2.f));
 	}
 
 	public function GetActionMaxApplies( type : ENR_MagicAction ) : int {
@@ -1579,7 +1639,7 @@ statemachine class NR_MagicManager {
 
 	public function IsActionCustomizationUnlocked( type : ENR_MagicAction ) : bool {
 		//return FactsQuerySum("nr_skill_customization_" + ENR_MAToName(type)) >= 1;
-		return GetActionSkillLevel(type) >= 1;
+		return IsActionLearned(type) && GetActionSkillLevel(type) >= 1;
 	}
 
 	public function ActionAbilityUnlock( type : ENR_MagicAction, abilityName : String ) {
@@ -1691,9 +1751,9 @@ statemachine class NR_MagicManager {
 			info += ". <i>" + GetLocStringById(2115940248) + "</i>: " + FloatToString(sMap[ST_Universal].getF("duration_" + ENR_MAToName(type))) + " " + GetLocStringById(1086450); 
 			info += NR_StrGreen(" (-" + IntToString(GetActionDurationBonus(type)) + "%)");
 		} else if (type == ENR_SpecialLumos) {
-			
+			// nothing
 		} else if (type == ENR_SpecialField) {
-			
+			specialAbilities.PushBack("Pursuit"); specialAbilityIds.PushBack(2115940237);
 		}
 
 		// print special abilities
@@ -2152,8 +2212,8 @@ state MagicLoop in NR_MagicManager {
 			parent.mAction.target 	= parent.willeyVictim;
 		}
 		parent.mAction.sign 		= parent.eqSign;
-		parent.mAction.map 		= parent.sMap;
-		parent.mAction.m_fxNameHit = parent.GetHitFXName( parent.GetActionColor() );
+		parent.mAction.map 			= parent.sMap;
+		parent.mAction.m_fxNameHit 	= parent.GetHitFXName( parent.GetActionColor() );
 		parent.mAction.magicSkill 	= parent.GetSkillLevel();
 		parent.mAction.OnInit();
 

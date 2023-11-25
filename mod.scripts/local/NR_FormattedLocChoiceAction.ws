@@ -43,6 +43,14 @@ function NR_FormatLocString(str : String) : String {
 class NR_FormattedLocChoiceAction extends CStorySceneChoiceLineActionScripted
 {
 	editable var str : String;
+	editable var dlcName : name;
+
+	function CanUseAction() : bool {
+		if ( IsNameValid(dlcName) && !theGame.GetDLCManager().IsDLCAvailable(dlcName) )
+			return false;
+
+		return true;
+	}
 
 	function GetActionText() : string			
 	{
@@ -60,6 +68,7 @@ class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
 	editable var str : String;
 	editable var type : name;
 	editable var abilityName : String;
+	editable var dlcName : name;
 
 	function CanUseAction() : bool {
 		var enumType : ENR_MagicAction;
@@ -69,6 +78,9 @@ class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
 			return false;
 
 		if ( StrLen(abilityName) > 0 && !NR_GetMagicManager().IsActionAbilityUnlocked(enumType, abilityName) )
+			return false;
+
+		if ( IsNameValid(dlcName) && !theGame.GetDLCManager().IsDLCAvailable(dlcName) )
 			return false;
 
 		return true;

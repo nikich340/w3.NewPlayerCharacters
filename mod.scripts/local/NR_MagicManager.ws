@@ -818,6 +818,7 @@ statemachine class NR_MagicManager {
 			case 'fire_elemental':
 				return 1084974;
 			default:
+				NRE("MageLocId: unknown characterName = " + characterName);
 				return 147158; // Error
 		}
 	}
@@ -826,7 +827,7 @@ statemachine class NR_MagicManager {
 		var 		s, i, j : int;
 		var 	NBSP, BR : String;
 		var 	text : String;
-		var styleName : name;
+		var styleName, appName : name;
 		var typeId, styleId, color, color2 : int;
 
 		sMap[ST_Universal].setN("setup_scene_section", sectionName);
@@ -944,7 +945,8 @@ statemachine class NR_MagicManager {
                 
                 typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialLightningFall);
                 color = sMap[s].getI("color_" + ENR_MAToName((ENR_MagicAction)typeId), ENR_ColorWhite);
-                styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName((ENR_MagicAction)typeId), 'yennefer') );
+                styleName = sMap[s].getN("style_" + ENR_MAToName((ENR_MagicAction)typeId), 'yennefer');
+                styleId = MageLocId( styleName );
                 if (typeId == ENR_SpecialLightningFall) {
                     text += "{2115940162}:{ }" + ColorFormattedValue(styleId, color);
                 } else if (typeId == ENR_SpecialField) {
@@ -954,7 +956,18 @@ statemachine class NR_MagicManager {
                 } else if (typeId == ENR_SpecialLumos) {
                     text += "{2115940165}:{ }" + ColorFormattedValue(ColorLocId(color), color);
                 } else if (typeId == ENR_SpecialPolymorphism) {
-                    text += "{2115940157}:{ }" + ColorFormattedValue(styleId, color);
+                	text += ColorFormattedText("{2115940166}:{ }", color);
+                	appName = sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_vanilla_01');
+                	if (styleName == 'cat') {
+                		if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
+							text += sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_20');
+                		} else {
+							text += sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_vanilla_01');
+							text += BR + NR_StrRed("   {1223720}: ", true) + NR_StrGreen("Immersive Wildlife Project (Dhu Cats)", true) + BR + "nexusmods.com/witcher3/mods/3527";
+						}
+                	} else {
+                		text += "??? " + styleName;
+                	}
                 }
                 text += BR;
             }
@@ -1164,6 +1177,12 @@ statemachine class NR_MagicManager {
 		sMap[ST_Quen].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialLumos);
 		sMap[ST_Yrden].setI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialPolymorphism);
 
+		FactsSet("nr_type_special_alt_aard", (int)ENR_SpecialLightningFall);
+		FactsSet("nr_type_special_alt_axii", (int)ENR_SpecialField);
+		FactsSet("nr_type_special_alt_igni", (int)ENR_SpecialMeteorFall);
+		FactsSet("nr_type_special_alt_quen", (int)ENR_SpecialLumos);
+		FactsSet("nr_type_special_alt_yrden", (int)ENR_SpecialPolymorphism);
+
 		for (i = 0; i <= ST_Universal; i += 1) {
 			// LIGHTNING FALL
 			sMap[i].setI("color_" + ENR_MAToName(ENR_SpecialLightningFall), ENR_ColorBlue);
@@ -1181,6 +1200,10 @@ statemachine class NR_MagicManager {
 
 			// TRANSFORM
 			sMap[i].setN("style_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat');
+			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
+				sMap[i].setN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_20');
+			else
+				sMap[i].setN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_01');
 		}
 	}
 

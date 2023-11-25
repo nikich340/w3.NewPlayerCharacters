@@ -20,6 +20,10 @@ repository:
         weight: 0.8
         anim: "Very afraid"
 
+    nr_cat:
+      template: "dlc\\dlcnewreplacers\\data\\entities\\nr_cat.w2ent"
+      appearance: [ "cat_vanilla_01" ]
+
   animations:
     # SORCERESS ANIMS
     woman_sorceress_special_attack_electricity_lp:
@@ -104,6 +108,10 @@ repository:
     nr_yennefer_naglfar_arrives_loop_01:
       animation: "nr_yennefer_naglfar_arrives_loop_01"
       frames: 123
+
+    woman_sorceress_transform_lp:
+      animation: "woman_sorceress_transform_lp"
+      frames: 125
 
     # SBUI ANIMS
     anim_100013_woman_sorceress_attack_slash_left_lp:
@@ -191,6 +199,9 @@ repository:
       status: "Low"
       idle_anim: "low_standing_paralyzed_idle"
 
+    pose_0_idle01:
+      idle_anim: "idle01"
+
   cameras:
     cam_1_main:
       fov: 45.0
@@ -249,6 +260,12 @@ production:
         #by_voicetag: true
         appearance: "cyprian_willey"
         tags: [ "willey" ]
+
+      #nr_cat:
+      #  repo: "nr_cat"
+      #  #by_voicetag: true
+      #  appearance: "cat_vanilla_01"
+      #  tags: [ "nr_cat" ]
 
     cameras:
       cam_1_main:
@@ -468,15 +485,21 @@ production:
         actor: "willey"
         repo: "pose_2212_Low_Standing_Paralyzed"
 
+      nr_cat_idle01:
+        actor: "nr_cat"
+        repo: "pose_0_idle01"
+
 storyboard:
   defaults:
     placement:
       sorceress: [[ 0.0, 0.0, 0.0 ], [ 0.0, 0.0, 0.0 ]]
+      # nr_cat: [[ 0.0, 0.0, -10.0 ], [ 0.0, 0.0, 0.0 ]]
       willey: [[ -2.9197058678, 2.8727548122, 1.0761384964 ], [ 355.5000305176, 318.0999450684, 217.2999420166 ]]
       #willey: [[ -1.0872966051, 2.2326247692, 1.0343935490 ], [ 44.5000000000, 358.1000061035, 276.5997314453 ]]
 
     actor.pose:
       sorceress: sorceress_woman_sorceress_idle_lp_01
+      # nr_cat: nr_cat_idle01
       willey: willey_Low_Standing_Paralyzed
       #willey: willey_man_npc_sword_2hand_hypnotized_loop
 
@@ -485,6 +508,7 @@ storyboard:
     shot_fadein:
       - actor.effect.start: [0.0, willey, axii_slowdown]
       - actor.lookat: [0.0, sorceress, willey]
+      - actor.lookat: [0.0, willey, sorceress]
       - fade.in: [0.0, 0.5]
       - cam: [0.0, cam_1_main]
 

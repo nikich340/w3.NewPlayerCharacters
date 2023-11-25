@@ -52,6 +52,7 @@ class STR(StrEnum):
     lumos = "2115940165"
     polymorphism = "2115940166"
     set_spell_voiceline_chance = "2115940587"
+    effect = "1226888"
 
 class ECompareOp(IntEnum):
     CO_Lesser = 0
@@ -110,47 +111,47 @@ m_mages = {
         "id": 535322,
         "str": "0000535322|Wild Hunt Mage",
     },
-    "WildHuntHound": {
+    "wild_hunt_hound": {
         "id": 1050491,
         "str": "0001050491|Hound of the Wild Hunt",
         "depot": "quests/part_3/quest_files/q501_eredin/characters/q501_wild_hunt_tier_1.w2ent"
     },
-    "Barghest": {
+    "barghest": {
         "id": 1174826,
         "str": "0001174826|Barghest",
         "depot": "dlc/bob/data/living_world/enemy_templates/barghest_late.w2ent"
     },
-    "Endriaga": {
+    "endriaga": {
         "id": 447384,
         "str": "0000447384|Endrega",
         "depot": "dlc/bob/data/living_world/enemy_templates/endriaga_lvl2_mid.w2ent"
     },
-    "Arachnomorph": {
+    "arachnomorph": {
         "id": 1130394,
         "str": "0001130394|Arachnomorph",
         "depot": "dlc/bob/data/living_world/enemy_templates/spider_mid.w2ent"
     },
-    "Arachas": {
+    "arachas": {
         "id": 466798,
         "str": "0000466798|Arachas",
         "depot": "quests/part_3/quest_files/q502_avallach/characters/q502_arachas.w2ent"
     },
-    "Gargoyle": {
+    "gargoyle": {
         "id": 1080238,
         "str": "0001080238|Gargoyle",
         "depot": "dlc/bob/data/quests/minor_quests/quest_files/mq7023_mutations/characters/mq7023_gargoyle_1.w2ent"
     },
-    "EarthElemental": {
+    "earth_elemental": {
         "id": 572370,
         "str": "0000572370|Earth Elemental",
         "depot": "dlc/dlcnewreplacers/data/entities/nr_q502_dao_fixed.w2ent"
     },
-    "IceElemental": {
+    "ice_elemental": {
         "id": 1084776,
         "str": "0001084776|Ice Elemental",
         "depot": "dlc/dlcnewreplacers/data/entities/nr_elemental_dao_lvl3__ice_fixed.w2ent"
     },
-    "FireElemental": {
+    "fire_elemental": {
         "id": 1084974,
         "str": "0001084974|Fire Elemental",
         "depot": "dlc/dlcnewreplacers/data/entities/nr_mq4006_ifryt_fixed.w2ent"
@@ -397,6 +398,7 @@ class ENR_MC(IntEnum):
     ENR_ColorSpecial1 = auto()
     ENR_ColorSpecial2 = auto()
     ENR_ColorSpecial3 = auto()
+    ENR_ColorRandom = auto()
 
 m_colors = [
     ["Black", "2115940124|Black"],
@@ -413,6 +415,7 @@ m_colors = [
     ["Special1", "2115940135|Special1"],
     ["Special2", "2115940136|Special2"],
     ["Special3", "2115940137|Special3"],
+    ["Random", "2115940138|Random"],
 ]
 m_signs = [
     ["Aard", 1061945, "0001061945|Aard"],
@@ -795,7 +798,7 @@ def add_teleport_color_option(sign: list):
     forbidden_colors = {"Black", "Grey", "Special1", "Special2", "Special3"}
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors)
 
-def add_generic_type_option(action_types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=str(), custom_var_values=[], fact_condition=[], option_conditions=[], custom_var_type="CName", is_long=False):
+def add_generic_type_option(action_types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=str(), custom_var_values=[], fact_condition=[], ability_name=str(), option_conditions=[], custom_var_type="CName", dlc_names=[], is_long=False):
     lsign = sign[0].lower()
     prefix = prefix.lower()
     suffix = suffix.lower()
@@ -826,23 +829,16 @@ def add_generic_type_option(action_types, sign, suffix, prefix, choice_str0, cho
             } if willey_anim_name else {}
         )
         connect_sections([preview_type_script_section, f"section_preview_{prefix}_{lsign}_{suffix}", f"section_choice_{prefix}_{lsign}_{suffix}"])
-        if len(fact_condition) > 1 and isinstance(fact_condition[0], list):
-            add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|", f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition[0],
-                {
-                  ".class": "NR_FormattedMagicChoiceAction",
-                  "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
-                  "type": CNAME(action.name),  # SIGN name
-                  "factName": fact_condition[1][0],
-                  "factOperator": fact_condition[1][1],
-                  "factValue": fact_condition[1][2]
-                })
-        else:
-            add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|", f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition,
-                {
-                  ".class": "NR_FormattedMagicChoiceAction",
-                  "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
-                  "type": CNAME(action.name)  # SIGN name
-                })
+        script_action = {
+            ".class": "NR_FormattedMagicChoiceAction",
+            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
+            "type": CNAME(action.name),  # SIGN name
+        }
+        if ability_name:
+            script_action["abilityName"] = CNAME(ability_name)
+
+        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|",
+                          f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition, script_action=script_action)
         add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{STR.BACK}|",
                           f"section_choice_{prefix}_{lsign}")
     else:
@@ -851,23 +847,16 @@ def add_generic_type_option(action_types, sign, suffix, prefix, choice_str0, cho
         add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
         add_dummy_section(preview_type_script_section)
         connect_sections([preview_type_script_section, f"section_choice_{prefix}_{lsign}_{suffix}"])
-        if len(fact_condition) > 1 and isinstance(fact_condition[0], list):
-            add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|", f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition[0],
-                {
-                  ".class": "NR_FormattedMagicChoiceAction",
-                  "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
-                  "type": CNAME(action.name),  # SIGN name
-                  "factName": fact_condition[1][0],
-                  "factOperator": fact_condition[1][1],
-                  "factValue": fact_condition[1][2]
-                })
-        else:
-            add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|", f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition,
-                {
-                  ".class": "NR_FormattedMagicChoiceAction",
-                  "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
-                  "type": CNAME(action.name)  # SIGN name
-                })
+        script_action = {
+            ".class": "NR_FormattedMagicChoiceAction",
+            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
+            "type": CNAME(action.name),  # SIGN name
+        }
+        if ability_name:
+            script_action["abilityName"] = CNAME(ability_name)
+
+        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|",
+                         f"section_choice_{prefix}_{lsign}_{suffix}", condition=fact_condition, script_action=script_action)
         add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.BACK + "|",
                           f"section_choice_{prefix}_{lsign}")
 
@@ -900,10 +889,20 @@ def add_generic_type_option(action_types, sign, suffix, prefix, choice_str0, cho
 
 
         connect_sections([script_set_section, preview_type_script_section])
-        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{m_mages[type_v]['str']}", script_set_section, option_conditions[type_i] if option_conditions else [], {
+        script_action = {
             ".class": "NR_FormattedLocChoiceAction",
             "str": f"{{{sign[1]}}}: {{{choice_str0}}}: "
-        })
+        }
+        if dlc_names and len(dlc_names) > type_i and dlc_names[type_i]:
+            script_action["dlcName"] = dlc_names[type_i]
+
+        if type_v in m_mages:
+            add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{m_mages[type_v]['str']}",
+                              script_set_section, option_conditions[type_i] if option_conditions else [], script_action=script_action)
+        else:
+            script_action["str"] += f"{type_v}"
+            add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.dot + "|.",
+                              script_set_section, option_conditions[type_i] if option_conditions else [], script_action=script_action)
 
 def add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors, custom_var_name=str(), fact_condition=[], is_long=False):
     global m_colors
@@ -986,6 +985,49 @@ def add_push_color_option(sign: list):
     willey_anim_name = str()  # "hit3"
     forbidden_colors = {"Black", "Grey", "Special1", "Special2", "Special3"}
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors)
+
+def add_push_buff_option(sign: list):
+    prefix = "heavy"
+    suffix = "push_buff"
+    choice_str0 = STR.push
+    choice_str1 = STR.effect
+    action = ENR_MA.ENR_CounterPush
+    cast_anim = m_sorc_anims["AttackPush"][0]
+    willey_anim_name = str()  # "hit3"
+
+    # NO PREVIEW!
+    lsign = sign[0].lower()
+    preview_buff_script_section = f"section_entry_{prefix}_{lsign}_{suffix}"
+    add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
+    add_dummy_section(preview_buff_script_section)
+    connect_sections([preview_buff_script_section, f"section_choice_{prefix}_{lsign}_{suffix}"])
+    add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|",
+                      f"section_choice_{prefix}_{lsign}_{suffix}", [],
+                      {
+                          ".class": "NR_FormattedMagicChoiceAction",
+                          "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
+                          "type": CNAME(action.name),  # SIGN name
+                          "abilityName": "Burning"
+                      })
+    add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.BACK + "|",
+                      f"section_choice_{prefix}_{lsign}")
+
+    m_buffs = [
+        ["Freezing", "0001081836|Freezing"],
+        ["Burning", "0001083738|Burning"]
+    ]
+    for buff_i, buff in enumerate(m_buffs):
+        script_set_buff_name = f"script_{prefix}_{lsign}_{suffix}_{buff[0].lower()}"
+        add_script_section(script_set_buff_name, "NR_SetMagicParamInt_S", {
+            "signName": f"CNAME_{sign[0]}",
+            "varName": f"buff_{action.name}",
+            "varValue": buff_i
+        })
+        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{buff[-1]}", script_set_buff_name, [], {
+            ".class": "NR_FormattedLocChoiceAction",
+            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: "  # SIGN name: Throw color
+        })
+        connect_sections([script_set_buff_name, preview_buff_script_section])
 
 def add_ft_teleport_type_option(sign: list):
     types = [ "default", "keira", "wild_hunt" ]
@@ -1076,7 +1118,7 @@ def add_special_meteor_type_option(sign: list):
     willey_anim_name = "hit1"
     # custom_var_name = f"style_{action.name}"
     # custom_var_values = [ "ofieri", "hermit" ]
-    fact_condition = [f"nr_type_special_{lsign}", "=", ENR_MA.ENR_SpecialMeteor.value]
+    fact_condition = [f"nr_type_special_{lsign}", "=", action.value]
     add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, fact_condition=fact_condition)
 
 def add_special_meteor_color_option(sign: list):
@@ -1088,14 +1130,14 @@ def add_special_meteor_color_option(sign: list):
     action = ENR_MA.ENR_SpecialMeteor
     cast_anim = m_sorc_anims["AttackSpecialFireball"][0]
     willey_anim_name = "hit1"
-    fact_condition = [f"nr_type_special_{lsign}", "=", ENR_MA.ENR_SpecialMeteor.value]
+    fact_condition = [f"nr_type_special_{lsign}", "=", action.value]
     forbidden_colors = {"Black", "Grey", "Special1", "Special2", "Special3"}
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors, fact_condition=fact_condition)
 
 def add_special_servant_type_0_option(sign: list):
     lsign = sign[0].lower()
-    types = [ "WildHuntHound", "Barghest", "Endriaga", "Arachnomorph", "Arachas", "Gargoyle", "EarthElemental", "IceElemental", "FireElemental" ]
-    suffix = "servant_type_first"
+    types = [ "wild_hunt_hound", "barghest", "endriaga", "arachnomorph", "arachas", "gargoyle", "earth_elemental", "ice_elemental", "fire_elemental" ]
+    suffix = "servant_type_0"
     prefix = "special"
     choice_str0 = STR.servant
     choice_str1 = STR.type
@@ -1104,16 +1146,16 @@ def add_special_servant_type_0_option(sign: list):
     willey_anim_name = str()  # "hit1"
     custom_var_name = f"entity_0_{action.name}"
     # depot paths
-    custom_var_values = [m_mages[x]['depot'] for x in types]
-    fact_condition = [f"nr_type_special_{lsign}", "=", ENR_MA.ENR_SpecialServant.value]
-    option_conditions = [[f"nr_magic_ENR_SpecialServant_{x}", ">", 0] for x in types]
+    # custom_var_values = [m_mages[x]['depot'] for x in types]
+    fact_condition = [f"nr_type_special_{lsign}", "=", action.value]
+    option_conditions = [[f"nr_magic_{action.name}_{x}", ">", 0] for x in types]
     option_conditions[0] = []  # Hound is unlocked by default
-    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=custom_var_name, custom_var_values=custom_var_values, fact_condition=fact_condition, option_conditions=option_conditions, custom_var_type="string")
+    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=custom_var_name, fact_condition=fact_condition, option_conditions=option_conditions, custom_var_type="cname")
 
 def add_special_servant_type_1_option(sign: list):
     lsign = sign[0].lower()
-    types = [ "WildHuntHound", "Barghest", "Endriaga", "Arachnomorph", "Arachas", "Gargoyle", "EarthElemental", "IceElemental", "FireElemental" ]
-    suffix = "servant_type_second"
+    types = ["wild_hunt_hound", "barghest", "endriaga", "arachnomorph", "arachas", "gargoyle", "earth_elemental", "ice_elemental", "fire_elemental"]
+    suffix = "servant_type_1"
     prefix = "special"
     choice_str0 = STR.servant
     choice_str1 = STR.type2
@@ -1122,12 +1164,12 @@ def add_special_servant_type_1_option(sign: list):
     willey_anim_name = str()  # "hit1"
     custom_var_name = f"entity_1_{action.name}"
     # depot paths
-    custom_var_values = [m_mages[x]['depot'] for x in types]
-    # 2nd fact_condition goes to scripted choice cond
-    fact_condition = [[f"nr_type_special_{lsign}", "=", ENR_MA.ENR_SpecialServant.value], [f"nr_magic_{ENR_MA.ENR_SpecialServant.name}_TwoServants", ECompareOp.CO_Greater.value, 0]]
-    option_conditions = [[f"nr_magic_ENR_SpecialServant_{x}", ">", 0] for x in types]
+    # custom_var_values = [m_mages[x]['depot'] for x in types]
+    fact_condition = [f"nr_type_special_{lsign}", "=", action.value]
+    ability_name = "TwoServants"
+    option_conditions = [[f"nr_magic_{action.name}_{x}", ">", 0] for x in types]
     option_conditions[0] = []  # Hound is unlocked by default
-    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=custom_var_name, custom_var_values=custom_var_values, fact_condition=fact_condition, option_conditions=option_conditions, custom_var_type="string")
+    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=custom_var_name, fact_condition=fact_condition, ability_name=ability_name, option_conditions=option_conditions, custom_var_type="cname")
 
 def add_special_servant_fx_color_option(sign: list):
     lsign = sign[0].lower()
@@ -1292,8 +1334,30 @@ def add_special_alt_polymorphism_type_option(sign: list):
     # custom_var_name = f"style_{action.name}"
     # custom_var_values = [ "ofieri", "hermit" ]
     fact_condition = [f"nr_type_special_alt_{lsign}", "=", action.value]
-    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, fact_condition=fact_condition, is_long=True)
+    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, fact_condition=fact_condition)
     '''
+
+def add_special_alt_polymorphism_cat_appearance_option(sign: list):
+    lsign = sign[0].lower()
+    appearances = ["random", "cat_vanilla_01", "cat_vanilla_02", "cat_vanilla_03"]
+    dlcNames = ["", "", "", ""]
+    for i in range(1, 10):
+        appearances.append(f"cat_0{i}")
+        dlcNames.append("dlc_fanimals")
+    for i in range(10, 32):
+        appearances.append(f"cat_{i}")
+        dlcNames.append("dlc_fanimals")
+
+    suffix = "polymorphism_cat_appearance"
+    prefix = "special_alt"
+    choice_str0 = STR.polymorphism
+    choice_str1 = STR.type
+    action = ENR_MA.ENR_SpecialPolymorphism
+    cast_anim = m_sorc_anims["AttackSpecialTransform"][0]
+    willey_anim_name = str()  # "hit1"
+    custom_var_name = f"cat_app_{action.name}"
+    fact_condition = [f"nr_type_special_alt_{lsign}", "=", action.value]
+    add_generic_type_option(appearances, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, fact_condition=fact_condition, custom_var_name=custom_var_name, dlc_names=dlcNames)
 
 def load_yml():
     global m_yml_scene
@@ -1485,6 +1549,7 @@ def main():
         #add_bomb_type_option(sign)
         add_bomb_color_option(sign)
 
+        add_push_buff_option(sign)
         add_push_color_option(sign)
 
     # TELEPORT
@@ -1587,6 +1652,7 @@ def main():
         add_special_alt_field_color_option(sign)
         add_special_alt_lumos_color_option(sign)
         add_special_alt_polymorphism_type_option(sign)
+        add_special_alt_polymorphism_cat_appearance_option(sign)
 
         # unlocked fact: nr_magic_skill_ENR_Teleport
         # unlocked coloring: IsActionCustomizationUnlocked( type : ENR_MagicAction )

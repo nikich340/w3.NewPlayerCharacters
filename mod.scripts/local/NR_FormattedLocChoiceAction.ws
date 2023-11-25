@@ -59,15 +59,19 @@ class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
 {
 	editable var str : String;
 	editable var type : name;
-	editable var factName : string;
-	editable var factOperator : int;  // ECompareOp
-	editable var factValue : int;
+	editable var abilityName : String;
 
 	function CanUseAction() : bool {
-		if (StrLen(factName) > 0 && !ProcessCompare((ECompareOp)factOperator, FactsQuerySum(factName), factValue)) {
+		var enumType : ENR_MagicAction;
+
+		enumType = ENR_NameToMA(type);
+		if ( !NR_GetMagicManager().IsActionCustomizationUnlocked(enumType) )
 			return false;
-		}
-		return NR_GetMagicManager().IsActionLearned(ENR_NameToMA(type));
+
+		if ( StrLen(abilityName) > 0 && !NR_GetMagicManager().IsActionAbilityUnlocked(enumType, abilityName) )
+			return false;
+
+		return true;
 	}
 
 	function GetActionText() : string			

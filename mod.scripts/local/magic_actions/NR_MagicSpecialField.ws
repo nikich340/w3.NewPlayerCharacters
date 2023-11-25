@@ -63,11 +63,14 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		l_distance = 10.f;
 		l_distanceSq = l_distance * l_distance;
 
-		l_hostileSlowdown = MaxF(0.1f, SkillTotalDamageMultiplier(/*invert*/ true) - 0.4f);
-		l_friendlySlowdown = MinF(1.f, l_hostileSlowdown + (1.f - l_hostileSlowdown) * 0.7f);
+		dk = SkillTotalDamageMultiplier(/*invert*/ true);
+		l_hostileSlowdown = MaxF(0.1f, dk);
+		l_hostileSlowdown = l_hostileSlowdown - 0.24 / l_hostileSlowdown;
 
-		NR_Notify("l_hostileSlowdown = " + l_hostileSlowdown + ", l_friendlySlowdown = " + l_friendlySlowdown);
-		// dk = 2.5f * SkillTotalDamageMultiplier();
+		l_friendlySlowdown = MinF(1.f, dk + (1.f - dk) * 0.7f);
+		l_friendlySlowdown = l_friendlySlowdown - 0.24 / l_friendlySlowdown;
+
+		NRD("NR_MagicSpecialField: dk = " + dk + ", l_hostileSlowdown = " + l_hostileSlowdown + ", l_friendlySlowdown = " + l_friendlySlowdown);
 		GotoState('Active');
 
 		return OnPerformed(true, scriptedPerform);
@@ -85,22 +88,19 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 	}
 
 	// inverse - applies stronger slowdown on player and friendly actors
-	latent function AddVictim(victim : CActor, optional inverse : bool) {
+	latent function AddVictim(victim : CActor, optional allHostile : bool) {
 		var slowdownCauserId : int;
 
 		victim.AddTag('NR_MagicSpecialField');
 		victim.PlayEffect('yrden_slowdown');  // yrden_shock ?
 		if (victim == thePlayer || GetAttitudeBetween(victim, thePlayer) != AIA_Hostile) {
-			if (inverse)
-				slowdownCauserId = victim.SetAnimationSpeedMultiplier(l_hostileSlowdown);
-			else
+			if (!allHostile)
 				slowdownCauserId = victim.SetAnimationSpeedMultiplier(l_friendlySlowdown);
+			else
+				slowdownCauserId = victim.SetAnimationSpeedMultiplier(l_hostileSlowdown);
 		}
 		else {
-			if (inverse)
-				slowdownCauserId = victim.SetAnimationSpeedMultiplier(l_friendlySlowdown);
-			else
-				slowdownCauserId = victim.SetAnimationSpeedMultiplier(l_hostileSlowdown);
+			slowdownCauserId = victim.SetAnimationSpeedMultiplier(l_hostileSlowdown);
 		}
 
 		l_victimSlowdownIds.PushBack(slowdownCauserId);
@@ -329,7 +329,7 @@ state Cursed in NR_MagicSpecialField {
 					continue;
 
 				if ( !parent.l_victims.Contains(actor) ) {
-					parent.AddVictim(actor, /*inverse*/ true);
+					parent.AddVictim(actor, /*allHostile*/ true);
 				}
 			}
 		}

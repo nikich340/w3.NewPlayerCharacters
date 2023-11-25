@@ -25,34 +25,34 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 	protected function SetSkillLevel(newLevel : int) {
 		switch (newLevel) {
 			case 1:
-				ActionAbilityUnlock("Barghest");
+				ActionAbilityUnlock("barghest");
 				break;
 			case 2:
-				ActionAbilityUnlock("Endriaga");
+				ActionAbilityUnlock("endriaga");
 				break;
 			case 3:
-				ActionAbilityUnlock("Arachnomorph");
+				ActionAbilityUnlock("arachnomorph");
 				break;
 			case 4:
-				ActionAbilityUnlock("Arachas");
-				break;
-			case 5:
 				ActionAbilityUnlock("Followers");
 				break;
-			case 6:
-				ActionAbilityUnlock("Gargoyle");
+			case 5:
+				ActionAbilityUnlock("arachas");
 				break;
-			case 7:
+			case 6:
 				ActionAbilityUnlock("TwoServants");
 				break;
+			case 7:
+				ActionAbilityUnlock("gargoyle");
+				break;
 			case 8:
-				ActionAbilityUnlock("EarthElemental");
+				ActionAbilityUnlock("earth_elemental");
 				break;
 			case 9:
-				ActionAbilityUnlock("IceElemental");
+				ActionAbilityUnlock("ice_elemental");
 				break;
 			case 10:
-				ActionAbilityUnlock("FireElemental");
+				ActionAbilityUnlock("fire_elemental");
 				break;
 		}
 		super.SetSkillLevel(newLevel);
@@ -61,6 +61,7 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 	latent function OnPrepare() : bool {
 		var i 			: int;
 		var template 	: CEntityTemplate;
+		var servantName : name;
 		var depotPath 	: String;
 
 		super.OnPrepare();
@@ -73,7 +74,8 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( 'nr_golem_spawn_fx' );
 		m_fxNameMain = SpawnFxName();
 		for (i = 0; i < s_servantCount; i += 1) {
-			depotPath = map[sign].getS("entity_" + IntToString(i) + "_" + ENR_MAToName(actionType), "quests/part_3/quest_files/q501_eredin/characters/q501_wild_hunt_tier_1.w2ent");
+			servantName = map[sign].getN("entity_" + IntToString(i) + "_" + ENR_MAToName(actionType), 'wild_hunt_hound');
+			depotPath = ServantDepotPath(servantName);
 			template = (CEntityTemplate)LoadResourceAsync( depotPath, true );
 			NRD("Loading servant[" + i + "] = " + template);
 			servantTemplates.PushBack(template);
@@ -224,6 +226,30 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 			case ENR_ColorViolet:
 			default:
 				return 'spawn_violet';
+		}
+	}
+
+	latent function ServantDepotPath(servantName : name) : String {
+		switch (servantName) {
+			case 'barghest':
+				return "dlc/bob/data/living_world/enemy_templates/barghest_late.w2ent";
+			case 'endriaga':
+				return "dlc/bob/data/living_world/enemy_templates/endriaga_lvl2_mid.w2ent";
+			case 'arachnomorph':
+				return "dlc/bob/data/living_world/enemy_templates/spider_mid.w2ent";
+			case 'arachas':
+				return "quests/part_3/quest_files/q502_avallach/characters/q502_arachas.w2ent";
+			case 'gargoyle':
+				return "dlc/bob/data/quests/minor_quests/quest_files/mq7023_mutations/characters/mq7023_gargoyle_1.w2ent";
+			case 'earth_elemental':
+				return "dlc/dlcnewreplacers/data/entities/nr_q502_dao_fixed.w2ent";
+			case 'ice_elemental':
+				return "dlc/dlcnewreplacers/data/entities/nr_elemental_dao_lvl3__ice_fixed.w2ent";
+			case 'fire_elemental':
+				return "dlc/dlcnewreplacers/data/entities/nr_mq4006_ifryt_fixed.w2ent";
+			case 'wild_hunt_hound':
+			default:
+				return "quests/part_3/quest_files/q501_eredin/characters/q501_wild_hunt_tier_1.w2ent";
 		}
 	}
 }

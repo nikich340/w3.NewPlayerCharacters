@@ -35,11 +35,10 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		pos -= thePlayer.GetHeadingVector() * 0.7f;
 		s_fullSphere = !isManual && IsActionAbilityUnlocked("FullBlast");
 		if (!isManual && SkillLevel() + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
-			s_freeze = IsActionAbilityUnlocked("Freezing") && BuffType() == 1;
-			if (!s_freeze) {
-				s_burn = IsActionAbilityUnlocked("Burning") && BuffType() == 2;
-			}
-			
+			s_burn = IsActionAbilityUnlocked("Burning") && BuffType() == 1;
+			if (!s_burn && IsActionAbilityUnlocked("Freezing")) {
+				s_freeze = true;
+			}			
 		}
 		
 		if (s_fullSphere) {
@@ -217,7 +216,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 	}
 
 	function BuffType() : int {
-		// 0 = None, 1 = Freeze, 2 = Burn
+		// 0 = Freeze, 1 = Burn
 		return map[sign].getI("buff_" + ENR_MAToName(actionType), 0);
 	} 
 

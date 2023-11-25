@@ -22,29 +22,41 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 	}
 
 	latent function OnPrepare() : bool {
+		var animalType 	: name;
 		var appNames 	: array<name>;
 		super.OnPrepare();
 
-		resourceName = map[ST_Universal].getN("s_transformEntity", 'nr_transform_cat');
-		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
+		m_fxNameMain = TransformFxName();
+		animalType = map[sign].getN("style_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat');
+		if (animalType == 'cat') {
+			resourceName = "nr_transform_cat";
+			entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 
-		// Dhu's cats: https://www.nexusmods.com/witcher3/mods/3527
-		if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
-			appearanceName = map[ST_Universal].getN("s_transformAppearance", 'cat_20');
-		else
-			appearanceName = map[ST_Universal].getN("s_transformAppearance", 'cat_vanilla_01');
+			// Dhu's cats: https://www.nexusmods.com/witcher3/mods/3527
+			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
+				appearanceName = map[sign].getN("app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_20');
+			else
+				appearanceName = map[sign].getN("app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_01');
 
-		if ( map[ST_Universal].getI("s_transformAppearanceRandom", 1) > 0 ) {
-			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
-				GetAppearanceNames( entityTemplate, appNames );
-			} else {
-				appNames.PushBack('cat_vanilla_01');
-				appNames.PushBack('cat_vanilla_02');
-				appNames.PushBack('cat_vanilla_03');
+			if ( appearanceName == 'random' ) {
+				if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
+					GetAppearanceNames( entityTemplate, appNames );
+					appNames.Remove('cat_vanilla_01');
+					appNames.Remove('cat_vanilla_02');
+					appNames.Remove('cat_vanilla_03');
+				} else {
+					appNames.PushBack('cat_vanilla_01');
+					appNames.PushBack('cat_vanilla_02');
+					appNames.PushBack('cat_vanilla_03');
+				}
+				appearanceName = appNames[ NR_GetRandomGenerator().next(appNames.Size()) ];
 			}
-			appearanceName = appNames[ NR_GetRandomGenerator().next(appNames.Size()) ];
+		} else {
+			NRE("NR_MagicSpecialPolymorphism: Unknown animalType = " + animalType);
+			return OnPrepared(false);
 		}
-
+		// TODO #C: more types
+		
 		return OnPrepared(true);
 	}
 
@@ -56,7 +68,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 			return OnPerformed(false, scriptedPerform);
 		}
 
-		thePlayer.PlayEffect('teleport_appear');
+		thePlayer.PlayEffect(m_fxNameMain);
 		Sleep(0.3f);
 		pos = thePlayer.GetWorldPosition();
 		rot = thePlayer.GetWorldRotation();
@@ -73,7 +85,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		thePlayer.CreateAttachment(transformNPC);
 		thePlayer.GotoState('NR_Transformed');
 
-		GotoState('RunWait');
+		GotoState('Active');
 		return OnPerformed(true, scriptedPerform);
 	}
 	
@@ -84,15 +96,52 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		super.BreakAction();
 		GotoState('Stop');
 	}
+
+	latent function TransformFxName() : name {
+		var color : ENR_MagicColor = NR_GetActionColor();
+
+		switch (color) {
+			//case ENR_ColorBlack:
+			//	return 'black';
+			//case ENR_ColorGrey:
+			//	return 'grey';
+			case ENR_ColorYellow:
+				return 'teleport_appear_yellow';
+			case ENR_ColorOrange:
+				return 'teleport_appear_orange';
+			case ENR_ColorRed:
+				return 'teleport_appear_red';
+			case ENR_ColorPink:
+				return 'teleport_appear_pink';
+			case ENR_ColorBlue:
+				return 'teleport_appear_blue';
+			case ENR_ColorSeagreen:
+				return 'teleport_appear_seagreen';
+			case ENR_ColorGreen:
+				return 'teleport_appear_green';
+			//case ENR_ColorSpecial1:
+			//	return 'special1';
+			//case ENR_ColorSpecial2:
+			//	return 'special2';
+			//case ENR_ColorSpecial3:
+			//	return 'special3';
+			case ENR_ColorWhite:
+				return 'teleport_appear_white';
+			case ENR_ColorViolet:
+			default:
+				return 'teleport_appear_violet';
+		}
+	}
 }
-state RunWait in NR_MagicSpecialPolymorphism {
+
+state Active in NR_MagicSpecialPolymorphism {
 	event OnEnterState( prevStateName : name )
 	{
 		NRD("OnEnterState: " + this);
 		parent.inPostState = true;
-		RunWait();		
+		RunActive();		
 	}
-	entry function RunWait() {
+	entry function RunActive() {
 		Sleep( parent.s_lifetime );
 
 		NRD("StopAction: " + this);
@@ -103,37 +152,38 @@ state RunWait in NR_MagicSpecialPolymorphism {
 		NRD("OnLeaveState: " + this);
 	}
 }
+
 state Stop in NR_MagicSpecialPolymorphism {
 	event OnEnterState( prevStateName : name )
 	{
 		parent.inPostState = true;
-		Stop();
+		RunStop();
 	}
-	entry function Stop() {
+	entry function RunStop() {
 		parent.transformNPC.PlayEffect('disappear');
 		Sleep(0.5f);
 		//parent.transformNPC.ResetTemporaryAttitudeGroup(AGP_Default);
 		thePlayer.BreakAttachment();
 
-		thePlayer.PlayEffect('teleport_appear');
+		thePlayer.PlayEffect(parent.m_fxNameMain);
 		
 		parent.transformNPC.Destroy();
 		thePlayer.GotoState('Exploration');
+		parent.inPostState = false;
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		// can be removed from cached/cursed actions
 		NRD("NR_MagicSpecialPolymorphism: Stop: OnLeaveState");
-		parent.inPostState = false;
 	}
 }
+
 state Cursed in NR_MagicSpecialPolymorphism {
 	event OnEnterState( prevStateName : name )
 	{
 		parent.inPostState = true;
-		Curse();
+		RunCursed();
 	}
-	entry function Curse() {
+	entry function RunCursed() {
 		// do nothing
 		parent.StopAction();
 	}

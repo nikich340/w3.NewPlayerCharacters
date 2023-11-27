@@ -134,7 +134,7 @@ templates:
           - ".type": SBehaviorGraphInstanceSlot
             instanceName: Gameplay
             graph: dlc/dlcnewreplacers/data/behaviorgraph/pc_gameplay_sorceress.w2beh
-            #graph: gameplay/behaviors/pc/behaviorgraph/pc_gameplay.w2beh
+            # graph: gameplay/behaviors/pc/behaviorgraph/pc_gameplay.w2beh
           - ".type": SBehaviorGraphInstanceSlot
             instanceName: Inventory
             graph: gameplay/behaviors/pc/behaviorgraph/pc_inventory.w2beh
@@ -421,6 +421,12 @@ templates:
           rot: [ 0.0, 0.0, 0.0 ]
           scale: [ 0.0, 0.0, 0.0 ]
 
+      fx_cast_lumos:
+        transform:
+          pos: [ -0.5, 0.5, 2.5 ]
+          rot: [ 0.0, 0.0, 0.0 ]
+          scale: [ 0.0, 0.0, 0.0 ]
+
       fx_healing:
         freeRotation: false
 
@@ -600,10 +606,6 @@ templates:
       sign_slot:
         componentName: woman_base
         boneName: l_weapon
-        transform:
-          pos: [ 0.0, 0.0, 0.0 ]
-          rot: [ 0.0, 90.0, 0.0 ]
-          scale: [ 0.0, 0.0, 0.0 ]
 
       steel_sword_back_slot:
         componentName: scabbards_skeleton

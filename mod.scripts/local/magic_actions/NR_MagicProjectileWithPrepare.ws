@@ -70,12 +70,12 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var super_ret : bool;
 		var component : CComponent;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 		projectile.BreakAttachment();
 		if (target && IsActionAbilityUnlocked("AutoAim")) {
@@ -87,7 +87,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		} else {
 			projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, 25.f, standartCollisions );
 		}
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

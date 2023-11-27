@@ -13,6 +13,20 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 	default m_doStaticTrace = true;
 	default performsToLevelup = 10;
 
+	latent function OnInit() : bool {
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 5);
+
+		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
+			sceneInputs.PushBack(3);
+			sceneInputs.PushBack(4);
+			sceneInputs.PushBack(5);
+			PlayScene( sceneInputs );
+		}
+
+		return true;
+	}
+
 	latent function SetTravelData(pinTag : name, areaId : EAreaName, currentAreaId : EAreaName) {
 		m_targetPinTag = pinTag;
 		m_targetAreaId = areaId;
@@ -88,17 +102,17 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		GotoState('Active');
 		if (!thePlayer.IsInNonGameplayCutscene())
 			thePlayer.StopEffect(m_fxNameExtra);
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

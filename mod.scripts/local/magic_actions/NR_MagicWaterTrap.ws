@@ -35,12 +35,12 @@ class NR_MagicWaterTrap extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var buffParams : SCustomEffectParams;
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
@@ -49,7 +49,7 @@ class NR_MagicWaterTrap extends NR_MagicAction {
 		l_trapEntity = (CEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!l_trapEntity) {
 			NRE("l_trapEntity is invalid, template = " + entityTemplate);
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 		NRD("MagicTrap: target = " + target + ", IsSwimming = " + target.IsSwimming() + ", can stagger = " + target.IsImmuneToBuff(EET_Stagger) + ", can immobilize = " + target.IsImmuneToBuff(EET_Immobilized));
 		if (target && target.IsSwimming()) {
@@ -66,7 +66,7 @@ class NR_MagicWaterTrap extends NR_MagicAction {
 		}
 
 		GotoState('Loop');
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

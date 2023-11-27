@@ -42,12 +42,12 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var super_ret : bool;
 		var dk : float;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		pos = thePlayer.GetWorldPosition();
@@ -55,7 +55,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		l_fieldEntity = (CEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!l_fieldEntity) {
 			NRE("l_fieldEntity is invalid, template = " + entityTemplate);
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 		l_fieldFxName = FieldFxName();
 		l_fieldCursedFxName = 'field_fx_red';
@@ -73,7 +73,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		NRD("NR_MagicSpecialField: dk = " + dk + ", l_hostileSlowdown = " + l_hostileSlowdown + ", l_friendlySlowdown = " + l_friendlySlowdown);
 		GotoState('Active');
 
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

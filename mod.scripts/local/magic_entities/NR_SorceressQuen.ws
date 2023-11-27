@@ -457,13 +457,13 @@ state ShieldActive in NR_SorceressQuen extends Active
 		position = center + VecNormalize2D(attacker.GetWorldPosition() - thePlayer.GetWorldPosition()) * 0.3f;
 		action = new NR_MagicLightning in parent.magicManager;
 		action.drainStaminaOnPerform = false;
-		parent.magicManager.AddActionManual(action);
+		parent.magicManager.AddActionScripted(action);
 		action.target = attacker;
 		action.OnInit();
 		action.OnPrepare();
 		action.m_fxNameMain = action.LightningFxName(ENR_SpecialShield);
 		action.m_fxNameHit = action.HitFxName(ENR_SpecialShield);
 		action.OnPerformReboundFromPos(attacker, position);
-		action.OnPerformed(true, true);
+		action.OnPerformed(true);
 	}
 }

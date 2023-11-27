@@ -39,7 +39,7 @@ class NR_MagicLightning extends NR_MagicAction {
 			NRE("DummyEntity is invalid.");
 			return OnPrepared(false);
 		}
-		s_rebound = !isManual && IsActionAbilityUnlocked("Rebound");
+		s_rebound = !isScripted && IsActionAbilityUnlocked("Rebound");
 		dummyEntity.DestroyAfter( 5.f );
 		m_fxNameMain = LightningFxName();
 		m_fxNameHit = HitFxName();
@@ -48,7 +48,7 @@ class NR_MagicLightning extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var targetNPC : CNewNPC;
 		var oldTarget : CActor;
 		var component : CComponent;
@@ -57,7 +57,7 @@ class NR_MagicLightning extends NR_MagicAction {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		if (target) {
@@ -103,7 +103,7 @@ class NR_MagicLightning extends NR_MagicAction {
 		}
 		dummyEntity.DestroyAfter(5.f);
 
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function OnPerformReboundFromPos(newTarget : CActor, fromPos : Vector) {

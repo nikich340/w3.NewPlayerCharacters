@@ -32,7 +32,7 @@ class NR_MagicSpecialShield extends NR_MagicAction {
 	}
 	
 	// NOTE: see NR_SorceressQuen, main stuff there
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		m_fxNameMain = NR_GetMagicManager().SphereFxName();
 
 		if ( IsInSetupScene() ) {
@@ -40,6 +40,6 @@ class NR_MagicSpecialShield extends NR_MagicAction {
 			Sleep( 2.5f );
 			thePlayer.StopEffect( m_fxNameMain );
 		}
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 }

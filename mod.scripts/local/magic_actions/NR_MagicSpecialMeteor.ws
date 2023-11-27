@@ -41,13 +41,13 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var ret, super_ret 	: bool;
 		var i 				: int;
 
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
@@ -61,7 +61,7 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 		}
 
 		StopAction();
-		return OnPerformed(ret, scriptedPerform);
+		return OnPerformed(ret);
 	}
 
 	latent function ShootMeteor() : bool {

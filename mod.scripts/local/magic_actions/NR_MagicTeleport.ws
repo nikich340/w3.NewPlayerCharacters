@@ -61,11 +61,11 @@ class NR_MagicTeleport extends NR_MagicAction {
 		super.SetSkillLevel(newLevel);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		thePlayer.PlayEffect( m_fxNameExtra );
@@ -77,12 +77,12 @@ class NR_MagicTeleport extends NR_MagicAction {
 			Sleep(0.2f);  // wait for effect a bit
 			thePlayer.SetGameplayVisibility(true);
 			thePlayer.SetVisibility(true);
-			return OnPerformed(true, scriptedPerform);
+			return OnPerformed(true);
 		}
 
 		if ( !teleportCamera ) {
 			NRE("Perform: No valid teleport camera.");
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 		Sleep(0.2f);  // wait for effect a bit
 		thePlayer.SetGameplayVisibility(true);
@@ -95,7 +95,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		thePlayer.SetImmortalityMode( AIM_None, AIC_Combat );
 		thePlayer.SetImmortalityMode( AIM_None, AIC_Default );
 
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function PerformAutoPush() {
@@ -104,10 +104,10 @@ class NR_MagicTeleport extends NR_MagicAction {
 
 		action = new NR_MagicCounterPush in nr_manager;
 		action.drainStaminaOnPerform = false;
-		nr_manager.AddActionManual(action);
+		nr_manager.AddActionScripted(action);
 		action.OnInit();
 		action.OnPrepare();
-		action.OnPerform(/*scripted*/ true);
+		action.OnPerform();
 	}
 
 	latent function BreakAction() {

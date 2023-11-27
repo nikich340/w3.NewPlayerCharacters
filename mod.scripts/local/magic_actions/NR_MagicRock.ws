@@ -94,7 +94,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var i 					: int;
 		var shootDirectionNoise : float = 2.5f;
 		var drawSpeedLimit 		: float = 10.f;
@@ -106,7 +106,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		// stop rotating
@@ -155,7 +155,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			}
 			projectile.DestroyAfter(10.f);
 		}
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

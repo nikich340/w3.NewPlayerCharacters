@@ -64,14 +64,14 @@ class NR_MagicSlash extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var targetNPC : CNewNPC;
 		var dk : float;
 
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 		if (target) {
 			targetNPC = (CNewNPC) target;
@@ -106,7 +106,7 @@ class NR_MagicSlash extends NR_MagicAction {
 		}
 		*/
 
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {
@@ -213,10 +213,10 @@ class NR_MagicSlash extends NR_MagicAction {
 			case ENR_ColorSpecial1:
 				switch ( swingDir ) {
 					case ASD_LeftRight:
-						return 'down_left_special1';
+						return 'down_left_transparent';
 					case ASD_RightLeft:
 					default:
-						return 'down_right_special1';
+						return 'down_right_transparent';
 				}
 			//case ENR_ColorSpecial2:
 			//	return 'special2';

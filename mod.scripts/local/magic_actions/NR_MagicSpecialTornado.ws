@@ -48,12 +48,12 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var caster 		: CActor;
 		var super_ret 	: bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		if (IsInSetupScene()) {
@@ -70,11 +70,11 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 		
 		if (!m_tornadoEntity) {
 			NRE("m_tornadoEntity is invalid!");
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		GotoState('Active');
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

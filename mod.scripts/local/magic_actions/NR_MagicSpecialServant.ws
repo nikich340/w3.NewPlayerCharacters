@@ -128,7 +128,7 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 		return true;
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var golemPositions 			: array<Vector>;
 		var dummyEntity				: CEntity;
 		var newPos, normalCollision : Vector;
@@ -136,7 +136,7 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 		var super_ret, ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		if (IsInSetupScene()) {
@@ -177,13 +177,13 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 		for ( i = 0; i < s_servantCount; i += 1 ) {
 			ret = SpawnMinion(golemPositions[i], servantTemplates[i]);
 			if ( !ret ) {
-				return OnPerformed(false, scriptedPerform);
+				return OnPerformed(false);
 			}
 			Sleep(0.1f);
 		}
 		GotoState('Active');
 
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

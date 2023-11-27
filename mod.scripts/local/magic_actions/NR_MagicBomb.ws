@@ -36,14 +36,14 @@ class NR_MagicBomb extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var super_ret : bool;
 		var bombPursue : bool;
 		var respectCaster : bool;
 		var dk : float;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
@@ -51,7 +51,7 @@ class NR_MagicBomb extends NR_MagicAction {
 		l_bombEntity = (NR_MagicBombEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!l_bombEntity) {
 			NRE("l_bombEntity is invalid, template = " + entityTemplate);
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 		bombPursue = IsActionAbilityUnlocked("Pursuit");
 		respectCaster = IsActionAbilityUnlocked("DamageControl");
@@ -64,7 +64,7 @@ class NR_MagicBomb extends NR_MagicAction {
 		l_bombEntity.Init(thePlayer, target, /*respectCaster*/ respectCaster, /*pursue*/ bombPursue);
 		l_bombEntity.DestroyAfter(l_bombEntity.m_timeToExplode + 5.f);
 
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

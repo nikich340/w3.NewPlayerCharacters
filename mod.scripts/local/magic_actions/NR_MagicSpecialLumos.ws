@@ -37,6 +37,7 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	/* Non-latent version */
 	public function OnPrepareSync() {
 		m_fxNameMain = LumosFxName();
+		NRD("NR_MagicSpecialLumos:OnPrepareSync, m_fxNameMain = " + m_fxNameMain);
 		inPostState = true; // prevent action erasing
 		isPrepared = true;
 	}
@@ -45,9 +46,7 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	public function OnSwitchSync(enable : bool) : bool {
 		NRD("NR_MagicSpecialLumos:OnSwitchSync, isActive = " + isActive);
 
-		if (!isPrepared) {
-			OnPrepareSync();
-		}
+		OnPrepareSync();
 
 		if (enable) {
 			if (!IsActive()) {
@@ -65,7 +64,14 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 		return true;
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
+		if (IsInSetupScene() && !IsActive()) {
+			OnSwitchSync(true);
+			Sleep(2.5f);
+			OnSwitchSync(false);
+			return OnPerformed( true );
+		}
+
 		return OnPerformed( OnSwitchSync(!IsActive()) );
 	}
 

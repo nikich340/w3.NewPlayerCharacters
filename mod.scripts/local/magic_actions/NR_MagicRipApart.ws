@@ -34,7 +34,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 
 		return OnPrepared(true);
 	}
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var dismembermentComp 	: CDismembermentComponent;
 		var wounds				: array< name >;
 		var usedWound			: name;
@@ -42,7 +42,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		if (target) {
@@ -64,7 +64,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 			target.Kill('NR_MagicRipApart', true, thePlayer);
 		}
 
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 	latent function BreakAction() {
 		if (isPerformed)

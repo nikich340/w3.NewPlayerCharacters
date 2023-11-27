@@ -60,12 +60,12 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var aiTree 		: CAIIdleTree;
 		var super_ret 	: bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		thePlayer.PlayEffect(m_fxNameMain);
@@ -75,7 +75,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		transformNPC = (CNewNPC)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!transformNPC) {
 			NRE("transformNPC is invalid.");
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 		transformNPC.PlayEffect('appear');
 		transformNPC.ApplyAppearance( appearanceName );
@@ -84,14 +84,15 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 
 		if (IsInSetupScene()) {
 			// fast transform without changing thePlayer state
-			pos.Z += 2.f;
-			((CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent()).SetAnimatedMovement(false);
-			// ((CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent()).SetGravity(false);
+			pos.Z += 1.f;
+			transformNPC.EnablePhysicalMovement(true);
+			((CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent()).SetAnimatedMovement(true);
+			((CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent()).SetGravity(false);
 			transformNPC.Teleport(pos);
 
 			NR_GetMagicManager().HandFX(false);
 			thePlayer.SetVisibility(false);
-			Sleep(2.5f);
+			Sleep(2.f);
 			transformNPC.PlayEffect('disappear');
 			Sleep(0.5f);
 			thePlayer.PlayEffect(m_fxNameMain);
@@ -99,14 +100,14 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 			NR_GetMagicManager().HandFX(true, false);
 
 			transformNPC.Destroy();
-			return OnPerformed(true, scriptedPerform);
+			return OnPerformed(true);
 		}
 
 		thePlayer.CreateAttachment(transformNPC);
 		thePlayer.GotoState('NR_Transformed');
 
 		GotoState('Active');
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 	
 	latent function BreakAction() {

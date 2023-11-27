@@ -6,6 +6,20 @@ class NR_MagicCounterPush extends NR_MagicAction {
 	default actionType = ENR_CounterPush;
 	default performsToLevelup = 150;
 
+	latent function OnInit() : bool {
+		var sceneInputs : array<int>;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
+
+		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
+			sceneInputs.PushBack(3);
+			sceneInputs.PushBack(4);
+			sceneInputs.PushBack(5);
+			PlayScene( sceneInputs );
+		}
+
+		return true;
+	}
+
 	protected function SetSkillLevel(newLevel : int) {
 		if (newLevel == 5) {
 			ActionAbilityUnlock("FullBlast");
@@ -33,8 +47,8 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		}
 
 		pos -= thePlayer.GetHeadingVector() * 0.7f;
-		s_fullSphere = !isManual && IsActionAbilityUnlocked("FullBlast");
-		if (!isManual && SkillLevel() + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
+		s_fullSphere = !isScripted && IsActionAbilityUnlocked("FullBlast");
+		if (!isScripted && SkillLevel() + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			s_burn = IsActionAbilityUnlocked("Burning") && BuffType() == 1;
 			if (!s_burn && IsActionAbilityUnlocked("Freezing")) {
 				s_freeze = true;
@@ -58,7 +72,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var attackRange : CAIAttackRange;
 		var aardStandartCollisions : array<name>;
 		var hitsWater : bool;
@@ -66,7 +80,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 		
 		aardStandartCollisions.PushBack( 'Projectile' );
@@ -128,7 +142,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		aardProjectile.DestroyAfter(10.f);
 		aardEntity.DestroyAfter(10.f);
 
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

@@ -77,11 +77,11 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		return OnPrepared(true);
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
-			return OnPerformed(false, scriptedPerform);
+			return OnPerformed(false);
 		}
 
 		//thePlayer.LockToTarget( false );
@@ -100,7 +100,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		thePlayer.PlayEffect('mind_control', dummyEntity);
 		GotoState('Active');
 		
-		return OnPerformed(true, scriptedPerform);
+		return OnPerformed(true);
 	}
 
 	latent function BreakAction() {

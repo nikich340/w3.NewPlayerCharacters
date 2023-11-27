@@ -25,7 +25,7 @@ abstract statemachine class NR_MagicAction {
 	public var isBroken		: bool;
 	public var inPostState	: bool;
 	public var isCursed		: bool;
-	public var isManual 	: bool;
+	public var isScripted 	: bool;
 	public var isOnHorse 	: bool;
 	public var drainStaminaOnPerform : bool;
 	public var performsToLevelup : int;
@@ -38,10 +38,14 @@ abstract statemachine class NR_MagicAction {
 	default isBroken	= false;
 	default inPostState	= false;
 	default isCursed 	= false;
-	default isManual 	= false;
+	default isScripted 	= false;
 	default drainStaminaOnPerform 	= true;
 	default performsToLevelup 		= 50; // action-specific
-	default ST_Universal 			= 5; // EnumGetMax(ESignType); 
+	default ST_Universal 			= 5; // EnumGetMax(ESignType);
+
+	public function SetScripted(scripted : bool) {
+		isScripted = scripted;
+	}
 
 	latent function OnInit() : bool {
 		/*
@@ -100,17 +104,17 @@ abstract statemachine class NR_MagicAction {
 		return result;
 	}
 
-	latent function OnPerform(optional scriptedPerform : bool) : bool {
+	latent function OnPerform() : bool {
 		// perform action, fx
 		NRD("OnPerform: " + actionType + ", isPrepared: " + isPrepared);
 		return isPrepared && !isBroken && !isPerformed;
 	}
 
-	function OnPerformed(result : bool, optional scriptedPerform : bool) : bool {
+	function OnPerformed(result : bool) : bool {
 		var magicManager : NR_MagicManager;
 
 		isPerformed = result;
-		NRD("OnPerformed: [" + ENR_MAToName(actionType) + "] result = " + result + ", scriptedPerform = " + scriptedPerform);
+		NRD("OnPerformed: [" + ENR_MAToName(actionType) + "] result = " + result + ", isScripted = " + isScripted);
 		if (result && drainStaminaOnPerform) {
 			magicManager = NR_GetMagicManager();
 			if (isOnHorse) {
@@ -120,7 +124,7 @@ abstract statemachine class NR_MagicAction {
 			}
 		}
 
-		if (isPerformed && !scriptedPerform) {
+		if (isPerformed && !isScripted && !IsInSetupScene()) {
 			FactsAdd("nr_magic_performed_" + ENR_MAToName(actionType), 1);
 			if (actionSubtype != ENR_Unknown)
 				FactsAdd("nr_magic_performed_" + ENR_MAToName(actionSubtype), 1);

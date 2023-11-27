@@ -6,6 +6,7 @@ statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
 	{
 		super.OnSpawned( spawnData );
 
+		// SetBehaviorVariable( 'test_ciri_replacer', 1.0f);
 		AddAnimEventCallback( 'SlideToTarget', 	'OnAnimEvent_SlideToTarget' );
 	}
 	

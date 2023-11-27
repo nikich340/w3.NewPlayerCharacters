@@ -9,6 +9,7 @@ state HorseRiding in NR_ReplacerSorceress
 		parent.AddAnimEventCallback('Spawn',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Shoot',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
+		parent.AddAnimEventCallback('UnblockMiscActions',	'OnAnimEventMagic');
 		super.OnEnterState( prevStateName );
 	}
 	event OnLeaveState( nextStateName : name )
@@ -20,5 +21,6 @@ state HorseRiding in NR_ReplacerSorceress
 		parent.RemoveAnimEventCallback('Spawn');
 		parent.RemoveAnimEventCallback('Shoot');
 		parent.RemoveAnimEventCallback('PerformMagicAttack');
+		parent.RemoveAnimEventCallback('UnblockMiscActions');
 	}
 }

@@ -10,6 +10,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.AddAnimEventCallback('Spawn',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Shoot',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
+		parent.AddAnimEventCallback('UnblockMiscActions',	'OnAnimEventMagic');
 		//parent.AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend');
 		parent.AddAnimEventCallback('PrepareTeleport',		'OnAnimEventMagic');
 		parent.AddAnimEventCallback('PerformTeleport',		'OnAnimEventMagic');
@@ -24,6 +25,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.RemoveAnimEventCallback('Spawn');
 		parent.RemoveAnimEventCallback('Shoot');
 		parent.RemoveAnimEventCallback('PerformMagicAttack');
+		parent.RemoveAnimEventCallback('UnblockMiscActions');
 		parent.RemoveAnimEventCallback('PrepareTeleport');
 		parent.RemoveAnimEventCallback('PerformTeleport');
 
@@ -523,7 +525,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			str.AddAttack( 'woman_sorceress_heal_lp', ADIST_Medium );
 		}
 
-		/* 4.166 (3.0) */
+		/* 3.333333 (1.7) */
 		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialTransform' );
 		{
 			str = aspect.CreateComboString( false );

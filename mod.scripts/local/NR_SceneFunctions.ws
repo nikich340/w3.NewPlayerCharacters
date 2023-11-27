@@ -90,6 +90,7 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 		thePlayer.AddAnimEventCallback('Spawn',				'OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('Shoot',				'OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('PerformMagicAttack','OnAnimEventMagic');
+		thePlayer.AddAnimEventCallback('UnblockMiscActions','OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('PrepareTeleport',	'OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('PerformTeleport',	'OnAnimEventMagic');
 	} else {
@@ -98,6 +99,7 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 		thePlayer.RemoveAnimEventCallback('Spawn');
 		thePlayer.RemoveAnimEventCallback('Shoot');
 		thePlayer.RemoveAnimEventCallback('PerformMagicAttack');
+		thePlayer.RemoveAnimEventCallback('UnblockMiscActions');
 		thePlayer.RemoveAnimEventCallback('PrepareTeleport');
 		thePlayer.RemoveAnimEventCallback('PerformTeleport');
 		magicManager.HideMagicInfo();

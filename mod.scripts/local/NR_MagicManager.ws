@@ -224,7 +224,7 @@ function ENR_MAToLocString(action : ENR_MagicAction) : String {
 			id = 2115940156;
 			break;
 		case ENR_Teleport:
-			id = 2115940144;
+			id = 2115940589;
 			break;
 		case ENR_HandFx:
 			id = 2115940143;
@@ -440,6 +440,218 @@ function NR_StrLightBlue(str : String, optional dark : bool) : String {
 		return "<font color=\"#009999\">" + str + "</font>";
 }
 
+function NR_PercToHex(perc : int) : String {
+	switch (perc) {
+		case 100:
+			return "FF";
+		case 99:
+			return "FC";
+		case 98:
+			return "FA";
+		case 97:
+			return "F7";
+		case 96:
+			return "F5";
+		case 95:
+			return "F2";
+		case 94:
+			return "F0";
+		case 93:
+			return "ED";
+		case 92:
+			return "EB";
+		case 91:
+			return "E8";
+		case 90:
+			return "E6";
+		case 89:
+			return "E3";
+		case 88:
+			return "E0";
+		case 87:
+			return "DE";
+		case 86:
+			return "DB";
+		case 85:
+			return "D9";
+		case 84:
+			return "D6";
+		case 83:
+			return "D4";
+		case 82:
+			return "D1";
+		case 81:
+			return "CF";
+		case 80:
+			return "CC";
+		case 79:
+			return "C9";
+		case 78:
+			return "C7";
+		case 77:
+			return "C4";
+		case 76:
+			return "C2";
+		case 75:
+			return "BF";
+		case 74:
+			return "BD";
+		case 73:
+			return "BA";
+		case 72:
+			return "B8";
+		case 71:
+			return "B5";
+		case 70:
+			return "B3";
+		case 69:
+			return "B0";
+		case 68:
+			return "AD";
+		case 67:
+			return "AB";
+		case 66:
+			return "A8";
+		case 65:
+			return "A6";
+		case 64:
+			return "A3";
+		case 63:
+			return "A1";
+		case 62:
+			return "9E";
+		case 61:
+			return "9C";
+		case 60:
+			return "99";
+		case 59:
+			return "96";
+		case 58:
+			return "94";
+		case 57:
+			return "91";
+		case 56:
+			return "8F";
+		case 55:
+			return "8C";
+		case 54:
+			return "8A";
+		case 53:
+			return "87";
+		case 52:
+			return "85";
+		case 51:
+			return "82";
+		case 50:
+			return "80";
+		case 49:
+			return "7D";
+		case 48:
+			return "7A";
+		case 47:
+			return "78";
+		case 46:
+			return "75";
+		case 45:
+			return "73";
+		case 44:
+			return "70";
+		case 43:
+			return "6E";
+		case 42:
+			return "6B";
+		case 41:
+			return "69";
+		case 40:
+			return "66";
+		case 39:
+			return "63";
+		case 38:
+			return "61";
+		case 37:
+			return "5E";
+		case 36:
+			return "5C";
+		case 35:
+			return "59";
+		case 34:
+			return "57";
+		case 33:
+			return "54";
+		case 32:
+			return "52";
+		case 31:
+			return "4F";
+		case 30:
+			return "4D";
+		case 29:
+			return "4A";
+		case 28:
+			return "47";
+		case 27:
+			return "45";
+		case 26:
+			return "42";
+		case 25:
+			return "40";
+		case 24:
+			return "3D";
+		case 23:
+			return "3B";
+		case 22:
+			return "38";
+		case 21:
+			return "36";
+		case 20:
+			return "33";
+		case 19:
+			return "30";
+		case 18:
+			return "2E";
+		case 17:
+			return "2B";
+		case 16:
+			return "29";
+		case 15:
+			return "26";
+		case 14:
+			return "24";
+		case 13:
+			return "21";
+		case 12:
+			return "1F";
+		case 11:
+			return "1C";
+		case 10:
+			return "1A";
+		case 9:
+			return "17";
+		case 8:
+			return "14";
+		case 7:
+			return "12";
+		case 6:
+			return "0F";
+		case 5:
+			return "0D";
+		case 4:
+			return "0A";
+		case 3:
+			return "08";
+		case 2:
+			return "05";
+		case 1:
+			return "03";
+		case 0:
+		default:
+			return "00";
+	}
+}
+
+function NR_StrRGB(str : String, rPerc : int, gPerc : int, bPerc : int) : String {
+	return "<font color=\"#" + NR_PercToHex(rPerc) + NR_PercToHex(gPerc) + NR_PercToHex(bPerc) + "\">" + str + "</font>";
+}
+
 struct SNR_MagicEvent {
 	var eventName 		: name;
 	var animName 		: name;
@@ -518,6 +730,7 @@ statemachine class NR_MagicManager {
 			SetDefaults_HandFx();
 			SetDefaults_Special();
 			SetDefaults_SpecialAlt();
+			SetDefaults_VoicelineChances();
 			NRD("MagicManager: Init default spell params");
 		} else {
 			NRD("MagicManager: Load spell params");
@@ -763,6 +976,25 @@ statemachine class NR_MagicManager {
 		}
 	}
 	protected function ColorFormattedText(text : String, color : ENR_MagicColor) : String {
+		var ii, i, j, k, len : int;
+		var result : String;
+		if (color == ENR_ColorRandom) {
+			text = NR_FormatLocString(text);
+			len = StrLen(text);
+			k = Max(1, len / 7);
+
+			i = 0;
+			result = "";
+			for (ii = 0; ii < 7; ii += 1) {
+				j = Min(k, len - i);
+				result += ColorFormattedText(StrMid(text, i, j), (int)ENR_ColorOrange + ii);
+				i += k;
+				if (i >= len)
+					break;
+			}
+			return result;
+		}
+
 		return "<font color = '" + ColorHexStr(color) + "'>" + text + "</font>";
 	}
 	protected function ColorFormattedValue(valueId : int, color : ENR_MagicColor) : String {
@@ -823,11 +1055,16 @@ statemachine class NR_MagicManager {
 		}
 	}
 
+	public function SelfColoredPerc(perc : int) : String {
+		return "<font color=\"#" + NR_PercToHex(perc) + "00" + NR_PercToHex(perc) + "\">" + IntToString(perc) + "%</font>";
+	}
+
 	public function ShowMagicInfo(sectionName : name) {
 		var 		s, i, j : int;
 		var 	NBSP, BR : String;
 		var 	text : String;
-		var styleName, appName : name;
+		var 	actionTypes : array<ENR_MagicAction>;
+		var styleName, appName, entityName : name;
 		var typeId, styleId, color, color2 : int;
 
 		sMap[ST_Universal].setN("setup_scene_section", sectionName);
@@ -839,8 +1076,7 @@ statemachine class NR_MagicManager {
 		if (sectionName == 'main') {
 			// light attacks
 			text += "<font color='#000145'>[{358190}]</font>{ }{539939}:{ }" + GetSkillLevelLocStr(GetSkillLevel()) + "{ } (" + IntToString(GetSkillLevel()) + ")" + BR;
-			text += "<font color='#145000'>[{2115940205}]</font>:{ }" + BR;
-			j = 0;
+			// text += "<font color='#145000'>[{2115940205}]</font>:{ }" + BR;
 			
 		} else if (sectionName == 'hand') {
 			// hand
@@ -857,7 +1093,7 @@ statemachine class NR_MagicManager {
 			}
 		} else if (sectionName == 'teleport') {
 			// teleport
-			text += "<font color='#3a0045'>[{2115940144}]</font><br>";
+			text += "<font color='#3a0045'>[{2115940589}]</font><br>";
 			for (s = ST_Aard; s < ST_Universal; s += 1) {
 				if (eqSign == s) {
 					text += "> ";
@@ -927,10 +1163,12 @@ statemachine class NR_MagicManager {
                 } else if (typeId == ENR_SpecialShield) {
                     text += "{2115940156}:{ }" + ColorFormattedValue(ColorLocId(color), color);
                 } else if (typeId == ENR_SpecialServant) {
-                    text += ColorFormattedText("{2115940157}:{ }", color);
-                    text += "{" + MageLocId( sMap[s].getN("entity_0_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound') ) + "}";
+                    text += "{2115940157}:{ }";
+                    entityName = sMap[s].getN("entity_0_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound');
+                    text += ColorFormattedValue( MageLocId(entityName), color );
                     if (IsActionAbilityUnlocked(ENR_SpecialServant, "TwoServants")) {
-                    	text += "/{" + MageLocId( sMap[s].getN("entity_1_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound') ) + "}";
+                    	entityName = sMap[s].getN("entity_1_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound');
+                    	text += "{ }/{ }" + ColorFormattedValue( MageLocId(entityName), color );
                     }
                 }
                 text += BR;
@@ -956,13 +1194,15 @@ statemachine class NR_MagicManager {
                 } else if (typeId == ENR_SpecialLumos) {
                     text += "{2115940165}:{ }" + ColorFormattedValue(ColorLocId(color), color);
                 } else if (typeId == ENR_SpecialPolymorphism) {
-                	text += ColorFormattedText("{2115940166}:{ }", color);
+                	text += "{2115940166}:{ }";
                 	appName = sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_vanilla_01');
                 	if (styleName == 'cat') {
                 		if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
-							text += sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_20');
+							appName = sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_20');
+							text += ColorFormattedText(appName, color);
                 		} else {
-							text += sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_vanilla_01');
+							appName = sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_vanilla_01');
+							text += ColorFormattedText(appName, color);
 							text += BR + NR_StrRed("   {1223720}: ", true) + NR_StrGreen("Immersive Wildlife Project (Dhu Cats)", true) + BR + "nexusmods.com/witcher3/mods/3527";
 						}
                 	} else {
@@ -971,6 +1211,27 @@ statemachine class NR_MagicManager {
                 }
                 text += BR;
             }
+		} else if (sectionName == 'spell_voicelines') {
+			text += "<font color='#004e01'>[{2115940588}]</font><br>";
+			text += "{2115940145}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_FastTravelTeleport)) ) + BR;
+			text += "{2115940151}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_CounterPush)) ) + BR;
+			text += "{2115940122}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_Slash)) ) + BR;
+			text += "{2115940141}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_Lightning)) ) + BR;
+			text += "{2115940142}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_ProjectileWithPrepare)) ) + BR;
+			text += "{2115940148}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_Rock)) ) + BR;
+			text += "{2115940149}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_BombExplosion)) ) + BR;
+			text += "{2115940160}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_RipApart)) ) + BR;
+			text += "{2115940153}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialTornado)) ) + BR;
+			text += "{2115940154}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialControl)) ) + BR;
+			text += "{2115940155}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteor)) ) + BR;
+			text += "{2115940156}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialShield)) ) + BR;
+			text += "{2115940157}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialServant)) ) + BR;
+			text += "{2115940162}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLightningFall)) ) + BR;
+			text += "{2115940163}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialField)) ) + BR;
+			text += "{2115940164}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteorFall)) ) + BR;
+			text += "{2115940165}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLumos)) ) + BR;
+			text += "{2115940166}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialPolymorphism)) ) + BR;
+			text += "{2115940168}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_WaterTrap)) ) + BR;
 		} else {
 			text += "<font color='#004e01'>Unknown type: " + sectionName + "</font><br>";
 		}
@@ -1024,16 +1285,16 @@ statemachine class NR_MagicManager {
 
 	function SetDefaults_Duration() {
 		// duration_<AttackType> in sec
-		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialServant), 60.f);
+		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialServant), 40.f);
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialTornado), 15.f);
-		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialControl), 60.f);
-		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialShield), 120.f);
-		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialPolymorphism), 120.f);
+		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialControl), 40.f);
+		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialShield), 100.f);
+		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialPolymorphism), 40.f);
 
 		// duration_<AttackType> in sec (interval between creating meteors/lightnings)
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialLumos), 999999.f);
-		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialField), 60.f);
-		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialMeteorFall), 0.5f);
+		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialField), 40.f);
+		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialMeteorFall), 0.8f);
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialLightningFall), 0.5f);
 	}
 
@@ -1199,12 +1460,35 @@ statemachine class NR_MagicManager {
 			sMap[i].setI("color_" + ENR_MAToName(ENR_SpecialLumos), ENR_ColorWhite);
 
 			// TRANSFORM
+			sMap[i].setI("color_" + ENR_MAToName(ENR_SpecialPolymorphism), ENR_ColorViolet);
 			sMap[i].setN("style_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat');
 			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
 				sMap[i].setN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_20');
 			else
 				sMap[i].setN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_01');
 		}
+	}
+
+	function SetDefaults_VoicelineChances() {
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_FastTravelTeleport), 5);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_CounterPush), 0);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_Slash), 5);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_Lightning), 10);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_ProjectileWithPrepare), 15);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_Rock), 20);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_BombExplosion), 20);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_RipApart), 25);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialTornado), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialControl), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteor), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialShield), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialServant), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLightningFall), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialField), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteorFall), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLumos), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialPolymorphism), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_WaterTrap), 30);
 	}
 
 	function SetDefaults_HandFx() {
@@ -1347,7 +1631,7 @@ statemachine class NR_MagicManager {
 		return aActionType;
 	}
 
-	public function AddActionManual( action : NR_MagicAction, optional isCursed : bool ) {
+	public function AddActionScripted( action : NR_MagicAction, optional isCursed : bool ) {
 		if (!action) {
 			return;
 		}
@@ -1355,7 +1639,7 @@ statemachine class NR_MagicManager {
 		action.map 			= sMap;
 		action.m_fxNameHit 	= GetHitFXName( GetActionColor() );
 		action.magicSkill 	= GetSkillLevel();
-		action.isManual 	= true;
+		action.SetScripted(true);
 		if (isCursed) {
 			cursedActions.PushBack(action);
 		} else {
@@ -2271,7 +2555,7 @@ state MagicLoop in NR_MagicManager {
 			NRD("PerformMagicAction: type = " + parent.mAction.actionType);
 			if (parent.mAction.isBroken)
 				return;
-			parent.mAction.OnPerform(/*scripted*/ false);
+			parent.mAction.OnPerform();
 		} else {
 			NRE("MM: PerformMagicAction: NULL parent.mAction!");
 		}
@@ -2354,6 +2638,9 @@ state MagicLoop in NR_MagicManager {
 						break;
 					case 'BreakMagicAttack':
 						BreakMagicAction();
+						break;
+					case 'UnblockMiscActions':
+						parent.SetMiscStateActionsBlocked(false);
 						break;
 					default:
 						NR_Notify("Unknown magic event! event = " + parent.aEventsStack[0].eventName + ", anim = " + parent.aEventsStack[0].animName);
@@ -2478,16 +2765,15 @@ state MagicLoop in NR_MagicManager {
 
 		if (inGallop || inCanter) {
 			if (leftSide)
-				thePlayer.ActionPlaySlotAnimation( 'VEHICLE_SLOT', 'horse_magic_attack_gallop_left_underhand', 0.2, 0.3 );
+				thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', 'horse_magic_attack_gallop_left_underhand', 0.2, 0.3 );
 			else
-				thePlayer.ActionPlaySlotAnimation( 'VEHICLE_SLOT', 'horse_magic_attack_gallop_right_underhand', 0.2, 0.3 );
+				thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', 'horse_magic_attack_gallop_right_underhand', 0.2, 0.3 );
 		} else {
 			if (leftSide)
-				thePlayer.ActionPlaySlotAnimation( 'VEHICLE_SLOT', 'horse_magic_attack_idle_left_underhand', 0.3, 0.5 );
+				thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', 'horse_magic_attack_idle_left_underhand', 0.3, 0.5 );
 			else
-				thePlayer.ActionPlaySlotAnimation( 'VEHICLE_SLOT', 'horse_magic_attack_idle_right_underhand', 0.3, 0.5 );
+				thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', 'horse_magic_attack_idle_right_underhand', 0.3, 0.5 );
 		}
-		parent.SetMiscStateActionsBlocked(false);
 	}
 	// horse: thePlayer.GetUsedHorseComponent().GetUserCombatManager()
 	//                   W3HorseComponent         
@@ -2617,7 +2903,7 @@ latent function NR_ShowLightningFx(from : Vector, to : Vector, showHitFx : bool,
 
     action = new NR_MagicLightning in nr_manager;
     action.drainStaminaOnPerform = false;
-    nr_manager.AddActionManual(action);
+    nr_manager.AddActionScripted(action);
     action.OnInit();
     action.OnPrepare();
     if ( IsNameValid(lightningFxName) )
@@ -2626,7 +2912,7 @@ latent function NR_ShowLightningFx(from : Vector, to : Vector, showHitFx : bool,
     	action.m_fxNameHit = hitFxName;
 
     action.OnPerformReboundFromPosToPos(to, from, showHitFx);
-    action.OnPerformed(true, true);
+    action.OnPerformed(true);
 }
 
 latent function NR_StartLightningToNode(from : Vector, to : CNode, lightningFxName : name, optional hitFxName : name, optional stopAfter : float) : CEntity {
@@ -2698,10 +2984,10 @@ latent function NR_CreatePortal( waypointTag : name, worldName : String, optiona
     if (activeTime > 1.f) {
     	action.SetActiveTime(activeTime);
     }
-    nr_manager.AddActionManual(action);
+    nr_manager.AddActionScripted(action);
     action.OnInit();
     action.OnPrepare();
-    action.OnPerform(/*scripted*/ true);
+    action.OnPerform();
 }
 
 function NR_FindActorInScene(voicetag : name, out actorRes : CActor) : bool {

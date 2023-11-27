@@ -43,12 +43,8 @@ function NR_FormatLocString(str : String) : String {
 class NR_FormattedLocChoiceAction extends CStorySceneChoiceLineActionScripted
 {
 	editable var str : String;
-	editable var dlcName : name;
 
 	function CanUseAction() : bool {
-		if ( IsNameValid(dlcName) && !theGame.GetDLCManager().IsDLCAvailable(dlcName) )
-			return false;
-
 		return true;
 	}
 
@@ -73,9 +69,11 @@ class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
 	function CanUseAction() : bool {
 		var enumType : ENR_MagicAction;
 
-		enumType = ENR_NameToMA(type);
-		if ( !NR_GetMagicManager().IsActionCustomizationUnlocked(enumType) )
-			return false;
+		if ( IsNameValid(type) ) {
+			enumType = ENR_NameToMA(type);
+			if ( !NR_GetMagicManager().IsActionCustomizationUnlocked(enumType) )
+				return false;
+		}
 
 		if ( StrLen(abilityName) > 0 && !NR_GetMagicManager().IsActionAbilityUnlocked(enumType, abilityName) )
 			return false;
@@ -88,7 +86,14 @@ class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
 
 	function GetActionText() : string			
 	{
-		return NR_FormatLocString(str);
+		var text : String;
+
+		text = NR_FormatLocString(str);
+		if ( !CanUseAction() ) {
+			// [locked] prefix: String
+			text = "[" + GetLocStringById(1066070) + "] " + text;
+		}
+		return text;
 	}
 	
 	function GetActionIcon() : EDialogActionIcon 	

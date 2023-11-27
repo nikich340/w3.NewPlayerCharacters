@@ -29,7 +29,6 @@ class NR_MagicSliderData extends DialogueSliderData
 			}
 			
 			NR_GetMagicManager().SetParamInt(signName, varName, currentValue);
-			NRD("NR_MagicSliderData, set[" + signName + "][" + varName + "] = " + currentValue);
 			isCompleted = true;
 			// ClosePopup();
 		}

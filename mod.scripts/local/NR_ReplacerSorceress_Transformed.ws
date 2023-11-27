@@ -32,7 +32,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		
 		((CMovingPhysicalAgentComponent)parent.GetMovingAgentComponent()).SetSwimming( false );
 		((CMovingPhysicalAgentComponent)parent.GetMovingAgentComponent()).SetDiving( false );
-		((CMovingPhysicalAgentComponent) parent.GetMovingAgentComponent()).SetTerrainInfluence(0.f);
+		((CMovingPhysicalAgentComponent)parent.GetMovingAgentComponent()).SetTerrainInfluence(0.f);
 
 		parent.SetOrientationTarget( OT_Player );
 		parent.ClearCustomOrientationInfoStack();
@@ -455,9 +455,9 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		thePlayer.SetManualControl(enable, enable);
 		
 		if (enable)
-			thePlayer.SetTemporaryAttitudeGroup('animals_peacefull', AGP_Default);
-		else
 			thePlayer.ResetTemporaryAttitudeGroup( AGP_Default );
+		else
+			thePlayer.SetTemporaryAttitudeGroup('animals_peacefull', AGP_Default);  // q104_avallach_friendly_to_all?
 	}
 
 	event OnLeaveState( nextStateName : name )
@@ -467,7 +467,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		for (i = 0; i < blockedActions.Size(); i += 1) {
 			parent.UnblockAction( blockedActions[i], 'NR_Transformed' );
 		}
-		((CMovingPhysicalAgentComponent) parent.GetMovingAgentComponent()).SetTerrainInfluence(0.4f);
+		((CMovingPhysicalAgentComponent)parent.GetMovingAgentComponent()).SetTerrainInfluence(0.4f);
 		transformNPC.RemoveAnimEventChildCallback(parent, 'JumpEnd');
 
 		// Pass to base class

@@ -2128,6 +2128,11 @@ statemachine class NR_MagicManager {
 
 	public function SetMiscStateActionsBlocked(blocked : bool) {
 		mMiscActionsBlocked = blocked;
+		if (blocked) {
+			thePlayer.BlockAction( EIAB_DismountVehicle, 'MagicManager' );
+		} else {
+			thePlayer.UnblockAction( EIAB_DismountVehicle, 'MagicManager' );
+		}
 	}
 
 	public function GetMagicElementLocStr(element : ENR_MagicElement) : String

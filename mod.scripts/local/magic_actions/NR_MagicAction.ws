@@ -11,6 +11,7 @@ abstract statemachine class NR_MagicAction {
 	protected var    	  i, j 	: int;
 	protected var standartCollisions : array<name>;
 	protected var sceneInputs : array<int>;
+	protected var rotatePrePerform : bool;
 
 	public var m_fxNameMain   	: name;
 	public var m_fxNameExtra  	: name;
@@ -40,6 +41,7 @@ abstract statemachine class NR_MagicAction {
 	default inPostState	= false;
 	default isCursed 	= false;
 	default isScripted 	= false;
+	default rotatePrePerform = true;
 	default drainStaminaOnPerform 	= true;
 	default performsToLevelup 		= 50; // action-specific
 	default ST_Universal 			= 5; // EnumGetMax(ESignType);
@@ -102,6 +104,18 @@ abstract statemachine class NR_MagicAction {
 		}
 
 		return result;
+	}
+
+	latent function OnRotatePrePerform() {
+		if (rotatePrePerform && !isOnHorse && !IsInSetupScene()) {
+			if (target) {
+				NR_GetReplacerSorceress().NR_RotateTowardsNode('NR_OnRotatePrePerform', target, 360.f, 0.2f);
+				thePlayer.SetCombatActionHeading( VecHeading(target.GetWorldPosition() - thePlayer.GetWorldPosition()) );
+			} else {
+				NR_GetReplacerSorceress().NR_RotateToHeading('NR_OnRotatePrePerform', theCamera.GetCameraHeading(), 360.f, 0.2f);
+				thePlayer.SetCombatActionHeading( theCamera.GetCameraHeading() );
+			}
+		}
 	}
 
 	latent function OnPerform() : bool {

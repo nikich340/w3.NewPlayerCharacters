@@ -672,9 +672,21 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	}
 	
 	event OnPerformGuard()
-	{			
+	{
+		NRD("NR_ReplacerSorceress.OnPerformGuard");
 		OnInterruptAttack();
-		NRD("combat:: OnPerformGuard");
+		parent.FindMoveTarget();
+		parent.SetCanPlayHitAnim( true );
+		parent.SetBIsCombatActionAllowed( true );
+		parent.FindTarget();
+		parent.UpdateDisplayTarget( true );
+		if (parent.GetTarget()) {
+			parent.SetSlideTarget( parent.GetTarget() );
+			thePlayer.SetCombatActionHeading( VecHeading(parent.GetTarget().GetWorldPosition() - thePlayer.GetWorldPosition()) );
+		}
+		else {
+			parent.SetCombatActionHeading( parent.ProcessCombatActionHeading( EBAT_LightAttack ) );
+		}
 		OnPerformAttack('attack_magic_push');
 	}
 	

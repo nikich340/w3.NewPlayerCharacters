@@ -264,6 +264,52 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 		return super.CanUseSkill(skill);
 	}
+
+	public function NR_RotateTowardsNode( customRotationName : name, target : CNode, rotSpeed : float, optional activeTime : float )
+	{
+		var movementAdjustor	: CMovementAdjustor;
+		var ticket 				: SMovementAdjustmentRequestTicket;
+	
+		movementAdjustor = GetMovingAgentComponent().GetMovementAdjustor();
+		ticket = movementAdjustor.GetRequest( customRotationName );
+		if ( movementAdjustor.IsRequestActive(ticket) )
+			movementAdjustor.Cancel( ticket );
+
+		ticket = movementAdjustor.CreateNewRequest( customRotationName );
+		movementAdjustor.ReplaceRotation( ticket );
+		movementAdjustor.RotateTowards( ticket, target );
+
+		if (rotSpeed > 0.f) {
+			movementAdjustor.MaxRotationAdjustmentSpeed( ticket, rotSpeed );
+			movementAdjustor.AdjustmentDuration( ticket, activeTime );
+		} else {
+			movementAdjustor.Continuous( ticket );
+			movementAdjustor.KeepActiveFor( ticket, activeTime );
+		}
+	}
+
+	public function NR_RotateToHeading( customRotationName : name, targetHeading : float, rotSpeed : float, optional activeTime : float )
+	{
+		var movementAdjustor	: CMovementAdjustor;
+		var ticket 				: SMovementAdjustmentRequestTicket;
+	
+		movementAdjustor = GetMovingAgentComponent().GetMovementAdjustor();
+		ticket = movementAdjustor.GetRequest( customRotationName );
+		if ( movementAdjustor.IsRequestActive(ticket) )
+			movementAdjustor.Cancel( ticket );
+
+		ticket = movementAdjustor.CreateNewRequest( customRotationName );
+		movementAdjustor.ReplaceRotation( ticket );
+		movementAdjustor.RotateTo( ticket, targetHeading );
+		
+		if (rotSpeed > 0.f) {
+			movementAdjustor.MaxRotationAdjustmentSpeed( ticket, rotSpeed );
+			movementAdjustor.AdjustmentDuration( ticket, activeTime );
+		} else {
+			movementAdjustor.Continuous( ticket );
+			movementAdjustor.KeepActiveFor( ticket, activeTime );
+		}
+	}
 }
 
 function NR_GetReplacerSorceress() : NR_ReplacerSorceress

@@ -7,6 +7,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		theInput.SetContext(parent.GetCombatInputContext());
 		parent.AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
+		parent.AddAnimEventCallback('RotatePrePerformAction','OnAnimEventMagic');
 		parent.AddAnimEventCallback('Spawn',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Shoot',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
@@ -22,6 +23,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	event OnLeaveState( nextStateName : name ) {
 		parent.RemoveAnimEventCallback('InitAction');
 		parent.RemoveAnimEventCallback('Prepare');
+		parent.RemoveAnimEventCallback('RotatePrePerformAction');
 		parent.RemoveAnimEventCallback('Spawn');
 		parent.RemoveAnimEventCallback('Shoot');
 		parent.RemoveAnimEventCallback('PerformMagicAttack');
@@ -321,12 +323,18 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		{
 			str = aspect.CreateComboString( false );
 			str.AddDirAttack( 'woman_sorceress_attack_throw_rp_01', AD_Front, ADIST_Medium );	
+			str.AddDirAttack( 'woman_sorceress_attack_throw_rp_03', AD_Front, ADIST_Medium );
+
 			str.AddAttack( 'woman_sorceress_attack_throw_rp_01', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_attack_throw_rp_03', ADIST_Medium );
 		}
 		{
 			str = aspect.CreateComboString( true );
 			str.AddDirAttack( 'woman_sorceress_attack_throw_lp_04', AD_Front, ADIST_Medium );	
+			str.AddDirAttack( 'woman_sorceress_attack_throw_lp_03', AD_Front, ADIST_Medium );
+
 			str.AddAttack( 'woman_sorceress_attack_throw_lp_04', ADIST_Medium );
+			str.AddAttack( 'woman_sorceress_attack_throw_lp_03', ADIST_Medium );
 		}
 	}
 	
@@ -437,17 +445,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		var aspect : CComboAspect;
 		var str : CComboString;
 
-		/* AARD, YRDEN == HeavyThrow */
-		/* QUEN handled by w2beh (have separate anims with special events == edited taunts)
-			woman_sorceress_special_quen_lp == taunt_02_lp, 
-			woman_sorceress_special_quen_rp == taunt_02_rp 
-		*/
-		// taunt_01_rp == "heal"
-		// taunt_02_rp == "shield"
-		// taunt_03_rp == ?"transform"
-		// electricity_lp == "cast" / ?"transform"
-
-		/* hack to use woman_sorceress_special_attack_electricity_lp for rp */
+		/* hack to use woman_sorceress_special_attack_fireball_lp for rp */
 		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialFastTravelTeleport' );
 		{
 			str = aspect.CreateComboString( false );
@@ -529,13 +527,13 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		aspect = comboDefinition.CreateComboAspect( 'AttackSpecialTransform' );
 		{
 			str = aspect.CreateComboString( false );
-			str.AddDirAttack( 'woman_sorceress_special_attack_electricity_rp', AD_Front, ADIST_Medium );		
-			str.AddAttack( 'woman_sorceress_special_attack_electricity_rp', ADIST_Medium );
+			str.AddDirAttack( 'woman_sorceress_transform_rp', AD_Front, ADIST_Medium );		
+			str.AddAttack( 'woman_sorceress_transform_rp', ADIST_Medium );
 		}			
 		{
 			str = aspect.CreateComboString( true );		
-			str.AddDirAttack( 'woman_sorceress_special_attack_electricity_lp', AD_Front, ADIST_Medium );	
-			str.AddAttack( 'woman_sorceress_special_attack_electricity_lp', ADIST_Medium );
+			str.AddDirAttack( 'woman_sorceress_transform_lp', AD_Front, ADIST_Medium );	
+			str.AddAttack( 'woman_sorceress_transform_lp', ADIST_Medium );
 		}
 	}
 

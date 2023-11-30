@@ -6,6 +6,7 @@ state HorseRiding in NR_ReplacerSorceress
 		parent.AddTimer('NR_SetTargetDist', 0.5f);
 		parent.AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
+		parent.AddAnimEventCallback('RotatePrePerformAction', 'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Spawn',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Shoot',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
@@ -18,9 +19,11 @@ state HorseRiding in NR_ReplacerSorceress
 		parent.NR_SetTargetDist(0.0, 0);
 		parent.RemoveAnimEventCallback('InitAction');
 		parent.RemoveAnimEventCallback('Prepare');
+		parent.RemoveAnimEventCallback('RotatePrePerformAction');
 		parent.RemoveAnimEventCallback('Spawn');
 		parent.RemoveAnimEventCallback('Shoot');
 		parent.RemoveAnimEventCallback('PerformMagicAttack');
 		parent.RemoveAnimEventCallback('UnblockMiscActions');
+		parent.magicManager.SetMiscStateActionsBlocked(false);
 	}
 }

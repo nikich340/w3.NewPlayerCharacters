@@ -2551,6 +2551,18 @@ state MagicLoop in NR_MagicManager {
 		}
 	}
 
+	latent function RotatePrePerformMagicAction() {
+		if (parent.mAction) {
+			NRD("RotatePrePerformMagicAction: type = " + parent.mAction.actionType);
+			if (parent.mAction.isBroken)
+				return;
+
+			parent.mAction.OnRotatePrePerform();
+		} else {
+			NRE("MM: RotatePrePerformMagicAction: NULL parent.mAction!");
+		}
+	}
+
 	latent function PerformMagicAction() {
 		var sameActions 	: array<NR_MagicSpecialAction>;
 		var maxActionCnt 	: int;
@@ -2632,6 +2644,9 @@ state MagicLoop in NR_MagicManager {
 					case 'Prepare':
 					case 'PrepareTeleport':
 						PrepareMagicAction();
+						break;
+					case 'RotatePrePerformAction':
+						RotatePrePerformMagicAction();
 						break;
 					case 'Shoot':
 					case 'PerformMagicAttack':
@@ -2731,6 +2746,7 @@ state MagicLoop in NR_MagicManager {
 		InitMagicAction("PerformSwimmingAction");
 		Sleep(0.2f);
 		PrepareMagicAction();
+		RotatePrePerformMagicAction();
 		Sleep(0.1f);
 		PerformMagicAction();
 		Sleep(0.3f);

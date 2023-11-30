@@ -10,6 +10,7 @@ abstract statemachine class NR_MagicAction {
 	protected var m_effectColor : ENR_MagicColor;
 	protected var    	  i, j 	: int;
 	protected var standartCollisions : array<name>;
+	protected var sceneInputs : array<int>;
 
 	public var m_fxNameMain   	: name;
 	public var m_fxNameExtra  	: name;
@@ -48,15 +49,17 @@ abstract statemachine class NR_MagicAction {
 	}
 
 	latent function OnInit() : bool {
-		/*
-		var phraseInputs : array<int>;
-		var phraseChance : int = 60;
+		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 25);
 
-		phraseInputs.PushBack(1);
-		...
-		if ( phraseChance >= NR_GetRandomGenerator().nextRange(1, 100) )
-			PlayScene( phraseInputs);
-		*/
+		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
+			PlayScene( sceneInputs );
+		}
+
+		if (!IsInSetupScene()) {
+			target = thePlayer.GetTarget();
+		}
+		isOnHorse = thePlayer.IsUsingHorse();
+
 		return true;
 	}
 
@@ -85,12 +88,7 @@ abstract statemachine class NR_MagicAction {
 	latent function OnPrepare() : bool {
 		// load and calculate data
 		NRD("OnPrepare: " + actionType);
-		if (!IsInSetupScene()) {
-			target = thePlayer.GetTarget();
-			//sign 	= GetWitcherPlayer().GetEquippedSign();
-		}
 		standartCollisions = NR_GetStandartCollisionNames();
-		isOnHorse = thePlayer.IsUsingHorse();
 
 		return !isBroken;
 	}
@@ -98,15 +96,18 @@ abstract statemachine class NR_MagicAction {
 	function OnPrepared(result : bool) : bool {
 		isPrepared = result;
 
-		if (isPrepared && target) {
-			target.SignalGameplayEvent( 'DodgeSign' );
+		if (isPrepared) {
+			if (target)
+				target.SignalGameplayEvent( 'DodgeSign' );
 		}
+
 		return result;
 	}
 
 	latent function OnPerform() : bool {
 		// perform action, fx
 		NRD("OnPerform: " + actionType + ", isPrepared: " + isPrepared);
+		
 		return isPrepared && !isBroken && !isPerformed;
 	}
 
@@ -131,10 +132,14 @@ abstract statemachine class NR_MagicAction {
 			//NRD("OnPerformed: " + "nr_magic_performed_" + ENR_MAToName(actionType) + "=" + FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType)));
 			CheckSkillLevelup();
 		}
-		//if (isOnHorse) {
-		//	NR_GetMagicManager().SetMiscStateActionsBlocked(false);
-		//}
+
 		return result;
+	}
+
+	latent function BreakAction() {
+		// should not be launched on successful perform!
+		// makes cleanup if action was interrupted
+		isBroken = true;
 	}
 
 	function CheckSkillLevelup() {
@@ -192,12 +197,6 @@ abstract statemachine class NR_MagicAction {
 	
 	function SkillMaxApplies() : int {
 		return NR_GetMagicManager().GetActionMaxApplies(actionType);	
-	}
-
-	latent function BreakAction() {
-		// should not be launched on successful perform!
-		// makes cleanup if action was interrupted
-		isBroken = true;
 	}
 
 	latent function NR_CalculateTarget(tryFindDestroyable : bool, makeStaticTrace : bool, targetOffsetZ : float, staticOffsetZ : float)

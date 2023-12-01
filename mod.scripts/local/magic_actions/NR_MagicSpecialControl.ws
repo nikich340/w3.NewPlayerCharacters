@@ -8,15 +8,10 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 	default isControlled= false;
 	
 	latent function OnInit() : bool {
-		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 40);
-
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			sceneInputs.PushBack(8);
-			sceneInputs.PushBack(9);
-			sceneInputs.PushBack(10);
-			PlayScene( sceneInputs );
-		}
+		sceneInputs.PushBack(8);
+		sceneInputs.PushBack(9);
+		sceneInputs.PushBack(10);
+		super.OnInit();
 
 		return true;
 	}

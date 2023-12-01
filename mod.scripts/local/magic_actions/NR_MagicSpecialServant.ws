@@ -8,16 +8,10 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 	default actionSubtype = ENR_SpecialAbstract;
 	
 	latent function OnInit() : bool {
-		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 40);
-
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			NRD("PlayScene!");
-			sceneInputs.PushBack(11);
-			sceneInputs.PushBack(12);
-			sceneInputs.PushBack(13);
-			PlayScene( sceneInputs );
-		}
+		sceneInputs.PushBack(11);
+		sceneInputs.PushBack(12);
+		sceneInputs.PushBack(13);
+		super.OnInit();
 
 		return true;
 	}

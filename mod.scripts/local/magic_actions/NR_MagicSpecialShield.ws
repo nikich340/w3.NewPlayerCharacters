@@ -4,17 +4,11 @@ class NR_MagicSpecialShield extends NR_MagicAction {
 	default drainStaminaOnPerform = false; // drained in NR_SorceressQuen
 
 	latent function OnInit() : bool {
-		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 40);
-
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			NRD("PlayScene!");
-			sceneInputs.PushBack(22);
-			sceneInputs.PushBack(23);
-			sceneInputs.PushBack(24);
-			sceneInputs.PushBack(25);
-			PlayScene( sceneInputs );
-		}
+		sceneInputs.PushBack(22);
+		sceneInputs.PushBack(23);
+		sceneInputs.PushBack(24);
+		sceneInputs.PushBack(25);
+		super.OnInit();
 
 		return true;
 	}

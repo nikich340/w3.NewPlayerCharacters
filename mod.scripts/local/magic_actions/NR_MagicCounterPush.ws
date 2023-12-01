@@ -7,15 +7,10 @@ class NR_MagicCounterPush extends NR_MagicAction {
 	default performsToLevelup = 150;
 
 	latent function OnInit() : bool {
-		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
-
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			sceneInputs.PushBack(3);
-			sceneInputs.PushBack(4);
-			sceneInputs.PushBack(5);
-			PlayScene( sceneInputs );
-		}
+		sceneInputs.PushBack(3);
+		sceneInputs.PushBack(4);
+		sceneInputs.PushBack(5);
+		super.OnInit();
 
 		return true;
 	}
@@ -46,7 +41,6 @@ class NR_MagicCounterPush extends NR_MagicAction {
 			return OnPrepared(false);
 		}
 
-		pos -= thePlayer.GetHeadingVector() * 0.7f;
 		s_fullSphere = !isScripted && IsActionAbilityUnlocked("FullBlast");
 		if (!isScripted && SkillLevel() + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			s_burn = IsActionAbilityUnlocked("Burning") && BuffType() == 1;
@@ -56,10 +50,8 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		}
 		
 		if (s_fullSphere) {
-			pos.Z -= 0.5f;
 			entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_aard_proj_blast");
 		} else {
-			pos.Z += 1.f;
 			entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_aard_proj_cone");
 		}
 		
@@ -82,6 +74,18 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		if (!super_ret) {
 			return OnPerformed(false);
 		}
+
+		pos = thePlayer.GetWorldPosition();
+		rot = thePlayer.GetWorldRotation();
+		aardEntity.TeleportWithRotation(pos, rot);
+
+		pos -= thePlayer.GetHeadingVector() * 0.7f;
+		if (s_fullSphere) {
+			pos.Z -= 0.5f;
+		} else {
+			pos.Z += 1.f;
+		}
+		aardProjectile.TeleportWithRotation(pos, rot);
 		
 		aardStandartCollisions.PushBack( 'Projectile' );
 		aardStandartCollisions.PushBack( 'Door' );

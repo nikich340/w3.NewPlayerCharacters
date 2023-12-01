@@ -14,15 +14,10 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 	default l_fieldMoveSpeed = 3.f;
 	
 	latent function OnInit() : bool {
-		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 25);
-
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			sceneInputs.PushBack(6);
-			sceneInputs.PushBack(11);
-			sceneInputs.PushBack(23);
-			PlayScene( sceneInputs );
-		}
+		sceneInputs.PushBack(6);
+		sceneInputs.PushBack(11);
+		sceneInputs.PushBack(23);
+		super.OnInit();
 
 		return true;
 	}

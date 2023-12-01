@@ -6,15 +6,9 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	default actionSubtype = ENR_SpecialAbstractAlt;
 	
 	latent function OnInit() : bool {
-		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 100);
-
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			NRD("PlayScene!");
-			sceneInputs.PushBack(1);
-			sceneInputs.PushBack(2);
-			PlayScene( sceneInputs );
-		}
+		sceneInputs.PushBack(1);
+		sceneInputs.PushBack(2);
+		super.OnInit();
 
 		return true;
 	}

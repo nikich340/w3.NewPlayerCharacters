@@ -7,17 +7,11 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 	default actionSubtype = ENR_SpecialAbstract;
 	
 	latent function OnInit() : bool {
-		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 40);
-
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			NRD("PlayScene!");
-			sceneInputs.PushBack(14);
-			sceneInputs.PushBack(15);
-			sceneInputs.PushBack(16);
-			sceneInputs.PushBack(17);
-			PlayScene( sceneInputs );
-		}
+		sceneInputs.PushBack(14);
+		sceneInputs.PushBack(15);
+		sceneInputs.PushBack(16);
+		sceneInputs.PushBack(17);
+		super.OnInit();
 
 		return true;
 	}

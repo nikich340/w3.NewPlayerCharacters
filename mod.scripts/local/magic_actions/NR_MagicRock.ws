@@ -11,16 +11,10 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 	default actionSubtype = ENR_HeavyAbstract;
 	
 	latent function OnInit() : bool {
-		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 25);
-
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			NRD("PlayScene!");
-			sceneInputs.PushBack(3);
-			sceneInputs.PushBack(4);
-			sceneInputs.PushBack(5);
-			PlayScene( sceneInputs );
-		}
+		sceneInputs.PushBack(3);
+		sceneInputs.PushBack(4);
+		sceneInputs.PushBack(5);
+		super.OnInit();
 
 		return true;
 	}

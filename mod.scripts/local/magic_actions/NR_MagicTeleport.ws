@@ -28,6 +28,9 @@ class NR_MagicTeleport extends NR_MagicAction {
 		// to make ignore hits
 		thePlayer.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
 		thePlayer.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
+		thePlayer.EnableCollisions( false );
+		thePlayer.EnableCharacterCollisions( false );
+		thePlayer.SetGameplayVisibility( false );
 		
 		pos = thePlayer.GetWorldPosition();
 		rot = thePlayer.GetWorldRotation();
@@ -44,11 +47,9 @@ class NR_MagicTeleport extends NR_MagicAction {
 		//parent.aTeleportCamera.deactivationDuration = 0.5f; // in w2ent already
 		Sleep(0.1f);
 		teleportCamera.RunAndWait(0.15f);
-		
-		// ? Sleep(0.2f); // wait for effect a bit
-		thePlayer.SetGameplayVisibility(false);
-		thePlayer.SetVisibility(false);
-		// camera auto-rotates to player heading, so set it to camera rotation to make it smooththeCamera
+		thePlayer.SetVisibility( false );
+
+		// camera auto-rotates to player heading, so set it to camera rotation to make it smooth theCamera
 		thePlayer.TeleportWithRotation( teleportPos, VecToRotation(theCamera.GetCameraForwardOnHorizontalPlane()) );
 
 		return OnPrepared(true);
@@ -85,8 +86,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 			return OnPerformed(false);
 		}
 		Sleep(0.2f);  // wait for effect a bit
-		thePlayer.SetGameplayVisibility(true);
-		thePlayer.SetVisibility(true);
+		thePlayer.SetVisibility( true );
 
 		Sleep(0.1f);
 		teleportCamera.Stop();
@@ -94,6 +94,9 @@ class NR_MagicTeleport extends NR_MagicAction {
 		// ready for new hits
 		thePlayer.SetImmortalityMode( AIM_None, AIC_Combat );
 		thePlayer.SetImmortalityMode( AIM_None, AIC_Default );
+		thePlayer.EnableCollisions( true );
+		thePlayer.EnableCharacterCollisions( true );
+		thePlayer.SetGameplayVisibility( true );
 
 		return OnPerformed(true);
 	}

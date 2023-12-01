@@ -8,13 +8,8 @@ class NR_MagicWaterTrap extends NR_MagicAction {
 	default actionSubtype = ENR_LightAbstract;
 	
 	latent function OnInit() : bool {
-		var sceneInputs : array<int>;
-		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
-
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			sceneInputs.PushBack(26);
-			PlayScene( sceneInputs );
-		}
+		sceneInputs.PushBack(26);
+		super.OnInit();
 
 		return true;
 	}

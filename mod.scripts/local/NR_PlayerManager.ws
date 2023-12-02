@@ -23,9 +23,9 @@ enum ENR_PlayerType {
 	ENR_PlayerUnknown,		// 0
 	ENR_PlayerGeralt, 		// 1
 	ENR_PlayerCiri, 		// 2
-	ENR_PlayerWitcher, 	// 3
+	ENR_PlayerWitcher, 		// 3
 	ENR_PlayerWitcheress,	// 4
-	ENR_PlayerSorceress	// 5
+	ENR_PlayerSorceress		// 5
 }
 
 class NR_AppearanceSet {
@@ -74,6 +74,8 @@ statemachine class NR_PlayerManager {
 
 	protected var m_playerChangeRequested 	: Bool;
 	default    		m_playerChangeRequested	= false;
+	protected saved var m_replacerForQuestSaved : ENR_PlayerType;
+	default    			m_replacerForQuestSaved = ENR_PlayerUnknown;
 
 	// called once: after entity created //
 	public function Init() {
@@ -664,6 +666,30 @@ statemachine class NR_PlayerManager {
 
 		playerType = GetCurrentPlayerType();
 		return (playerType != ENR_PlayerGeralt && playerType != ENR_PlayerCiri);
+	}
+
+	// True if we saved replacer type previously for a quest change
+	public function HasReplacerForQuestSaved() : Bool {
+		return m_replacerForQuestSaved != ENR_PlayerUnknown;
+	}
+
+	// Must be called before changing player type in quest
+	public function SaveReplacerForQuest() {
+		m_replacerForQuestSaved = GetCurrentPlayerType();
+	}
+
+	// Returns saved for quest type
+	public function GetReplacerForQuest() : ENR_PlayerType {
+		return m_replacerForQuestSaved;
+	}
+
+	// Returns and erase saved for quest type
+	public function PullReplacerForQuest() : ENR_PlayerType {
+		var ret : ENR_PlayerType;
+
+		ret = m_replacerForQuestSaved;
+		m_replacerForQuestSaved = ENR_PlayerUnknown;
+		return ret;
 	}
 
 	// True if current player/replacer has female gender //
@@ -1335,8 +1361,8 @@ state PlayerChange in NR_PlayerManager {
 	}
 }
 
-
-/* API */ function NR_ChangePlayer(newPlayerType : ENR_PlayerType) {
+// async version: returns control as fast as possible (thePlayer may be not ready!)
+/* API */ function NR_ChangePlayer(newPlayerType : ENR_PlayerType, optional nakedCiriTemplate : bool) {
 	var manager    : NR_PlayerManager;
 
 	NR_Debug("NR_ChangePlayer: newPlayerType = " + newPlayerType);
@@ -1346,12 +1372,18 @@ state PlayerChange in NR_PlayerManager {
 	// for quest/scene fact checks
 	FactsAdd("nr_player_change_" + newPlayerType, 1);
 	
+	if (newPlayerType == manager.GetCurrentPlayerType())
+		return;
+
 	switch (newPlayerType) {
 		case ENR_PlayerGeralt:
 			theGame.ChangePlayer( "Geralt" );
 			break;
 		case ENR_PlayerCiri:
-			theGame.ChangePlayer( "Ciri" );
+			if (nakedCiriTemplate)
+				theGame.ChangePlayer( "Ciri_naked" );
+			else
+				theGame.ChangePlayer( "Ciri" );
 			break;
 		case ENR_PlayerWitcher:
 			theGame.ChangePlayer( "nr_replacer_witcher" );
@@ -1367,9 +1399,20 @@ state PlayerChange in NR_PlayerManager {
 			break;
 	}
 
-	// cheaty thePlayer.abilityManager.RestoreStat(BCS_Vitality);
 	thePlayer.Debug_ReleaseCriticalStateSaveLocks();
 	manager.GotoState('PlayerChange');
+}
+
+// latent version: returns control only when new thePlayer is loaded
+/* API */ latent function NR_ChangePlayerLatent(newPlayerType : ENR_PlayerType, optional nakedCiriTemplate : bool) {
+	var manager    : NR_PlayerManager;
+
+	NR_Debug("NR_ChangePlayerLatent: newPlayerType = " + newPlayerType);
+	manager = NR_GetPlayerManager();
+	NR_ChangePlayer( newPlayerType, nakedCiriTemplate );
+	while (newPlayerType != manager.GetCurrentPlayerType()) {
+		SleepOneFrame();
+	}
 }
 
 /* API */ function NR_GetPlayerManager() : NR_PlayerManager

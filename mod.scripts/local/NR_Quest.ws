@@ -775,3 +775,49 @@ latent quest function NR_SpawnHostileEntity_Q(path : String, relativeLevel : int
     npc.AddTag('NR_SpawnHostileEntity_Q');
     npc.AddTag('fairytale_witch');
 }
+
+// Change from replacer - save type, change to geralt - restore replacer if saved
+latent function NR_ChangePlayerQuestWrapper( designatedTemplate: EQuestReplacerEntities )
+{
+    var manager : NR_PlayerManager = NR_GetPlayerManager();
+
+    switch (designatedTemplate) {
+        case EQRE_Geralt:
+            if ( manager.HasReplacerForQuestSaved() ) {
+                NR_ChangePlayerLatent( manager.PullReplacerForQuest() );
+            } else {
+                if ( manager.IsReplacerActive() )
+                    manager.SaveReplacerForQuest();
+                NR_ChangePlayerLatent( ENR_PlayerGeralt );
+            }
+            break;
+        case EQRE_Ciri:
+            if ( manager.IsReplacerActive() )
+                manager.SaveReplacerForQuest();
+            NR_ChangePlayerLatent( ENR_PlayerCiri );
+            thePlayer.ApplyAppearance("ciri_player");
+            break;
+        case EQRE_CiriNaked:
+            if ( manager.IsReplacerActive() )
+                manager.SaveReplacerForQuest();
+            NR_ChangePlayerLatent( ENR_PlayerCiri, /*nakedCiriTemplate*/ true );
+            break;
+        case EQRE_CiriWounded:
+            if ( manager.IsReplacerActive() )
+                manager.SaveReplacerForQuest();
+            NR_ChangePlayerLatent( ENR_PlayerCiri );
+            thePlayer.ApplyAppearance("ciri_wounded");
+            break;
+        case EQRE_CiriWounded:
+            if ( manager.IsReplacerActive() )
+                manager.SaveReplacerForQuest();
+            NR_ChangePlayerLatent( ENR_PlayerCiri );
+            thePlayer.ApplyAppearance("ciri_winter");
+            break;
+        default:
+            NR_Error("NR_ChangePlayerQuest: Unkown designatedTemplate = " + designatedTemplate);
+            break;
+    }
+
+    thePlayer.abilityManager.RestoreStat(BCS_Vitality);
+}

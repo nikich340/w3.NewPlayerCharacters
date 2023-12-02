@@ -2767,6 +2767,10 @@ quest function ChangeUnconsciousDuration( targetsTag : name, newMinDuration : fl
 
 latent quest function ChangePlayerQuest( designatedTemplate: EQuestReplacerEntities )
 {
+	// NR_MOD v
+	NR_ChangePlayerQuestWrapper( designatedTemplate );
+	return;
+	// NR_MOD ^
 	if( designatedTemplate == EQRE_Geralt )
 	{
 		theGame.ChangePlayer( "Geralt" );

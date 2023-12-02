@@ -185,6 +185,11 @@ import class CR4Game extends CCommonGame
 			}
 		}
 
+		// NR_MOD v
+		// clear var in case the loaded savegame hasn't it
+		nr_playerManager = NULL;
+		// NR_MOD ^
+
 		if ( loadResult != LOAD_MissingContent && loadResult != LOAD_Error && isRespawningInLastCheckpoint )
 		{
 			ReleaseNoSaveLock( deathSaveLockId );

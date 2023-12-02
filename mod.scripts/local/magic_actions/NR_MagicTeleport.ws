@@ -15,7 +15,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		super.OnPrepare();
 		m_fxNameMain = TeleportOutFxName();
 		m_fxNameExtra = TeleportInFxName();
-		NRD("TELEPORT IN FX = " + m_fxNameMain + ", OUT = " + m_fxNameExtra);
+		NR_Debug("TELEPORT IN FX = " + m_fxNameMain + ", OUT = " + m_fxNameExtra);
 		thePlayer.PlayEffect( m_fxNameMain );
 
 		if ( IsInSetupScene() ) {
@@ -40,7 +40,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		// YEAH, that simple!
 		teleportCamera = (CStaticCamera)theGame.CreateEntity( entityTemplate, theCamera.GetCameraPosition() + shiftVec, theCamera.GetCameraRotation() );
 		if ( !teleportCamera ) {
-			NRE("Prepare: No valid teleport camera.");
+			NR_Error("Prepare: No valid teleport camera.");
 			return OnPrepared(false);
 		}
 		//parent.aTeleportCamera.activationDuration = 0.5f; // in w2ent already
@@ -82,7 +82,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		}
 
 		if ( !teleportCamera ) {
-			NRE("Perform: No valid teleport camera.");
+			NR_Error("Perform: No valid teleport camera.");
 			return OnPerformed(false);
 		}
 		Sleep(0.2f);  // wait for effect a bit

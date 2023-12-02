@@ -7,7 +7,7 @@ class NR_AardProjectile extends W3AardProjectile {
 	var useFullSphere 		: bool;
 	/*event OnProjectileCollision( pos, normal : Vector, collidingComponent : CComponent, hitCollisionsGroups : array< name >, actorIndex : int, shapeIndex : int )
 	{
-		NRD("OnProjectileCollision: collidingComponent = " + collidingComponent);
+		NR_Debug("OnProjectileCollision: collidingComponent = " + collidingComponent);
 		super.OnProjectileCollision(pos, normal, collidingComponent, hitCollisionsGroups, actorIndex, shapeIndex);
 	}*/
 
@@ -50,7 +50,7 @@ class NR_AardProjectile extends W3AardProjectile {
 	{
 		var target : CNewNPC;
 
-		NRD("AARD: ProcessCollision: collider = " + collider);
+		NR_Debug("AARD: ProcessCollision: collider = " + collider);
 		target = (CNewNPC)collider;
 		if (target && target.IsAlive()) {
 			if (useFullSphere) {
@@ -61,7 +61,7 @@ class NR_AardProjectile extends W3AardProjectile {
 			super.ProcessCollision(collider, pos, normal);
 		}
 
-		NRD("AARD: ProcessCollision: target = " + target);
+		NR_Debug("AARD: ProcessCollision: target = " + target);
 		//action.AddEffectInfo( EET_HeavyKnockdown );
 		//super.ProcessCollision(collider, pos, normal);
 	}
@@ -78,10 +78,10 @@ class NR_AardProjectile extends W3AardProjectile {
 		// victimNPC.AddEffectDefault( EET_SlowdownFrost, this, "Mutation 6", true );
 		params.customFXName = 'axii_slowdown';
 
-		NRD("AARD: ProcessSlowdown: entities: " + targetEntities.Size());
+		NR_Debug("AARD: ProcessSlowdown: entities: " + targetEntities.Size());
 		for (i = 0; i < targetEntities.Size(); i += 1) {
 			targetEntities[i].AddEffectCustom(params);
-			NRD("AARD: ProcessSlowdown: " + targetEntities[i]);
+			NR_Debug("AARD: ProcessSlowdown: " + targetEntities[i]);
 		}
 	}
 	*/
@@ -101,10 +101,10 @@ class NR_AardProjectile extends W3AardProjectile {
 			actors = thePlayer.GetNPCsAndPlayersInCone(/*range*/ range, /*coneDir*/ thePlayer.GetHeading(), /*coneAngle*/ angle, , , /*flags*/ FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile + FLAG_Attitude_Neutral);
 		}
 		
-		NRD("AARD: " + actors.Size() + " targets");
+		NR_Debug("AARD: " + actors.Size() + " targets");
 		for (i = 0; i < actors.Size(); i += 1) {
 			nodes.PushBack(actors[i]);
-			NRD("actors[" + i + "] = " + actors[i]);
+			NR_Debug("actors[" + i + "] = " + actors[i]);
 		}
 		SortNodesByDistance(pos, nodes);
 
@@ -116,7 +116,7 @@ class NR_AardProjectile extends W3AardProjectile {
 				continue;
 			
 			timeWait = VecDistance2D(pos, npcPos) / metersPerSec;
-			NRD("npc[" + i + "] = " + npc + ", timeWait = " + timeWait);
+			NR_Debug("npc[" + i + "] = " + npc + ", timeWait = " + timeWait);
 			timeWait -= timePassed;
 			if (timeWait > 0.01f) {
 				Sleep(timeWait);
@@ -127,13 +127,13 @@ class NR_AardProjectile extends W3AardProjectile {
 	}
 
 	function PlayEffect( effectName : name, optional target : CNode  ) : bool {
-		NRD("AARD: PlayEffect: effectName = " + effectName);
+		NR_Debug("AARD: PlayEffect: effectName = " + effectName);
 		return super.PlayEffect(effectName, target);
 	}
 
 	event OnAttackRangeHit( entity : CGameplayEntity )
 	{
-		NRD("AARD: OnAttackRangeHit: entity = " + entity);
+		NR_Debug("AARD: OnAttackRangeHit: entity = " + entity);
 		super.OnAttackRangeHit( entity );
 	}
 }

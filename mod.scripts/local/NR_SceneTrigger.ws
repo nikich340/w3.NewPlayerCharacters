@@ -10,7 +10,7 @@ class NR_SceneTrigger extends W3MonsterClue
     {
         super.OnInteraction(actionName, activator);
 
-    	NRD("OnInteraction action = " + actionName);
+    	NR_Debug("OnInteraction action = " + actionName);
         if ( activator == thePlayer && actionName == "Use" && !inUse ) {
             inUse = true;
             // start fading out
@@ -23,15 +23,15 @@ class NR_SceneTrigger extends W3MonsterClue
     }
 
     timer function TimerFixLocation( td : float , id : int) {
-        NRD("Old pos: " + VecToString(thePlayer.GetWorldPosition()));
+        NR_Debug("Old pos: " + VecToString(thePlayer.GetWorldPosition()));
         thePlayer.TeleportWithRotation(playerPos, playerRot);
         theGame.ResetFadeLock( "NR_FadeOutScene" );
         // correct player position to match defined "anchor"
-        NRD("New pos: " + VecToString(thePlayer.GetWorldPosition()));
+        NR_Debug("New pos: " + VecToString(thePlayer.GetWorldPosition()));
     }
 
     timer function TimerPlayScene( td : float , id : int) {
-        NRD("New2 pos: " + VecToString(thePlayer.GetWorldPosition()));
+        NR_Debug("New2 pos: " + VecToString(thePlayer.GetWorldPosition()));
         if (NR_GetPlayerManager().IsFemale())
             theGame.GetStorySceneSystem().PlayScene(sceneFemale, "Input");
         else

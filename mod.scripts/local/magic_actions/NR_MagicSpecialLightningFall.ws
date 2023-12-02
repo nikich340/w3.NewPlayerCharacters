@@ -43,7 +43,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		
 		m_fxNameMain = LightningFxName();
 		m_fxNameHit = HitFxName();
-		NRD("ENR_SpecialLightningFall: m_fxNameMain = " + m_fxNameMain + ", m_fxNameHit = " + m_fxNameHit);
+		NR_Debug("ENR_SpecialLightningFall: m_fxNameMain = " + m_fxNameMain + ", m_fxNameHit = " + m_fxNameHit);
 		
 		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
 		s_lightningNum = SkillMaxApplies();
@@ -105,7 +105,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		
 		target = NULL;
 		FindGameplayEntitiesInCylinder( entities, pos, thunderboltRange, 2.f, 99, , FLAG_ExcludeTarget, lightningEntity );
-		for( i = 0; i < entities.Size(); i += 1 )
+		for ( i = 0; i < entities.Size(); i += 1 )
 		{
 			targetTemp = (CActor)entities[i];
 			if (targetTemp && (cursed || !s_respectCaster || targetTemp != thePlayer)) {
@@ -116,7 +116,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 			}
 		}
 		
-		NRD("ENR_SpecialLightningFall: target = " + target);
+		NR_Debug("ENR_SpecialLightningFall: target = " + target);
 		if (target) {
 			targetNPC = (CNewNPC)target;
 			// if target can't have quen (not NPC) or doesn't have quen - play hit fx
@@ -146,10 +146,10 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 			component = dummyEntity.GetComponent('CEffectDummyComponent0');
 			if (component) {
 				lightningEntity.PlayEffect(m_fxNameMain, component);
-				NRD("Component = " + component);
+				NR_Debug("Component = " + component);
 			} else {
 				lightningEntity.PlayEffect(m_fxNameMain, dummyEntity);
-				NRD("Component NULL = " + component);
+				NR_Debug("Component NULL = " + component);
 			}
 			dummyEntity.PlayEffect(m_fxNameHit);
 		}
@@ -302,7 +302,7 @@ state Active in NR_MagicSpecialLightningFall {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Active: OnEnterState: " + this);
+		NR_Debug("Active: OnEnterState: " + this);
 		startTime = theGame.GetEngineTimeAsSeconds();
 		parent.inPostState = true;
 		RunWait();
@@ -315,7 +315,7 @@ state Active in NR_MagicSpecialLightningFall {
 		while (parent.s_lifetime > 0.f) {
 			parent.s_lifetime -= parent.s_interval;
 			Sleep(parent.s_interval);
-			NRD("Active: ShootLightning, s_lifetime = " + parent.s_lifetime);
+			NR_Debug("Active: ShootLightning, s_lifetime = " + parent.s_lifetime);
 			for (i = 1; i <= parent.s_lightningNum; i += 1) {
 				parent.ShootLightning(/*cursed*/ false, thePlayer.GetWorldPosition());
 				SleepOneFrame();
@@ -326,14 +326,14 @@ state Active in NR_MagicSpecialLightningFall {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Active: OnLeaveState: " + this);
+		NR_Debug("Active: OnLeaveState: " + this);
 	}
 }
 
 state Cursed in NR_MagicSpecialLightningFall {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Cursed: OnEnterState: " + this);
+		NR_Debug("Cursed: OnEnterState: " + this);
 		parent.inPostState = true;
 		Curse();
 	}
@@ -363,21 +363,21 @@ state Cursed in NR_MagicSpecialLightningFall {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Cursed: OnLeaveState: " + this);
+		NR_Debug("Cursed: OnLeaveState: " + this);
 	}
 }
 
 state Stop in NR_MagicSpecialLightningFall {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Stop: OnEnterState: " + this);
+		NR_Debug("Stop: OnEnterState: " + this);
 		RequestWeatherChangeTo(parent.savedWeather, 2.f, false);
 		parent.inPostState = false;
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Stop: OnLeaveState: " + this);
+		NR_Debug("Stop: OnLeaveState: " + this);
 		// can be removed from cached/cursed actions TODO CHECK
 		parent.inPostState = false;
 	}

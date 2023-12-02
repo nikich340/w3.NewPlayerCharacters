@@ -52,7 +52,7 @@ class NR_MagicSlash extends NR_MagicAction {
 				dummyEntity2.DestroyAfter(5.f);
 			}
 		} else {
-			NRE("DummyEntity (" + resourceName + ", " + entityTemplate + ", " + dummyEntity + ") or m_fxNameMain (" + m_fxNameMain + ") is invalid.");
+			NR_Error("DummyEntity (" + resourceName + ", " + entityTemplate + ", " + dummyEntity + ") or m_fxNameMain (" + m_fxNameMain + ") is invalid.");
 			return OnPrepared(false);
 		}
 

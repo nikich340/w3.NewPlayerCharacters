@@ -69,20 +69,20 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 
 		// can't create teleport without player teleported instantly
 		if ( !safePosFound ) {
-			NRD("NR_MagicFastTravelTeleport: Can't find safe pos");
+			NR_Debug("NR_MagicFastTravelTeleport: Can't find safe pos");
 			thePlayer.DisplayHudMessage(GetLocStringByKeyExt( "menu_cannot_perform_action_here" ));
 			return OnPrepared(false);
 		}
 		if ( VecDistanceSquared(pos, m_teleportPos) < 1.4f ) {
-			NRD("NR_MagicFastTravelTeleport: Teleport pos is too close");
+			NR_Debug("NR_MagicFastTravelTeleport: Teleport pos is too close");
 			thePlayer.DisplayHudMessage(GetLocStringByKeyExt( "menu_cannot_perform_action_here" ));
 			return OnPrepared(false);
 		}
 
 		dummyEntity = theGame.CreateEntity(entityTemplate, m_teleportPos, rot);
-		NRD("NR_MagicFastTravelTeleport: teleport = " + dummyEntity + ", template = " + entityTemplate);
+		NR_Debug("NR_MagicFastTravelTeleport: teleport = " + dummyEntity + ", template = " + entityTemplate);
 		if (!dummyEntity) {
-			NRD("NR_MagicFastTravelTeleport: teleport = " + dummyEntity + ", template = " + entityTemplate);
+			NR_Debug("NR_MagicFastTravelTeleport: teleport = " + dummyEntity + ", template = " + entityTemplate);
 		}
 		m_fxNameMain = 'teleport_fx';
 		m_fxNameExtra = HandFxName();
@@ -138,7 +138,7 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 				break;
 		}
 		result += "_" + ENR_MCToStringShort(color) + ".w2ent";
-		NRD("TeleportEntityName = " + result);
+		NR_Debug("TeleportEntityName = " + result);
 		return result;
 	}
 
@@ -197,7 +197,7 @@ state Active in NR_MagicFastTravelTeleport {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("NR_MagicFastTravelTeleport: Active: OnEnterState");
+		NR_Debug("NR_MagicFastTravelTeleport: Active: OnEnterState");
 		parent.inPostState = true;
 		parent.dummyEntity.PlayEffect( parent.m_fxNameMain );
 		MainLoop();
@@ -205,7 +205,7 @@ state Active in NR_MagicFastTravelTeleport {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("NR_MagicFastTravelTeleport: Active: OnLeaveState");
+		NR_Debug("NR_MagicFastTravelTeleport: Active: OnLeaveState");
 		parent.inPostState = false;
 		parent.dummyEntity.StopEffect( parent.m_fxNameMain );
 		parent.dummyEntity.DestroyAfter(5.f);
@@ -234,7 +234,7 @@ state Active in NR_MagicFastTravelTeleport {
 	latent function PerformFastTravel() {
 		var manager	: CCommonMapManager = theGame.GetCommonMapManager();
 
-		NRD("PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
+		NR_Debug("PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
 		if ( !manager )
 		{
 			return;
@@ -255,10 +255,10 @@ state Active in NR_MagicFastTravelTeleport {
 state Inactive in NR_MagicFastTravelTeleport {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("NR_MagicFastTravelTeleport: Inactive: OnEnterState");
+		NR_Debug("NR_MagicFastTravelTeleport: Inactive: OnEnterState");
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("NR_MagicFastTravelTeleport: Inactive: OnLeaveState");
+		NR_Debug("NR_MagicFastTravelTeleport: Inactive: OnLeaveState");
 	}
 }

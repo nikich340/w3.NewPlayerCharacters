@@ -37,7 +37,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		pos.Z += 1.f;
 		projectile = (W3AdvancedProjectile)theGame.CreateEntity( entityTemplate, pos, rot );
 		if (!projectile) {
-			NRE("NR_MagicProjectileWithPrepare:: No valid projectile.");
+			NR_Error("NR_MagicProjectileWithPrepare:: No valid projectile.");
 			return OnPrepared(false);
 		}
 		spearProjectile = (W3IceSpearProjectile)projectile;
@@ -46,13 +46,13 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 			spearProjectile.initFxName = InitFxName();
 			spearProjectile.onCollisionFxName = CollisionFxName();
 			spearProjectile.onCollisionVictimFxName = m_fxNameHit;
-			NRD("spearProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName() + ", m_fxNameHit = " + m_fxNameHit);
+			NR_Debug("spearProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName() + ", m_fxNameHit = " + m_fxNameHit);
 		} else if (fireballProjectile) {
 			fireballProjectile.initFxName = InitFxName();
 			fireballProjectile.onCollisionFxName = CollisionFxName();
-			NRD("fireballProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName());
+			NR_Debug("fireballProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName());
 		} else {
-			NRE("Unknown projectile type: " + projectile);
+			NR_Error("Unknown projectile type: " + projectile);
 		}
 		dk = 1.5f * SkillTotalDamageMultiplier();
 		projectile.projDMG = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);

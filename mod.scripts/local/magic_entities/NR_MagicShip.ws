@@ -96,7 +96,7 @@ state Active in NR_MagicShip {
 			if (VecLengthSquared(remainVec) < 9.f) {
 				nextPointIndex = GetNextPoint(parent.currentPointIndex);
 				nextPoint = parent.controlPoints[nextPointIndex];
-				NRD("nextPoint(" + nextPointIndex + ") = " + VecToString(nextPoint));
+				NR_Debug("nextPoint(" + nextPointIndex + ") = " + VecToString(nextPoint));
 				continue;
 			}
 
@@ -113,7 +113,7 @@ state Active in NR_MagicShip {
 
 			remainVec = nextPoint - currentPos;
 			lastTime = currentTime;
-			NRD("Fly: deltaTime = " + deltaTime + ", moveVec = " + VecToString(moveVec));
+			NR_Debug("Fly: deltaTime = " + deltaTime + ", moveVec = " + VecToString(moveVec));
 		}
 	}
 

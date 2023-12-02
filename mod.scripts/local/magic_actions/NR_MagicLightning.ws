@@ -31,7 +31,7 @@ class NR_MagicLightning extends NR_MagicAction {
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 0.f );
 		dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
 		if (!dummyEntity) {
-			NRE("DummyEntity is invalid.");
+			NR_Error("DummyEntity is invalid.");
 			return OnPrepared(false);
 		}
 		s_rebound = !isScripted && IsActionAbilityUnlocked("Rebound");
@@ -84,7 +84,7 @@ class NR_MagicLightning extends NR_MagicAction {
 				Sleep(0.1f);
 				oldTarget = target;
 				target = FindNewTarget(oldTarget, 20.f);
-				NRD("Rebound: newTarget = " + target);
+				NR_Debug("Rebound: newTarget = " + target);
 				if (target)
 					OnPerformReboundFromActor(target, oldTarget);
 			}
@@ -186,10 +186,10 @@ class NR_MagicLightning extends NR_MagicAction {
 			actor = (CActor)entities[i];
 			if (actor && actor != oldTarget) {
 				distSq = VecDistanceSquared(oldTarget.GetWorldPosition(), actor.GetWorldPosition());
-				NRD("OnPerformRebound: distSq = " + distSq + " actor = " + actor);
+				NR_Debug("OnPerformRebound: distSq = " + distSq + " actor = " + actor);
 				if (distSq < minDistSq) {
 					onLine = NR_OnLineOfSight(oldTarget, actor, 1.f);
-					NRD("OnPerformRebound: onLine = " + onLine);
+					NR_Debug("OnPerformRebound: onLine = " + onLine);
 					if (onLine) {
 						newTarget = actor;
 						minDistSq = distSq;

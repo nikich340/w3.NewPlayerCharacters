@@ -38,7 +38,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
 	{
-		NRD("combatFists:: OnPerformEvade");
+		NR_Debug("combatFists:: OnPerformEvade");
 		PerformTeleport( playerEvadeType, playerEvadeType == PET_Roll);
 		return true;
 	}
@@ -86,7 +86,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 				predictedDodgePos = currentPos;
 				break;
 			}
-			NRD("foundSafePoint: left " + attempsToFindPoint);
+			NR_Debug("foundSafePoint: left " + attempsToFindPoint);
 			attempsToFindPoint -= 1;
 			playerEvadeType = PET_Dodge; // since we decreased length to 6.0 or less
 
@@ -94,7 +94,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + currentPos;
 			foundSafePoint = NR_GetSafeTeleportPoint( predictedDodgePos );
 		}
-		NRD("Found safe tp pos with length: " + teleportLength + ", pos: " + VecToString(predictedDodgePos) + ", playerPos: " + VecToString(parent.GetWorldPosition()));
+		NR_Debug("Found safe tp pos with length: " + teleportLength + ", pos: " + VecToString(predictedDodgePos) + ", playerPos: " + VecToString(parent.GetWorldPosition()));
 
 		if (evadeTarget) {
 			playerToTargetHeading = VecHeading( evadeTarget.GetWorldPosition() - predictedDodgePos );
@@ -107,7 +107,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.magicManager.SetActionType( ENR_Teleport );
 		parent.magicManager.aTeleportPos = predictedDodgePos;
 
-		NRD("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
+		NR_Debug("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
 		parent.SetBehaviorVariable( 'dodgeNum', 0 );
 		parent.SetBehaviorVariable( 'combatActionType', (int)CAT_Dodge );
 		parent.SetBehaviorVariable(	'playerEvadeDirection', (int)PED_Forward );
@@ -122,9 +122,9 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			//parent.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
 
 			// Perk 21 - all defensive actions generate adrenaline
-			if( parent.CanUseSkill(S_Perk_21) )
+			if ( parent.CanUseSkill(S_Perk_21) )
 			{
-				if( playerEvadeType == PET_Dodge ) {
+				if ( playerEvadeType == PET_Dodge ) {
 					GetWitcherPlayer().GainAdrenalineFromPerk21( 'dodge' );
 				} else {
 					GetWitcherPlayer().GainAdrenalineFromPerk21( 'roll' );
@@ -141,7 +141,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	}
 
 	event OnInterruptAttack() {
-		NRD("OnInterruptAttack!");
+		NR_Debug("OnInterruptAttack!");
 		return virtual_parent.OnInterruptAttack();
 	}
 
@@ -174,7 +174,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.SetBIsCombatActionAllowed( true );
 		BuildComboPlayer();
 		parent.LockEntryFunction( false );
-		NRD("CombatFistsInit: " + startupAction);
+		NR_Debug("CombatFistsInit: " + startupAction);
 		switch( startupAction )
 		{
 			case IA_AttackLight:
@@ -217,7 +217,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	
 	latent function CombatFistsLoop()
 	{
-		while( true )
+		while ( true )
 		{
 			Sleep( 0.5 );
 		}		

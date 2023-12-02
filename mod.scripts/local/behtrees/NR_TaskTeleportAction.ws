@@ -21,7 +21,7 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         while ( !IsPointSuitableForTeleport(whereTo) )
         {
             if ( timeOut > 0 && ( startTimeStamp + timeOut < GetLocalTime() ) ) {
-                NRE("IsPointSuitableForTeleport: Point not found, Time out! Attemps: " + attemps);
+                NR_Error("IsPointSuitableForTeleport: Point not found, Time out! Attemps: " + attemps);
                 return false;
             }
             
@@ -30,9 +30,9 @@ class NR_TaskTeleportAction extends TaskTeleportAction
             whereTo = CalculateWhereToVec_Copy(randVec);
             whereTo = NR_GetTeleportMaxArchievablePoint( npc, currentPos, whereTo );
             attemps += 1;
-            //NRD("CHECK IsPointSuitableForTeleport::whereTo = " + VecToString(whereTo));
+            //NR_Debug("CHECK IsPointSuitableForTeleport::whereTo = " + VecToString(whereTo));
         }
-        //NRD("TRUE IsPointSuitableForTeleport::whereTo = " + VecToString(whereTo));
+        //NR_Debug("TRUE IsPointSuitableForTeleport::whereTo = " + VecToString(whereTo));
         
         newPosition = whereTo;
         return true;
@@ -51,9 +51,9 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         var i               : int;
         var world           : CWorld;
 
-        //NRD("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")");
+        //NR_Debug("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")");
         
-        if( overrideActorRadiusForNavigationTests )
+        if ( overrideActorRadiusForNavigationTests )
             radius = MaxF( 0.01, actorRadiusForNavigationTests );
         else
             radius = npc.GetRadius();
@@ -74,14 +74,14 @@ class NR_TaskTeleportAction extends TaskTeleportAction
                 
                 // make sure that floor pos found + it's above water + it's in zTolerance range
                 if ( world.PhysicsCorrectZ(whereTo, newZ) && newZ > waterZ && AbsF(newZ - whereTo.Z) < zTolerance ) {
-                    //NRD("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")::OK no navdata");
+                    //NR_Debug("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")::OK no navdata");
                     newPos = whereTo;
                     newPos.Z = newZ;
                 } else {
-                    //NRD("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")::FALSE");
-                    //NRD(" -> PhysicsCorrectZ =" + world.PhysicsCorrectZ(whereTo, newZ));
-                    //NRD(" -> newZ = " + newZ + ", waterZ = " + waterZ);
-                    //NRD(" -> AbsF =" + AbsF(newZ - whereTo.Z));
+                    //NR_Debug("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")::FALSE");
+                    //NR_Debug(" -> PhysicsCorrectZ =" + world.PhysicsCorrectZ(whereTo, newZ));
+                    //NR_Debug(" -> newZ = " + newZ + ", waterZ = " + waterZ);
+                    //NR_Debug(" -> AbsF =" + AbsF(newZ - whereTo.Z));
                     return false;
                 }
             }
@@ -118,7 +118,7 @@ class NR_TaskTeleportAction extends TaskTeleportAction
             waterDepth = world.GetWaterDepth( newPos );
             
             if ( waterDepth == 10000 ) { waterDepth = 0; }
-            if( waterDepth > maxWaterDepthToAppear )
+            if ( waterDepth > maxWaterDepthToAppear )
             {
                 return false;
             }
@@ -128,21 +128,21 @@ class NR_TaskTeleportAction extends TaskTeleportAction
             }
         }
 
-        if( dontTeleportOutsideGuardArea && guardArea )
+        if ( dontTeleportOutsideGuardArea && guardArea )
         {
-            if( !guardArea.TestPointOverlap( newPos ) )
+            if ( !guardArea.TestPointOverlap( newPos ) )
             {
                 return false;
             }
         }
         
-        if( IsNameValid( minDistanceFromEnititesWithTag ) )
+        if ( IsNameValid( minDistanceFromEnititesWithTag ) )
         {
             FindGameplayEntitiesInRange( taggedEntities, npc, 10.0, 5, minDistanceFromEnititesWithTag );
             
-            for( i = 0; i < taggedEntities.Size(); i += 1 )
+            for ( i = 0; i < taggedEntities.Size(); i += 1 )
             {
-                if( VecDistance2D( newPos, taggedEntities[i].GetWorldPosition() ) < minDistanceFromTaggedEntities && taggedEntities[i] != npc )
+                if ( VecDistance2D( newPos, taggedEntities[i].GetWorldPosition() ) < minDistanceFromTaggedEntities && taggedEntities[i] != npc )
                 {
                     return false;
                 }
@@ -195,11 +195,11 @@ class NR_TaskTeleportAction extends TaskTeleportAction
             heading = npc.GetHeading() + requestedFacingDirectionNoiseAngle;
             randVec = VecFromHeading( heading ) * averageDistance;
         }
-        else if( teleportInFrontOfTarget )
+        else if ( teleportInFrontOfTarget )
         {
             randVec = VecConeRand( VecHeading( target.GetHeadingVector() ), 5, minDistance, maxDistance );
         }
-        else if( teleportInFrontOfOwner )
+        else if ( teleportInFrontOfOwner )
         {
             randVec = VecConeRand( VecHeading( npc.GetHeadingVector() ) + 180, 5 + requestedFacingDirectionNoiseAngle, minDistance, maxDistance );
         }

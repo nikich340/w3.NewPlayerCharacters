@@ -1,5 +1,5 @@
 /* I would prefer not to copy-override this huge state, but I have to change some params here,
-	so I had no other way */
+	so there is no other way */
 state Combat in NR_ReplacerSorceress extends ExtendedMovable 
 {
 	protected var comboDefinition	: CComboDefinition;
@@ -44,13 +44,11 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	protected var magicAnimBlendTime : float;
 	default magicAnimBlendTime = 0.3f;
 	
-	
 	private var realCombat : bool;
 	private var lastVitality : float;
 	
 	private var	timeToCheckCombatEndCur	: float;
 	private	var	timeToCheckCombatEndMax	: float;		default	timeToCheckCombatEndMax	= 0.5f;
-	
 	
 	private var	timeToExitCombatFromSprinting	: float;	default	timeToExitCombatFromSprinting	= 2.0f;
 	
@@ -58,11 +56,8 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	{
 		startupAction = initialAction;
 		startupBuff	= initialBuff;
-	}	
-	
-	
-	
-	
+	}
+
 	event OnEnterState( prevStateName : name )
 	{
 		var i : int;
@@ -74,23 +69,12 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.AddAnimEventCallback('PunchHand_Right',	'OnAnimEvent_PunchHand');
 		
 		super.OnEnterState(prevStateName);
-			
-		
-		
 		parent.AddTimer( 'CombatComboUpdate', 0, true, false,  TICK_PrePhysics );
 		parent.AddTimer( 'CombatEndCheck', 0.1f, true );
-		
-		
-		
-		
-		
-		
+
 		parent.SetBehaviorMimicVariable( 'gameplayMimicsMode', (float)(int)PGMM_Combat );
-		
 		CombatInit();
-		
 		theTelemetry.LogWithName(TE_STATE_COMBAT);
-		
 		StatsInit();
 	}
 	
@@ -103,22 +87,14 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	event OnLeaveState( nextStateName : name )
 	{ 
 		var skillAbilityName : name;
-	
-		
+
 		super.OnLeaveState(nextStateName);
 		
 		parent.RemoveTimer( 'CombatComboUpdate' );
 		parent.RemoveTimer( 'CombatEndCheck' );
-		
-		
-		
-		
-		
-		
+
 		if ( nextStateName != 'AimThrow' )
 			OnCombatActionEndComplete();
-		
-
 		
 		if ( nextStateName != 'CombatFocusMode_SelectSpot' )
 		{
@@ -127,18 +103,13 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				comboPlayer.Deinit();
 			}
 		}
-		
-		
-		
-		
-		
+
 		parent.SetInteractionPriority( IP_Prio_0 );
 		
 		CleanUpComboStuff();
 		
-		
 		skillAbilityName = SkillEnumToName(S_Alchemy_s17);
-		while(thePlayer.HasAbility(skillAbilityName))
+		while (thePlayer.HasAbility(skillAbilityName))
 			thePlayer.RemoveAbility(skillAbilityName);
 	}
 	
@@ -153,11 +124,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var camera : CCustomCamera = theGame.GetGameCamera();
 		
 		camera.ChangePivotPositionController( 'Default' );
-		
-		
-		
 		parent.AddTimer( 'CombatLoop', 0, true );
-		
 	}
 		
 	timer function CombatLoop( timeDelta : float , id : int)
@@ -167,12 +134,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		parent.GetVisualDebug().AddArrow( 'heading3', parent.GetWorldPosition(), parent.GetWorldPosition() + VecFromHeading( parent.cachedRawPlayerHeading ), 1.f, 0.2f, 0.2f, true, Color(255,0,255), true );
 		
-		
 		UpdateIsInAir();
 		
 		StatsUpdate();
-		
-		
 		
 		
 		
@@ -187,14 +151,13 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var isInGround	: bool;
 		
 		
-		
-		if( thePlayer.IsRagdolled() )
+		if ( thePlayer.IsRagdolled() )
 		{
 			return;
 		}
 		
 		mac = ( CMovingPhysicalAgentComponent ) thePlayer.GetMovingAgentComponent();
-		if( mac )
+		if ( mac )
 		{
 			isInGround	= mac.IsOnGround();
 			thePlayer.SetIsInAir( !isInGround );
@@ -212,9 +175,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	timer function CombatEndCheck( timeDelta : float , id : int)
 	{
 		
-		if( !parent.IsInCombat() )
+		if ( !parent.IsInCombat() )
 		{
-			if( timeToCheckCombatEndCur < 0.0f )
+			if ( timeToCheckCombatEndCur < 0.0f )
 			{
 				parent.GoToExplorationIfNeeded(); 
 			}
@@ -270,11 +233,11 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	{	
 		
 			
-		if( super.OnGameCameraTick( moveData, dt ) )
+		if ( super.OnGameCameraTick( moveData, dt ) )
 		{
 			return true;
 		}
-		if( thePlayer.IsFistFightMinigameEnabled() )
+		if ( thePlayer.IsFistFightMinigameEnabled() )
 		{
 			theGame.GetGameCamera().ChangePivotRotationController( 'Exploration' );
 			theGame.GetGameCamera().ChangePivotDistanceController( 'Default' );
@@ -326,8 +289,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var playerToTargetVector	: Vector;
 		
 		
-		
-		if( parent.movementLockType == PMLT_NoRun && !GetWitcherPlayer().HasBuff( EET_Mutation11Immortal ) )
+		if ( parent.movementLockType == PMLT_NoRun && !GetWitcherPlayer().HasBuff( EET_Mutation11Immortal ) )
 		{			
 			if ( enemies.Size() == 1 )
 			{
@@ -404,7 +366,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		else if ( parent.IsCastingSign() && !parent.IsInCombat() )
 			newOrientationTarget = OT_CameraOffset;
 		
-		
 		else
 			newOrientationTarget = OT_Player;
 			
@@ -413,7 +374,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 		if ( parent.IsGuarded() )
 		{
-			if( parent.moveTarget )
+			if ( parent.moveTarget )
 			{
 				if ( VecDistance( parent.moveTarget.GetWorldPosition(), parent.GetWorldPosition() ) > parent.findMoveTargetDist )
 					newOrientationTarget = OT_Camera;
@@ -422,7 +383,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				newOrientationTarget = OT_Camera;
 		}
 
-		
 		
 			
 		if ( parent.IsThrowingItemWithAim() )
@@ -448,8 +408,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var moveTargetNPC			: CNewNPC;
 	
 		
-		
-		if( GetWitcherPlayer() && GetWitcherPlayer().HasBuff( EET_Mutation11Buff ) )
+		if ( GetWitcherPlayer() && GetWitcherPlayer().HasBuff( EET_Mutation11Buff ) )
 		{
 			return;
 		}
@@ -508,7 +467,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 		
 		
-		
 		if ( !parent.IsEnemyVisible( parent.moveTarget ) )
 		{
 			if ( virtual_parent.GetPlayerCombatStance() == PCS_AlertNear || parent.IsInCombat() )
@@ -527,7 +485,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		if ( !parent.IsThreatened() )	
 			stance = PCS_Normal;	
 		
-		if( FactsQuerySum("force_stance_normal") > 0 )
+		if ( FactsQuerySum("force_stance_normal") > 0 )
 		{
 			stance = PCS_Normal;
 		}
@@ -628,34 +586,34 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var aerondight		: W3Effect_Aerondight;
 		var weaponId		: SItemUniqueId;
 		
-		if(parent.HasAbility('Runeword 2 _Stats', true))
+		if (parent.HasAbility('Runeword 2 _Stats', true))
 		{
-			if(data.attackName == 'attack_heavy_special')
+			if (data.attackName == 'attack_heavy_special')
 			{
 				data.rangeName = 'runeword2_heavy';		
 				weaponEntity = thePlayer.inv.GetItemEntityUnsafe(thePlayer.inv.GetItemFromSlot(data.weaponSlot));
 				weaponEntity.PlayEffectSingle('heavy_trail_extended_fx');
 			}
-			else if(data.attackName == 'attack_light_special')
+			else if (data.attackName == 'attack_light_special')
 			{
 				data.rangeName = 'runeword2_light';		
 				weaponEntity = thePlayer.inv.GetItemEntityUnsafe(thePlayer.inv.GetItemFromSlot(data.weaponSlot));
 				weaponEntity.PlayEffectSingle('light_trail_extended_fx');
 			}
 		}
-		else if(parent.HasAbility('Runeword 1 _Stats', true) && (W3PlayerWitcher)parent && GetWitcherPlayer().GetRunewordInfusionType() == ST_Igni)
+		else if (parent.HasAbility('Runeword 1 _Stats', true) && (W3PlayerWitcher)parent && GetWitcherPlayer().GetRunewordInfusionType() == ST_Igni)
 		{
 			weaponEntity = thePlayer.inv.GetItemEntityUnsafe(thePlayer.inv.GetItemFromSlot(data.weaponSlot));
 			weaponEntity.PlayEffectSingle('runeword1_fire_trail');
 		}
-		else if( parent.HasBuff( EET_Aerondight ) )
+		else if ( parent.HasBuff( EET_Aerondight ) )
 		{
 			weaponId = thePlayer.inv.GetCurrentlyHeldSword();
-			if( thePlayer.inv.ItemHasTag( weaponId, 'Aerondight' ) )
+			if ( thePlayer.inv.ItemHasTag( weaponId, 'Aerondight' ) )
 			{			
 				aerondight = (W3Effect_Aerondight)thePlayer.GetBuff( EET_Aerondight );
 				
-				if( aerondight.IsFullyCharged() )
+				if ( aerondight.IsFullyCharged() )
 				{
 					weaponEntity.PlayEffectSingle( 'aerondight_special_trail' );
 				}
@@ -673,7 +631,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	
 	event OnPerformGuard()
 	{
-		NRD("NR_ReplacerSorceress.OnPerformGuard");
+		NR_Debug("NR_ReplacerSorceress.OnPerformGuard");
 		OnInterruptAttack();
 		parent.FindMoveTarget();
 		parent.SetCanPlayHitAnim( true );
@@ -695,7 +653,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
 	{		
-		NRD("combat:: OnPerformEvade: " + playerEvadeType);
+		NR_Debug("combat:: OnPerformEvade: " + playerEvadeType);
 		if ( playerEvadeType == PET_Dodge )
 		{
 			parent.bIsRollAllowed = true;
@@ -747,7 +705,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var perkStats 					: SAbilityAttributeValue;
 		
 		
-		
 		parent.ResetUninterruptedHitsCount();		
 		parent.SetIsCurrentlyDodging(true, isRolling);
 	
@@ -760,7 +717,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			parent.FindMoveTarget();
 			evadeTarget = parent.moveTarget;		
 		}
-		
 		
 			
 			
@@ -784,14 +740,12 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		rawDodgeHeading = GetRawDodgeHeading();
 		parent.evadeHeading = rawDodgeHeading;
 		
-		
 		predictedDodgePos = VecFromHeading( rawDodgeHeading ) * dodgeLength + parent.GetWorldPosition();
 		parent.GetVisualDebug().AddSphere('predictedDodgePos', 0.25, predictedDodgePos, true, Color(0,128,256), 5.0f );
 		parent.GetVisualDebug().AddSphere('evadeTargetPos', 0.25, evadeTargetPos, true, Color(255,255,0), 5.0f );
 		parent.GetVisualDebug().AddArrow( 'DodgeVector', parent.GetWorldPosition(), predictedDodgePos, 1.f, 0.2f, 0.2f, true, Color(0,128,256), true, 5.f );
 
 		turnInPlaceBeforeDodge = false;		
-		
 		
 		if ( evadeTarget )
 		{
@@ -918,18 +872,17 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			}
 		}		
 
-		if(!SkipStaminaDodgeEvadeCost())
+		if (!SkipStaminaDodgeEvadeCost())
 		{
-			if(isRolling)
+			if (isRolling)
 				parent.DrainStamina(ESAT_Roll);
 			else
 				parent.DrainStamina(ESAT_Dodge);
 		}
 		
-		
-		if( parent.CanUseSkill(S_Perk_21) )
+		if ( parent.CanUseSkill(S_Perk_21) )
 		{
-			if( isRolling )
+			if ( isRolling )
 			{
 				GetWitcherPlayer().GainAdrenalineFromPerk21( 'roll' );
 			}
@@ -1020,7 +973,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.WaitForBehaviorNodeDeactivation( 'DodgeComplete', 0.7f );
 		parent.RemoveTimer( 'UpdateDodgeInfoTimer' );
 		
-		
 		parent.SetIsCurrentlyDodging(false);
 		
 	}
@@ -1077,10 +1029,10 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var targetNPC : CNewNPC;
 		
 		targetNPC = (CNewNPC)parent.GetTarget();
-		if( targetNPC )
+		if ( targetNPC )
 		{
 			
-			if( targetNPC.IsAttacking() && parent.CanUseSkill(S_Sword_s09) )
+			if ( targetNPC.IsAttacking() && parent.CanUseSkill(S_Sword_s09) )
 			{
 				return true;
 			}
@@ -1136,13 +1088,13 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		if ( parent.lAxisReleasedAfterCounterNoCA )
 			evadeDirection = PED_Back;
-		else if( parent.GetIsSprinting() )
+		else if ( parent.GetIsSprinting() )
 			evadeDirection = PED_Forward;
-		else if( rawToHeadingAngleDiff >= ( -1 * inputToleranceFwd ) && rawToHeadingAngleDiff < inputToleranceFwd  )
+		else if ( rawToHeadingAngleDiff >= ( -1 * inputToleranceFwd ) && rawToHeadingAngleDiff < inputToleranceFwd  )
 			evadeDirection = PED_Forward;
-		else if( rawToHeadingAngleDiff >= inputToleranceFwd && rawToHeadingAngleDiff < ( 180 - inputToleranceBck ) )
+		else if ( rawToHeadingAngleDiff >= inputToleranceFwd && rawToHeadingAngleDiff < ( 180 - inputToleranceBck ) )
 			evadeDirection = PED_Right;		
-		else if( rawToHeadingAngleDiff >= ( -180 + inputToleranceBck ) && rawToHeadingAngleDiff < ( -1 * inputToleranceFwd ) )
+		else if ( rawToHeadingAngleDiff >= ( -180 + inputToleranceBck ) && rawToHeadingAngleDiff < ( -1 * inputToleranceFwd ) )
 			evadeDirection = PED_Left;
 		else
 			evadeDirection = PED_Back;		
@@ -1280,19 +1232,19 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		headingDiff = AngleDistance( playerToTargetHeading, currentDodgeFwdHeading );
 
 		
-		if( headingDiff >= -dontChangeAngle && headingDiff < dontChangeAngle  )
+		if ( headingDiff >= -dontChangeAngle && headingDiff < dontChangeAngle  )
 			changeDirection = PED_Forward;
-		else if( headingDiff >= dontChangeAngle )
+		else if ( headingDiff >= dontChangeAngle )
 			changeDirection = PED_Right;		
 		else
 			changeDirection = PED_Left;
 
-		if( changeDirection == PED_Forward)
+		if ( changeDirection == PED_Forward)
 		{
 			return dodgeDirection;
 		}
 		
-		if( changeDirection == PED_Right)
+		if ( changeDirection == PED_Right)
 		{
 			switch( dodgeDirection )
 			{
@@ -1302,7 +1254,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				case PED_Left:		return PED_Forward;
 			}
 		}
-		if( changeDirection == PED_Left)
+		if ( changeDirection == PED_Left)
 		{
 			switch( dodgeDirection )
 			{
@@ -1363,9 +1315,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		comboDefinition = new CComboDefinition in this;
 		
-		
 		OnCreateAttackAspects();
-		
 		
 		comboPlayer = new CComboPlayer in this;
 		if ( !comboPlayer.Build( comboDefinition, parent ) )
@@ -1373,9 +1323,8 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			LogChannel( 'ComboNode', "Error: BuildCombo" );	
 		}
 		
-		NRD("SS: BuildCombo()");
+		NR_Debug("SS: BuildCombo()");
 		comboPlayer.SetDurationBlend( magicAnimBlendTime );
-		
 		
 		CleanUpComboStuff();
 	}
@@ -1391,7 +1340,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var aiStorageObject	: IScriptable;
 		var newTarget : CActor;
 	
-		NRD("OnPerformAttack: " + playerAttackType);
+		NR_Debug("OnPerformAttack: " + playerAttackType);
 		if ( parent.DisableManualCameraControlStackHasSource('Finisher') )
 			return false;
 		
@@ -1464,7 +1413,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		actor = (CActor)parent.slideTarget;
 		npc = (CNewNPC)parent.slideTarget;
 		
-		NRD("ProcessAttackApproach: " + playerAttackType);
+		NR_Debug("ProcessAttackApproach: " + playerAttackType);
 		FactsAdd("ach_attack", 1, 4 );
 		theGame.GetGamerProfile().CheckLearningTheRopes();
 		if ( actor && ( !npc || npc.GetCurrentStance() != NS_Fly ) )
@@ -1540,7 +1489,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	entry function EnableAttackApproach( playerAttackType : name )
 	{
 		var playerToTargetHeading	: float;
-			
+		
 		previousSlideTarget = parent.slideTarget;
 		playerToTargetHeading = VecHeading( parent.slideTarget.GetWorldPosition() - parent.GetWorldPosition() );
 		
@@ -1661,16 +1610,16 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 		if ( parent.magicManager.HasStaminaForAction(actionType) ) {
 			parent.magicManager.SetActionType( actionType );
-			NRD("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
+			NR_Debug("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
 			// activate sorceress "quen"
 			if (actionType == ENR_SpecialShield) {
 				parent.CastQuen();
 			}
-			NRD("PlayAttack: aspect = " + aspectName + ", = " + comboPlayer.PlayAttack( aspectName ));
+			NR_Debug("PlayAttack: aspect = " + aspectName + ", = " + comboPlayer.PlayAttack( aspectName ));
 		} else {
 			parent.magicManager.SetActionType( ENR_Unknown );
 			comboPlayer.PlayAttack( 'AttackNoStamina' );
-			NRD("Combat.TryPeformMagicAttack: No stamina to make attack: " + actionType);
+			NR_Debug("Combat.TryPeformMagicAttack: No stamina to make attack: " + actionType);
 		}
 		virtual_parent.OnCombatActionStart();
 	}
@@ -1689,7 +1638,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		if ( !parent.magicManager.HasStaminaForAction(actionType) ) {
 			parent.magicManager.SetActionType( ENR_Unknown );
 			playRet = comboPlayer.PlayAttack( 'AttackNoStamina' );
-			NRD("Combat.TryPeformMagicAttack: No stamina to launch attack: " + actionType + ", playAnim = " + playRet);
+			NR_Debug("Combat.TryPeformMagicAttack: No stamina to launch attack: " + actionType + ", playAnim = " + playRet);
 			virtual_parent.OnCombatActionStart();
 			return false;
 		}
@@ -1716,7 +1665,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		startTime = theGame.GetEngineTimeAsSeconds();
 		lastTime = startTime;
 		lastAnimTime = startTime;
-		NRD("TryPeformLongMagicAttack: animTime = " + animTime);
+		NR_Debug("TryPeformLongMagicAttack: animTime = " + animTime);
 
 		virtual_parent.OnCombatActionStart();
 
@@ -1744,7 +1693,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 			if ( currentTime - lastAnimTime > animTime ) {
 				playRet = comboPlayer.PlayAttack( aspectName );
-				NRD("TryPeformLongMagicAttack: PlayAttack = " + aspectName + ", ret = " + playRet);
+				NR_Debug("TryPeformLongMagicAttack: PlayAttack = " + aspectName + ", ret = " + playRet);
 				lastAnimTime = currentTime;
 			}
 		}
@@ -1754,7 +1703,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			Sleep(magicAnimBlendTime - (currentTime - startTime));
 		}
 
-		NRD("TryPeformLongMagicAttack: OnInterruptAttack");
+		NR_Debug("TryPeformLongMagicAttack: OnInterruptAttack");
 		comboPlayer.StopAttack();
 		OnInterruptAttack();
 		parent.RaiseForceEvent( 'AnimEndAUX' );
@@ -1804,7 +1753,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.RemoveTimer( 'ProcessAttackTimer' );
 		parent.RemoveTimer( 'AttackTimerEnd' );
 		npc = (CNewNPC)parent.slideTarget;
-		NRD("ProcessAttack: playerAttackType = " + playerAttackType + ", time = " + theGame.GetEngineTimeAsSeconds());
+		NR_Debug("ProcessAttack: playerAttackType = " + playerAttackType + ", time = " + theGame.GetEngineTimeAsSeconds());
 			
 		parent.GetMovingAgentComponent().GetMovementAdjustor().CancelAll();
 
@@ -1854,7 +1803,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				&& parent.magicManager.GetChancePercForFinisher(attackTarget) >= NR_GetRandomGenerator().nextRange(1, 100) )
 			{
 					TryPeformMagicAttack( 'AttackFinisher', ENR_RipApart );
-			} else if( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )
+			} else if ( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )
 			{
 				if (npc)
 					npc.SignalGameplayEventParamInt('Time2DodgeFast', (int)EDT_Attack_Light );
@@ -1869,7 +1818,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			{
 				ResetTimeToEndCombat();
 				isAlternateAttack = CheckIsAlternateAttack( 0.2f );
-				NRD("Combat.ProcessAttack: isAlternate = " + isAlternateAttack);
+				NR_Debug("Combat.ProcessAttack: isAlternate = " + isAlternateAttack);
 				
 				if (isAlternateAttack)
 					TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialAbstractAlt );
@@ -1884,7 +1833,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				LogChannel( 'PlayerAttackType', "sorceress: playerAttackType is unknown: " + playerAttackType );
 			}
 		} else {
-			NRE("ProcessAttack: unexpected state: " + parent.GetCurrentStateName() );
+			NR_Error("ProcessAttack: unexpected state: " + parent.GetCurrentStateName() );
 		}
 	}
 
@@ -1896,7 +1845,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		while (theGame.GetEngineTimeAsSeconds() - startTime < minHoldTime) {
 			SleepOneFrame();
 			if ( !theInput.IsActionPressed( 'CastSign' ) ) {
-				NRD("Hold time: " + FloatToStringPrec(theGame.GetEngineTimeAsSeconds() - startTime, 5));
+				NR_Debug("Hold time: " + FloatToStringPrec(theGame.GetEngineTimeAsSeconds() - startTime, 5));
 				return false;
 			}
 		}
@@ -1935,7 +1884,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var attackTargetActor			: CActor; 
 		
 		LogChannel( 'ComboNode', "inGlobalAttackCounter = " + callbackInfo.inGlobalAttackCounter + ", inStringAttackCounter = " + callbackInfo.inStringAttackCounter );	
-		
 		
 		callbackInfo.outShouldRotate = true;
 		
@@ -2098,15 +2046,13 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		
 		
-		
-		
 			
 		if ( callbackInfo.inAspectName == 'AttackNeutral' )
 			callbackInfo.outDirection = AD_Front;
 		
 		if ( callbackInfo.inAspectName == 'AttackNeutral' )
 			callbackInfo.outAttackType = ComboAT_Normal;
-		else if( ( callbackInfo.inStringAttackCounter == 0 || AbsF(playerToTargetAngleDiff) >= 45.f || playerToTargetDist > farAttackMinDist || !parent.slideTarget )  )
+		else if ( ( callbackInfo.inStringAttackCounter == 0 || AbsF(playerToTargetAngleDiff) >= 45.f || playerToTargetDist > farAttackMinDist || !parent.slideTarget )  )
 		{
 			callbackInfo.outAttackType = ComboAT_Directional;
 			callbackInfo.outShouldTranslate = true;
@@ -2214,7 +2160,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		InteralCombatComboUpdate( timeDelta );
 		
-		if( thePlayer.IsInCombatAction_Attack() && !thePlayer.IsInCombatActionFriendly() )
+		if ( thePlayer.IsInCombatAction_Attack() && !thePlayer.IsInCombatActionFriendly() )
 		{
 			thePlayer.ProcessWeaponCollision();
 		}
@@ -2283,7 +2229,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			
 		}
 			
-		if(comboPlayer)
+		if (comboPlayer)
 			comboPlayer.Update( timeDelta );
 	}	
 	

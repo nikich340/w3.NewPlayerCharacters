@@ -47,7 +47,7 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 		
 		if ( !m_meteorTemplate || !IsNameValid( activateOnAnimEvent ) )
 		{
-			NRE("NR_CBTTaskMagicMeteorFallAttack.Main: invalid m_meteorTemplate = " + m_meteorTemplate + ", or activateOnAnimEvent = " + activateOnAnimEvent);
+			NR_Error("NR_CBTTaskMagicMeteorFallAttack.Main: invalid m_meteorTemplate = " + m_meteorTemplate + ", or activateOnAnimEvent = " + activateOnAnimEvent);
 			return BTNS_Failed;
 		}
 
@@ -60,13 +60,13 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 
 		timeStart = GetLocalTime();
 		m_lastShootTime = -1.f;
-		while( m_activated && timeStart + deactivateAfter > GetLocalTime() )
+		while ( m_activated && timeStart + deactivateAfter > GetLocalTime() )
 		{
 			SleepOneFrame();
 			if ( m_lastShootTime + shootInterval /* npc.GetAnimationTimeMultiplier()*/ < GetLocalTime() ) {
 				m_lastShootTime = GetLocalTime();
 				ShootMeteor();
-				NRD("NR_CBTTaskMagicMeteorFallAttack: m_activated, ShootMeteor, time = " + m_lastShootTime);
+				NR_Debug("NR_CBTTaskMagicMeteorFallAttack: m_activated, ShootMeteor, time = " + m_lastShootTime);
 			}
 		}
 		
@@ -80,7 +80,7 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 	{
 		if ( animEventName == activateOnAnimEvent )
 		{
-			//NRD("NR_CBTTaskMagicMeteorFallAttack: set m_activated, animEventName = " + animEventName);
+			//NR_Debug("NR_CBTTaskMagicMeteorFallAttack: set m_activated, animEventName = " + animEventName);
 			m_activated = true;	
 			return true;
 		}
@@ -107,7 +107,7 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 		pos.Z += 40.f;
 		meteor = (NR_MeteorProjectile)theGame.CreateEntity(m_meteorTemplate, pos, enemies[ index ].GetWorldRotation());
 		if (!meteor) {
-			NRE("NR_CBTTaskMagicMeteorFallAttack.ShootMeteor: invalid meteor, template: " + m_meteorTemplate);
+			NR_Error("NR_CBTTaskMagicMeteorFallAttack.ShootMeteor: invalid meteor, template: " + m_meteorTemplate);
 			return false;
 		}
 		pos.Z -= 40.f;
@@ -120,7 +120,7 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 		meteor.Init( caster );
 		meteor.ShootProjectileAtPosition( meteor.projAngle, meteor.projSpeed, pos, 500.f, m_collisionGroups );
 		meteor.DestroyAfter(10.f);
-		//NRD("NR_CBTTaskMagicMeteorFallAttack: ShootMeteor (" + meteor + ") at: " + VecToString(pos) + ", enemy: " + enemies[ index ]);
+		//NR_Debug("NR_CBTTaskMagicMeteorFallAttack: ShootMeteor (" + meteor + ") at: " + VecToString(pos) + ", enemy: " + enemies[ index ]);
 
 		return true;
 	}
@@ -157,8 +157,8 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 			damage = MinF(maxDamage, damage);
 			damage = MaxF(minDamage, damage);
 		}
-		NRD("NR_CBTTaskMagicMeteorFallAttack.GetDamage: target = " + damageTarget + " lvl diff = " + levelDiff + ", max health = " + damageTarget.GetMaxHealth());
-		NRD("NR_CBTTaskMagicMeteorFallAttack.GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
+		NR_Debug("NR_CBTTaskMagicMeteorFallAttack.GetDamage: target = " + damageTarget + " lvl diff = " + levelDiff + ", max health = " + damageTarget.GetMaxHealth());
+		NR_Debug("NR_CBTTaskMagicMeteorFallAttack.GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
 		
 		return damage;
 	}

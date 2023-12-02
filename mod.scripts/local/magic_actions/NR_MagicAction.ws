@@ -71,13 +71,13 @@ abstract statemachine class NR_MagicAction {
 		var input_index : int;
 
 		if (inputs.Size() == 0) {
-			NRD("action = " + actionType + ": No scene inputs");
+			NR_Debug("action = " + actionType + ": No scene inputs");
 			return false;
 		}
 		path = "dlc/dlcnewreplacers/data/scenes/02.magic_lines.w2scene";
 		scene = (CStoryScene)LoadResource(path, true);
 		if (!scene) {
-			NRE("PlayScene: NULL scene!");
+			NR_Error("PlayScene: NULL scene!");
 			return false;
 		}
 		input_index = inputs[ NR_GetRandomGenerator().next( inputs.Size() ) ];
@@ -89,7 +89,7 @@ abstract statemachine class NR_MagicAction {
 
 	latent function OnPrepare() : bool {
 		// load and calculate data
-		NRD("OnPrepare: " + actionType);
+		NR_Debug("OnPrepare: " + actionType);
 		standartCollisions = NR_GetStandartCollisionNames();
 
 		return !isBroken;
@@ -120,8 +120,8 @@ abstract statemachine class NR_MagicAction {
 
 	latent function OnPerform() : bool {
 		// perform action, fx
-		NRD("OnPerform: " + actionType + ", isPrepared: " + isPrepared);
-		
+		NR_Debug("OnPerform: " + actionType + ", isPrepared: " + isPrepared);
+
 		return isPrepared && !isBroken && !isPerformed;
 	}
 
@@ -129,7 +129,7 @@ abstract statemachine class NR_MagicAction {
 		var magicManager : NR_MagicManager;
 
 		isPerformed = result;
-		NRD("OnPerformed: [" + ENR_MAToName(actionType) + "] result = " + result + ", isScripted = " + isScripted);
+		NR_Debug("OnPerformed: [" + ENR_MAToName(actionType) + "] result = " + result + ", isScripted = " + isScripted);
 		if (result && drainStaminaOnPerform) {
 			magicManager = NR_GetMagicManager();
 			if (isOnHorse) {
@@ -143,7 +143,7 @@ abstract statemachine class NR_MagicAction {
 			FactsAdd("nr_magic_performed_" + ENR_MAToName(actionType), 1);
 			if (actionSubtype != ENR_Unknown)
 				FactsAdd("nr_magic_performed_" + ENR_MAToName(actionSubtype), 1);
-			//NRD("OnPerformed: " + "nr_magic_performed_" + ENR_MAToName(actionType) + "=" + FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType)));
+			//NR_Debug("OnPerformed: " + "nr_magic_performed_" + ENR_MAToName(actionType) + "=" + FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType)));
 			CheckSkillLevelup();
 		}
 
@@ -236,22 +236,22 @@ abstract statemachine class NR_MagicAction {
 				foundDestroyable = NR_FindDestroyableTarget();
 			}
 			if (foundDestroyable) {
-				NRD("Found destroyable target: " + destroyable);
+				NR_Debug("Found destroyable target: " + destroyable);
 				pos = destroyable.GetWorldPosition();
 				pos.Z += 0.7f;
 			} else {
-				NRD("WARNING! No target, use ground pos.");
+				NR_Debug("WARNING! No target, use ground pos.");
 				//pos = thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 5.f;
 				if (isOnHorse)
 					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 15.f;
 				else
 					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 5.f;
-				NRD("Original Z = " + pos.Z);
+				NR_Debug("Original Z = " + pos.Z);
 
 				// correct a bit with physics raycast
 				if (theGame.GetWorld().PhysicsCorrectZ(pos, Z)) {
 					pos.Z = Z;
-					NRD("PhysicsCorrectZ = " + pos.Z);
+					NR_Debug("PhysicsCorrectZ = " + pos.Z);
 				}
 				pos.Z += staticOffsetZ;
 
@@ -368,8 +368,8 @@ abstract statemachine class NR_MagicAction {
 			damage = MinF(maxDamage, damage);
 			damage = MaxF(minDamage, damage);
 		}
-		NRD("GetDamage: action = " + ENR_MAToName(actionType) + ", target = " + damageTarget + " lvl diff = " + levelDiff + ", max health = " + damageTarget.GetMaxHealth());
-		NRD("GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
+		NR_Debug("GetDamage: action = " + ENR_MAToName(actionType) + ", target = " + damageTarget + " lvl diff = " + levelDiff + ", max health = " + damageTarget.GetMaxHealth());
+		NR_Debug("GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
 		return damage;
 	}
 
@@ -383,7 +383,7 @@ abstract statemachine class NR_MagicAction {
 		newLevel = GetWitcherPlayer().GetLevel() - 2 * step;
 		newLevel += step * ((int)magicSkill - (int)ENR_SkillNovice);
 		if (npc) {
-			NRD("Set level (" + newLevel + ") to: " + npc);
+			NR_Debug("Set level (" + newLevel + ") to: " + npc);
 			npc.SetLevel(newLevel);
 		}
 	}

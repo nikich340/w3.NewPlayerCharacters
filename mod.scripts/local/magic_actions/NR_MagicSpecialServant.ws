@@ -71,7 +71,7 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 			servantName = map[sign].getN("entity_" + IntToString(i) + "_" + ENR_MAToName(actionType), 'wild_hunt_hound');
 			depotPath = ServantDepotPath(servantName);
 			template = (CEntityTemplate)LoadResourceAsync( depotPath, true );
-			NRD("Loading servant[" + i + "] = " + template);
+			NR_Debug("Loading servant[" + i + "] = " + template);
 			servantTemplates.PushBack(template);
 		}
 
@@ -99,7 +99,7 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 		// use fx pos
 		golemNPC = (CNewNPC)theGame.CreateEntity(template, position, rot);
 		if (!golemNPC) {
-			NRE("SpawnMinion: golemNPC is invalid, template = " + template);
+			NR_Error("SpawnMinion: golemNPC is invalid, template = " + template);
 			return false;
 		}
 
@@ -157,11 +157,11 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 
 			dummyEntity = (CEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 			if (!dummyEntity) {
-				NRD("golem_fx_entity is invalid.");
+				NR_Debug("golem_fx_entity is invalid.");
 				continue;
 			}
 			ret = dummyEntity.PlayEffect(m_fxNameMain);
-			NRD("golem_fx_entity: PlayEffect (" + m_fxNameMain + ") = " + ret);
+			NR_Debug("golem_fx_entity: PlayEffect (" + m_fxNameMain + ") = " + ret);
 			dummyEntity.DestroyAfter(5.f);
 			Sleep(0.1f);
 		}
@@ -257,7 +257,7 @@ state Active in NR_MagicSpecialServant {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Active: OnEnterState.");
+		NR_Debug("Active: OnEnterState.");
 		startTime = theGame.GetEngineTimeAsSeconds();
 		parent.inPostState = true;
 		MainLoop();		
@@ -277,14 +277,14 @@ state Active in NR_MagicSpecialServant {
 				parent.servantEntities[i].CancelAIBehavior(parent.servantEntitiesBehIds[i]);
 			}
 		}
-		NRD("Active: OnLeaveState.");
+		NR_Debug("Active: OnLeaveState.");
 	}
 }
 
 state Stop in NR_MagicSpecialServant {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Stop: OnEnterState.");
+		NR_Debug("Stop: OnEnterState.");
 		parent.inPostState = true;
 		RunStop();
 		parent.inPostState = false;
@@ -301,7 +301,7 @@ state Stop in NR_MagicSpecialServant {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Stop: OnLeaveState.");
+		NR_Debug("Stop: OnLeaveState.");
 		// can be removed from cached/cursed actions TODO CHECK
 		parent.inPostState = false;
 	}
@@ -310,7 +310,7 @@ state Stop in NR_MagicSpecialServant {
 state Cursed in NR_MagicSpecialServant {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Cursed: OnEnterState.");
+		NR_Debug("Cursed: OnEnterState.");
 		parent.inPostState = true;
 		RunCurse();
 	}
@@ -331,6 +331,6 @@ state Cursed in NR_MagicSpecialServant {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Cursed: OnLeaveState.");
+		NR_Debug("Cursed: OnLeaveState.");
 	}
 }

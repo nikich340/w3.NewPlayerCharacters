@@ -8,11 +8,11 @@ state NR_ScenePreviewAppearance_DialogState in CR4HudModuleDialog {
     event OnBack( action : SInputAction )
     {
         /*var i : int;
-        NRD("OnBack: IsPressed = " + IsPressed(action) + ", IsReleased = " + IsReleased(action));
+        NR_Debug("OnBack: IsPressed = " + IsPressed(action) + ", IsReleased = " + IsReleased(action));
         for (i = 0; i < parent.lastSetChoices.Size(); i += 1) {
-            NRD("CHOICE[" + i + "] = " + parent.lastSetChoices[i].description);
+            NR_Debug("CHOICE[" + i + "] = " + parent.lastSetChoices[i].description);
         }*/
-        if( IsReleased( action ) ) {
+        if ( IsReleased( action ) ) {
             OnDialogOptionSelected(0);
             OnDialogOptionAccepted(0);
         }

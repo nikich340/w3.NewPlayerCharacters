@@ -71,7 +71,7 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 		spawnPos.Z += 40.f;
 		meteor = (NR_MeteorProjectile)theGame.CreateEntity(entityTemplate, spawnPos, rot);
 		if (!meteor) {
-			NRE("NR_MagicSpecialMeteor: No valid meteor. resourceName = " + resourceName + ", template: " + entityTemplate);
+			NR_Error("NR_MagicSpecialMeteor: No valid meteor. resourceName = " + resourceName + ", template: " + entityTemplate);
 			return false;
 		}
 		/*meteor.initFxName = InitFxName();
@@ -85,10 +85,10 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 		meteor.m_respectCaster = s_respectCaster;
 		meteor.Init(thePlayer);
 		//if (s_aim && target) {
-		//	NRD("Meteor: ShootProjectileAtNode");
+		//	NR_Debug("Meteor: ShootProjectileAtNode");
 		//	meteor.ShootProjectileAtNode( meteor.projAngle, meteor.projSpeed, target, 500.f, standartCollisions );
 		//} else {
-		//	NRD("Meteor: ShootProjectileAtPosition");
+		//	NR_Debug("Meteor: ShootProjectileAtPosition");
 		meteor.ShootProjectileAtPosition( meteor.projAngle, meteor.projSpeed, pos, 500.f, standartCollisions );
 		//}
 		meteor.DestroyAfter(10.f);
@@ -251,7 +251,7 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 state Cursed in NR_MagicSpecialMeteor {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Cursed: OnEnterState.");
+		NR_Debug("Cursed: OnEnterState.");
 		parent.inPostState = true;
 		Curse();
 	}
@@ -268,6 +268,6 @@ state Cursed in NR_MagicSpecialMeteor {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Cursed: OnLeaveState.");
+		NR_Debug("Cursed: OnLeaveState.");
 	}
 }

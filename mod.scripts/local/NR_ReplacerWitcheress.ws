@@ -21,7 +21,7 @@ statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
 		var ticket 				: SMovementAdjustmentRequestTicket;
 		var minDistance			: float;
 		
-		if( !HasAbility('Ciri_Rage') )
+		if ( !HasAbility('Ciri_Rage') )
 			return false;
 		
 		if ( animEventType == AET_DurationStart )

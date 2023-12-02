@@ -5,7 +5,8 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
     var waitUpgrade : bool;
     
     // in scene or not in game
-    if (!theGame.IsActive() || theGame.IsCurrentlyPlayingNonGameplayScene() || thePlayer.IsInGameplayScene() || theGame.IsFading() || theGame.IsBlackscreen() || thePlayer.IsInCombat()) {
+    if (!theGame.IsActive() || theGame.IsDialogOrCutscenePlaying() || thePlayer.IsInNonGameplayCutscene() || thePlayer.IsInGameplayScene() 
+        || theGame.IsFading() || theGame.IsBlackscreen() || theGame.HasBlackscreenRequested() || thePlayer.IsInCombat()) {
         return false;
     }
 
@@ -62,7 +63,7 @@ latent storyscene function NR_ShowTutorial_S(player: CStoryScenePlayer, type : S
 }
 
 latent storyscene function NR_ShowMagicSkillStats_S(player: CStoryScenePlayer, fullscreen : bool) {
-    NRD("NR_ShowMagicSkillStats_S");
+    NR_Debug("NR_ShowMagicSkillStats_S");
     NR_ShowMagicSkillStats(fullscreen);
 }
 
@@ -151,7 +152,7 @@ latent function NR_ShowTutorial(type : String, fullscreen : bool, optional remin
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940224) );
     }
     else {
-        NRE("NR_ShowTutorial: Unknown tutorial type: " + type);
+        NR_Error("NR_ShowTutorial: Unknown tutorial type: " + type);
         return;
     }
     FactsAdd("nr_quest_track_" + type, 1);

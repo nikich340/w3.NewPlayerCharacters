@@ -43,8 +43,8 @@ class NR_MagicRipApart extends NR_MagicAction {
 
 		if (target) {
 			dismembermentComp = (CDismembermentComponent)(target.GetComponentByClassName( 'CDismembermentComponent' ));
-			if(!dismembermentComp) {
-				NRD("NR_MagicRipApart: target <" + target + "> has no dismembermentComp.");
+			if (!dismembermentComp) {
+				NR_Debug("NR_MagicRipApart: target <" + target + "> has no dismembermentComp.");
 				dismembermentComp.GetWoundsNames( wounds, WTF_Explosion );
 	
 				if ( wounds.Size() > 0 )

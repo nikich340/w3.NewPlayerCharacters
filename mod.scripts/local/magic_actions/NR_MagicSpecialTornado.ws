@@ -63,7 +63,7 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 		m_tornadoEntity = (NR_TornadoEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 		
 		if (!m_tornadoEntity) {
-			NRE("m_tornadoEntity is invalid!");
+			NR_Error("m_tornadoEntity is invalid!");
 			return OnPerformed(false);
 		}
 
@@ -107,7 +107,7 @@ state Active in NR_MagicSpecialTornado {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Active: OnEnterState.");
+		NR_Debug("Active: OnEnterState.");
 		startTime = theGame.GetEngineTimeAsSeconds();
 		parent.inPostState = true;
 		MainLoop();		
@@ -121,14 +121,14 @@ state Active in NR_MagicSpecialTornado {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Active: OnLeaveState.");
+		NR_Debug("Active: OnLeaveState.");
 	}
 }
 
 state Stop in NR_MagicSpecialTornado {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Stop: OnEnterState.");
+		NR_Debug("Stop: OnEnterState.");
 		parent.inPostState = true;
 		Stop();
 		parent.inPostState = false;
@@ -140,7 +140,7 @@ state Stop in NR_MagicSpecialTornado {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Stop: OnLeaveState.");
+		NR_Debug("Stop: OnLeaveState.");
 		// can be removed from cached/cursed actions TODO CHECK
 		parent.inPostState = false;
 	}
@@ -149,7 +149,7 @@ state Stop in NR_MagicSpecialTornado {
 state Cursed in NR_MagicSpecialTornado {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Cursed: OnEnterState.");
+		NR_Debug("Cursed: OnEnterState.");
 		parent.inPostState = true;
 		Curse();
 	}
@@ -165,6 +165,6 @@ state Cursed in NR_MagicSpecialTornado {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Cursed: OnLeaveState.");
+		NR_Debug("Cursed: OnLeaveState.");
 	}
 }

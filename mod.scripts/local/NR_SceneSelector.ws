@@ -48,7 +48,7 @@ class NR_SceneSelector extends CEntity {
 		var i : int;	
 		var slot : ENR_AppearanceSlots;
 		var dbg  : String;
-		NRD("NR_SceneSelector::GetTemplatesToUpdate [m_dataIndex = " + m_dataIndex + ", choiceIndex = " + choiceIndex + ", isFemale = " + isFemale + "]");
+		NR_Debug("NR_SceneSelector::GetTemplatesToUpdate [m_dataIndex = " + m_dataIndex + ", choiceIndex = " + choiceIndex + ", isFemale = " + isFemale + "]");
 
 
 		itemList.Clear();
@@ -159,12 +159,12 @@ class NR_SceneSelector extends CEntity {
     }
 
     public function ResetPreviewDataIndex() {
-    	NRD("NR_SceneSelector::ResetPreviewDataIndex()");
+    	NR_Debug("NR_SceneSelector::ResetPreviewDataIndex()");
     	m_dataIndex = -1;
     }
 
     public function SetPreviewDataIndex(newIndex : int, newChoiceOffset : int) {
-    	//NRD("NR_SceneSelector::SetPreviewDataIndex()");
+    	//NR_Debug("NR_SceneSelector::SetPreviewDataIndex()");
     	m_dataIndex = newIndex;
     	m_choiceOffset = newChoiceOffset;
     }

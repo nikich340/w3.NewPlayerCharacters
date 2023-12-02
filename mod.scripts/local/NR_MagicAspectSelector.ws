@@ -31,7 +31,7 @@ class NR_MagicAspectSelector {
 	}
 	public function SelectAttack() : name {
 		if ( currentAttackCounts.Size() == 0 ) {
-			NRE("NR_MagicAttackSelector.SelectAttack(): empty currentAttackCounts!");
+			NR_Error("NR_MagicAttackSelector.SelectAttack(): empty currentAttackCounts!");
 			return '';
 		}
 		while (currentAttackCounts[currentAttackIndex] == 0) {
@@ -45,7 +45,7 @@ class NR_MagicAspectSelector {
 		/* Decrease left attacks count and return name */
 		currentAttackCounts[currentAttackIndex] -= 1;
 		if (currentAttackIndex >= attackNames.Size() || currentAttackIndex < 0)
-			NRE("NR_MagicAspectSelector::SelectAttack -> invalid index");
+			NR_Error("NR_MagicAspectSelector::SelectAttack -> invalid index");
 
 		return attackNames[currentAttackIndex];
 	}

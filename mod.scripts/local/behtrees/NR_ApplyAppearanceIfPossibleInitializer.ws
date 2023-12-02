@@ -2,7 +2,7 @@ class NR_ApplyAppearanceIfPossibleInitializer extends ISpawnTreeScriptedInitiali
 	function Init( actor : CActor ) : bool
 	{
 		if ( actor.HasTag('nr_master_cat') ) {
-			NRD("NR_ApplyAppearanceIfPossibleInitializer: DLC = " + theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals'));
+			NR_Debug("NR_ApplyAppearanceIfPossibleInitializer: DLC = " + theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals'));
 			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
 				actor.ApplyAppearance( 'cat_08' );
 		}

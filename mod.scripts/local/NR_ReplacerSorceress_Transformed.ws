@@ -20,7 +20,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 
 		transformNPC = theGame.GetNPCByTag('NR_TRANSFORM_NPC');
 		if (!transformNPC) {
-			NRE("Leaving NR_Transformed: null transformNPC!");
+			NR_Error("Leaving NR_Transformed: null transformNPC!");
 			GotoState('Exploration');
 		}
 		MAC = (CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent();
@@ -73,10 +73,10 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		bubbleTemplate = (CEntityTemplate)LoadResource("nr_breathing_bubble");
 		breathingBubble = (NR_BreathingBubble)theGame.CreateEntity(bubbleTemplate, transformNPC.GetWorldPosition());
 		if ( !breathingBubble ) {
-			NRE("NR_Transformed: can't load bubble!");
+			NR_Error("NR_Transformed: can't load bubble!");
 		}
 		if ( !breathingBubble.CreateAttachment(transformNPC, 'head') ) {
-			NRE("NR_Transformed: can't attach bubble!");
+			NR_Error("NR_Transformed: can't attach bubble!");
 		}
 		breathingBubble.Init(0.25f, 2.f);
 
@@ -102,12 +102,12 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 
 	event OnAnimEvent_JumpEnd( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
 	{
-		//NRD("OnAnimEvent_JumpEnd: " + GetAnimNameFromEventAnimInfo(animInfo));
+		//NR_Debug("OnAnimEvent_JumpEnd: " + GetAnimNameFromEventAnimInfo(animInfo));
 		jumpEndEvent = true;
 	}
 	event OnAnimEvent_AttackEnd( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
 	{
-		//NRD("OnAnimEvent_AttackEnd");
+		//NR_Debug("OnAnimEvent_AttackEnd");
 		attackEndEvent = true;
 	}
 
@@ -115,8 +115,8 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		if (MAC.GetSubmergeDepth() + /* MAC.GetCapsuleHeight()*/ 0.4f < 0.f) {
 			if (!IN_WATER) {
 				breathingBubble.Activate();
-				NRD("GetCurrentGameState: " + theSound.GetCurrentGameState());
-				NRD("GetDefaultGameState: " + theSound.GetCurrentGameState());
+				NR_Debug("GetCurrentGameState: " + theSound.GetCurrentGameState());
+				NR_Debug("GetDefaultGameState: " + theSound.GetCurrentGameState());
 				MAC.SetDiving(true);
 				theSound.EnterGameState( ESGS_Underwater );
 				theSound.SoundEvent("fx_underwater_on");
@@ -125,8 +125,8 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		} else {
 			if (IN_WATER) {
 				breathingBubble.Deactivate();
-				NRD("GetCurrentGameState: " + theSound.GetCurrentGameState());
-				NRD("GetDefaultGameState: " + theSound.GetCurrentGameState());
+				NR_Debug("GetCurrentGameState: " + theSound.GetCurrentGameState());
+				NR_Debug("GetDefaultGameState: " + theSound.GetCurrentGameState());
 				MAC.SetDiving(false);
 				theSound.LeaveGameState( ESGS_Underwater );
 				thePlayer.SoundEvent("g_swim_emerge");
@@ -166,7 +166,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 			}
 
 			if (pos.Z > groundZ + 0.25f) {
-				// NRD("Suspecting in air: posZ = " + pos.Z + ", groundZ = " + groundZ);
+				// NR_Debug("Suspecting in air: posZ = " + pos.Z + ", groundZ = " + groundZ);
 				IN_FALL = true;
 				return;
 			}
@@ -182,14 +182,14 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		attackEndEvent = false;
 
 		if ( !transformNPC.GetRootAnimatedComponent().RaiseBehaviorEvent( 'Taunt' ) ) {
-			NRE("AttackLoop: can't raise beh event: Taunt");
+			NR_Error("AttackLoop: can't raise beh event: Taunt");
 			IN_ATTACK = false;
 			return;
 		}
 		
 		startTime = theGame.GetEngineTimeAsSeconds();
 
-		NRD("AttackLoop: alternate = " + alternate + ", start at: " + startTime);
+		NR_Debug("AttackLoop: alternate = " + alternate + ", start at: " + startTime);
 		while (true) {
 			SleepOneFrame();
 			frameTime = theGame.GetEngineTimeAsSeconds();
@@ -224,7 +224,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		if (inJump) {
 			transformNPC.SetBehaviorVariable( 'NR_SmallJump', (float)isRunning );
 			if ( !transformNPC.GetRootAnimatedComponent().RaiseBehaviorEvent( 'Jump' ) ) {
-				NRE("JumpLoop: can't raise beh event: Jump");
+				NR_Error("JumpLoop: can't raise beh event: Jump");
 				IN_JUMP = false;
 				MAC.SetAnimatedMovement( false ); // set animated
 				return;
@@ -239,7 +239,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 
 		startTime = theGame.GetEngineTimeAsSeconds();
 		prevFrameTime = theGame.GetEngineTimeAsSeconds();
-		NRD("JumpLoop: IN_JUMP = " + IN_JUMP + ", start at: " + startTime);
+		NR_Debug("JumpLoop: IN_JUMP = " + IN_JUMP + ", start at: " + startTime);
 
 		while (true) {
 			SleepOneFrame();
@@ -255,7 +255,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 				} else {
 					if (frameTime - startTime > MAX_JUMP_DURATION * theGame.GetTimeScale() * transformNPC.GetAnimationTimeMultiplier()) {
 						// hack hack...
-						NRE("JumpLoop: HACK jumpEndEvent!");
+						NR_Error("JumpLoop: HACK jumpEndEvent!");
 						jumpEndEvent = true;
 					}
 					prevFrameTime = frameTime;
@@ -275,7 +275,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 						moveZ = MaxF(-5.f, moveZ + moveZ_perSec * (frameTime - prevFrameTime) * 0.25f);
 					else
 						moveZ = MaxF(-20.f, moveZ + moveZ_perSec * (frameTime - prevFrameTime));
-					NRD("JumpLoop: continue falling, posZ = " + pos.Z + ", groundZ = " + outPos.Z + ", moveZ = " + moveZ);
+					NR_Debug("JumpLoop: continue falling, posZ = " + pos.Z + ", groundZ = " + outPos.Z + ", moveZ = " + moveZ);
 					// A bit of physics: U_max = sqrt(2P / c q S) = sqrt(2*40 / 1*1.29*0.1) = 600 m/s
 					moveVec = VecNormalize2D( transformNPC.GetHeadingVector() );
 					
@@ -286,7 +286,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 				} else {
 					// stop falling
 					// @ DAMAGE
-					NRD("JumpLoop: finish fall: dist = " + (maxPos.Z - pos.Z) + ", time = " + (frameTime - startTime) + " s");
+					NR_Debug("JumpLoop: finish fall: dist = " + (maxPos.Z - pos.Z) + ", time = " + (frameTime - startTime) + " s");
 					MAC.SetAnimatedMovement( false ); // set animated
 
 					ticket = movementAdjustor.CreateNewRequest( 'NR_TRANSFORM_Land_Adjustment' );
@@ -415,9 +415,9 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 			angleL = AngleNormalize( angleToReach - npcHeadingAngle );  // if rotate counterclockwise (Left)
 
 			if (numAxises > 1) {
-				NRD("RL = " + RL + ", FB = " + FB + ", sumAngle = " + sumAngle + ", angleToReach = " + angleToReach + ", angleR = " + angleR + ", angleL = " + angleL);
+				NR_Debug("RL = " + RL + ", FB = " + FB + ", sumAngle = " + sumAngle + ", angleToReach = " + angleToReach + ", angleR = " + angleR + ", angleL = " + angleL);
 			}
-			//NRD("camHeadingAngle = " + theCamera.GetCameraHeading() + ", angleToReach = " + angleToReach + ", npcHeadingAngle = " + npcHeadingAngle + ", angleR = " + angleR + ", angleL = " + angleL);
+			//NR_Debug("camHeadingAngle = " + theCamera.GetCameraHeading() + ", angleToReach = " + angleToReach + ", npcHeadingAngle = " + npcHeadingAngle + ", angleR = " + angleR + ", angleL = " + angleL);
 
 			if (MinF(angleR, angleL) < 30.f) { // if diff is small no need in rotating
 				Editor_MovementRotation = 0.f;
@@ -473,10 +473,10 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		// Pass to base class
 		super.OnLeaveState(nextStateName);
 
-		if( nextStateName == 'PlayerDialogScene') {
-			NRD("NR_Transformed: TO SCENE!");
+		if ( nextStateName == 'PlayerDialogScene') {
+			NR_Debug("NR_Transformed: TO SCENE!");
 		}
-		NRD("NR_Transformed: " + nextStateName);
+		NR_Debug("NR_Transformed: " + nextStateName);
 
 		///theInput.RestoreContext('Exploration', true);
 	}
@@ -498,7 +498,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 	// TODO: Check why it here?
 	public function SetupCombatAction( action : EBufferActionType, stage : EButtonStage )
 	{
-		NRD("NR_Transformed: SetupCombatAction: " + action + ", stage: " + stage);
+		NR_Debug("NR_Transformed: SetupCombatAction: " + action + ", stage: " + stage);
 		virtual_parent.SetupCombatAction(action, stage);
 	}
 

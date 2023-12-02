@@ -28,7 +28,7 @@ quest function NR_ChangePlayer_Q() {
         return;
 
     newPlayerType = (ENR_PlayerType)FactsQuerySum("nr_scene_player_change_type");
-    NRD("NR_ChangePlayer_Q: scene change to -> " + newPlayerType);
+    NR_Debug("NR_ChangePlayer_Q: scene change to -> " + newPlayerType);
     NR_ChangePlayer(newPlayerType);
     FactsRemove("nr_scene_player_change_type"); 
 }
@@ -153,13 +153,13 @@ latent quest function NR_UseCrossStoneBossSpider_Q() {
     npc.AddTag('fairytale_witch');  // hack for CBehTreeTaskCSEffect.CanSwimOrFly to avoid killing
     npc.AddTag('nr_cross_stone_entity');
     npc.AddTag('nr_cross_stone_boss_spider');
-    npc.SetLevel( Max(1, thePlayer.GetLevel() - 5) );
-    npc.SetAnimationSpeedMultiplier( 1.2f );
+    npc.SetLevel( Max(1, thePlayer.GetLevel() - 10) );
+    npc.SetAnimationSpeedMultiplier( 1.1f );
     npc.SetImmortalityMode( AIM_Immortal, AIC_Combat );
     npc.SetImmortalityMode( AIM_Immortal, AIC_Default );
     npc.SetImmortalityMode( AIM_Immortal, AIC_Fistfight );
     npc.SetImmortalityMode( AIM_Immortal, AIC_IsAttackableByPlayer );
-    NRD("Check1 = " + theGame.GetActorByTag('nr_cross_stone_boss_spider'));
+    NR_Debug("Check1 = " + theGame.GetActorByTag('nr_cross_stone_boss_spider'));
 }
 
 latent quest function NR_UseCrossStone_Q() {
@@ -183,7 +183,7 @@ latent quest function NR_UseCrossStone_Q() {
     // 1 = player, 2 = auto, 3 = scene (longer activation)
 
     skillsLearned = FactsQuerySum("nr_magic_skill_learned");
-    NRD("NR_UseCrossStone_Q, skillsLearned = " + skillsLearned + " triggerType = " + triggerType);
+    NR_Debug("NR_UseCrossStone_Q, skillsLearned = " + skillsLearned + " triggerType = " + triggerType);
 
     teleportTemplate = (CEntityTemplate)LoadResourceAsync("dlc/dlcnewreplacers/data/entities/magic/ft_teleport/nr_q109_keira_teleport_red.w2ent", true);
     crossTemplate = (CEntityTemplate)LoadResourceAsync("dlc/dlcnewreplacers/data/entities/nr_cross_effect.w2ent", true);
@@ -296,7 +296,7 @@ latent quest function NR_UseCrossStone_Q() {
         npc.AddTag('fairytale_witch');  // hack for CBehTreeTaskCSEffect.CanSwimOrFly to avoid killing
         entityLevel = Max(1, thePlayer.GetLevel() - levelReduct + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
-        NRD("NR_UseCrossStone_Q: Spawn npc tier1[" + i + "] = (" + idx + ")(" + pidx + ") = " + npc);
+        NR_Debug("NR_UseCrossStone_Q: Spawn npc tier1[" + i + "] = (" + idx + ")(" + pidx + ") = " + npc);
         Sleep(0.2f);
     }
 
@@ -311,7 +311,7 @@ latent quest function NR_UseCrossStone_Q() {
         npc.AddTag('fairytale_witch');  // hack for CBehTreeTaskCSEffect.CanSwimOrFly to avoid killing
         entityLevel = Max(1, thePlayer.GetLevel() - levelReduct - 2 + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
-        NRD("NR_UseCrossStone_Q: Spawn npc tier2[" + i + "] = (" + idx + ")(" + pidx + ") = " + npc);
+        NR_Debug("NR_UseCrossStone_Q: Spawn npc tier2[" + i + "] = (" + idx + ")(" + pidx + ") = " + npc);
         Sleep(0.2f);
     }
 }
@@ -325,7 +325,7 @@ latent quest function NR_SpawnMeteorsAtEntity_Q(entityTag : name, meteorsNum : i
 
     entity = theGame.GetEntityByTag(entityTag);
     if (!entity) {
-        NRE("NR_SpawnMeteorsAtEntity_Q: No entity!");
+        NR_Error("NR_SpawnMeteorsAtEntity_Q: No entity!");
         return;
     }
     meteorTemplate = (CEntityTemplate)LoadResourceAsync("dlc/dlcnewreplacers/data/entities/magic/meteor/nr_eredin_meteor_blue.w2ent", true);
@@ -337,7 +337,7 @@ latent quest function NR_SpawnMeteorsAtEntity_Q(entityTag : name, meteorsNum : i
         meteor.Init( thePlayer );
         meteor.ShootProjectileAtPosition( meteor.projAngle, meteor.projSpeed, pos, 500.f, NR_GetStandartCollisionNames() );
         meteor.DestroyAfter(10.f);
-        NRD("NR_SpawnMeteorsAtEntity_Q[" + i + "] = " + meteor);
+        NR_Debug("NR_SpawnMeteorsAtEntity_Q[" + i + "] = " + meteor);
         Sleep(intervalSec);
     }
 }
@@ -397,13 +397,13 @@ latent quest function NR_SaveGameAndWait(type : string, slot : int, wait : float
 latent function NR_PlaySound( bankName : string, eventName : string, optional saveType : string ) {
     if ( !theSound.SoundIsBankLoaded(bankName) ) {
         theSound.SoundLoadBank(bankName, /*async*/ true);
-        NRD("NR_PlaySound: Loading bank [" + bankName + "]");
+        NR_Debug("NR_PlaySound: Loading bank [" + bankName + "]");
         while ( !theSound.SoundIsBankLoaded(bankName) ) {
             SleepOneFrame();
         }
-        NRD("NR_PlaySound: Loaded bank [" + bankName + "]");
+        NR_Debug("NR_PlaySound: Loaded bank [" + bankName + "]");
     }
-    NRD("NR_PlaySound: bnk [" + bankName + "], event [" + eventName + "], saveType [" + saveType + "]");
+    NR_Debug("NR_PlaySound: bnk [" + bankName + "], event [" + eventName + "], saveType [" + saveType + "]");
 
     switch (saveType) {
         case "SESB_Save":
@@ -449,14 +449,20 @@ quest function NR_IsInCombatCond_Q( actorTag : name ) : bool {
 
     actor = (CActor)theGame.GetEntityByTag(actorTag);
     if (!actor) {
-        NRE("NR_IsInCombat_Q: actor [" + actorTag + "] not found!");
+        NR_Error("NR_IsInCombat_Q: actor [" + actorTag + "] not found!");
         return false;
     }
     return actor.IsInCombat();
 }
 
-quest function NR_IsInSceneCond_Q( actorTag : name ) : bool {
-    return theGame.IsCurrentlyPlayingNonGameplayScene();
+quest function NR_IsInSceneCond_Q(optional checkGameplayScene : bool) : bool {
+    if ( theGame.IsDialogOrCutscenePlaying() )
+        return true;
+
+    if ( checkGameplayScene && thePlayer.IsInGameplayScene() ) {
+        return true;
+    }
+    return false;
 }
 
 latent quest function NR_SwitchMusLocShip_Q() {
@@ -496,12 +502,12 @@ quest function NR_PlayEffectWithTargetComp_Q( entityTag : name, effectName : nam
     
     target = theGame.GetEntityByTag(targetTag);
     if (!target) {
-        NRE("NR_PlayEffectWithTargetComp_Q: No target found with tag [" + targetTag + "]");
+        NR_Error("NR_PlayEffectWithTargetComp_Q: No target found with tag [" + targetTag + "]");
         return;
     }
     comp = target.GetComponent(compName);
     if (!comp) {
-        NRE("NR_PlayEffectWithTargetComp_Q: No comp [" + compName + "] found in entity [" + targetTag + "]");
+        NR_Error("NR_PlayEffectWithTargetComp_Q: No comp [" + compName + "] found in entity [" + targetTag + "]");
         return;
     }
 
@@ -511,7 +517,7 @@ quest function NR_PlayEffectWithTargetComp_Q( entityTag : name, effectName : nam
         if (activate)
         {
             res = entities[i].PlayEffect(effectName, comp);
-            NRD("NR_PlayEffectWithTargetComp_Q: PlayEffect(" + effectName + ", " + comp + ") = " + res);
+            NR_Debug("NR_PlayEffectWithTargetComp_Q: PlayEffect(" + effectName + ", " + comp + ") = " + res);
         }
         else
         {
@@ -525,7 +531,7 @@ quest function NR_ToogleEffect_Q( entityTag : name, effectName : name ) {
 
     entity = theGame.GetEntityByTag( entityTag );
     if ( !entity ) {
-        NRE("NR_ToogleEffect_Q: no entity [" + entityTag + "] found!");
+        NR_Error("NR_ToogleEffect_Q: no entity [" + entityTag + "] found!");
     }
     if ( entity.IsEffectActive(effectName) ) {
         entity.StopEffect(effectName);
@@ -539,12 +545,12 @@ quest function NR_IsNearTargetCond_Q( entityTag : name, targetTag : name, maxDis
 
     entity = theGame.GetEntityByTag( entityTag );
     if ( !entity ) {
-        NRE("NR_IsNearTargetCond_Q: no entity [" + entityTag + "] found!");
+        NR_Error("NR_IsNearTargetCond_Q: no entity [" + entityTag + "] found!");
         return false;
     }
     target = theGame.GetEntityByTag( targetTag );
     if ( !target ) {
-        NRE("NR_IsNearTargetCond_Q: no target [" + targetTag + "] found!");
+        NR_Error("NR_IsNearTargetCond_Q: no target [" + targetTag + "] found!");
         return false;
     }
     return VecDistance(entity.GetWorldPosition(), target.GetWorldPosition()) <= maxDistance;
@@ -565,13 +571,13 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
     
     target = (CActor)theGame.GetEntityByTag(tag);
     if (!target) {
-        NRE("NR_PlayHeadEffect: no actor with tag [" + tag + "]");
+        NR_Error("NR_PlayHeadEffect: no actor with tag [" + tag + "]");
         return;
     }
     inv = target.GetInventory();
     headIds = inv.GetItemsByCategory('head');
     if (headIds.Size() == 0) {
-        NRE("NR_PlayHeadEffect: no head category items in actor [" + tag + "]");
+        NR_Error("NR_PlayHeadEffect: no head category items in actor [" + tag + "]");
         return;
     }
     
@@ -584,17 +590,17 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
         
         headId = headIds[i];
                 
-        if(!inv.IsIdValid( headId ))
+        if (!inv.IsIdValid( headId ))
         {
-            NRD("NR_PlayHeadEffect: invalid head item id [" + i + "]");
+            NR_Debug("NR_PlayHeadEffect: invalid head item id [" + i + "]");
             continue;
         }
         
         head = inv.GetItemEntityUnsafe( headId );
         
-        if( !head )
+        if ( !head )
         {
-            NRD("NR_PlayHeadEffect: null head entity [" + i + "]");
+            NR_Debug("NR_PlayHeadEffect: null head entity [" + i + "]");
             continue;
         }
 
@@ -602,7 +608,7 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
         {
             if ( head.IsEffectActive( effect ) ) {
                 head.StopEffect( effect );
-                NRD("NR_PlayHeadEffect: stop head effect: " + effect + " [" + i + "]");
+                NR_Debug("NR_PlayHeadEffect: stop head effect: " + effect + " [" + i + "]");
             }
         }
         else
@@ -610,7 +616,7 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
             if ( head.IsEffectActive( effect ) )    
                 head.StopEffect( effect );          
             head.PlayEffect( effect );
-            NRD("NR_PlayHeadEffect: play head effect: " + effect + " [" + i + "]");
+            NR_Debug("NR_PlayHeadEffect: play head effect: " + effect + " [" + i + "]");
         }
     }
 }
@@ -624,7 +630,7 @@ quest function NR_SetSceneBlockActive_Q( questPath : name, sceneBlockId : int, a
     var startTime : float = theGame.GetEngineTimeAsSeconds();
 
     NR_GetPlayerManager().SetSceneBlockActive(questPath, sceneBlockId, active);
-    NRD("NR_SetSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
+    NR_Debug("NR_SetSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
 }
 
 // sceneBlockId = always NR-modded scene block
@@ -633,7 +639,7 @@ quest function NR_IsSceneBlockActive_Q( questPath : name, sceneBlockId : int ) :
     var startTime : float = theGame.GetEngineTimeAsSeconds();
     
     active = NR_GetPlayerManager().IsSceneBlockActive( questPath, sceneBlockId );
-    NRD("NR_IsSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
+    NR_Debug("NR_IsSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
     return active;
 }
 
@@ -682,7 +688,7 @@ latent quest function NR_ProcessMasterThunder_Q() {
     }
 
     for (i = 0; i < lightningEntities.Size(); i += 1) {
-        NRD("Stop effects: [" + i + "] " + lightningEntities[i]);
+        NR_Debug("Stop effects: [" + i + "] " + lightningEntities[i]);
         lightningEntities[i].StopAllEffects();
         lightningEntities[i].DestroyAfter(5.f);
     }
@@ -701,30 +707,30 @@ quest function NR_ProcessSorceressFlowFx_Q() {
     // R: water = 1, earth = 2, fire = 4, air = 8
     // L: water = 16, earth = 32, fire = 64, air = 128
     if (factVal & 1) {
-        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_water_r");
+        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_water_r");
         thePlayer.PlayEffect('energy_flow_water_r', golemComp);
     } else if (factVal & 2) {
-        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_r");
+        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_r");
         thePlayer.PlayEffect('energy_flow_ground_r', golemComp);
     } else if (factVal & 4) {
-        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_r");
+        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_r");
         thePlayer.PlayEffect('energy_flow_fire_r', golemComp);
     } else if (factVal & 8) {
-        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_air_r");
+        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_air_r");
         thePlayer.PlayEffect('energy_flow_air_r', golemComp);
     }
 
     if (factVal & 16) {
-        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_water_l");
+        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_water_l");
         thePlayer.PlayEffect('energy_flow_water_l', golemComp);
     } else if (factVal & 32) {
-        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_l");
+        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_l");
         thePlayer.PlayEffect('energy_flow_ground_l', golemComp);
     } else if (factVal & 64) {
-        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_l");
+        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_l");
         thePlayer.PlayEffect('energy_flow_fire_l', golemComp);
     } else if (factVal & 128) {
-        NRD("NR_ProcessSorceressFlowFx_Q: energy_flow_air_l");
+        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_air_l");
         thePlayer.PlayEffect('energy_flow_air_l', golemComp);
     }
 }
@@ -741,16 +747,16 @@ quest function NR_ProcessGolemMorph_Q() {
         return;
     }
     components = golem.GetComponentsByClassName('CMorphedMeshManagerComponent');
-    NRD("NR_ProcessGolemMorph_Q: Celestine app = " + golem.GetAppearance());
+    NR_Debug("NR_ProcessGolemMorph_Q: Celestine app = " + golem.GetAppearance());
     if (components.Size() == 0) {
-        NRD("NR_ProcessGolemMorph_Q: [ERROR] Not found morph managers for " + golem);
+        NR_Debug("NR_ProcessGolemMorph_Q: [ERROR] Not found morph managers for " + golem);
     }
     for (j = 0; j < components.Size(); j += 1) {
         manager = (CMorphedMeshManagerComponent) components[j];
         if (manager) {
-            NRD("NR_ProcessGolemMorph_Q: [Info] Current morph ratio: " + manager.GetMorphBlend());
+            NR_Debug("NR_ProcessGolemMorph_Q: [Info] Current morph ratio: " + manager.GetMorphBlend());
             manager.SetMorphBlend( ratio, blendTime );
-            NRD("NR_ProcessGolemMorph_Q: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blendTime + " sec");
+            NR_Debug("NR_ProcessGolemMorph_Q: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blendTime + " sec");
         }
     }
 }
@@ -761,7 +767,7 @@ latent quest function NR_SpawnHostileEntity_Q(path : String, relativeLevel : int
 
     template = (CEntityTemplate)LoadResourceAsync(path, true);
     if (!template) {
-        NRD("NR_SpawnHostileEntity_Q: !template: " + path);
+        NR_Debug("NR_SpawnHostileEntity_Q: !template: " + path);
         return;
     }
     npc = (CNewNPC)theGame.CreateEntity(template, Vector(x,y,z), EulerAngles(0.f, yaw, 0.f));

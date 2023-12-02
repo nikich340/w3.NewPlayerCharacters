@@ -43,7 +43,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		if ( !target ) {
 			for (i = 0; i < actors.Size(); i += 1) {
 				targetAngle = VecGetAngleBetween(thePlayer.GetHeadingVector(), actors[i].GetWorldPosition() - thePlayer.GetWorldPosition());
-				NRD("Control: filter actor: [" + i + "], vecAngle: " + targetAngle);
+				NR_Debug("Control: filter actor: [" + i + "], vecAngle: " + targetAngle);
 				if ( !actors[i].HasTag('NR_SpecialControl') 
 					&& minAngle > targetAngle ) 
 				{
@@ -55,7 +55,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 				target = actors[targetIdx];
 			}
 		}*/
-		NRD("Final target: " + target);
+		NR_Debug("Final target: " + target);
 
 		if (target) {
 			// from AddMagic17Effect
@@ -84,12 +84,12 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		entityTemplate = (CEntityTemplate)LoadResourceAsync("quests\part_1\quest_files\q203_him\entities\q203_geralt_head_component.w2ent", true);
 		dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
 		if (!dummyEntity) {
-			NRE("Control: NULL dummyEntity.");
+			NR_Error("Control: NULL dummyEntity.");
 		}
 		if ( target ) {
 			if ( !dummyEntity.CreateAttachment( target, 'head' ) ) {
 				dummyEntity.CreateAttachment( target );
-				NRD("Can't attach dummy to head slot: " + target);
+				NR_Debug("Can't attach dummy to head slot: " + target);
 			}
 		}
 		thePlayer.PlayEffect('mind_control', dummyEntity);
@@ -132,7 +132,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			bonusAbilityName = thePlayer.GetSkillAbilityName(S_Magic_s05);
 			npc.AddAbility(bonusAbilityName, true);
 			npc.SetLevel(npc.GetLevel() + 3);
-			NRD("Control: bonusAbilityName = " + bonusAbilityName);
+			NR_Debug("Control: bonusAbilityName = " + bonusAbilityName);
 		}			
 
 		if (npc.IsHorse())
@@ -169,7 +169,7 @@ state Active in NR_MagicSpecialControl {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("OnEnterState: " + this);
+		NR_Debug("OnEnterState: " + this);
 		parent.inPostState = true;
 		RunWait();
 	}
@@ -179,7 +179,7 @@ state Active in NR_MagicSpecialControl {
 		var npc 		: CNewNPC;
 
 		Sleep( 0.5f );
-		//NRD("EnableManualCameraControl: " + this);
+		//NR_Debug("EnableManualCameraControl: " + this);
 		npc = (CNewNPC)parent.target;
 		thePlayer.StopEffect('mind_control');
 
@@ -190,7 +190,7 @@ state Active in NR_MagicSpecialControl {
 
 			startTime = theGame.GetEngineTimeAsSeconds();
 			// wait for time exceed or NPC's death
-			while( npc.IsAlive() && GetLocalTime() < parent.s_lifetime ) {
+			while ( npc.IsAlive() && GetLocalTime() < parent.s_lifetime ) {
 				Sleep(0.2f);
 			}
 
@@ -214,20 +214,20 @@ state Active in NR_MagicSpecialControl {
 				Sleep( parent.s_lifetime );
 			}
 		} else {
-			NRD("NULL target: " + this);
+			NR_Debug("NULL target: " + this);
 		}
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("OnLeaveState: " + this);
+		NR_Debug("OnLeaveState: " + this);
 	}
 }
 
 state Stop in NR_MagicSpecialControl {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("OnEnterState: " + this);
+		NR_Debug("OnEnterState: " + this);
 		parent.inPostState = true;
 		Stop();
 	}
@@ -243,7 +243,7 @@ state Stop in NR_MagicSpecialControl {
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("OnLeaveState: " + this);
+		NR_Debug("OnLeaveState: " + this);
 		// can be removed from cached/cursed actions
 		parent.inPostState = false;
 	}
@@ -252,7 +252,7 @@ state Stop in NR_MagicSpecialControl {
 state Cursed in NR_MagicSpecialControl {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("OnEnterState: " + this);
+		NR_Debug("OnEnterState: " + this);
 		parent.inPostState = true;
 		Curse();
 	}
@@ -279,6 +279,6 @@ state Cursed in NR_MagicSpecialControl {
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("OnLeaveState: " + this);
+		NR_Debug("OnLeaveState: " + this);
 	}
 }

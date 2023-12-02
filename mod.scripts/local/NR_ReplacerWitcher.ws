@@ -19,54 +19,9 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		return false;
 	}
 
-	// TODO: remove this!
-	function printInv() {
-		var inv : CInventoryComponent;
-		var ids : array<SItemUniqueId>;
-		var i, j : int;
-		var result : String;
-		var equippedOnSlot : EEquipmentSlots;
-		var tags : array<name>;
-
-		inv = GetInventory();
-		inv.GetAllItems(ids);
-
-		for (i = 0; i < ids.Size(); i += 1) {
-			result = "item[" + i + "] " + inv.GetItemName(ids[i]) + ": (category " + inv.GetItemCategory(ids[i]) + ") ";
-
-			equippedOnSlot = GetItemSlot( ids[i] );
-
-			if(equippedOnSlot != EES_InvalidSlot)
-			{
-				result += "(slot " + equippedOnSlot + ") ";
-			}
-			if ( inv.IsItemHeld(ids[i]) )
-			{
-				result += "(held in: " + inv.GetItemHoldSlot(ids[i]) + ") ";
-			}
-			if ( inv.IsItemMounted(ids[i]) )
-			{
-				result += "(mounted) ";
-			}
-			if ( inv.GetItemTags(ids[i], tags) )
-			{
-				result += "{";
-				for (j = 0; j < tags.Size(); j += 1) {
-					if (j > 0) {
-						result += ", ";
-					}
-					result += tags[j];
-				}
-				result += "} ";
-				tags.Clear();
-			}
-			NRD(result);
-		}
-	}
-
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
-		NRD("OnSpawned: " + m_replacerType);
+		NR_Debug("OnSpawned: " + m_replacerType);
 		super.OnSpawned( spawnData );
 	}
 
@@ -87,17 +42,19 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		return NR_mountAllowed && super.ShouldMount(slot, item, category);
 	}*/
 
+	/*
 	event OnBlockingSceneStarted( scene: CStoryScene )
 	{
-		NR_GetPlayerManager().SetInStoryScene( true );
+		NR_GetPlayerManager().SetIsInStoryScene( true );
 		super.OnBlockingSceneStarted( scene );
 	}
 
 	event OnBlockingSceneEnded( optional output : CStorySceneOutput)
 	{
-		NR_GetPlayerManager().SetInStoryScene( false );
+		NR_GetPlayerManager().SetIsInStoryScene( false );
 		super.OnBlockingSceneEnded( output );
 	}
+	*/
 	
 	public function UnequipItemFromSlot(slot : EEquipmentSlots, optional reequipped : bool) : bool
 	{
@@ -107,10 +64,10 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		if ( !GetItemEquippedOnSlot(slot, item) )
 			return false;
 		
-		NRD("UnequipItemFromSlot: slot = " + slot + ", reequipped = " + reequipped);
+		NR_Debug("UnequipItemFromSlot: slot = " + slot + ", reequipped = " + reequipped);
 		/* IsInNonGameplayCutscene() - don't unequip armor for scenes (bath, barber etc) */
 		if ( IsInNonGameplayCutscene() ) {
-			NRD("UnequipItemFromSlot: slot = " + slot + ", ignoring (in scene).");
+			NR_Debug("UnequipItemFromSlot: slot = " + slot + ", ignoring (in scene).");
 			return false;
 		}
 
@@ -126,12 +83,12 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	public function EquipItemInGivenSlot(item : SItemUniqueId, slot : EEquipmentSlots, ignoreMounting : bool, optional toHand : bool) : bool
 	{
 		var ret : Bool;
-		NRD("EquipItemInGivenSlot: slot = " + slot + " ignoreMounting = " + ignoreMounting + ", toHand = " + toHand);
+		NR_Debug("EquipItemInGivenSlot: slot = " + slot + " ignoreMounting = " + ignoreMounting + ", toHand = " + toHand);
 		if (slot == EES_Armor || slot == EES_Boots || slot == EES_Gloves || slot == EES_Pants) {
 			ignoreMounting = true;
 		}
 		if (NR_IsSlotDenied(slot)) {
-			NRD("EquipItemInGivenSlot: slot is denied.");
+			NR_Debug("EquipItemInGivenSlot: slot is denied.");
 			return false;
 		}
 		ret = super.EquipItemInGivenSlot(item, slot, ignoreMounting, toHand);
@@ -143,7 +100,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	/* WRAPPER: TODO: Check why it here? */
 	public function SetupCombatAction( action : EBufferActionType, stage : EButtonStage )
 	{
-		NRD("NR_ReplacerWitcher: SetupCombatAction: " + action + ", stage: " + stage);
+		NR_Debug("NR_ReplacerWitcher: SetupCombatAction: " + action + ", stage: " + stage);
 		if ( !IsInState('NR_Transformed') ) {
 			super.SetupCombatAction(action, stage);
 		}

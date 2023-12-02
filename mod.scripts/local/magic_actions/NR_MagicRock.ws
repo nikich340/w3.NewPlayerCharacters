@@ -112,14 +112,14 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		spawnRot = thePlayer.GetWorldRotation();
 		dummyEntity = theGame.CreateEntity( entityTemplate, spawnPos, spawnRot );
 		//if (!dummyEntity) {
-		//	NRE("Invalid dummyEntity (" + dummyEntity + "), entityTemplate (" + entityTemplate + ")");
+		//	NR_Error("Invalid dummyEntity (" + dummyEntity + "), entityTemplate (" + entityTemplate + ")");
 		//}
 
 		dummyEntity.CreateAttachment( thePlayer );
 		dummyEntity.PlayEffect( m_fxNameExtra ); // 'blast' 'cone'
 		dummyEntity.DestroyAfter(5.f);
 
-		NRD("rock: OnPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
+		NR_Debug("rock: OnPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
 		// shoot projectiles
 		for ( i = lProjectiles.Size() - 1 ; i >= 0 ; i -= 1 ) 
 		{
@@ -280,7 +280,7 @@ state Loop in NR_MagicRock {
 			SleepOneFrame();
 			currentTime = EngineTimeToFloat(theGame.GetEngineTime());
 			if (currentTime - parent.lStartTime > 1.5f) {
-				NRE("LoopMove: Perform should have been received? Delay = " + (currentTime - parent.lStartTime));
+				NR_Error("LoopMove: Perform should have been received? Delay = " + (currentTime - parent.lStartTime));
 				parent.GotoState('Break');
 				return;
 			}

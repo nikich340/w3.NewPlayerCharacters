@@ -36,7 +36,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		s_interval = 0.25f;
 
 		resourceName = MeteorEntityName();
-		NRD("MeteorEntityName = " + resourceName);
+		NR_Debug("MeteorEntityName = " + resourceName);
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName, true);
 		
 		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
@@ -78,11 +78,11 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		else
 			pos += VecRingRand(minRange, maxRange);
 		pos = SnapToGround(pos);
-		//NRD("NR_MagicSpecialMeteorFall: Distance pos = " + VecDistance(thePlayer.GetWorldPosition(), pos) + ", dist2D = " + VecDistance2D(thePlayer.GetWorldPosition(), pos));
+		//NR_Debug("NR_MagicSpecialMeteorFall: Distance pos = " + VecDistance(thePlayer.GetWorldPosition(), pos) + ", dist2D = " + VecDistance2D(thePlayer.GetWorldPosition(), pos));
 		pos.Z += 40.f;
 		meteor = (NR_MeteorProjectile)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!meteor) {
-			NRE("NR_MagicSpecialMeteorFall: No valid meteor. resourceName = " + resourceName + ", template: " + entityTemplate);
+			NR_Error("NR_MagicSpecialMeteorFall: No valid meteor. resourceName = " + resourceName + ", template: " + entityTemplate);
 			return false;
 		}
 		pos.Z -= 40.f;
@@ -106,7 +106,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 	{
 		var typeName 	: name = map[sign].getN("style_" + ENR_MAToName(actionType));
 		var color 		: ENR_MagicColor = NR_GetActionColor();
-		NRD("MeteorEntityName: typeName = " + typeName + ", color = " + color);
+		NR_Debug("MeteorEntityName: typeName = " + typeName + ", color = " + color);
 
 		return "dlc/dlcnewreplacers/data/entities/magic/meteor/nr_" + NameToString(typeName) + "_meteor_" + ENR_MCToStringShort(color) + ".w2ent";
 	}
@@ -121,7 +121,7 @@ state Active in NR_MagicSpecialMeteorFall {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Active: OnEnterState: " + this);
+		NR_Debug("Active: OnEnterState: " + this);
 		startTime = theGame.GetEngineTimeAsSeconds();
 		parent.inPostState = true;
 		RunWait();
@@ -133,7 +133,7 @@ state Active in NR_MagicSpecialMeteorFall {
 		while (parent.s_lifetime > 0.f) {
 			parent.s_lifetime -= parent.s_interval;
 			Sleep(parent.s_interval);
-			NRD("Active: ShootMeteor, s_lifetime = " + parent.s_lifetime);
+			NR_Debug("Active: ShootMeteor, s_lifetime = " + parent.s_lifetime);
 			for (i = 0; i < parent.s_meteorNum; i += 1) {
 				parent.ShootMeteor(/*cursed*/ false, thePlayer.GetWorldPosition());
 			}
@@ -143,14 +143,14 @@ state Active in NR_MagicSpecialMeteorFall {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Active: OnLeaveState: " + this);
+		NR_Debug("Active: OnLeaveState: " + this);
 	}
 }
 
 state Cursed in NR_MagicSpecialMeteorFall {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Cursed: OnEnterState: " + this);
+		NR_Debug("Cursed: OnEnterState: " + this);
 		parent.inPostState = true;
 		Curse();
 	}
@@ -175,7 +175,7 @@ state Cursed in NR_MagicSpecialMeteorFall {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Cursed: OnLeaveState: " + this);
+		NR_Debug("Cursed: OnLeaveState: " + this);
 	}
 }
 
@@ -183,13 +183,13 @@ state Cursed in NR_MagicSpecialMeteorFall {
 state Stop in NR_MagicSpecialMeteorFall {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Stop: OnEnterState: " + this);
+		NR_Debug("Stop: OnEnterState: " + this);
 		parent.inPostState = false;
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Stop: OnLeaveState: " + this);
+		NR_Debug("Stop: OnLeaveState: " + this);
 		// can be removed from cached/cursed actions TODO CHECK
 		parent.inPostState = false;
 	}

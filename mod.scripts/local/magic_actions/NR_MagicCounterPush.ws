@@ -37,7 +37,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_keira_metz_cast");
 		aardEntity = (W3AardEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!aardEntity) {
-			NRE("aardEntity is not valid.");
+			NR_Error("aardEntity is not valid.");
 			return OnPrepared(false);
 		}
 
@@ -57,7 +57,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		
 		aardProjectile = (NR_AardProjectile)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!aardProjectile) {
-			NRE("aardProjectile is not valid.");
+			NR_Error("aardProjectile is not valid.");
 			return OnPrepared(false);
 		}
 
@@ -116,7 +116,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 
 		/*
 		if (aardProjectile.useSlowdown) {
-			NRD("AARD: Add ProcessSlowdown timer");
+			NR_Debug("AARD: Add ProcessSlowdown timer");
 			aardProjectile.AddTimer('ProcessSlowdownTimer', 1.5f, false, , , true);
 		}
 		*/

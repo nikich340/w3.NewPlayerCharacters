@@ -161,9 +161,9 @@ exec function nrCross() {
 	var entity : CEntity;
 	entityTemplate = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\nr_cross_effect.w2ent", true);
 	entity = theGame.CreateEntity(entityTemplate, thePlayer.GetWorldPosition() + Vector(0,0,1.5f), thePlayer.GetWorldRotation());
-	NRD("nrCross: entityTemplate = " + entityTemplate + ", enttiy = " + entity);
+	NR_Debug("nrCross: entityTemplate = " + entityTemplate + ", enttiy = " + entity);
 	if (entity) {
-		NRD("nrCross: PlayEffect = " + entity.PlayEffect('cross'));
+		NR_Debug("nrCross: PlayEffect = " + entity.PlayEffect('cross'));
 	}
 }
 
@@ -188,9 +188,9 @@ exec function nrMoveTo(pointNum : int) {
 	}
 	points.PushBack(Vector(-278.8874206543, -313.2870178223, 40.0178413391));
 	points.PushBack(Vector(-286.2327575684, -307.2341308594, 40.1103897095));
-	NRD("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
+	NR_Debug("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
 	npc.ActionCancelAll();
-	NRD("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
+	NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
 	NR_Notify("nrMoveTo1 = " + npc.ActionMoveToAsync(points[pointNum]));
 }
 exec function nrMoveTo2(pointNum : int) {
@@ -205,9 +205,9 @@ exec function nrMoveTo2(pointNum : int) {
 	}
 	points.PushBack(Vector(-278.8874206543, -313.2870178223, 40.0178413391));
 	points.PushBack(Vector(-286.2327575684, -307.2341308594, 40.1103897095));
-	NRD("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
+	NR_Debug("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
 	npc.ActionCancelAll();
-	NRD("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
+	NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
 	NR_Notify("nrMoveTo2 = " + npc.ActionMoveOnCurveToAsync(points[pointNum], 10.f, true));
 }
 exec function nrMoveTo3(pointNum : int) {
@@ -225,7 +225,7 @@ exec function nrMoveTo3(pointNum : int) {
 		return;
 	}
 	npc.ActionCancelAll();
-	NRD("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
+	NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
 	NR_Notify("nrMoveTo3 = " + npc.ActionMoveCustomAsync(targeter));
 }
 
@@ -252,6 +252,70 @@ exec function nrTemp() {
 	NR_GetMagicManager().SetDefaults_Special();
 	NR_GetMagicManager().SetDefaults_SpecialAlt();
 	NR_Notify("Temp script done");
+}
+
+exec function nrAllSkills() {
+	FactsAdd("nr_magic_skill_ENR_HandFx", 1);
+	FactsAdd("nr_magic_skill_ENR_Teleport", 1);
+	FactsAdd("nr_magic_skill_ENR_CounterPush", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialLumos", 1);
+	FactsAdd("nr_magic_skill_ENR_LightAbstract", 1);
+	FactsAdd("nr_magic_skill_ENR_Slash", 1);
+	FactsAdd("nr_magic_skill_ENR_ThrowAbstract", 1);
+	FactsAdd("nr_magic_skill_ENR_Lightning", 1);
+	FactsAdd("nr_magic_skill_ENR_ProjectileWithPrepare", 1);
+	
+	FactsAdd("nr_magic_skill_ENR_BombExplosion", 1);
+	FactsAdd("nr_magic_skill_ENR_Rock", 1);
+	FactsAdd("nr_magic_skill_ENR_RipApart", 1);
+	FactsAdd("nr_magic_skill_ENR_HeavyAbstract", 1);
+	FactsAdd("nr_magic_skill_ENR_FastTravelTeleport", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialShield", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialTornado", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialControl", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialMeteor", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialServant", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialLightningFall", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialField", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialMeteorFall", 1);
+	FactsAdd("nr_magic_skill_ENR_SpecialPolymorphism", 1);
+
+	NR_GetMagicManager().SetActionSkillLevel(ENR_HandFx, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Teleport, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_CounterPush, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialLumos, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_LightAbstract, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Slash, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_ThrowAbstract, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Lightning, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_ProjectileWithPrepare, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_BombExplosion, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Rock, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_RipApart, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_HeavyAbstract, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_FastTravelTeleport, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialShield, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialTornado, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialControl, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialMeteor, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialServant, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialLightningFall, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialField, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialMeteorFall, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialPolymorphism, 1);
+
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialField, "Pursuit");
+
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "TwoServants");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Barghest");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Endriaga");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Arachnomorph");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Arachas");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Followers");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Gargoyle");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "EarthElemental");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "IceElemental");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "FireElemental");
 }
 
 exec function nrMasterBarrier(enable : bool) {
@@ -328,26 +392,6 @@ exec function nrElement(element : int) {
 	NR_GetMagicManager().SetParamInt('universal', "magic_skill_element", element);
 }
 
-exec function nrUnlock() {
-	var 	skillsList : array<String>;
-	var  	i : int;
-	skillsList = NR_GetMagicManager().GetMagicSkillsList();
-
-	for (i = 0; i < skillsList.Size(); i += 1) {
-		FactsAdd(skillsList[i], 1);
-	}
-}
-
-exec function nrLock() {
-	var 	skillsList : array<String>;
-	var  	i : int;
-	skillsList = NR_GetMagicManager().GetMagicSkillsList();
-
-	for (i = 0; i < skillsList.Size(); i += 1) {
-		FactsRemove(skillsList[i]);
-	}
-}
-
 exec function nrProjectile(damage : float) {
 	if (damage < 0.f) {
 		NR_Notify("Invalid damage value, it must be > 0");
@@ -366,19 +410,19 @@ exec function playerAbl() {
 	thePlayer.GetCharacterStats().GetAllAttributesNames(attrs);
 
 	for (i = 0; i < abls.Size(); i += 1) {
-		NRD("Ability: " + abls[i]);
+		NR_Debug("Ability: " + abls[i]);
 	}
 	for (i = 0; i < attrs.Size(); i += 1) {
-		if( theGame.params.IsForbiddenAttribute(attrs[i]) )
+		if ( theGame.params.IsForbiddenAttribute(attrs[i]) )
 			continue;
 		val = thePlayer.GetAttributeValue(attrs[i]);
-		NRD("Attribute: " + attrs[i] + ", value: [base = " + val.valueBase + "], [mult = " + val.valueMultiplicative + "], [add = " + val.valueAdditive + "]");
+		NR_Debug("Attribute: " + attrs[i] + ", value: [base = " + val.valueBase + "], [mult = " + val.valueMultiplicative + "], [add = " + val.valueAdditive + "]");
 	}
-	NRD("Max ess: " + thePlayer.GetStatMax(BCS_Essence));
-	NRD("Cur ess: " + thePlayer.GetStat(BCS_Essence));
-	NRD("Max vit: " + thePlayer.GetStatMax(BCS_Vitality));
-	NRD("Cur vit: " + thePlayer.GetStat(BCS_Vitality));
-	NRD("Immortality: " + thePlayer.GetImmortalityMode());
+	NR_Debug("Max ess: " + thePlayer.GetStatMax(BCS_Essence));
+	NR_Debug("Cur ess: " + thePlayer.GetStat(BCS_Essence));
+	NR_Debug("Max vit: " + thePlayer.GetStatMax(BCS_Vitality));
+	NR_Debug("Cur vit: " + thePlayer.GetStat(BCS_Vitality));
+	NR_Debug("Immortality: " + thePlayer.GetImmortalityMode());
 }
 
 exec function testl11() {
@@ -416,7 +460,7 @@ exec function scene1m() {
 	var scene      : CStoryScene;
 	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene", true);
 	if (!scene)
-		NRE("NULL scene!");
+		NR_Error("NULL scene!");
 
 	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
 }
@@ -519,7 +563,7 @@ exec function scene8(has_met : int, teaching : int) {
 
 exec function scene10(optional input : String) {
 	var scene      : CStoryScene;
-	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/10.sorceress_attacks.w2scene", true);
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/10.golem_crafting.w2scene", true);
 	if (!scene) {
 		NR_Notify("NULL scene!");
 		return;
@@ -534,7 +578,7 @@ exec function scene10(optional input : String) {
 
 exec function scene11(optional input : String) {
 	var scene      : CStoryScene;
-	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/11.sorceress_gp_attacks.w2scene", true);
+	scene = (CStoryScene)LoadResource("dlc/dlcnewreplacers/data/scenes/11.golem_lines.w2scene", true);
 	if (!scene) {
 		NR_Notify("NULL scene!");
 		return;
@@ -545,6 +589,55 @@ exec function scene11(optional input : String) {
 	}
 	NR_Notify("PLAY: " + input);
 	theGame.GetStorySceneSystem().PlayScene(scene, input);
+}
+
+function NR_RoundTo(f : float, digits : int) : float {
+	var divider : float;
+	var i 		: int;
+
+	divider = PowF(10, digits);
+    i = RoundMath(f * divider);
+    return i * 1.0f / divider;
+}
+
+exec function roundtest1(f : float, iters : int) {
+	var x, f_i, startTime, endTime : float;
+	var i : int;
+
+	startTime = theGame.GetEngineTimeAsSeconds();
+
+	for (i = 0; i < iters; i += 1) {
+		f_i = f + i * Pi();
+		x = RoundTo(f_i, 5);
+		x = RoundTo(f_i, 4);
+		x = RoundTo(f_i, 3);
+		x = RoundTo(f_i, 2);
+		x = RoundTo(f_i, 1);
+		x = RoundTo(f_i, 0);
+	}
+
+	endTime = theGame.GetEngineTimeAsSeconds();
+	NR_Notify("Elapsed (RoundTo) [" + iters + " iters]: " + (endTime - startTime));
+}
+
+exec function roundtest2(f : float, iters : int) {
+	var x, f_i, startTime, endTime : float;
+	var i : int;
+
+	startTime = theGame.GetEngineTimeAsSeconds();
+
+	for (i = 0; i < iters; i += 1) {
+		f_i = f + i * Pi();
+		x = NR_RoundTo(f_i, 5);
+		x = NR_RoundTo(f_i, 4);
+		x = NR_RoundTo(f_i, 3);
+		x = NR_RoundTo(f_i, 2);
+		x = NR_RoundTo(f_i, 1);
+		x = NR_RoundTo(f_i, 0);
+	}
+
+	endTime = theGame.GetEngineTimeAsSeconds();
+	NR_Notify("Elapsed (NR_RoundTo) [" + iters + " iters]: " + (endTime - startTime));
 }
 
 // PLAYER_SLOT
@@ -565,7 +658,7 @@ exec function griffin() {
 	var scene      : CStoryScene;
 	scene = (CStoryScene)LoadResource("quests\prologue\quest_files\q001_beggining\scenes\q001_6_meet_griffin.w2scene", true);
 	if (!scene)
-		NRE("NULL scene!");
+		NR_Error("NULL scene!");
 
 	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
 }
@@ -665,25 +758,25 @@ function PrintDamageAction( source: String, action : W3DamageAction )
 		size = action.GetEffects( effectInfos );
 		attackerPowerStatValue = action.GetPowerStatValue();
 
-		NRD("[" + source + "] PrintDamageAction");
-		NRD("AddEffectsFromAction(): causer = " + action.causer);
-		NRD("AddEffectsFromAction(): vitalityDamage = " + action.processedDmg.vitalityDamage);
-		NRD("AddEffectsFromAction(): essenceDamage = " + action.processedDmg.essenceDamage);
-		NRD("AddEffectsFromAction(): moraleDamage = " + action.processedDmg.moraleDamage);
-		NRD("AddEffectsFromAction(): staminaDamage = " + action.processedDmg.staminaDamage);
-		NRD("AddEffectsFromAction(): effSize = " + size);
-		NRD("AddEffectsFromAction(): attacker = " + action.attacker);
-		NRD("AddEffectsFromAction(): GetBuffSourceName = " + action.GetBuffSourceName());
-		NRD("AddEffectsFromAction(): attackerPowerStatValue = " + CalculateAttributeValue(attackerPowerStatValue));
+		NR_Debug("[" + source + "] PrintDamageAction");
+		NR_Debug("AddEffectsFromAction(): causer = " + action.causer);
+		NR_Debug("AddEffectsFromAction(): vitalityDamage = " + action.processedDmg.vitalityDamage);
+		NR_Debug("AddEffectsFromAction(): essenceDamage = " + action.processedDmg.essenceDamage);
+		NR_Debug("AddEffectsFromAction(): moraleDamage = " + action.processedDmg.moraleDamage);
+		NR_Debug("AddEffectsFromAction(): staminaDamage = " + action.processedDmg.staminaDamage);
+		NR_Debug("AddEffectsFromAction(): effSize = " + size);
+		NR_Debug("AddEffectsFromAction(): attacker = " + action.attacker);
+		NR_Debug("AddEffectsFromAction(): GetBuffSourceName = " + action.GetBuffSourceName());
+		NR_Debug("AddEffectsFromAction(): attackerPowerStatValue = " + CalculateAttributeValue(attackerPowerStatValue));
 			
-		for( i = 0; i < size; i += 1 )
+		for ( i = 0; i < size; i += 1 )
 		{	
-			NRD("AddEffectsFromAction(): effectType[" + i + "] = " + effectInfos[i].effectType);
-			NRD("AddEffectsFromAction(): effectDuration[" + i + "] = " + effectInfos[i].effectDuration);
-			NRD("AddEffectsFromAction(): effectCustomValue[" + i + "] = " + CalculateAttributeValue(effectInfos[i].effectCustomValue));
-			NRD("AddEffectsFromAction(): effectAbilityName[" + i + "] = " + effectInfos[i].effectAbilityName, );
-			NRD("AddEffectsFromAction(): customFXName[" + i + "] = " + effectInfos[i].customFXName);
-			NRD("AddEffectsFromAction(): effectCustomParam[" + i + "] = " + effectInfos[i].effectCustomParam);
+			NR_Debug("AddEffectsFromAction(): effectType[" + i + "] = " + effectInfos[i].effectType);
+			NR_Debug("AddEffectsFromAction(): effectDuration[" + i + "] = " + effectInfos[i].effectDuration);
+			NR_Debug("AddEffectsFromAction(): effectCustomValue[" + i + "] = " + CalculateAttributeValue(effectInfos[i].effectCustomValue));
+			NR_Debug("AddEffectsFromAction(): effectAbilityName[" + i + "] = " + effectInfos[i].effectAbilityName, );
+			NR_Debug("AddEffectsFromAction(): customFXName[" + i + "] = " + effectInfos[i].customFXName);
+			NR_Debug("AddEffectsFromAction(): effectCustomParam[" + i + "] = " + effectInfos[i].effectCustomParam);
 		}
 }
 
@@ -757,8 +850,8 @@ exec function spell_scene(inp : int) {
 		//path = "dlc/dlcntr/data/scenes/03.geralt_oneliners.w2scene";
 		scene = (CStoryScene)LoadResource(path, true);
 		if (!scene)
-			NRE("NULL scene!");
-		play_index = inp;//RandRange(max_index + 1, min_index);
+			NR_Error("NULL scene!");
+		play_index = inp;
 		NR_Notify("Play scene: [" + "spell_" + IntToString(play_index) + "]");
 
 		theGame.GetStorySceneSystem().PlayScene(scene, "spell_" + IntToString(play_index));
@@ -773,7 +866,7 @@ exec function player_scene() {
 		//path = "dlc/dlcntr/data/scenes/03.geralt_oneliners.w2scene";
 		scene = (CStoryScene)LoadResource(path, true);
 		if (!scene)
-			NRE("NULL scene!");
+			NR_Error("NULL scene!");
 
 		theGame.GetStorySceneSystem().PlayScene(scene, "Input");
 	}
@@ -838,7 +931,7 @@ exec function papp(appName : String) {
 		NR_Notify("APPLY APP = " + appName);
 		appearanceComponent.ApplyAppearance(appName);
 	} else {
-		NRE("ERROR: AppearanceComponent not found!");
+		NR_Error("ERROR: AppearanceComponent not found!");
 	}
 }
 
@@ -1365,7 +1458,7 @@ function PlayHeadEffect( effect : name, optional stop : bool )
 		
 		headId = headIds[i];
 				
-		if(!inv.IsIdValid( headId ))
+		if (!inv.IsIdValid( headId ))
 		{
 			NR_Notify("W3Effect_Toxicity : Can't find head item");
 			return;
@@ -1373,7 +1466,7 @@ function PlayHeadEffect( effect : name, optional stop : bool )
 		
 		head = inv.GetItemEntityUnsafe( headId );
 		
-		if( !head )
+		if ( !head )
 		{
 			NR_Notify("W3Effect_Toxicity : head item is null");
 			return;
@@ -1410,36 +1503,36 @@ exec function NR_Range(range : float, optional makeFriendly : bool) {
     FindGameplayEntitiesInRange(entities, thePlayer, range, maxEntities);
 
     pos = thePlayer.GetWorldPosition();
-    NRD("player pos: [" + pos.X + ", " + pos.Y + ", " + pos.Z + "]");
-    NRD("player rot: " + NR_EulerToString(thePlayer.GetWorldRotation()));
+    NR_Debug("player pos: [" + pos.X + ", " + pos.Y + ", " + pos.Z + "]");
+    NR_Debug("player rot: " + NR_EulerToString(thePlayer.GetWorldRotation()));
 		NR_Notify("nik_range: found entities: " + entities.Size());
     
 		
     for (i = 0; i < entities.Size(); i += 1) {
-        NRD("entity: " + entities[i]);
-        NRD("   " + entities[i]);
-        NRD("   - pos: " + VecToString(entities[i].GetWorldPosition()));
-           NRD("   - rot: " + NR_EulerToString(entities[i].GetWorldRotation()));
+        NR_Debug("entity: " + entities[i]);
+        NR_Debug("   " + entities[i]);
+        NR_Debug("   - pos: " + VecToString(entities[i].GetWorldPosition()));
+           NR_Debug("   - rot: " + NR_EulerToString(entities[i].GetWorldRotation()));
         tags = entities[i].GetTags();
 
         for (t = 0; t < tags.Size(); t += 1) {
-           NRD("   > tag " + tags[t]);
+           NR_Debug("   > tag " + tags[t]);
         }
         actor = (CActor)entities[i];
         if (actor) {
             if (!actor.IsAlive()) {
-                NRD("* actor dead");
+                NR_Debug("* actor dead");
                 continue;
             }
             if (actor.HasAttitudeTowards(thePlayer)) {
-                NRD("* GetAttitude to player: " + actor.GetAttitude(thePlayer));
+                NR_Debug("* GetAttitude to player: " + actor.GetAttitude(thePlayer));
             }
-            NRD("* GetAttitudeGroup: " + actor.GetAttitudeGroup());
+            NR_Debug("* GetAttitudeGroup: " + actor.GetAttitudeGroup());
             
-            NRD("* GetVoicetag: " + actor.GetVoicetag());
-            NRD("* GetDisplayName: " + actor.GetDisplayName());
-            NRD("* IsInNonGameplayCutscene: " + actor.IsInNonGameplayCutscene());
-            NRD("* IsInGameplayScene: " + actor.IsInGameplayScene());
+            NR_Debug("* GetVoicetag: " + actor.GetVoicetag());
+            NR_Debug("* GetDisplayName: " + actor.GetDisplayName());
+            NR_Debug("* IsInNonGameplayCutscene: " + actor.IsInNonGameplayCutscene());
+            NR_Debug("* IsInGameplayScene: " + actor.IsInGameplayScene());
             if (makeFriendly)
                 actor.SetTemporaryAttitudeGroup( 'friendly_to_player', AGP_Default );
         }
@@ -1466,14 +1559,54 @@ exec function icespawn(optional app : bool) {
 	}
 	pos = thePlayer.GetWorldPosition() + VecRingRand(1.f,2.f);
 	entity = theGame.CreateEntity(template, pos);
-	entity.AddTag('NR_ICE_DEBUG');
+	entity.AddTag('nr_celestine');
+	entity.AddTag('fairytale_witch');
 	npc = (CNewNPC)entity;
-	if (npc && app) {
+	if (npc && !app) {
 		// npc.ApplyAppearance("elemental_stone_morph");
 		npc.ApplyAppearance("nr_celestine");
+	} else {
+		npc.ApplyAppearance("nr_celestine_stone_morph");
 	}
-	npc.ApplyAppearance("nr_celestine_stone_morph");
+	npc.SetBehaviorMimicVariable( 'gameplayMimicsMode', (float)(int)GMM_Default );
 	npc.SetTemporaryAttitudeGroup('friendly_to_player', AGP_Default);
+	npc.PlayLine(2115940953, true);
+	NR_Notify("Spawned = " + npc);
+}
+exec function icespawn2(optional app : bool) {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+	var npc : CNewNPC;
+	var pos : Vector;
+
+	template = (CEntityTemplate)LoadResource("quests\sidequests\skellige\quest_files\sq210_impossible_tower\characters\sq210_golem_v2.w2ent", true);
+	if (!template) {
+		NR_Notify("!TEMPLATE: " + template);
+		return;
+	}
+	pos = thePlayer.GetWorldPosition() + VecRingRand(1.f,2.f);
+	entity = theGame.CreateEntity(template, pos);
+	npc = (CNewNPC)entity;
+	npc.SetTemporaryAttitudeGroup('friendly_to_player', AGP_Default);
+	npc.PlayLine(2115940953, true);
+	NR_Notify("Spawned = " + npc);
+}
+exec function icespawn3(optional app : bool) {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+	var npc : CNewNPC;
+	var pos : Vector;
+
+	template = (CEntityTemplate)LoadResource("quests\main_npcs\triss.w2ent", true);
+	if (!template) {
+		NR_Notify("!TEMPLATE: " + template);
+		return;
+	}
+	pos = thePlayer.GetWorldPosition() + VecRingRand(1.f,2.f);
+	entity = theGame.CreateEntity(template, pos);
+	npc = (CNewNPC)entity;
+	npc.SetTemporaryAttitudeGroup('friendly_to_player', AGP_Default);
+	npc.PlayLine(2115940953, true);
 	NR_Notify("Spawned = " + npc);
 }
 
@@ -1607,7 +1740,7 @@ exec function icemorph( ratio : float, blend : float ) {
     if (entities.Size() == 0) {
     	return;
     }
-    NRD("SOundbank loaded = " + theSound.SoundIsBankLoaded("monster_golem_ice.bnk"));
+    NR_Debug("SOundbank loaded = " + theSound.SoundIsBankLoaded("monster_golem_ice.bnk"));
     if (!theSound.SoundIsBankLoaded("monster_golem_ice.bnk")) {
     	theSound.SoundLoadBank("monster_golem_ice.bnk", false);
     }
@@ -1618,14 +1751,14 @@ exec function icemorph( ratio : float, blend : float ) {
 		entity.SoundEvent("monster_golem_ice_mv_recover");
 		components = entity.GetComponentsByClassName('CMorphedMeshManagerComponent');
 		if (components.Size() == 0) {
-		    NRD("NR_ICE_DEBUG: [ERROR] Not found morph managers for " + entity);
+		    NR_Debug("NR_ICE_DEBUG: [ERROR] Not found morph managers for " + entity);
 		}
 		for (j = 0; j < components.Size(); j += 1) {
 		    manager = (CMorphedMeshManagerComponent) components[j];
 		    if (manager) {
-		        NRD("NR_ICE_DEBUG: [Info] Current morph ratio: " + manager.GetMorphBlend());
+		        NR_Debug("NR_ICE_DEBUG: [Info] Current morph ratio: " + manager.GetMorphBlend());
 		        manager.SetMorphBlend( ratio, blend );
-		        NRD("NR_ICE_DEBUG: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blend + " sec");
+		        NR_Debug("NR_ICE_DEBUG: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blend + " sec");
 		    }
 		}
 	}
@@ -1672,7 +1805,7 @@ exec function coloring(h1 : Uint16, l1 : Int8, s1 : Int8, h2 : Uint16, l2 : Int8
     colEntry.colorShift1 = col1;
     colEntry.colorShift2 = col2;
     
-    if(temp.coloringEntries.Size() > 0)
+    if (temp.coloringEntries.Size() > 0)
         temp.coloringEntries[0] = colEntry;
     else
         temp.coloringEntries.PushBack(colEntry);
@@ -1686,4 +1819,178 @@ exec function coloring(h1 : Uint16, l1 : Int8, s1 : Int8, h2 : Uint16, l2 : Int8
     comp.IncludeAppearanceTemplate(template);
     
     theGame.GetGuiManager().ShowNotification(" "+Int8ToInt(s1)+" "+Int8ToInt(l1)+" "+" "+Int8ToInt(s2)+" "+Int8ToInt(l2));
+}
+
+
+exec function toYenJoke2() {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+		manager.ResetAllAppearanceHeadHair();
+		manager.UpdateHead('nr_head_yennefer');
+		manager.RemoveHair();
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/trunk/bare/t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/legs/casual_non_combat/l_02_mg__casual_skellige_pants.w2ent", /*slot*/ ENR_RSlotLegs);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/shoes/common_heavy/s_02_mg__common_heavy_lvl4.w2ent", /*slot*/ ENR_RSlotShoes);
+		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
+	}
+}
+
+// naked Geralt paths!
+exec function toYenJoke3() {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+		manager.ResetAllAppearanceHeadHair();
+		manager.UpdateHead('nr_head_yennefer');
+		manager.RemoveHair();
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/trunk/bare/t_01_mg__body_medalion.w2ent", /*slot*/ ENR_RSlotTorso);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/gloves/bare/g_01_mg__body.w2ent", /*slot*/ ENR_RSlotGloves);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/legs/bare/l_01_mg__body_underwear.w2ent", /*slot*/ ENR_RSlotLegs);
+		manager.UpdateAppearanceTemplate(/*path*/ "items/bodyparts/geralt_items/shoes/bare/s_01_mg__body.w2ent", /*slot*/ ENR_RSlotShoes);
+		NR_ChangePlayer(ENR_PlayerWitcher); // change player type in the last queue
+	}
+}
+
+exec function toYenn() {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+		manager.ResetAllAppearanceHeadHair();
+		manager.UpdateHead('nr_head_yennefer');
+		//manager.UpdateHair('NR Yennefer Hairstyle');
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/pendant_01_wa__yennefer.w2ent", /*slot*/ ENR_RSlotMisc1);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/b_03_wa_yennefer.w2ent", /*slot*/ ENR_RSlotBody);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/yennefer/l_02_wa__yennefer.w2ent", /*slot*/ ENR_RSlotLegs);
+		NR_ChangePlayer(ENR_PlayerSorceress); // change player type in the last queue
+	}
+}
+
+exec function toTrisss() {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+		manager.ResetAllAppearanceHeadHair();
+		manager.UpdateHead('nr_h_01_wa__triss');
+		//manager.UpdateHair('NR Triss Hairstyle DLC');
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/b_01_wa__triss_dlc.w2ent", /*slot*/ ENR_RSlotBody);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlc6/data/characters/models/main_npc/triss/c_01_wa__triss_dlc.w2ent", /*slot*/ ENR_GSlotHair);
+		NR_ChangePlayer(ENR_PlayerSorceress); // change player type in the last queue
+	}
+}
+
+exec function toTrisss2() {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+		manager.ResetAllAppearanceHeadHair();
+		manager.UpdateHead('nr_head_triss');
+		//manager.UpdateHair('NR Triss Hairstyle');
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody);
+		NR_ChangePlayer(ENR_PlayerSorceress); // change player type in the last queue
+	}
+}
+
+
+
+exec function toDress(num : int) {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (!manager) {
+		NR_Error("No manager!");
+		return;
+	}
+	if (num == 1) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_03_wa__bob_woman_noble.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_03_wa__bob_woman_noble_px.w2ent", /*slot*/ ENR_RSlotDress);
+	} else if (num == 2) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px.w2ent", /*slot*/ ENR_RSlotDress);
+	} else if (num == 3) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p01.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p01.w2ent", /*slot*/ ENR_RSlotDress);
+	} else if (num == 4) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p02.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p02.w2ent", /*slot*/ ENR_RSlotDress);
+	} else if (num == 5) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p03.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/d_06_wa__bob_woman_noble_px_p03.w2ent", /*slot*/ ENR_RSlotDress);
+	} else if (num == 6) {
+		NR_Notify("dlc/dlcnewreplacers/data/entities/bob_dress/body_01_wa__oriana.w2ent");
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/bob_dress/body_01_wa__oriana.w2ent", /*slot*/ ENR_RSlotDress);
+	}
+}
+
+exec function toRosa2() {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	if (manager) {
+		manager.ResetAllAppearanceHeadHair();
+		manager.UpdateHead('nr_head_rosa');
+		//manager.UpdateHair('');
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/ep1/data/characters/models/secondary_npc/shani/c_01_wa__shani.w2ent", /*slot*/ ENR_RSlotMisc3);
+		manager.UpdateAppearanceTemplate(/*path*/ "dlc/bob/data/characters/models/main_npc/vivienne_de_tabris/vivienne_de_tabris.w2ent", /*slot*/ ENR_RSlotBody);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/torso/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotTorso);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/rosa/t3d_02_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_GSlotArmor);
+		//manager.UpdateAppearanceTemplate(/*path*/ "dlc/dlcnewreplacers/data/entities/nr_rosa_body_test.w2ent", /*slot*/ ENR_GSlotArmor);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/skellige_warrior_woman/arms/a_01_wa__skellige_warrior_woman.w2ent", /*slot*/ ENR_RSlotArms);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/legs/l2_06_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotLegs);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/shoes/s_05_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotShoes);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_10_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc1);
+		//manager.UpdateAppearanceTemplate(/*path*/ "characters/models/crowd_npc/novigrad_citizen_woman/items/i_08_wa__novigrad_citizen.w2ent", /*slot*/ ENR_RSlotMisc2);
+		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
+	}
+}
+
+exec function toPos0() {
+	thePlayer.TeleportWithRotation(Vector(527.0978, 71.24042, 34.09809), EulerAngles(0.0, 35.83441, 0.0));
+}
+
+exec function toPos1() {
+	thePlayer.TeleportWithRotation(Vector(519.2852, 73.1901, 33.33126), EulerAngles(0.0, 265.1475, 0.0));
+}
+
+exec function toScene0() {
+	NR_PlaySceneF("quests/prologue/quest_files/q001_beggining/scenes/q001_5_wake_up.w2scene");
+}
+
+exec function toScene1() {
+	NR_PlaySceneF("quests/sidequests/skellige/quest_files/sq204_forest_spirit/scenes/sq204_03b_cs_leshy_appear.w2scene");
+}
+
+exec function yensc(optional input : String) {
+	NR_PlaySceneF("dlc/bob/data/quests/main_quests/quest_files/q705_epilog/scenes/q705_20a_yen_visit_vineyard.w2scene");
+}
+
+exec function tosc(path : String, optional input : String) {
+	NR_PlaySceneF(path, input);
+}
+
+exec function toTrissDress(dressNum : int) {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+	var dress : String;
+
+	if (dressNum == 1)
+		dress = "dlc\bob\data\characters\models\crowd_npc\bob_citizen_woman\torso\t2_07_wa__bob_woman_noble_p01.w2ent";
+	else if (dressNum == 2)
+		dress = "dlc\bob\data\characters\models\crowd_npc\bob_citizen_woman\torso\t2_07_wa__bob_woman_noble_p02.w2ent";
+	else if (dressNum == 3)
+		dress = "dlc\bob\data\characters\models\crowd_npc\bob_citizen_woman\torso\t2_07b_wa__bob_woman_noble_p02.w2ent";
+	else if (dressNum == 4)
+		dress = "dlc/bob/data/characters/models/main_npc/oriana/body_01_wa__oriana.w2ent";
+	else if (dressNum == 5)
+		dress = "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/dress/d_03_wa__bob_woman_noble.w2ent";
+	else if (dressNum == 6)
+		dress = "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/dress/d_06_wa__bob_woman_noble_px.w2ent";
+	else if (dressNum == 7)
+		dress = "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/dress/d_06_wa__bob_woman_noble_px_p02.w2ent";
+	else if (dressNum == 8)
+		dress = "dlc/bob/data/characters/models/crowd_npc/bob_citizen_woman/dress/d_06_wa__bob_woman_noble_px_p03.w2ent";
+	else if (dressNum == 11)
+		dress = "dlc/dlcnewreplacers/data/entities/colorings/dlc_main/nr_d_01_wa__bob_woman_noble_p01_coloring_1.w2ent";
+	
+	if (manager) {
+		manager.ResetAllAppearanceHeadHair();
+		manager.UpdateHead('nr_h_01_wa__triss');
+		manager.RemoveHair();
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/body_01_wa__triss.w2ent", /*slot*/ ENR_RSlotBody);
+		manager.UpdateAppearanceTemplate(/*path*/ dress, /*slot*/ ENR_RSlotDress);
+		manager.UpdateAppearanceTemplate(/*path*/ "characters/models/main_npc/triss/c_01_wa__triss.w2ent", /*slot*/ ENR_RSlotHair);
+		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
+	}
+	NR_Notify("Dress = " + dress);
 }

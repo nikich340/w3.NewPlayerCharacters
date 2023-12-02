@@ -63,6 +63,7 @@ class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
 {
 	editable var str : String;
 	editable var type : name;
+	editable var unlockIfLearned : bool;
 	editable var abilityName : String;
 	editable var dlcName : name;
 
@@ -71,7 +72,9 @@ class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
 
 		if ( IsNameValid(type) ) {
 			enumType = ENR_NameToMA(type);
-			if ( !NR_GetMagicManager().IsActionCustomizationUnlocked(enumType) )
+			if ( unlockIfLearned && !NR_GetMagicManager().IsActionLearned(enumType) )
+				return false;
+			if ( !unlockIfLearned && !NR_GetMagicManager().IsActionCustomizationUnlocked(enumType) )
 				return false;
 		}
 

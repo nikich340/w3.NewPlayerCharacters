@@ -134,7 +134,7 @@
 	        return 65;
 	    // should never happen
 	    default:
-	    	NRE("NR_CharCode: unsupported: " + char);
+	    	NR_Error("NR_CharCode: unsupported: " + char);
 	    	return 66;
 	}
 }
@@ -171,7 +171,6 @@ function NR_Uint64ToString(value : Uint64) : String {
 	return str;
 }
 */
-
 
 // uses simple polynomial rolling algo to get uint64 hash
 /* API */ function NR_PolyRollHash(text : String) : Uint64 {
@@ -213,16 +212,8 @@ function NR_Uint64ToString(value : Uint64) : String {
 	return hash;
 }
 
-// example: prints code of char for given index
-exec function nr_testchar(text : String, charIndex : int) {
-	var char : String;
-
-	char = StrMid(text, charIndex, 1);
-	NR_Notify("code[" + charIndex + "] = (" + char + ") " + NR_CharCode(char));
-}
-
 // example: prints hashes of given string
-exec function nr_testhash(text : String) {
+exec function nr_printhash(text : String) {
 	var hash1, hash2 : Uint64;
 	hash1 = NR_PolyRollHash(text);
 	hash2 = NR_PolyRollHash2(text);

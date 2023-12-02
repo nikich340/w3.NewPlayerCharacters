@@ -45,7 +45,7 @@ class NR_MagicBomb extends NR_MagicAction {
 							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );
 		l_bombEntity = (NR_MagicBombEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!l_bombEntity) {
-			NRE("l_bombEntity is invalid, template = " + entityTemplate);
+			NR_Error("l_bombEntity is invalid, template = " + entityTemplate);
 			return OnPerformed(false);
 		}
 		bombPursue = IsActionAbilityUnlocked("Pursuit");

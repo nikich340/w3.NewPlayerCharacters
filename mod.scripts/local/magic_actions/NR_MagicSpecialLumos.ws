@@ -31,16 +31,18 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	/* Non-latent version */
 	public function OnPrepareSync() {
 		m_fxNameMain = LumosFxName();
-		NRD("NR_MagicSpecialLumos:OnPrepareSync, m_fxNameMain = " + m_fxNameMain);
+		NR_Debug("NR_MagicSpecialLumos:OnPrepareSync, m_fxNameMain = " + m_fxNameMain);
 		inPostState = true; // prevent action erasing
 		isPrepared = true;
 	}
 
 	/* Non-latent version */
-	public function OnSwitchSync(enable : bool) : bool {
-		NRD("NR_MagicSpecialLumos:OnSwitchSync, isActive = " + isActive);
+	public function OnSwitchSync(enable : bool, optional fxName : name) : bool {
+		NR_Debug("NR_MagicSpecialLumos:OnSwitchSync, isActive = " + isActive);
 
 		OnPrepareSync();
+		if ( IsNameValid(fxName) )
+			m_fxNameMain = fxName;
 
 		if (enable) {
 			if (!IsActive()) {
@@ -53,7 +55,7 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 			}
 		}
 		SetActive(enable);
-		NRD("NR_MagicSpecialLumos:OnSwitchSync = " + enable);
+		NR_Debug("NR_MagicSpecialLumos:OnSwitchSync = [" + m_fxNameMain + "] " + enable);
 
 		return true;
 	}
@@ -121,19 +123,19 @@ state RunWait in NR_MagicSpecialLumos {
 	event OnEnterState( prevStateName : name )
 	{
 		parent.inPostState = true;
-		NRD("RunWait: OnEnterState: " + this);
+		NR_Debug("RunWait: OnEnterState: " + this);
 		RunWait();		
 	}
 	entry function RunWait() {
 		NR_GetReplacerSorceress().SetLumosActive(true);
 		parent.isActive = true;
 		Sleep( parent.s_lifetime );
-		NRD("RunWait: Stop lumos!");
+		NR_Debug("RunWait: Stop lumos!");
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("RunWait: OnLeaveState: " + this);
+		NR_Debug("RunWait: OnLeaveState: " + this);
 		parent.inPostState = false;
 	}
 }
@@ -141,7 +143,7 @@ state Stop in NR_MagicSpecialLumos {
 	event OnEnterState( prevStateName : name )
 	{
 		parent.inPostState = true;
-		NRD("Stop: OnEnterState: " + this);
+		NR_Debug("Stop: OnEnterState: " + this);
 		Stop();
 		parent.inPostState = false;
 	}
@@ -152,14 +154,14 @@ state Stop in NR_MagicSpecialLumos {
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Stop: OnLeaveState: " + this);
+		NR_Debug("Stop: OnLeaveState: " + this);
 		// can be removed from cached/cursed actions
 	}
 }
 state Curse in NR_MagicSpecialLumos {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Curse: OnEnterState: " + this);
+		NR_Debug("Curse: OnEnterState: " + this);
 		Curse();
 	}
 	entry function Curse() {
@@ -168,7 +170,7 @@ state Curse in NR_MagicSpecialLumos {
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("OnLeaveState: " + this);
+		NR_Debug("OnLeaveState: " + this);
 	}
 }
 */

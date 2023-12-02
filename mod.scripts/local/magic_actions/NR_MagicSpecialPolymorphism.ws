@@ -46,7 +46,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 				appearanceName = appNames[ NR_GetRandomGenerator().next(appNames.Size()) ];
 			}
 		} else {
-			NRE("NR_MagicSpecialPolymorphism: Unknown animalType = " + animalType);
+			NR_Error("NR_MagicSpecialPolymorphism: Unknown animalType = " + animalType);
 			return OnPrepared(false);
 		}
 		// TODO #C: more types
@@ -68,7 +68,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		rot = thePlayer.GetWorldRotation();
 		transformNPC = (CNewNPC)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!transformNPC) {
-			NRE("transformNPC is invalid.");
+			NR_Error("transformNPC is invalid.");
 			return OnPerformed(false);
 		}
 		transformNPC.PlayEffect('appear');
@@ -152,19 +152,19 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 state Active in NR_MagicSpecialPolymorphism {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("OnEnterState: " + this);
+		NR_Debug("OnEnterState: " + this);
 		parent.inPostState = true;
 		RunActive();		
 	}
 	entry function RunActive() {
 		Sleep( parent.s_lifetime );
 
-		NRD("StopAction: " + this);
+		NR_Debug("StopAction: " + this);
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("OnLeaveState: " + this);
+		NR_Debug("OnLeaveState: " + this);
 	}
 }
 
@@ -188,7 +188,7 @@ state Stop in NR_MagicSpecialPolymorphism {
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("NR_MagicSpecialPolymorphism: Stop: OnLeaveState");
+		NR_Debug("NR_MagicSpecialPolymorphism: Stop: OnLeaveState");
 	}
 }
 
@@ -204,6 +204,6 @@ state Cursed in NR_MagicSpecialPolymorphism {
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("OnLeaveState: " + this);
+		NR_Debug("OnLeaveState: " + this);
 	}
 }

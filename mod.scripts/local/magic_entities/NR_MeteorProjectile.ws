@@ -83,7 +83,7 @@ class NR_MeteorProjectile extends W3FireballProjectile
 		
 		FindGameplayEntitiesInCylinder( entities, this.GetWorldPosition(), explosionRadius, 2.f, 99 , '', FLAG_ExcludeTarget, this );
 		
-		for( i = 0; i < entities.Size(); i += 1 )
+		for ( i = 0; i < entities.Size(); i += 1 )
 		{
 			if ( !collidedEntities.Contains(entities[i]) && (!m_respectCaster || GetAttitudeBetween(entities[i], caster) == AIA_Hostile) )
 				DealDamageToVictim(entities[i]);
@@ -102,10 +102,10 @@ class NR_MeteorProjectile extends W3FireballProjectile
 		
 		FindGameplayEntitiesInSphere( entities, this.GetWorldPosition(), 2, 99, '', FLAG_ExcludeTarget, this );
 		
-		for( i = 0; i < entities.Size(); i += 1 )
+		for ( i = 0; i < entities.Size(); i += 1 )
 		{
 			entities[i].ApplyAppearance( "hole" );			
-			if( theGame.GetWorld().GetWaterLevel( landPos ) > landPos.Z )
+			if ( theGame.GetWorld().GetWaterLevel( landPos ) > landPos.Z )
 			{
 				entities[i].PlayEffect('explosion_water');			
 			}

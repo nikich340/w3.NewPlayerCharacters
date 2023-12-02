@@ -45,7 +45,7 @@ state Active in NR_TornadoEntity {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Active: OnEnterState");
+		NR_Debug("Active: OnEnterState");
 		parent.PlayEffect( parent.m_fxName );
 		MainLoop();
 	}
@@ -55,7 +55,7 @@ state Active in NR_TornadoEntity {
 		var actorVictim				: CActor;
 		var i, j					: int;
 
-		NRD("Active: OnLeaveState");
+		NR_Debug("Active: OnLeaveState");
 		parent.StopEffect( parent.m_fxName );
 		victims.Clear();
 	}
@@ -99,7 +99,7 @@ state Active in NR_TornadoEntity {
 				}
 
 				NR_SmoothMoveToTarget(moveTime, parent.m_metersPerSec, currentPos, targetPos, reachPos);
-				NRD("Tornado: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
+				NR_Debug("Tornado: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
 				parent.Teleport(currentPos);
 			}
 			lastMoveTime = GetLocalTime();
@@ -190,19 +190,19 @@ state Active in NR_TornadoEntity {
 			damage = MinF(maxDamage, damage);
 			damage = MaxF(minDamage, damage);
 		}
-		NRD("Tornado: GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
+		NR_Debug("Tornado: GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
 		return damage;
 	}
 }
 state Stop in NR_TornadoEntity {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Stop: OnEnterState");
+		NR_Debug("Stop: OnEnterState");
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Stop: OnLeaveState");
+		NR_Debug("Stop: OnLeaveState");
 	}
 }
 

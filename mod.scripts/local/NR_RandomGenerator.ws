@@ -33,7 +33,7 @@ class NR_RandomGenerator extends CEntity {
     {
         super.OnSpawned(spawnData);
         setSeed(getGameplayBasedSeed());
-        NRD("NR_RandomGenerator: Spawned with seed = " + Uint64ToString(seed));
+        NR_Debug("NR_RandomGenerator: Spawned with seed = " + Uint64ToString(seed));
     }
 
     protected function getGameplayBasedSeed() : Uint64 {
@@ -97,7 +97,7 @@ class NR_RandomGenerator extends CEntity {
             return shiftRightU(seed, (48 - bits));
         } else {
             if (bits > 63)
-                NRE("random_t::nextBits(int bits): n must be less than 64");
+                NR_Error("random_t::nextBits(int bits): n must be less than 64");
 
             left = shiftLeftU(nextBits(31), 32);
             right = nextBits(32);
@@ -125,7 +125,7 @@ class NR_RandomGenerator extends CEntity {
     public function nextU(n : Uint64) : Uint64 {
     	var limit, bits : Uint64;
         if (n <= IntToUint64(0)) {
-            NRE("random_t::next(long long n): n must be positive");
+            NR_Error("random_t::next(long long n): n must be positive");
             return n;
         }
 
@@ -175,7 +175,7 @@ class NR_RandomGenerator extends CEntity {
     public function next(n : int) : int {
     	var limit, bits : Uint64;
         if (n <= 0)
-            NRE("random_t::next(long long n): n must be positive");
+            NR_Error("random_t::next(long long n): n must be positive");
 
         limit = IntToUint64(__int_max / n * n);
 
@@ -266,11 +266,11 @@ exec function nr_testrandom() {
     var generator : NR_RandomGenerator;
 
     generator = NR_GetRandomGenerator();
-    NRD("nr_testrandom: rand int = " + generator.next(2147483647));
-    NRD("nr_testrandom: rand uint64 = " + Uint64ToString( generator.nextU(generator.getLongLongMax()) ));
-    NRD("nr_testrandom: rand float = " + generator.nextF());
+    NR_Debug("nr_testrandom: rand int = " + generator.next(2147483647));
+    NR_Debug("nr_testrandom: rand uint64 = " + Uint64ToString( generator.nextU(generator.getLongLongMax()) ));
+    NR_Debug("nr_testrandom: rand float = " + generator.nextF());
 
-    NRD("nr_testrandom: rand weighted int in range(-100, 100) = " + generator.wnextRange(-100, 100, 5));
-    NRD("nr_testrandom: rand weighted uint64 in range(0, 500) = " + Uint64ToString( generator.wnextRangeU(IntToUint64(0), IntToUint64(500), -5) ));
-    NRD("nr_testrandom: rand weighted float in range(-1000, 1000) = " + generator.wnextRangeF(-1000.f, 1000.f, -10));
+    NR_Debug("nr_testrandom: rand weighted int in range(-100, 100) = " + generator.wnextRange(-100, 100, 5));
+    NR_Debug("nr_testrandom: rand weighted uint64 in range(0, 500) = " + Uint64ToString( generator.wnextRangeU(IntToUint64(0), IntToUint64(500), -5) ));
+    NR_Debug("nr_testrandom: rand weighted float in range(-1000, 1000) = " + generator.wnextRangeF(-1000.f, 1000.f, -10));
 }

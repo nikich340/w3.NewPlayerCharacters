@@ -35,7 +35,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		s_counterLightning = magicManager.IsActionAbilityUnlocked(ENR_SpecialShield, "AutoLightning");
 
 		initialShieldHealth = shieldHealth;
-		NRD("NR_SorceressQuen Init: shieldDuration = " + shieldDuration + ", initialShieldHealth = " + initialShieldHealth);
+		NR_Debug("NR_SorceressQuen Init: shieldDuration = " + shieldDuration + ", initialShieldHealth = " + initialShieldHealth);
 
 		if ( !skipCastingAnimation && !magicManager.HasStaminaForAction(ENR_SpecialShield) ) {
 			CleanUp();
@@ -47,7 +47,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		
 		if ( skipCastingAnimation || owner.InitCastSign( this ) )
 		{
-			if(!notPlayerCast)
+			if (!notPlayerCast)
 			{
 				owner.SetCurrentlyCastSign( GetSignType(), this );				
 				CacheActionBuffsFromSkill();
@@ -59,7 +59,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 			}
 			
 			player = (CR4Player)owner.GetPlayer();
-			if(player && !notPlayerCast && player.CanUseSkill(S_Perk_10))
+			if (player && !notPlayerCast && player.CanUseSkill(S_Perk_10))
 			{
 				focus = player.GetAttributeValue('focus_gain');
 				
@@ -95,7 +95,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		}
 		isAlternate = IsAlternateCast(); // always false!
 		
-		if(isAlternate /* false */)
+		if (isAlternate /* false */)
 		{
 			CreateAttachment( owner.GetActor(), 'quen_sphere' );
 		}
@@ -105,14 +105,14 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 			// --- super.OnStarted();
 		}
 		
-		if(owner.GetActor() == thePlayer)
+		if (owner.GetActor() == thePlayer)
 		{
 			if ( ShouldProcessTutorial('TutorialSelectQuen') ) {
 				FactsAdd("tutorial_quen_cast");
 			}
 		}
 		
-		if((CPlayer)owner.GetActor())
+		if ((CPlayer)owner.GetActor())
 			GetWitcherPlayer().FailFundamentalsFirstAchievementCondition();
 				
 		GotoState( 'QuenShield' );
@@ -149,7 +149,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		else
 			finalName = FxName();
 
-		NRD("LaunchEffect: name = " + finalName + ", playOnOwner = " + playOnOwner + ", enable = " + enable);
+		NR_Debug("LaunchEffect: name = " + finalName + ", playOnOwner = " + playOnOwner + ", enable = " + enable);
 		if (playOnOwner) {
 			if ( enable )
 				owner.GetActor().PlayEffect(finalName);
@@ -173,12 +173,12 @@ state Expired in NR_SorceressQuen
 	{
 		parent.shieldHealth = 0;
 		
-		//if(parent.showForceFinishedFX)
+		//if (parent.showForceFinishedFX)
 		//	parent.owner.GetActor().PlayEffect( parent.LastingShieldFxName(0) );
 			
 		parent.DestroyAfter( 1.f );		
 		
-		if(parent.owner.GetActor() == thePlayer)
+		if (parent.owner.GetActor() == thePlayer)
 			theGame.VibrateControllerHard();	
 	}
 }
@@ -196,7 +196,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		witcher = (W3PlayerWitcher)caster.GetActor();
 		
-		if(witcher)
+		if (witcher)
 		{
 			witcher.SetUsedQuenInCombat();
 			witcher.m_quenReappliedCount = 1;
@@ -217,12 +217,12 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		parent.AddBuffImmunities();
 		
-		if( witcher )
+		if ( witcher )
 		{
 			if ( parent.drainStamina ) {
 				parent.magicManager.DrainStaminaForAction(ENR_SpecialShield);
 			} 
-			else if( !parent.freeFromBearSetBonus )
+			else if ( !parent.freeFromBearSetBonus )
 			{
 				parent.ManagePlayerStamina();
 				parent.ManageGryphonSetBonusBuff();
@@ -234,7 +234,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		}
 		
 		
-		if( !witcher.IsSetBonusActive( EISB_Bear_1 ) || ( !witcher.HasBuff( EET_HeavyKnockdown ) && !witcher.HasBuff( EET_Knockdown ) ) )
+		if ( !witcher.IsSetBonusActive( EISB_Bear_1 ) || ( !witcher.HasBuff( EET_HeavyKnockdown ) && !witcher.HasBuff( EET_Knockdown ) ) )
 		{
 			witcher.CriticalEffectAnimationInterrupted("basic quen cast");
 		}
@@ -264,7 +264,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 
 		parent.LaunchEffect( false );
 
-		if(witcher && parent == witcher.GetSignEntity(ST_Quen))
+		if (witcher && parent == witcher.GetSignEntity(ST_Quen))
 		{
 			witcher.RemoveBuff( EET_BasicQuen );
 		}
@@ -274,7 +274,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		parent.RemoveHitDoTEntities();
 		
-		if(parent.owner.GetActor() == thePlayer)
+		if (parent.owner.GetActor() == thePlayer)
 		{
 			GetWitcherPlayer().OnBasicQuenFinishing();			
 		}
@@ -303,7 +303,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		var min, max : SAbilityAttributeValue; 
 		
 		// was dodged
-		if( damageData.WasDodged() ||
+		if ( damageData.WasDodged() ||
 			damageData.GetHitReactionType() == EHRT_Reflect )
 		{
 			return true;
@@ -314,16 +314,16 @@ state ShieldActive in NR_SorceressQuen extends Active
 		
 		// is parried
 		inAttackAction = (W3Action_Attack)damageData;
-		if(inAttackAction && inAttackAction.CanBeParried() && (inAttackAction.IsParried() || inAttackAction.IsCountered()) )
+		if (inAttackAction && inAttackAction.CanBeParried() && (inAttackAction.IsParried() || inAttackAction.IsCountered()) )
 			return true;
 		
 		casterActor = caster.GetActor();
 		reducedDamage = 0;
 
 		damageData.GetDTs(damageTypes);
-		for(i = 0; i < damageTypes.Size(); i += 1)
+		for (i = 0; i < damageTypes.Size(); i += 1)
 		{
-			if(damageTypes[i].dmgType == theGame.params.DAMAGE_NAME_DIRECT)
+			if (damageTypes[i].dmgType == theGame.params.DAMAGE_NAME_DIRECT)
 			{
 				directDamage = damageTypes[i].dmgVal;
 				break;
@@ -331,7 +331,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		}
 		
 		
-		if( (W3Effect_Bleeding)damageData.causer )
+		if ( (W3Effect_Bleeding)damageData.causer )
 		{
 			incomingDamage = directDamage;
 			isBleeding = true;
@@ -353,7 +353,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		}
 		
 		
-		if(!damageData.IsDoTDamage())
+		if (!damageData.IsDoTDamage())
 		{
 			casterActor.PlayEffect( parent.LastingShieldFxName() );	
 			
@@ -364,12 +364,12 @@ state ShieldActive in NR_SorceressQuen extends Active
 		{
 			LogDMHits("Quen ShieldActive.OnTargetHit: reducing damage from " + damageData.processedDmg.vitalityDamage + " to " + (damageData.processedDmg.vitalityDamage - reducedDamage), action );
 		}
-		NRD("SorceressQuen Shield: shieldHealth = " + parent.shieldHealth + ", playerHealthMax = " + thePlayer.GetStatMax(BCS_Vitality) + ", incomingDamage = " + incomingDamage + ", reducedDamage = " + reducedDamage);
+		NR_Debug("SorceressQuen Shield: shieldHealth = " + parent.shieldHealth + ", playerHealthMax = " + thePlayer.GetStatMax(BCS_Vitality) + ", incomingDamage = " + incomingDamage + ", reducedDamage = " + reducedDamage);
 		
 		damageData.SetHitAnimationPlayType( EAHA_ForceNo );		
 		damageData.SetCanPlayHitParticle( false );
 		
-		if(reducedDamage > 0)
+		if (reducedDamage > 0)
 		{
 			/*
 			if ( parent.wasSignSupercharged )
@@ -392,7 +392,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 			parent.shieldHealth -= reducedDamage;
 			damageData.processedDmg.vitalityDamage -= reducedDamage;
 			
-			if( damageData.processedDmg.vitalityDamage >= 20 )
+			if ( damageData.processedDmg.vitalityDamage >= 20 )
 				casterActor.RaiseForceEvent( 'StrongHitTest' );
 			
 			/*
@@ -421,13 +421,13 @@ state ShieldActive in NR_SorceressQuen extends Active
 		}
 		
 		
-		if(reducedDamage > 0 && (!damageData.DealsAnyDamage() || (isBleeding && reducedDamage >= directDamage)) )
+		if (reducedDamage > 0 && (!damageData.DealsAnyDamage() || (isBleeding && reducedDamage >= directDamage)) )
 			parent.SetBlockedAllDamage(true);
 		else
 			parent.SetBlockedAllDamage(false);
 		
 		
-		if( parent.shieldHealth <= 0 )
+		if ( parent.shieldHealth <= 0 )
 		{
 			/*
 			if ( parent.owner.CanUseSkill(S_Magic_s13) || parent.wasSignSupercharged )

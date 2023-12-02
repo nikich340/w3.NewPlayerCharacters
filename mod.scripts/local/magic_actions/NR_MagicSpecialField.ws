@@ -49,7 +49,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		rot = thePlayer.GetWorldRotation();
 		l_fieldEntity = (CEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!l_fieldEntity) {
-			NRE("l_fieldEntity is invalid, template = " + entityTemplate);
+			NR_Error("l_fieldEntity is invalid, template = " + entityTemplate);
 			return OnPerformed(false);
 		}
 		l_fieldFxName = FieldFxName();
@@ -65,7 +65,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		l_friendlySlowdown = MinF(1.f, dk + (1.f - dk) * 0.7f);
 		l_friendlySlowdown = l_friendlySlowdown - 0.24 / l_friendlySlowdown;
 
-		NRD("NR_MagicSpecialField: dk = " + dk + ", l_hostileSlowdown = " + l_hostileSlowdown + ", l_friendlySlowdown = " + l_friendlySlowdown);
+		NR_Debug("NR_MagicSpecialField: dk = " + dk + ", l_hostileSlowdown = " + l_hostileSlowdown + ", l_friendlySlowdown = " + l_friendlySlowdown);
 		GotoState('Active');
 
 		return OnPerformed(true);
@@ -107,7 +107,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 
 		index = l_victims.FindFirst(victim);
 		if (index < 0) {
-			NRE("Field: RemoveVictim: not found " + victim);
+			NR_Error("Field: RemoveVictim: not found " + victim);
 			return;
 		}
 
@@ -194,7 +194,7 @@ state Active in NR_MagicSpecialField {
 				reachPos = thePlayer.GetWorldPosition();
 
 				NR_SmoothMoveToTarget(moveTime, parent.l_fieldMoveSpeed, currentPos, targetPos, reachPos);
-				NRD("Field: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
+				NR_Debug("Field: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
 				parent.l_fieldEntity.Teleport(currentPos);
 			}
 			lastMoveTime = GetLocalTime();
@@ -241,7 +241,7 @@ state Active in NR_MagicSpecialField {
 state Stop in NR_MagicSpecialField {
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Stop: OnEnterState.");
+		NR_Debug("Stop: OnEnterState.");
 		parent.inPostState = true;
 		RunStop();
 		parent.inPostState = false;
@@ -254,7 +254,7 @@ state Stop in NR_MagicSpecialField {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NRD("Stop: OnLeaveState.");
+		NR_Debug("Stop: OnLeaveState.");
 		// can be removed from cached/cursed actions TODO CHECK
 		parent.inPostState = false;
 	}
@@ -269,7 +269,7 @@ state Cursed in NR_MagicSpecialField {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NRD("Cursed: OnEnterState.");
+		NR_Debug("Cursed: OnEnterState.");
 		startTime = theGame.GetEngineTimeAsSeconds();
 		parent.inPostState = true;
 		RunCursed();
@@ -299,7 +299,7 @@ state Cursed in NR_MagicSpecialField {
 				reachPos = thePlayer.GetWorldPosition();
 
 				NR_SmoothMoveToTarget(moveTime, parent.l_fieldMoveSpeed, currentPos, targetPos, reachPos);
-				NRD("Field: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
+				NR_Debug("Field: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
 				parent.l_fieldEntity.Teleport(currentPos);
 			}
 			lastMoveTime = GetLocalTime();
@@ -335,7 +335,7 @@ state Cursed in NR_MagicSpecialField {
 	event OnLeaveState( nextStateName : name )
 	{
 		var i : int;
-		NRD("Cursed: OnLeaveState.");
+		NR_Debug("Cursed: OnLeaveState.");
 
 		for ( i = parent.l_victims.Size() - 1; i >= 0; i -= 1 )
 		{

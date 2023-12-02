@@ -1,7 +1,7 @@
 abstract statemachine class NR_MagicAction {
 	protected var resourceName 	: String;
 	protected var entityTemplate 	: CEntityTemplate;
-	// W3DestroyableClue, CMonsterNestEntity
+	// W3DestroyableClue, CMonsterNestEntity, W3ToxicCloud
 	protected var destroyableTarget : CGameplayEntity;
 	protected var dummyEntity 	: CEntity;
 	protected var damage 		: W3DamageAction;
@@ -280,6 +280,7 @@ abstract statemachine class NR_MagicAction {
 		var ents 	: array<CGameplayEntity>;
 		var dEnt 	: W3DestroyableClue;
 		var nestEnt : CMonsterNestEntity;
+		var toxEnt 	: W3ToxicCloud;
 		var    i 	: int;
 		var onLine 	: Bool;
 		FindGameplayEntitiesInRange(ents, thePlayer, 20.f, 1000);
@@ -311,6 +312,12 @@ abstract statemachine class NR_MagicAction {
 					return true;
 				}
 			}
+
+			toxEnt = (W3ToxicCloud)ents[i];
+			if (toxEnt.GetCurrentStateName() == 'Armed') {
+				destroyableTarget = toxEnt;
+				return true;
+			}
 		}
 		return false;
 	}
@@ -318,9 +325,11 @@ abstract statemachine class NR_MagicAction {
 	latent function NR_DestroyDestroyableTarget() {
 		var dEnt : W3DestroyableClue;
 		var nestEnt : CMonsterNestEntity;
+		var toxEnt 	: W3ToxicCloud;
 
 		dEnt = (W3DestroyableClue)destroyableTarget;
 		nestEnt = (CMonsterNestEntity)destroyableTarget;
+		toxEnt = (W3ToxicCloud)destroyableTarget;
 		if ( dEnt ) {
 			if ( dEnt.reactsToIgni )
 				dEnt.OnIgniHit(NULL);
@@ -328,6 +337,8 @@ abstract statemachine class NR_MagicAction {
 				dEnt.ProcessDestruction();
 		} else if ( nestEnt ) {
 			nestEnt.OnFireHit(NULL);
+		} else if ( toxEnt ) {
+			toxEnt.OnFireHit(NULL);
 		}
 	}
 

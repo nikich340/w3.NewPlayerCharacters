@@ -8,8 +8,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('RotatePrePerformAction','OnAnimEventMagic');
-		parent.AddAnimEventCallback('Spawn',				'OnAnimEventMagic');
-		parent.AddAnimEventCallback('Shoot',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
 		parent.AddAnimEventCallback('UnblockMiscActions',	'OnAnimEventMagic');
 		//parent.AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend');
@@ -24,8 +22,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.RemoveAnimEventCallback('InitAction');
 		parent.RemoveAnimEventCallback('Prepare');
 		parent.RemoveAnimEventCallback('RotatePrePerformAction');
-		parent.RemoveAnimEventCallback('Spawn');
-		parent.RemoveAnimEventCallback('Shoot');
 		parent.RemoveAnimEventCallback('PerformMagicAttack');
 		parent.RemoveAnimEventCallback('UnblockMiscActions');
 		parent.RemoveAnimEventCallback('PrepareTeleport');

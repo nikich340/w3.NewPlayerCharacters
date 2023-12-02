@@ -88,8 +88,6 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 		thePlayer.AddAnimEventCallback('InitAction',		'OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('Prepare',			'OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('RotatePrePerformAction', 'OnAnimEventMagic');
-		thePlayer.AddAnimEventCallback('Spawn',				'OnAnimEventMagic');
-		thePlayer.AddAnimEventCallback('Shoot',				'OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('PerformMagicAttack','OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('UnblockMiscActions','OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('PrepareTeleport',	'OnAnimEventMagic');
@@ -98,8 +96,6 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 		thePlayer.RemoveAnimEventCallback('InitAction');
 		thePlayer.RemoveAnimEventCallback('Prepare');
 		thePlayer.RemoveAnimEventCallback('RotatePrePerformAction');
-		thePlayer.RemoveAnimEventCallback('Spawn');
-		thePlayer.RemoveAnimEventCallback('Shoot');
 		thePlayer.RemoveAnimEventCallback('PerformMagicAttack');
 		thePlayer.RemoveAnimEventCallback('UnblockMiscActions');
 		thePlayer.RemoveAnimEventCallback('PrepareTeleport');

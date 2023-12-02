@@ -2073,7 +2073,6 @@ state MagicLoop in NR_MagicManager {
 					case 'InitAction':
 						InitMagicAction( NameToString(parent.aEventsStack[0].animName) );
 						break;
-					case 'Spawn':
 					case 'Prepare':
 					case 'PrepareTeleport':
 						PrepareMagicAction();
@@ -2081,7 +2080,6 @@ state MagicLoop in NR_MagicManager {
 					case 'RotatePrePerformAction':
 						RotatePrePerformMagicAction();
 						break;
-					case 'Shoot':
 					case 'PerformMagicAttack':
 					case 'PerformTeleport':
 						PerformMagicAction();

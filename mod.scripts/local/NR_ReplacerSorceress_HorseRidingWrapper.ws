@@ -7,8 +7,6 @@ state HorseRiding in NR_ReplacerSorceress
 		parent.AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('RotatePrePerformAction', 'OnAnimEventMagic');
-		parent.AddAnimEventCallback('Spawn',				'OnAnimEventMagic');
-		parent.AddAnimEventCallback('Shoot',				'OnAnimEventMagic');
 		parent.AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
 		parent.AddAnimEventCallback('UnblockMiscActions',	'OnAnimEventMagic');
 		super.OnEnterState( prevStateName );

@@ -88,10 +88,10 @@ class NR_MagicLightning extends NR_MagicAction {
 				if (target)
 					OnPerformReboundFromActor(target, oldTarget);
 			}
-		} else if (destroyable) {
-			destroyable.ProcessDestruction();
-			thePlayer.PlayEffect(m_fxNameMain, destroyable);
+		} else if (destroyableTarget) {
+			thePlayer.PlayEffect(m_fxNameMain, destroyableTarget);
 			dummyEntity.PlayEffect(m_fxNameHit);
+			NR_DestroyDestroyableTarget();
 		} else {
 			thePlayer.PlayEffect(m_fxNameMain, dummyEntity);
 			dummyEntity.PlayEffect(m_fxNameHit);

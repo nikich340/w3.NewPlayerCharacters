@@ -32,7 +32,7 @@ class NR_MagicSlash extends NR_MagicAction {
 
 		resourceName = SlashEntityName();
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
-		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
+		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
 		if ( IsActionAbilityUnlocked("DoubleSlash") ) {
 			pos.Z += 0.15f;
@@ -91,15 +91,9 @@ class NR_MagicSlash extends NR_MagicAction {
 			// damage.AddEffectInfo(EET_Burning, 2.0);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
+		} else if (destroyableTarget) {
+			NR_DestroyDestroyableTarget();
 		}
-		/* else if (destroyable) {
-			if (destroyable.reactsToIgni) {
-				destroyable.OnIgniHit(NULL);
-			} else {
-				destroyable.OnAardHit(NULL);
-			}
-		}
-		*/
 
 		return OnPerformed(true);
 	}

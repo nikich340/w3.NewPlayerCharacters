@@ -1,7 +1,8 @@
 abstract statemachine class NR_MagicAction {
 	protected var resourceName 	: String;
 	protected var entityTemplate 	: CEntityTemplate;
-	protected var destroyable		: W3DestroyableClue;
+	// W3DestroyableClue, CMonsterNestEntity
+	protected var destroyableTarget : CGameplayEntity;
 	protected var dummyEntity 	: CEntity;
 	protected var damage 		: W3DamageAction;
 	protected var damageVal 	: float;
@@ -225,6 +226,7 @@ abstract statemachine class NR_MagicAction {
 		// calculate real target rot,pos
 		rot = thePlayer.GetWorldRotation();
 		if (target) {
+			NR_Debug("NR_MagicAction.NR_CalculateTarget: target = " + target);
 			pos = target.GetWorldPosition();
 			// must be good for all enemies
 			pos.Z += targetOffsetZ;
@@ -236,11 +238,16 @@ abstract statemachine class NR_MagicAction {
 				foundDestroyable = NR_FindDestroyableTarget();
 			}
 			if (foundDestroyable) {
-				NR_Debug("Found destroyable target: " + destroyable);
-				pos = destroyable.GetWorldPosition();
-				pos.Z += 0.7f;
+				NR_Debug("NR_MagicAction.NR_CalculateTarget: destoyable target = " + destroyableTarget);
+				pos = destroyableTarget.GetWorldPosition();
+				// TODO #D: calculate object height via components
+				if ( (CMonsterNestEntity)destroyableTarget ) {
+					pos.Z += 0.1f;
+				} else {
+					pos.Z += 0.7f;
+				}
 			} else {
-				NR_Debug("WARNING! No target, use ground pos.");
+				NR_Debug("NR_MagicAction.NR_CalculateTarget: no target.");
 				//pos = thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 5.f;
 				if (isOnHorse)
 					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 15.f;
@@ -272,23 +279,56 @@ abstract statemachine class NR_MagicAction {
 	{
 		var ents 	: array<CGameplayEntity>;
 		var dEnt 	: W3DestroyableClue;
+		var nestEnt : CMonsterNestEntity;
 		var    i 	: int;
 		var onLine 	: Bool;
-		FindGameplayEntitiesInRange(ents, thePlayer, 20.f, 1000, '', 0, NULL, 'W3DestroyableClue');
+		FindGameplayEntitiesInRange(ents, thePlayer, 20.f, 1000);
 		for (i = 0; i < ents.Size(); i += 1) {
+			// check if in player FOV
+			if ( !thePlayer.WasVisibleInScaledFrame(ents[i], 1.f, 1.f) ) {
+				continue;
+			}
+
 			dEnt = (W3DestroyableClue)ents[i];
-			// destroyable, not destroyed, reacts to aard or igni, is on line of sight, *is in FOV
-			if (dEnt && dEnt.destroyable && !dEnt.destroyed /*&& (dEnt.reactsToAard || dEnt.reactsToIgni) weird! && AbsF(theCamera.GetCameraHeading() - dEnt.GetHeading()) < 90*/) {
+			// destroyable, not destroyed, reacts to aard or igni
+			if (dEnt && dEnt.destroyable && !dEnt.destroyed /*&& (dEnt.reactsToAard || dEnt.reactsToIgni)*/) {
 				// there must be no static obstacles
 				onLine = NR_OnLineOfSight(thePlayer, dEnt, 1.f);
-			
 				if (onLine) {
-					destroyable = dEnt;
+					destroyableTarget = dEnt;
+					return true;
+				}
+				
+			}
+
+			nestEnt = (CMonsterNestEntity)ents[i];
+			if (nestEnt && !nestEnt.interactionOnly && !nestEnt.wasExploded) {
+				// there must be no static obstacles
+				onLine = NR_OnLineOfSight(thePlayer, nestEnt, 1.f);
+				NR_Debug("NR_FindDestroyableTarget: nestEnt OK: " + nestEnt, true);
+				if (onLine) {
+					destroyableTarget = nestEnt;
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+
+	latent function NR_DestroyDestroyableTarget() {
+		var dEnt : W3DestroyableClue;
+		var nestEnt : CMonsterNestEntity;
+
+		dEnt = (W3DestroyableClue)destroyableTarget;
+		nestEnt = (CMonsterNestEntity)destroyableTarget;
+		if ( dEnt ) {
+			if ( dEnt.reactsToIgni )
+				dEnt.OnIgniHit(NULL);
+			else
+				dEnt.ProcessDestruction();
+		} else if ( nestEnt ) {
+			nestEnt.OnFireHit(NULL);
+		}
 	}
 
 	latent function NR_OnLineOfSight(nodeA : CNode, nodeB : CNode, zOffset : float) : bool

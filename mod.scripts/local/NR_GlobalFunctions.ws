@@ -10,7 +10,7 @@ quest function NR_Notify_Quest(message : String, optional seconds : float) {
 	NR_Notify(message, seconds);
 }
 
-function NR_Debug(message : String)
+function NR_Debug(message : String, optional removeOnRelease : bool)
 {
     LogChannel('NR_DEBUG', "(" + FloatToStringPrec(theGame.GetEngineTimeAsSeconds(), 3) + "): " + message);
 }

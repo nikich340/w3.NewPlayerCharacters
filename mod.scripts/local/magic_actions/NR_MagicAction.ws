@@ -1,7 +1,8 @@
 abstract statemachine class NR_MagicAction {
-	protected var resourceName 	: String;
-	protected var entityTemplate 	: CEntityTemplate;
-	// W3DestroyableClue, CMonsterNestEntity, W3ToxicCloud
+	protected var resourceName 			: String;
+	protected var entityTemplate 		: CEntityTemplate;
+	protected var entityTemplateExtra	: CEntityTemplate;
+	// W3DestroyableClue, CMonsterNestEntity, W3ToxicCloud, CRiftEntity
 	protected var destroyableTarget : CGameplayEntity;
 	protected var dummyEntity 	: CEntity;
 	protected var damage 		: W3DamageAction;
@@ -281,6 +282,7 @@ abstract statemachine class NR_MagicAction {
 		var dEnt 	: W3DestroyableClue;
 		var nestEnt : CMonsterNestEntity;
 		var toxEnt 	: W3ToxicCloud;
+		var riftEnt : CRiftEntity;
 		var    i 	: int;
 		var onLine 	: Bool;
 		FindGameplayEntitiesInRange(ents, thePlayer, 20.f, 1000);
@@ -289,35 +291,41 @@ abstract statemachine class NR_MagicAction {
 			if ( !thePlayer.WasVisibleInScaledFrame(ents[i], 1.f, 1.f) ) {
 				continue;
 			}
+			NR_Debug("NR_FindDestroyableTarget: Check " + ents[i]);
+
+			/*
+			onLine = NR_OnLineOfSight(thePlayer, ents[i], 1.f);
+			if (!onLine) {
+				NR_Debug("NR_FindDestroyableTarget: !onLine");
+				continue;
+			}
+			*/
 
 			dEnt = (W3DestroyableClue)ents[i];
 			// destroyable, not destroyed, reacts to aard or igni
 			if (dEnt && dEnt.destroyable && !dEnt.destroyed /*&& (dEnt.reactsToAard || dEnt.reactsToIgni)*/) {
-				// there must be no static obstacles
-				onLine = NR_OnLineOfSight(thePlayer, dEnt, 1.f);
-				if (onLine) {
-					destroyableTarget = dEnt;
-					return true;
-				}
-				
+				destroyableTarget = dEnt;
+				return true;
 			}
 
 			nestEnt = (CMonsterNestEntity)ents[i];
 			if (nestEnt && !nestEnt.interactionOnly && !nestEnt.wasExploded) {
-				// there must be no static obstacles
-				onLine = NR_OnLineOfSight(thePlayer, nestEnt, 1.f);
-				NR_Debug("NR_FindDestroyableTarget: nestEnt OK: " + nestEnt, true);
-				if (onLine) {
-					destroyableTarget = nestEnt;
-					return true;
-				}
+				destroyableTarget = nestEnt;
+				return true;
 			}
 
 			toxEnt = (W3ToxicCloud)ents[i];
-			if (toxEnt.GetCurrentStateName() == 'Armed') {
+			if (toxEnt && toxEnt.GetCurrentStateName() == 'Armed') {
 				destroyableTarget = toxEnt;
 				return true;
 			}
+
+			riftEnt = (CRiftEntity)ents[i];
+			if (riftEnt && riftEnt.IsRiftOpen()) {
+				destroyableTarget = riftEnt;
+				return true;
+			}
+			NR_Debug("dEnt = " + dEnt + ", nestEnt = " + nestEnt + ", toxEnt = " + toxEnt + ", riftEnt = " + riftEnt);
 		}
 		return false;
 	}
@@ -326,10 +334,12 @@ abstract statemachine class NR_MagicAction {
 		var dEnt : W3DestroyableClue;
 		var nestEnt : CMonsterNestEntity;
 		var toxEnt 	: W3ToxicCloud;
+		var riftEnt : CRiftEntity;
 
 		dEnt = (W3DestroyableClue)destroyableTarget;
 		nestEnt = (CMonsterNestEntity)destroyableTarget;
 		toxEnt = (W3ToxicCloud)destroyableTarget;
+		riftEnt = (CRiftEntity)destroyableTarget;
 		if ( dEnt ) {
 			if ( dEnt.reactsToIgni )
 				dEnt.OnIgniHit(NULL);
@@ -339,6 +349,8 @@ abstract statemachine class NR_MagicAction {
 			nestEnt.OnFireHit(NULL);
 		} else if ( toxEnt ) {
 			toxEnt.OnFireHit(NULL);
+		} else if ( riftEnt ) {
+			riftEnt.DeactivateRift();
 		}
 	}
 

@@ -1042,10 +1042,10 @@ statemachine class NR_PlayerManager {
 			appearanceSlot = NR_EEquipmentSlotToENRSlot( equippedOnSlot );
 			if ( appearanceSlot == ENR_GSlotArmor || appearanceSlot == ENR_GSlotGloves ||
 				 appearanceSlot == ENR_GSlotBoots || appearanceSlot == ENR_GSlotPants ||
-				(inv.ItemHasTag(ids[i], 'Body') && StrStartsWith(NR_stringByItemUID(ids[i]), "Body")) )
+				(inv.ItemHasTag(ids[i], 'Body') && StrStartsWith(NR_stringByItemUID(inv, ids[i]), "Body")) )
 			{
 				UpdateSavedItem( ids[i] );
-				NR_Debug("NR_PlayerManager.UnmountEquipment: " + NR_stringByItemUID(ids[i]) + ", name: " + inv.GetItemName(ids[i]) + " slot = " + equippedOnSlot);
+				NR_Debug("NR_PlayerManager.UnmountEquipment: " + NR_stringByItemUID(inv, ids[i]) + ", name: " + inv.GetItemName(ids[i]) + " slot = " + equippedOnSlot);
 			}
 		}
 	}

@@ -41,20 +41,6 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 
 		return NR_mountAllowed && super.ShouldMount(slot, item, category);
 	}*/
-
-	/*
-	event OnBlockingSceneStarted( scene: CStoryScene )
-	{
-		NR_GetPlayerManager().SetIsInStoryScene( true );
-		super.OnBlockingSceneStarted( scene );
-	}
-
-	event OnBlockingSceneEnded( optional output : CStorySceneOutput)
-	{
-		NR_GetPlayerManager().SetIsInStoryScene( false );
-		super.OnBlockingSceneEnded( output );
-	}
-	*/
 	
 	public function UnequipItemFromSlot(slot : EEquipmentSlots, optional reequipped : bool) : bool
 	{
@@ -83,7 +69,8 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	public function EquipItemInGivenSlot(item : SItemUniqueId, slot : EEquipmentSlots, ignoreMounting : bool, optional toHand : bool) : bool
 	{
 		var ret : Bool;
-		NR_Debug("EquipItemInGivenSlot: slot = " + slot + " ignoreMounting = " + ignoreMounting + ", toHand = " + toHand);
+
+		NR_Debug("EquipItemInGivenSlot: [" + NR_stringByItemUID(inv, item) + "] slot = " + slot + " ignoreMounting = " + ignoreMounting + ", toHand = " + toHand);
 		if (slot == EES_Armor || slot == EES_Boots || slot == EES_Gloves || slot == EES_Pants) {
 			ignoreMounting = true;
 		}

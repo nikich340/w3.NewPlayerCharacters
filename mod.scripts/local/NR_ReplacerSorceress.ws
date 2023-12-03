@@ -82,12 +82,14 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		var i 	: int;
 		var ids : array<SItemUniqueId>;
 
+		NR_Debug("NR_ReplacerSorceress.ExterminateSwordStuff");
 		UnequipItemFromSlot(EES_SteelSword);
 		UnequipItemFromSlot(EES_SilverSword);
 		UnequipItemFromSlot(EES_Potion4);
 
 		inv.GetAllItems(ids);
 		for (i = 0; i < ids.Size(); i += 1) {
+			// NR_Debug("NR_ReplacerSorceress.ExterminateSwordStuff[" + i + "] = (" + inv.GetItemCategory(ids[i]) + ") " + NR_stringByItemUID(inv, ids[i]));
 			if (inv.GetItemCategory(ids[i]) == 'steelsword' || inv.GetItemCategory(ids[i]) == 'silversword'
 				|| inv.GetItemCategory(ids[i]) == 'steel_scabbards' || inv.GetItemCategory(ids[i]) == 'silver_scabbards') 
 			{
@@ -127,14 +129,22 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	event OnBlockingSceneEnded( optional output : CStorySceneOutput)
 	{
 		ExterminateSwordStuff();
+		NR_Debug("NR_ReplacerSorceress.OnBlockingSceneEnded: action = " + output.action);
+
 		if (output.action == SSOA_EnterCombatSteel || output.action == SSOA_EnterCombatSilver)
 			output.action = SSOA_EnterCombatFists;
 		super.OnBlockingSceneEnded( output );
 	}
+
+	event OnBlockingSceneStarted( scene: CStoryScene )
+	{
+		NR_Debug("NR_ReplacerSorceress.OnBlockingSceneStarted: scene = " + scene);
+		super.OnBlockingSceneStarted(scene);
+	}
 	
 	public function GoToStateIfNew( newState : name, optional keepStack : bool, optional forceEvents : bool  )
 	{
-		NR_Debug("GoToStateIfNew: newState = " + newState);
+		NR_Debug("NR_ReplacerSorceress.GoToStateIfNew: newState = " + newState);
 		super.GoToStateIfNew(newState, keepStack, forceEvents);
 	}
 

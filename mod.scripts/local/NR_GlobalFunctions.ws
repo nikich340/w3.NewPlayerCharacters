@@ -20,10 +20,7 @@ function NR_Error(message : String)
     LogChannel('NR_ERROR', "(" + FloatToStringPrec(theGame.GetEngineTimeAsSeconds(), 3) + "): " + message);
 }
 
-function NR_stringByItemUID(itemId : SItemUniqueId) : String {
-	var inv : CInventoryComponent;
-	inv = thePlayer.GetInventory();
-
+function NR_stringByItemUID(inv : CInventoryComponent, itemId : SItemUniqueId) : String {
 	if ( inv.IsIdValid(itemId) )
 		return NameToString( inv.GetItemName(itemId) );
 	else

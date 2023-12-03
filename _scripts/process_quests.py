@@ -9,7 +9,7 @@ import subprocess
 from queue import Queue
 from copy import deepcopy
 
-cli_path = "C:/w3.modding/GIT_FUZZO_WolvenKit-7_NGE/WolvenKit.CLI/bin/Release/net481/WolvenKit.CLI.exe"
+cli_path = "D:/w3.modding/w3.projects/WolvenKit-7/WolvenKit.CLI/bin/Release/net481/WolvenKit.CLI.exe"
 
 
 # get node by path
@@ -58,6 +58,7 @@ def warning(msg: str):
 
 def error(msg: str):
     print(f"[!] ERROR: {msg}")
+    exit(0)
 
 
 # func to export json from cr2w
@@ -68,7 +69,7 @@ def export_json(file_path, overwrite=False):
         return
 
     # info(f"Exporting json: {file_path}")
-    args = [cli_path, "--cr2w2json", "--guids_as_strings", f"--input={file_path}"]
+    args = [cli_path, "--cr2w2json", "--guids_as_strings", "--bytes_as_list", f"--input={file_path}"]
     p = subprocess.Popen(args, stdout=subprocess.DEVNULL)
     p.wait()
 
@@ -936,7 +937,7 @@ def print_graph_to_dfs(parent_data, key, extra, block_extras, offset):
     # graph_info_file.write("\n")
 
 
-def main():
+def main(mods: bool):
     global cli_path, data, line_to_line_copy, scene_to_scene_copy, graph_data, graph_visited, mod_key_by_key
     if not os.path.exists(cli_path):
         cli_path = input("CLI path: ")
@@ -947,9 +948,16 @@ def main():
             parts = line.split("|")
             line_to_line_copy[parts[0]] = parts[1]
 
+    if mods:
+        with open("string_geralt_mod_replacements.csv", encoding="utf-8", mode="r") as infile:
+            for line in infile.readlines():
+                line = line[:-1]
+                parts = line.split("|")
+                line_to_line_copy[parts[0]] = parts[1]
+
     info(f"Loaded geralt lines: {len(line_to_line_copy)}")
 
-    with open("w2scene_replacements.csv", encoding="utf-8", mode="r") as infile:
+    with open("w2scene_replacements_mods.csv" if mods else "w2scene_replacements.csv", encoding="utf-8", mode="r") as infile:
         for line in infile.readlines():
             line = line[:-1]
             if line.startswith(";"):
@@ -959,8 +967,8 @@ def main():
 
     info(f"Loaded scenes: {len(scene_to_scene_copy)}")
 
-    dir = "CookedQuests"  # input("Input dir (CookedQuests): ")
-    edited_dir = f"{dir}.Final"  # input("Output dir (CookedQuests.Final): ")
+    dir = input("Input dir (CookedQuests): ")
+    edited_dir = input("Output dir (CookedQuests.Final): ")
     w2quest_paths = list(x for x in Path(dir).rglob("*") if x.is_file() and x.suffix in {".w2quest", ".w2phase"})
     w2quest_edited_paths = list()
 
@@ -1040,6 +1048,7 @@ def main():
     # with open("edited_w2scene.csv", encoding="utf-8", mode="w") as outfile:
     #    for path in w2scene_edited_paths:
     #        outfile.write(path + "\n")
+    input("DONE!")
 
 
-main()
+main(True)

@@ -10,7 +10,7 @@ from queue import Queue
 from copy import deepcopy
 from shutil import copy2
 
-cli_path = "C:/w3.modding/GIT_FUZZO_WolvenKit-7_NGE/WolvenKit.CLI/bin/Release/net481/WolvenKit.CLI.exe"
+cli_path = "D:/w3.modding/w3.projects/WolvenKit-7/WolvenKit.CLI/bin/Release/net481/WolvenKit.CLI.exe"
 
 
 # get node by path
@@ -157,12 +157,12 @@ def dfs_patch(parent_key, key):
     return
 
 
-def main():
+def main(mods: bool):
     global cli_path, data, chunk_count, changes_required, loc_geralt_lines, cs_to_cs_copy, visited_keys
     if not os.path.exists(cli_path):
         cli_path = input("CLI path: ")
 
-    with open("string_en_geralt.csv", encoding="utf-8", mode="r") as infile:
+    '''with open("string_en_geralt.csv", encoding="utf-8", mode="r") as infile:
         for line in infile.readlines():
             if line.startswith(";"):
                 continue
@@ -180,6 +180,25 @@ def main():
             while len(str_id2) < 10:
                 str_id2 = "0" + str_id2
             outfile.write(f"{str_id}|{str_id2}\n")
+    '''
+    with open("string_geralt_replacements.csv", encoding="utf-8", mode="r") as infile:
+        for line in infile.readlines():
+            line = line[:-1]
+            if line.startswith(";"):
+                continue
+            id1 = int(line.split("|")[0])
+            id2 = int(line.split("|")[1])
+            loc_geralt_lines[id1] = id2
+
+    if mods:
+        with open("string_geralt_mod_replacements.csv", encoding="utf-8", mode="r") as infile:
+            for line in infile.readlines():
+                line = line[:-1]
+                if line.startswith(";"):
+                    continue
+                id1 = int(line.split("|")[0])
+                id2 = int(line.split("|")[1])
+                loc_geralt_lines[id1] = id2
 
     info(f"Loaded geralt lines: {len(loc_geralt_lines)}")
 
@@ -193,47 +212,52 @@ def main():
 
     info(f"Loaded cutscenes: {len(cs_to_cs_copy)}")
 
-    dir = input("Input dir (Cooked): ")
-    edited_dir = input("Output dir (Cooked.Final): ")
+    dir = input("Input dir (CookedScenes.Vanilla): ")
+    edited_dir = input("Output dir (CookedScenes.Patched): ")
     w2scene_paths = list(x for x in Path(dir).rglob("*.w2scene") if x.is_file())
     w2scene_edited_paths = list()
 
     # input_names = dict()
     for w2scene_path in tqdm(w2scene_paths):
-        data.clear()
-        visited_keys.clear()
-        chunk_count = 0
         changes_required = False
-        inputs = dict()
         scene_name = str(w2scene_path).split("\\")[-1]
+        lines_replaced = 0
+        cs_replaced = 0
 
         vanilla_path = str(w2scene_path.relative_to(dir)).replace("\\", "/")
-        # input_names[vanilla_path] = []
 
         export_json(str(w2scene_path))
         data = load_json(str(w2scene_path) + ".json")
 
         for key in data["_chunks"]:
-            chunk_count += 1
             chunk_type = data["_chunks"][key]["_type"]
-            # chunks[key] = data["_chunks"][key]
-            if chunk_type == "CStorySceneInput":
-                inputs[key] = data["_chunks"][key]
-                # if "inputName" in data["_chunks"][key]["_vars"]:
-                #    input_names[vanilla_path].append(data["_chunks"][key]["_vars"]["inputName"]["_value"])
-                # else:
-                #    input_names[vanilla_path].append("Input")
+            if chunk_type == "CStorySceneCutsceneSection" and "cutscene" in data["_chunks"][key]["_vars"]:
+                cs_node = data["_chunks"][key]["_vars"]["cutscene"]["_vars"]["_depotPath"]
+                cs_path = cs_node["_value"]
+                if cs_path in cs_to_cs_copy:
+                    info(f"CutscenePath patched: {cs_path} -> {cs_to_cs_copy[cs_path]}")
+                    cs_node['_value'] = cs_to_cs_copy[cs_path]
+                    changes_required = True
+                    cs_replaced += 1
+            elif chunk_type == "CStorySceneLine" and "dialogLine" in data["_chunks"][key]["_vars"]:
+                line_node = data["_chunks"][key]["_vars"]["dialogLine"]
+                line_id = line_node["_value"]
+                line_tag = data["_chunks"][key]["_vars"]["voicetag"]["_value"] if "voicetag" in data["_chunks"][key]["_vars"] else "-"
+                if line_id in loc_geralt_lines:
+                    info(f"LocalizedString patched: {line_id} -> {loc_geralt_lines[line_id]}")
+                    line_node['_value'] = loc_geralt_lines[line_id]
+                    changes_required = True
+                    lines_replaced += 1
+                    if line_tag != "GERALT":
+                        error(f"LocalizedString MUST BE GERALT: {line_id} ({line_tag})")
+                else:
+                    if line_tag == "GERALT":
+                        error(f"LocalizedString IS GERALT: {line_id}")
 
-        info(f"Scene {scene_name}, {len(data['_chunks'])} chunks, {len(inputs)} inputs")
-
-        copied_chunks = dict()
-        # inject flow condition and start dfs copying chunks until Output met
-        for inputSectionKey in inputs:
-            if "nextLinkElement" not in inputs[inputSectionKey]["_vars"]:
-                continue
-
-            nextLinkKey = inputs[inputSectionKey]["_vars"]["nextLinkElement"]["_vars"]["_reference"]["_value"]
-            dfs_patch(inputSectionKey, nextLinkKey)
+        if changes_required:
+            info(f"+++ Scene {scene_name}, {len(data['_chunks'])} chunks, cs replaced: {cs_replaced}, lines replaced: {lines_replaced}")
+        else:
+            info(f"- Scene {scene_name}, {len(data['_chunks'])} chunks, not edited")
 
         edited_path = edited_dir + "/" + str(w2scene_path.relative_to(dir))
         if changes_required:
@@ -253,23 +277,26 @@ def main():
     #    for path in w2scene_edited_paths:
     #        outfile.write(path + "\n")
 
-def copy_to_dlc():
+def copy_to_dlc(mods: bool):
     dir = input("Input dir (CookedScenes.Output): ")
     edited_dir = input("Output dir (CookedScenes.Final): ")
     w2scene_paths = list(x for x in Path(dir).rglob("*.w2scene") if x.is_file())
     w2scene_num = 0
 
-    with open("w2scene_replacements.csv", encoding="utf-8", mode="w") as outfile:
+    with open("w2scene_replacements_mods.csv" if mods else "w2scene_replacements.csv", encoding="utf-8", mode="w") as outfile:
         for path in tqdm(w2scene_paths):
             w2scene_num += 1
             vanilla_path = str(path.relative_to(dir))
             scene_name = vanilla_path.split("\\")[-1]
-            dlc_path = f"dlc\\dlcnewreplacers\\data\\scenes\\female_patched\\{w2scene_num}.{scene_name}"
+            if mods:
+                dlc_path = f"dlc\\dlcnewreplacers\\data\\scenes\\female_patched_mods\\{w2scene_num}.{scene_name}"
+            else:
+                dlc_path = f"dlc\\dlcnewreplacers\\data\\scenes\\female_patched\\{w2scene_num}.{scene_name}"
             os.makedirs(os.path.dirname(edited_dir + "\\" + dlc_path), exist_ok=True)
             copy2(dir + "\\" + vanilla_path, edited_dir + "\\" + dlc_path)
             outfile.write(f"{vanilla_path}|{dlc_path}\n")
 
     info(f"Copied scenes: {w2scene_num}")
 
-#main()
-copy_to_dlc()
+# main(True)
+copy_to_dlc(True)

@@ -269,7 +269,7 @@ def Create_SetSceneBlockActive(vanilla_func_key, scene_mod_key, graph_key, graph
             },
             "caption": {
                 "_type": "String",
-                "_value": "Script [NR_SetSceneBlockActive_Q]"
+                "_value": f"Script [NR_SetSceneBlockActive_Q #{chunk_id(scene_mod_key)}]"
             },
             "BufferParameters": {
                 "_type": "CCompressedBuffer:CVariant",
@@ -458,7 +458,7 @@ def Create_IsSceneBlockActive(func_key, scene_mod_key, on_false_CutControl_key, 
             },
             "caption": {
                 "_type": "String",
-                "_value": "Script [NR_IsSceneBlockActive_Q]"
+                "_value": f"Script [NR_IsSceneBlockActive_Q #{chunk_id(scene_mod_key)}]"
             },
             "BufferParameters": {
                 "_type": "CCompressedBuffer:CVariant",
@@ -665,6 +665,7 @@ def build_quest_graph(block_key: str):
     global data, graph_data, graph_visited
     if block_key in graph_visited:
         return
+    # info(f"Add to graph: {block_key}")
     graph_visited.add(block_key)
     block_type = data["_chunks"][block_key]["_type"]
     block_vars = data["_chunks"][block_key]["_vars"]
@@ -706,11 +707,21 @@ def handle_scene_chunk(scene_key, graph_key, quest_path):
     scene_copy_key = f"{scene_type} #{chunk_count()}"
     info(f"Patch chunk {scene_key} -> {scene_copy_key}")
     data["_chunks"][scene_copy_key] = deepcopy(data["_chunks"][scene_key])
+    # add comment
+    if "name" not in data["_chunks"][scene_copy_key]["_vars"]:
+        data["_chunks"][scene_copy_key]["_vars"]["name"] = {
+          "_type": "String",
+          "_value": f"[NR copy of #{chunk_id(scene_key)}]"
+        }
+    else:
+        data["_chunks"][scene_copy_key]["_vars"]["name"]["_value"] += f" [NR copy of #{chunk_id(scene_key)}]"
+
     data["_chunks"][scene_copy_key]["_vars"]["guid"]["_value"] = new_guid()
     Add_GraphBlock(scene_copy_key, graph_key)
     graph_data[scene_copy_key] = {"in": list(), "thunder": list()}
-    graph_visited.add(scene_copy_key)
     mod_key_by_key[scene_key] = scene_copy_key
+    # Add info about scene block outputs into graph (if any of them is scene block too)
+    build_quest_graph(scene_copy_key)
 
     # Patch scene paths in mod scene block
     scene_copy_vars = data["_chunks"][scene_copy_key]["_vars"]
@@ -781,33 +792,48 @@ def handle_scene_chunk(scene_key, graph_key, quest_path):
 
     # 4. Copy CutControl, patch copied to kill patched scene, reconnect inputs to ScriptBlock
     for thunder in graph_data[scene_key]["thunder"]:
-        if thunder["key"] not in mod_key_by_key:
-            # Add CutControl copy
-            thunder_mod_key = f"CQuestCutControlBlock #{chunk_count()}"
-            mod_key_by_key[thunder["key"]] = thunder_mod_key
-            data["_chunks"][thunder_mod_key] = deepcopy(data["_chunks"][thunder["key"]])
-            data["_chunks"][thunder_mod_key]["_vars"]["guid"]["_value"] = new_guid()
-            graph_data[thunder_mod_key] = {"in": list(), "thunder": list()}
-            graph_visited.add(thunder_mod_key)
-            Add_GraphBlock(thunder_mod_key, graph_key)
+        info(f"Patch thunder {thunder['key']} for: {scene_key} -> {scene_copy_key}")
+        if thunder["key"] in mod_key_by_key.values():
+            # thunder key is mod thunder already
+            thunder_mod_key = thunder["key"]
+        else:
+            if thunder["key"] not in mod_key_by_key:
+                # Add CutControl copy
+                thunder_mod_key = f"CQuestCutControlBlock #{chunk_count()}"
+                mod_key_by_key[thunder["key"]] = thunder_mod_key
+                data["_chunks"][thunder_mod_key] = deepcopy(data["_chunks"][thunder["key"]])
+                # add comment
+                if "name" not in data["_chunks"][thunder_mod_key]["_vars"]:
+                    data["_chunks"][thunder_mod_key]["_vars"]["name"] = {
+                        "_type": "String",
+                        "_value": f"[NR copy of #{chunk_id(thunder['key'])}]"
+                    }
+                else:
+                    data["_chunks"][thunder_mod_key]["_vars"]["name"]["_value"] += f" [NR copy of #{chunk_id(thunder['key'])}]"
 
-            # Add Script checking block
-            script_check_key = f"CQuestScriptBlock #{chunk_count()}"
-            data["_chunks"][script_check_key] = Create_IsSceneBlockActive(script_check_key, scene_copy_key, thunder["key"], thunder_mod_key, graph_key, quest_path)
-            graph_data[script_check_key] = {"in": list(), "thunder": list()}
-            graph_visited.add(script_check_key)
-            Add_GraphBlock(script_check_key, graph_key)
+                data["_chunks"][thunder_mod_key]["_vars"]["guid"]["_value"] = new_guid()
+                graph_data[thunder_mod_key] = {"in": list(), "thunder": list()}
+                Add_GraphBlock(thunder_mod_key, graph_key)
+                # Add info about scene block outputs into graph (if any of them is scene block too)
+                build_quest_graph(thunder_mod_key)
 
-            # Reconnect blocks: vanilla thunder -> script check
-            for thunder_in in graph_data[thunder["key"]]["in"]:
-                thunder_in["ock"]["_vars"]["_reference"]["_value"] = script_check_key
+                # Add Script checking block
+                script_check_key = f"CQuestScriptBlock #{chunk_count()}"
+                data["_chunks"][script_check_key] = Create_IsSceneBlockActive(script_check_key, scene_copy_key, thunder["key"], thunder_mod_key, graph_key, quest_path)
+                graph_data[script_check_key] = {"in": list(), "thunder": list()}
+                graph_visited.add(script_check_key)
+                Add_GraphBlock(script_check_key, graph_key)
 
-            # Update graph data for vanilla and mod thunder
-            graph_data[thunder["key"]]["in"] = [Create_GraphDataIn(script_check_key, "In")]
-            graph_data[thunder_mod_key]["in"] = [Create_GraphDataIn(script_check_key, "In")]
+                # Reconnect blocks: vanilla thunder -> script check
+                for thunder_in in graph_data[thunder["key"]]["in"]:
+                    thunder_in["ock"]["_vars"]["_reference"]["_value"] = script_check_key
+
+                # Update graph data for vanilla and mod thunder
+                graph_data[thunder["key"]]["in"] = [Create_GraphDataIn(script_check_key, "In")]
+                graph_data[thunder_mod_key]["in"] = [Create_GraphDataIn(script_check_key, "In")]
+            thunder_mod_key = mod_key_by_key[thunder["key"]]
 
         # Reconnect block in mod Thunder: scene -> mod scene
-        thunder_mod_key = mod_key_by_key[thunder["key"]]
         for socket in data["_chunks"][thunder_mod_key]["_vars"]["cachedConnections"]["_elements"]:
             if "socketId" in socket["_vars"] and "blocks" in socket["_vars"] and socket["_vars"]["socketId"]["_value"] == "Thunder":
                 for block in socket["_vars"]["blocks"]["_elements"]:
@@ -818,6 +844,7 @@ def handle_scene_chunk(scene_key, graph_key, quest_path):
                     info(f"Patching Thunder output: {thunder_mod_key}.")
                     break
 
+    # info(f"graph_data[{scene_key}] = {graph_data[scene_key]}")
 
 
 # context dumping info
@@ -1000,17 +1027,15 @@ def main(mods: bool):
             graph_data[key] = {"in": list(), "thunder": list()}
             if requires_patching(key):
                 scene_chunk_keys.append(key)
-            '''
-            if chunk_type == "CQuestContextDialogBlock" and "scene" in chunk_vars and "targetScene" in chunk_vars:
-                scene = chunk_vars["scene"]["_vars"]["_depotPath"]["_value"]
-                targetScene = chunk_vars["targetScene"]["_vars"]["_depotPath"]["_value"]
-                if scene in scene_to_scene_copy or targetScene in scene_to_scene_copy:
-                    if scene in scene_to_scene_copy:
-                        scene = scene_to_scene_copy[scene]
-                    if targetScene in scene_to_scene_copy:
-                        targetScene = scene_to_scene_copy[targetScene]
-                    print_graph_to(vanilla_path, key, scene, targetScene)
-            '''
+
+        # preload all graphs
+        for key in data["_chunks"]:
+            chunk_type = data["_chunks"][key]["_type"]
+            if chunk_type == "CQuestGraph" and "graphBlocks" in data["_chunks"][key]["_vars"]:
+                for graph_block_ref in data["_chunks"][key]["_vars"]["graphBlocks"]["_elements"]:
+                    build_quest_graph(graph_block_ref["_vars"]["_reference"]["_value"])
+
+        # handle scene/interaction chunks
         for key in scene_chunk_keys:
             # print(f"Patch chunk: {key}")
             # graph_data.clear()
@@ -1023,11 +1048,45 @@ def main(mods: bool):
             if parent_chunk["_type"] != "CQuestGraph":
                 error(f'parent type ({parent_key}) is invalid: {parent_chunk["_type"]}! {key}')
                 continue
-            for graph_block_ref in parent_chunk["_vars"]["graphBlocks"]["_elements"]:
-                build_quest_graph(graph_block_ref["_vars"]["_reference"]["_value"])
+            #for graph_block_ref in parent_chunk["_vars"]["graphBlocks"]["_elements"]:
+            #    build_quest_graph(graph_block_ref["_vars"]["_reference"]["_value"])
             # print("Quest graph: ")
             # pprint(graph_data)
             handle_scene_chunk(key, parent_key, vanilla_path)
+
+        # check: If Scene->Scene connections exist
+        vanilla_sp_keys = list()
+        mod_sp_keys = list()
+        all_sp_keys = list()
+        for key in mod_key_by_key:
+            vanilla_sp_keys.append(key)
+            all_sp_keys.append(key)
+            mod_sp_keys.append(mod_key_by_key[key])
+            all_sp_keys.append(mod_key_by_key[key])
+
+        for key in all_sp_keys:
+            # info(f"CHECKING: {key}")
+            block_type = data["_chunks"][key]["_type"]
+            block_vars = data["_chunks"][key]["_vars"]
+            if not "cachedConnections" in block_vars:
+                continue
+            for child_connection in data["_chunks"][key]["_vars"]["cachedConnections"]["_elements"]:
+                if not "blocks" in child_connection["_vars"]:
+                    continue
+                socketId = child_connection["_vars"]["socketId"]["_value"] if "socketId" in child_connection["_vars"] else ""
+                for child_connection_block in child_connection["_vars"]["blocks"]["_elements"]:
+                    if "ock" not in child_connection_block["_vars"]:
+                        continue
+                    child_key = child_connection_block["_vars"]["ock"]["_vars"]["_reference"]["_value"]
+                    if block_type == "CQuestCutControlBlock" and socketId == "Thunder":
+                        if key in vanilla_sp_keys and child_key in mod_sp_keys:
+                            error(f"> INVALID CUT CONTROL: {key} (vanilla) -> {child_key} (mod)")
+                        elif key in mod_sp_keys and child_key in vanilla_sp_keys:
+                            error(f"> INVALID CUT CONTROL: {key} (mod) -> {child_key} (vanilla)")
+                    elif child_key in all_sp_keys:
+                        error(f"> INVALID CONNECTION: {key} -> {child_key}")
+                    #else:
+                    #    info(f"> OK: {child_key}")
 
         info(f"Quest {quest_name}: {len(scene_chunk_keys)} scene/interaction/context blocks patched.")
 

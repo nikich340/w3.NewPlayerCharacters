@@ -37,6 +37,22 @@ quest function NR_IsPlayerFemale_Q() : bool {
     return NR_GetPlayerManager().IsFemale();
 }
 
+quest function NR_IsPlayerGeralt_Q() : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerGeralt);
+}
+
+quest function NR_IsPlayerCiri_Q() : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerCiri);
+}
+
+quest function NR_IsPlayerWitcher_Q() : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerWitcheress);
+}
+
+quest function NR_IsPlayerWitcheress_Q() : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerWitcheress);
+}
+
 quest function NR_IsPlayerSorceress_Q() : bool {
     return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerSorceress);
 }

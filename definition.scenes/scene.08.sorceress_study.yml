@@ -340,8 +340,14 @@ storyboard:
       - cam: [0.0, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 7.233
-          .@pos: [0, anim_6695_add_gesture_explain_06]
+          # duration: 4.100
+          .@pos: [0, anim_6694_add_gesture_explain_05]
+          blendin: 0.4
+          blendout: 0.4
+      - actor.anim.additive:
+          actor: nr_master_mage
+          # duration: 1.867
+          .@pos: [0.5634114007954043, anim_7057_high_standing_determined_gesture_right_hand_2]
           blendin: 0.4
           blendout: 0.4
     shot_first_meeting_9s:
@@ -395,8 +401,8 @@ storyboard:
 
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.133
-          .@pos: [0, anim_6710_add_gesture_question_hand_flick_02]
+          # duration: 2.200
+          .@pos: [0, anim_6709_add_gesture_question_hand_flick_01]
           blendin: 0.4
           blendout: 0.4
     shot_greeting_apprentice_golem_2:
@@ -412,6 +418,38 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
+          # duration: 2.733
+          .@pos: [0, anim_6714_add_gesture_slight_explain_04]
+          blendin: 0.4
+          blendout: 0.4
+      - actor.anim.additive:
+          actor: nr_master_mage
+          # duration: 4.100
+          .@pos: [0.20789248988380296, anim_6694_add_gesture_explain_05]
+          blendin: 0.4
+          blendout: 0.4
+      - actor.anim.additive:
+          actor: nr_master_mage
+          # duration: 2.300
+          .@pos: [0.49188848052864087, anim_6711_add_gesture_slight_explain_01]
+          blendin: 0.4
+          blendout: 0.4
+      - actor.anim.additive:
+          actor: nr_master_mage
+          # duration: 2.867
+          .@pos: [0.6756505921223596, anim_7022_high_standing_determined_gesture_greeting_01]
+          blendin: 0.4
+          blendout: 0.4
+      - actor.anim.additive:
+          actor: nr_master_mage
+          # duration: 1.867
+          .@pos: [0.8909678137877269, anim_7057_high_standing_determined_gesture_right_hand_2]
+          blendin: 0.4
+          blendout: 0.4
+    shot_greeting_apprentice_golem_4:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
           # duration: 4.100
           .@pos: [0, anim_6694_add_gesture_explain_05]
           blendin: 0.4
@@ -419,21 +457,7 @@ storyboard:
       - actor.anim.additive:
           actor: nr_master_mage
           # duration: 7.233
-          .@pos: [0.28399599064483794, anim_6695_add_gesture_explain_06]
-          blendin: 0.4
-          blendout: 0.4
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 2.600
-          .@pos: [0.7424731781564391, anim_7024_high_standing_determined_gesture_greeting_geralt_01]
-          blendin: 0.4
-          blendout: 0.4
-    shot_greeting_apprentice_golem_4:
-      - cam: [0.0, cam_1_cam_med_to_mage]
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 11.900
-          .@pos: [0, anim_6692_add_gesture_explain_03]
+          .@pos: [0.36577494083052425, anim_6695_add_gesture_explain_06]
           blendin: 0.4
           blendout: 0.4
   section_choice_golem:
@@ -455,14 +479,14 @@ storyboard:
       - cam: [0.5, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.700
-          .@pos: [0, anim_7091_high_standing_determined_gesture_you]
+          # duration: 2.000
+          .@pos: [0, anim_7000_high_standing_determined_gesture_both_hands_2]
           blendin: 0.4
           blendout: 0.4
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 3.567
-          .@pos: [0.4781597311966917, anim_6712_add_gesture_slight_explain_02]
+          # duration: 3.000
+          .@pos: [0.3876970793486689, anim_7061_high_standing_determined_gesture_show_front]
           blendin: 0.4
           blendout: 0.4
   section_golem_reject:
@@ -519,20 +543,8 @@ storyboard:
 
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.300
-          .@pos: [0, anim_6711_add_gesture_slight_explain_01]
-          blendin: 0.4
-          blendout: 0.4
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 2.767
-          .@pos: [0.3013698630136986, anim_6717_add_gesture_slight_explain_07]
-          blendin: 0.4
-          blendout: 0.4
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 3.567
-          .@pos: [0.6453576864535768, anim_6712_add_gesture_slight_explain_02]
+          # duration: 9.233
+          .@pos: [0, anim_6690_add_gesture_explain_01]
           blendin: 0.4
           blendout: 0.4
     shot_golem_accept_again_fadeout:
@@ -610,34 +622,40 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.600
-          .@pos: [0, anim_7024_high_standing_determined_gesture_greeting_geralt_01]
+          # duration: 2.100
+          .@pos: [0, anim_6713_add_gesture_slight_explain_03]
           blendin: 0.4
           blendout: 0.4
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 5.733
-          .@pos: [0.2850581993823739, anim_6724_add_idle_weight_shift_02]
+          # duration: 6.467
+          .@pos: [0.24546678280148865, anim_6697_add_gesture_explain_08]
           blendin: 0.4
           blendout: 0.4
       - actor.anim.additive:
           actor: nr_master_mage
           # duration: 2.000
-          .@pos: [0.8182226093382956, anim_7000_high_standing_determined_gesture_both_hands_2]
+          .@pos: [0.8366986037427087, anim_7000_high_standing_determined_gesture_both_hands_2]
           blendin: 0.4
           blendout: 0.4
     shot_about_ainyerahn_3m:
       - cam: [0.0, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.700
-          .@pos: [0, anim_7091_high_standing_determined_gesture_you]
+          # duration: 2.767
+          .@pos: [0, anim_7067_high_standing_determined_gesture_shrug]
           blendin: 0.4
           blendout: 0.4
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 5.433
-          .@pos: [0.3672821123684733, anim_6698_add_gesture_explain_09]
+          # duration: 2.000
+          .@pos: [0.37389980808682416, anim_7000_high_standing_determined_gesture_both_hands_2]
+          blendin: 0.4
+          blendout: 0.4
+      - actor.anim.additive:
+          actor: nr_master_mage
+          # duration: 3.000
+          .@pos: [0.6716961154126133, anim_7061_high_standing_determined_gesture_show_front]
           blendin: 0.4
           blendout: 0.4
     shot_about_ainyerahn_4m:
@@ -645,20 +663,20 @@ storyboard:
       - cam: [0.8, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 4.900
-          .@pos: [0, anim_6715_add_gesture_slight_explain_05]
+          # duration: 3.933
+          .@pos: [0, anim_7026_high_standing_determined_gesture_greeting_geralt_03]
           blendin: 0.4
           blendout: 0.4
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.100
-          .@pos: [0.44652993264209495, anim_6713_add_gesture_slight_explain_03]
+          # duration: 2.733
+          .@pos: [0.37336966119226017, anim_6714_add_gesture_slight_explain_04]
           blendin: 0.4
           blendout: 0.4
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.600
-          .@pos: [0.681147354877772, anim_7024_high_standing_determined_gesture_greeting_geralt_01]
+          # duration: 2.000
+          .@pos: [0.655919675067484, anim_7000_high_standing_determined_gesture_both_hands_2]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_1:
@@ -667,16 +685,16 @@ storyboard:
       - cam: [0.0, cam_2_cam_med_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 3.000
-          .@pos: [0, anim_12469_add_reaction_agreeing_nod_02]
+          # duration: 2.767
+          .@pos: [0, anim_12433_add_gesture_explain_03]
           blendin: 0.4
           blendout: 0.4
     shot_apprentice_1_2m:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.600
-          .@pos: [0, anim_7024_high_standing_determined_gesture_greeting_geralt_01]
+          # duration: 2.300
+          .@pos: [0, anim_6711_add_gesture_slight_explain_01]
           blendin: 0.4
           blendout: 0.4
   section_choice_apprentice_1:
@@ -697,8 +715,8 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.033
-          .@pos: [0, anim_7047_high_standing_determined_gesture_question]
+          # duration: 2.533
+          .@pos: [0, anim_6706_add_gesture_question_05]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_2_b:
@@ -707,8 +725,8 @@ storyboard:
       - cam: [0.0, cam_6_cam_close_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 3.600
-          .@pos: [0, anim_12431_add_gesture_explain_01]
+          # duration: 3.233
+          .@pos: [0, anim_12762_high_standing2_determined_gesture_greeting]
           blendin: 0.4
           blendout: 0.4
     shot_apprentice_2_b_2m:
@@ -731,14 +749,8 @@ storyboard:
       - cam: [0.0, cam_6_cam_close_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 3.233
-          .@pos: [0, anim_12762_high_standing2_determined_gesture_greeting]
-          blendin: 0.4
-          blendout: 0.4
-      - actor.anim.additive:
-          actor: sorceress
-          # duration: 1.867
-          .@pos: [0.6665616963207894, anim_12453_add_gesture_question_hand_flick_01]
+          # duration: 5.433
+          .@pos: [0, anim_12438_add_gesture_explain_08]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_2_a_b:
@@ -754,8 +766,8 @@ storyboard:
       - cam: [0.0, cam_6_cam_close_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 1.867
-          .@pos: [0, anim_12453_add_gesture_question_hand_flick_01]
+          # duration: 3.000
+          .@pos: [0, anim_12469_add_reaction_agreeing_nod_02]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_2_ab:
@@ -779,8 +791,8 @@ storyboard:
       - cam: [0.0, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.300
-          .@pos: [0, anim_6711_add_gesture_slight_explain_01]
+          # duration: 2.000
+          .@pos: [0, anim_7000_high_standing_determined_gesture_both_hands_2]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_2_ab_b:
@@ -791,8 +803,8 @@ storyboard:
       - cam: [0.0, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 5.000
-          .@pos: [0, anim_441_q703_damien_high_standing_determined_gesture_rub_moustache]
+          # duration: 2.600
+          .@pos: [0, anim_6696_add_gesture_explain_07]
           blendin: 0.4
           blendout: 0.4
     shot_apprentice_2_ab_b_3s:
@@ -806,16 +818,16 @@ storyboard:
       - cam: [0.0, cam_6_cam_close_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 3.000
-          .@pos: [0, anim_12469_add_reaction_agreeing_nod_02]
+          # duration: 2.767
+          .@pos: [0, anim_12433_add_gesture_explain_03]
           blendin: 0.4
           blendout: 0.4
     shot_apprentice_2_a_c_2m:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.767
-          .@pos: [0, anim_7067_high_standing_determined_gesture_shrug]
+          # duration: 2.733
+          .@pos: [0, anim_6714_add_gesture_slight_explain_04]
           blendin: 0.4
           blendout: 0.4
     shot_apprentice_2_a_c_3s:
@@ -838,8 +850,8 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.867
-          .@pos: [0, anim_7022_high_standing_determined_gesture_greeting_01]
+          # duration: 2.000
+          .@pos: [0, anim_7000_high_standing_determined_gesture_both_hands_2]
           blendin: 0.4
           blendout: 0.4
     shot_apprentice_accept_2s:
@@ -856,8 +868,8 @@ storyboard:
       - cam: [0.0, cam_2_cam_med_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 2.800
-          .@pos: [0, anim_12650_high_standing_determined_gesture_hair_01]
+          # duration: 3.000
+          .@pos: [0, anim_12468_add_reaction_agreeing_nod_01]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_q0:
@@ -866,8 +878,8 @@ storyboard:
       - cam: [0.0, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.700
-          .@pos: [0, anim_7091_high_standing_determined_gesture_you]
+          # duration: 2.767
+          .@pos: [0, anim_7067_high_standing_determined_gesture_shrug]
           blendin: 0.4
           blendout: 0.4
     shot_apprentice_trial_q0_2s:
@@ -899,8 +911,8 @@ storyboard:
       - world.addfact: [0.0, nr_scene_trial_correct, 1]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 2.800
-          .@pos: [0, anim_12650_high_standing_determined_gesture_hair_01]
+          # duration: 1.867
+          .@pos: [0, anim_12453_add_gesture_question_hand_flick_01]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_q0_d:
@@ -919,8 +931,8 @@ storyboard:
       - cam: [0.0, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 3.233
-          .@pos: [0, anim_6707_add_gesture_question_06]
+          # duration: 2.533
+          .@pos: [0, anim_6706_add_gesture_question_05]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_q1b:
@@ -929,14 +941,8 @@ storyboard:
       - cam: [0.0, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 1.700
-          .@pos: [0, anim_4042_high_standing_determined_gesture_question_02]
-          blendin: 0.4
-          blendout: 0.4
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 1.867
-          .@pos: [0.5806451612903227, anim_7057_high_standing_determined_gesture_right_hand_2]
+          # duration: 2.700
+          .@pos: [0, anim_6708_add_gesture_question_07]
           blendin: 0.4
           blendout: 0.4
   section_choice_trial_q1a:
@@ -953,8 +959,8 @@ storyboard:
       - cam: [0.0, cam_2_cam_med_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 2.767
-          .@pos: [0, anim_12433_add_gesture_explain_03]
+          # duration: 1.867
+          .@pos: [0, anim_12453_add_gesture_question_hand_flick_01]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_q1a_b:
@@ -1035,14 +1041,14 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.700
-          .@pos: [0, anim_7050_high_standing_determined_gesture_question_03]
+          # duration: 2.133
+          .@pos: [0, anim_6710_add_gesture_question_hand_flick_02]
           blendin: 0.4
           blendout: 0.4
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 1.867
-          .@pos: [0.6181089208152356, anim_7057_high_standing_determined_gesture_right_hand_2]
+          # duration: 2.533
+          .@pos: [0.5234435906002896, anim_7052_high_standing_determined_gesture_question_05]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_q2b:
@@ -1051,8 +1057,8 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.200
-          .@pos: [0, anim_6709_add_gesture_question_hand_flick_01]
+          # duration: 2.700
+          .@pos: [0, anim_6704_add_gesture_question_03]
           blendin: 0.4
           blendout: 0.4
   section_choice_trial_q2a:
@@ -1086,8 +1092,8 @@ storyboard:
       - cam: [0.0, cam_2_cam_med_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 2.800
-          .@pos: [0, anim_12650_high_standing_determined_gesture_hair_01]
+          # duration: 1.867
+          .@pos: [0, anim_12453_add_gesture_question_hand_flick_01]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_q2b_c:
@@ -1097,8 +1103,8 @@ storyboard:
       - world.addfact: [0.0, nr_scene_trial_correct, 1]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 4.333
-          .@pos: [0, anim_12439_add_gesture_explain_09]
+          # duration: 3.233
+          .@pos: [0, anim_12762_high_standing2_determined_gesture_greeting]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_q2b_d:
@@ -1107,8 +1113,8 @@ storyboard:
       - cam: [0.0, cam_2_cam_med_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 4.100
-          .@pos: [0, anim_12432_add_gesture_explain_02]
+          # duration: 1.867
+          .@pos: [0, anim_12453_add_gesture_question_hand_flick_01]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_q3a:
@@ -1117,8 +1123,8 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.700
-          .@pos: [0, anim_7054_high_standing_determined_gesture_question_07]
+          # duration: 2.433
+          .@pos: [0, anim_7002_high_standing_determined_gesture_both_hands_flick_1]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_q3b:
@@ -1127,14 +1133,8 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.033
-          .@pos: [0, anim_7047_high_standing_determined_gesture_question]
-          blendin: 0.4
-          blendout: 0.4
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 2.200
-          .@pos: [0.5617283950617284, anim_6709_add_gesture_question_hand_flick_01]
+          # duration: 3.233
+          .@pos: [0, anim_6707_add_gesture_question_06]
           blendin: 0.4
           blendout: 0.4
   section_choice_trial_q3a:
@@ -1181,14 +1181,8 @@ storyboard:
       - cam: [0.0, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 3.000
-          .@pos: [0, anim_7025_high_standing_determined_gesture_greeting_geralt_02]
-          blendin: 0.4
-          blendout: 0.4
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 2.333
-          .@pos: [0.6156687702016316, anim_439_q703_damien_high_standing_determined_gesture_agree_with_duchess_01]
+          # duration: 4.400
+          .@pos: [0, anim_7003_high_standing_determined_gesture_both_hands_options]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_failed_2:
@@ -1198,14 +1192,8 @@ storyboard:
       - world.addfact: [0.0, nr_master_apprentice_need_test, 1]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.300
-          .@pos: [0, anim_6711_add_gesture_slight_explain_01]
-          blendin: 0.4
-          blendout: 0.4
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 2.000
-          .@pos: [0.6111111111111112, anim_7000_high_standing_determined_gesture_both_hands_2]
+          # duration: 3.000
+          .@pos: [0, anim_7061_high_standing_determined_gesture_show_front]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_trial_passed:
@@ -1215,8 +1203,14 @@ storyboard:
       - world.addfact: [0.0, nr_master_apprentice, 1]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 5.567
-          .@pos: [0, anim_6725_add_idle_weight_shift_03]
+          # duration: 2.767
+          .@pos: [0, anim_7067_high_standing_determined_gesture_shrug]
+          blendin: 0.4
+          blendout: 0.4
+      - actor.anim.additive:
+          actor: nr_master_mage
+          # duration: 2.100
+          .@pos: [0.6292460184875821, anim_6713_add_gesture_slight_explain_03]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_no_new_spells_archmistress:
@@ -1225,14 +1219,8 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 3.033
-          .@pos: [0, anim_7027_high_standing_determined_gesture_greeting_geralt_04]
-          blendin: 0.4
-          blendout: 0.4
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 2.867
-          .@pos: [0.531260976466456, anim_7022_high_standing_determined_gesture_greeting_01]
+          # duration: 5.433
+          .@pos: [0, anim_6691_add_gesture_explain_02]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_no_new_spells_wait:
@@ -1241,8 +1229,8 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 3.000
-          .@pos: [0, anim_7025_high_standing_determined_gesture_greeting_geralt_02]
+          # duration: 3.933
+          .@pos: [0, anim_7026_high_standing_determined_gesture_greeting_geralt_03]
           blendin: 0.4
           blendout: 0.4
   section_cant_choose_apprentice_new_spells:
@@ -1251,14 +1239,14 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 2.600
-          .@pos: [0, anim_6696_add_gesture_explain_07]
+          # duration: 1.867
+          .@pos: [0, anim_7057_high_standing_determined_gesture_right_hand_2]
           blendin: 0.4
           blendout: 0.4
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 1.867
-          .@pos: [0.6488824801730353, anim_7057_high_standing_determined_gesture_right_hand_2]
+          # duration: 2.333
+          .@pos: [0.5167027156933429, anim_439_q703_damien_high_standing_determined_gesture_agree_with_duchess_01]
           blendin: 0.4
           blendout: 0.4
   section_can_choose_apprentice_new_spells:
@@ -1281,8 +1269,14 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 7.200
-          .@pos: [0, anim_6719_add_gesture_weight_shift_step_02]
+          # duration: 4.100
+          .@pos: [0, anim_6694_add_gesture_explain_05]
+          blendin: 0.4
+          blendout: 0.4
+      - actor.anim.additive:
+          actor: nr_master_mage
+          # duration: 2.600
+          .@pos: [0.635118306351183, anim_6716_add_gesture_slight_explain_06]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_after_new_spell_b:
@@ -1291,14 +1285,14 @@ storyboard:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
-          # duration: 3.567
-          .@pos: [0, anim_6712_add_gesture_slight_explain_02]
+          # duration: 2.767
+          .@pos: [0, anim_6717_add_gesture_slight_explain_07]
           blendin: 0.4
           blendout: 0.4
       - actor.anim.additive:
           actor: nr_master_mage
           # duration: 3.933
-          .@pos: [0.5256897279459729, anim_7026_high_standing_determined_gesture_greeting_geralt_03]
+          .@pos: [0.4335980967729558, anim_7026_high_standing_determined_gesture_greeting_geralt_03]
           blendin: 0.4
           blendout: 0.4
   section_apprentice_after_new_spell_fade_out:
@@ -1315,8 +1309,8 @@ storyboard:
       - cam: [0.0, cam_2_cam_med_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
-          # duration: 2.767
-          .@pos: [0, anim_12433_add_gesture_explain_03]
+          # duration: 3.100
+          .@pos: [0, anim_12441_add_gesture_point_forward_straight]
           blendin: 0.4
           blendout: 0.4
     shot_ask_to_ground_2m:
@@ -2131,7 +2125,7 @@ dialogscript:
         - choice: ["2115940162|Alzur's Thunder", script_apprentice_new_spell_thunder]
           condition: ["nr_magic_skill_level", ">=", 4]
           emphasize: true
-        - choice: ["2115940163|???", script_apprentice_new_spell_unknown]
+        - choice: ["2115940163|Gravitational Field", script_apprentice_new_spell_gravi_field]
           condition: ["nr_magic_skill_level", ">=", 4]
           emphasize: true
         - choice: ["2115940164|Melgar's fire", script_apprentice_new_spell_melgar]
@@ -2219,11 +2213,11 @@ dialogscript:
           - value: 1
     - NEXT: section_randomizer_apprentice_after_new_spell
 
-  script_apprentice_new_spell_unknown:
+  script_apprentice_new_spell_gravi_field:
     - SCRIPT:
         function: AddFact_S
         parameter:
-          - factName: nr_magic_learning_ENR_SpecialHeal
+          - factName: nr_magic_learning_ENR_SpecialField
           - value: 1
     - NEXT: section_randomizer_apprentice_after_new_spell
 
@@ -2296,8 +2290,8 @@ dialogscript:
         - choice: ["2115940162|Alzur's Thunder", script_apprentice_remind_thunder]
           condition: ["nr_magic_skill_ENR_SpecialLightningFall", ">=", 1]
           emphasize: true
-        - choice: ["2115940163|???", script_apprentice_remind_unknown]
-          condition: ["nr_magic_skill_ENR_SpecialHeal", ">=", 1]
+        - choice: ["2115940163|Gravitational Field", script_apprentice_remind_field]
+          condition: ["nr_magic_skill_ENR_SpecialField", ">=", 1]
           emphasize: true
         - choice: ["2115940164|Melgar's fire", script_apprentice_remind_meteor_fall]
           condition: ["nr_magic_skill_ENR_SpecialMeteorFall", ">=", 1]
@@ -2378,11 +2372,11 @@ dialogscript:
           - reminder: true
     - NEXT: section_pre_choice_main
 
-  script_apprentice_remind_unknown:
+  script_apprentice_remind_field:
     - SCRIPT:
         function: NR_ShowTutorial_S
         parameter:
-          - type: "SorceressSkillTODO!!!"
+          - type: "SorceressSkillField"
           - reminder: true
     - NEXT: section_pre_choice_main
 
@@ -2407,6 +2401,17 @@ dialogscript:
         function: NR_ShowMagicSkillStats_S
         parameter:
           - fullscreen: true
+          - showGeneral: true
+          - showSpecial: false
+    - NEXT: script_show_spell_stats_black2
+
+  script_show_spell_stats_black2:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showGeneral: false
+          - showSpecial: true
     - NEXT: section_pre_choice_main
 
   section_ask_to_ground:

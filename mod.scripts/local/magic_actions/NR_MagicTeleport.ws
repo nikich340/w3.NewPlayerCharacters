@@ -3,6 +3,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 	protected var teleportPos 	: Vector;
 	protected var oldCameraPos 	: Vector;
 	
+	default performsToLevelup = 150; // action-specific
 	default actionType = ENR_Teleport;
 
 	latent function SetTeleportPos(pos : Vector) {

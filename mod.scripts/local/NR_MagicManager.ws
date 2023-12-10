@@ -49,11 +49,12 @@ enum ENR_MagicAction {
 	ENR_SpecialLightningFall,
 	ENR_SpecialLumos,
 	ENR_SpecialField,
-
+		// misc
 	ENR_Teleport,
 	ENR_HandFx,
 	ENR_FastTravelTeleport,
-	ENR_WaterTrap
+	ENR_WaterTrap,
+	ENR_UnderwaterBreathing
 }
 enum ENR_MagicColor {
 	ENR_ColorBlack,	// 0
@@ -146,8 +147,10 @@ statemachine class NR_MagicManager {
 			FactsAdd("nr_magic_skill_ENR_ThrowAbstract", 1);
 			FactsAdd("nr_magic_skill_ENR_Lightning", 1);
 			FactsAdd("nr_magic_skill_ENR_ProjectileWithPrepare", 1);
+			FactsAdd("nr_magic_skill_ENR_WaterTrap", 1);
 			
 			SetDefaults_StaminaCost();
+			SetDefaults_CurseChance();
 			SetDefaults_Duration();
 
 			SetDefaults_LightAbstract();
@@ -704,8 +707,8 @@ statemachine class NR_MagicManager {
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_BombExplosion), 15.f);
 
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialServant), 40.f);
-		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialMeteor), 40.f);
-		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialTornado), 40.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialMeteor), 60.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialTornado), 50.f);
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialControl), 40.f);
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialShield), 40.f);
 
@@ -714,7 +717,22 @@ statemachine class NR_MagicManager {
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialMeteorFall), 50.f);
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialLumos), 50.f);
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialPolymorphism), 50.f);
-		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_WaterTrap), 50.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_WaterTrap), 40.f);
+	}
+
+	function SetDefaults_CurseChance() {
+		// curse_chance_<AttackType> in [0, 100]%
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialServant), 15);
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialMeteor), 20);
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialTornado), 15);
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialControl), 15);
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialShield), 0);
+
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialLightningFall), 25);
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialField), 25);
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialMeteorFall), 25);
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialLumos), 0);
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialPolymorphism), 0);
 	}
 
 	function SetDefaults_Duration() {
@@ -1254,12 +1272,16 @@ statemachine class NR_MagicManager {
 
 		// points = how many new spells can you learn, used for scene
 		if (nextLevel == 2) {
+			// Heavy Attacks, Shield
 			FactsAdd("nr_magic_skill_points", 2);
 		} else if (nextLevel == 3) {
+			// Tornado, Control
 			FactsAdd("nr_magic_skill_points", 2);
 		} else if (nextLevel == 4) {
+			// Meteor, Servant, Alzur's Thunder, Gravitational Field
 			FactsAdd("nr_magic_skill_points", 4);
 		} else if (nextLevel == 5) {
+			// Melgar's fire, Polymorphism
 			FactsAdd("nr_magic_skill_points", 2);
 		}
 	}
@@ -1268,25 +1290,45 @@ statemachine class NR_MagicManager {
 	{
 		var playerLevel : int;
 		var playerMax	: int;
+		var skillLevel	: int;
 
 		playerLevel = GetWitcherPlayer().GetLevel();
 		playerMax = GetWitcherPlayer().GetMaxLevel();
-		if ( FactsQuerySum("NewGamePlus") <= 0 ) {
+		if ( FactsQuerySum("NewGamePlus") < 1 ) {
 			playerMax = playerMax / 2;
 			// ? theGame.params.NEW_GAME_PLUS_MIN_LEVEL;
 		}
 		//NR_Debug("GetPossibleSkillLevel: playerMax = " + playerMax);
 
-		if (playerLevel >= FloorF(playerMax * 80 / 100)) {
-			return ENR_SkillArchMistress;
-		} else if (playerLevel >= FloorF(playerMax * 60 / 100)) {
-			return ENR_SkillMistress;
-		} else if (playerLevel >= FloorF(playerMax * 40 / 100)) {
-			return ENR_SkillExperienced;
-		} else if (playerLevel >= FloorF(playerMax * 20 / 100)) {
-			return ENR_SkillApprentice;
-		} else {
-			return ENR_SkillNovice;
+		for ( skillLevel = ENR_SkillArchMistress; skillLevel >= ENR_SkillNovice; skillLevel -= 1 ) {
+			if ( playerLevel >= GetPlayerLevelForSkillLevel((ENR_MagicSkill)skillLevel) ) {
+				return (ENR_MagicSkill)skillLevel;
+			}
+		}
+		return ENR_SkillNovice;
+	}
+
+	public function GetPlayerLevelForSkillLevel(skillLevel : ENR_MagicSkill) : int {
+		var playerMax	: int;
+
+		playerMax = GetWitcherPlayer().GetMaxLevel();
+		if ( FactsQuerySum("NewGamePlus") < 1 ) {
+			playerMax = playerMax / 2;
+		}
+
+		switch (skillLevel) {
+			case ENR_SkillNovice:
+				return 0;
+			case ENR_SkillApprentice:
+				return FloorF(playerMax * 10 / 100);
+			case ENR_SkillExperienced:
+				return FloorF(playerMax * 25 / 100);
+			case ENR_SkillMistress:
+				return FloorF(playerMax * 45 / 100);
+			case ENR_SkillArchMistress:
+				return FloorF(playerMax * 70 / 100);
+			default:
+				return -1;
 		}
 	}
 

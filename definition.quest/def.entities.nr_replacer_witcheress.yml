@@ -635,7 +635,7 @@ templates:
           pos: [ -0.00408934, -0.0270851, -0.187406 ]
           rot: [ 0.0, 78.8043, 0.0 ]
           scale: [ 0.0, 0.0, 0.0 ]
-    
+
     coloringEntries:
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player

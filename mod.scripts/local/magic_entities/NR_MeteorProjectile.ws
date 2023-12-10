@@ -2,6 +2,7 @@ class NR_MeteorProjectile extends W3FireballProjectile
 {
 	editable var explosionRadius 		: float;
 	editable var markerEntityTemplate	: CEntityTemplate;
+	editable var craterEntityTemplate	: CEntityTemplate;
 	editable var destroyMarkerAfter		: float;
 	editable var m_markerFxName 		: name;
 	editable var m_damageName 			: name;
@@ -10,6 +11,7 @@ class NR_MeteorProjectile extends W3FireballProjectile
 	public var m_respectCaster : bool;
 	public var m_shakeStrength : float;
 	protected var markerEntity : CEntity;
+	protected var craterEntity : CEntity;
 	
 	default m_respectCaster = true;
 	default m_damageName = 'ElementalDamage';
@@ -114,45 +116,67 @@ class NR_MeteorProjectile extends W3FireballProjectile
 				entities[i].PlayEffect(onCollisionFxName);
 			}
 		}
-		
+		if (craterEntity) {
+			craterEntity.ApplyAppearance("hole");
+			craterEntity.DestroyAfter(30.f);
+		}
+
 		super.ProjectileHitGround();
 	}
 	
 	event OnProjectileShot( targetCurrentPosition : Vector, optional target : CNode )
 	{
-		var createEntityHelper : NR_MeteorProjectile_CreateMarkerEntityHelper;
+		var createMarkerHelper, createCraterHelper : CCreateEntityHelper;
 	
 		super.OnProjectileShot(targetCurrentPosition, target);
 		
-		createEntityHelper = new NR_MeteorProjectile_CreateMarkerEntityHelper in theGame;
-		createEntityHelper.owner = this;
-		createEntityHelper.SetPostAttachedCallback( createEntityHelper, 'OnEntityCreated' );
-
-		theGame.CreateEntityAsync( createEntityHelper, markerEntityTemplate, targetCurrentPosition, EulerAngles(0,0,0) );
+		createMarkerHelper = new CCreateEntityHelper in this;
+		createMarkerHelper.SetPostAttachedCallback( this, 'OnMarkerCreated' );
+		theGame.CreateEntityAsync( createMarkerHelper, markerEntityTemplate, targetCurrentPosition, EulerAngles(0,0,0) );
+		
+		createCraterHelper = new CCreateEntityHelper in this;
+		createCraterHelper.SetPostAttachedCallback( this, 'OnCraterCreated' );
+		theGame.CreateEntityAsync( createCraterHelper, craterEntityTemplate, targetCurrentPosition, EulerAngles(0,0,0) );
 	}
 
-	public function SetMarkerEntity( entity : CEntity ) {
+	event OnMarkerCreated( entity : CEntity )
+	{
 		markerEntity = entity;
-		if (markerEntity) {
+		if ( markerEntity ) {
 			markerEntity.PlayEffect(m_markerFxName);
 			if (m_targetToAttach) {
 				markerEntity.CreateAttachment(m_targetToAttach);
 			}
+			theGame.GetBehTreeReactionManager().CreateReactionEvent( this, 'MeteorMarker', destroyMarkerAfter, explosionRadius, 0.1f, 999, true );
 		}
+	}
+
+	event OnCraterCreated( entity : CEntity )
+	{
+		craterEntity = entity;
 	}
 }
 
+/*
 class NR_MeteorProjectile_CreateMarkerEntityHelper extends CCreateEntityHelper
 {	
 	var owner : NR_MeteorProjectile;
 
-	event OnEntityCreated( entity : CEntity )
+	event OnMarkerCreated( entity : CEntity )
 	{
 		if ( owner )
 		{
 			owner.SetMarkerEntity( entity );
 			theGame.GetBehTreeReactionManager().CreateReactionEvent( owner, 'MeteorMarker', owner.destroyMarkerAfter, owner.explosionRadius, 0.1f, 999, true );
-			owner = NULL;
+		}
+	}
+
+	event OnCraterCreated( entity : CEntity )
+	{
+		if ( owner )
+		{
+			owner.SetCraterEntity( entity );
 		}
 	}
 }
+*/

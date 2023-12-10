@@ -85,7 +85,7 @@ function ENR_MAToName(action : ENR_MagicAction) : name {
 		case ENR_WaterTrap:
 			return 'ENR_WaterTrap';
 		default:
-			NR_Notify("ENR_NameToMA: UNKNOWN action = " + action);
+			NR_Error("ENR_NameToMA: UNKNOWN action = " + action);
 			return 'ENR_Unknown';
 	}
 }

@@ -62,6 +62,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	{
 		var i : int;
 		
+		NR_Debug("NR_ReplacerSorceress.Combat: OnEnterState from " + prevStateName);
 		parent.AddAnimEventCallback('AllowInput',		'OnAnimEvent_AllowInput');
 		parent.AddAnimEventCallback('AllowRoll',		'OnAnimEvent_AllowRoll');
 		parent.AddAnimEventCallback('ForceAttack',		'OnAnimEvent_ForceAttack');

@@ -15,16 +15,12 @@ class NR_MagicWaterTrap extends NR_MagicAction {
 	}
 
 	protected function SetSkillLevel(newLevel : int) {
-		//if (newLevel == 5) {
-		//	ActionAbilityUnlock("Anchor");
-		//}
 		super.SetSkillLevel(newLevel);
 	}
 
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
-		s_anchor = IsActionAbilityUnlocked("Anchor");
 		s_lifetime = 7.f * SkillDurationMultiplier(false);
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( "nr_fairytale_shield_fx" );
 		return OnPrepared(true);
@@ -38,7 +34,7 @@ class NR_MagicWaterTrap extends NR_MagicAction {
 			return OnPerformed(false);
 		}
 
-		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
+		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
 
 		l_trapEntity = (CEntity)theGame.CreateEntity(entityTemplate, pos, rot);

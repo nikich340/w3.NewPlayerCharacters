@@ -136,7 +136,6 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 		if (IsInSetupScene()) {
 			pos = MidPosInScene(/*far*/ false);
 			s_lifetime = 5.f;
-			s_curseChance = 0;
 		} else {
 			NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );

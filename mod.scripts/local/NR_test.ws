@@ -1,3 +1,8 @@
+class NR_AssetCooker extends CEntity {
+	editable var cookScenes : array<CStoryScene>;
+	editable var cookMeshes : array<CMeshComponent>;
+}
+
 exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bool, optional immortal : Bool) {
 	var ent : CEntity;
 	var pos : Vector;
@@ -833,10 +838,6 @@ exec function dao4() {
 
 	inv = GetWitcherPlayer().GetAssociatedInventory();
 	NR_Notify("DAO4: " + inv.GetItemQuantityByName('mh306_dao_trophy'));
-}
-
-exec function nr_stats(fullscreen : bool) {
-	NR_ShowMagicSkillStats(fullscreen);
 }
 
 exec function spell_scene(inp : int) {
@@ -1993,4 +1994,22 @@ exec function toTrissDress(dressNum : int) {
 		NR_ChangePlayer(ENR_PlayerWitcheress); // change player type in the last queue
 	}
 	NR_Notify("Dress = " + dress);
+}
+
+exec function testgate(optional enable: bool) {
+	var swit : W3InteractionSwitch;
+
+	swit = (W3InteractionSwitch)theGame.GetEntityByTag('q403_main_gate');
+	if (!swit) {
+		NR_Debug("!switch");
+	}
+	NR_Debug("switch = " + swit + ", IsLocked = " + swit.IsLocked() + ", focusModeHighlight = " + swit.focusModeHighlight + ", interactionActiveInState = " + swit.interactionActiveInState);
+	if (enable) {
+		// swit.Enable(true);
+		swit.Lock(false);
+	}
+}
+
+exec function nrresetsaved() {
+	NR_GetPlayerManager().PullReplacerForQuest();	
 }

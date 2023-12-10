@@ -1,7 +1,7 @@
 #
 # quest structure root segment
 # 
-# (version: 556, saved: 2023-11-25 21:00:38)
+# (version: 567, saved: 2023-12-04 20:41:26)
 #
 ---
 structure:
@@ -31,6 +31,50 @@ structure:
         segment: training
         next: ".done"
       
+      scene.Launch_Ciri_scene:
+        ".editor":
+          pos: [ 1499.0, -373.0 ]
+          in: [ Input ]
+          out: [ Output, ChangeType ]
+        scene: 01.player_change_female_ciri.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: true
+        next.ChangeType:
+          - script.wait_exit_scene
+        next.Output:
+          - waituntil.Wait_setup_scene_fact
+      
+      scene.Launch_female_scene:
+        ".editor":
+          pos: [ 1506.0, -271.0 ]
+          in: [ Input ]
+          out: [ ChangeType, Output, Sorceress ]
+        scene: 01.player_change_female.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: true
+        next.ChangeType:
+          - script.wait_exit_scene
+        next.Output:
+          - waituntil.Wait_setup_scene_fact
+        next.Sorceress:
+          - scene.Sorceress_spell_scene: Input
+      
+      scene.Launch_male_scene:
+        ".editor":
+          pos: [ 1483.0, -475.0 ]
+          in: [ Input ]
+          out: [ ChangeType, Output ]
+        scene: 01.player_change_male.yml
+        placement: ~PLAYER
+        interruptable: true
+        _fadein: true
+        next.ChangeType:
+          - script.wait_exit_scene
+        next.Output:
+          - waituntil.Wait_setup_scene_fact
+      
       scene.Oh_no_comment:
         ".editor":
           pos: [ 4742.0, 967.0 ]
@@ -41,36 +85,6 @@ structure:
         interruptable: true
         _fadein: false
         next: ".done"
-      
-      scene.Relaunch_female_scene:
-        ".editor":
-          pos: [ 1243.0, -272.0 ]
-          in: [ Input ]
-          out: [ ChangeType, Output, Sorceress ]
-        scene: 01.player_change_female.yml
-        placement: ~PLAYER
-        interruptable: true
-        _fadein: true
-        next.ChangeType:
-          - script.wait_200_ms
-        next.Output:
-          - waituntil.Wait_setup_scene_fact
-        next.Sorceress:
-          - scene.Sorceress_scene: Input
-      
-      scene.Relaunch_male_scene:
-        ".editor":
-          pos: [ 1123.0, -517.0 ]
-          in: [ Input ]
-          out: [ ChangeType, Output ]
-        scene: 01.player_change_male.yml
-        placement: ~PLAYER
-        interruptable: true
-        _fadein: true
-        next.ChangeType:
-          - script.wait_200_ms
-        next.Output:
-          - waituntil.Wait_setup_scene_fact
       
       scene.Sorceress_1st_time_comment:
         ".editor":
@@ -85,17 +99,17 @@ structure:
           - waituntil.wait_inside_nb_area
           - journal.quest_start_entry: Activate
       
-      scene.Sorceress_scene:
+      scene.Sorceress_spell_scene:
         ".editor":
-          pos: [ 1247.0, -157.0 ]
+          pos: [ 1505.0, -171.0 ]
           in: [ Input ]
           out: [ Back ]
         scene: 03.player_change_sorceress.yml
         placement: ~PLAYER
         interruptable: true
-        _fadein: false
+        _fadein: true
         next.Back:
-          - scene.Relaunch_female_scene: Input
+          - scene.Launch_female_scene: Input
       
       scene.Stone_comment:
         ".editor":
@@ -334,6 +348,15 @@ structure:
         next:
           - script.Play_scene_p1_mus
       
+      waituntil.1s_loop:
+        elapsed: "00:00:01"
+        ".editor":
+          pos: [ 491.0, 133.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.TRACK_PROGRESS
+      
       waituntil.1s_loop_b:
         elapsed: "00:00:01"
         ".editor":
@@ -387,15 +410,6 @@ structure:
           out: [ Out ]
         next:
           - waituntil.near_stone
-      
-      waituntil.2s_loop:
-        elapsed: "00:00:02"
-        ".editor":
-          pos: [ 491.0, 133.0 ]
-          in: [ In ]
-          out: [ Out ]
-        next:
-          - script.TRACK_PROGRESS
       
       waituntil.3s_a:
         elapsed: "00:00:03"
@@ -486,7 +500,7 @@ structure:
         next:
           - waituntil.on_master_ship
           - waituntil.Wait_ship_stone_use
-          - waituntil.2s_loop
+          - waituntil.1s_loop
       
       waituntil.Wait_crystal_examined:
         interaction: [ InteractiveClue, ~nr_interactive_crystal_ground ]
@@ -762,6 +776,16 @@ structure:
         next:
           - waituntil.wait_time_range
       
+      waituntil.wait_player_change_done:
+        factdb: [ nr_player_change_done, ">=", 1 ]
+        ".editor":
+          pos: [ 2035.0, -616.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - script.remove_nr_player_change_done
+          - script.Remove_scene_type_change_fact
+      
       waituntil.wait_time_range:
         time: [ "18:00", "23:00" ]
         ".editor":
@@ -800,12 +824,12 @@ structure:
       
       script.ChangePlayer_Q:
         ".editor":
-          pos: [ 1609.0, -498.0 ]
+          pos: [ 1874.0, -519.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_ChangePlayer_Q
         next:
-          - script.wait_500_ms_a
+          - waituntil.wait_player_change_done
       
       script.Check_activated_before:
         ".editor":
@@ -1094,7 +1118,7 @@ structure:
       
       script.Remove_scene_type_change_fact:
         ".editor":
-          pos: [ 1721.0, -654.0 ]
+          pos: [ 2242.0, -727.0 ]
           in: [ In ]
           out: [ Out ]
         function: RemoveFactQuest
@@ -1105,7 +1129,7 @@ structure:
       
       script.Remove_setup_scene_fact:
         ".editor":
-          pos: [ 1031.0, -342.0 ]
+          pos: [ 968.0, -347.0 ]
           in: [ In ]
           out: [ Out ]
         function: RemoveFactQuest
@@ -1220,7 +1244,7 @@ structure:
           out: [ Out ]
         function: NR_TrackPlayerProgress_Q
         next:
-          - waituntil.2s_loop
+          - waituntil.1s_loop
       
       script.Teleport_spider_corpse:
         ".editor":
@@ -1311,16 +1335,27 @@ structure:
         next.True:
           - script.Is_in_scene
       
+      script.check_if_ciri:
+        ".editor":
+          pos: [ 1305.0, -205.0 ]
+          in: [ In ]
+          out: [ "False", "True" ]
+        function: NR_IsPlayerCiri_Q
+        next.False:
+          - scene.Launch_female_scene: Input
+        next.True:
+          - scene.Launch_Ciri_scene: Input
+      
       script.check_if_female:
         ".editor":
-          pos: [ 1225.0, -393.0 ]
+          pos: [ 1151.0, -415.0 ]
           in: [ In ]
           out: [ "False", "True" ]
         function: NR_IsPlayerFemale_Q
         next.False:
-          - scene.Relaunch_male_scene: Input
+          - scene.Launch_male_scene: Input
         next.True:
-          - scene.Relaunch_female_scene: Input
+          - script.check_if_ciri
       
       script.fade_out_1s:
         ".editor":
@@ -1334,7 +1369,7 @@ structure:
       
       script.fade_out_500_ms:
         ".editor":
-          pos: [ 692.0, -322.0 ]
+          pos: [ 692.0, -317.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_FadeOutQuestBlack
@@ -1393,6 +1428,16 @@ structure:
           - bankName: nr_quest.bnk
           - eventName: Play_mus_loc_master_ship_background
           - saveType: SESB_DontSave
+        next: ".done"
+      
+      script.remove_nr_player_change_done:
+        ".editor":
+          pos: [ 2250.0, -479.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: RemoveFactQuest
+        parameter:
+          - factId: cname_nr_player_change_done
         next: ".done"
       
       script.reset_on_ship_fact:
@@ -1642,6 +1687,17 @@ structure:
         next:
           - script.toxic_75_50
       
+      script.wait_100_ms:
+        ".editor":
+          pos: [ 1698.0, -326.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_Wait_Q
+        parameter:
+          - sec: 0.1000000015
+        next:
+          - script.wait_exit_scene
+      
       script.wait_2:
         ".editor":
           pos: [ 6518.0, 1824.0 ]
@@ -1652,17 +1708,6 @@ structure:
           - sec: 1.5
         next:
           - script.toxic_50_25
-      
-      script.wait_200_ms:
-        ".editor":
-          pos: [ 1463.0, -408.0 ]
-          in: [ In ]
-          out: [ Out ]
-        function: NR_Wait_Q
-        parameter:
-          - sec: 0.200000003
-        next:
-          - script.ChangePlayer_Q
       
       script.wait_3:
         ".editor":
@@ -1688,7 +1733,7 @@ structure:
       
       script.wait_500_ms:
         ".editor":
-          pos: [ 859.0, -223.0 ]
+          pos: [ 833.0, -229.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_Wait_Q
@@ -1697,16 +1742,18 @@ structure:
         next:
           - script.Remove_setup_scene_fact
       
-      script.wait_500_ms_a:
+      script.wait_exit_scene:
         ".editor":
-          pos: [ 1754.0, -414.0 ]
+          pos: [ 1693.0, -422.0 ]
           in: [ In ]
-          out: [ Out ]
-        function: NR_Wait_Q
+          out: [ "False", "True" ]
+        function: NR_IsInSceneCond_Q
         parameter:
-          - sec: 0.5
-        next:
-          - script.Remove_scene_type_change_fact
+          - checkGameplayScene: false
+        next.False:
+          - script.ChangePlayer_Q
+        next.True:
+          - script.wait_100_ms
       
       changelayers.hide_extra_walls:
         ".editor":

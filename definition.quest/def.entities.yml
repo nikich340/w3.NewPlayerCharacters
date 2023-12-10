@@ -21,6 +21,8 @@ templates:
         - ".type": CMeshComponent
           isStreamed: true
           mesh: "dlc/dlcnewreplacers/data/entities/meshes/nr_golem_ice_stone_form.w2mesh"
+      #cookPhases:
+      #  - "dlc/dlcnewreplacers/data/quests_verify/quests/part_2/quest_files/q403_battle/phases/q403_first_square.w2phase"
 
   nr_aard_proj_blast:
     includes:

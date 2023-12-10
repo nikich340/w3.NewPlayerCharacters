@@ -563,8 +563,8 @@ statemachine class NR_PlayerManager {
 			m_appearanceInfoTextExtra = "";
 		}
 		text += BR;
-		text += "<font color=\"22\">" + GetLocStringById(2115940117) + ":" + NBSP + NR_StrBlue( GetCurrentPlayerTypeLocStr(), /*dark*/ true ) + BR;
-		text += GetLocStringById(2115940558) + ":" + NBSP + NR_StrGreen( GetPlayerDisplayNameLocStr(), /*dark*/ true ) + BR;
+		text += "<font color=\"22\">" + GetLocStringById(2115940117) + ":" + NBSP + NR_StrRGB( GetCurrentPlayerTypeLocStr(), 25, 0, 25 ) + BR;
+		text += GetLocStringById(2115940558) + ":" + NBSP + NR_StrRGB( GetPlayerDisplayNameLocStr(), 0, 25, 25 ) + BR;
 		text += "<font color='#000080'>(" + GetSlotLocStr(ENR_RSlotBody) + ")</font>" + NBSP + "=" + NBSP + GetTemplateFriendlyName(m_appearanceTemplates[GetCurrentPlayerType()][ENR_RSlotBody]);
 		if (showPreview && m_appearancePreviewTemplates[ENR_RSlotBody] != "") {
 			text += NBSP + "<" + GetTemplateFriendlyName(m_appearancePreviewTemplates[ENR_RSlotBody]) + ">"; 
@@ -1439,21 +1439,21 @@ function NR_CreatePlayerManager(theGameObject : CR4Game) {
 
 
 // example console functions
-exec function nrToGeralt() {
+exec function NRToGeralt() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
 	if (manager) {
 		NR_ChangePlayer(ENR_PlayerGeralt);
 	}
 }
 
-exec function nrToCiri() {
+exec function NRToCiri() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
 	if (manager) {
 		NR_ChangePlayer(ENR_PlayerCiri);
 	}
 }
 
-exec function nrToEskel() {
+exec function NRToEskel() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
 	if (manager) {
 		manager.ResetAllAppearanceHeadHair();
@@ -1464,7 +1464,7 @@ exec function nrToEskel() {
 	}
 }
 
-exec function nrToRosa() {
+exec function NRToRosa() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
 	if (manager) {
 		manager.ResetAllAppearanceHeadHair();
@@ -1480,7 +1480,7 @@ exec function nrToRosa() {
 	}
 }
 
-exec function nrToTriss() {
+exec function NRToTriss() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
 	if (manager) {
 		manager.ResetAllAppearanceHeadHair();
@@ -1491,7 +1491,7 @@ exec function nrToTriss() {
 	}
 }
 
-exec function nrToTrissDLC() {
+exec function NRToTrissDLC() {
 	var manager : NR_PlayerManager = NR_GetPlayerManager();
 	if (manager) {
 		manager.ResetAllAppearanceHeadHair();

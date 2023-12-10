@@ -1,7 +1,7 @@
 #
 # production settings
 # 
-# (version: 556, saved: 2023-11-25 21:00:38)
+# (version: 567, saved: 2023-12-04 20:41:26)
 #
 ---
 production:
@@ -10,10 +10,10 @@ production:
     caption: New Player Characters
     menuvisibile: true
     enabled: true
-    storesdata: false
+    storesdata: true
     strings-idspace: 5940
     strings-idstart: 0
-    version: 556
+    version: 567
     mounters:
       - ".type": CR4MappinsDLCMounter
         worldFilePath: levels/prolog_village/prolog_village.w2w

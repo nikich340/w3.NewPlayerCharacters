@@ -4,6 +4,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 {
 	event OnEnterState( prevStateName : name )
 	{
+		NR_Debug("NR_ReplacerSorceress.CombatFists: OnEnterState from " + prevStateName);
 		theInput.SetContext(parent.GetCombatInputContext());
 		parent.AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
 		parent.AddAnimEventCallback('Prepare',				'OnAnimEventMagic');

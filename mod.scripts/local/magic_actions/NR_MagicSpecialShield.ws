@@ -1,4 +1,5 @@
 class NR_MagicSpecialShield extends NR_MagicAction {
+	default performsToLevelup = 50; // action-specific
 	default actionType = ENR_SpecialShield;
 	default actionSubtype = ENR_SpecialAbstract;
 	default drainStaminaOnPerform = false; // drained in NR_SorceressQuen

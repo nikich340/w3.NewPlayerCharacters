@@ -53,7 +53,6 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 		if (IsInSetupScene()) {
 			pos = MidPosInScene(/*far*/ true);
 			s_lifetime = 5.f;
-			s_curseChance = 0;
 			target = NULL;
 		} else {
 			NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 

@@ -167,7 +167,7 @@ class W3QuestCond_IsItemQuantityMet extends CQuestScriptedCondition
 				itemQuantity = inventory.GetItemQuantityByName( itemName, includeHorseInventory, ignoreTags );
 
 				// NR_MOD v
-				if (includeHorseInventory && entityTag == 'PLAYER' && NR_GetWitcherReplacer()) {
+				if (includeHorseInventory && (entityTag == 'PLAYER' || !IsNameValid(entityTag)) && NR_GetWitcherReplacer()) {
 					itemQuantity = inventory.GetItemQuantityByName( itemName, false, ignoreTags );
 					itemQuantity += NR_GetWitcherReplacer().GetAssociatedInventory().GetItemQuantityByName( itemName, false, ignoreTags );
 				}
@@ -178,7 +178,7 @@ class W3QuestCond_IsItemQuantityMet extends CQuestScriptedCondition
 				itemQuantity = inventory.GetItemQuantityByCategory( itemCategory, includeHorseInventory, ignoreTags );
 
 				// NR_MOD v
-				if (includeHorseInventory && entityTag == 'PLAYER' && NR_GetWitcherReplacer()) {
+				if (includeHorseInventory && (entityTag == 'PLAYER' || !IsNameValid(entityTag)) && NR_GetWitcherReplacer()) {
 					itemQuantity = inventory.GetItemQuantityByCategory( itemCategory, false, ignoreTags );
 					itemQuantity += NR_GetWitcherReplacer().GetAssociatedInventory().GetItemQuantityByCategory( itemCategory, false, ignoreTags );
 				}
@@ -189,7 +189,7 @@ class W3QuestCond_IsItemQuantityMet extends CQuestScriptedCondition
 				itemQuantity = inventory.GetItemQuantityByTag( itemTag, includeHorseInventory, ignoreTags );
 
 				// NR_MOD v
-				if (includeHorseInventory && entityTag == 'PLAYER' && NR_GetWitcherReplacer()) {
+				if (includeHorseInventory && (entityTag == 'PLAYER' || !IsNameValid(entityTag)) && NR_GetWitcherReplacer()) {
 					itemQuantity = inventory.GetItemQuantityByTag( itemTag, false, ignoreTags );
 					itemQuantity += NR_GetWitcherReplacer().GetAssociatedInventory().GetItemQuantityByTag( itemTag, false, ignoreTags );
 				}
@@ -200,8 +200,8 @@ class W3QuestCond_IsItemQuantityMet extends CQuestScriptedCondition
 				itemQuantity = inventory.GetAllItemsQuantity( includeHorseInventory, ignoreTags );
 
 				// NR_MOD v
-				if (includeHorseInventory && entityTag == 'PLAYER' && NR_GetWitcherReplacer()) {
-					itemQuantity = inventory.GetAllItemsQuantity( false, ignoreTags );
+				if (includeHorseInventory && (entityTag == 'PLAYER' || !IsNameValid(entityTag)) && NR_GetWitcherReplacer()) {
+					itemQuantity = inventory.GetAllItemsQuantity( , ignoreTags );
 					itemQuantity += NR_GetWitcherReplacer().GetAssociatedInventory().GetAllItemsQuantity( false, ignoreTags );
 				}
 				// NR_MOD ^
@@ -212,6 +212,14 @@ class W3QuestCond_IsItemQuantityMet extends CQuestScriptedCondition
 			{
 				isTrophy = true;
 			}
+			// NR_MOD v
+			if (!isTrophy && (entityTag == 'PLAYER' || !IsNameValid(entityTag)) && NR_GetWitcherReplacer()) {
+				itemID = NR_GetWitcherReplacer().GetAssociatedInventory().GetItemId( itemName );
+				if ( NR_GetWitcherReplacer().GetAssociatedInventory().IsItemTrophy(itemID) ) {
+					isTrophy = true;
+				}
+			}
+			// NR_MOD ^
 			isFulfilled = ProcessCompare( comparator, itemQuantity, count );
 		}
 		else

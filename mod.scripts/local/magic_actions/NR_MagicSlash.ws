@@ -94,6 +94,8 @@ class NR_MagicSlash extends NR_MagicAction {
 		} else if (destroyableTarget) {
 			NR_DestroyDestroyableTarget();
 		}
+		// explodes toxic gas
+		dummyEntity.AddTag(theGame.params.TAG_OPEN_FIRE);
 
 		return OnPerformed(true);
 	}

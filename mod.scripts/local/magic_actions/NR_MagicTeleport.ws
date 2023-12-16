@@ -16,7 +16,6 @@ class NR_MagicTeleport extends NR_MagicAction {
 		super.OnPrepare();
 		m_fxNameMain = TeleportOutFxName();
 		m_fxNameExtra = TeleportInFxName();
-		NR_Debug("TELEPORT IN FX = " + m_fxNameMain + ", OUT = " + m_fxNameExtra);
 		thePlayer.PlayEffect( m_fxNameMain );
 
 		if ( IsInSetupScene() ) {
@@ -71,7 +70,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		}
 
 		thePlayer.PlayEffect( m_fxNameExtra );
-		if (IsActionAbilityUnlocked("AutoCounterPush") && SkillLevel() * 2 + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
+		if (thePlayer.IsInCombat() && IsActionAbilityUnlocked("AutoCounterPush") && SkillLevel() * 2 + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			PerformAutoPush();
 		}
 
@@ -83,7 +82,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		}
 
 		if ( !teleportCamera ) {
-			NR_Error("Perform: No valid teleport camera.");
+			NR_Error(actionType + ".OnPerform: !teleportCamera");
 			return OnPerformed(false);
 		}
 		Sleep(0.2f);  // wait for effect a bit
@@ -106,6 +105,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		var nr_manager : NR_MagicManager = NR_GetMagicManager();
 		var action : NR_MagicCounterPush;
 
+		NR_Debug(actionType + ".PerformAutoPush");
 		action = new NR_MagicCounterPush in nr_manager;
 		action.drainStaminaOnPerform = false;
 		nr_manager.AddActionScripted(action);
@@ -115,7 +115,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 	}
 
 	latent function BreakAction() {
-		// do not break if player is invulnerable ?
+		// do not break if player is already invulnerable
 		if (isPrepared) {
 			return;
 		}

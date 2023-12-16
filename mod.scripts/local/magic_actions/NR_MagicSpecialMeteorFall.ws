@@ -42,6 +42,14 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
 		s_meteorNum = SkillMaxApplies();
 
+		// unwanted actions may break anim
+		thePlayer.BlockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
+
 		return OnPrepared(true);
 	}
 
@@ -59,8 +67,8 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 
 	latent function BreakAction() {
 		super.BreakAction();
-		if (GetCurrentStateName() == 'Active')
-			GotoState('Stop');
+		
+		GotoState('Stop');
 	}
 
 	public function ContinueAction() {
@@ -184,6 +192,13 @@ state Stop in NR_MagicSpecialMeteorFall {
 	event OnEnterState( prevStateName : name )
 	{
 		NR_Debug("Stop: OnEnterState: " + this);
+		thePlayer.UnblockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
+
 		parent.inPostState = false;
 	}
 

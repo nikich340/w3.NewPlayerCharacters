@@ -34,7 +34,7 @@ class NR_AppearanceSet {
 	public var appearanceItems : array<String>;
 }
 
-statemachine class NR_PlayerManager {
+statemachine class NR_PlayerManager extends IScriptable {
 	protected saved var m_savedPlayerType : ENR_PlayerType;
 	default          	m_savedPlayerType = ENR_PlayerGeralt;
 
@@ -77,11 +77,14 @@ statemachine class NR_PlayerManager {
 	protected saved var m_replacerForQuestSaved : ENR_PlayerType;
 	default    			m_replacerForQuestSaved = ENR_PlayerUnknown;
 
+	// for testing
+	protected saved var m_debugLines : array<String>;
+
 	// called once: after entity created //
 	public function Init() {
 		var i, j, typesCount, slotsCount : int;
 
-		m_dataFormatVersion = 1;
+		m_dataFormatVersion = 2;
 		NR_Debug("NR_PlayerManager.Init: m_dataFormatVersion = " + m_dataFormatVersion);
 		typesCount = EnumGetMax('ENR_PlayerType') + 1;
 		slotsCount = EnumGetMax('ENR_AppearanceSlots') + 1;
@@ -173,6 +176,32 @@ statemachine class NR_PlayerManager {
 		NR_Debug("OnSpawned: m_stringsStorage loaded.");
 		if ( !m_stringsStorage ) {
 			NR_Error("NR_PlayerManager.OnStarted: !m_stringsStorage");
+		}
+	}
+
+	// testing stuff
+	public function AddDebugLine(line : String) {
+		var i : int;
+
+		m_debugLines.PushBack(line);
+		if (m_debugLines.Size() > 4000) {
+			NR_Debug("Cropping debug lines to 2000");
+
+			for (i = 0; i < 2000; i += 1) {
+				m_debugLines.Erase(0);
+			}
+		}
+	}
+
+	public function GetDebugLineCount() : int {
+		return m_debugLines.Size();
+	}
+
+	public function PrintDebugLines() {
+		var i : int;
+
+		for (i = 0; i < m_debugLines.Size(); i += 1) {
+			LogChannel('', m_debugLines[i]);
 		}
 	}
 
@@ -477,6 +506,7 @@ statemachine class NR_PlayerManager {
 
 		SoundEventQuest("gui_character_synergy_effect", SESB_DontSave);
 		theGame.GetTutorialSystem().ShowTutorialHint(popupData);
+		FactsAdd("nr_quest_track_CustomDLCInfo", 1);
 	}
 
 	// scene (preview) stuff functions //
@@ -733,7 +763,7 @@ statemachine class NR_PlayerManager {
 						NR_FixPlayer();
 					// BAD, it was auto-reset to Geralt after World change(?)
 					} else {
-						NR_Error("NR_PlayerManager.OnPlayerSpawned: changed to Geralt without request!");
+						NR_Debug("NR_PlayerManager.OnPlayerSpawned: changed to Geralt without request.");
 						NR_ChangePlayer( m_savedPlayerType );
 						return;
 					}
@@ -795,6 +825,11 @@ statemachine class NR_PlayerManager {
 	// helper function //
 	/* API */ public function IsPlayerTypeChangeLocked() : bool {
 		return m_typeChangeLocks.Size() > 0;
+	}
+
+	// helper function //
+	/* API */ public function IsReady() : bool {
+		return GetCurrentStateName() == 'Idle';
 	}
 
 	// inventory helper function
@@ -1318,7 +1353,7 @@ state GameLaunched in NR_PlayerManager {
 		
 		// wait until player appearance component is loaded
 		while ( thePlayer.GetComponentsCountByClassName( 'CAppearanceComponent' ) < 1 ) {
-			Sleep(0.1f);
+			SleepOneFrame();
 		}
 		NR_Debug("NR_PlayerManager::GameLaunched.RunGameLaunched: Player is ready after = " + (theGame.GetEngineTimeAsSeconds() - startTime));
 		parent.OnPlayerSpawned();
@@ -1347,7 +1382,7 @@ state PlayerChange in NR_PlayerManager {
 		startTime = theGame.GetEngineTimeAsSeconds();
 		// wait until player appearance component is loaded
 		while ( thePlayer.GetComponentsCountByClassName( 'CAppearanceComponent' ) < 1 ) {
-			Sleep(0.1f);
+			SleepOneFrame();
 		}
 		NR_Debug("NR_PlayerManager::PlayerChange.RunPlayerChange: Player is ready after = " + (theGame.GetEngineTimeAsSeconds() - startTime));
 		parent.OnPlayerSpawned();
@@ -1417,7 +1452,7 @@ state PlayerChange in NR_PlayerManager {
 
 /* API */ function NR_GetPlayerManager() : NR_PlayerManager
 {
-	if ( !theGame.nr_playerManager || theGame.nr_playerManager.GetDataFormatVersion() < 1 ) {
+	if ( !theGame.nr_playerManager || theGame.nr_playerManager.GetDataFormatVersion() < 2 ) {
 		NR_CreatePlayerManager( theGame );
 	}
 
@@ -1425,15 +1460,15 @@ state PlayerChange in NR_PlayerManager {
 }
 
 function NR_OnGameStarted(theGameObject : CR4Game) {
-	NR_Debug("NR_OnGameStarted");
 	NR_GetPlayerManager().GotoState('GameLaunched');
+	NR_Debug("NR_OnGameStarted");
 }
 
 function NR_CreatePlayerManager(theGameObject : CR4Game) {
 	if ( !theGameObject.nr_playerManager || theGameObject.nr_playerManager.GetDataFormatVersion() < 1 ) {
 		theGameObject.nr_playerManager = new NR_PlayerManager in theGameObject;
-		NR_Debug("NR_CreatePlayerManager: PlayerManager has been just created");
 		theGameObject.nr_playerManager.Init();
+		NR_Debug("NR_CreatePlayerManager: PlayerManager has been just created");
 	}
 }
 

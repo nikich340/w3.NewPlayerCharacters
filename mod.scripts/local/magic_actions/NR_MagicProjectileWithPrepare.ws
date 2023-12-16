@@ -2,7 +2,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 	var projectile 		: W3AdvancedProjectile;
 	
 	default actionType = ENR_ProjectileWithPrepare;
-	default actionSubtype = ENR_LightAbstract;
+	default actionSubtype = ENR_ThrowAbstract;
 
 	latent function OnInit() : bool {
 		sceneInputs.PushBack(3);
@@ -58,6 +58,8 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		projectile.projDMG = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 		projectile.Init(thePlayer);
 		projectile.CreateAttachment( thePlayer, 'r_weapon' );
+		// explodes toxic gas
+		projectile.AddTag(theGame.params.TAG_OPEN_FIRE);
 		projectile.DestroyAfter(10.f);
 		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ false, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );

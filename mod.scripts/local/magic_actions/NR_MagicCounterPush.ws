@@ -19,7 +19,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		if (newLevel == 5) {
 			ActionAbilityUnlock("FullBlast");
 		}
-		if (newLevel == 8) {
+		if (newLevel == 7) {
 			ActionAbilityUnlock("Freezing");
 		}
 		if (newLevel == 10) {
@@ -43,10 +43,10 @@ class NR_MagicCounterPush extends NR_MagicAction {
 
 		s_fullSphere = !isScripted && IsActionAbilityUnlocked("FullBlast");
 		if (!isScripted && SkillLevel() + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
-			s_burn = IsActionAbilityUnlocked("Burning") && BuffType() == 1;
-			if (!s_burn && IsActionAbilityUnlocked("Freezing")) {
-				s_freeze = true;
-			}			
+			if ( BuffType() == 1 && IsActionAbilityUnlocked("Burning") )
+				s_burn = true;
+			else if ( BuffType() == 0 && IsActionAbilityUnlocked("Freezing") )
+				s_freeze = true;		
 		}
 		
 		if (s_fullSphere) {
@@ -136,11 +136,11 @@ class NR_MagicCounterPush extends NR_MagicAction {
 
 		if (s_fullSphere) {
 			// aardProjectile.SphereOverlapTest( 12.f, aardStandartCollisions );
-			aardProjectile.NR_ProcessCollisionNPCsInCone(/*range*/ 13.f, /*angle*/ 360.f, /*speed*/ 80.0f);
+			aardProjectile.NR_ProcessCollisionEntitiesInCone(/*range*/ 13.f, /*angle*/ 360.f, /*speed*/ 80.0f);
 		} else {
-			pos += thePlayer.GetHeadingVector() * 10.f;
-			aardProjectile.ShootCakeProjectileAtPosition( /*angle*/ 120.f, /*height*/ 4.f, /*shootAngle*/ 0.0f, /*speed*/ 70.0f, /*target*/ pos, /*range*/ 10.f, aardStandartCollisions );
-			aardProjectile.NR_ProcessCollisionNPCsInCone(/*range*/ 10.f, /*angle*/ 120.f, /*speed*/ 70.0f);
+			pos += thePlayer.GetHeadingVector() * 1.f;
+			// aardProjectile.ShootCakeProjectileAtPosition( /*angle*/ 120.f, /*height*/ 4.f, /*shootAngle*/ 0.0f, /*speed*/ 70.0f, /*target*/ pos, /*range*/ 10.f, aardStandartCollisions );
+			aardProjectile.NR_ProcessCollisionEntitiesInCone(/*range*/ 10.f, /*angle*/ 120.f, /*speed*/ 70.0f);
 		}
 
 		aardProjectile.DestroyAfter(10.f);
@@ -234,7 +234,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 	}
 
 	function BuffType() : int {
-		// 0 = Freeze, 1 = Burn
+		// 0 = Freeze, 1 = Burn, 2 = Standart
 		return map[sign].getI("buff_" + ENR_MAToName(actionType), 0);
 	} 
 

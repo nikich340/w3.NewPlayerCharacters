@@ -9,23 +9,35 @@ journals:
         - start_descr: "Your magic Path begins.<br>"
         - investigate_strange_area_descr: "After reading the advertisement, sorceress suspected an interesting case.<br>"
         - after_spider_descr: "After reading the advertisement, sorceress suspected an interesting case.<br>"
+        - after_met_aynerahn: "Sorceress has reached interesting place and met intelligent sorcerer Aynerahn (TODO).<br>"
+        - after_become_apprentice: "Aynerahn agreed to teach sorceress everything he knows (TODO).<br>"
         # Прочитав объявление, чародейка заподозрила интересный случай.
 
       instructions:
         find_master:
           - check_noticeboard:
-              caption: "Check noticeboard"
+              caption: "Check noticeboard."
               mappins:
                 - nb_pin
 
           - investigate_strange_area:
-              caption: "Investigate area"
+              caption: "Investigate area."
               mappins:
                 - [ investigate_strange_area, 32 ]
 
+          - enter_teleport:
+              caption: "Enter teleport."
+
+          - investigate_strange_stone:
+              caption: "Investigate magic stone."
+
+          - defeat_monsters:
+              caption: "Defeat monsters."
+
           - talk_with_mage:
               caption: "Talk to mage."
-
+        
+        become_archi:
           - become_archi:
               caption: "Become an Arch-mistress."
 

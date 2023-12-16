@@ -1,7 +1,7 @@
 #
 # quest structure subsegment: training
 # 
-# (version: 567, saved: 2023-12-04 20:41:26)
+# (version: 579, saved: 2023-12-16 22:28:40)
 #
 ---
 structure:
@@ -188,7 +188,7 @@ structure:
         waituntil.ftt_performed:
           factdb: [ nr_magic_performed_ENR_FastTravelTeleport, ">=", 3 ]
           ".editor":
-            pos: [ 400.0, 328.0 ]
+            pos: [ 396.0, 333.0 ]
             in: [ In ]
             out: [ Out ]
           next:
@@ -257,7 +257,7 @@ structure:
         waituntil.shield_performed:
           factdb: [ nr_magic_performed_ENR_SpecialShield, ">=", 7 ]
           ".editor":
-            pos: [ 405.0, 526.0 ]
+            pos: [ 404.0, 525.0 ]
             in: [ In ]
             out: [ Out ]
           next:
@@ -562,7 +562,7 @@ structure:
         
         script.shield_tutorial:
           ".editor":
-            pos: [ 402.0, 431.0 ]
+            pos: [ 398.0, 441.0 ]
             in: [ In ]
             out: [ Out ]
           function: NR_ShowTutorial_Q
@@ -622,84 +622,84 @@ structure:
         
         objective.become_archimistress:
           ".editor": [ -96.0, 346.0 ]
-          objective: sorceress_quest/find_master/become_archi
+          objective: sorceress_quest/become_archi/become_archi
           notify: true
           track: false
           next: ".done"
         
         objective.practise_control:
           ".editor": [ 573.0, 774.0 ]
-          objective: sorceress_quest/find_master/practise_control
+          objective: sorceress_quest/become_archi/practise_control
           notify: true
           track: false
           next: ".done"
         
         objective.practise_field:
           ".editor": [ 574.0, 1313.0 ]
-          objective: sorceress_quest/find_master/practise_field
+          objective: sorceress_quest/become_archi/practise_field
           notify: true
           track: false
           next: ".done"
         
         objective.practise_ftt:
           ".editor": [ 593.0, 318.0 ]
-          objective: sorceress_quest/find_master/practise_ftt
+          objective: sorceress_quest/become_archi/practise_ftt
           notify: true
           track: false
           next: ".done"
         
         objective.practise_heavy:
           ".editor": [ 559.0, 152.0 ]
-          objective: sorceress_quest/find_master/practise_heavy
+          objective: sorceress_quest/become_archi/practise_heavy
           notify: true
           track: false
           next: ".done"
         
         objective.practise_meteor:
           ".editor": [ 572.0, 896.0 ]
-          objective: sorceress_quest/find_master/practise_meteor
+          objective: sorceress_quest/become_archi/practise_meteor
           notify: true
           track: false
           next: ".done"
         
         objective.practise_meteor_fall:
           ".editor": [ 586.0, 1451.0 ]
-          objective: sorceress_quest/find_master/practise_melgar_fire
+          objective: sorceress_quest/become_archi/practise_melgar_fire
           notify: true
           track: false
           next: ".done"
         
         objective.practise_polymorphism:
           ".editor": [ 583.0, 1583.0 ]
-          objective: sorceress_quest/find_master/practise_polymorphism
+          objective: sorceress_quest/become_archi/practise_polymorphism
           notify: true
           track: false
           next: ".done"
         
         objective.practise_servant:
           ".editor": [ 571.0, 1037.0 ]
-          objective: sorceress_quest/find_master/practise_servant
+          objective: sorceress_quest/become_archi/practise_servant
           notify: true
           track: false
           next: ".done"
         
         objective.practise_shield:
           ".editor": [ 602.0, 482.0 ]
-          objective: sorceress_quest/find_master/practise_shield
+          objective: sorceress_quest/become_archi/practise_shield
           notify: true
           track: false
           next: ".done"
         
         objective.practise_thunder:
           ".editor": [ 573.0, 1180.0 ]
-          objective: sorceress_quest/find_master/practise_alzur_thunder
+          objective: sorceress_quest/become_archi/practise_alzur_thunder
           notify: true
           track: false
           next: ".done"
         
         objective.practise_tornado:
           ".editor": [ 590.0, 650.0 ]
-          objective: sorceress_quest/find_master/practise_tornado
+          objective: sorceress_quest/become_archi/practise_tornado
           notify: true
           track: false
           next: ".done"
@@ -719,7 +719,7 @@ structure:
         
         addfact.ENR_BombExplosion:
           ".editor": [ 556.0, -166.0 ]
-          value: [ nr_magic_skill_ENR_BombExplosion, -1 ]
+          value: [ nr_magic_skill_ENR_BombExplosion, 1 ]
           next: ".done"
         
         addfact.ENR_FastTravelTeleport:

@@ -69,20 +69,20 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 
 		// can't create teleport without player teleported instantly
 		if ( !safePosFound ) {
-			NR_Debug("NR_MagicFastTravelTeleport: Can't find safe pos");
+			NR_Debug(actionType + ".OnPrepare: Can't find safe pos");
 			thePlayer.DisplayHudMessage(GetLocStringByKeyExt( "menu_cannot_perform_action_here" ));
 			return OnPrepared(false);
 		}
-		if ( VecDistanceSquared(pos, m_teleportPos) < 1.4f ) {
-			NR_Debug("NR_MagicFastTravelTeleport: Teleport pos is too close");
+		if ( VecDistanceSquared(pos, m_teleportPos) < 1.5f ) {
+			NR_Debug(actionType + ".OnPrepare: Teleport pos is too close");
 			thePlayer.DisplayHudMessage(GetLocStringByKeyExt( "menu_cannot_perform_action_here" ));
 			return OnPrepared(false);
 		}
 
 		dummyEntity = theGame.CreateEntity(entityTemplate, m_teleportPos, rot);
-		NR_Debug("NR_MagicFastTravelTeleport: teleport = " + dummyEntity + ", template = " + entityTemplate);
 		if (!dummyEntity) {
-			NR_Debug("NR_MagicFastTravelTeleport: teleport = " + dummyEntity + ", template = " + entityTemplate);
+			NR_Error(actionType + ".OnPrepare: !dummyEntity");
+			return OnPrepared(false);
 		}
 		m_fxNameMain = 'teleport_fx';
 		m_fxNameExtra = HandFxName();
@@ -221,8 +221,8 @@ state Active in NR_MagicFastTravelTeleport {
 		startTime = EngineTimeToFloat(theGame.GetEngineTime());
 		while (parent.m_activeTime > GetLocalTime()) {
 			dist = VecDistanceSquared(parent.m_teleportPos, thePlayer.GetWorldPosition() + Vector(0,0,parent.m_teleportZ));
-			// 1.0^2
-			if (dist < 1.f) {
+			// 1.2^2
+			if (dist < 1.5f) {
 				PerformFastTravel();
 				break;
 			}
@@ -241,7 +241,7 @@ state Active in NR_MagicFastTravelTeleport {
 		}
 		manager.UseMapPin( parent.m_targetPinTag, true );
 		// hack to make smooth fadeOut and avoid persistent blackscreen
-		theGame.FadeOut(0.5f);
+		theGame.FadeOut(0.5f);		
 		theGame.FadeInAsync(0.5f);
 		if ( parent.m_currentAreaId == parent.m_targetAreaId )
 		{

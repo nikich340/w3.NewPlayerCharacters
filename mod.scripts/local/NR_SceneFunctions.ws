@@ -14,6 +14,12 @@ storyscene function NR_ClearItemSlot_S(player: CStoryScenePlayer, item_index : i
 	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
+
+storyscene function NR_ClearAllSlotsItems_S(player: CStoryScenePlayer) {
+	NR_GetPlayerManager().ResetAllAppearanceHeadHair();
+	NR_GetPlayerManager().ShowAppearanceInfo();
+}
+
 storyscene function NR_ApplyRandomNPCSet_S(player: CStoryScenePlayer) {
 	NR_GetPlayerManager().ApplyRandomNPCSet();
 }
@@ -85,6 +91,7 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 	magicManager.HandFX(inSetupScene);
 
 	if (inSetupScene) {
+		NR_EnterScenePreviewState('NR_ScenePreviewSpells_DialogState');
 		thePlayer.AddAnimEventCallback('InitAction',		'OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('Prepare',			'OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('RotatePrePerformAction', 'OnAnimEventMagic');
@@ -93,6 +100,7 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 		thePlayer.AddAnimEventCallback('PrepareTeleport',	'OnAnimEventMagic');
 		thePlayer.AddAnimEventCallback('PerformTeleport',	'OnAnimEventMagic');
 	} else {
+		NR_ExitScenePreviewState();
 		thePlayer.RemoveAnimEventCallback('InitAction');
 		thePlayer.RemoveAnimEventCallback('Prepare');
 		thePlayer.RemoveAnimEventCallback('RotatePrePerformAction');
@@ -282,3 +290,12 @@ latent storyscene function NR_ChooseMagicParamPercent_S(player: CStoryScenePlaye
 	magicManager.UpdateMagicInfo();
 }
 
+storyscene function NR_EnterScenePreviewState_S(player: CStoryScenePlayer, stateName : name) {
+	NR_EnterScenePreviewState(stateName);
+    NR_GetPlayerManager().ShowAppearanceInfo();
+}
+
+storyscene function NR_ExitScenePreviewState_S(player: CStoryScenePlayer) {
+	NR_ExitScenePreviewState();
+    NR_GetPlayerManager().HideAppearanceInfo();
+}

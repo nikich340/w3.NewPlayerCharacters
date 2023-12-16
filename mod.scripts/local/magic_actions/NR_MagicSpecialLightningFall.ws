@@ -59,6 +59,14 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		if (!super_ret) {
 			return OnPerformed(false);
 		}
+
+		// unwanted actions may break anim
+		thePlayer.BlockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
 	
 		GotoState('Active');
 		
@@ -68,10 +76,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 	latent function BreakAction() {
 		super.BreakAction();
 
-		RequestWeatherChangeTo(savedWeather, 2.f, false);
-		if (GetCurrentStateName() == 'Active') {
-			GotoState('Stop');
-		}
+		GotoState('Stop');
 	}
 
 	public function ContinueAction() {
@@ -372,6 +377,13 @@ state Stop in NR_MagicSpecialLightningFall {
 	{
 		NR_Debug("Stop: OnEnterState: " + this);
 		RequestWeatherChangeTo(parent.savedWeather, 2.f, false);
+		thePlayer.UnblockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
+		thePlayer.UnblockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
+
 		parent.inPostState = false;
 	}
 

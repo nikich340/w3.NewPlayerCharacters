@@ -71,27 +71,30 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		currentPos = parent.GetWorldPosition();
 		predictedDodgeRot = parent.GetWorldRotation();
-		predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + currentPos;
-		NR_GetSafeTeleportPoint( predictedDodgePos ); // snap to ground
-		predictedDodgePos = NR_GetTeleportMaxArchievablePoint( thePlayer, currentPos, predictedDodgePos );
 
-		foundSafePoint = NR_GetSafeTeleportPoint( predictedDodgePos );
+		foundSafePoint = false;
 		attempsToFindPoint = 5;
-		// binary decrease teleportLength
 		while (!foundSafePoint) {
 			if (!attempsToFindPoint) {
+				teleportLength = 0.f;
 				predictedDodgePos = currentPos;
 				break;
 			}
-			NR_Debug("foundSafePoint: left " + attempsToFindPoint);
-			attempsToFindPoint -= 1;
-			playerEvadeType = PET_Dodge; // since we decreased length to 6.0 or less
 
-			teleportLength = teleportLength / 2.f;
+			// 0. calculate naive pos from heading
 			predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + currentPos;
-			foundSafePoint = NR_GetSafeTeleportPoint( predictedDodgePos );
+			// 1. correct Z (stairs etc)
+			NR_GetSafeTeleportPoint( predictedDodgePos );
+			// 2. static trace with capsule H offset (static objects)
+			predictedDodgePos = NR_GetTeleportMaxArchievablePoint( thePlayer, currentPos, predictedDodgePos );
+			// 3. correct Z (stairs etc)
+			foundSafePoint = NR_GetSafeTeleportPoint( predictedDodgePos, , /*upMaxZ*/ 0.1f );
+
+			// binary decrease teleportLength if failed
+			teleportLength = teleportLength * 0.5f;
+			attempsToFindPoint -= 1;
 		}
-		NR_Debug("Found safe tp pos with length: " + teleportLength + ", pos: " + VecToString(predictedDodgePos) + ", playerPos: " + VecToString(parent.GetWorldPosition()));
+		NR_Debug("PerformTeleport: found safe tp pos with length = " + teleportLength + ", pos = " + VecToString(predictedDodgePos) + ", playerPos = " + VecToString(parent.GetWorldPosition()));
 
 		if (evadeTarget) {
 			playerToTargetHeading = VecHeading( evadeTarget.GetWorldPosition() - predictedDodgePos );

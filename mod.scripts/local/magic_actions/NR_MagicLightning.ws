@@ -3,7 +3,7 @@ class NR_MagicLightning extends NR_MagicAction {
 	protected var s_rebound 		: bool;
 	
 	default actionType = ENR_Lightning;
-	default actionSubtype = ENR_LightAbstract;
+	default actionSubtype = ENR_ThrowAbstract;
 
 	latent function OnInit() : bool {
 		sceneInputs.PushBack(3);
@@ -96,6 +96,8 @@ class NR_MagicLightning extends NR_MagicAction {
 			thePlayer.PlayEffect(m_fxNameMain, dummyEntity);
 			dummyEntity.PlayEffect(m_fxNameHit);
 		}
+		// explodes toxic gas
+		dummyEntity.AddTag(theGame.params.TAG_OPEN_FIRE);
 		dummyEntity.DestroyAfter(5.f);
 
 		return OnPerformed(true);

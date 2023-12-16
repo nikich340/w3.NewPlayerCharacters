@@ -1,7 +1,7 @@
 #
 # quest structure root segment
 # 
-# (version: 567, saved: 2023-12-04 20:41:26)
+# (version: 579, saved: 2023-12-16 22:28:40)
 #
 ---
 structure:
@@ -12,7 +12,6 @@ structure:
         next:
           - waituntil.Wait_intro_done
           - changelayers.hide_master_location
-          - waituntil.REMOVE_DEV_0
       
       subsegment.GOLEM_CRAFTING:
         ".editor":
@@ -35,7 +34,7 @@ structure:
         ".editor":
           pos: [ 1499.0, -373.0 ]
           in: [ Input ]
-          out: [ Output, ChangeType ]
+          out: [ ChangeType, Output ]
         scene: 01.player_change_female_ciri.yml
         placement: ~PLAYER
         interruptable: true
@@ -120,7 +119,8 @@ structure:
         placement: ~PLAYER
         interruptable: true
         _fadein: false
-        next: ".done"
+        next.Output:
+          - objective.investigate_stone: Activate
       
       scene.Wow_comment:
         ".editor":
@@ -136,7 +136,7 @@ structure:
       
       scene.crystal_to_portal_scene:
         ".editor":
-          pos: [ 2298.0, 1065.0 ]
+          pos: [ 2240.0, 1048.0 ]
           in: [ Input ]
           out: [ Output ]
         scene: 04.crystal_portal.yml
@@ -144,7 +144,8 @@ structure:
         interruptable: true
         _fadein: true
         next.Output:
-          - waituntil.on_master_ship
+          - changelayers.show_master_location
+          - objective.enter_teleport: Activate
       
       scene.master_about_spider:
         ".editor":
@@ -172,7 +173,7 @@ structure:
       scene.not_sorceress_comment_male:
         ".editor":
           pos: [ 1685.0, 643.0 ]
-          in: [ Input ]
+          in: [ not_sorceress ]
           out: [ Output ]
         scene: 09.geralt_lines.yml
         placement: ~PLAYER
@@ -194,6 +195,7 @@ structure:
           - objective.check_area: Activate
           - objective.check_nb: Success
           - changelayers.show_crystal
+          - journal.investigate_area: Activate
       
       scene.spider_boss_scene:
         ".editor":
@@ -206,17 +208,6 @@ structure:
         _fadein: true
         next.Output:
           - script.hide_spider_indicator
-      
-      scene.stone_activated_comment:
-        ".editor":
-          pos: [ 7062.0, 1444.0 ]
-          in: [ stone_activated ]
-          out: [ Output ]
-        scene: 07.master_oneliners.yml
-        placement: ~nr_master_mage
-        interruptable: true
-        _fadein: false
-        next: ".done"
       
       scene.this_scene_should_never_happen:
         ".editor":
@@ -243,6 +234,7 @@ structure:
           - script.reset_stone_activated_fact
           - addfact.Master_met_fact
           - waituntil.wait_1s_a
+          - objective.defeat_monsters: Success
       
       interaction.celestine_dg:
         ".editor":
@@ -287,7 +279,7 @@ structure:
       waituntil.1s_a:
         elapsed: "00:00:01"
         ".editor":
-          pos: [ 2129.0, 1008.0 ]
+          pos: [ 2089.0, 1001.0 ]
           in: [ In ]
           out: [ Out ]
         next:
@@ -491,16 +483,13 @@ structure:
         next:
           - scene.this_scene_should_never_happen: should_never_happen
       
-      waituntil.REMOVE_DEV_0:
-        factdb: [ nr_dev_master0, ">=", 1 ]
+      waituntil.UPDATE_FACT_1:
+        factdb: [ nr_reserved_update, ">=", 1 ]
         ".editor":
-          pos: [ 1644.0, 1396.0 ]
+          pos: [ 273.0, 768.0 ]
           in: [ In ]
           out: [ Out ]
-        next:
-          - waituntil.on_master_ship
-          - waituntil.Wait_ship_stone_use
-          - waituntil.1s_loop
+        next: ".done"
       
       waituntil.Wait_crystal_examined:
         interaction: [ InteractiveClue, ~nr_interactive_crystal_ground ]
@@ -623,11 +612,12 @@ structure:
       waituntil.on_master_ship:
         inside: [ prologue/master_location_area, PLAYER ]
         ".editor":
-          pos: [ 2327.0, 939.0 ]
+          pos: [ 2531.0, 1000.0 ]
           in: [ In ]
           out: [ Out ]
         next:
-          - changelayers.show_master_location
+          - script.Save_game_and_wait
+          - objective.enter_teleport: Success
       
       waituntil.outside_master_ship:
         outside: [ prologue/master_location_area, PLAYER ]
@@ -802,11 +792,11 @@ structure:
           out: [ Out ]
         function: NR_AddChameleonPotion
         next:
-          - script.REMOVE_dev_notify
           - waituntil.Never_happen_fact
           - waituntil.Wait_setup_scene_fact
           - waituntil.Wait_player_sorceress
           - script.TRACK_PROGRESS
+          - waituntil.UPDATE_FACT_1
       
       script.Add_notice_to_nb:
         ".editor":
@@ -937,7 +927,7 @@ structure:
           out: [ "False", "True" ]
         function: NR_IsPlayerFemale_Q
         next.False:
-          - scene.not_sorceress_comment_male: Input
+          - scene.not_sorceress_comment_male: not_sorceress
         next.True:
           - scene.not_sorceress_comment_female: not_sorceress
       
@@ -1105,17 +1095,6 @@ structure:
         next:
           - waituntil.magic_stone_should_work_fact
       
-      script.REMOVE_dev_notify:
-        ".editor":
-          pos: [ 179.0, 429.0 ]
-          in: [ In ]
-          out: [ Out ]
-        function: NR_Notify_Quest
-        parameter:
-          - message: "Hi! This is a dev version of \"New Player Characters\" mod. Open your inventory and apply \"Chameleon potion\". "
-          - seconds: 30.0
-        next: ".done"
-      
       script.Remove_scene_type_change_fact:
         ".editor":
           pos: [ 2242.0, -727.0 ]
@@ -1164,6 +1143,8 @@ structure:
         function: NR_UseCrossStone_Q
         next:
           - script.check_any_alive
+          - objective.investigate_stone: Success
+          - objective.defeat_monsters: Activate
       
       script.Spawn_entities_x2:
         ".editor":
@@ -1814,7 +1795,7 @@ structure:
       
       changelayers.show_master_location:
         ".editor":
-          pos: [ 2462.0, 855.0 ]
+          pos: [ 2374.0, 960.0 ]
           hint: show-only
           in: []
           out: []
@@ -1826,7 +1807,7 @@ structure:
           - master_location_extra_walls
           - master_location_magic_books
         next:
-          - script.Save_game_and_wait
+          - waituntil.on_master_ship
       
       spawn.spawn_cat:
         ".editor":
@@ -1887,6 +1868,12 @@ structure:
         next:
           - waituntil.master_should_spawn
       
+      journal.investigate_area:
+        ".editor": [ 1741.0, 1146.0 ]
+        entry: quests/sorceress_quest/investigate_strange_area_descr
+        notify: true
+        next: ".done"
+      
       journal.quest_start_entry:
         ".editor": [ 975.0, 760.0 ]
         entry: quests/sorceress_quest/start_descr
@@ -1907,6 +1894,27 @@ structure:
         objective: sorceress_quest/find_master/check_noticeboard
         notify: true
         track: true
+        next: ".done"
+      
+      objective.defeat_monsters:
+        ".editor": [ 5924.0, 2362.0 ]
+        objective: sorceress_quest/find_master/defeat_monsters
+        notify: true
+        track: false
+        next: ".done"
+      
+      objective.enter_teleport:
+        ".editor": [ 1980.0, 1275.0 ]
+        objective: sorceress_quest/find_master/enter_teleport
+        notify: true
+        track: false
+        next: ".done"
+      
+      objective.investigate_stone:
+        ".editor": [ 4255.0, 1938.0 ]
+        objective: sorceress_quest/find_master/investigate_strange_stone
+        notify: true
+        track: false
         next: ".done"
       
       addfact.Master_met_fact:

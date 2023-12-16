@@ -153,6 +153,7 @@ statemachine class NR_MagicManager {
 			SetDefaults_CurseChance();
 			SetDefaults_Duration();
 
+			SetDefaults_CounterPush();
 			SetDefaults_LightAbstract();
 			SetDefaults_LightSlash();
 			SetDefaults_LightThrow();
@@ -160,7 +161,6 @@ statemachine class NR_MagicManager {
 			SetDefaults_HeavyAbstract();
 			SetDefaults_HeavyRock();
 			SetDefaults_HeavyBomb();
-			SetDefaults_HeavyPush();
 
 			SetDefaults_Teleport();
 			SetDefaults_FastTravelTeleport();
@@ -508,13 +508,20 @@ statemachine class NR_MagicManager {
 		// <img src='img://" + GetItemIconPathByName + "' height='" + GetNotificationFontSize() + "' width='" + GetNotificationFontSize() + "' vspace='-10' />&nbsp;
 		BR = "<br>";
 		NBSP = "&nbsp;";
-		text = "";
+		text = GetLocStringById(2115940583) + BR + BR;
 
 		if (sectionName == 'main') {
-			// light attacks
-			text += "<font color='#000145'>[{358190}]</font>{ }{539939}:{ }" + GetSkillLevelLocStr(GetSkillLevel()) + "{ } (" + IntToString(GetSkillLevel()) + ")" + BR;
-			// text += "<font color='#145000'>[{2115940205}]</font>:{ }" + BR;
-			
+			// sorceress
+			text += NR_StrRGB("[{358190}]", 40,25,0) + BR;
+			// level
+			s = GetSkillLevel();
+			text += "{ }" + NR_StrRGB("{539939}", 0,15,15) + ":{ }" + GetSkillLevelLocStr(s) + BR;
+			// next level
+			text += "{ }" + NR_StrRGB("{1073627}", 0,15,15) + ":{ }";
+			if (s < ENR_SkillArchMistress)
+				text += GetSkillLevelLocStr(s+1) + "{ } ({1087828}: " + GetPlayerLevelForSkillLevel(s+1) + ")" + BR;
+			else
+				text += "-" + BR;
 		} else if (sectionName == 'hand') {
 			// hand
 			text += "<font color='#3a0045'>[{2115940143}]</font><br>";
@@ -525,7 +532,7 @@ statemachine class NR_MagicManager {
 				}
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_HandFx), 'keira') );
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite);
-				text += "({" + SignLocId(s) + "}){ }" + ColorFormattedValue(styleId, color);
+				text += NR_GetSignIconFormattedByType(s) + "{ }" + ColorFormattedValue(styleId, color);
 				text += BR;
 			}
 		} else if (sectionName == 'teleport') {
@@ -537,7 +544,7 @@ statemachine class NR_MagicManager {
 				}
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Teleport), 'yennefer') );
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Teleport), ENR_ColorWhite);
-				text += "({" + SignLocId(s) + "}){ }" + ColorFormattedValue(styleId, color);
+				text += NR_GetSignIconFormattedByType(s) + "{ }" + ColorFormattedValue(styleId, color);
 				text += BR;
 			}
 		} else if (sectionName == 'light') {
@@ -550,16 +557,26 @@ statemachine class NR_MagicManager {
 				}
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Slash), 'yennefer') );
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorWhite);
-				text += "({" + SignLocId(s) + "}){ }{2115940122}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
+				text += NR_GetSignIconFormattedByType(s) + "{ }" + "{2115940122}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
 				
 				typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_ThrowAbstract), ENR_Lightning);
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorWhite);
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName((ENR_MagicAction)typeId), 'yennefer') );
 				if (typeId == ENR_Lightning) {
-					text += "{2115940141}:{ }" + ColorFormattedValue(styleId, color) + "";
+					text += "{2115940141}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
 				} else if (typeId == ENR_ProjectileWithPrepare) {
-					text += "{2115940142}:{ }" + ColorFormattedValue(styleId, color) + "";
+					text += "{2115940142}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
 				}
+
+				color = sMap[s].getI("color_" + ENR_MAToName(ENR_CounterPush), ENR_ColorWhite);
+				color2 = sMap[s].getI("buff_" + ENR_MAToName(ENR_CounterPush), 0);
+				styleId = 1117589;  // Standart
+				if (IsActionAbilityUnlocked(ENR_CounterPush, "Burning") && color2 == 1)
+					styleId = 1083738;
+				else if (IsActionAbilityUnlocked(ENR_CounterPush, "Freezing") && color2 == 0)
+					styleId = 1081836;
+				text += "{2115940151}:{ }" + ColorFormattedValue(styleId, color);
+
 				text += BR;
 			}
 		} else if (sectionName == 'heavy') {
@@ -573,7 +590,7 @@ statemachine class NR_MagicManager {
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Rock), 'keira') );
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorWhite);
 				color2 = sMap[s].getI("color_cone_" + ENR_MAToName(ENR_Rock), ENR_ColorWhite);
-				text += "({" + SignLocId(s) + "}){ }{2115940148}:{ }" + ColorFormattedValue(styleId, color) + "/" + ColorFormattedText("*", color2) + ";{ }";
+				text += NR_GetSignIconFormattedByType(s) + "{ }" + "{2115940148}:{ }" + ColorFormattedValue(styleId, color) + "/" + ColorFormattedText("*", color2) + ";{ }";
 				
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorWhite);
 				//styleId = MageLocId( sMap[s].getN("color_" + ENR_MAToName(ENR_BombExplosion), 'philippa') );
@@ -586,7 +603,7 @@ statemachine class NR_MagicManager {
                 if (eqSign == s) {
                     text += "=> ";
                 }
-                text += "({" + SignLocId(s) + "}):{ }";
+                text += NR_GetSignIconFormattedByType(s) + "{ }";
                 
                 typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_SpecialAbstract), ENR_SpecialMeteor);
                 color = sMap[s].getI("color_" + ENR_MAToName((ENR_MagicAction)typeId), ENR_ColorWhite);
@@ -616,7 +633,7 @@ statemachine class NR_MagicManager {
                 if (eqSign == s) {
                     text += "=> ";
                 }
-                text += "({" + SignLocId(s) + "}):{ }";
+                text += NR_GetSignIconFormattedByType(s) + "{ }";
                 
                 typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialLightningFall);
                 color = sMap[s].getI("color_" + ENR_MAToName((ENR_MagicAction)typeId), ENR_ColorWhite);
@@ -833,7 +850,7 @@ statemachine class NR_MagicManager {
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorViolet);
 	}
 
-	function SetDefaults_HeavyPush() {
+	function SetDefaults_CounterPush() {
 		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_CounterPush), ENR_ColorWhite);
 
 		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_CounterPush), ENR_ColorSeagreen);
@@ -1116,9 +1133,9 @@ statemachine class NR_MagicManager {
 
 	public function GetTeleportDistance(farTeleport : bool) : float {
 		if (farTeleport)
-			return sMap[eqSign].getI("distance_" + ENR_MAToName(ENR_Teleport), 16) * 1.f;
+			return sMap[ST_Universal].getI("distance_" + ENR_MAToName(ENR_Teleport), 20) * 1.f;
 		else
-			return sMap[eqSign].getI("distance_far_" + ENR_MAToName(ENR_Teleport), 8) * 1.f;
+			return sMap[ST_Universal].getI("distance_far_" + ENR_MAToName(ENR_Teleport), 10) * 1.f;
 	}
 
 	public function GetActionColor() : ENR_MagicColor {
@@ -2194,16 +2211,16 @@ state MagicLoop in NR_MagicManager {
 	}
 
 	latent function PerformExplorationTeleport() {
-		var hold : bool;
+		//var hold : bool;
 
-		hold = CheckIsActionHeld('DrinkPotion4');
-		if ( hold ) {
-			NR_Debug("PerformExplorationTeleport: EBAT_Roll");
-			NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Roll );
-		} else {
-			NR_Debug("PerformExplorationTeleport: EBAT_Dodge");
-			NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Dodge );
-		}
+		//hold = CheckIsActionHeld('DrinkPotion4');
+		//if ( hold ) {
+		//	NR_Debug("PerformExplorationTeleport: EBAT_Roll");
+		NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Roll );
+		//} else {
+		//	NR_Debug("PerformExplorationTeleport: EBAT_Dodge");
+		//	NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Dodge );
+		//}
 	}
 
 	latent function PerformSwimmingAction() {
@@ -2296,81 +2313,76 @@ latent function NR_SmoothMoveToTarget(dt : float, metersPerSec : float, out curr
 }
 
 // pos is input wanted position, is corrected after func call
-latent function NR_GetSafeTeleportPoint(out pos : Vector, optional allowUnderwater : bool) : bool {
-	var newPos 			: Vector;
+// set upMaxZ/downMaxZ to somewhat very small but > 0.f
+latent function NR_GetSafeTeleportPoint(out pos : Vector, optional allowUnderwater : bool, optional upMaxZ : float, optional downMaxZ : float) : bool {
 	var waterZ, newZ 	: float;
 	var world         	: CWorld;
 
 	world = theGame.GetWorld();
 	// from IsPointSuitableForTeleport()
-	if ( !world.NavigationFindSafeSpot( pos, 0.5f, 0.5f*3, newPos ) )
+	//if ( !world.NavigationFindSafeSpot( pos, 0.5f, 0.5f*3, newPos ) )
+	//{
+	//NR_Debug("NR_GetSafeTeleportPoint::!NavigationFindSafeSpot");
+	if (upMaxZ < 0.001f)
+		upMaxZ = 7.f;
+
+	if (downMaxZ < 0.001f)
+		downMaxZ = 7.f;
+
+	if ( world.NavigationComputeZ(pos, pos.Z - downMaxZ, pos.Z + upMaxZ, newZ) )
 	{
-		NR_Debug("NR_GetSafeTeleportPoint::!NavigationFindSafeSpot");
-		if ( world.NavigationComputeZ(pos, pos.Z - 7.f, pos.Z + 7.f, newZ) )
-		{
-			NR_Debug("NR_GetSafeTeleportPoint::!NavigationFindSafeSpot::NavigationComputeZ");
-			pos.Z = newZ;
-			if ( !world.NavigationFindSafeSpot( pos, 0.5f, 0.5f*3, newPos ) ) {
-				NR_Debug("NR_GetSafeTeleportPoint::!NavigationFindSafeSpot::NavigationComputeZ::!NavigationFindSafeSpot");
-				return false;
-			}
-		}
-		else
-		{
-			NR_Debug("NR_GetSafeTeleportPoint::!NavigationFindSafeSpot::!NavigationComputeZ");
-			// if no navigation data
-			waterZ = world.GetWaterLevel( pos, true );
-			
-			// make sure that floor pos found + it's above water + it's in zTolerance (7) range
-			if ( world.PhysicsCorrectZ(pos, newZ) && (allowUnderwater || newZ > waterZ) && AbsF(newZ - pos.Z) < 7.f ) {
-				NR_Debug("NR_GetSafeTeleportPoint::!NavigationFindSafeSpot::PhysicsCorrectZ");
-				pos.Z = newZ;
-				return true;
-			}
-			NR_Debug("NR_GetSafeTeleportPoint::!NavigationFindSafeSpot::!PhysicsCorrectZ, PhysicsCorrectZ = " + world.PhysicsCorrectZ(pos, newZ) + " oldZ = " + pos.Z + ", newZ = " + newZ + ", waterZ = " + waterZ);
-			return false;
-		}
+		NR_Debug("NR_GetSafeTeleportPoint: NavigationComputeZ = " + newZ);
+		pos.Z = newZ;
 	}
 
-	if ( world.PhysicsCorrectZ(newPos, newZ) ) {
-		newPos.Z = newZ;
+	waterZ = world.GetWaterLevel( pos, true );
+	NR_Debug("NR_GetSafeTeleportPoint: waterZ = " + waterZ);
+
+	// make sure that floor pos found + it's above water + it's in zTolerance (7) range
+	if ( world.PhysicsCorrectZ(pos, newZ) && (allowUnderwater || newZ > waterZ) && AbsF(newZ - pos.Z) < 7.f ) {
+		NR_Debug("NR_GetSafeTeleportPoint: PhysicsCorrectZ = " + newZ);
+		pos.Z = newZ;
+		return true;
 	}
 
-	pos = newPos;
-	return true;
+	return false;
 }
 
 // actor is used to calculate capsule radius and height
 latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, from : Vector, to : Vector ) : Vector {
-	var move, result, normal : Vector;
+	var moveVec, result, normal : Vector;
+	var newZ : float;
 	var capsuleRadius : float;
 	var capsuleHeight : float;
 
 	capsuleRadius = ((CMovingPhysicalAgentComponent)actor.GetMovingAgentComponent()).GetCapsuleRadius();
 	capsuleHeight = ((CMovingPhysicalAgentComponent)actor.GetMovingAgentComponent()).GetCapsuleHeight();
-	from.Z += capsuleHeight * 1.f;
-	to.Z += capsuleHeight * 1.f;
+	from.Z += capsuleHeight * 0.75f;
+	to.Z += capsuleHeight * 0.75f;
 	NR_Debug("NR_GetTeleportMaxArchievablePoint: capsuleHeight = " + capsuleHeight);
 
 	// to avoid stopping inside actor body
-	move = VecNormalize(to - from);
-	from += move * capsuleRadius;
+	moveVec = VecNormalize(to - from);
+	from += moveVec * 1.f;
 	if ( theGame.GetWorld().StaticTrace(from, to, /*capsuleRadius,*/ result, normal, NR_GetStandartCollisionNames()) ) {
-		NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = true, result = " + VecToString(result));
+		NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = true, result = " + VecToString(result) + ", to = " + VecToString(to));
 	} else {
 		NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = false");
 		result = to;
 	}
 
-	result.Z -= capsuleHeight * 0.7f;
-	result -= move * capsuleRadius;
+	if ( theGame.GetWorld().PhysicsCorrectZ(result, newZ) ) {
+		result.Z = newZ;
+	}
+	// result.Z -= capsuleHeight * 0.75f;
+	// result -= moveVec * capsuleRadius;
 	return result;
 }
 
 function NR_GetStandartCollisionNames() : array<name> {
 	var standartCollisions : array<name>;
 
-	//standartCollisions.PushBack('Debris');
+	standartCollisions.PushBack('Debris');
 	standartCollisions.PushBack('Character');
 	standartCollisions.PushBack('CommunityCollidables');
 	standartCollisions.PushBack('Terrain');

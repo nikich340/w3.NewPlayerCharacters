@@ -105,8 +105,8 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 				return 'lumos_seagreen';
 			case ENR_ColorGreen:
 				return 'lumos_green';
-			//case ENR_ColorSpecial1:
-			//	return 'special1';
+			case ENR_ColorSpecial1:
+				return 'lumos_special1';
 			//case ENR_ColorSpecial2:
 			//	return 'special2';
 			//case ENR_ColorSpecial3:

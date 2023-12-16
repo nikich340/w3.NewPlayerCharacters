@@ -12,12 +12,14 @@ quest function NR_Notify_Quest(message : String, optional seconds : float) {
 
 function NR_Debug(message : String, optional removeOnRelease : bool)
 {
-    LogChannel('NR_DEBUG', "(" + FloatToStringPrec(theGame.GetEngineTimeAsSeconds(), 3) + "): " + message);
+	LogChannel('NR_DEBUG', "(" + FloatToStringPrec(theGame.GetEngineTimeAsSeconds(), 3) + "): " + message);
+	NR_GetPlayerManager().AddDebugLine(message);
 }
 
 function NR_Error(message : String)
 {
     LogChannel('NR_ERROR', "(" + FloatToStringPrec(theGame.GetEngineTimeAsSeconds(), 3) + "): " + message);
+    NR_GetPlayerManager().AddDebugLine(message);
 }
 
 function NR_stringByItemUID(inv : CInventoryComponent, itemId : SItemUniqueId) : String {
@@ -646,4 +648,35 @@ function NR_PlaySceneF(path : string, optional input : string) {
 	}
 	NR_Debug("NR_PlaySceneF: path = [" + input + "] " + path);
     theGame.GetStorySceneSystem().PlayScene(scene, input);
+}
+
+function NR_GetSignIconPathByType( signType : ESignType ) : string
+{
+	switch( signType )
+	{
+		case ST_Aard:		return "hud/radialmenu/mcAard.png";
+		case ST_Yrden:		return "hud/radialmenu/mcYrden.png";
+		case ST_Igni:		return "hud/radialmenu/mcIgni.png";
+		case ST_Quen:		return "hud/radialmenu/mcQuen.png";
+		case ST_Axii:		return "hud/radialmenu/mcAxii.png";
+		default : return "";
+	}
+}
+
+function NR_GetSignIconFormattedByType( signType : ESignType, optional height : int, optional width : int, optional vspace : int ) : string
+{
+	var text : String;
+
+	text = "<img src='img://" + NR_GetSignIconPathByType(signType) + "'";
+	if (height > 0)
+		text += " height='" + height + "'";
+
+	if (width > 0)
+		text += " width='" + width + "'";
+
+	if (vspace > 0)
+		text += " vspace='" + vspace + "'";
+
+	text += "/>";
+	return text;
 }

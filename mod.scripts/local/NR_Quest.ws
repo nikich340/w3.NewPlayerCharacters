@@ -190,7 +190,7 @@ latent quest function NR_UseCrossStone_Q() {
     var pos_indexes                     : array<int>;
     var skillsLearned, entityLevel      : int;
     var triggerType                     : int;
-    var i, idx, prev_idx, pidx, prev_pidx, numberToSpawn1, numberToSpawn2, levelReduct : int;
+    var i, idx, prev_idx, pidx, numberToSpawn1, numberToSpawn2, levelReduct : int;
     
     stoneEntity = theGame.GetEntityByTag('nr_interactive_ship_stone');
     stoneEntity.StopEffect('ready');
@@ -279,9 +279,8 @@ latent quest function NR_UseCrossStone_Q() {
     stoneEntity.PlayEffect('success');
 
     // spawn teleports and fx
-    prev_pidx = -1;
     for (i = 0; i < numberToSpawn1 + numberToSpawn2; i += 1) {
-        pidx = RandDifferent(prev_pidx, spawnPositions.Size());
+        pidx = NR_GetRandomGenerator().next( spawnPositions.Size() );
         pos_indexes.PushBack(pidx);
         NR_ShowLightningFx(stoneEntity.GetWorldPosition() + Vector(0,0,1.8f), spawnPositions[pidx] + Vector(0,0,1.f), true, 'lightning_lynx_red', 'hit_electric_red');
 
@@ -310,9 +309,12 @@ latent quest function NR_UseCrossStone_Q() {
         npc = (CNewNPC)theGame.CreateEntity(template, spawnPositions[pidx], EulerAngles(0, spawnYaws[pidx], 0));
         npc.AddTag('nr_cross_stone_entity');
         npc.AddTag('fairytale_witch');  // hack for CBehTreeTaskCSEffect.CanSwimOrFly to avoid killing
+        if (GetAttitudeBetween(thePlayer, npc) != AIA_Hostile)
+            npc.SetTemporaryAttitudeGroup( 'monsters', AGP_Default );
+
         entityLevel = Max(1, thePlayer.GetLevel() - levelReduct + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
-        NR_Debug("NR_UseCrossStone_Q: Spawn npc tier1[" + i + "] = (" + idx + ")(" + pidx + ") = " + npc);
+        NR_Debug("NR_UseCrossStone_Q: Spawn npc tier1[" + i + "] = (" + idx + ")(" + pidx + ") <" + npc.GetAttitudeGroup() + "> = " + npc);
         Sleep(0.2f);
     }
 
@@ -325,9 +327,12 @@ latent quest function NR_UseCrossStone_Q() {
         npc = (CNewNPC)theGame.CreateEntity(template, spawnPositions[pidx], EulerAngles(0, spawnYaws[pidx], 0));
         npc.AddTag('nr_cross_stone_entity');
         npc.AddTag('fairytale_witch');  // hack for CBehTreeTaskCSEffect.CanSwimOrFly to avoid killing
+        if (GetAttitudeBetween(thePlayer, npc) != AIA_Hostile)
+            npc.SetTemporaryAttitudeGroup( 'monsters', AGP_Default );
+
         entityLevel = Max(1, thePlayer.GetLevel() - levelReduct - 2 + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
-        NR_Debug("NR_UseCrossStone_Q: Spawn npc tier2[" + i + "] = (" + idx + ")(" + pidx + ") = " + npc);
+        NR_Debug("NR_UseCrossStone_Q: Spawn npc tier2[" + i + "] = (" + idx + ")(" + pidx + ") <" + npc.GetAttitudeGroup() + "> = " + npc);
         Sleep(0.2f);
     }
 }
@@ -645,8 +650,8 @@ quest function NR_MagicActionAbilityUnlock_Q( type : name, abilityName : String 
 quest function NR_SetSceneBlockActive_Q( questPath : name, sceneBlockId : int, active : bool ) {
     var startTime : float = theGame.GetEngineTimeAsSeconds();
 
-    NR_GetPlayerManager().SetSceneBlockActive(questPath, sceneBlockId, active);
     NR_Debug("NR_SetSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
+    NR_GetPlayerManager().SetSceneBlockActive(questPath, sceneBlockId, active);
 }
 
 // sceneBlockId = always NR-modded scene block
@@ -654,8 +659,8 @@ quest function NR_IsSceneBlockActive_Q( questPath : name, sceneBlockId : int ) :
     var active : bool;
     var startTime : float = theGame.GetEngineTimeAsSeconds();
     
-    active = NR_GetPlayerManager().IsSceneBlockActive( questPath, sceneBlockId );
     NR_Debug("NR_IsSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
+    active = NR_GetPlayerManager().IsSceneBlockActive( questPath, sceneBlockId );
     return active;
 }
 

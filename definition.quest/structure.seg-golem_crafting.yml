@@ -1,7 +1,7 @@
 #
 # quest structure subsegment: golem_crafting
 # 
-# (version: 567, saved: 2023-12-04 20:41:26)
+# (version: 579, saved: 2023-12-16 22:28:40)
 #
 ---
 structure:
@@ -136,7 +136,7 @@ structure:
         
         script.RIP_player:
           ".editor":
-            pos: [ 744.0, -39.0 ]
+            pos: [ 719.0, -61.0 ]
             in: [ In ]
             out: [ Out ]
           function: KillPlayer
@@ -190,7 +190,7 @@ structure:
         
         script.fadein:
           ".editor":
-            pos: [ 744.0, 61.0 ]
+            pos: [ 726.0, 89.0 ]
             in: [ In ]
             out: [ Out ]
           function: FadeInQuest

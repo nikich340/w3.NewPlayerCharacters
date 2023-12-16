@@ -15428,28 +15428,6 @@ templates:
         appearance: nr_player
         componentName: i_07_wa__novigrad_prostitute_coloring_19
         colorShift1:
-          hue: 125
-          saturation: -100
-          luminance: -87
-        colorShift2:
-          hue: 50
-          saturation: -26
-          luminance: -61
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: i_07_wa__novigrad_prostitute_coloring_20
-        colorShift1:
-          hue: 73
-          saturation: -41
-          luminance: -86
-        colorShift2:
-          hue: 106
-          saturation: 38
-          luminance: -68
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: i_07_wa__novigrad_prostitute_coloring_21
-        colorShift1:
           hue: 31
           saturation: 100
           luminance: -85
@@ -15459,7 +15437,7 @@ templates:
           luminance: 117
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: i_07_wa__novigrad_prostitute_coloring_22
+        componentName: i_07_wa__novigrad_prostitute_coloring_20
         colorShift1:
           saturation: -100
           luminance: -60
@@ -24806,28 +24784,6 @@ templates:
         appearance: nr_player
         componentName: a_082_wa__bob_woman_noble_p01_coloring_6
         colorShift1:
-          hue: 125
-          saturation: -100
-          luminance: -91
-        colorShift2:
-          hue: 50
-          saturation: 100
-          luminance: -62
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: a_082_wa__bob_woman_noble_p01_coloring_7
-        colorShift1:
-          hue: 73
-          saturation: -100
-          luminance: -90
-        colorShift2:
-          hue: 106
-          saturation: 100
-          luminance: -69
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: a_082_wa__bob_woman_noble_p01_coloring_8
-        colorShift1:
           hue: 31
           saturation: -34
           luminance: -89
@@ -24889,28 +24845,6 @@ templates:
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
         componentName: a_08_wa__bob_woman_noble_p01_coloring_5
-        colorShift1:
-          hue: 125
-          saturation: -100
-          luminance: -84
-        colorShift2:
-          hue: 50
-          saturation: -26
-          luminance: -91
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: a_08_wa__bob_woman_noble_p01_coloring_6
-        colorShift1:
-          hue: 73
-          saturation: -41
-          luminance: -83
-        colorShift2:
-          hue: 106
-          saturation: 38
-          luminance: -98
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: a_08_wa__bob_woman_noble_p01_coloring_7
         colorShift1:
           hue: 31
           saturation: 100
@@ -25719,71 +25653,27 @@ templates:
         appearance: nr_player
         componentName: t2_01_wa__body_woman_noble_coloring_18
         colorShift1:
-          hue: 125
-          saturation: -100
-          luminance: -87
+          hue: 31
+          saturation: -34
+          luminance: -85
         colorShift2:
-          hue: 50
-          saturation: 100
-          luminance: -84
+          hue: 31
+          saturation: 56
+          luminance: 94
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
         componentName: t2_02_wa__bob_woman_noble_p01_coloring_7
         colorShift1:
-          hue: 125
-          saturation: -100
-          luminance: -87
+          hue: 31
+          saturation: -34
+          luminance: -85
         colorShift2:
-          hue: 50
-          saturation: 100
-          luminance: -84
+          hue: 31
+          saturation: 56
+          luminance: 94
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
         componentName: t2_01_wa__body_woman_noble_coloring_19
-        colorShift1:
-          hue: 73
-          saturation: -100
-          luminance: -86
-        colorShift2:
-          hue: 106
-          saturation: 100
-          luminance: -91
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: t2_02_wa__bob_woman_noble_p01_coloring_8
-        colorShift1:
-          hue: 73
-          saturation: -100
-          luminance: -86
-        colorShift2:
-          hue: 106
-          saturation: 100
-          luminance: -91
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_20
-        colorShift1:
-          hue: 31
-          saturation: -34
-          luminance: -85
-        colorShift2:
-          hue: 31
-          saturation: 56
-          luminance: 94
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: t2_02_wa__bob_woman_noble_p01_coloring_9
-        colorShift1:
-          hue: 31
-          saturation: -34
-          luminance: -85
-        colorShift2:
-          hue: 31
-          saturation: 56
-          luminance: 94
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_21
         colorShift1:
           hue: 94
           saturation: 48
@@ -25805,7 +25695,7 @@ templates:
           luminance: -84
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_22
+        componentName: t2_01_wa__body_woman_noble_coloring_20
         colorShift1:
           hue: 142
           saturation: 48
@@ -25967,7 +25857,7 @@ templates:
           luminance: 63
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_23
+        componentName: t2_01_wa__body_woman_noble_coloring_21
         colorShift1:
           hue: 121
           saturation: 19
@@ -25987,7 +25877,7 @@ templates:
           luminance: -73
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_24
+        componentName: t2_01_wa__body_woman_noble_coloring_22
         colorShift1:
           hue: 325
           saturation: -87
@@ -26009,7 +25899,7 @@ templates:
           luminance: 54
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_25
+        componentName: t2_01_wa__body_woman_noble_coloring_23
         colorShift1:
           saturation: 42
           luminance: -79
@@ -26029,7 +25919,7 @@ templates:
           luminance: -34
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_26
+        componentName: t2_01_wa__body_woman_noble_coloring_24
         colorShift1:
           hue: 50
           saturation: -4
@@ -26051,7 +25941,7 @@ templates:
           luminance: -64
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_27
+        componentName: t2_01_wa__body_woman_noble_coloring_25
         colorShift1:
           hue: 75
           saturation: -19
@@ -26073,7 +25963,7 @@ templates:
           luminance: 41
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_28
+        componentName: t2_01_wa__body_woman_noble_coloring_26
         colorShift1:
           hue: 98
           saturation: -13
@@ -26095,7 +25985,7 @@ templates:
           luminance: -27
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_29
+        componentName: t2_01_wa__body_woman_noble_coloring_27
         colorShift1:
           hue: 115
           saturation: 40
@@ -26117,7 +26007,7 @@ templates:
           luminance: -13
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_30
+        componentName: t2_01_wa__body_woman_noble_coloring_28
         colorShift1:
           hue: 103
           saturation: -83
@@ -26139,7 +26029,7 @@ templates:
           luminance: -12
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_31
+        componentName: t2_01_wa__body_woman_noble_coloring_29
         colorShift1:
           hue: 345
           saturation: -66
@@ -26161,7 +26051,7 @@ templates:
           luminance: 64
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_32
+        componentName: t2_01_wa__body_woman_noble_coloring_30
         colorShift1:
           saturation: 31
           luminance: -71
@@ -26268,7 +26158,7 @@ templates:
           luminance: -50
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
-        componentName: t2_01_wa__body_woman_noble_coloring_33
+        componentName: t2_01_wa__body_woman_noble_coloring_31
         colorShift1:
           hue: 191
           saturation: -76
@@ -33591,27 +33481,6 @@ templates:
           hue: 50
           saturation: -26
           luminance: -78
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: d_06_wa__bob_woman_noble_px_p01_coloring_6
-        colorShift1:
-          hue: 73
-          saturation: -41
-          luminance: -83
-        colorShift2:
-          hue: 106
-          saturation: 38
-          luminance: -85
-      - .type: SEntityTemplateColoringEntry
-        appearance: nr_player
-        componentName: d_06_wa__bob_woman_noble_px_p01_coloring_7
-        colorShift1:
-          hue: 31
-          saturation: 100
-          luminance: -82
-        colorShift2:
-          saturation: -78
-          luminance: 100
       - .type: SEntityTemplateColoringEntry
         appearance: nr_player
         componentName: d_06_wa__bob_woman_noble_px_p02_coloring_1

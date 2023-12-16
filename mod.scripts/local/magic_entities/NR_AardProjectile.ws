@@ -1,6 +1,5 @@
 class NR_AardProjectile extends W3AardProjectile {
-
-	var targetEntities 		: array<CNewNPC>;
+	var targetEntities 		: array<CGameplayEntity>;
 	var useSlowdown			: bool;
 	var useFreeze 			: bool;
 	var useBurn 			: bool;
@@ -11,10 +10,18 @@ class NR_AardProjectile extends W3AardProjectile {
 		super.OnProjectileCollision(pos, normal, collidingComponent, hitCollisionsGroups, actorIndex, shapeIndex);
 	}*/
 
-	protected function ProcessCollisionNPC( target : CNewNPC ) {
-		var params : SCustomEffectParams;
+	protected function ProcessCollisionOnEntity( target : CGameplayEntity ) {
+		var params 	: SCustomEffectParams;
+		var npc  	: CNewNPC;
 
 		if (targetEntities.FindFirst(target) > -1)
+			return;
+
+		targetEntities.PushBack(target);
+		target.OnAardHit( this );
+
+		npc = (CNewNPC)target;
+		if (!npc)
 			return;
 
 		params.creator = thePlayer;
@@ -37,13 +44,12 @@ class NR_AardProjectile extends W3AardProjectile {
 			else
 				params.effectType = EET_KnockdownTypeApplicator;
 			*/
+			params.effectValue.valueBase = 100.f;
 			params.effectValue.valueMultiplicative = 100.f;
 			params.effectValue.valueAdditive = 100.f;
 			params.effectType = EET_KnockdownTypeApplicator;
 		}
-		targetEntities.PushBack(target);
-		target.OnAardHit( this );
-		target.AddEffectCustom(params);
+		npc.AddEffectCustom(params);
 	}
 
 	protected function ProcessCollision( collider : CGameplayEntity, pos, normal : Vector )
@@ -54,7 +60,7 @@ class NR_AardProjectile extends W3AardProjectile {
 		target = (CNewNPC)collider;
 		if (target && target.IsAlive()) {
 			if (useFullSphere) {
-				ProcessCollisionNPC(target);
+				ProcessCollisionOnEntity(target);
 			}
 			// CONE: do nothing - target is processed by ProcessCollisionNPCsInCone
 		} else {
@@ -122,10 +128,54 @@ class NR_AardProjectile extends W3AardProjectile {
 				Sleep(timeWait);
 				timePassed += timeWait;
 			}
-			ProcessCollisionNPC(npc);
+			ProcessCollisionOnEntity(npc);
 		}
 	}
 
+	latent function NR_ProcessCollisionEntitiesInCone(range : float, angle : float, metersPerSec : float) {
+		var entities : array <CGameplayEntity>;
+		var nodes 	: array <CNode>;
+		var entity 	: CGameplayEntity;
+		var pos, entityPos : Vector;
+		var i 		: int;
+		var timePassed, timeWait : float;
+
+		pos = this.GetWorldPosition();
+		if (angle > 359.f) {
+			FindGameplayEntitiesInRange(/*entities*/ entities, /*center*/ thePlayer, /*range*/ range, /*maxResults*/ 100000);
+		} else {
+			FindGameplayEntitiesInCone(/*entities*/ entities, /*center*/ thePlayer.GetWorldPosition(), /*coneDir*/ thePlayer.GetHeading(), /*coneAngle*/ angle, /*range*/ range, /*maxResults*/ 100000);
+		}
+		
+		NR_Debug("NR_AardProjectile.NR_ProcessCollisionEntitiesInCone: " + entities.Size() + " targets");
+		for (i = 0; i < entities.Size(); i += 1) {
+			nodes.PushBack(entities[i]);
+		}
+		SortNodesByDistance(pos, nodes);
+
+		timePassed = 0.f;
+		for (i = 0; i < nodes.Size(); i += 1) {
+			entity = (CGameplayEntity)nodes[i];
+
+			if (entity == thePlayer || GetAttitudeBetween(thePlayer, entity) == AIA_Friendly)
+				continue;
+
+			entityPos = entity.GetWorldPosition();
+			if (AbsF(pos.Z - entityPos.Z) > 2.5f)
+				continue;
+			
+			timeWait = VecDistance2D(pos, entityPos) / metersPerSec;
+			NR_Debug("NR_ProcessCollisionEntitiesInCone: entity[" + i + "] = " + entity + ", timeWait = " + timeWait);
+			timeWait -= timePassed;
+			if (timeWait > 0.01f) {
+				Sleep(timeWait);
+				timePassed += timeWait;
+			}
+			ProcessCollisionOnEntity(entity);
+		}
+	}
+
+	/*
 	function PlayEffect( effectName : name, optional target : CNode  ) : bool {
 		NR_Debug("AARD: PlayEffect: effectName = " + effectName);
 		return super.PlayEffect(effectName, target);
@@ -136,4 +186,5 @@ class NR_AardProjectile extends W3AardProjectile {
 		NR_Debug("AARD: OnAttackRangeHit: entity = " + entity);
 		super.OnAttackRangeHit( entity );
 	}
+	*/
 }

@@ -3,6 +3,10 @@ class NR_AssetCooker extends CEntity {
 	editable var cookMeshes : array<CMeshComponent>;
 }
 
+exec function debugcount() {
+	NR_Notify("Lines = " + NR_GetPlayerManager().GetDebugLineCount());
+}
+
 exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bool, optional immortal : Bool) {
 	var ent : CEntity;
 	var pos : Vector;
@@ -284,31 +288,36 @@ exec function nrAllSkills() {
 	FactsAdd("nr_magic_skill_ENR_SpecialField", 1);
 	FactsAdd("nr_magic_skill_ENR_SpecialMeteorFall", 1);
 	FactsAdd("nr_magic_skill_ENR_SpecialPolymorphism", 1);
+	FactsAdd("nr_magic_skill_ENR_WaterTrap", 1);
 
-	NR_GetMagicManager().SetActionSkillLevel(ENR_HandFx, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_Teleport, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_CounterPush, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialLumos, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_LightAbstract, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_Slash, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_ThrowAbstract, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_Lightning, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_ProjectileWithPrepare, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_BombExplosion, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_Rock, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_RipApart, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_HeavyAbstract, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_FastTravelTeleport, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialShield, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialTornado, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialControl, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialMeteor, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialServant, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialLightningFall, 1);
+	// set max level
+	NR_GetMagicManager().SetActionSkillLevel(ENR_HandFx, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Teleport, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_CounterPush, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialLumos, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_LightAbstract, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Slash, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_ThrowAbstract, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Lightning, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_ProjectileWithPrepare, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_BombExplosion, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Rock, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_RipApart, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_HeavyAbstract, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_FastTravelTeleport, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialShield, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialTornado, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialControl, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialMeteor, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialServant, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialLightningFall, 10);
 	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialField, 10);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialMeteorFall, 1);
-	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialPolymorphism, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialMeteorFall, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialPolymorphism, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_WaterTrap, 10);
 
+	// Pursuit
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialField, "Pursuit");
 	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialField, "Pursuit");
 
 	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "TwoServants");
@@ -808,7 +817,7 @@ exec function dao() {
 	var i : int;
 
 	inv = thePlayer.inv;
-	ids = inv.GetItemsIds('mh306_dao_trophy');	
+	ids = inv.GetItemsIds('mh106_gravehag_trophy');	
 	NR_Notify("DAO: " + ids.Size());
 }
 exec function dao2() {
@@ -818,7 +827,7 @@ exec function dao2() {
 	var i : int;
 
 	inv = thePlayer.inv;
-	NR_Notify("DAO2: (false) " + inv.GetItemQuantityByName('mh306_dao_trophy', false) + ", (true) " + inv.GetItemQuantityByName('mh306_dao_trophy', true));
+	NR_Notify("DAO2: (false) " + inv.GetItemQuantityByName('mh106_gravehag_trophy', false) + ", (true) " + inv.GetItemQuantityByName('mh106_gravehag_trophy', true));
 }
 exec function dao3() {
 	var inv : CInventoryComponent;
@@ -827,7 +836,7 @@ exec function dao3() {
 	var i : int;
 
 	inv = GetWitcherPlayer().GetHorseManager().GetInventoryComponent();
-	NR_Notify("DAO3: " + inv.GetItemQuantityByName('mh306_dao_trophy'));
+	NR_Notify("DAO3: " + inv.GetItemQuantityByName('mh106_gravehag_trophy'));
 }
 
 exec function dao4() {
@@ -837,7 +846,14 @@ exec function dao4() {
 	var i : int;
 
 	inv = GetWitcherPlayer().GetAssociatedInventory();
-	NR_Notify("DAO4: " + inv.GetItemQuantityByName('mh306_dao_trophy'));
+	NR_Notify("DAO4: " + inv.GetItemQuantityByName('mh106_gravehag_trophy'));
+}
+
+// S_Magic_s05
+exec function signstat(signSkill : ESkill) {
+	var att : SAbilityAttributeValue;
+	att = thePlayer.GetTotalSignSpellPower(signSkill);
+	NR_Notify("Sign stat = [" + att.valueBase + " * " + att.valueMultiplicative + "] + " + att.valueAdditive);
 }
 
 exec function spell_scene(inp : int) {

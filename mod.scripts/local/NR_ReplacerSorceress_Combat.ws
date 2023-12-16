@@ -1652,15 +1652,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.magicManager.AddActionEvent( 'Prepare', 'TryPeformLongMagicAttack' );
 		Sleep(0.2f);
 		parent.magicManager.DrainStaminaForAction( actionType );
-		parent.magicManager.AddActionEvent( 'PerformMagicAttack', 'TryPeformLongMagicAttack' );		
-		
-		// unwanted actions may break anim
-		virtual_parent.BlockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
-		virtual_parent.BlockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
-		virtual_parent.BlockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
-		virtual_parent.BlockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
-		virtual_parent.BlockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
-		virtual_parent.BlockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
+		parent.magicManager.AddActionEvent( 'PerformMagicAttack', 'TryPeformLongMagicAttack' );
 
 		animTime = GetAnimDurationForAspect( aspectName ) - 0.3f;
 		startTime = theGame.GetEngineTimeAsSeconds();
@@ -1717,12 +1709,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		// let blend-out before allowing new action
 		// Sleep(magicAnimBlendTime);
 		
-		virtual_parent.UnblockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
-		virtual_parent.UnblockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
-		virtual_parent.UnblockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
-		virtual_parent.UnblockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
-		virtual_parent.UnblockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
-		virtual_parent.UnblockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
 		OnCombatActionEnd();
 
 		return true;

@@ -1,7 +1,7 @@
 #
 # production settings
 # 
-# (version: 567, saved: 2023-12-04 20:41:26)
+# (version: 579, saved: 2023-12-16 22:28:40)
 #
 ---
 production:
@@ -13,7 +13,7 @@ production:
     storesdata: true
     strings-idspace: 5940
     strings-idstart: 0
-    version: 567
+    version: 579
     mounters:
       - ".type": CR4MappinsDLCMounter
         worldFilePath: levels/prolog_village/prolog_village.w2w

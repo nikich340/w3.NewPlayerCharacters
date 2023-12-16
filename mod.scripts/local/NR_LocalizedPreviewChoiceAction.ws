@@ -31,6 +31,7 @@ class NR_LocalizedPreviewChoiceAction extends CStorySceneChoiceLineActionScripte
 		} else if (StrLen(dlc_name_str) > 0) {
 			text += "[" + dlc_name_str + "]";
 		}
+		NR_Debug("NR_LocalizedPreviewChoiceAction: dlc_name_key = " + dlc_name_key + ", dlc_name_str = " + dlc_name_str);
 
 		if (prefix_id > 0) {
 			text += "(" + GetLocStringById(prefix_id) + ")";

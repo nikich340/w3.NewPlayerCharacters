@@ -601,6 +601,13 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
+  section_preview_light_aard_push_color:
+    shot_preview_light_aard_push_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
+          actor: sorceress
+          blendin: 0.175
+          blendout: 0.175
   section_preview_light_axii_slash_type:
     shot_preview_light_axii_slash_type:
       - actor.anim:
@@ -677,6 +684,13 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
+  section_preview_light_axii_push_color:
+    shot_preview_light_axii_push_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
+          actor: sorceress
+          blendin: 0.175
+          blendout: 0.175
   section_preview_light_igni_slash_type:
     shot_preview_light_igni_slash_type:
       - actor.anim:
@@ -753,6 +767,13 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
+  section_preview_light_igni_push_color:
+    shot_preview_light_igni_push_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
+          actor: sorceress
+          blendin: 0.175
+          blendout: 0.175
   section_preview_light_quen_slash_type:
     shot_preview_light_quen_slash_type:
       - actor.anim:
@@ -829,6 +850,13 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
+  section_preview_light_quen_push_color:
+    shot_preview_light_quen_push_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
+          actor: sorceress
+          blendin: 0.175
+          blendout: 0.175
   section_preview_light_yrden_slash_type:
     shot_preview_light_yrden_slash_type:
       - actor.anim:
@@ -905,6 +933,13 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
+  section_preview_light_yrden_push_color:
+    shot_preview_light_yrden_push_color:
+      - actor.anim:
+          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
+          actor: sorceress
+          blendin: 0.175
+          blendout: 0.175
   section_preview_heavy_aard_rocks_type:
     shot_preview_heavy_aard_rocks_type:
       - actor.anim:
@@ -981,13 +1016,6 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
-  section_preview_heavy_aard_push_color:
-    shot_preview_heavy_aard_push_color:
-      - actor.anim:
-          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
-          actor: sorceress
-          blendin: 0.175
-          blendout: 0.175
   section_preview_heavy_axii_rocks_type:
     shot_preview_heavy_axii_rocks_type:
       - actor.anim:
@@ -1064,13 +1092,6 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
-  section_preview_heavy_axii_push_color:
-    shot_preview_heavy_axii_push_color:
-      - actor.anim:
-          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
-          actor: sorceress
-          blendin: 0.175
-          blendout: 0.175
   section_preview_heavy_igni_rocks_type:
     shot_preview_heavy_igni_rocks_type:
       - actor.anim:
@@ -1147,13 +1168,6 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
-  section_preview_heavy_igni_push_color:
-    shot_preview_heavy_igni_push_color:
-      - actor.anim:
-          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
-          actor: sorceress
-          blendin: 0.175
-          blendout: 0.175
   section_preview_heavy_quen_rocks_type:
     shot_preview_heavy_quen_rocks_type:
       - actor.anim:
@@ -1230,13 +1244,6 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
-  section_preview_heavy_quen_push_color:
-    shot_preview_heavy_quen_push_color:
-      - actor.anim:
-          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
-          actor: sorceress
-          blendin: 0.175
-          blendout: 0.175
   section_preview_heavy_yrden_rocks_type:
     shot_preview_heavy_yrden_rocks_type:
       - actor.anim:
@@ -1313,13 +1320,6 @@ storyboard:
           actor: willey
           blendin: 0.4
           blendout: 0.4
-  section_preview_heavy_yrden_push_color:
-    shot_preview_heavy_yrden_push_color:
-      - actor.anim:
-          .@pos: [0.0, woman_sorceress_attack_push_lp_02]
-          actor: sorceress
-          blendin: 0.175
-          blendout: 0.175
   section_preview_teleport_aard_type:
     shot_preview_teleport_aard_type:
       - actor.anim:
@@ -2608,6 +2608,10 @@ dialogscript:
           - sectionName: CNAME_main
     - NEXT: section_choice_main
 
+  section_pre_choice_main:
+    - PAUSE: 0.0
+    - NEXT: section_choice_main
+
   section_choice_main:
     - CHOICE:
         - choice: ["[EXIT] dev", script_remove_scene_callbacks_blend, exit]
@@ -2629,6 +2633,29 @@ dialogscript:
           emphasize: true
         - choice: ["2115940158|Alt special spells", script_info_special_alt]
           emphasize: true
+        - choice: ["2115940158|Alt special spells", script_info_special_alt]
+          emphasize: true
+        - choice: ["2115940985|About my successes in practice…", script_show_spell_stats_black]
+          emphasize: true
+          condition: ["nr_master_apprentice", ">=", 1]
+
+  script_show_spell_stats_black:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showGeneral: true
+          - showSpecial: false
+    - NEXT: script_show_spell_stats_black2
+
+  script_show_spell_stats_black2:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showGeneral: false
+          - showSpecial: true
+    - NEXT: section_pre_choice_main
 
   # LIGHT: RATIO
   section_light_ratio_entry:
@@ -4811,6 +4838,18 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1061945}: {2115940140}: '
             type: CNAME_ENR_ThrowAbstract
+        - choice: ["2115940121|", section_choice_light_aard_push_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1061945}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+        - choice: ["0001226888|", section_choice_light_aard_push_buff]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1061945}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
 
   section_choice_light_aard_slash_type:
     - CHOICE:
@@ -5349,6 +5388,221 @@ dialogscript:
           - varValue: 14
     - NEXT: script_preview_light_aard_throw_color
 
+  section_choice_light_aard_push_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_aard, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_aard_push_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+        - choice: ["2115940127|Yellow", script_light_aard_push_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+        - choice: ["2115940128|Orange", script_light_aard_push_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+        - choice: ["2115940129|Red", script_light_aard_push_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+        - choice: ["2115940130|Pink", script_light_aard_push_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+        - choice: ["2115940131|Violet", script_light_aard_push_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+        - choice: ["2115940132|Blue", script_light_aard_push_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+        - choice: ["2115940133|Seagreen", script_light_aard_push_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+        - choice: ["2115940134|Green", script_light_aard_push_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+        - choice: ["2115940138|Random", script_light_aard_push_color_random]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940151}: '
+
+  script_preview_light_aard_push_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 11
+    - NEXT: section_preview_light_aard_push_color
+
+
+  section_preview_light_aard_push_color:
+    - CUE: shot_preview_light_aard_push_color
+    - PAUSE: 1.2
+    - NEXT: section_choice_light_aard_push_color
+
+  script_light_aard_push_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 2
+    - NEXT: script_preview_light_aard_push_color
+
+  script_light_aard_push_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 3
+    - NEXT: script_preview_light_aard_push_color
+
+  script_light_aard_push_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 4
+    - NEXT: script_preview_light_aard_push_color
+
+  script_light_aard_push_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 5
+    - NEXT: script_preview_light_aard_push_color
+
+  script_light_aard_push_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 6
+    - NEXT: script_preview_light_aard_push_color
+
+  script_light_aard_push_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 7
+    - NEXT: script_preview_light_aard_push_color
+
+  script_light_aard_push_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 8
+    - NEXT: script_preview_light_aard_push_color
+
+  script_light_aard_push_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 9
+    - NEXT: script_preview_light_aard_push_color
+
+  script_light_aard_push_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 10
+    - NEXT: script_preview_light_aard_push_color
+
+  script_light_aard_push_color_random:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_CounterPush
+          - varValue: 14
+    - NEXT: script_preview_light_aard_push_color
+
+  section_choice_light_aard_push_buff:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_aard, exit]
+          emphasize: true
+        - choice: ["0001081836|Freezing", script_light_aard_push_buff_freezing]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1061945}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Freezing"
+        - choice: ["0001083738|Burning", script_light_aard_push_buff_burning]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1061945}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Burning"
+        - choice: ["0001117589|Standart", script_light_aard_push_buff_standart]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1061945}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: ""
+
+  section_entry_light_aard_push_buff:
+    - PAUSE: 0.0
+    - NEXT: section_choice_light_aard_push_buff
+
+  script_light_aard_push_buff_freezing:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: buff_ENR_CounterPush
+          - varValue: 0
+    - NEXT: section_entry_light_aard_push_buff
+
+  script_light_aard_push_buff_burning:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: buff_ENR_CounterPush
+          - varValue: 1
+    - NEXT: section_entry_light_aard_push_buff
+
+  script_light_aard_push_buff_standart:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: buff_ENR_CounterPush
+          - varValue: 2
+    - NEXT: section_entry_light_aard_push_buff
+
   script_set_light_sign_axii:
     - SCRIPT:
         function: NR_SetMagicSignName_S
@@ -5384,6 +5638,18 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066290}: {2115940140}: '
             type: CNAME_ENR_ThrowAbstract
+        - choice: ["2115940121|", section_choice_light_axii_push_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066290}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+        - choice: ["0001226888|", section_choice_light_axii_push_buff]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066290}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
 
   section_choice_light_axii_slash_type:
     - CHOICE:
@@ -5922,6 +6188,221 @@ dialogscript:
           - varValue: 14
     - NEXT: script_preview_light_axii_throw_color
 
+  section_choice_light_axii_push_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_axii, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_axii_push_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+        - choice: ["2115940127|Yellow", script_light_axii_push_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+        - choice: ["2115940128|Orange", script_light_axii_push_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+        - choice: ["2115940129|Red", script_light_axii_push_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+        - choice: ["2115940130|Pink", script_light_axii_push_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+        - choice: ["2115940131|Violet", script_light_axii_push_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+        - choice: ["2115940132|Blue", script_light_axii_push_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+        - choice: ["2115940133|Seagreen", script_light_axii_push_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+        - choice: ["2115940134|Green", script_light_axii_push_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+        - choice: ["2115940138|Random", script_light_axii_push_color_random]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940151}: '
+
+  script_preview_light_axii_push_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 11
+    - NEXT: section_preview_light_axii_push_color
+
+
+  section_preview_light_axii_push_color:
+    - CUE: shot_preview_light_axii_push_color
+    - PAUSE: 1.2
+    - NEXT: section_choice_light_axii_push_color
+
+  script_light_axii_push_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 2
+    - NEXT: script_preview_light_axii_push_color
+
+  script_light_axii_push_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 3
+    - NEXT: script_preview_light_axii_push_color
+
+  script_light_axii_push_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 4
+    - NEXT: script_preview_light_axii_push_color
+
+  script_light_axii_push_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 5
+    - NEXT: script_preview_light_axii_push_color
+
+  script_light_axii_push_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 6
+    - NEXT: script_preview_light_axii_push_color
+
+  script_light_axii_push_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 7
+    - NEXT: script_preview_light_axii_push_color
+
+  script_light_axii_push_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 8
+    - NEXT: script_preview_light_axii_push_color
+
+  script_light_axii_push_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 9
+    - NEXT: script_preview_light_axii_push_color
+
+  script_light_axii_push_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 10
+    - NEXT: script_preview_light_axii_push_color
+
+  script_light_axii_push_color_random:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_CounterPush
+          - varValue: 14
+    - NEXT: script_preview_light_axii_push_color
+
+  section_choice_light_axii_push_buff:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_axii, exit]
+          emphasize: true
+        - choice: ["0001081836|Freezing", script_light_axii_push_buff_freezing]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066290}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Freezing"
+        - choice: ["0001083738|Burning", script_light_axii_push_buff_burning]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066290}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Burning"
+        - choice: ["0001117589|Standart", script_light_axii_push_buff_standart]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066290}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: ""
+
+  section_entry_light_axii_push_buff:
+    - PAUSE: 0.0
+    - NEXT: section_choice_light_axii_push_buff
+
+  script_light_axii_push_buff_freezing:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: buff_ENR_CounterPush
+          - varValue: 0
+    - NEXT: section_entry_light_axii_push_buff
+
+  script_light_axii_push_buff_burning:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: buff_ENR_CounterPush
+          - varValue: 1
+    - NEXT: section_entry_light_axii_push_buff
+
+  script_light_axii_push_buff_standart:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: buff_ENR_CounterPush
+          - varValue: 2
+    - NEXT: section_entry_light_axii_push_buff
+
   script_set_light_sign_igni:
     - SCRIPT:
         function: NR_SetMagicSignName_S
@@ -5957,6 +6438,18 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066291}: {2115940140}: '
             type: CNAME_ENR_ThrowAbstract
+        - choice: ["2115940121|", section_choice_light_igni_push_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066291}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+        - choice: ["0001226888|", section_choice_light_igni_push_buff]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066291}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
 
   section_choice_light_igni_slash_type:
     - CHOICE:
@@ -6495,6 +6988,221 @@ dialogscript:
           - varValue: 14
     - NEXT: script_preview_light_igni_throw_color
 
+  section_choice_light_igni_push_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_igni, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_igni_push_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+        - choice: ["2115940127|Yellow", script_light_igni_push_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+        - choice: ["2115940128|Orange", script_light_igni_push_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+        - choice: ["2115940129|Red", script_light_igni_push_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+        - choice: ["2115940130|Pink", script_light_igni_push_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+        - choice: ["2115940131|Violet", script_light_igni_push_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+        - choice: ["2115940132|Blue", script_light_igni_push_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+        - choice: ["2115940133|Seagreen", script_light_igni_push_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+        - choice: ["2115940134|Green", script_light_igni_push_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+        - choice: ["2115940138|Random", script_light_igni_push_color_random]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940151}: '
+
+  script_preview_light_igni_push_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 11
+    - NEXT: section_preview_light_igni_push_color
+
+
+  section_preview_light_igni_push_color:
+    - CUE: shot_preview_light_igni_push_color
+    - PAUSE: 1.2
+    - NEXT: section_choice_light_igni_push_color
+
+  script_light_igni_push_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 2
+    - NEXT: script_preview_light_igni_push_color
+
+  script_light_igni_push_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 3
+    - NEXT: script_preview_light_igni_push_color
+
+  script_light_igni_push_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 4
+    - NEXT: script_preview_light_igni_push_color
+
+  script_light_igni_push_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 5
+    - NEXT: script_preview_light_igni_push_color
+
+  script_light_igni_push_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 6
+    - NEXT: script_preview_light_igni_push_color
+
+  script_light_igni_push_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 7
+    - NEXT: script_preview_light_igni_push_color
+
+  script_light_igni_push_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 8
+    - NEXT: script_preview_light_igni_push_color
+
+  script_light_igni_push_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 9
+    - NEXT: script_preview_light_igni_push_color
+
+  script_light_igni_push_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 10
+    - NEXT: script_preview_light_igni_push_color
+
+  script_light_igni_push_color_random:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_CounterPush
+          - varValue: 14
+    - NEXT: script_preview_light_igni_push_color
+
+  section_choice_light_igni_push_buff:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_igni, exit]
+          emphasize: true
+        - choice: ["0001081836|Freezing", script_light_igni_push_buff_freezing]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066291}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Freezing"
+        - choice: ["0001083738|Burning", script_light_igni_push_buff_burning]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066291}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Burning"
+        - choice: ["0001117589|Standart", script_light_igni_push_buff_standart]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066291}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: ""
+
+  section_entry_light_igni_push_buff:
+    - PAUSE: 0.0
+    - NEXT: section_choice_light_igni_push_buff
+
+  script_light_igni_push_buff_freezing:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: buff_ENR_CounterPush
+          - varValue: 0
+    - NEXT: section_entry_light_igni_push_buff
+
+  script_light_igni_push_buff_burning:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: buff_ENR_CounterPush
+          - varValue: 1
+    - NEXT: section_entry_light_igni_push_buff
+
+  script_light_igni_push_buff_standart:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: buff_ENR_CounterPush
+          - varValue: 2
+    - NEXT: section_entry_light_igni_push_buff
+
   script_set_light_sign_quen:
     - SCRIPT:
         function: NR_SetMagicSignName_S
@@ -6530,6 +7238,18 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066292}: {2115940140}: '
             type: CNAME_ENR_ThrowAbstract
+        - choice: ["2115940121|", section_choice_light_quen_push_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066292}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+        - choice: ["0001226888|", section_choice_light_quen_push_buff]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066292}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
 
   section_choice_light_quen_slash_type:
     - CHOICE:
@@ -7068,6 +7788,221 @@ dialogscript:
           - varValue: 14
     - NEXT: script_preview_light_quen_throw_color
 
+  section_choice_light_quen_push_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_quen, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_quen_push_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+        - choice: ["2115940127|Yellow", script_light_quen_push_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+        - choice: ["2115940128|Orange", script_light_quen_push_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+        - choice: ["2115940129|Red", script_light_quen_push_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+        - choice: ["2115940130|Pink", script_light_quen_push_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+        - choice: ["2115940131|Violet", script_light_quen_push_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+        - choice: ["2115940132|Blue", script_light_quen_push_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+        - choice: ["2115940133|Seagreen", script_light_quen_push_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+        - choice: ["2115940134|Green", script_light_quen_push_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+        - choice: ["2115940138|Random", script_light_quen_push_color_random]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940151}: '
+
+  script_preview_light_quen_push_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 11
+    - NEXT: section_preview_light_quen_push_color
+
+
+  section_preview_light_quen_push_color:
+    - CUE: shot_preview_light_quen_push_color
+    - PAUSE: 1.2
+    - NEXT: section_choice_light_quen_push_color
+
+  script_light_quen_push_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 2
+    - NEXT: script_preview_light_quen_push_color
+
+  script_light_quen_push_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 3
+    - NEXT: script_preview_light_quen_push_color
+
+  script_light_quen_push_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 4
+    - NEXT: script_preview_light_quen_push_color
+
+  script_light_quen_push_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 5
+    - NEXT: script_preview_light_quen_push_color
+
+  script_light_quen_push_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 6
+    - NEXT: script_preview_light_quen_push_color
+
+  script_light_quen_push_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 7
+    - NEXT: script_preview_light_quen_push_color
+
+  script_light_quen_push_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 8
+    - NEXT: script_preview_light_quen_push_color
+
+  script_light_quen_push_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 9
+    - NEXT: script_preview_light_quen_push_color
+
+  script_light_quen_push_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 10
+    - NEXT: script_preview_light_quen_push_color
+
+  script_light_quen_push_color_random:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_CounterPush
+          - varValue: 14
+    - NEXT: script_preview_light_quen_push_color
+
+  section_choice_light_quen_push_buff:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_quen, exit]
+          emphasize: true
+        - choice: ["0001081836|Freezing", script_light_quen_push_buff_freezing]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066292}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Freezing"
+        - choice: ["0001083738|Burning", script_light_quen_push_buff_burning]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066292}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Burning"
+        - choice: ["0001117589|Standart", script_light_quen_push_buff_standart]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066292}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: ""
+
+  section_entry_light_quen_push_buff:
+    - PAUSE: 0.0
+    - NEXT: section_choice_light_quen_push_buff
+
+  script_light_quen_push_buff_freezing:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: buff_ENR_CounterPush
+          - varValue: 0
+    - NEXT: section_entry_light_quen_push_buff
+
+  script_light_quen_push_buff_burning:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: buff_ENR_CounterPush
+          - varValue: 1
+    - NEXT: section_entry_light_quen_push_buff
+
+  script_light_quen_push_buff_standart:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: buff_ENR_CounterPush
+          - varValue: 2
+    - NEXT: section_entry_light_quen_push_buff
+
   script_set_light_sign_yrden:
     - SCRIPT:
         function: NR_SetMagicSignName_S
@@ -7103,6 +8038,18 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066293}: {2115940140}: '
             type: CNAME_ENR_ThrowAbstract
+        - choice: ["2115940121|", section_choice_light_yrden_push_color]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066293}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+        - choice: ["0001226888|", section_choice_light_yrden_push_buff]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066293}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
 
   section_choice_light_yrden_slash_type:
     - CHOICE:
@@ -7641,6 +8588,221 @@ dialogscript:
           - varValue: 14
     - NEXT: script_preview_light_yrden_throw_color
 
+  section_choice_light_yrden_push_color:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_yrden, exit]
+          emphasize: true
+        - choice: ["2115940126|White", script_light_yrden_push_color_white]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+        - choice: ["2115940127|Yellow", script_light_yrden_push_color_yellow]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+        - choice: ["2115940128|Orange", script_light_yrden_push_color_orange]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+        - choice: ["2115940129|Red", script_light_yrden_push_color_red]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+        - choice: ["2115940130|Pink", script_light_yrden_push_color_pink]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+        - choice: ["2115940131|Violet", script_light_yrden_push_color_violet]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+        - choice: ["2115940132|Blue", script_light_yrden_push_color_blue]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+        - choice: ["2115940133|Seagreen", script_light_yrden_push_color_seagreen]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+        - choice: ["2115940134|Green", script_light_yrden_push_color_green]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+        - choice: ["2115940138|Random", script_light_yrden_push_color_random]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940151}: '
+
+  script_preview_light_yrden_push_color:
+    - SCRIPT:
+        function: NR_SetMagicActionType_S
+        parameter:
+          - actionType: 11
+    - NEXT: section_preview_light_yrden_push_color
+
+
+  section_preview_light_yrden_push_color:
+    - CUE: shot_preview_light_yrden_push_color
+    - PAUSE: 1.2
+    - NEXT: section_choice_light_yrden_push_color
+
+  script_light_yrden_push_color_white:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 2
+    - NEXT: script_preview_light_yrden_push_color
+
+  script_light_yrden_push_color_yellow:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 3
+    - NEXT: script_preview_light_yrden_push_color
+
+  script_light_yrden_push_color_orange:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 4
+    - NEXT: script_preview_light_yrden_push_color
+
+  script_light_yrden_push_color_red:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 5
+    - NEXT: script_preview_light_yrden_push_color
+
+  script_light_yrden_push_color_pink:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 6
+    - NEXT: script_preview_light_yrden_push_color
+
+  script_light_yrden_push_color_violet:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 7
+    - NEXT: script_preview_light_yrden_push_color
+
+  script_light_yrden_push_color_blue:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 8
+    - NEXT: script_preview_light_yrden_push_color
+
+  script_light_yrden_push_color_seagreen:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 9
+    - NEXT: script_preview_light_yrden_push_color
+
+  script_light_yrden_push_color_green:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 10
+    - NEXT: script_preview_light_yrden_push_color
+
+  script_light_yrden_push_color_random:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_CounterPush
+          - varValue: 14
+    - NEXT: script_preview_light_yrden_push_color
+
+  section_choice_light_yrden_push_buff:
+    - CHOICE:
+        - choice: ["2115940103|", section_choice_light_yrden, exit]
+          emphasize: true
+        - choice: ["0001081836|Freezing", script_light_yrden_push_buff_freezing]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066293}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Freezing"
+        - choice: ["0001083738|Burning", script_light_yrden_push_buff_burning]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066293}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: "Burning"
+        - choice: ["0001117589|Standart", script_light_yrden_push_buff_standart]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedMagicChoiceAction
+            str: '{1066293}: {2115940151}: '
+            type: CNAME_ENR_CounterPush
+            abilityName: ""
+
+  section_entry_light_yrden_push_buff:
+    - PAUSE: 0.0
+    - NEXT: section_choice_light_yrden_push_buff
+
+  script_light_yrden_push_buff_freezing:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: buff_ENR_CounterPush
+          - varValue: 0
+    - NEXT: section_entry_light_yrden_push_buff
+
+  script_light_yrden_push_buff_burning:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: buff_ENR_CounterPush
+          - varValue: 1
+    - NEXT: section_entry_light_yrden_push_buff
+
+  script_light_yrden_push_buff_standart:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: buff_ENR_CounterPush
+          - varValue: 2
+    - NEXT: section_entry_light_yrden_push_buff
+
   section_choice_heavy:
     - CHOICE:
         - choice: ["2115940103|", script_info_main, exit]
@@ -7718,19 +8880,6 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1061945}: {2115940149}: '
             type: CNAME_ENR_BombExplosion
-        - choice: ["0001226888|", section_choice_heavy_aard_push_buff]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1061945}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
-            abilityName: Burning
-        - choice: ["2115940121|", section_choice_heavy_aard_push_color]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1061945}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
 
   section_choice_heavy_aard_rocks_type:
     - CHOICE:
@@ -8252,201 +9401,6 @@ dialogscript:
           - varValue: 14
     - NEXT: script_preview_heavy_aard_bomb_color
 
-  section_choice_heavy_aard_push_buff:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_aard, exit]
-          emphasize: true
-        - choice: ["0001081836|Freezing", script_heavy_aard_push_buff_freezing]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["0001083738|Burning", script_heavy_aard_push_buff_burning]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-
-  section_entry_heavy_aard_push_buff:
-    - PAUSE: 0.0
-    - NEXT: section_choice_heavy_aard_push_buff
-
-  script_heavy_aard_push_buff_freezing:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: buff_ENR_CounterPush
-          - varValue: 0
-    - NEXT: section_entry_heavy_aard_push_buff
-
-  script_heavy_aard_push_buff_burning:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: buff_ENR_CounterPush
-          - varValue: 1
-    - NEXT: section_entry_heavy_aard_push_buff
-
-  section_choice_heavy_aard_push_color:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_aard, exit]
-          emphasize: true
-        - choice: ["2115940126|White", script_heavy_aard_push_color_white]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["2115940127|Yellow", script_heavy_aard_push_color_yellow]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["2115940128|Orange", script_heavy_aard_push_color_orange]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["2115940129|Red", script_heavy_aard_push_color_red]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["2115940130|Pink", script_heavy_aard_push_color_pink]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["2115940131|Violet", script_heavy_aard_push_color_violet]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["2115940132|Blue", script_heavy_aard_push_color_blue]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["2115940133|Seagreen", script_heavy_aard_push_color_seagreen]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["2115940134|Green", script_heavy_aard_push_color_green]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-        - choice: ["2115940138|Random", script_heavy_aard_push_color_random]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940151}: '
-
-  script_preview_heavy_aard_push_color:
-    - SCRIPT:
-        function: NR_SetMagicActionType_S
-        parameter:
-          - actionType: 11
-    - NEXT: section_preview_heavy_aard_push_color
-
-
-  section_preview_heavy_aard_push_color:
-    - CUE: shot_preview_heavy_aard_push_color
-    - PAUSE: 1.2
-    - NEXT: section_choice_heavy_aard_push_color
-
-  script_heavy_aard_push_color_white:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 2
-    - NEXT: script_preview_heavy_aard_push_color
-
-  script_heavy_aard_push_color_yellow:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 3
-    - NEXT: script_preview_heavy_aard_push_color
-
-  script_heavy_aard_push_color_orange:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 4
-    - NEXT: script_preview_heavy_aard_push_color
-
-  script_heavy_aard_push_color_red:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 5
-    - NEXT: script_preview_heavy_aard_push_color
-
-  script_heavy_aard_push_color_pink:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 6
-    - NEXT: script_preview_heavy_aard_push_color
-
-  script_heavy_aard_push_color_violet:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 7
-    - NEXT: script_preview_heavy_aard_push_color
-
-  script_heavy_aard_push_color_blue:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 8
-    - NEXT: script_preview_heavy_aard_push_color
-
-  script_heavy_aard_push_color_seagreen:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 9
-    - NEXT: script_preview_heavy_aard_push_color
-
-  script_heavy_aard_push_color_green:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 10
-    - NEXT: script_preview_heavy_aard_push_color
-
-  script_heavy_aard_push_color_random:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: color_ENR_CounterPush
-          - varValue: 14
-    - NEXT: script_preview_heavy_aard_push_color
-
   script_set_heavy_sign_axii:
     - SCRIPT:
         function: NR_SetMagicSignName_S
@@ -8482,19 +9436,6 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066290}: {2115940149}: '
             type: CNAME_ENR_BombExplosion
-        - choice: ["0001226888|", section_choice_heavy_axii_push_buff]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1066290}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
-            abilityName: Burning
-        - choice: ["2115940121|", section_choice_heavy_axii_push_color]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1066290}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
 
   section_choice_heavy_axii_rocks_type:
     - CHOICE:
@@ -9016,201 +9957,6 @@ dialogscript:
           - varValue: 14
     - NEXT: script_preview_heavy_axii_bomb_color
 
-  section_choice_heavy_axii_push_buff:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_axii, exit]
-          emphasize: true
-        - choice: ["0001081836|Freezing", script_heavy_axii_push_buff_freezing]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["0001083738|Burning", script_heavy_axii_push_buff_burning]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-
-  section_entry_heavy_axii_push_buff:
-    - PAUSE: 0.0
-    - NEXT: section_choice_heavy_axii_push_buff
-
-  script_heavy_axii_push_buff_freezing:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: buff_ENR_CounterPush
-          - varValue: 0
-    - NEXT: section_entry_heavy_axii_push_buff
-
-  script_heavy_axii_push_buff_burning:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: buff_ENR_CounterPush
-          - varValue: 1
-    - NEXT: section_entry_heavy_axii_push_buff
-
-  section_choice_heavy_axii_push_color:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_axii, exit]
-          emphasize: true
-        - choice: ["2115940126|White", script_heavy_axii_push_color_white]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["2115940127|Yellow", script_heavy_axii_push_color_yellow]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["2115940128|Orange", script_heavy_axii_push_color_orange]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["2115940129|Red", script_heavy_axii_push_color_red]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["2115940130|Pink", script_heavy_axii_push_color_pink]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["2115940131|Violet", script_heavy_axii_push_color_violet]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["2115940132|Blue", script_heavy_axii_push_color_blue]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["2115940133|Seagreen", script_heavy_axii_push_color_seagreen]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["2115940134|Green", script_heavy_axii_push_color_green]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-        - choice: ["2115940138|Random", script_heavy_axii_push_color_random]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940151}: '
-
-  script_preview_heavy_axii_push_color:
-    - SCRIPT:
-        function: NR_SetMagicActionType_S
-        parameter:
-          - actionType: 11
-    - NEXT: section_preview_heavy_axii_push_color
-
-
-  section_preview_heavy_axii_push_color:
-    - CUE: shot_preview_heavy_axii_push_color
-    - PAUSE: 1.2
-    - NEXT: section_choice_heavy_axii_push_color
-
-  script_heavy_axii_push_color_white:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 2
-    - NEXT: script_preview_heavy_axii_push_color
-
-  script_heavy_axii_push_color_yellow:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 3
-    - NEXT: script_preview_heavy_axii_push_color
-
-  script_heavy_axii_push_color_orange:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 4
-    - NEXT: script_preview_heavy_axii_push_color
-
-  script_heavy_axii_push_color_red:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 5
-    - NEXT: script_preview_heavy_axii_push_color
-
-  script_heavy_axii_push_color_pink:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 6
-    - NEXT: script_preview_heavy_axii_push_color
-
-  script_heavy_axii_push_color_violet:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 7
-    - NEXT: script_preview_heavy_axii_push_color
-
-  script_heavy_axii_push_color_blue:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 8
-    - NEXT: script_preview_heavy_axii_push_color
-
-  script_heavy_axii_push_color_seagreen:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 9
-    - NEXT: script_preview_heavy_axii_push_color
-
-  script_heavy_axii_push_color_green:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 10
-    - NEXT: script_preview_heavy_axii_push_color
-
-  script_heavy_axii_push_color_random:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: color_ENR_CounterPush
-          - varValue: 14
-    - NEXT: script_preview_heavy_axii_push_color
-
   script_set_heavy_sign_igni:
     - SCRIPT:
         function: NR_SetMagicSignName_S
@@ -9246,19 +9992,6 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066291}: {2115940149}: '
             type: CNAME_ENR_BombExplosion
-        - choice: ["0001226888|", section_choice_heavy_igni_push_buff]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1066291}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
-            abilityName: Burning
-        - choice: ["2115940121|", section_choice_heavy_igni_push_color]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1066291}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
 
   section_choice_heavy_igni_rocks_type:
     - CHOICE:
@@ -9780,201 +10513,6 @@ dialogscript:
           - varValue: 14
     - NEXT: script_preview_heavy_igni_bomb_color
 
-  section_choice_heavy_igni_push_buff:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_igni, exit]
-          emphasize: true
-        - choice: ["0001081836|Freezing", script_heavy_igni_push_buff_freezing]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["0001083738|Burning", script_heavy_igni_push_buff_burning]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-
-  section_entry_heavy_igni_push_buff:
-    - PAUSE: 0.0
-    - NEXT: section_choice_heavy_igni_push_buff
-
-  script_heavy_igni_push_buff_freezing:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: buff_ENR_CounterPush
-          - varValue: 0
-    - NEXT: section_entry_heavy_igni_push_buff
-
-  script_heavy_igni_push_buff_burning:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: buff_ENR_CounterPush
-          - varValue: 1
-    - NEXT: section_entry_heavy_igni_push_buff
-
-  section_choice_heavy_igni_push_color:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_igni, exit]
-          emphasize: true
-        - choice: ["2115940126|White", script_heavy_igni_push_color_white]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["2115940127|Yellow", script_heavy_igni_push_color_yellow]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["2115940128|Orange", script_heavy_igni_push_color_orange]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["2115940129|Red", script_heavy_igni_push_color_red]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["2115940130|Pink", script_heavy_igni_push_color_pink]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["2115940131|Violet", script_heavy_igni_push_color_violet]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["2115940132|Blue", script_heavy_igni_push_color_blue]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["2115940133|Seagreen", script_heavy_igni_push_color_seagreen]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["2115940134|Green", script_heavy_igni_push_color_green]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-        - choice: ["2115940138|Random", script_heavy_igni_push_color_random]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940151}: '
-
-  script_preview_heavy_igni_push_color:
-    - SCRIPT:
-        function: NR_SetMagicActionType_S
-        parameter:
-          - actionType: 11
-    - NEXT: section_preview_heavy_igni_push_color
-
-
-  section_preview_heavy_igni_push_color:
-    - CUE: shot_preview_heavy_igni_push_color
-    - PAUSE: 1.2
-    - NEXT: section_choice_heavy_igni_push_color
-
-  script_heavy_igni_push_color_white:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 2
-    - NEXT: script_preview_heavy_igni_push_color
-
-  script_heavy_igni_push_color_yellow:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 3
-    - NEXT: script_preview_heavy_igni_push_color
-
-  script_heavy_igni_push_color_orange:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 4
-    - NEXT: script_preview_heavy_igni_push_color
-
-  script_heavy_igni_push_color_red:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 5
-    - NEXT: script_preview_heavy_igni_push_color
-
-  script_heavy_igni_push_color_pink:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 6
-    - NEXT: script_preview_heavy_igni_push_color
-
-  script_heavy_igni_push_color_violet:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 7
-    - NEXT: script_preview_heavy_igni_push_color
-
-  script_heavy_igni_push_color_blue:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 8
-    - NEXT: script_preview_heavy_igni_push_color
-
-  script_heavy_igni_push_color_seagreen:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 9
-    - NEXT: script_preview_heavy_igni_push_color
-
-  script_heavy_igni_push_color_green:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 10
-    - NEXT: script_preview_heavy_igni_push_color
-
-  script_heavy_igni_push_color_random:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: color_ENR_CounterPush
-          - varValue: 14
-    - NEXT: script_preview_heavy_igni_push_color
-
   script_set_heavy_sign_quen:
     - SCRIPT:
         function: NR_SetMagicSignName_S
@@ -10010,19 +10548,6 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066292}: {2115940149}: '
             type: CNAME_ENR_BombExplosion
-        - choice: ["0001226888|", section_choice_heavy_quen_push_buff]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1066292}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
-            abilityName: Burning
-        - choice: ["2115940121|", section_choice_heavy_quen_push_color]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1066292}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
 
   section_choice_heavy_quen_rocks_type:
     - CHOICE:
@@ -10544,201 +11069,6 @@ dialogscript:
           - varValue: 14
     - NEXT: script_preview_heavy_quen_bomb_color
 
-  section_choice_heavy_quen_push_buff:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_quen, exit]
-          emphasize: true
-        - choice: ["0001081836|Freezing", script_heavy_quen_push_buff_freezing]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["0001083738|Burning", script_heavy_quen_push_buff_burning]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-
-  section_entry_heavy_quen_push_buff:
-    - PAUSE: 0.0
-    - NEXT: section_choice_heavy_quen_push_buff
-
-  script_heavy_quen_push_buff_freezing:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: buff_ENR_CounterPush
-          - varValue: 0
-    - NEXT: section_entry_heavy_quen_push_buff
-
-  script_heavy_quen_push_buff_burning:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: buff_ENR_CounterPush
-          - varValue: 1
-    - NEXT: section_entry_heavy_quen_push_buff
-
-  section_choice_heavy_quen_push_color:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_quen, exit]
-          emphasize: true
-        - choice: ["2115940126|White", script_heavy_quen_push_color_white]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["2115940127|Yellow", script_heavy_quen_push_color_yellow]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["2115940128|Orange", script_heavy_quen_push_color_orange]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["2115940129|Red", script_heavy_quen_push_color_red]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["2115940130|Pink", script_heavy_quen_push_color_pink]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["2115940131|Violet", script_heavy_quen_push_color_violet]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["2115940132|Blue", script_heavy_quen_push_color_blue]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["2115940133|Seagreen", script_heavy_quen_push_color_seagreen]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["2115940134|Green", script_heavy_quen_push_color_green]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-        - choice: ["2115940138|Random", script_heavy_quen_push_color_random]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940151}: '
-
-  script_preview_heavy_quen_push_color:
-    - SCRIPT:
-        function: NR_SetMagicActionType_S
-        parameter:
-          - actionType: 11
-    - NEXT: section_preview_heavy_quen_push_color
-
-
-  section_preview_heavy_quen_push_color:
-    - CUE: shot_preview_heavy_quen_push_color
-    - PAUSE: 1.2
-    - NEXT: section_choice_heavy_quen_push_color
-
-  script_heavy_quen_push_color_white:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 2
-    - NEXT: script_preview_heavy_quen_push_color
-
-  script_heavy_quen_push_color_yellow:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 3
-    - NEXT: script_preview_heavy_quen_push_color
-
-  script_heavy_quen_push_color_orange:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 4
-    - NEXT: script_preview_heavy_quen_push_color
-
-  script_heavy_quen_push_color_red:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 5
-    - NEXT: script_preview_heavy_quen_push_color
-
-  script_heavy_quen_push_color_pink:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 6
-    - NEXT: script_preview_heavy_quen_push_color
-
-  script_heavy_quen_push_color_violet:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 7
-    - NEXT: script_preview_heavy_quen_push_color
-
-  script_heavy_quen_push_color_blue:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 8
-    - NEXT: script_preview_heavy_quen_push_color
-
-  script_heavy_quen_push_color_seagreen:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 9
-    - NEXT: script_preview_heavy_quen_push_color
-
-  script_heavy_quen_push_color_green:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 10
-    - NEXT: script_preview_heavy_quen_push_color
-
-  script_heavy_quen_push_color_random:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: color_ENR_CounterPush
-          - varValue: 14
-    - NEXT: script_preview_heavy_quen_push_color
-
   script_set_heavy_sign_yrden:
     - SCRIPT:
         function: NR_SetMagicSignName_S
@@ -10774,19 +11104,6 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066293}: {2115940149}: '
             type: CNAME_ENR_BombExplosion
-        - choice: ["0001226888|", section_choice_heavy_yrden_push_buff]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1066293}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
-            abilityName: Burning
-        - choice: ["2115940121|", section_choice_heavy_yrden_push_color]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedMagicChoiceAction
-            str: '{1066293}: {2115940151}: '
-            type: CNAME_ENR_CounterPush
 
   section_choice_heavy_yrden_rocks_type:
     - CHOICE:
@@ -11307,201 +11624,6 @@ dialogscript:
           - varName: color_ENR_BombExplosion
           - varValue: 14
     - NEXT: script_preview_heavy_yrden_bomb_color
-
-  section_choice_heavy_yrden_push_buff:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_yrden, exit]
-          emphasize: true
-        - choice: ["0001081836|Freezing", script_heavy_yrden_push_buff_freezing]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["0001083738|Burning", script_heavy_yrden_push_buff_burning]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-
-  section_entry_heavy_yrden_push_buff:
-    - PAUSE: 0.0
-    - NEXT: section_choice_heavy_yrden_push_buff
-
-  script_heavy_yrden_push_buff_freezing:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: buff_ENR_CounterPush
-          - varValue: 0
-    - NEXT: section_entry_heavy_yrden_push_buff
-
-  script_heavy_yrden_push_buff_burning:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: buff_ENR_CounterPush
-          - varValue: 1
-    - NEXT: section_entry_heavy_yrden_push_buff
-
-  section_choice_heavy_yrden_push_color:
-    - CHOICE:
-        - choice: ["2115940103|", section_choice_heavy_yrden, exit]
-          emphasize: true
-        - choice: ["2115940126|White", script_heavy_yrden_push_color_white]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["2115940127|Yellow", script_heavy_yrden_push_color_yellow]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["2115940128|Orange", script_heavy_yrden_push_color_orange]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["2115940129|Red", script_heavy_yrden_push_color_red]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["2115940130|Pink", script_heavy_yrden_push_color_pink]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["2115940131|Violet", script_heavy_yrden_push_color_violet]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["2115940132|Blue", script_heavy_yrden_push_color_blue]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["2115940133|Seagreen", script_heavy_yrden_push_color_seagreen]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["2115940134|Green", script_heavy_yrden_push_color_green]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-        - choice: ["2115940138|Random", script_heavy_yrden_push_color_random]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940151}: '
-
-  script_preview_heavy_yrden_push_color:
-    - SCRIPT:
-        function: NR_SetMagicActionType_S
-        parameter:
-          - actionType: 11
-    - NEXT: section_preview_heavy_yrden_push_color
-
-
-  section_preview_heavy_yrden_push_color:
-    - CUE: shot_preview_heavy_yrden_push_color
-    - PAUSE: 1.2
-    - NEXT: section_choice_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_white:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 2
-    - NEXT: script_preview_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_yellow:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 3
-    - NEXT: script_preview_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_orange:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 4
-    - NEXT: script_preview_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_red:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 5
-    - NEXT: script_preview_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_pink:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 6
-    - NEXT: script_preview_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_violet:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 7
-    - NEXT: script_preview_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_blue:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 8
-    - NEXT: script_preview_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_seagreen:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 9
-    - NEXT: script_preview_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_green:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 10
-    - NEXT: script_preview_heavy_yrden_push_color
-
-  script_heavy_yrden_push_color_random:
-    - SCRIPT:
-        function: NR_SetMagicParamInt_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: color_ENR_CounterPush
-          - varValue: 14
-    - NEXT: script_preview_heavy_yrden_push_color
 
   section_choice_teleport:
     - CHOICE:
@@ -20137,6 +20259,11 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: '{1061945}: {2115940165}: '
+        - choice: ["2115940135|Special1", script_special_alt_aard_lumos_color_special1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940165}: '
         - choice: ["2115940138|Random", script_special_alt_aard_lumos_color_random]
           emphasize: true
           scriptAction:
@@ -20235,6 +20362,15 @@ dialogscript:
           - signName: CNAME_Aard
           - varName: color_ENR_SpecialLumos
           - varValue: 10
+    - NEXT: script_preview_special_alt_aard_lumos_color
+
+  script_special_alt_aard_lumos_color_special1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: color_ENR_SpecialLumos
+          - varValue: 11
     - NEXT: script_preview_special_alt_aard_lumos_color
 
   script_special_alt_aard_lumos_color_random:
@@ -21751,6 +21887,11 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: '{1066290}: {2115940165}: '
+        - choice: ["2115940135|Special1", script_special_alt_axii_lumos_color_special1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940165}: '
         - choice: ["2115940138|Random", script_special_alt_axii_lumos_color_random]
           emphasize: true
           scriptAction:
@@ -21849,6 +21990,15 @@ dialogscript:
           - signName: CNAME_Axii
           - varName: color_ENR_SpecialLumos
           - varValue: 10
+    - NEXT: script_preview_special_alt_axii_lumos_color
+
+  script_special_alt_axii_lumos_color_special1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: color_ENR_SpecialLumos
+          - varValue: 11
     - NEXT: script_preview_special_alt_axii_lumos_color
 
   script_special_alt_axii_lumos_color_random:
@@ -23365,6 +23515,11 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: '{1066291}: {2115940165}: '
+        - choice: ["2115940135|Special1", script_special_alt_igni_lumos_color_special1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940165}: '
         - choice: ["2115940138|Random", script_special_alt_igni_lumos_color_random]
           emphasize: true
           scriptAction:
@@ -23463,6 +23618,15 @@ dialogscript:
           - signName: CNAME_Igni
           - varName: color_ENR_SpecialLumos
           - varValue: 10
+    - NEXT: script_preview_special_alt_igni_lumos_color
+
+  script_special_alt_igni_lumos_color_special1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: color_ENR_SpecialLumos
+          - varValue: 11
     - NEXT: script_preview_special_alt_igni_lumos_color
 
   script_special_alt_igni_lumos_color_random:
@@ -24979,6 +25143,11 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: '{1066292}: {2115940165}: '
+        - choice: ["2115940135|Special1", script_special_alt_quen_lumos_color_special1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940165}: '
         - choice: ["2115940138|Random", script_special_alt_quen_lumos_color_random]
           emphasize: true
           scriptAction:
@@ -25077,6 +25246,15 @@ dialogscript:
           - signName: CNAME_Quen
           - varName: color_ENR_SpecialLumos
           - varValue: 10
+    - NEXT: script_preview_special_alt_quen_lumos_color
+
+  script_special_alt_quen_lumos_color_special1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: color_ENR_SpecialLumos
+          - varValue: 11
     - NEXT: script_preview_special_alt_quen_lumos_color
 
   script_special_alt_quen_lumos_color_random:
@@ -26593,6 +26771,11 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: '{1066293}: {2115940165}: '
+        - choice: ["2115940135|Special1", script_special_alt_yrden_lumos_color_special1]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940165}: '
         - choice: ["2115940138|Random", script_special_alt_yrden_lumos_color_random]
           emphasize: true
           scriptAction:
@@ -26691,6 +26874,15 @@ dialogscript:
           - signName: CNAME_Yrden
           - varName: color_ENR_SpecialLumos
           - varValue: 10
+    - NEXT: script_preview_special_alt_yrden_lumos_color
+
+  script_special_alt_yrden_lumos_color_special1:
+    - SCRIPT:
+        function: NR_SetMagicParamInt_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: color_ENR_SpecialLumos
+          - varValue: 11
     - NEXT: script_preview_special_alt_yrden_lumos_color
 
   script_special_alt_yrden_lumos_color_random:

@@ -2,6 +2,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 	// var controlledActor : CActor; use "target" var
 	var wraithEntity	: CNewNPC;
 	var isControlled	: bool;
+	var wasHostile 		: bool;
 	
 	default actionType 	= ENR_SpecialControl;
 	default actionSubtype 	= ENR_SpecialAbstract;
@@ -55,7 +56,6 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 				target = actors[targetIdx];
 			}
 		}*/
-		NR_Debug("Final target: " + target);
 
 		if (target) {
 			// from AddMagic17Effect
@@ -63,7 +63,9 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			buffParams.creator = thePlayer;
 			buffParams.sourceName = "NR_MagicSpecialControl";
 			buffParams.duration = 5.f;
-			buffParams.effectValue.valueAdditive = 0.999f;
+			buffParams.effectValue.valueBase = 1.f;
+			buffParams.effectValue.valueMultiplicative = 1.f;
+			buffParams.effectValue.valueAdditive = 1.f;
 			//buffParams.customFXName = 'axii_slowdown';
 			buffParams.isSignEffect = true;
 			target.AddEffectCustom(buffParams);
@@ -73,7 +75,8 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 	}
 
 	latent function OnPerform() : bool {
-		var super_ret : bool;
+		var super_ret 	: bool;
+		var slotName 	: name;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
 			return OnPerformed(false);
@@ -84,12 +87,16 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		entityTemplate = (CEntityTemplate)LoadResourceAsync("quests\part_1\quest_files\q203_him\entities\q203_geralt_head_component.w2ent", true);
 		dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
 		if (!dummyEntity) {
-			NR_Error("Control: NULL dummyEntity.");
+			NR_Error(actionType + ".OnPerform: NULL dummyEntity.");
 		}
 		if ( target ) {
-			if ( !dummyEntity.CreateAttachment( target, 'head' ) ) {
+			slotName = 'head';
+			if ( !target.HasSlot(slotName) )
+				slotName = 'CEffectDummyComponent0';
+
+			if ( !dummyEntity.CreateAttachment( target, slotName ) ) {
 				dummyEntity.CreateAttachment( target );
-				NR_Debug("Can't attach dummy to head slot: " + target);
+				NR_Error(actionType + ".OnPerform: can't attach dummy to head slot: " + target);
 			}
 		}
 		thePlayer.PlayEffect('mind_control', dummyEntity);
@@ -107,39 +114,76 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 	}
 
 	latent function TakeControl(npc : CNewNPC) {
-		var bonusAbilityName : name;
+		var bonusAbilityName 	: name;
+		var buffParams 			: SCustomEffectParams;
+		var buffResult 			: EEffectInteract;
 
 		if (!npc || !npc.IsAlive())
 			return;
-		// from W3Effect_AxiiGuardMe
-		((CAIStorageReactionData)npc.GetScriptStorageObject('ReactionData')).ResetAttitudes(npc);
-		
-		if ( npc.GetAttitude( thePlayer ) == AIA_Hostile )
+
+		if ( npc.HasAttitudeTowards( thePlayer ) && npc.GetAttitude( thePlayer ) == AIA_Hostile )
 		{
-			// wasHostile = true;
+			wasHostile = true;
 			npc.ResetAttitude( thePlayer );
 		}
+
+		// from W3Effect_AxiiGuardMe
+		/*
+		((CAIStorageReactionData)npc.GetScriptStorageObject('ReactionData')).ResetAttitudes(npc);
+		
+		if ( npc.HasAttitudeTowards( thePlayer ) && npc.GetAttitude( thePlayer ) == AIA_Hostile )
+		{
+			wasHostile = true;
+			npc.ResetAttitude( thePlayer );
+		}
+
 		if ( npc.HasTag('animal') || npc.IsHorse() ) {
-			npc.SetTemporaryAttitudeGroup('animals_charmed', AGP_Default);
+			npc.SetTemporaryAttitudeGroup('animals_charmed', AGP_Axii);
 		} else {
-			npc.SetTemporaryAttitudeGroup('npc_charmed', AGP_Default);
+			npc.SetTemporaryAttitudeGroup('npc_charmed', AGP_Axii);
 		}
 		npc.SignalGameplayEvent('AxiiGuardMeAdded');
-		npc.SignalGameplayEvent('NoticedObjectReevaluation');
-
-		
-		if (IsActionAbilityUnlocked("Upscaling")) {
-			bonusAbilityName = thePlayer.GetSkillAbilityName(S_Magic_s05);
-			npc.AddAbility(bonusAbilityName, true);
-			npc.SetLevel(npc.GetLevel() + 3);
-			NR_Debug("Control: bonusAbilityName = " + bonusAbilityName);
-		}			
+		npc.SignalGameplayEvent('NoticedObjectReevaluation');	
 
 		if (npc.IsHorse())
 			npc.GetHorseComponent().ResetPanic();
 		npc.OnAxiied( thePlayer );
 		npc.AddTag('NR_SpecialControl');
-		npc.PlayEffect('axii_guardian');
+		if (wasHostile)
+			npc.PlayEffect('axii_guardian');
+		else
+			npc.PlayEffect('axii_confusion');
+		*/
+
+		// NEW
+		buffParams.creator = thePlayer;
+		buffParams.sourceName = "NR_MagicSpecialControl";  // "axii_" + S_Magic_5
+		buffParams.customPowerStatValue.valueBase = 1.f;
+		buffParams.customPowerStatValue.valueMultiplicative = 1.f;
+		buffParams.customPowerStatValue.valueAdditive = 1.f;
+		buffParams.isSignEffect = true;
+		buffParams.duration = s_lifetime;
+		if (wasHostile)
+			buffParams.effectType = EET_AxiiGuardMe;
+		else
+			buffParams.effectType = EET_Confusion;
+
+		buffResult = npc.AddEffectCustom(buffParams);
+		if ( buffResult == EI_Undefined || buffResult == EI_Deny )
+		{
+			NR_Error(actionType + ".TakeControl: failed on npc = " + npc);
+			return;
+		}
+
+		npc.OnAxiied( thePlayer );
+		npc.AddTag('NR_MagicSpecialControl');
+		if (IsActionAbilityUnlocked("Upscaling")) {
+			bonusAbilityName = thePlayer.GetSkillAbilityName(S_Magic_s05);
+			npc.AddAbility(bonusAbilityName, true);
+			npc.SetLevel(npc.GetLevel() + 3);
+		}
+
+		NR_Debug(actionType + ".TakeControl: success on npc = " + npc);
 	}
 	
 	latent function StopControl(npc : CNewNPC) {
@@ -147,8 +191,10 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 
 		if (!npc || !npc.IsAlive())
 			return;
-		npc.ResetAttitude(thePlayer);
-		npc.ResetTemporaryAttitudeGroup(AGP_Default);
+
+		// npc.ResetAttitude(thePlayer);
+		/*
+		npc.ResetTemporaryAttitudeGroup(AGP_Axii);
 		npc.SignalGameplayEvent('NoticedObjectReevaluation');
 		((CAIStorageReactionData)npc.GetScriptStorageObject('ReactionData')).ResetAttitudes(npc);
 
@@ -157,7 +203,16 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		if (IsActionAbilityUnlocked("Upscaling")) {
 			npc.SetLevel(npc.GetLevel() - 3);
 		}
-		npc.StopEffect('axii_guardian');
+		if (wasHostile)
+			npc.StopEffect('axii_guardian');
+		else
+			npc.StopEffect('axii_confusion');
+		*/
+		npc.RemoveAllBuffsWithSource("NR_MagicSpecialControl");
+		npc.RemoveTag('NR_MagicSpecialControl');
+		if (IsActionAbilityUnlocked("Upscaling")) {
+			npc.SetLevel(npc.GetLevel() - 3);
+		}
 	}
 }
 state Active in NR_MagicSpecialControl {
@@ -199,8 +254,8 @@ state Active in NR_MagicSpecialControl {
 			parent.isControlled = false;
 
 			/* Target is dead human */
+			/* TOREMOVE ?
 			if ( npc.IsHuman() && !npc.IsAlive() ) {
-				//npc.Kill('NR_MagicSpecialControl', /*ignoreImmortalityMode*/ true);
 				Sleep(0.5f);
 				parent.entityTemplate = (CEntityTemplate)LoadResourceAsync("wraith");
 				parent.wraithEntity = (CNewNPC)theGame.CreateEntity( parent.entityTemplate, npc.GetWorldPosition(), npc.GetWorldRotation() );
@@ -213,6 +268,7 @@ state Active in NR_MagicSpecialControl {
 
 				Sleep( parent.s_lifetime );
 			}
+			*/
 		} else {
 			NR_Debug("NULL target: " + this);
 		}

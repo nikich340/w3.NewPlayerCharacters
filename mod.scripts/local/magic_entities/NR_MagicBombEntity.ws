@@ -112,6 +112,8 @@ state Active in NR_MagicBombEntity {
 				}
 			}
 		}
+		// explodes toxic gas
+		parent.AddTag(theGame.params.TAG_OPEN_FIRE);
 	}
 
 	event OnLeaveState( nextStateName : name )

@@ -275,6 +275,33 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 		return super.CanUseSkill(skill);
 	}
+	
+	public function GetSkillLevel(s : ESkill) : int
+	{
+		// prolong
+		if (s == S_Magic_s18) {
+			return NR_GetMagicManager().GetActionSkillLevel(ENR_SpecialControl) * 3 / 10;
+		}
+
+		if(abilityManager && abilityManager.IsInitialized())
+			return ((W3PlayerAbilityManager)abilityManager).GetSkillLevel(s);
+			
+		return -1;
+	}
+
+	public function GetAxiiLevel() : int
+	{
+		var level : int;
+
+		level = super.GetAxiiLevel() + 1;
+		if (magicManager.GetSkillLevel() >= ENR_SkillMistress)
+			level += 1;
+
+		if (magicManager.IsActionLearned(ENR_SpecialControl))
+			level += 1;
+
+		return Clamp(level, 1, 4);
+	}
 
 	public function NR_RotateTowardsNode( customRotationName : name, target : CNode, rotSpeed : float, optional activeTime : float )
 	{

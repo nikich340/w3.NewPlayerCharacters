@@ -1017,6 +1017,11 @@ quest function ShaveGeralt_Quest()
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).Shave();
 }
@@ -1026,6 +1031,11 @@ quest function SetGeraltBeard_Quest( maxBeard : bool, optional stage : int )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).SetBeardStage( maxBeard, stage);
 }
@@ -1035,6 +1045,11 @@ quest function SetTattoo_Quest( hasTattoo : bool )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).SetTattoo( hasTattoo );
 }
@@ -1044,6 +1059,11 @@ quest function SetDemonMarkQuest( hasDemonMark : bool )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).SetDemonMark( hasDemonMark );
 }
@@ -1054,6 +1074,11 @@ quest function BlockBeardGrowth_Quest( optional block : bool )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).BlockGrowing( block );
 }
@@ -1063,6 +1088,11 @@ quest function SetCustomHead_Quest( head : name, barberSystem : bool )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	if( barberSystem )
 	{
 		thePlayer.RememberCustomHead( head );
@@ -1078,6 +1108,11 @@ quest function RemoveCustomHead_Quest( barberSystem : bool)
 	var acs : array< CComponent >;
 	var barberHead : name;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 
 	if(!barberSystem)
@@ -1525,6 +1560,7 @@ quest function FocusSetHighlight( tag : name, highlightType : EFocusModeVisibili
 
 quest function ChangeWeatherQuest( weatherName: name, blendTime: float, randomGen: bool, questPause: bool )
 {
+	NR_Debug("ChangeWeatherQuest: weatherName = " + weatherName);
 	if( randomGen )
 	{
 		RequestRandomWeatherChange( blendTime, questPause );
@@ -1749,6 +1785,7 @@ quest function ApplyAppearance( entitiesTag : name, appearanceName : name )
 
 quest function SoundEventQuest( eventName : string, saveBehavior : ESoundEventSaveBehavior )
 {
+	NR_Debug("SoundEventQuest: eventName = " + eventName + ", saveBehavior = " + saveBehavior);
 	theSound.SoundEvent( eventName );
 	switch( saveBehavior)
 	{
@@ -2407,6 +2444,7 @@ quest function PlayEffectQuest ( entityTag : name, effectName : name, activate :
 	var i      : int;
 	var entity : CEntity;
 
+	NR_Debug("PlayEffectQuest: entityTag = " + entityTag + ", effectName = " + effectName + ", activate = " + activate);
 	if( entityTag == 'CAMERA' )
 	{
 		if( activate )

@@ -23,6 +23,7 @@ enum ENR_UnionType {
 struct NR_Union {
 	var type : ENR_UnionType;
 	var key  : String;
+	var hash : Uint64;
 	var valN : name;
 	var valS : String;
 	var valI : int;
@@ -33,6 +34,7 @@ function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, o
 	var u : NR_Union;
 
 	u.key = _key;
+	u.hash = NR_PolyRollHash(_key);
 	u.type = _type;
 	switch (_type) {
 		case ENR_Int:
@@ -68,14 +70,17 @@ class NR_Map {
 	}
 
 	protected function keyIndex(_key : String) : int {
+		var _hash : Uint64;
+
+		_hash = NR_PolyRollHash(_key);
 		for (i = 0; i < values.Size(); i += 1) {
-			if (values[i].key == _key)
+			if (values[i].hash == _hash && values[i].key == _key)
 				return i;
 		}
 		return -1;
 	}
 
-	/* API */ public function keyType(_key : String) : ENR_UnionType {
+	/* API */ public function valueType(_key : String) : ENR_UnionType {
 		i = keyIndex(_key);
 		if (i < 0)
 			return ENR_NULL;

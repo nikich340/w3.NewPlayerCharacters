@@ -680,3 +680,11 @@ function NR_GetSignIconFormattedByType( signType : ESignType, optional height : 
 	text += "/>";
 	return text;
 }
+
+function NR_IsPlayerFree() : bool {
+    if (!theGame.IsActive() || theGame.IsDialogOrCutscenePlaying() || thePlayer.IsInNonGameplayCutscene() || thePlayer.IsInGameplayScene() 
+        || theGame.IsFading() || theGame.IsBlackscreen() || theGame.HasBlackscreenRequested() || thePlayer.IsInCombat()) {
+        return false;
+    }
+    return true;
+}

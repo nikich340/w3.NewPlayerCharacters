@@ -53,6 +53,10 @@ abstract statemachine class NR_MagicAction {
 		isScripted = scripted;
 	}
 
+	public function IsScripted() : bool {
+		return isScripted;
+	}
+
 	latent function OnInit() : bool {
 		var voicelineChance : int = map[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(actionType), 0);
 
@@ -62,7 +66,7 @@ abstract statemachine class NR_MagicAction {
 		isOnHorse = thePlayer.IsUsingHorse();
 		
         NR_Debug(actionType + ".OnInit: target = " + target);
-		if ( voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
+		if ( !IsInSetupScene() && !IsScripted() && voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
 			PlayScene( sceneInputs );
 		}
 		
@@ -136,7 +140,7 @@ abstract statemachine class NR_MagicAction {
 		var magicManager : NR_MagicManager;
 
 		isPerformed = result;
-		NR_Debug(actionType + ".OnPerformed: " + result + ", isScripted = " + isScripted);
+		NR_Debug(actionType + ".OnPerformed: " + result + ", isScripted = " + IsScripted());
 		if (result && drainStaminaOnPerform) {
 			magicManager = NR_GetMagicManager();
 			if (isOnHorse) {
@@ -146,7 +150,7 @@ abstract statemachine class NR_MagicAction {
 			}
 		}
 
-		if (isPerformed && !isScripted && !IsInSetupScene()) {
+		if (isPerformed && !IsScripted() && !IsInSetupScene()) {
 			FactsAdd("nr_magic_performed_" + ENR_MAToName(actionType), 1);
 			if (actionSubtype != ENR_Unknown)
 				FactsAdd("nr_magic_performed_" + ENR_MAToName(actionSubtype), 1);

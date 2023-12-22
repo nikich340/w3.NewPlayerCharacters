@@ -184,10 +184,10 @@ statemachine class NR_PlayerManager extends IScriptable {
 		var i : int;
 
 		m_debugLines.PushBack(line);
-		if (m_debugLines.Size() > 4000) {
-			NR_Debug("Cropping debug lines to 2000");
+		if (m_debugLines.Size() > 20000) {
+			LogChannel('NR_DEBUG', "Cropping debug lines to 10000");
 
-			for (i = 0; i < 2000; i += 1) {
+			for (i = 0; i < 10000; i += 1) {
 				m_debugLines.Erase(0);
 			}
 		}
@@ -201,7 +201,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 		var i : int;
 
 		for (i = 0; i < m_debugLines.Size(); i += 1) {
-			LogChannel('', m_debugLines[i]);
+			LogChannel('NR_SAVEDDEBUG', m_debugLines[i]);
 		}
 	}
 
@@ -475,9 +475,9 @@ statemachine class NR_PlayerManager extends IScriptable {
 		for (i = 0; i < m_sceneSelector.m_customDLCInfo.Size(); i += 1) {
 			// lazy modders..
 			if ( NR_IsLocStrExists(m_sceneSelector.m_customDLCInfo[i].m_dlcNameKey) )
-				info += "<font size=\"20\"><i>" + NR_StrLightBlue( NR_GetLocStringByKeyExt(m_sceneSelector.m_customDLCInfo[i].m_dlcNameKey) ) + "</i> ";
+				info += "<font size=\"21\"><i>" + NR_StrLightBlue( NR_GetLocStringByKeyExt(m_sceneSelector.m_customDLCInfo[i].m_dlcNameKey) ) + "</i> ";
 			else
-				info += "<font size=\"20\"><i>" + NR_StrLightBlue( m_sceneSelector.m_customDLCInfo[i].m_dlcNameStr ) + "</i> ";
+				info += "<font size=\"21\"><i>" + NR_StrLightBlue( m_sceneSelector.m_customDLCInfo[i].m_dlcNameStr ) + "</i> ";
 			// if ( !NR_IsLocStrExists(m_sceneSelector.m_customDLCInfo[i].m_dlcNameKey) ) {
 			if ( !NR_IsDLCInstalled(m_sceneSelector.m_customDLCInfo[i].m_dlcID) ) {
 				info += NR_StrRed(GetLocStringById(1223720)) + "<br>";

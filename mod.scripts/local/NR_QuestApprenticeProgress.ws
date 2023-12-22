@@ -5,8 +5,7 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
     var waitUpgrade : bool;
     
     // in scene or not in game
-    if (!theGame.IsActive() || theGame.IsDialogOrCutscenePlaying() || thePlayer.IsInNonGameplayCutscene() || thePlayer.IsInGameplayScene() 
-        || theGame.IsFading() || theGame.IsBlackscreen() || theGame.HasBlackscreenRequested() || thePlayer.IsInCombat()) {
+    if ( !NR_IsPlayerFree() ) {
         return false;
     }
 
@@ -49,8 +48,10 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
     return false;
 }
 
-latent quest function NR_ShowTutorial_Q(type : String, optional delay : float) {
-    Sleep(delay);
+latent quest function NR_ShowTutorial_Q(type : String, optional showInScenes : bool) {
+    while ( !NR_IsPlayerFree() ) {
+        Sleep(0.2f);
+    }
     SoundEventQuest("gui_character_add_skill", SESB_DontSave);
     NR_ShowTutorial(type, /*fullscreen*/ true);
 }
@@ -177,7 +178,7 @@ latent function NR_ShowMagicSkillStats(fullscreen : bool, showGeneral : bool, sh
     popupData = new W3TutorialPopupData in thePlayer;
     popupData.messageTitle = GetLocStringById(2115940194);
     // general 
-    popupData.messageText = "<font size=\"16\">" + GetLocStringById(2115940243) + "<br><b>- " + GetLocStringById(1210143) + "</b>: " + NR_StrLightBlue(manager.GetCurrentSkillLevelLocStr() + "(" + (int)manager.GetSkillLevel() + "/5)") + "<br>";
+    popupData.messageText = "<font size=\"21\">" + GetLocStringById(2115940243) + "<br><b>- " + GetLocStringById(1210143) + "</b>: " + NR_StrLightBlue(manager.GetCurrentSkillLevelLocStr() + "(" + (int)manager.GetSkillLevel() + "/5)") + "<br>";
     popupData.messageText += "  <i>" + GetLocStringById(1070900) + "</i>: " + NR_StrGreen("+" + IntToString(manager.GetGeneralDamageBonus()) + "%");
     popupData.messageText += ", <i>" + StrLower(GetLocStringById(174112)) + "</i>: " + NR_StrGreen("-" + IntToString(manager.GetGeneralStaminaBonus()) + "%");
     popupData.messageText += ", <i>" + StrLower(GetLocStringById(593508)) + "</i>: " + NR_StrGreen("+" + IntToString(manager.GetGeneralDurationBonus()) + "%<br>");

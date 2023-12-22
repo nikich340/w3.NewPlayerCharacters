@@ -3,10 +3,6 @@ class NR_AssetCooker extends CEntity {
 	editable var cookMeshes : array<CMeshComponent>;
 }
 
-exec function debugcount() {
-	NR_Notify("Lines = " + NR_GetPlayerManager().GetDebugLineCount());
-}
-
 exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bool, optional immortal : Bool) {
 	var ent : CEntity;
 	var pos : Vector;
@@ -2028,4 +2024,12 @@ exec function testgate(optional enable: bool) {
 
 exec function nrresetsaved() {
 	NR_GetPlayerManager().PullReplacerForQuest();	
+}
+
+exec function getdebug() {
+	NR_Notify("Lines = " + NR_GetPlayerManager().GetDebugLineCount());
+}
+
+exec function printdebug() {
+	NR_GetPlayerManager().PrintDebugLines();
 }

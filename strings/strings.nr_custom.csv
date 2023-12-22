@@ -13,7 +13,7 @@
 2115940096|00000000||Snowbell
 2115940097|00000000||Saved as set #
 2115940098|00000000|item_name_nr_chameleon_potion|Chameleon
-2115940099|00000000|item_desc_nr_chameleon_potion|Allows to change appearance. When a sorceress, allows to customize spells as well.
+2115940099|00000000|item_desc_nr_chameleon_potion|Allows to change appearance. When a sorceress, allows to customize spells as well.<br>Do not equip, just press "Consume".
 2115940100|00000000||Not allowed to equip items in slot: 
 2115940101|00000000||Witcheress
 2115940102|00000000||coloring
@@ -45,7 +45,7 @@
 ;
 ; Magic stuff : Slash
 2115940118|00000000||Light attacks
-2115940119|00000000||Slash/Throw ratio
+2115940119|00000000||Slash/Throw attacks ratio
 2115940120|00000000||type
 2115940121|00000000||color
 2115940122|00000000||Slash
@@ -77,13 +77,13 @@
 2115940145|00000000||Fast Travel Teleport
 ; HEAVY
 2115940146|00000000||Heavy attacks
-2115940147|00000000||Rocks/Bomb ratio
+2115940147|00000000||Rocks/Bomb attacks ratio
 2115940148|00000000||Rocks
 2115940149|00000000||Bomb
 2115940150|00000000||Rocks wave
 2115940160|00000000||Rip apart finisher
 ; PUSH
-2115940151|00000000||Counter push
+2115940151|00000000||Blocking wave
 ; SPECIAL
 2115940152|00000000||Special spells
 2115940153|00000000||Tornado
@@ -112,47 +112,47 @@
 2115940204|00000000||Arch-Mistress
 2115940205|00000000||Unlocked skills
 ;
-2115940206|00000000||Welcome to Custom Player Characters (CPC) Mod!
-2115940207|00000000||Special "{2115940098}" potion was added to your inventory. Use it and exit inventory to launch player setup scene.<br><br>Important note: until you decide to use potion, the mod has zero impact on your game.<br><br>Good luck on the Path!<br>
-2115940208|00000000||You have reached new magic level!
-2115940198|00000000||You have learned new magic skill!
+2115940206|00000000||Welcome to <font color="#00c785">Custom Player Characters</font> (CPC) Mod!
+2115940207|00000000||<font color="#FF0000">ALPHA v3 version, NOT FOR PUBLISHING!</font><br>Special <font color="#66ccff">Chameleon</font> potion was added to your inventory. Use it and exit inventory to launch player setup scene.<br><br><b>Important note:</b> until you decide to use potion, the mod has zero impact on your gameplay.<br><br><i>Good luck on the Path!</i><br>
+2115940208|00000000||You have reached <font color="#66ff99">new magic level</font>!
+2115940198|00000000||You have learned <font color="#66ccff">new magic skill</font>!
 2115940197|00000000||New magic level: 
 2115940196|00000000||New magic skill: 
 2115940195|00000000||This is a reminder.
 2115940194|00000000||Magic skills progress.
 2115940193|00000000||New skill level!
 ; Novice
-2115940209|00000000||You have basic magic skills:<br><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142})</b><br>  {1077642}/{1084067}: Press "Light attack" button (the same as for sword) to perform.<br>  Other modes: Press "Use slot 4" button to perform.<br><br><b>- {2115940151}</b><br>  Press "Parry" button (the same as for sword) to perform.<br><br><b>- {2115940144}</b><br>  {1077642}: Press movement buttons (to control direction, optional) + "Roll" (far distance) / "Dodge" (close distance) button to perform.<br>  {1084067}: Press movement buttons (to control direction, optional) + "Use slot 4" button to perform.<br><br><b>- {2115940158}</b><br>  {2115940165}: Select Yrden sign and <i>hold</i> "Cast sign" button to perform. Hold this button again to dispell.<br><br><i>The more you use the skill, the more powerful it becomes and more skill abilities are unlocked.</i><br><i>Follow the quest to find a teacher and learn new spells!</i><br>
+2115940209|00000000||You have basic magic skills:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}: Press "Fast attack" button (the same as for sword) to perform.<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br>  Press "Parry" button (the same as for sword) to perform.<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Press movement buttons (to control direction, optional) + "Roll" (far distance) / "Dodge" (close distance) button to perform.<br>  {1084067}: Press movement buttons (to control direction, optional) + "Consumables Slot 4" button to perform.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}: Select <i>Quen</i> (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform. Hold this button again to dispell.<br><br>The more you use the skill, the more powerful it becomes and more skill abilities are unlocked.<br><i>Follow the quest to find <font color="#66ffcc">a teacher</font> and learn new spells!</i><br>
 ; Apprentice
-2115940210|00000000||You are ready to learn new magic skills:<br><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b><br><b>- {2115940145}</b><br><br><i>You must visit {2115940199} to learn them.</i><br>
+2115940210|00000000||You are ready to learn new magic skills:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font><br><font color="#ffff66"><b>- {2115940145}</b></font><br><br><i>You must visit Master Ainyerahn to learn them.</i><br>
 ; Apprentice - heavy attacks learned
-2115940211|00000000||<b>- {2115940146} ({2115940148}, {2115940149}, {2115940160})</b><br>  Press "Heavy attack" button or "Light attack + heavy attack modifier" (the same as for sword) to perform.<br>  {2115940148} and {2115940149} take turns in a ratio of 2:1 (can be changed in player setup scene).<br>  {2115940160} will be performed with 15% chance if victim has less than 15% of health. These values can be improved by practising.<br>  NOTE: You can't use {2115940160} on bosses.<br>
+2115940211|00000000||<font color="#ffff66"><b>- {2115940146} ({2115940148}, {2115940149}, {2115940160})</b></font><br>  Press "Heavy attack" button or "Light attack + heavy attack modifier" (the same as for sword) to perform.<br>  {2115940148} and {2115940149} take turns in a ratio of 2:1 (default, can be changed in player setup scene).<br>  {2115940160} will be performed with 25% chance if victim has less than 25% of health. These values improves with upper magic levels.<br>  <font color="#ff6600">NOTE:</font> You can't use {2115940160} on bosses.<br>
 ; Apprentice - fast travel teleport learned
-2115940212|00000000||<b>- {2115940145}</b><br>  Open world map and click on <i>any</i> signpost icon to perform.<br>
+2115940212|00000000||<font color="#ffff66"><b>- {2115940145}</b></font><br>  Open world map and click on <i>any</i>post icon to perform.<br>
+; Apprentice - Shield learned
+2115940216|00000000||<font color="#ffff66"><b>- {2115940156}</b></font><br>  Select <i>Quen</i> (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br>
 ; Experienced
-2115940213|00000000||You are ready to learn new magic skills:<br><b>- {2115940152} ({2115940153}, {2115940154}, {2115940156})</b><br><br><i>You must visit {2115940199} to learn them.</i><br>
+2115940213|00000000||You are ready to learn new magic skills:<br><font color="#ffff66"><b>- {2115940152} ({2115940153}, {2115940154}, {2115940156})</b></font><br><br><i>You must visit Master Ainyerahn to learn them.</i><br>
 ; Experienced - Tornado learned
-2115940214|00000000||<b>- {2115940153}</b><br>  Select <i>Aard</i> sign (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after expiration. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+2115940214|00000000||<font color="#ffff66"><b>- {2115940153}</b></font><br>  Select <i>Aard</i> (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br><br>  <font color="#ff6600">WARNING:</font> This spell always have a small chance to backfire you after expiration. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
 ; Experienced - Control learned
-2115940215|00000000||<b>- {2115940154}</b><br>  Select <i>Axii</i> sign (default, can be changed in player setup scene), select target enemy and <i>press</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after expiration. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
-; Experienced - Shield learned
-2115940216|00000000||<b>- {2115940156}</b><br>  Select <i>Quen</i> sign (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br>
+2115940215|00000000||<font color="#ffff66"><b>- {2115940154}</b></font><br>  Select <i>Axii</i> (default, can be changed in player setup scene), select target enemy and <i>press</i> "Cast sign" button to perform.<br><br>  <font color="#ff6600">WARNING:</font> This spell always have a small chance to backfire you after expiration. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
 ; Mistress
-2115940217|00000000||You are ready to learn new magic skills:<br><b>- {2115940152} ({2115940155}, {2115940157})</b><br><b>- {2115940158} ({2115940162}, {2115940163})</b><br><br><i>You must visit {2115940199} to learn them.</i><br>
+2115940217|00000000||You are ready to learn new magic skills:<br><font color="#ffff66"><b>- {2115940152} ({2115940155}, {2115940157})</b></font><br><font color="#ffff66"><b>- {2115940158} ({2115940162}, {2115940163})</b></font><br><br><i>You must visit Master Ainyerahn to learn them.</i><br>
 ; Mistress - Meteor learned
-2115940218|00000000||<b>- {2115940155}</b><br>  Select <i>Igni</i> sign (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+2115940218|00000000||<font color="#ffff66"><b>- {2115940155}</b></font><br>  Select <i>Igni</i> (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br><br>  <font color="#ff6600">WARNING:</font> This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
 ; Mistress - Servant learned
-2115940219|00000000||<b>- {2115940155}</b><br>  Select <i>Yrden</i> sign (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after expiration. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+2115940219|00000000||<font color="#ffff66"><b>- {2115940157}</b></font><br>  Select <i>Yrden</i> (default, can be changed in player setup scene) and <i>press</i> "Cast sign" button to perform.<br><br>  <font color="#ff6600">WARNING:</font> This spell always have a small chance to backfire you after expiration. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
 ; Mistress - Alzur's thunder learned
-2115940220|00000000||<b>- {2115940162}</b><br>  Select <i>Aard</i> sign (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+2115940220|00000000||<font color="#ffff66"><b>- {2115940162}</b></font><br>  Select <i>Aard</i> (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br><br>  <font color="#ff6600">WARNING:</font> This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
 ; Mistress - Gravitation Field learned
-2115940221|00000000||<b>- {2115940163}</b><br>  Select <i>Axii</i> sign (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+2115940221|00000000||<font color="#ffff66"><b>- {2115940163}</b></font><br>  Select <i>Axii</i> (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br><br>  <font color="#ff6600">WARNING:</font> This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
 ; Arch-Mistress
-2115940222|00000000||You are ready to learn new magic skills:<br><b>- {2115940158} ({2115940164}, {2115940166})</b><br><br><i>You must visit {2115940199} to learn them.</i><br>
+2115940222|00000000||You are ready to learn new magic skills:<br><font color="#ffff66"><b>- {2115940158} ({2115940164}, {2115940166})</b></font><br><br><i>You must visit Master Ainyerahn to learn them.</i><br>
 ; Arch-Mistress - Melgar's fire learned
-2115940223|00000000||<b>- {2115940164}</b><br>  Select <i>Igni</i> sign (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br><br>  WARNING: This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
+2115940223|00000000||<font color="#ffff66"><b>- {2115940164}</b></font><br>  Select <i>Igni</i> (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br><br>  <font color="#ff6600">WARNING:</font> This spell always have a small chance to backfire you after casting. You will feel (a label will appear) when this happens.<br>Practise (cast many times) a spell to reduce this chance.<br>
 ; Arch-Mistress - Polymorphism learned
-2115940224|00000000||<b>- {2115940166}</b><br>  Select <i>Yrden</i> sign (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform.<br>
+2115940224|00000000||<font color="#ffff66"><b>- {2115940166}</b></font><br>  Select <i>Yrden</i> (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform. Hold this button again to dispell.<br>  <b>NOTE:</b> For more cat appearance variants please install <font color="#8800AA">Immersive Wildlife Project (Dhu Cats)</font><br>  <i><font color="#E4FF00">nexusmods.com/witcher3/mods/3527</font></i>
 2115940225|00000000||Performs
 2115940226|00000000||Customization [allows you to change visual and other aspects, always unlocked at skill level 1]
 2115940227|00000000||Special abilities [additional bonuses for the spell, do not affect stamina cost]
@@ -167,7 +167,7 @@
 2115940236|00000000||Max tornados [maximum of created tornados in total, which can exist at the same time]
 2115940237|00000000||Following the player [spell/servants follow the player]
 2115940238|00000000||Servant types [which servants you can summon, unlocked types can be selected in player setup scene]
-2115940239|00000000||Target pursuit [pursues a target during all the time]
+2115940239|00000000||Target pursuit [pursues an original target during all the time]
 2115940240|00000000||Meteors count [number of meteors at one cast]
 2115940241|00000000||Damage absorption (100% = max player HP)
 2115940242|00000000||The skill is not learned
@@ -177,7 +177,7 @@
 2115940246|00000000||Freezing [freezes enemies for 5 seconds with a 20% chance, and +1% chance at each skill level]
 2115940247|00000000||Lightnings/Meteors count [number of lightnings/meteors at one time interval]
 2115940248|00000000||Lightnings/Meteors interval [time between lightnings/meteors creating]
-2115940249|00000000||Two servants [summons two servants, unlocked types can be assigned to 1st and 2nd servant in player setup scene]
+2115940249|00000000||Two servants [summons two servants, unlocked types can be assigned independently to 1st and 2nd servant in player setup scene]
 ;
 ; PLAYER SETUP SCENE
 ;
@@ -187,21 +187,21 @@
 2115940553|00000000||Change player display name
 2115940554|00000000||Change sorceress spells
 2115940555|00000000||Show help information
-2115940556|00000000||<font size="19"><b>- {2115940551}</b>: <font color="#FFFF00">vanilla types (Geralt, Ciri)</font> let you play as if mod is not installed.<br>  <font color="#00FF00">ALL custom player types</font> let you customize your appearance and display name. Your game progress and inventory is always the same between any player types. When playing as any custom type you can do everything what Geralt can (except swords usage as <font color="#00FF00">Sorceress</font>).<br>  <font color="#00FF00">Witcher</font> allows you to play just like Geralt.<br>  <font color="#00FF00">Witcheress</font> allows you to play just like Geralt, with retargeted female animations and AI-made female speech.<br>  <font color="#00FF00">Sorceress</font> allows you to play with retargeted female animations, AI-made female speech and with new magic attacks and gameplay spells. To gain full powers complete the quest after selecting <font color="#00FF00">Sorceress</font>.<br>  <i>NOTE:</i> <font color="#FF0000">do NOT uninstall</font> the mod after you made a gamesave with it, because some mod-related data is stored inside. You can always use "Chameleon" and return to <font color="#FFFF00">Geralt (vanilla)</font> to make things as if mod is not installed.<br>  <font color="#FF0000">WARNING</font>: if you change to <font color="#FFFF00">Ciri (vanilla)</font> you won't be able to use "Chameleon" and return to this scene, as inventory will be locked. The only way to return is to use console command "NR_ToGeralt" and then use "Chameleon" as usual.<br><br><b>- {2115940552}</b>: allows you to customize your appearance as you want.<br>  Available only after selecting <font color="#00FF00">custom player types</font>.<br><br><b>- {2115940553}</b>: changes the name used for cinematic subtitles and damage log messages.<br>  You can choose only from original game names (946).<br>  Available only after selecting <font color="#00FF00">custom player types</font>.<br><br><b>- {2115940554}</b>: allows you to customize your spells appearance (color, type) and some other params.<br>  Available only after selecting <font color="#00FF00">Sorceress</font>.<br><br><b>- Use female speech:</b> <i>Auto (recommended)</i> - AI-made female speech used when you play as <font color="#FFFF00">Ciri</font>/<font color="#00FF00">Sorceress/Witcheress</font>. You can download and install another speech variant from the mod page.<br>  <i>Current speech</i>: <font color="#00FF00">{2115940584}</font><br>  <i>NOTE:</i> After switching speech (male<->female) some NPC interaction dialogs may be launched with wrong player voicelines. You should exit a scene and interact with NPC again to launch correct variant. This is a known but technically inevitable bug.</font>
-2115940557|00000000||Tutorial Appearance Scene
+2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">vanilla types (Geralt, Ciri)</font> let you play as if mod is not installed.<br>  <font color="#00FF00">ALL custom player types</font> let you customize your appearance and display name. Your game progress and inventory is always the same between any player types. When playing as any custom type you can do everything what Geralt can (except swords usage as <font color="#00FF00">Sorceress</font>).<br>  <font color="#00FF00">Witcher</font> allows you to play just like Geralt.<br>  <font color="#00FF00">Witcheress</font> allows you to play just like Geralt, with retargeted female animations and AI-made female speech.<br>  <font color="#00FF00">Sorceress</font> allows you to play with retargeted female animations, AI-made female speech and with new magic attacks and gameplay spells. To gain full powers complete the quest after selecting <font color="#00FF00">Sorceress</font>.<br>  <i>NOTE:</i> <font color="#FF0000">do NOT uninstall</font> the mod after you made a gamesave with it, because some mod-related data is stored inside. You can always use "Chameleon" and return to <font color="#FFFF00">Geralt (vanilla)</font> to make things as if mod is not installed.<br>  <font color="#FF0000">WARNING</font>: if you change to <font color="#FFFF00">Ciri (vanilla)</font> you won't be able to use "Chameleon" and return to this scene, as inventory will be locked. The only way to return is to use console command "NR_ToGeralt" and then use "Chameleon" as usual.<br>
+2115940557|00000000||<b>- {2115940565}</b>: your sets (you can save current, load any previously saved)<br><br><b>- {2115940566}</b>: predefined sets from all NPCs, in all color variants.<br><br><b>- {2115940567}</b>: predefined sets from all Geralt armor sets, in all color variants. Do not affect head and hair in most cases.<br>  For <font color="#00FF00">female player types</font> armor models adapted by valrhea are used, so make sure you have installed her mod: <font color="#9900CC">JoWitcheress Models</font> (pre-installed for now).<br><br><b>- {2115940568}</b>: change appearance slots manually, for advanced setup. One of the ways to use it: clear all slots, then choose head, hair, body/torso, arms, hands, legs, shoes, then choose extra items.<br><br><b>- Switch stacking templates as items</b>: for advanced setup, if you want to apply 2 or more templates from the same slot (rarely required).<br><br><b>- Show preview bodypart names</b>: for advanced setup, shows names of current preview templates.<br><br>  <i>NOTE:</i> sometimes after applying new appearance items may not follow the player as intended (e.g. earrings). Saving the game and reloading fixes this.
 2115940558|00000000||Player display name
 2115940559|00000000||Geralt (vanilla)
 2115940560|00000000||Ciri (vanilla)
-2115940561|00000000||Witcher (custom)
-2115940562|00000000||Witcheress (custom)
-2115940563|00000000||Sorceress (custom)
+2115940561|00000000||Witcher (customizable)
+2115940562|00000000||Witcheress (customizable)
+2115940563|00000000||Sorceress (customizable)
 2115940564|00000000||[Clear all slots and items]
 2115940565|00000000||Saved appearance sets
 2115940566|00000000||NPC appearance sets
 2115940567|00000000||Geralt armor sets
 2115940568|00000000||Change slot templates (Appearance constuctor)
-2115940569|00000000||Switch stacking bodyparts as items: [disabled]
-2115940570|00000000||Switch stacking bodyparts as items: [enabled]
+2115940569|00000000||Stack bodyparts as items: [disabled]
+2115940570|00000000||Stack bodyparts as items: [enabled]
 2115940571|00000000||Show custom DLCs info
 2115940572|00000000||Save current appearance set
 2115940573|00000000||Load appearance set
@@ -214,10 +214,13 @@
 2115940580|00000000||Use female speech: [Auto (Recommended)]
 2115940581|00000000||Use female speech: [Always]
 2115940582|00000000||Use female speech: [Never]
-2115940583|00000000||  Use U (Photomode button) -> quick "BACK"<br>  Use W,S/Arrow buttons/Mouse wheel -> scrolling choices list
+2115940583|00000000||  <font color="#FF0000">ALPHA v3 version, NOT FOR PUBLISHING!</font><br>  Use <font color="#770044">U (Photomode button)</font> => <font color="#070077">quick "BACK"</font><br>  Use <font color="#770044">W,S/Arrow buttons/Mouse wheel</font> => <font color="#070077">scrolling choice list</font>
 ;
 ; Change voice actor name here, if AI-made voice is made for this language too
 2115940584|00000000||V-female (Cherami Leigh)
 2115940585|00000000||Loaded set #
 2115940586|00000000||Removed set #
 2115940587|00000000||Set spell voiceline chance
+2115940588|00000000||Spell voiceline chance
+2115940589|00000000||Gameplay teleport
+2115940590|00000000||<b>- {2115940552}</b>: allows you to customize your appearance as you want.<br>  Available only after selecting <font color="#00FF00">custom player types</font>.<br><br><b>- {2115940553}</b>: changes the name used for cinematic subtitles and hit log messages.<br>  You can choose only from original game names (947).<br>  Available only after selecting <font color="#00FF00">custom player types</font>.<br><br><b>- {2115940554}</b>: allows you to customize your spells appearance (color, type) and some other params.<br>  Available only after selecting <font color="#00FF00">Sorceress</font>.<br><br><b>- Use female speech:</b> <i>Auto (recommended)</i> - AI-made female speech used when you play as <font color="#FFFF00">Ciri</font>/<font color="#00FF00">Sorceress/Witcheress</font>. You can download and install another speech variant from the mod page.<br>  <i>Current speech</i>: <font color="#00FF00">{2115940584}</font><br>  <i>NOTE:</i> After switching speech (male<->female) some NPC interaction dialogs may be launched with wrong player voicelines. You should exit a scene and interact with NPC again to launch correct variant. This is a known but technically inevitable bug.<br>

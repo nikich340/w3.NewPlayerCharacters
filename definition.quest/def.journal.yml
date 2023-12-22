@@ -6,12 +6,16 @@ journals:
       world: prologue   # optional, if empty every objective requires world
       level: 1
       description:
+        # Ваш Путь магии начинается.
         - start_descr: "Your magic Path begins.<br>"
-        - investigate_strange_area_descr: "After reading the advertisement, sorceress suspected an interesting case.<br>"
-        - after_spider_descr: "After reading the advertisement, sorceress suspected an interesting case.<br>"
-        - after_met_aynerahn: "Sorceress has reached interesting place and met intelligent sorcerer Aynerahn (TODO).<br>"
-        - after_become_apprentice: "Aynerahn agreed to teach sorceress everything he knows (TODO).<br>"
         # Прочитав объявление, чародейка заподозрила интересный случай.
+        - investigate_strange_area_descr: "After reading the advertisement, the sorceress suspected an interesting case.<br>"
+        # Исследовав местность, чародейка натолкнулась на кристалл с ощутимым магическим следом. Этот след привёл её на парящий в воздухе магический корабль на ледяной платформе. Источником данной аномалии, очевидно, являлся магический камень, дотронувшись до которого, чародейка спровоцировала появление монстров. Битва с ними могла окончиться плачевно, если бы не появление незнакомого мага.
+        - after_spider_descr: "As she explored the area, she came across a crystal with a tangible magical trace. The trail led her to a magical ship hovering in the air on an ice platform. The source of this anomaly was obviously a magical stone, and by touching it, the sorceress had triggered the monsters. The battle with them could have ended badly, if not for the appearance of an unfamiliar magician.<br>"
+        # Таинственного мага-отшельника звали Айнеран, который изучал природу аномального камня, когда тот телепортировал его и корабль в окрестности Белого Сада.
+        - after_met_aynerahn: "The mysterious hermit mage was named Ainyerahn, who was studying the nature of the anomalous stone when it teleported him and the ship to the vicinity of the White Orchard.<br>"
+        # чтобы помочь разобраться в тонкостях управления хаосом
+        - after_become_apprentice: "Ainyerahn agreed to become her teacher, to help in understanding the intricacies of chaos management.<br>"
 
       instructions:
         find_master:

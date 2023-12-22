@@ -1504,7 +1504,7 @@ dialogscript:
           condition: ["nr_master_apprentice_need_test", ">=", 1]
         - choice: ["2115940995|Can we try to craft a golem again?", section_golem_accept_again]
           emphasize: true
-          condition: ["nr_golem_crafting_success", "<", 1]
+          condition: ["nr_golem_recrafting_allowed", ">=", 1]
         - choice: ["2115940997|I need a portal to get back to the ground.", section_ask_to_ground]
           emphasize: true
           condition: ["nr_master_apprentice_failed", ">=", 1]

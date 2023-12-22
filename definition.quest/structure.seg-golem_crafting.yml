@@ -1,7 +1,7 @@
 #
 # quest structure subsegment: golem_crafting
 # 
-# (version: 579, saved: 2023-12-16 22:28:40)
+# (version: 580, saved: 2023-12-17 13:07:17)
 #
 ---
 structure:
@@ -187,6 +187,18 @@ structure:
           next:
             - scene.failed_master_comment: crafting_failed
             - addfact.add_failed_fact
+            - addfact.allow_golem_recrafting
+        
+        script.deny_golem_recrafting:
+          ".editor":
+            pos: [ 796.0, 369.0 ]
+            in: [ In ]
+            out: [ Out ]
+          function: ResetFactQuest
+          parameter:
+            - factID: cname_nr_golem_recrafting_allowed
+          next:
+            - addfact.add_success_fact
         
         script.fadein:
           ".editor":
@@ -236,7 +248,7 @@ structure:
         
         spawn.spawn_celestine:
           ".editor":
-            pos: [ 687.0, 304.0 ]
+            pos: [ 658.0, 285.0 ]
             hint: spawn-only
             in: []
             out: []
@@ -244,7 +256,7 @@ structure:
           spawnsets:
             - comm_master_golem
           next:
-            - addfact.add_success_fact
+            - script.deny_golem_recrafting
         
         addfact.add_attemp_count:
           ".editor": [ 123.0, 111.0 ]
@@ -257,12 +269,17 @@ structure:
           next: ".done"
         
         addfact.add_success_fact:
-          ".editor": [ 841.0, 372.0 ]
+          ".editor": [ 967.0, 441.0 ]
           value: [ nr_golem_crafting_success, 1 ]
           next:
             - out
         
+        addfact.allow_golem_recrafting:
+          ".editor": [ 892.0, 56.0 ]
+          value: [ nr_golem_recrafting_allowed, 1 ]
+          next: ".done"
+        
         out:
-          ".editor": [ 1017.0, 446.0 ]
+          ".editor": [ 1160.0, 513.0 ]
           next: ".done"
         

@@ -1,7 +1,7 @@
 #
 # quest structure subsegment: training
 # 
-# (version: 579, saved: 2023-12-16 22:28:40)
+# (version: 580, saved: 2023-12-17 13:07:17)
 #
 ---
 structure:
@@ -282,7 +282,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillControl
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_control: Activate
             - addfact.ENR_SpecialControl
@@ -295,7 +295,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillField
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_field: Activate
             - addfact.ENR_SpecialField
@@ -308,7 +308,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillMeteorFall
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_meteor_fall: Activate
             - addfact.ENR_SpecialMeteorFall
@@ -321,7 +321,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillMeteor
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_meteor: Activate
             - addfact.ENR_SpecialMeteor
@@ -334,7 +334,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillPolymorphism
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_polymorphism: Activate
             - addfact.ENR_SpecialPolymorphism
@@ -347,7 +347,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillServant
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_servant: Activate
             - addfact.ENR_SpecialServant
@@ -360,7 +360,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillLightningFall
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_thunder: Activate
             - addfact.ENR_SpecialLightningFall
@@ -373,7 +373,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillTornado
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_tornado: Activate
             - addfact.ENR_SpecialTornado
@@ -408,7 +408,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillFastTravelTeleport
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_ftt: Activate
             - addfact.ENR_FastTravelTeleport
@@ -421,7 +421,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillHeavyAttacks
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_heavy: Activate
             - addfact.ENR_HeavyAbstract
@@ -568,7 +568,7 @@ structure:
           function: NR_ShowTutorial_Q
           parameter:
             - type: SorceressSkillShield
-            - delay: 0.6000000238
+            - showInScenes: false
           next:
             - objective.practise_shield: Activate
             - addfact.ENR_SpecialShield

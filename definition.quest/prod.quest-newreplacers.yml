@@ -1,19 +1,19 @@
 #
 # production settings
 # 
-# (version: 579, saved: 2023-12-16 22:28:40)
+# (version: 580, saved: 2023-12-17 13:07:17)
 #
 ---
 production:
   settings:
     id: newreplacers
-    caption: New Player Characters
+    caption: Custom Player Characters
     menuvisibile: true
     enabled: true
     storesdata: true
     strings-idspace: 5940
     strings-idstart: 0
-    version: 579
+    version: 580
     mounters:
       - ".type": CR4MappinsDLCMounter
         worldFilePath: levels/prolog_village/prolog_village.w2w

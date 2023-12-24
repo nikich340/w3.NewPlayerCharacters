@@ -2633,8 +2633,6 @@ dialogscript:
           emphasize: true
         - choice: ["2115940158|Alt special spells", script_info_special_alt]
           emphasize: true
-        - choice: ["2115940158|Alt special spells", script_info_special_alt]
-          emphasize: true
         - choice: ["2115940985|About my successes in practice…", script_show_spell_stats_black]
           emphasize: true
           condition: ["nr_master_apprentice", ">=", 1]
@@ -4844,7 +4842,7 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1061945}: {2115940151}: '
             type: CNAME_ENR_CounterPush
-        - choice: ["0001226888|", section_choice_light_aard_push_buff]
+        - choice: ["0001210139|", section_choice_light_aard_push_buff]
           emphasize: true
           scriptAction:
             .class: NR_FormattedMagicChoiceAction
@@ -5644,7 +5642,7 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066290}: {2115940151}: '
             type: CNAME_ENR_CounterPush
-        - choice: ["0001226888|", section_choice_light_axii_push_buff]
+        - choice: ["0001210139|", section_choice_light_axii_push_buff]
           emphasize: true
           scriptAction:
             .class: NR_FormattedMagicChoiceAction
@@ -6444,7 +6442,7 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066291}: {2115940151}: '
             type: CNAME_ENR_CounterPush
-        - choice: ["0001226888|", section_choice_light_igni_push_buff]
+        - choice: ["0001210139|", section_choice_light_igni_push_buff]
           emphasize: true
           scriptAction:
             .class: NR_FormattedMagicChoiceAction
@@ -7244,7 +7242,7 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066292}: {2115940151}: '
             type: CNAME_ENR_CounterPush
-        - choice: ["0001226888|", section_choice_light_quen_push_buff]
+        - choice: ["0001210139|", section_choice_light_quen_push_buff]
           emphasize: true
           scriptAction:
             .class: NR_FormattedMagicChoiceAction
@@ -8044,7 +8042,7 @@ dialogscript:
             .class: NR_FormattedMagicChoiceAction
             str: '{1066293}: {2115940151}: '
             type: CNAME_ENR_CounterPush
-        - choice: ["0001226888|", section_choice_light_yrden_push_buff]
+        - choice: ["0001210139|", section_choice_light_yrden_push_buff]
           emphasize: true
           scriptAction:
             .class: NR_FormattedMagicChoiceAction

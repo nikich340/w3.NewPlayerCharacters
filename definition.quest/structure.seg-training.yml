@@ -1,7 +1,7 @@
 #
 # quest structure subsegment: training
 # 
-# (version: 580, saved: 2023-12-17 13:07:17)
+# (version: 581, saved: 2023-12-17 18:34:44)
 #
 ---
 structure:
@@ -154,6 +154,7 @@ structure:
             - objective.talk_to_mage: Success
             - waituntil.just_learned_fact
             - objective.become_archimistress: Activate
+            - journal.after_apprentice: Activate
         
         waituntil.control_performed:
           factdb: [ nr_magic_performed_ENR_SpecialControl, ">=", 7 ]
@@ -610,6 +611,12 @@ structure:
             - waituntil.Field_spell_fact
             - waituntil.MeteorFall_fact
             - waituntil.Polymorphism_fact
+        
+        journal.after_apprentice:
+          ".editor": [ -90.0, 501.0 ]
+          entry: quests/sorceress_quest/after_become_apprentice
+          notify: true
+          next: ".done"
         
         journal.after_spider:
           ".editor": [ -725.0, 453.0 ]

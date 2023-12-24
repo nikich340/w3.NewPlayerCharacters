@@ -17,7 +17,8 @@ enum ENR_UnionType {
 	ENR_Name,
 	ENR_String,
 	ENR_Int,
-	ENR_Float
+	ENR_Float,
+	ENR_Object
 }
 
 struct NR_Union {
@@ -28,9 +29,10 @@ struct NR_Union {
 	var valS : String;
 	var valI : int;
 	var valF : float;
+	var valO : IScriptable;
 }
 
-function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, optional _valS : String, optional _valI : int, optional _valF : float) : NR_Union {
+function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, optional _valS : String, optional _valI : int, optional _valF : float, optional _valO : IScriptable) : NR_Union {
 	var u : NR_Union;
 
 	u.key = _key;
@@ -48,6 +50,9 @@ function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, o
 			break;
 		case ENR_String:
 			u.valS = _valS;
+			break;
+		case ENR_Object:
+			u.valO = _valO;
 			break;
 		default:
 			break;
@@ -130,6 +135,13 @@ class NR_Map {
 		return values[i].valS;
 	}
 
+	/* API */ public function getO(_key : String, optional defaultValue : IScriptable) : IScriptable {
+		i = keyIndex(_key);
+		if (i < 0)
+			return defaultValue;
+		return values[i].valO;
+	}
+
 	/* API */ public function setF(_key : String, _valF : float) : bool {
 		i = keyIndex(_key);
 		if (i < 0) {
@@ -180,6 +192,20 @@ class NR_Map {
 		}
 		if (values[i].type == ENR_String) {
 			values[i].valS = _valS;
+			return true;
+		} else {
+			return false;
+		}		
+	}
+
+	/* API */ public function setO(_key : String, _valO : IScriptable) : bool {
+		i = keyIndex(_key);
+		if (i < 0) {
+			values.PushBack(NR_Union(_key, ENR_Object, , , , , _valO));
+			return true;
+		}
+		if (values[i].type == ENR_Object) {
+			values[i].valO = _valO;
 			return true;
 		} else {
 			return false;

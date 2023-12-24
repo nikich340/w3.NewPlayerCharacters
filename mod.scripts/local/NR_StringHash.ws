@@ -132,10 +132,15 @@
 	        return 64;
 	    case ":":
 	        return 65;
+	    case "\\":
+	    case "/":
+	        return 66;
+	    case ".":
+	        return 67;
 	    // should never happen
 	    default:
 	    	NR_Error("NR_CharCode: unsupported: " + char);
-	    	return 66;
+	    	return 68;
 	}
 }
 

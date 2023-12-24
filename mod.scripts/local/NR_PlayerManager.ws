@@ -79,6 +79,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 
 	// for testing
 	protected saved var m_debugLines : array<String>;
+	public saved var m_debugObject : IScriptable;
 
 	// called once: after entity created //
 	public function Init() {
@@ -156,6 +157,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 		for (i = 0; i < m_sceneSelector.m_customDLCInfo.Size(); i += 1) {
 			// if dlc is installed and enabled - try fast way
 			if (theGame.GetDLCManager().IsDLCAvailable(m_sceneSelector.m_customDLCInfo[i].m_dlcID)) {
+				NR_Debug("NR_PlayerManager.OnStarted: dlc installed (fast) = " + m_sceneSelector.m_customDLCInfo[i].m_dlcID);
 				m_installedDLC.PushBack(m_sceneSelector.m_customDLCInfo[i].m_dlcID);
 				continue;
 			}
@@ -163,10 +165,11 @@ statemachine class NR_PlayerManager extends IScriptable {
 			// if dlc is installed but not enabled - try slow way
 			template = (CEntityTemplate)LoadResourceAsync(m_sceneSelector.m_customDLCInfo[i].m_dlcCheckTemplatePath, /*depot*/ true);
 			if (template) {
+				NR_Debug("NR_PlayerManager.OnStarted: dlc installed (slow) = " + m_sceneSelector.m_customDLCInfo[i].m_dlcID);
 				m_installedDLC.PushBack(m_sceneSelector.m_customDLCInfo[i].m_dlcID);
 			}
 		}
-		NR_Debug("NR_PlayerManager.OnStarted: m_installedDLC = " + m_installedDLC.Size());
+		NR_Debug("NR_PlayerManager.OnStarted: m_installedDLCs = " + m_installedDLC.Size());
 
 		template = (CEntityTemplate)LoadResourceAsync("nr_localizedstrings_storage");
 		if ( !template ) {
@@ -182,14 +185,16 @@ statemachine class NR_PlayerManager extends IScriptable {
 	// testing stuff
 	public function AddDebugLine(line : String) {
 		var i : int;
+		var newLines : array<String>;
 
 		m_debugLines.PushBack(line);
-		if (m_debugLines.Size() > 20000) {
-			LogChannel('NR_DEBUG', "Cropping debug lines to 10000");
+		if (m_debugLines.Size() > 2000) {
+			LogChannel('NR_DEBUG', "Cropping debug lines to 1000");
 
-			for (i = 0; i < 10000; i += 1) {
-				m_debugLines.Erase(0);
+			for (i = m_debugLines.Size() - 1000; i < m_debugLines.Size(); i += 1) {
+				newLines.PushBack(m_debugLines[i]);
 			}
+			m_debugLines = newLines;
 		}
 	}
 

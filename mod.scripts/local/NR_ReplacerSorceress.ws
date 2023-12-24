@@ -36,7 +36,14 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		magicManager = new NR_MagicManager in this;
 		AddTimer('NR_LaunchMagicManager', 0.25f);  // post-pone to let player manager load
 
-		AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend'); // TODO: Remove this later!!
+		AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
+		AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
+		AddAnimEventCallback('RotatePrePerformAction','OnAnimEventMagic');
+		AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
+		AddAnimEventCallback('UnblockMiscActions',	'OnAnimEventMagic');
+		//AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend');
+		AddAnimEventCallback('PrepareTeleport',		'OnAnimEventMagic');
+		AddAnimEventCallback('PerformTeleport',		'OnAnimEventMagic');
 
 		// no swords
 		BlockAction( EIAB_DrawWeapon, 'NR_ReplacerSorceress' );
@@ -110,9 +117,13 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		if (animEventType != AET_Tick) {
 			return false;
 		}
+		if ((theGame.IsDialogOrCutscenePlaying() || thePlayer.IsInNonGameplayCutscene()) && !magicManager.IsInSetupScene()) {
+			return false;
+		}
+
 		//magicEvent.animTime = GetLocalAnimTimeFromEventAnimInfo(animInfo);
 		//magicEvent.eventDuration = GetEventDurationFromEventAnimInfo(animInfo);
-		NR_Debug("OnAnimEventMagic:: eventName = " + animEventName + ", type = " + animEventType + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
+		NR_Debug("NR_ReplacerSorceress.OnAnimEventMagic: eventName = " + animEventName + ", type = " + animEventType + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
 		// will be auto-processed async in next frame
 		magicManager.AddActionEvent( animEventName, GetAnimNameFromEventAnimInfo(animInfo) );
 	}
@@ -254,6 +265,16 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		NR_Debug("CastSign()");
 		GotoCombatStateWithAction( IA_None );
 		return OnPerformAttack('attack_magic_special');
+	}
+
+	public function DisplayCannotAttackMessage( actor : CActor ) : bool
+	{
+		var ret : bool;
+
+		ret = super.DisplayCannotAttackMessage(actor);
+		NR_Debug("DisplayCannotAttackMessage: " + ret + " actor = " + actor);
+		
+		return ret;
 	}
 
 	/* Wrapper: fool stamina checking when "casting signs" */

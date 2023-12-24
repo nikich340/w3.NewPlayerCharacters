@@ -92,22 +92,8 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 
 	if (inSetupScene) {
 		NR_EnterScenePreviewState('NR_ScenePreviewSpells_DialogState');
-		thePlayer.AddAnimEventCallback('InitAction',		'OnAnimEventMagic');
-		thePlayer.AddAnimEventCallback('Prepare',			'OnAnimEventMagic');
-		thePlayer.AddAnimEventCallback('RotatePrePerformAction', 'OnAnimEventMagic');
-		thePlayer.AddAnimEventCallback('PerformMagicAttack','OnAnimEventMagic');
-		thePlayer.AddAnimEventCallback('UnblockMiscActions','OnAnimEventMagic');
-		thePlayer.AddAnimEventCallback('PrepareTeleport',	'OnAnimEventMagic');
-		thePlayer.AddAnimEventCallback('PerformTeleport',	'OnAnimEventMagic');
 	} else {
 		NR_ExitScenePreviewState();
-		thePlayer.RemoveAnimEventCallback('InitAction');
-		thePlayer.RemoveAnimEventCallback('Prepare');
-		thePlayer.RemoveAnimEventCallback('RotatePrePerformAction');
-		thePlayer.RemoveAnimEventCallback('PerformMagicAttack');
-		thePlayer.RemoveAnimEventCallback('UnblockMiscActions');
-		thePlayer.RemoveAnimEventCallback('PrepareTeleport');
-		thePlayer.RemoveAnimEventCallback('PerformTeleport');
 		magicManager.HideMagicInfo();
 	}
 }

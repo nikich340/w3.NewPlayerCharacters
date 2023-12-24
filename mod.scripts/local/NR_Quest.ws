@@ -802,6 +802,7 @@ latent function NR_ChangePlayerQuestWrapper( designatedTemplate: EQuestReplacerE
 {
     var manager : NR_PlayerManager = NR_GetPlayerManager();
 
+    NR_Debug("NR_ChangePlayerQuestWrapper: player = " + manager.GetCurrentPlayerType() + ", designatedTemplate = " + designatedTemplate);
     switch (designatedTemplate) {
         case EQRE_Geralt:
             if ( manager.HasReplacerForQuestSaved() ) {
@@ -829,14 +830,14 @@ latent function NR_ChangePlayerQuestWrapper( designatedTemplate: EQuestReplacerE
             NR_ChangePlayerLatent( ENR_PlayerCiri );
             thePlayer.ApplyAppearance("ciri_wounded");
             break;
-        case EQRE_CiriWounded:
+        case EQRE_CiriWinter:
             if ( manager.IsReplacerActive() )
                 manager.SaveReplacerForQuest();
             NR_ChangePlayerLatent( ENR_PlayerCiri );
             thePlayer.ApplyAppearance("ciri_winter");
             break;
         default:
-            NR_Error("NR_ChangePlayerQuest: Unkown designatedTemplate = " + designatedTemplate);
+            NR_Error("NR_ChangePlayerQuestWrapper: Unknown designatedTemplate = " + designatedTemplate);
             break;
     }
 

@@ -4,30 +4,14 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 {
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("NR_ReplacerSorceress.CombatFists: OnEnterState from " + prevStateName);
+		NR_Debug("NR_ReplacerSorceress.CombatFists.OnEnterState from " + prevStateName);
 		theInput.SetContext(parent.GetCombatInputContext());
-		parent.AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
-		parent.AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
-		parent.AddAnimEventCallback('RotatePrePerformAction','OnAnimEventMagic');
-		parent.AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
-		parent.AddAnimEventCallback('UnblockMiscActions',	'OnAnimEventMagic');
-		//parent.AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend');
-		parent.AddAnimEventCallback('PrepareTeleport',		'OnAnimEventMagic');
-		parent.AddAnimEventCallback('PerformTeleport',		'OnAnimEventMagic');
 
 		super.OnEnterState(prevStateName);
 		this.CombatFistsInit( prevStateName );		
 	}
 
 	event OnLeaveState( nextStateName : name ) {
-		parent.RemoveAnimEventCallback('InitAction');
-		parent.RemoveAnimEventCallback('Prepare');
-		parent.RemoveAnimEventCallback('RotatePrePerformAction');
-		parent.RemoveAnimEventCallback('PerformMagicAttack');
-		parent.RemoveAnimEventCallback('UnblockMiscActions');
-		parent.RemoveAnimEventCallback('PrepareTeleport');
-		parent.RemoveAnimEventCallback('PerformTeleport');
-
 		startupAction = IA_None;
 		this.CombatFistsDone( nextStateName );
 		super.OnLeaveState(nextStateName);		
@@ -35,7 +19,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
 	{
-		NR_Debug("combatFists:: OnPerformEvade");
+		NR_Debug("NR_ReplacerSorceress.CombatFists.OnPerformEvade");
 		PerformTeleport( playerEvadeType, playerEvadeType == PET_Roll);
 		return true;
 	}

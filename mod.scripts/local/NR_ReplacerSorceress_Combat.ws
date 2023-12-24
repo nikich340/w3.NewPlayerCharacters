@@ -1616,6 +1616,11 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			if (actionType == ENR_SpecialShield) {
 				parent.CastQuen();
 			}
+			// avoid rotating to fake targets
+			if (actionType == ENR_FastTravelTeleport) {
+				parent.NR_RotateToHeading('NR_OnRotatePrePerform', thePlayer.GetHeading(), 360.f, 0.2f);
+				parent.SetCombatActionHeading( thePlayer.GetHeading() );
+			}
 			NR_Debug("PlayAttack: aspect = " + aspectName + ", = " + comboPlayer.PlayAttack( aspectName ));
 		} else {
 			parent.magicManager.SetActionType( ENR_Unknown );

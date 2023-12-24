@@ -93,7 +93,7 @@ struct SNR_MagicEvent {
 	//var animTime 		: float;
 }
 
-statemachine class NR_MagicManager {
+statemachine class NR_MagicManager extends IScriptable {
 	// set on Init
 	protected var sMap		: array<NR_Map>;
 	const var ST_Universal	: int;
@@ -535,11 +535,11 @@ statemachine class NR_MagicManager {
 			for (i = 0; i < signsAlphabetically.Size(); i += 1) {
 				s = signsAlphabetically[i];
 				if (eqSign == s) {
-					text += "> ";
+					text += "=> ";
 				}
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_HandFx), 'keira') );
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite);
-				text += NR_GetSignIconFormattedByType(s,,,-10) + "{ }" + ColorFormattedValue(styleId, color);
+				text += NR_GetSignIconFormattedByType(s,,,-20) + "{ }" + ColorFormattedValue(styleId, color);
 				text += BR;
 			}
 		} else if (sectionName == 'teleport') {
@@ -548,11 +548,11 @@ statemachine class NR_MagicManager {
 			for (i = 0; i < signsAlphabetically.Size(); i += 1) {
 				s = signsAlphabetically[i];
 				if (eqSign == s) {
-					text += "> ";
+					text += "=> ";
 				}
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Teleport), 'yennefer') );
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Teleport), ENR_ColorWhite);
-				text += NR_GetSignIconFormattedByType(s,,,-10) + "{ }" + ColorFormattedValue(styleId, color);
+				text += NR_GetSignIconFormattedByType(s,,,-20) + "{ }" + ColorFormattedValue(styleId, color);
 				text += BR;
 			}
 		} else if (sectionName == 'light') {
@@ -562,11 +562,11 @@ statemachine class NR_MagicManager {
 			for (i = 0; i < signsAlphabetically.Size(); i += 1) {
 				s = signsAlphabetically[i];
 				if (eqSign == s) {
-					text += "> ";
+					text += "=> ";
 				}
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Slash), 'yennefer') );
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Slash), ENR_ColorWhite);
-				text += NR_GetSignIconFormattedByType(s,,,-10) + "{ }" + "{2115940122}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
+				text += NR_GetSignIconFormattedByType(s,,,-20) + "{ }" + "{2115940122}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
 				
 				typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_ThrowAbstract), ENR_Lightning);
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorWhite);
@@ -595,12 +595,12 @@ statemachine class NR_MagicManager {
 			for (i = 0; i < signsAlphabetically.Size(); i += 1) {
 				s = signsAlphabetically[i];
 				if (eqSign == s) {
-					text += "> ";
+					text += "=> ";
 				}
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Rock), 'keira') );
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_Rock), ENR_ColorWhite);
 				color2 = sMap[s].getI("color_cone_" + ENR_MAToName(ENR_Rock), ENR_ColorWhite);
-				text += NR_GetSignIconFormattedByType(s,,,-10) + "{ }" + "{2115940148}:{ }" + ColorFormattedValue(styleId, color) + "/" + ColorFormattedText("*", color2) + ";{ }";
+				text += NR_GetSignIconFormattedByType(s,,,-20) + "{ }" + "{2115940148}:{ }" + ColorFormattedValue(styleId, color) + "/" + ColorFormattedText("*", color2) + ";{ }";
 				
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorWhite);
 				//styleId = MageLocId( sMap[s].getN("color_" + ENR_MAToName(ENR_BombExplosion), 'philippa') );
@@ -614,7 +614,7 @@ statemachine class NR_MagicManager {
                 if (eqSign == s) {
                     text += "=> ";
                 }
-                text += NR_GetSignIconFormattedByType(s,,,-10) + "{ }";
+                text += NR_GetSignIconFormattedByType(s,,,-20) + "{ }";
                 
                 typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_SpecialAbstract), ENR_SpecialMeteor);
                 color = sMap[s].getI("color_" + ENR_MAToName((ENR_MagicAction)typeId), ENR_ColorWhite);
@@ -645,7 +645,7 @@ statemachine class NR_MagicManager {
                 if (eqSign == s) {
                     text += "=> ";
                 }
-                text += NR_GetSignIconFormattedByType(s,,,-10) + "{ }";
+                text += NR_GetSignIconFormattedByType(s,,,-20) + "{ }";
                 
                 typeId = sMap[s].getI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt), ENR_SpecialLightningFall);
                 color = sMap[s].getI("color_" + ENR_MAToName((ENR_MagicAction)typeId), ENR_ColorWhite);
@@ -2371,11 +2371,11 @@ latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, from : Vector
 	capsuleHeight = ((CMovingPhysicalAgentComponent)actor.GetMovingAgentComponent()).GetCapsuleHeight();
 	from.Z += capsuleHeight * 0.75f;
 	to.Z += capsuleHeight * 0.75f;
-	NR_Debug("NR_GetTeleportMaxArchievablePoint: capsuleHeight = " + capsuleHeight);
+	NR_Debug("NR_GetTeleportMaxArchievablePoint: capsuleHeight = " + capsuleHeight + ", capsuleRadius = " + capsuleRadius);
 
 	// to avoid stopping inside actor body
 	moveVec = VecNormalize(to - from);
-	from += moveVec * 1.f;
+	from += moveVec * 0.5f;
 	if ( theGame.GetWorld().StaticTrace(from, to, /*capsuleRadius,*/ result, normal, NR_GetStandartCollisionNames()) ) {
 		NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = true, result = " + VecToString(result) + ", to = " + VecToString(to));
 	} else {

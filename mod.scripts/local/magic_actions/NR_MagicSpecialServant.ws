@@ -4,8 +4,10 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 	var servantTemplates 		: array<CEntityTemplate>;
 	var s_follower 		: bool;
 	var s_servantCount 	: int;
+
+	default isDamaging 		= false;
 	default actionType 		= ENR_SpecialServant;
-	default actionSubtype = ENR_SpecialAbstract;
+	default actionSubtype 	= ENR_SpecialAbstract;
 	
 	latent function OnInit() : bool {
 		sceneInputs.PushBack(11);

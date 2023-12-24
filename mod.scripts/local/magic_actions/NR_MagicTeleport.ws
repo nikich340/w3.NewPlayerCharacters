@@ -1,4 +1,5 @@
 class NR_MagicTeleport extends NR_MagicAction {
+	default isDamaging 	= false;
 	protected var teleportCamera 	: CStaticCamera;
 	protected var teleportPos 	: Vector;
 	protected var oldCameraPos 	: Vector;

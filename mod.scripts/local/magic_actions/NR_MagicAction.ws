@@ -32,8 +32,10 @@ abstract statemachine class NR_MagicAction {
 	public var isCursed		: bool;
 	public var isScripted 	: bool;
 	public var isOnHorse 	: bool;
+	public var isDamaging 	: bool;
 	public var drainStaminaOnPerform : bool;
 	public var performsToLevelup : int;
+	public var maxLevelup : int;
 	const  var ST_Universal	 : int;
 
 	default actionType 	= ENR_Unknown;
@@ -44,9 +46,11 @@ abstract statemachine class NR_MagicAction {
 	default inPostState	= false;
 	default isCursed 	= false;
 	default isScripted 	= false;
+	default isDamaging 	= true;
 	default rotatePrePerform = true;
 	default drainStaminaOnPerform 	= true;
 	default performsToLevelup 		= 50; // action-specific
+	default maxLevelup 				= 10; // action-specific
 	default ST_Universal 			= 5; // EnumGetMax(ESignType);
 
 	public function SetScripted(scripted : bool) {
@@ -172,7 +176,7 @@ abstract statemachine class NR_MagicAction {
 		var newSkillLevel : int;
 
 		newSkillLevel = PerformedCount() / performsToLevelup;
-		if (newSkillLevel > SkillLevel() && newSkillLevel <= 10) {
+		if (newSkillLevel > SkillLevel() && newSkillLevel <= maxLevelup) {
 			NR_Debug(actionType + ".CheckSkillLevelup: newSkillLevel = " + newSkillLevel);
 			SetSkillLevel(newSkillLevel);
 			NR_GetMagicManager().ShowSkillLevelup( actionType );
@@ -184,7 +188,14 @@ abstract statemachine class NR_MagicAction {
 	}
 
 	function SetSkillLevel(newLevel : int) {
-		NR_GetMagicManager().SetActionSkillLevel( actionType, newLevel);
+		var subtypeLevel : int;
+
+		NR_GetMagicManager().SetActionSkillLevel( actionType, newLevel );
+		// subtype for throw attacks
+		if (actionSubtype != ENR_Unknown) {
+			subtypeLevel = NR_GetMagicManager().GetActionSkillLevel( actionSubtype );
+			NR_GetMagicManager().SetActionSkillLevel( actionSubtype, subtypeLevel + 1 );
+		}
 	}
 
 	function SkillLevel() : int {
@@ -295,6 +306,7 @@ abstract statemachine class NR_MagicAction {
 		var riftEnt : CRiftEntity;
 		var clueEnt : W3MonsterClue;
 		var campEnt : W3Campfire;
+		var entityParam : CGameplayEntityParam;
 		var    i 	: int;
 		var onLine 	: Bool;
 
@@ -314,6 +326,10 @@ abstract statemachine class NR_MagicAction {
 			}
 			*/
 
+			// avoids attacking the same target again
+			if (ents[i].HasTag('NR_Destroyed'))
+				continue;
+
 			dEnt = (W3DestroyableClue)ents[i];
 			if (dEnt && dEnt.destroyable && !dEnt.destroyed) {
 				destroyableTarget = dEnt;
@@ -327,6 +343,12 @@ abstract statemachine class NR_MagicAction {
 			}
 
 			if (ents[i].HasTag('softLock_Igni') || ents[i].HasTag('softLock_Yrden') || ents[i].HasTag('softLock_Axii') || ents[i].HasTag('softLock_Weapon')) {
+				destroyableTarget = ents[i];
+				return true;
+			}
+
+			entityParam = ents[i].GetGameplayEntityParam('CAttackableArea');
+			if (entityParam) {
 				destroyableTarget = ents[i];
 				return true;
 			}
@@ -400,7 +422,11 @@ abstract statemachine class NR_MagicAction {
 			campEnt.ToggleFire(true);
 		} else if ( clueEnt ) {
 			clueEnt.OnIgniHit(NULL);
+		} else {
+			destroyableTarget.OnIgniHit(NULL);
 		}
+
+		clueEnt.AddTag('NR_Destroyed');
 	}
 
 	latent function NR_OnLineOfSight(nodeA : CNode, nodeB : CNode, zOffset : float) : bool

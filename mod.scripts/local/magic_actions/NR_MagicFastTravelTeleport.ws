@@ -8,10 +8,12 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 	protected var m_doStaticTrace 	: bool;
 
 	default actionType = ENR_FastTravelTeleport;
+	default isDamaging 	= false;
 	default m_teleportZ = 1.f;
 	default m_activeTime = 15.f;
 	default m_doStaticTrace = true;
 	default performsToLevelup = 10;
+	default rotatePrePerform = false;
 
 	latent function OnInit() : bool {
 		sceneInputs.PushBack(3);

@@ -3,6 +3,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 	var idleActionId 	: int;
 	var appearanceName 	: name;
 	
+	default isDamaging 	= false;
 	default performsToLevelup = 10; // action-specific
 	default actionType = ENR_SpecialPolymorphism;
 	default actionSubtype = ENR_SpecialAbstractAlt;

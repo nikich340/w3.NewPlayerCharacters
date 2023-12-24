@@ -1,4 +1,5 @@
 class NR_MagicSpecialShield extends NR_MagicAction {
+	default isDamaging 	= false;
 	default performsToLevelup = 50; // action-specific
 	default actionType = ENR_SpecialShield;
 	default actionSubtype = ENR_SpecialAbstract;

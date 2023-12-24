@@ -121,9 +121,12 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		if (!npc || !npc.IsAlive())
 			return;
 
+		if ( npc.GetAttitude( thePlayer ) == AIA_Hostile ) {
+			wasHostile = true;
+		}
+
 		if ( npc.HasAttitudeTowards( thePlayer ) && npc.GetAttitude( thePlayer ) == AIA_Hostile )
 		{
-			wasHostile = true;
 			npc.ResetAttitude( thePlayer );
 		}
 
@@ -171,7 +174,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		buffResult = npc.AddEffectCustom(buffParams);
 		if ( buffResult == EI_Undefined || buffResult == EI_Deny )
 		{
-			NR_Error(actionType + ".TakeControl: failed on npc = " + npc);
+			NR_Error(actionType + ".TakeControl: hostile = " + wasHostile + ", failed on npc = " + npc);
 			return;
 		}
 
@@ -183,7 +186,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			npc.SetLevel(npc.GetLevel() + 3);
 		}
 
-		NR_Debug(actionType + ".TakeControl: success on npc = " + npc);
+		NR_Debug(actionType + ".TakeControl: hostile = " + wasHostile + ", success on npc = " + npc);
 	}
 	
 	latent function StopControl(npc : CNewNPC) {

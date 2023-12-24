@@ -247,6 +247,12 @@ templates:
           - dlc/dlcnewreplacers/data/animations/woman_retarget/dlc15/mq1058_man_dialog.w2anims
           # DO NOT TOUCH lookats! We have no idea how they work
           - dlc/dlc15/data/animation/man/mq1058_man_dialog_lookats.w2anims
+
+          # woman (AFTER RETARGET)
+          # MOVED
+
+          # bob mounters - woman (AFTER RETARGET)
+          # MOVED
       
       - ".type": CAnimAnimsetsParam
         name: "woman_player"

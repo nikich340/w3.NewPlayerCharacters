@@ -146,6 +146,39 @@ templates:
         name: "woman_dialog"
         componentName: "woman_base"
         animationSets:  #array:2,0,handle:CSkeletalAnimationSet
+          # woman (BEFORE RETARGET)
+          - animations/woman/dialog/woman_dialog.w2anims
+          - animations/woman/dialog/woman_dialog_sitting.w2anims
+          - animations/woman/dialog/woman_dialog_standing.w2anims
+          - animations/woman/dialog/woman_dialog_standing_leaning.w2anims
+          - animations/woman/dialog/woman_dialog_sitting_leaning.w2anims
+          - animations/woman/dialog/woman_dialog_enter_exit.w2anims
+          - animations/woman/dialog/woman_dialog_additives.w2anims
+          - animations/woman/dialog/woman_dialog_lying.w2anims
+          - animations/woman/dialog/woman_dialog_sitting_ground.w2anims
+          - animations/woman/dialog/woman_dialog_standing_leaning_back.w2anims
+          - animations/woman/dialog/woman_dialog_kneeling.w2anims
+          
+          - animations/woman/dialog/woman_dialog_locomotion.w2anims
+          - animations/woman/dialog/woman_dialog_gameplay_recompress.w2anims
+          - animations/woman/dialog/ep1_woman_dialog_animation.w2anims
+          - animations/woman/quest/q602_woman_picking_flowers.w2anims
+          - animations/woman/quest/q605_shani_on_ledge.w2anims
+          - animations/woman/quest/woman_quest.w2anims
+          - animations/woman/community/woman_reaction.w2anims
+          - animations/woman/community/woman_exploration_critical_states.w2anims
+          - animations/woman/community/woman_work.w2anims
+
+          # bob mounters - woman (BEFORE RETARGET)
+          - dlc/bob/data/animations/animations/woman/dialogs/noble_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_noble_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_noble_quest.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_woman_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/dialogs/ep2_anna_henrietta_dialog_animation.w2anims
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims          
+          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
+          - dlc/bob/data/animations/animations/woman/quest/woman_quest.w2anims
+
           ### RETARGET - man dialog
           # DO NOT TOUCH lookats! We have no idea how they work
           - animations/man/dialogs/man_dialog_lookats.w2anims
@@ -219,38 +252,11 @@ templates:
           # DO NOT TOUCH lookats! We have no idea how they work
           - dlc/dlc15/data/animation/man/mq1058_man_dialog_lookats.w2anims
 
-          # woman (TEST AFTER RETARGET)
-          - animations/woman/dialog/woman_dialog.w2anims
-          - animations/woman/dialog/woman_dialog_sitting.w2anims
-          - animations/woman/dialog/woman_dialog_standing.w2anims
-          - animations/woman/dialog/woman_dialog_standing_leaning.w2anims
-          - animations/woman/dialog/woman_dialog_sitting_leaning.w2anims
-          - animations/woman/dialog/woman_dialog_enter_exit.w2anims
-          - animations/woman/dialog/woman_dialog_additives.w2anims
-          - animations/woman/dialog/woman_dialog_lying.w2anims
-          - animations/woman/dialog/woman_dialog_sitting_ground.w2anims
-          - animations/woman/dialog/woman_dialog_standing_leaning_back.w2anims
-          - animations/woman/dialog/woman_dialog_kneeling.w2anims
-          
-          - animations/woman/dialog/woman_dialog_locomotion.w2anims
-          - animations/woman/dialog/woman_dialog_gameplay_recompress.w2anims
-          - animations/woman/dialog/ep1_woman_dialog_animation.w2anims
-          - animations/woman/quest/q602_woman_picking_flowers.w2anims
-          - animations/woman/quest/q605_shani_on_ledge.w2anims
-          - animations/woman/quest/woman_quest.w2anims
-          - animations/woman/community/woman_reaction.w2anims
-          - animations/woman/community/woman_exploration_critical_states.w2anims
-          - animations/woman/community/woman_work.w2anims
+          # woman (AFTER RETARGET)
+          # MOVED
 
-          # bob mounters - woman (TEST AFTER RETARGET)
-          - dlc/bob/data/animations/animations/woman/dialogs/noble_woman_dialog_animation.w2anims
-          - dlc/bob/data/animations/animations/woman/community/woman_noble_work.w2anims
-          - dlc/bob/data/animations/animations/woman/quest/woman_noble_quest.w2anims
-          - dlc/bob/data/animations/animations/woman/dialogs/ep2_woman_dialog_animation.w2anims
-          - dlc/bob/data/animations/animations/woman/dialogs/ep2_anna_henrietta_dialog_animation.w2anims
-          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims          
-          - dlc/bob/data/animations/animations/woman/community/woman_work.w2anims
-          - dlc/bob/data/animations/animations/woman/quest/woman_quest.w2anims
+          # bob mounters - woman (AFTER RETARGET)
+          # MOVED
       
       - ".type": CAnimAnimsetsParam
         name: "woman_player"

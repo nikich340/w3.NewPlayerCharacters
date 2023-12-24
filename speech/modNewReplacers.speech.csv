@@ -31,7 +31,10 @@
 ; *shriek*
 ; Кристалл мегаскопа. И магический след явно указывает на исходное местоположение. Попробую создать портал туда.
 2115940068|||You saved me life. Who might you be? And where the blazes am I?
+; female comment
 2115940069|||Wish I were a sorceress…
+; male comment
+2115940081|||Wish I were a sorceress…
 ; Who created you?
 2115940070|||Qued se creoest?
 ; Go to me!
@@ -125,7 +128,6 @@
 2115940918|||I would like to learn new spells.
 2115940919|||Could you please remind me how to cast…
 2115940985|||About my successes in practice…
-2115940986|||About my successes in practice…
 ; sorceress answers
 ; q0
 2115940920|||Energy of 6 elements.
@@ -168,8 +170,9 @@
 2115940947|||Sure. This is gonna be interesting.
 2115940948|||Sorry, I'm not sure I can help.
 2115940949|||So, let us begin. I will summon the enlivening thunder, and while I do, you shall infuse it with the elements of earth and water, maintaining an equal balance.
-; Я призываю звёздные молнии жизни! (Ainyerahn);
+; Я призываю звёздные молнии жизни! (Ainyerahn)
 2115940950|||Me galwad iersann sigellen aep vita!
+2115940305|||Me galwad iersann sigellen aep vita!
 2115940951|||You've made a right mess of it! The elements of earth and water should have been mixed in equal parts, not skewed like this!
 2115940952|||Hey… What is your name? What is your goal?
 2115940953|||I am Celestine. I protect my creators, master and mistress. And do what they order.
@@ -178,17 +181,17 @@
 ; Dialogs with Celestine
 2115940956|||Mistress. A pleasure.
 2115940957|||Morning. Nice day.
-2115940958|||1. Are you aware of yourself?
+2115940958|||Are you aware of yourself?
 2115940959|||I was in the earth, water, air. Everywhere. And now I am here.
-2115940960|||2. Do you have any wishes?
+2115940960|||Do you have any wishes?
 2115940961|||Calmness. Silence. Slowness.
-2115940962|||3. What will you do if we disappear?
+2115940962|||What will you do if we disappear?
 2115940963|||Fulfill your last will. Protect your property.
-2115940964|||4. How many will be two plus six?
-2115940965|||Hmm.. Ten minus two.
-2115940966|||5. Do you like this place?
+2115940964|||How much is eight plus four?
+2115940965|||Hmm.. Ten two.
+2115940966|||Do you like this place?
 2115940967|||Yes. It is quiet, blue, beautiful.
-2115940968|||6. Are you experiencing emotions?
+2115940968|||Are you experiencing emotions?
 2115940969|||I follow the algorithm. Anything outside of it is an annoyance. The rest is a calmness.
 ; Farewell
 2115940970|||I shall wait.
@@ -203,10 +206,37 @@
 2115940981|||Going into combat mode!
 2115940982|||Calmness has been restored.
 2115940983|||Intruders have been eliminated.
-2115940984|||I need a portal to get back to the ground.
-; 85, 86 used
+2115940984|||The creator's safety is ensured.
+; 86 used
 2115940987|||Sure, no problem.
 2115940988|||I am ready.
-; Я вдыхаю в тебя воду и землю! (Sorceress)
+; правый: вода (бирюзовый), земля (коричневый) 
+; / левый: вода (бирюзовый), огонь (оранжевый), земля (коричневый), воздух (голубой)
+; Я вдыхаю в тебя воду и землю! (Sorceress) -> Celestine
 2115940989|||Me aedit'ef a'lagi shed a'ear as te!
+2115940300|||Me aedit'ef a'lagi shed a'ear as te! [I breathe Water and Earth into you!]
+; Я вдыхаю в тебя воду! (Sorceress) -> Лужица
+2115940990|||Me aedit'ef a'lagi as te!
+2115940301|||Me aedit'ef a'lagi as te! [I breathe Water into you!]
+; Я вдыхаю в тебя огонь и землю! (Sorceress) -> Огненный голем
+2115940991|||Me aedit'ef a'enye shed a'ear as te!
+2115940302|||Me aedit'ef a'enye shed a'ear as te! [I breathe Fire and Earth into you!]
+; Я вдыхаю в тебя землю! (Sorceress) -> Каменный голем
+2115940992|||Me aedit'ef a'ear as te!
+2115940303|||Me aedit'ef a'ear as te! [I breathe Earth into you!]
+; Я вдыхаю в тебя воздух и землю! (Sorceress) -> Взрыв
+2115940993|||Me aedit'ef a'eire shed a'ear as te!
+2115940304|||Me aedit'ef a'eire shed a'ear as te! [I breathe Air and Earth into you!]
+; 2115940305 used
+2115940306|||One fella have seen your ship in the sky.
+; Ох, должно быть это было после телепортации сюда. Я почти сразу накастовал заклинание невидимости.
+2115940307|||Oh, it must have been after teleporting here. I cast an invisibility spell almost immediately.
+2115940308|||So now even a legion of witch hunters wouldn't be able to detect me. But how did you manage to get here?
+2115940309|||By a shard of crystal on the ground. I was able to tune in to his trail.
+2115940309|||Dammit, that's right, my megascope broke, and I threw the crystal from it far away on emotion...
+; Призываю осколки огня с неба! (Ainyerahn)
+2115940994|||Invocare aedden aep aenye al uide!
+2115940995|||Can we try to craft a golem again?
+2115940996|||Agreed, but I request a finer attention to detail this time. I trust you've not forgotten that in Hen Llinge, "ear" stands for Earth and "lagi" for Water.
+2115940997|||I need a portal to get back to the ground.
 ;

@@ -136,6 +136,7 @@ class NR_AardProjectile extends W3AardProjectile {
 		var entities : array <CGameplayEntity>;
 		var nodes 	: array <CNode>;
 		var entity 	: CGameplayEntity;
+		var actor 	: CActor;
 		var pos, entityPos : Vector;
 		var i 		: int;
 		var timePassed, timeWait : float;
@@ -156,8 +157,8 @@ class NR_AardProjectile extends W3AardProjectile {
 		timePassed = 0.f;
 		for (i = 0; i < nodes.Size(); i += 1) {
 			entity = (CGameplayEntity)nodes[i];
-
-			if (entity == thePlayer || GetAttitudeBetween(thePlayer, entity) != AIA_Hostile)
+			actor = (CActor)entities[i];
+			if (entity == thePlayer || (actor && actor.IsAlive() && GetAttitudeBetween(thePlayer, actor) != AIA_Hostile))
 				continue;
 
 			entityPos = entity.GetWorldPosition();

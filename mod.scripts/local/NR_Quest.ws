@@ -30,7 +30,12 @@ quest function NR_ChangePlayer_Q() {
     newPlayerType = (ENR_PlayerType)FactsQuerySum("nr_scene_player_change_type");
     NR_Debug("NR_ChangePlayer_Q: scene change to -> " + newPlayerType);
     NR_ChangePlayer(newPlayerType);
-    FactsRemove("nr_scene_player_change_type"); 
+    FactsRemove("nr_scene_player_change_type");
+
+    // kick from magic ship if player is not a sorceress
+    if (newPlayerType != ENR_PlayerSorceress && FactsQuerySum("nr_on_master_ship") > 0) {
+        thePlayer.Teleport(Vector(-108.719444, -208.481003, 15.512835));
+    }
 }
 
 quest function NR_IsPlayerFemale_Q() : bool {
@@ -553,10 +558,13 @@ quest function NR_ToogleEffect_Q( entityTag : name, effectName : name ) {
     entity = theGame.GetEntityByTag( entityTag );
     if ( !entity ) {
         NR_Error("NR_ToogleEffect_Q: no entity [" + entityTag + "] found!");
+        return;
     }
     if ( entity.IsEffectActive(effectName) ) {
+        NR_Debug("NR_ToogleEffect_Q: entity [" + entity + "] = stop effect");
         entity.StopEffect(effectName);
     } else {
+        NR_Debug("NR_ToogleEffect_Q: entity [" + entity + "] = play effect");
         entity.PlayEffect(effectName);
     }
 }
@@ -644,24 +652,6 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
 
 quest function NR_MagicActionAbilityUnlock_Q( type : name, abilityName : String ) {
     NR_GetMagicManager().ActionAbilityUnlock(ENR_NameToMA(type), abilityName);
-}
-
-// sceneBlockId = always NR-modded scene block
-quest function NR_SetSceneBlockActive_Q( questPath : name, sceneBlockId : int, active : bool ) {
-    var startTime : float = theGame.GetEngineTimeAsSeconds();
-
-    NR_Debug("NR_SetSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
-    NR_GetPlayerManager().SetSceneBlockActive(questPath, sceneBlockId, active);
-}
-
-// sceneBlockId = always NR-modded scene block
-quest function NR_IsSceneBlockActive_Q( questPath : name, sceneBlockId : int ) : bool {
-    var active : bool;
-    var startTime : float = theGame.GetEngineTimeAsSeconds();
-    
-    NR_Debug("NR_IsSceneBlockActive_Q: " + NameToString(questPath) + " #" + IntToString(sceneBlockId) + ", active = " + active + ", elapsed = " + FloatToString(theGame.GetEngineTimeAsSeconds() - startTime));
-    active = NR_GetPlayerManager().IsSceneBlockActive( questPath, sceneBlockId );
-    return active;
 }
 
 latent quest function NR_ProcessMasterThunder_Q() {

@@ -1338,24 +1338,26 @@ statemachine class NR_MagicManager extends IScriptable {
 	}
 
 	public function GetPlayerLevelForSkillLevel(skillLevel : ENR_MagicSkill) : int {
-		var playerMax	: int;
+		var playerMax, startLevel	: int;
 
 		playerMax = GetWitcherPlayer().GetMaxLevel();
+		startLevel = 50;
 		if ( FactsQuerySum("NewGamePlus") < 1 ) {
 			playerMax = playerMax / 2;
+			startLevel = 0;
 		}
 
 		switch (skillLevel) {
 			case ENR_SkillNovice:
-				return 0;
+				return startLevel;
 			case ENR_SkillApprentice:
-				return FloorF(playerMax * 10 / 100);
+				return FloorF(startLevel + (playerMax - startLevel) * 10 / 100);
 			case ENR_SkillExperienced:
-				return FloorF(playerMax * 25 / 100);
+				return FloorF(startLevel + (playerMax - startLevel) * 25 / 100);
 			case ENR_SkillMistress:
-				return FloorF(playerMax * 45 / 100);
+				return FloorF(startLevel + (playerMax - startLevel) * 45 / 100);
 			case ENR_SkillArchMistress:
-				return FloorF(playerMax * 70 / 100);
+				return FloorF(startLevel + (playerMax - startLevel) * 70 / 100);
 			default:
 				return -1;
 		}
@@ -1527,8 +1529,9 @@ statemachine class NR_MagicManager extends IScriptable {
 		//} else if (type == ENR_FastTravelTeleport) {
 		} else if (type == ENR_SpecialTornado) {
 			specialAbilities.PushBack("Pursuit"); specialAbilityIds.PushBack(2115940239);
-			specialAbilities.PushBack("Freezing"); specialAbilityIds.PushBack(1081836);
+			specialAbilities.PushBack("Suck"); specialAbilityIds.PushBack(2115940591);
 			specialAbilities.PushBack("DamageControl"); specialAbilityIds.PushBack(2115940244);
+			specialAbilities.PushBack("Freezing"); specialAbilityIds.PushBack(1081836);
 			info += "  <i>" + GetLocStringById(2115940236) + "</i>: " + GetActionMaxApplies(type) + "<br>";
 		} else if (type == ENR_SpecialControl) {
 			specialAbilities.PushBack("Upscaling"); specialAbilityIds.PushBack(2115940233);
@@ -1556,6 +1559,8 @@ statemachine class NR_MagicManager extends IScriptable {
 			
 		} else if (type == ENR_SpecialMeteorFall || type == ENR_SpecialLightningFall) {
 			specialAbilities.PushBack("DamageControl"); specialAbilityIds.PushBack(2115940244);
+			specialAbilities.PushBack("AutoShield"); specialAbilityIds.PushBack(2115940592);
+			
 			// num
 			info += "  <i>" + GetLocStringById(2115940247) + "</i>: " + GetActionMaxApplies(type) + "<br>";
 			// interval
@@ -2039,7 +2044,7 @@ state MagicLoop in NR_MagicManager {
 
 	latent function PrepareMagicAction() {
 		if (parent.mAction) {
-			NR_Debug("PrepareMagicAction: type = " + parent.mAction.actionType);
+			NR_Debug("MM: PrepareMagicAction: type = " + parent.mAction.actionType);
 			if (parent.mAction.isBroken)
 				return;
 			if ( parent.mAction.actionType == ENR_Slash ) {
@@ -2057,7 +2062,7 @@ state MagicLoop in NR_MagicManager {
 
 	latent function RotatePrePerformMagicAction() {
 		if (parent.mAction) {
-			NR_Debug("RotatePrePerformMagicAction: type = " + parent.mAction.actionType);
+			NR_Debug("MM: RotatePrePerformMagicAction: type = " + parent.mAction.actionType);
 			if (parent.mAction.isBroken)
 				return;
 
@@ -2073,15 +2078,13 @@ state MagicLoop in NR_MagicManager {
 		var    i : int;
 
 		if (parent.mAction) {
-			NR_Debug("PerformMagicAction: type = " + parent.mAction.actionType);
+			NR_Debug("MM: PerformMagicAction: type = " + parent.mAction.actionType);
 			if (parent.mAction.isBroken)
 				return;
 			parent.mAction.OnPerform();
 		} else {
 			NR_Error("MM: PerformMagicAction: NULL parent.mAction!");
 		}
-
-		NR_Debug("check max count: " + "s_maxCount_" + parent.mAction.actionType);
 
 		// check if any of "cursed" finished
 		for ( i = parent.cursedActions.Size() - 1; i >= 0; i -= 1 ) {
@@ -2110,7 +2113,7 @@ state MagicLoop in NR_MagicManager {
 		// check if new action is special and stop old ones if limit is exceed
 		maxActionCnt = parent.GetActionMaxApplies(parent.mAction.actionType);
 		while (sameActions.Size() + 1 > maxActionCnt) {
-			NR_Debug("PerformMagicAction: Stopping special duplicate action: maxActionCnt = " + maxActionCnt + ", sameActions.Size() = " + sameActions.Size());
+			NR_Debug("MM: PerformMagicAction: Stopping special duplicate action: maxActionCnt = " + maxActionCnt + ", sameActions.Size() = " + sameActions.Size());
 			// from front - older actions
 			sameActions[0].StopAction();
 			sameActions.Erase( 0 );
@@ -2134,8 +2137,31 @@ state MagicLoop in NR_MagicManager {
 			NR_Error("MM: BreakMagicAction: NULL parent.mAction.");
 		}
 	}
+
+	/* Nice exit from FTT */
+	latent function PerformExitFromFTT() {
+		var pos : Vector;
+		var template : CEntityTemplate;
+		var entity : CEntity;
+
+		NR_Debug("MM.PerformExitFromFTT: start");
+		template = (CEntityTemplate)LoadResourceAsync(parent.sMap[parent.ST_Universal].getS("used_ftt_entity"), true);
+		pos = thePlayer.GetWorldPosition() - thePlayer.GetHeadingVector() * 0.1f;
+		pos.Z += parent.sMap[parent.ST_Universal].getF("used_ftt_z");
+		entity = theGame.CreateEntity(template, pos, thePlayer.GetWorldRotation());
+		entity.PlayEffect('teleport_fx');
+		thePlayer.ActionPlaySlotAnimation('PLAYER_SLOT', 'high_standing_determined_calm_exit_frontal', 0.25f, 0.5f);
+		NR_Debug("MM.PerformExitFromFTT: entity = " + entity);
+
+		parent.sMap[parent.ST_Universal].removeKey("used_ftt_entity");
+		entity.StopAllEffectsAfter(2.f);
+		entity.DestroyAfter(5.f);
+	}
 	
 	entry function MainLoop() {
+		if (parent.sMap[parent.ST_Universal].hasKey("used_ftt_entity"))
+			PerformExitFromFTT();
+
 		while (true) {
 			SleepOneFrame();
 			if (parent.aEventsStack.Size() > 0) {
@@ -2375,7 +2401,7 @@ latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, from : Vector
 
 	// to avoid stopping inside actor body
 	moveVec = VecNormalize(to - from);
-	from += moveVec * 0.5f;
+	from += moveVec * capsuleRadius;
 	if ( theGame.GetWorld().StaticTrace(from, to, /*capsuleRadius,*/ result, normal, NR_GetStandartCollisionNames()) ) {
 		NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = true, result = " + VecToString(result) + ", to = " + VecToString(to));
 	} else {

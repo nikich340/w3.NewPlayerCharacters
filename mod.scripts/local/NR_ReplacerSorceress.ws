@@ -216,8 +216,14 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Wrapper: process hand fx change immediately */
 	function SetEquippedSign( signType : ESignType )
 	{
+		NR_Debug("NR_ReplacerSorceress.SetEquippedSign: " + signType);
 		super.SetEquippedSign(signType);
 		magicManager.HandFX(true, true);
+	}
+
+	public function SetVehicleCachedSign( sign : ESignType ) {
+		NR_Debug("NR_ReplacerSorceress.SetVehicleCachedSign: " + sign);
+		super.SetVehicleCachedSign(sign);
 	}
 
 	public function GotoCombatStateWithDodge( bufferAction : EBufferActionType )
@@ -254,6 +260,27 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		}
 		nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
 		return nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen) );
+	}
+
+	/* Function to manually cast quen */
+	public function CastQuenScripted() : bool
+	{
+		NR_Debug("CastQuenScripted()");
+
+		if (nr_quenEntity) {
+			if (nr_quenEntity.GetCurrentStateName() == 'ShieldActive')
+				return false;
+
+			NR_Debug("Destroy old quen = " + nr_quenEntity);
+			nr_quenEntity.GotoState('Expired');
+			nr_quenEntity.DestroyAfter(5.f);
+		}
+		nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
+		nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen), /*skipCastingAnimation*/ true );
+		nr_quenEntity.OnStarted();
+		nr_quenEntity.OnThrowing();
+		nr_quenEntity.OnEnded();
+		return true;
 	}
 
 	/* Wrapper: call fistfight attack */

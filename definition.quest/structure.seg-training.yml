@@ -1,7 +1,7 @@
 #
 # quest structure subsegment: training
 # 
-# (version: 581, saved: 2023-12-17 18:34:44)
+# (version: 587, saved: 2023-12-29 23:39:40)
 #
 ---
 structure:
@@ -9,10 +9,13 @@ structure:
     training:
       blocks:
         in:
-          ".editor": [ -907.0, 313.0 ]
+          ".editor": [ -913.0, 329.0 ]
           next:
-            - journal.after_spider: Activate
+            - waituntil.apprentice
             - waituntil.never_happen_fact
+            - waituntil.failed
+            - objective.talk_to_mage: Activate
+            - journal.after_spider: Activate
         
         waituntil.Control_fact:
           factdb: [ nr_magic_learning_ENR_SpecialControl, ">=", 1 ]
@@ -169,7 +172,7 @@ structure:
         waituntil.failed:
           factdb: [ nr_master_apprentice_failed, ">=", 1 ]
           ".editor":
-            pos: [ -465.0, 386.0 ]
+            pos: [ -483.0, 383.0 ]
             in: [ In ]
             out: [ Out ]
           next:
@@ -219,12 +222,11 @@ structure:
         waituntil.just_learned_fact:
           factdb: [ nr_magic_skill_just_learned, ">=", 1 ]
           ".editor":
-            pos: [ -381.0, 883.0 ]
+            pos: [ -537.0, 884.0 ]
             in: [ In ]
             out: [ Out ]
           next:
-            - script.reset_just_learned_fact
-            - addfact.add_practising_fact
+            - waituntil.wait_1s_after_scene
         
         waituntil.meteor_performed:
           factdb: [ nr_magic_performed_ENR_SpecialMeteor, ">=", 7 ]
@@ -274,6 +276,16 @@ structure:
           next:
             - objective.practise_tornado: Success
             - script.reset_practising_fact
+        
+        waituntil.wait_1s_after_scene:
+          elapsed: "00:00:01"
+          ".editor":
+            pos: [ -353.0, 788.0 ]
+            in: [ In ]
+            out: [ Out ]
+          next:
+            - addfact.add_practising_fact
+            - script.reset_just_learned_fact
         
         script.Control_tutorial:
           ".editor":
@@ -619,13 +631,10 @@ structure:
           next: ".done"
         
         journal.after_spider:
-          ".editor": [ -725.0, 453.0 ]
+          ".editor": [ -696.0, 681.0 ]
           entry: quests/sorceress_quest/after_spider_descr
           notify: true
-          next:
-            - objective.talk_to_mage: Activate
-            - waituntil.failed
-            - waituntil.apprentice
+          next: ".done"
         
         objective.become_archimistress:
           ".editor": [ -96.0, 346.0 ]
@@ -712,7 +721,7 @@ structure:
           next: ".done"
         
         objective.talk_to_mage:
-          ".editor": [ -341.0, 189.0 ]
+          ".editor": [ -332.0, 190.0 ]
           objective: sorceress_quest/find_master/talk_with_mage
           notify: true
           track: false

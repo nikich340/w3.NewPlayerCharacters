@@ -43,6 +43,7 @@ function NR_FormatLocString(str : String) : String {
 class NR_FormattedLocChoiceAction extends CStorySceneChoiceLineActionScripted
 {
 	editable var str : String;
+	editable var suffix : String;
 
 	function CanUseAction() : bool {
 		return true;
@@ -50,7 +51,12 @@ class NR_FormattedLocChoiceAction extends CStorySceneChoiceLineActionScripted
 
 	function GetActionText() : string			
 	{
-		return NR_FormatLocString(str);
+		var text : String;
+		text = NR_FormatLocString(str);
+		if (StrLen(suffix) > 0)
+			text += suffix;
+		
+		return text;
 	}
 	
 	function GetActionIcon() : EDialogActionIcon 	
@@ -59,9 +65,8 @@ class NR_FormattedLocChoiceAction extends CStorySceneChoiceLineActionScripted
 	}
 }
 
-class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
+class NR_FormattedMagicChoiceAction extends NR_FormattedLocChoiceAction
 {
-	editable var str : String;
 	editable var type : name;
 	editable var unlockIfLearned : bool;
 	editable var abilityName : String;
@@ -91,7 +96,7 @@ class NR_FormattedMagicChoiceAction extends CStorySceneChoiceLineActionScripted
 	{
 		var text : String;
 
-		text = NR_FormatLocString(str);
+		text = super.GetActionText();
 		if ( !CanUseAction() ) {
 			// [locked] prefix: String
 			text = "[" + GetLocStringById(1066070) + "] " + text;

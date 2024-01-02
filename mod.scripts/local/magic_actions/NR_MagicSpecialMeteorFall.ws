@@ -1,5 +1,5 @@
 statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
-	var s_respectCaster	: bool;
+	var s_respectCaster, s_autoShield	: bool;
 	protected var meteor 		: NR_MeteorProjectile;
 	protected var s_interval 	: float;
 	protected var s_meteorNum 	: int;
@@ -22,6 +22,9 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		if (newLevel == 5) {
 			ActionAbilityUnlock("DamageControl");
 		}
+		if (newLevel == 10) {
+			ActionAbilityUnlock("AutoShield");
+		}
 		super.SetSkillLevel(newLevel);
 	}
 
@@ -40,15 +43,8 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName, true);
 		
 		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
+		s_autoShield = IsActionAbilityUnlocked("AutoShield");
 		s_meteorNum = SkillMaxApplies();
-
-		// unwanted actions may break anim
-		thePlayer.BlockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
-		thePlayer.BlockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
-		thePlayer.BlockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
-		thePlayer.BlockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
-		thePlayer.BlockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
-		thePlayer.BlockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
 
 		return OnPrepared(true);
 	}
@@ -60,6 +56,18 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 			return OnPerformed(false);
 		}
 	
+		if ( s_autoShield && 25 >= NR_GetRandomGenerator().nextRange(1, 100) ) {
+			NR_GetReplacerSorceress().CastQuenScripted();
+		}
+
+		// unwanted actions may break anim
+		thePlayer.BlockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
+		thePlayer.BlockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
+
 		GotoState('Active');
 		
 		return OnPerformed(true);

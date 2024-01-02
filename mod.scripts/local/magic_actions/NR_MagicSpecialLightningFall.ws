@@ -1,7 +1,7 @@
 statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 	protected var entityTemplate2 : CEntityTemplate;
 	protected var lightningEntity : CGameplayEntity;
-	protected var s_respectCaster: bool;
+	protected var s_respectCaster, s_autoShield : bool;
 	protected var s_lightningNum : int;
 	protected var s_interval 	  : float;
 	protected var meteor 		  : NR_MeteorProjectile;
@@ -25,6 +25,9 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		if (newLevel == 5) {
 			ActionAbilityUnlock("DamageControl");
 		}
+		if (newLevel == 10) {
+			ActionAbilityUnlock("AutoShield");
+		}
 		super.SetSkillLevel(newLevel);
 	}
 
@@ -46,6 +49,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		NR_Debug("ENR_SpecialLightningFall: m_fxNameMain = " + m_fxNameMain + ", m_fxNameHit = " + m_fxNameHit);
 		
 		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
+		s_autoShield = IsActionAbilityUnlocked("AutoShield");
 		s_lightningNum = SkillMaxApplies();
 		savedWeather = GetWeatherConditionName();
 		RequestWeatherChangeTo('WT_Rain_Storm', 1.f, false);
@@ -58,6 +62,10 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		super_ret = super.OnPerform();
 		if (!super_ret) {
 			return OnPerformed(false);
+		}
+
+		if ( s_autoShield && 25 >= NR_GetRandomGenerator().nextRange(1, 100) ) {
+			NR_GetReplacerSorceress().CastQuenScripted();
 		}
 
 		// unwanted actions may break anim

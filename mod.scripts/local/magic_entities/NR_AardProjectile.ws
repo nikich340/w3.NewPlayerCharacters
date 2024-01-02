@@ -102,9 +102,9 @@ class NR_AardProjectile extends W3AardProjectile {
 
 		pos = this.GetWorldPosition();
 		if (angle > 359.f) {
-			actors = thePlayer.GetNPCsAndPlayersInRange(/*range*/ range, , , /*flags*/ FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile + FLAG_Attitude_Neutral);
+			actors = thePlayer.GetNPCsAndPlayersInRange(/*range*/ range, , , /*flags*/ FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile);
 		} else {
-			actors = thePlayer.GetNPCsAndPlayersInCone(/*range*/ range, /*coneDir*/ thePlayer.GetHeading(), /*coneAngle*/ angle, , , /*flags*/ FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile + FLAG_Attitude_Neutral);
+			actors = thePlayer.GetNPCsAndPlayersInCone(/*range*/ range, /*coneDir*/ thePlayer.GetHeading(), /*coneAngle*/ angle, , , /*flags*/ FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile);
 		}
 		
 		NR_Debug("AARD: " + actors.Size() + " targets");
@@ -157,7 +157,7 @@ class NR_AardProjectile extends W3AardProjectile {
 		for (i = 0; i < nodes.Size(); i += 1) {
 			entity = (CGameplayEntity)nodes[i];
 
-			if (entity == thePlayer || GetAttitudeBetween(thePlayer, entity) == AIA_Friendly)
+			if (entity == thePlayer || GetAttitudeBetween(thePlayer, entity) != AIA_Hostile)
 				continue;
 
 			entityPos = entity.GetWorldPosition();

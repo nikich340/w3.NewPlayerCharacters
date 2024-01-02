@@ -54,7 +54,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 	protected var    			m_appearancePreviewItems : array<String>;
 
 	protected saved	var m_magicDataMaps : array<NR_Map>;
-	protected saved	var m_activeSceneBlocks : NR_Map;
+	protected saved	var m_miscData : NR_Map;
 	protected saved var m_dataFormatVersion : int;
 	default 			m_dataFormatVersion = -1;
 	const 			var ST_Universal	: int;
@@ -85,7 +85,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 	public function Init() {
 		var i, j, typesCount, slotsCount : int;
 
-		m_dataFormatVersion = 2;
+		m_dataFormatVersion = 3;
 		NR_Debug("NR_PlayerManager.Init: m_dataFormatVersion = " + m_dataFormatVersion);
 		typesCount = EnumGetMax('ENR_PlayerType') + 1;
 		slotsCount = EnumGetMax('ENR_AppearanceSlots') + 1;
@@ -134,7 +134,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 		m_displayNameIDs[ENR_PlayerWitcher] = 452675;
 		m_displayNameIDs[ENR_PlayerWitcheress] = 2115940101;
 		m_displayNameIDs[ENR_PlayerSorceress] = 358190;
-		m_activeSceneBlocks = new NR_Map in this;
+		m_miscData = new NR_Map in this;
 	}
 
 	// run on every game load (load non-saved data) //
@@ -208,20 +208,6 @@ statemachine class NR_PlayerManager extends IScriptable {
 		for (i = 0; i < m_debugLines.Size(); i += 1) {
 			LogChannel('NR_SAVEDDEBUG', m_debugLines[i]);
 		}
-	}
-
-	public function SetSceneBlockActive(questPath : name, sceneBlockId : int, active : bool) {
-		var key : String;
-		
-		key = NameToString(questPath) + ":" + IntToString(sceneBlockId);
-		m_activeSceneBlocks.setI(key, (int)active);
-	}
-
-	public function IsSceneBlockActive(questPath : name, sceneBlockId : int) : bool {
-		var key : String;
-		
-		key = NameToString(questPath) + ":" + IntToString(sceneBlockId);
-		return m_activeSceneBlocks.getI(key, 0) == 1;
 	}
 
 	// check if dlc installed - use pre-checked array
@@ -749,6 +735,18 @@ statemachine class NR_PlayerManager extends IScriptable {
 
 		currentPlayerType = GetCurrentPlayerType();
 		NR_Debug("NR_PlayerManager.OnPlayerSpawned: current player = " + currentPlayerType + ", saved player = " + m_savedPlayerType);
+
+		// TEST INTRO
+		/*
+		if (currentPlayerType != ENR_PlayerSorceress) {
+			ResetAllAppearanceHeadHair();
+			UpdateHead('nr_head_triss_dlc');
+			UpdateAppearanceTemplate("dlc/dlc6/data/characters/models/main_npc/triss/b_01_wa__triss_dlc.w2ent", ENR_RSlotBody);
+			UpdateAppearanceTemplate("dlc/dlc6/data/characters/models/main_npc/triss/c_01_wa__triss_dlc.w2ent", ENR_GSlotHair);
+			NR_ChangePlayer( ENR_PlayerSorceress );
+			return;
+		}
+		*/
 
 		for (i = ENR_RSlotHair; i < ENR_RSlotMisc; i += 1) {
 			m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][i] = false;

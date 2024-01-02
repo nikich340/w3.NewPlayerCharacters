@@ -2,7 +2,7 @@ repository:
   actors:
     nr_master_mage:
       template: "dlc\\dlcnewreplacers\\data\\entities\\nr_master_mage.w2ent"
-      appearance: [ "nr_master_mage" ]
+      appearance: ["nr_master_mage"]
 
     sorceress:
       template: "dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent"
@@ -35,32 +35,32 @@ repository:
     cam_1_cam_med_to_mage:
       fov: 20.0
       transform:
-        pos: [ -1.0599974394, -1.7600096464, 1.7099988461 ]
-        rot: [ 0.0, 356.5999450684, 332.2248535156 ]
+        pos: [-1.0599974394, -1.7600096464, 1.7099988461]
+        rot: [0.0, 356.5999450684, 332.2248535156]
       zoom: 2.0
       dof:
-        aperture: [ 28.2495422363, 1.2700729370 ]
-        blur: [ 0.0, 5.0 ]
-        focus: [ 2.1400001049, 2.5000000000 ]
+        aperture: [28.2495422363, 1.2700729370]
+        blur: [0.0, 5.0]
+        focus: [2.1400001049, 2.5000000000]
         intensity: 1.0
       event_generator:
         plane: "Medium"
-        tags: [ "ext" ]
+        tags: ["ext"]
 
     cam_2_cam_med_to_sorceress:
       fov: 20.0
       transform:
-        pos: [ -0.8399962783, 2.0599973202, 1.7800061703 ]
-        rot: [ 0.0, 353.6000671387, 202.9500274658 ]
+        pos: [-0.8399962783, 2.0599973202, 1.7800061703]
+        rot: [0.0, 353.6000671387, 202.9500274658]
       zoom: 0.0
       dof:
-        aperture: [ 42.1379013062, 2.7060298920 ]
-        blur: [ 0.0, 5.0 ]
-        focus: [ 2.0, 2.5000000000 ]
+        aperture: [42.1379013062, 2.7060298920]
+        blur: [0.0, 5.0]
+        focus: [2.0, 2.5000000000]
         intensity: 1.0
       event_generator:
         plane: "Medium"
-        tags: [ "ext" ]
+        tags: ["ext"]
 
     cam_3_cam_semiclose_to_mage:
       fov: 17.0
@@ -533,6 +533,25 @@ storyboard:
       - actor.gamestate: [0.9, nr_master_mage]
       - actor.gamestate: [0.9, sorceress]
       - cam.blend.togame: [0.9, cam_1_cam_med_to_mage]
+      
+  section_about_fella:
+    shot_about_fella_a:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+    shot_happy_new_year_b:
+      - cam: [0.0, cam_1_cam_med_to_mage]
+    shot_happy_new_year_c:
+      - cam: [0.0, cam_5_cam_close_to_mage]
+    shot_happy_new_year_d:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+    shot_happy_new_year_e:
+      - cam: [0.0, cam_3_cam_semiclose_to_mage]
+
+  
+  section_happy_new_year:
+    shot_happy_new_year_a:
+      - cam: [0.0, cam_6_cam_close_to_sorceress]
+    shot_happy_new_year_b:
+      - cam: [0.0, cam_5_cam_close_to_mage]
 
   section_about_ainyerahn:
     # TODO: emotions, additives
@@ -946,13 +965,13 @@ storyboard:
       - actor.effect.stop: [0.99, nr_master_mage, generic_spell_rh]
 
 dialogscript:
-  actors: [ "nr_master_mage", "sorceress" ]
+  actors: ["nr_master_mage", "sorceress"]
   player: "sorceress"
 
   section_start:
     - PAUSE: 0.0
     - NEXT:
-        condition: [ "nr_master_met_before", ">=", 1 ]
+        condition: ["nr_master_met_before", ">=", 1]
         on_true: section_met_before
         on_false: section_first_meeting
 
@@ -996,21 +1015,21 @@ dialogscript:
   section_met_before:
     - PAUSE: 0.0
     - NEXT:
-        condition: [ "nr_master_apprentice", ">=", 1 ]
+        condition: ["nr_master_apprentice", ">=", 1]
         on_true: section_branch_servant_learned
         on_false: section_randomizer_greeting_common
 
   section_branch_servant_learned:
     - PAUSE: 0.0
     - NEXT:
-        condition: [ "nr_magic_skill_ENR_SpecialServant", ">=", 1 ]
+        condition: ["nr_magic_skill_ENR_SpecialServant", ">=", 1]
         on_true: section_branch_golem_attemps
         on_false: section_randomizer_greeting_apprentice
 
   section_branch_golem_attemps:
     - PAUSE: 0.0
     - NEXT:
-        condition: [ "nr_scene_golem_attemps", ">=", 1 ]
+        condition: ["nr_scene_golem_attemps", ">=", 1]
         on_true: section_randomizer_greeting_apprentice
         on_false: section_greeting_apprentice_golem
 
@@ -1027,12 +1046,12 @@ dialogscript:
 
   section_choice_golem:
     - CHOICE:
-      - choice: [ "2115940947|Sure. This is gonna be interesting.", section_golem_accept]
-        emphasize: true
-      - choice: [ "2115940948|Sorry, I'm not sure I can help.", section_golem_reject]
-        emphasize: true
-      - choice: [ "2115940945|Are there any risks we should be aware of?", section_golem_about_risks]
-        emphasize: false
+        - choice: ["2115940947|Sure. This is gonna be interesting.", section_golem_accept]
+          emphasize: true
+        - choice: ["2115940948|Sorry, I'm not sure I can help.", section_golem_reject]
+          emphasize: true
+        - choice: ["2115940945|Are there any risks we should be aware of?", section_golem_about_risks]
+          emphasize: false
 
   section_golem_about_risks:
     - CUE: shot_golem_about_risks_1
@@ -1116,31 +1135,60 @@ dialogscript:
 
   section_choice_main:
     - CHOICE:
-      - choice: [ "2115940870|I would like to become your apprentice.", section_apprentice_1]
-        single_use: true
-        emphasize: true
-      - choice: [ "2115940870|I would like to become your apprentice.", section_apprentice_trial_again]
-        emphasize: true
-        condition: ["nr_master_apprentice_need_test", ">=", 1]
-      - choice: [ "2115940995|Can we try to craft a golem again?", section_golem_accept_again]
-        emphasize: true
-        condition: ["nr_scene_golem_attemps", ">=", 1]
-      - choice: [ "2115940997|I need a portal to get back to the ground.", section_ask_to_ground]
-        emphasize: true
-        condition: ["nr_master_apprentice_failed", ">=", 1]
-      - choice: [ "2115940918|I would like to learn new spells.", section_apprentice_new_spells]
-        emphasize: true
-        condition: ["nr_master_apprentice", ">=", 1]
-      - choice: [ "2115940919|Could you please remind me how to cast…", section_choice_apprentice_remind_spells]
-        emphasize: true
-        condition: ["nr_master_apprentice", ">=", 1]
-      - choice: [ "2115940985|About my successes in practice…", script_show_spell_stats_black]
-        emphasize: true
-        condition: ["nr_master_apprentice", ">=", 1]
-      - choice: [ "2115940871|Tell me about yourself.", section_about_ainyerahn]
+        - choice: ["2115940870|I would like to become your apprentice.", section_apprentice_1]
+          single_use: true
+          emphasize: true
+        - choice: ["2115940870|I would like to become your apprentice.", section_apprentice_trial_again]
+          emphasize: true
+          condition: ["nr_master_apprentice_need_test", ">=", 1]
+        - choice: ["2115940995|Can we try to craft a golem again?", section_golem_accept_again]
+          emphasize: true
+          condition: ["nr_golem_recrafting_allowed", ">=", 1]
+        - choice: ["2115940997|I need a portal to get back to the ground.", section_ask_to_ground]
+          emphasize: true
+          condition: ["nr_master_apprentice_failed", ">=", 1]
+        - choice: ["2115940918|I would like to learn new spells.", section_apprentice_new_spells]
+          emphasize: true
+          condition: ["nr_master_apprentice", ">=", 1]
+        - choice: ["2115940919|Could you please remind me how to cast…", section_choice_apprentice_remind_spells]
+          emphasize: true
+          condition: ["nr_master_apprentice", ">=", 1]
+        - choice: ["2115940985|About my successes in practice…", script_show_spell_stats_black]
+          emphasize: true
+          condition: ["nr_master_apprentice", ">=", 1]
+        - choice: ["2115940306|One fella have seen your ship in the sky.", section_about_fella]
+        - choice: ["2115940871|Tell me about yourself.", section_about_ainyerahn]
+        - choice: ["2115940311|Happy new year, my teacher.", section_happy_new_year]
         # condition: ["fact", "=", 1]
-      - choice: [ "2115940867|See you later.", section_randomizer_goodbye, exit]
+        - choice: ["2115940867|See you later.", section_randomizer_goodbye, exit]
         # emphasize: true
+        
+  section_about_fella:
+    - CUE: shot_about_fella_a
+    - sorceress: "2115940306|One fella have seen your ship in the sky."
+    - CUE: shot_happy_new_year_b
+    - nr_master_mage: "2115940307|Ah, 'twas likely after I teleported to this place. I promptly casted an invisibility spell."
+    - CUE: shot_happy_new_year_c
+    - nr_master_mage: "2115940308|So now, even a horde of witch hunters would fail to discern my presence. But, I wonder, how did you get here?"
+    - CUE: shot_happy_new_year_d
+    - sorceress: "2115940309|By a shard of crystal on the ground. I was able to tune in to its trail."
+    - CUE: shot_happy_new_year_e
+    - nr_master_mage: "2115940310|Blast it, true enough. My megascope shattered, and in a burst of emotion, I flung its crystal far away."
+    - NEXT: section_choice_main
+  
+  section_happy_new_year:
+    - CUE: shot_happy_new_year_a
+    - sorceress: "2115940311|Happy new year, my teacher."
+    - CUE: shot_happy_new_year_b
+    - nr_master_mage: "2115940312|Bells are ringing, people singing, New Year's here, Happy Happy New Year."
+    - NEXT: script_give_newyear_reward
+    
+  script_give_newyear_reward:
+    - SCRIPT:
+        function: GiveRewardToPlayer
+        parameter:
+            - rewardName: CNAME_nr_newyear_reward
+    - NEXT: section_choice_main
 
   section_randomizer_goodbye:
     - section_goodbye_a
@@ -1191,10 +1239,10 @@ dialogscript:
 
   section_choice_apprentice_1:
     - CHOICE:
-      - choice: [ "2115940873|I was expelled from there.", section_apprentice_2_a]
-        emphasize: true
-      - choice: [ "2115940874|I couldn't stand their high expectations anymore.", section_apprentice_2_b]
-        emphasize: true
+        - choice: ["2115940873|I was expelled from there.", section_apprentice_2_a]
+          emphasize: true
+        - choice: ["2115940874|I couldn't stand their high expectations anymore.", section_apprentice_2_b]
+          emphasize: true
 
   section_apprentice_2_a:
     - CUE: shot_apprentice_2_a_1s
@@ -1216,14 +1264,14 @@ dialogscript:
 
   section_choice_apprentice_2_a:
     - CHOICE:
-      - choice: [ "2115940876|Yes, I summoned a demon.", section_apprentice_2_a_a]
-        emphasize: true
-      - choice: [ "2115940877|Yes, I dabbled with necromancy.", section_apprentice_2_a_b]
-        emphasize: true
-      - choice: [ "2115940878|No, I killed a teacher by an accident.", section_apprentice_2_a_c]
-        emphasize: true
-      - choice: [ "2115940879|No, I'd rather not talk about it.", section_apprentice_2_a_d]
-        emphasize: true
+        - choice: ["2115940876|Yes, I summoned a demon.", section_apprentice_2_a_a]
+          emphasize: true
+        - choice: ["2115940877|Yes, I dabbled with necromancy.", section_apprentice_2_a_b]
+          emphasize: true
+        - choice: ["2115940878|No, I killed a teacher by an accident.", section_apprentice_2_a_c]
+          emphasize: true
+        - choice: ["2115940879|No, I'd rather not talk about it.", section_apprentice_2_a_d]
+          emphasize: true
 
   section_apprentice_2_a_a:
     - CUE: shot_apprentice_2_a_a_1s
@@ -1251,10 +1299,10 @@ dialogscript:
 
   section_choice_apprentice_2_ab:
     - CHOICE:
-      - choice: [ "2115940883|Yes, very much.", section_apprentice_2_ab_a]
-        emphasize: true
-      - choice: [ "2115940884|Not really.", section_apprentice_2_ab_b]
-        emphasize: true
+        - choice: ["2115940883|Yes, very much.", section_apprentice_2_ab_a]
+          emphasize: true
+        - choice: ["2115940884|Not really.", section_apprentice_2_ab_b]
+          emphasize: true
 
   section_apprentice_2_ab_a:
     - CUE: shot_apprentice_2_ab_a_1s
@@ -1346,15 +1394,15 @@ dialogscript:
 
   section_choice_trial_q0:
     - CHOICE:
-      - choice: [ "2115940920|Energy of 6 elements.", section_apprentice_trial_q0_a]
-        emphasize: true
-      - choice: [ "2115940921|Bright flashes and sparks.", section_apprentice_trial_q0_b]
-        emphasize: true
-      - choice: [ "2115940922|Art and science of controlling chaos.", section_apprentice_trial_q0_c]
-        emphasize: true
-      - choice: [ "2115940923|Easy way to get what you want.", section_apprentice_trial_q0_d]
-        emphasize: true
-      - TIME_LIMIT: 10.0
+        - choice: ["2115940920|Energy of 6 elements.", section_apprentice_trial_q0_a]
+          emphasize: true
+        - choice: ["2115940921|Bright flashes and sparks.", section_apprentice_trial_q0_b]
+          emphasize: true
+        - choice: ["2115940922|Art and science of controlling chaos.", section_apprentice_trial_q0_c]
+          emphasize: true
+        - choice: ["2115940923|Easy way to get what you want.", section_apprentice_trial_q0_d]
+          emphasize: true
+        - TIME_LIMIT: 10.0
 
   section_apprentice_trial_q0_a:
     - CUE: shot_apprentice_trial_q0_a
@@ -1398,27 +1446,27 @@ dialogscript:
 
   section_choice_trial_q1a:
     - CHOICE:
-      - choice: [ "2115940924|Geoffrey Monck and Raffard the White.", section_apprentice_trial_q1a_a]
-        emphasize: true
-      - choice: [ "2115940925|Alzur and Cosimo Malaspina.", section_apprentice_trial_q1a_b]
-        emphasize: true
-      - choice: [ "2115940926|Nina Fioravanti and Aurora Henson.", section_apprentice_trial_q1a_c]
-        emphasize: true
-      - choice: [ "2115940927|Ortolan and Sorel Degerlund.", section_apprentice_trial_q1a_d]
-        emphasize: true
-      - TIME_LIMIT: 10.0
+        - choice: ["2115940924|Geoffrey Monck and Raffard the White.", section_apprentice_trial_q1a_a]
+          emphasize: true
+        - choice: ["2115940925|Alzur and Cosimo Malaspina.", section_apprentice_trial_q1a_b]
+          emphasize: true
+        - choice: ["2115940926|Nina Fioravanti and Aurora Henson.", section_apprentice_trial_q1a_c]
+          emphasize: true
+        - choice: ["2115940927|Ortolan and Sorel Degerlund.", section_apprentice_trial_q1a_d]
+          emphasize: true
+        - TIME_LIMIT: 10.0
 
   section_choice_trial_q1b:
     - CHOICE:
-      - choice: [ "2115940928|Agnes of Glanville.", section_apprentice_trial_q1b_a]
-        emphasize: true
-      - choice: [ "2115940929|Klara Larissa de Winter.", section_apprentice_trial_q1b_b]
-        emphasize: true
-      - choice: [ "2115940930|Tissaia de Vries.", section_apprentice_trial_q1b_c]
-        emphasize: true
-      - choice: [ "2115940931|Lara Dorren aep Shiadhal.", section_apprentice_trial_q1b_d]
-        emphasize: true
-      - TIME_LIMIT: 10.0
+        - choice: ["2115940928|Agnes of Glanville.", section_apprentice_trial_q1b_a]
+          emphasize: true
+        - choice: ["2115940929|Klara Larissa de Winter.", section_apprentice_trial_q1b_b]
+          emphasize: true
+        - choice: ["2115940930|Tissaia de Vries.", section_apprentice_trial_q1b_c]
+          emphasize: true
+        - choice: ["2115940931|Lara Dorren aep Shiadhal.", section_apprentice_trial_q1b_d]
+          emphasize: true
+        - TIME_LIMIT: 10.0
 
   section_apprentice_trial_q1a_a:
     - CUE: shot_apprentice_trial_q1a_a
@@ -1574,27 +1622,27 @@ dialogscript:
 
   section_choice_trial_q3a:
     - CHOICE:
-      - choice: [ "2115940936|Air.", section_apprentice_trial_q3a_a]
-        emphasize: true
-      - choice: [ "2115940937|Water.", section_apprentice_trial_q3a_b]
-        emphasize: true
-      - choice: [ "2115940938|Fire.", section_apprentice_trial_q3a_c]
-        emphasize: true
-      - choice: [ "2115940939|Earth.", section_apprentice_trial_q3a_d]
-        emphasize: true
-      - TIME_LIMIT: 10.0
+        - choice: ["2115940936|Air.", section_apprentice_trial_q3a_a]
+          emphasize: true
+        - choice: ["2115940937|Water.", section_apprentice_trial_q3a_b]
+          emphasize: true
+        - choice: ["2115940938|Fire.", section_apprentice_trial_q3a_c]
+          emphasize: true
+        - choice: ["2115940939|Earth.", section_apprentice_trial_q3a_d]
+          emphasize: true
+        - TIME_LIMIT: 10.0
 
   section_choice_trial_q3b:
     - CHOICE:
-      - choice: [ "2115940936|Air.", section_apprentice_trial_q3b_a]
-        emphasize: true
-      - choice: [ "2115940937|Water.", section_apprentice_trial_q3b_b]
-        emphasize: true
-      - choice: [ "2115940938|Fire.", section_apprentice_trial_q3b_c]
-        emphasize: true
-      - choice: [ "2115940939|Earth.", section_apprentice_trial_q3b_d]
-        emphasize: true
-      - TIME_LIMIT: 10.0
+        - choice: ["2115940936|Air.", section_apprentice_trial_q3b_a]
+          emphasize: true
+        - choice: ["2115940937|Water.", section_apprentice_trial_q3b_b]
+          emphasize: true
+        - choice: ["2115940938|Fire.", section_apprentice_trial_q3b_c]
+          emphasize: true
+        - choice: ["2115940939|Earth.", section_apprentice_trial_q3b_d]
+          emphasize: true
+        - TIME_LIMIT: 10.0
 
   section_apprentice_trial_q3a_a:
     - CUE: shot_apprentice_trial_q3a_a
@@ -1647,13 +1695,13 @@ dialogscript:
   section_apprentice_trial_result:
     - PAUSE: 0.0
     - NEXT:
-        condition: [ "nr_scene_trial_correct", ">", 3 ]
+        condition: ["nr_scene_trial_correct", ">", 3]
         on_true: section_apprentice_trial_passed
         on_false: section_apprentice_trial_failed
 
   section_apprentice_trial_failed:
     - NEXT:
-        condition: [ "nr_scene_trial_correct", ">", 0 ]
+        condition: ["nr_scene_trial_correct", ">", 0]
         on_true: section_apprentice_trial_failed_2
         on_false: section_apprentice_trial_failed_1
 
@@ -1681,13 +1729,13 @@ dialogscript:
 
   section_apprentice_new_spells:
     - NEXT:
-        condition: [ "nr_magic_skill_points", ">", 0 ]
+        condition: ["nr_magic_skill_points", ">", 0]
         on_true: section_check_choose_apprentice_new_spells
         on_false: section_apprentice_no_new_spells
 
   section_apprentice_no_new_spells:
     - NEXT:
-        condition: [ "nr_magic_skill_level", ">", 4 ]
+        condition: ["nr_magic_skill_level", ">", 4]
         on_true: section_apprentice_no_new_spells_archmistress
         on_false: section_apprentice_no_new_spells_wait
 
@@ -1705,7 +1753,7 @@ dialogscript:
 
   section_check_choose_apprentice_new_spells:
     - NEXT:
-        condition: [ "nr_magic_skill_practising", ">", 0 ]
+        condition: ["nr_magic_skill_practising", ">", 0]
         on_true: section_cant_choose_apprentice_new_spells
         on_false: section_can_choose_apprentice_new_spells
 
@@ -1723,41 +1771,53 @@ dialogscript:
 
   section_choice_apprentice_new_spells:
     - CHOICE:
-      - choice: [ "2115940103|[BACK]", section_choice_main, exit]
-        emphasize: true
-      - choice: [ "2115940145|Fast Travel Teleport", script_apprentice_new_spell_ftt]
-        condition: [ "nr_magic_skill_level", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940146|Heavy attacks", script_apprentice_new_spell_heavy_attacks]
-        condition: [ "nr_magic_skill_level", ">=", 2 ]
-        emphasize: true
-      - choice: [ "2115940156|Shield", script_apprentice_new_spell_shield]
-        condition: [ "nr_magic_skill_level", ">=", 2 ]
-        emphasize: true
-      - choice: [ "2115940153|Tornado", script_apprentice_new_spell_tornado]
-        condition: [ "nr_magic_skill_level", ">=", 3 ]
-        emphasize: true
-      - choice: [ "2115940154|Control", script_apprentice_new_spell_control]
-        condition: [ "nr_magic_skill_level", ">=", 3 ]
-        emphasize: true
-      - choice: [ "2115940155|Meteor", script_apprentice_new_spell_meteor]
-        condition: [ "nr_magic_skill_level", ">=", 4 ]
-        emphasize: true
-      - choice: [ "2115940157|Servant", script_apprentice_new_spell_servant]
-        condition: [ "nr_magic_skill_level", ">=", 4 ]
-        emphasize: true
-      - choice: [ "2115940162|Alzur's Thunder", script_apprentice_new_spell_thunder]
-        condition: [ "nr_magic_skill_level", ">=", 4 ]
-        emphasize: true
-      - choice: [ "2115940163|???", script_apprentice_new_spell_unknown]
-        condition: [ "nr_magic_skill_level", ">=", 4 ]
-        emphasize: true
-      - choice: [ "2115940164|Melgar's fire", script_apprentice_new_spell_melgar]
-        condition: [ "nr_magic_skill_level", ">=", 5 ]
-        emphasize: true
-      - choice: [ "2115940166|Polymorphism", script_apprentice_new_spell_polymorphism]
-        condition: [ "nr_magic_skill_level", ">=", 5 ]
-        emphasize: true
+        - choice: ["2115940103|[BACK]", section_choice_main, exit]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940145|Fast Travel Teleport", script_apprentice_new_spell_ftt]
+          condition: ["nr_magic_skill_level", ">=", 1]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940146|Heavy attacks", script_apprentice_new_spell_heavy_attacks]
+          condition: ["nr_magic_skill_level", ">=", 2]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940156|Shield", script_apprentice_new_spell_shield]
+          condition: ["nr_magic_skill_level", ">=", 2]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940153|Tornado", script_apprentice_new_spell_tornado]
+          condition: ["nr_magic_skill_level", ">=", 3]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940154|Control", script_apprentice_new_spell_control]
+          condition: ["nr_magic_skill_level", ">=", 3]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940155|Meteor", script_apprentice_new_spell_meteor]
+          condition: ["nr_magic_skill_level", ">=", 4]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940157|Servant", script_apprentice_new_spell_servant]
+          condition: ["nr_magic_skill_level", ">=", 4]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940162|Alzur's Thunder", script_apprentice_new_spell_thunder]
+          condition: ["nr_magic_skill_level", ">=", 4]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940163|Gravitational Field", script_apprentice_new_spell_gravi_field]
+          condition: ["nr_magic_skill_level", ">=", 4]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940164|Melgar's fire", script_apprentice_new_spell_melgar]
+          condition: ["nr_magic_skill_level", ">=", 5]
+          emphasize: true
+          single_use: true
+        - choice: ["2115940166|Polymorphism", script_apprentice_new_spell_polymorphism]
+          condition: ["nr_magic_skill_level", ">=", 5]
+          emphasize: true
+          single_use: true
 
   script_apprentice_new_spell_heavy_attacks:
     - SCRIPT:
@@ -1837,11 +1897,11 @@ dialogscript:
           - value: 1
     - NEXT: section_randomizer_apprentice_after_new_spell
 
-  script_apprentice_new_spell_unknown:
+  script_apprentice_new_spell_gravi_field:
     - SCRIPT:
         function: AddFact_S
         parameter:
-          - factName: nr_magic_learning_ENR_SpecialHeal
+          - factName: nr_magic_learning_ENR_SpecialField
           - value: 1
     - NEXT: section_randomizer_apprentice_after_new_spell
 
@@ -1886,44 +1946,44 @@ dialogscript:
 
   section_choice_apprentice_remind_spells:
     - CHOICE:
-      - choice: [ "2115940103|[BACK]", section_choice_main, exit]
-        emphasize: true
-      - choice: [ "2115940095|Basic spells", script_apprentice_remind_basics]
-        emphasize: true
-      - choice: [ "2115940145|Fast Travel Teleport", script_apprentice_remind_ftt]
-        condition: [ "nr_magic_skill_ENR_FastTravelTeleport", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940146|Heavy attacks", script_apprentice_remind_heavy]
-        condition: [ "nr_magic_skill_ENR_HeavyAbstract", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940156|Shield", script_apprentice_remind_shield]
-        condition: [ "nr_magic_skill_ENR_SpecialShield", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940153|Tornado", script_apprentice_remind_tornado]
-        condition: [ "nr_magic_skill_ENR_SpecialTornado", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940154|Control", script_apprentice_remind_control]
-        condition: [ "nr_magic_skill_ENR_SpecialControl", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940155|Meteor", script_apprentice_remind_meteor]
-        condition: [ "nr_magic_skill_ENR_SpecialMeteor", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940157|Servant", script_apprentice_remind_servant]
-        condition: [ "nr_magic_skill_ENR_SpecialServant", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940162|Alzur's Thunder", script_apprentice_remind_thunder]
-        condition: [ "nr_magic_skill_ENR_SpecialLightningFall", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940163|???", script_apprentice_remind_unknown]
-        condition: [ "nr_magic_skill_ENR_SpecialHeal", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940164|Melgar's fire", script_apprentice_remind_meteor_fall]
-        condition: [ "nr_magic_skill_ENR_SpecialMeteorFall", ">=", 1 ]
-        emphasize: true
-      - choice: [ "2115940166|Polymorphism", script_apprentice_remind_polymorphism]
-        condition: [ "nr_magic_skill_ENR_SpecialPolymorphism", ">=", 1 ]
-        emphasize: true
-        
+        - choice: ["2115940103|[BACK]", section_choice_main, exit]
+          emphasize: true
+        - choice: ["2115940095|Basic spells", script_apprentice_remind_basics]
+          emphasize: true
+        - choice: ["2115940145|Fast Travel Teleport", script_apprentice_remind_ftt]
+          condition: ["nr_magic_skill_ENR_FastTravelTeleport", ">=", 1]
+          emphasize: true
+        - choice: ["2115940146|Heavy attacks", script_apprentice_remind_heavy]
+          condition: ["nr_magic_skill_ENR_HeavyAbstract", ">=", 1]
+          emphasize: true
+        - choice: ["2115940156|Shield", script_apprentice_remind_shield]
+          condition: ["nr_magic_skill_ENR_SpecialShield", ">=", 1]
+          emphasize: true
+        - choice: ["2115940153|Tornado", script_apprentice_remind_tornado]
+          condition: ["nr_magic_skill_ENR_SpecialTornado", ">=", 1]
+          emphasize: true
+        - choice: ["2115940154|Control", script_apprentice_remind_control]
+          condition: ["nr_magic_skill_ENR_SpecialControl", ">=", 1]
+          emphasize: true
+        - choice: ["2115940155|Meteor", script_apprentice_remind_meteor]
+          condition: ["nr_magic_skill_ENR_SpecialMeteor", ">=", 1]
+          emphasize: true
+        - choice: ["2115940157|Servant", script_apprentice_remind_servant]
+          condition: ["nr_magic_skill_ENR_SpecialServant", ">=", 1]
+          emphasize: true
+        - choice: ["2115940162|Alzur's Thunder", script_apprentice_remind_thunder]
+          condition: ["nr_magic_skill_ENR_SpecialLightningFall", ">=", 1]
+          emphasize: true
+        - choice: ["2115940163|Gravitational Field", script_apprentice_remind_field]
+          condition: ["nr_magic_skill_ENR_SpecialField", ">=", 1]
+          emphasize: true
+        - choice: ["2115940164|Melgar's fire", script_apprentice_remind_meteor_fall]
+          condition: ["nr_magic_skill_ENR_SpecialMeteorFall", ">=", 1]
+          emphasize: true
+        - choice: ["2115940166|Polymorphism", script_apprentice_remind_polymorphism]
+          condition: ["nr_magic_skill_ENR_SpecialPolymorphism", ">=", 1]
+          emphasize: true
+
   script_apprentice_remind_basics:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -1939,7 +1999,7 @@ dialogscript:
           - type: "SorceressSkillHeavyAttacks"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
+
   script_apprentice_remind_ftt:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -1947,7 +2007,7 @@ dialogscript:
           - type: "SorceressSkillFastTravelTeleport"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
+
   script_apprentice_remind_tornado:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -1955,7 +2015,7 @@ dialogscript:
           - type: "SorceressSkillTornado"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
+
   script_apprentice_remind_control:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -1963,7 +2023,7 @@ dialogscript:
           - type: "SorceressSkillControl"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
+
   script_apprentice_remind_shield:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -1971,7 +2031,7 @@ dialogscript:
           - type: "SorceressSkillShield"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
+
   script_apprentice_remind_meteor:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -1979,7 +2039,7 @@ dialogscript:
           - type: "SorceressSkillMeteor"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
+
   script_apprentice_remind_servant:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -1987,7 +2047,7 @@ dialogscript:
           - type: "SorceressSkillServant"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
+
   script_apprentice_remind_thunder:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -1995,15 +2055,15 @@ dialogscript:
           - type: "SorceressSkillLightningFall"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
-  script_apprentice_remind_unknown:
+
+  script_apprentice_remind_field:
     - SCRIPT:
         function: NR_ShowTutorial_S
         parameter:
-          - type: "SorceressSkillTODO!!!"
+          - type: "SorceressSkillField"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
+
   script_apprentice_remind_meteor_fall:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -2011,7 +2071,7 @@ dialogscript:
           - type: "SorceressSkillMeteorFall"
           - reminder: true
     - NEXT: section_pre_choice_main
-    
+
   script_apprentice_remind_polymorphism:
     - SCRIPT:
         function: NR_ShowTutorial_S
@@ -2025,6 +2085,17 @@ dialogscript:
         function: NR_ShowMagicSkillStats_S
         parameter:
           - fullscreen: true
+          - showGeneral: true
+          - showSpecial: false
+    - NEXT: script_show_spell_stats_black2
+
+  script_show_spell_stats_black2:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showGeneral: false
+          - showSpecial: true
     - NEXT: section_pre_choice_main
 
   section_ask_to_ground:

@@ -62,7 +62,7 @@ function NR_Union(_key : String, _type : ENR_UnionType, optional _valN : name, o
 
 class NR_Map {
 	protected var values 	: array<NR_Union>;
-	protected var i 				: int;
+	protected var i 		: int;
 
 	/* API */ public function getKeys() : array<String> {
 		var keys : array<String>;

@@ -20,7 +20,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 	}
 
 	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
+		if (newLevel == 3) {
 			ActionAbilityUnlock("AutoAim");
 		}
 		super.SetSkillLevel(newLevel);

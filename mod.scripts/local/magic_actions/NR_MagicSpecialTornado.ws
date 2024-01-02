@@ -1,7 +1,7 @@
 statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 	var m_tornadoEntity 	: NR_TornadoEntity;
 	var m_caster 		: CActor;
-	var s_pursue, s_respectCaster, s_freeze : bool;
+	var s_pursue, s_respectCaster, s_freeze, s_suck : bool;
 	
 	default actionType = ENR_SpecialTornado;
 	default actionSubtype = ENR_SpecialAbstract;
@@ -17,10 +17,17 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 	}
 
 	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
+		if (newLevel == 1) {
 			ActionAbilityUnlock("Pursuit");
-			ActionAbilityUnlock("Freezing");
+		}
+		if (newLevel == 2) {
+			ActionAbilityUnlock("Suck");
+		}
+		if (newLevel == 4) {
 			ActionAbilityUnlock("DamageControl");
+		}
+		if (newLevel == 7) {
+			ActionAbilityUnlock("Freezing");
 		}
 		super.SetSkillLevel(newLevel);
 	}
@@ -31,6 +38,7 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 		s_pursue = IsActionAbilityUnlocked("Pursuit");
 		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
 		s_freeze = IsActionAbilityUnlocked("Freezing");
+		s_suck = IsActionAbilityUnlocked("Suck");
 		m_caster = thePlayer;
 
 		// load action-specific resources
@@ -113,7 +121,8 @@ state Active in NR_MagicSpecialTornado {
 	}
 
 	entry function MainLoop() {
-		parent.m_tornadoEntity.Activate( parent.m_caster, parent.target, parent.pos, parent.m_fxNameMain, parent.s_lifetime, /*respectCaster*/ parent.s_respectCaster, parent.s_pursue, parent.s_freeze );
+		parent.m_tornadoEntity.Activate( parent.m_caster, parent.target, parent.pos, parent.m_fxNameMain, parent.s_lifetime, 
+			parent.s_respectCaster, parent.s_suck, parent.s_pursue, parent.s_freeze );
 		Sleep( parent.s_lifetime );
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
@@ -157,7 +166,8 @@ state Cursed in NR_MagicSpecialTornado {
 		Sleep(0.5f);
 
 		parent.m_tornadoEntity.m_metersPerSec *= 0.5f;
-		parent.m_tornadoEntity.Activate( parent.m_caster, parent.m_caster, parent.m_caster.GetWorldPosition(), parent.m_fxNameExtra, parent.s_lifetime * 0.5f, /*respectCaster*/ false, parent.s_pursue, parent.s_freeze );
+		parent.m_tornadoEntity.Activate( parent.m_caster, parent.m_caster, parent.m_caster.GetWorldPosition(), parent.m_fxNameExtra, 
+			parent.s_lifetime * 0.5f, /*respectCaster*/ false, parent.s_suck, parent.s_pursue, parent.s_freeze );
 		Sleep( parent.s_lifetime * 0.5f );
 		parent.StopAction();
 	}

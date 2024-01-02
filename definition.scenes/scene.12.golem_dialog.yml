@@ -2,7 +2,7 @@ repository:
   actors:
     sorceress:
       template: "dlc\\dlcnewreplacers\\data\\entities\\nr_replacer_sorceress.w2ent"
-      appearance: [ "nr_player" ]
+      appearance: ["nr_player"]
       mimic:
         emotional_state: "Happy"
         eyes: "Happy"

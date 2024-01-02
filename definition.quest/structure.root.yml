@@ -1,7 +1,7 @@
 #
 # quest structure root segment
 # 
-# (version: 581, saved: 2023-12-17 18:34:44)
+# (version: 587, saved: 2023-12-29 23:39:40)
 #
 ---
 structure:
@@ -96,6 +96,7 @@ structure:
         _fadein: false
         next.Output:
           - waituntil.wait_inside_nb_area
+          - objective.check_nb: Activate
           - journal.quest_start_entry: Activate
       
       scene.Sorceress_spell_scene:
@@ -235,6 +236,7 @@ structure:
           - addfact.Master_met_fact
           - waituntil.wait_1s_a
           - objective.defeat_monsters: Success
+          - settime.set_12_am
       
       interaction.celestine_dg:
         ".editor":
@@ -406,7 +408,7 @@ structure:
       waituntil.3s:
         elapsed: "00:00:03"
         ".editor":
-          pos: [ 3316.0, 963.0 ]
+          pos: [ 3472.0, 963.0 ]
           in: [ In ]
           out: [ Out ]
         next:
@@ -747,6 +749,15 @@ structure:
           out: [ Out ]
         next:
           - script.Is_Female
+      
+      waituntil.wait_activated_2:
+        factdb: [ nr_magic_stone_activated, ">=", 1 ]
+        ".editor":
+          pos: [ 3259.0, 794.0 ]
+          in: [ In ]
+          out: [ Out ]
+        next:
+          - waituntil.3s
       
       waituntil.wait_inside_nb_area:
         inside: [ prologue/nb_area, PLAYER ]
@@ -1090,7 +1101,7 @@ structure:
       
       script.Play_stone_ready_fx:
         ".editor":
-          pos: [ 3145.0, 914.0 ]
+          pos: [ 3133.0, 907.0 ]
           in: [ In ]
           out: [ Out ]
         function: PlayEffectQuest
@@ -1883,12 +1894,11 @@ structure:
         next: ".done"
       
       journal.quest_start_entry:
-        ".editor": [ 975.0, 760.0 ]
+        ".editor": [ 1048.0, 966.0 ]
         entry: quests/sorceress_quest/start_descr
         notify: true
         activate_root: true
-        next:
-          - objective.check_nb: Activate
+        next: ".done"
       
       objective.check_area:
         ".editor": [ 1746.0, 1063.0 ]
@@ -1925,6 +1935,11 @@ structure:
         track: false
         next: ".done"
       
+      settime.set_12_am:
+        ".editor": [ 5761.0, 1527.0 ]
+        time: "12:00"
+        next: ".done"
+      
       addfact.Master_met_fact:
         ".editor": [ 5796.0, 1332.0 ]
         value: [ nr_quest_master_met, 1 ]
@@ -1957,7 +1972,7 @@ structure:
         value: [ nr_magic_stone_works, 1 ]
         next:
           - waituntil.magic_stone_should_work_fact
-          - waituntil.3s
+          - waituntil.wait_activated_2
       
       addfact.on_ship_fact:
         ".editor": [ 2941.0, 690.0 ]

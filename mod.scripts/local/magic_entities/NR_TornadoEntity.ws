@@ -2,14 +2,18 @@ statemachine class NR_TornadoEntity extends CGameplayEntity {
 	protected var m_caster, m_target : CActor;
 	protected var m_targetPos : Vector;
 	public var m_metersPerSec : float;
-	protected var m_tornadoLifetime, m_victimDistance, m_victimDistanceSq : float;
+
+	protected var m_tornadoLifetime, m_victimDistance, m_victimDistanceSq, m_slideDistance, m_slideDistanceSq : float;
 	protected var m_respectCaster : bool;
 	protected var m_pursueTarget : bool;
+	protected var m_suckTargets : bool;
 	protected var m_fxName : name;
 	protected var m_victimEffects : array<EEffectType>;
 
 	default m_victimDistance = 3.f;
 	default m_victimDistanceSq = 9.f;
+	default m_slideDistance = 12.f;
+	default m_slideDistanceSq = 144.f;
 	default m_metersPerSec = 3.f;
 
 	event OnSpawned( spawnData : SEntitySpawnData )
@@ -18,12 +22,13 @@ statemachine class NR_TornadoEntity extends CGameplayEntity {
 	}
 	// if target is NULL, then static pos is used
 	public function Activate(caster : CActor, target : CActor, targetPos : Vector, effectName : name,
-							lifetime : float, respectCaster : bool, pursue : bool, is_freezing : bool) {
+							lifetime : float, respectCaster : bool, suck : bool, pursue : bool, is_freezing : bool) {
 		m_caster = caster;
 		m_target = target;
 		m_targetPos = targetPos;
 		m_tornadoLifetime = lifetime;
 		m_respectCaster = respectCaster;
+		m_suckTargets = suck;
 		m_pursueTarget = pursue;
 		m_fxName = effectName;
 		m_victimEffects.PushBack(EET_Bleeding);
@@ -42,6 +47,8 @@ statemachine class NR_TornadoEntity extends CGameplayEntity {
 state Active in NR_TornadoEntity {
 	protected var startTime		: float;
 	protected var victims		: array<CActor>;
+	protected var slideVictims	: array<CActor>;
+	protected var slideVictimTickets : array<SMovementAdjustmentRequestTicket>;
 
 	event OnEnterState( prevStateName : name )
 	{
@@ -109,6 +116,33 @@ state Active in NR_TornadoEntity {
 			if (damageTime < 0.25f)
 				continue;
 
+			// remove old slide victims if out
+			for ( i = slideVictims.Size() - 1; i >= 0; i -= 1 )
+			{
+				distSq = VecDistanceSquared2D(currentPos, slideVictims[i].GetWorldPosition());
+				if ( distSq > parent.m_slideDistanceSq ) {
+					RemoveSlideVictimByIndex(i);
+				}
+			}
+
+			// add new slide victims if in
+			entities.Clear();
+			FindGameplayEntitiesInRange( entities, this.parent, parent.m_slideDistance, 999 );
+			for ( i = 0; i < entities.Size(); i += 1 )
+			{
+				actor = (CActor)entities[i];
+				if (!actor || !actor.IsInCombat())
+					continue;
+
+				if (actor == parent.m_caster)
+					continue;
+
+				if ( !slideVictims.Contains(actor) ) {
+					AddSlideVictim(actor);
+				}
+			}
+
+
 			// remove old victims if out
 			for ( i = victims.Size() - 1; i >= 0; i -= 1 )
 			{
@@ -120,7 +154,7 @@ state Active in NR_TornadoEntity {
 
 			// add new victims if in
 			entities.Clear();
-			FindGameplayEntitiesInRange( entities, this.parent, parent.m_victimDistance, 99, , FLAG_OnlyAliveActors );
+			FindGameplayEntitiesInRange( entities, this.parent, parent.m_victimDistance, 999, , FLAG_OnlyAliveActors );
 			for ( i = 0; i < entities.Size(); i += 1 )
 			{
 				actor = (CActor)entities[i];
@@ -156,6 +190,40 @@ state Active in NR_TornadoEntity {
 			lastDamageTime = GetLocalTime();
 		}
 		parent.GotoState('Stop');
+	}
+
+	latent function AddSlideVictim(victim : CActor) {
+		var ticket : SMovementAdjustmentRequestTicket;
+		var movementAdjustor : CMovementAdjustor;
+
+		movementAdjustor = victim.GetMovingAgentComponent().GetMovementAdjustor();
+		ticket = movementAdjustor.CreateNewRequest( 'NR_TornadoEntity_Suck' );
+		// movementAdjustor.RotateTowards( ticket, parent );
+		movementAdjustor.Continuous( ticket );
+		movementAdjustor.SlideTowards( ticket, parent, 0.f, 2.f );
+		movementAdjustor.MaxLocationAdjustmentSpeed( ticket, 1.5f );
+		// movementAdjustor.ScaleAnimation( ticket, true, true, true );
+		movementAdjustor.AdjustLocationVertically( ticket, true );
+		movementAdjustor.DontEnd( ticket );
+		// movementAdjustor.KeepActiveFor( ticket, parent.m_tornadoLifetime - GetLocalTime() );
+		NR_Debug("AddSlideVictim: " + victim);
+
+		slideVictims.PushBack(victim);
+		slideVictimTickets.PushBack(ticket);
+	}
+
+	latent function RemoveSlideVictimByIndex(victimIndex : int) {
+		var ticket : SMovementAdjustmentRequestTicket;
+		var movementAdjustor : CMovementAdjustor;
+
+		ticket = slideVictimTickets[victimIndex];
+		movementAdjustor = slideVictims[victimIndex].GetMovingAgentComponent().GetMovementAdjustor();
+		if ( movementAdjustor.IsRequestActive(ticket) ) {
+			movementAdjustor.Cancel(ticket);
+		}
+
+		slideVictims.Erase(victimIndex);
+		slideVictimTickets.Erase(victimIndex);
 	}
 
 	latent function GetDamage(damageTarget : CActor, minPerc : float, maxPerc : float, basicVitality : float, addVitality : float, basicEssence : float, addEssence : float, optional randMin : float, optional randMax : float) : float {
@@ -204,14 +272,4 @@ state Stop in NR_TornadoEntity {
 	{
 		NR_Debug("Stop: OnLeaveState");
 	}
-}
-
-exec function tornado1() {
-	var entityTemplate : CEntityTemplate;
-	var tornadoEntity : NR_TornadoEntity;
-
-	entityTemplate = (CEntityTemplate)LoadResource( 'nr_tornado' );
-	tornadoEntity = (NR_TornadoEntity)theGame.CreateEntity(entityTemplate, thePlayer.GetWorldPosition());
-	tornadoEntity.Activate(thePlayer, thePlayer, thePlayer.GetWorldPosition(), 'tornado_sand', 7.f, /*affectCaster*/true,/*pursue*/true, /*freeze*/true );
-	tornadoEntity.DestroyAfter(15.f);
 }

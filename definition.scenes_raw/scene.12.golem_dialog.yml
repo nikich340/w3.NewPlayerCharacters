@@ -1,12 +1,18 @@
 repository:
   actors:
     sorceress:
-      template: "dlc\\dlcnewreplacers\\data\\entities\\sorceress.w2ent"
-      appearance: [ "triss" ]
+      template: "dlc\\dlcnewreplacers\\data\\entities\\nr_replacer_sorceress.w2ent"
+      appearance: [ "nr_player" ]
+      mimic:
+        emotional_state: "Happy"
+        eyes: "Happy"
+        pose: "Happy"
+        weight: 0.5
+        anim: "Confident"
 
     nr_golem_celestine:
       template: "dlc\\dlcnewreplacers\\data\\entities\\quest\\nr_golem_celestine.w2ent"
-      appearance: [ "nr_celestine" ]
+      appearance: ["nr_celestine"]
 
   animations:
     anim_12762_high_standing2_determined_gesture_greeting:
@@ -238,8 +244,8 @@ production:
 storyboard:
   defaults:
     placement:
-      sorceress: [[ 0.0, -0.5, 0.0 ], [ 0.0, 0.0, 0.0 ]]
-      nr_golem_celestine: [[ 0.0, 1.5, 0.0 ], [ 0.0, 0.0, 180.0 ]]
+      sorceress: [[0.0, -0.5, 0.0], [0.0, 0.0, 0.0]]
+      nr_golem_celestine: [[0.0, 1.5, 0.0], [0.0, 0.0, 180.0]]
 
     actor.pose:
       sorceress: sorceress_High_Standing2_Determined
@@ -387,7 +393,7 @@ storyboard:
       - cam.blend.togame: [0.99, cam_2_Shot_to_golem]
 
 dialogscript:
-  actors: [ "sorceress", "nr_golem_celestine" ]
+  actors: ["sorceress", "nr_golem_celestine"]
   player: "sorceress"
 
   section_start:
@@ -416,20 +422,20 @@ dialogscript:
 
   section_choice_main:
     - CHOICE:
-      - choice: [ "2115940958|Are you aware of yourself?", section_golem_q1]
-        emphasize: true
-      - choice: [ "2115940960|Do you have any wishes?", section_golem_q2]
-        emphasize: true
-      - choice: [ "2115940962|What will you do if we disappear?", section_golem_q3]
-        emphasize: true
-      - choice: [ "2115940964|How much is eight plus four?", section_golem_q4]
-        emphasize: true
-      - choice: [ "2115940966|Do you like this place?", section_golem_q5]
-        emphasize: true
-      - choice: [ "2115940968|Are you experiencing emotions?", section_golem_q6]
-        emphasize: true
-      - choice: [ "2115940867|See you later.", section_randomizer_goodbye, exit]
-        emphasize: false
+        - choice: ["2115940958|Are you aware of yourself?", section_golem_q1]
+          emphasize: true
+        - choice: ["2115940960|Do you have any wishes?", section_golem_q2]
+          emphasize: true
+        - choice: ["2115940962|What will you do if we disappear?", section_golem_q3]
+          emphasize: true
+        - choice: ["2115940964|How much is eight plus four?", section_golem_q4]
+          emphasize: true
+        - choice: ["2115940966|Do you like this place?", section_golem_q5]
+          emphasize: true
+        - choice: ["2115940968|Are you experiencing emotions?", section_golem_q6]
+          emphasize: true
+        - choice: ["2115940867|See you later.", section_randomizer_goodbye, exit]
+          emphasize: false
 
   section_golem_q1:
     - CUE: shot_golem_q1_a

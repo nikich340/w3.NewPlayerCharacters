@@ -6,6 +6,7 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 	protected var m_teleportZ 		: float;
 	protected var m_teleportPos 	: Vector;
 	protected var m_doStaticTrace 	: bool;
+	protected var m_templateName 	: String;
 
 	default actionType = ENR_FastTravelTeleport;
 	default isDamaging 	= false;
@@ -39,12 +40,11 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 	}
 
 	latent function OnPrepare() : bool {
-		var templateName : String;
 		var safePosFound : bool;
 		super.OnPrepare();
 
-		templateName = TeleportEntityName();
-		entityTemplate = (CEntityTemplate)LoadResourceAsync(templateName, true);
+		m_templateName = TeleportEntityName();
+		entityTemplate = (CEntityTemplate)LoadResourceAsync(m_templateName, true);
 		pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 0.5f + Vector(0,0,1.f);
 		rot = thePlayer.GetWorldRotation();
 
@@ -140,7 +140,6 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 				break;
 		}
 		result += "_" + ENR_MCToStringShort(color) + ".w2ent";
-		NR_Debug("TeleportEntityName = " + result);
 		return result;
 	}
 
@@ -228,7 +227,7 @@ state Active in NR_MagicFastTravelTeleport {
 				PerformFastTravel();
 				break;
 			}
-			Sleep(0.1f);
+			SleepOneFrame();
 		}
 		parent.GotoState('Inactive');
 	}
@@ -236,11 +235,13 @@ state Active in NR_MagicFastTravelTeleport {
 	latent function PerformFastTravel() {
 		var manager	: CCommonMapManager = theGame.GetCommonMapManager();
 
-		NR_Debug("PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
+		NR_Debug("NR_MagicFastTravelTeleport.PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
 		if ( !manager )
 		{
 			return;
 		}
+		parent.map[parent.ST_Universal].setS("used_ftt_entity", parent.m_templateName);
+		parent.map[parent.ST_Universal].setF("used_ftt_z", parent.m_teleportZ);
 		manager.UseMapPin( parent.m_targetPinTag, true );
 		// hack to make smooth fadeOut and avoid persistent blackscreen
 		theGame.FadeOut(0.5f);		
@@ -248,6 +249,8 @@ state Active in NR_MagicFastTravelTeleport {
 		if ( parent.m_currentAreaId == parent.m_targetAreaId )
 		{
 			manager.PerformLocalFastTravelTeleport( parent.m_targetPinTag );
+			Sleep(0.1f);
+			((NR_MagicManagerStateMagicLoop)NR_GetMagicManager().GetState('MagicLoop')).PerformExitFromFTT();
 		} else {
 			manager.PerformGlobalFastTravelTeleport( parent.m_targetAreaId, parent.m_targetPinTag );
 		}

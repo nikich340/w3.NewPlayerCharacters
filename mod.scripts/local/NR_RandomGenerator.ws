@@ -97,7 +97,7 @@ class NR_RandomGenerator extends CEntity {
             return shiftRightU(seed, (48 - bits));
         } else {
             if (bits > 63)
-                NR_Error("random_t::nextBits(int bits): n must be less than 64");
+                NR_Error("nextBits(int bits): n must be less than 64");
 
             left = shiftLeftU(nextBits(31), 32);
             right = nextBits(32);
@@ -125,8 +125,8 @@ class NR_RandomGenerator extends CEntity {
     public function nextU(n : Uint64) : Uint64 {
     	var limit, bits : Uint64;
         if (n <= IntToUint64(0)) {
-            NR_Error("random_t::next(long long n): n must be positive");
-            return n;
+            NR_Error("next(long long n): n must be positive");
+            return IntToUint64(0);
         }
 
         limit = __longlong_max / n * n;
@@ -174,8 +174,10 @@ class NR_RandomGenerator extends CEntity {
     /* Random value in range [0, n-1]. */
     public function next(n : int) : int {
     	var limit, bits : Uint64;
-        if (n <= 0)
-            NR_Error("random_t::next(long long n): n must be positive");
+        if (n <= 0) {
+            NR_Error("next: n must be positive");
+            return 0;
+        }
 
         limit = IntToUint64(__int_max / n * n);
 

@@ -14,7 +14,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 	}
 
 	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
+		if (newLevel == 3) {
 			ActionAbilityUnlock("AutoAim");
 		}
 		super.SetSkillLevel(newLevel);

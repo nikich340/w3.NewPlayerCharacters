@@ -88,6 +88,11 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 
 		victim.AddTag('NR_MagicSpecialField');
 		victim.PlayEffect('yrden_slowdown');  // yrden_shock ?
+		// stops specters from shadow form
+		victim.OnYrdenHit( thePlayer );
+		victim.SignalGameplayEventParamObject('EntersYrden', this );
+		victim.SetBehaviorVariable( 'isInYrden', 1 );
+
 		if (victim == thePlayer || GetAttitudeBetween(victim, thePlayer) != AIA_Hostile) {
 			if (!allHostile)
 				slowdownCauserId = victim.SetAnimationSpeedMultiplier(l_friendlySlowdown);
@@ -114,6 +119,9 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		victim.RemoveTag('NR_MagicSpecialField');
 		victim.ResetAnimationSpeedMultiplier(l_victimSlowdownIds[index]);
 		victim.StopEffect('yrden_slowdown');  // yrden_shock ?
+		// specters to shadow form
+		victim.SignalGameplayEventParamObject( 'LeavesYrden', this );
+		victim.SetBehaviorVariable( 'isInYrden', 0 );
 
 		l_victimSlowdownIds.Erase(index);
 		l_victims.Erase(index);
@@ -218,7 +226,7 @@ state Active in NR_MagicSpecialField {
 				if (!actor || !actor.IsAlive())
 					continue;
 
-				if ( !parent.l_victims.Contains(actor) ) {
+				if ( !parent.l_victims.Contains(actor) && GetAttitudeBetween(thePlayer, actor) == AIA_Hostile ) {
 					parent.AddVictim(actor);
 				}
 			}

@@ -80,7 +80,7 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 		meteor.m_explosionWaterFxName = ExplosionWaterFxName();
 		meteor.m_markerFxName = MarkerFxName();*/
 
-		dk = 6.f - s_meteorNum;
+		dk = (4.f - s_meteorNum * 0.5f) * SkillTotalDamageMultiplier();
 		meteor.projDMG = GetDamage(/*min*/ 2.f*dk, /*max*/ 60.f*dk, /*vitality*/ 30.f, 8.f*dk, /*essence*/ 90.f, 10.f*dk /*randRange*/ /*customTarget*/);
 		meteor.m_respectCaster = s_respectCaster;
 		meteor.Init(thePlayer);
@@ -249,14 +249,7 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 }
 
 state Cursed in NR_MagicSpecialMeteor {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Cursed: OnEnterState.");
-		parent.inPostState = true;
-		Curse();
-	}
-
-	entry function Curse() {
+	entry function CursedLoop() {
 		Sleep(2.f);
 		parent.target = thePlayer;
 		parent.pos = thePlayer.GetWorldPosition();
@@ -264,10 +257,5 @@ state Cursed in NR_MagicSpecialMeteor {
 
 		parent.ShootMeteor();
 		parent.StopAction();
-	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Cursed: OnLeaveState.");
 	}
 }

@@ -191,20 +191,21 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Break current magic attack, if it's in process */
 	public function ReactToBeingHit(damageAction : W3DamageAction, optional buffNotApplied : bool) : bool {
 		var effectInfos : array< SEffectInfo >;
-		var isGameplayEffect : bool;
+		var canIgnoreHit, animPlayed : bool;
 
-		if ( (CBaseGameplayEffect)damageAction.causer )
-        	isGameplayEffect = true;
+		if ( (CBaseGameplayEffect)damageAction.causer || (damageAction.GetEffects( effectInfos ) < 1 && !damageAction.DealsAnyDamage()) )
+        	canIgnoreHit = true;
 
         // damageAction.GetBuffSourceName() != "petard"
-        if ( !isGameplayEffect && (damageAction.GetEffects( effectInfos ) > 0 || damageAction.DealsAnyDamage()) ) {
-        	NR_Debug("ReactToBeingHit: buffSourceName = " + damageAction.GetBuffSourceName() + ", attacker = " + damageAction.attacker + ", causer = " + damageAction.causer);
+        animPlayed = super.ReactToBeingHit(damageAction);
+
+        if ( !canIgnoreHit && animPlayed ) {
+        	NR_Debug("ReactToBeingHit: buffSourceName = " + damageAction.GetBuffSourceName() + ", attacker = " + damageAction.attacker + ", causer = " + damageAction.causer + ", hitReactionType = " + damageAction.GetHitReactionType() + ", hitAnimationPlayType = " + damageAction.GetHitAnimationPlayType() + ", animPlayed = " + animPlayed);
         	magicManager.AddActionEvent('BreakMagicAttack', 'ReactToBeingHit');
         	//PrintDamageAction("ReactToBeingHit", damageAction);
         }
-        //NR_Debug("ReactToBeingHit, damage = " + damageAction.DealsAnyDamage());
-        
-        return super.ReactToBeingHit(damageAction);
+
+        return animPlayed;
 	}
 	
 	/* All sorceress attacks are made from distance - never allow reflected damage! */
@@ -265,22 +266,59 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Function to manually cast quen */
 	public function CastQuenScripted() : bool
 	{
-		NR_Debug("CastQuenScripted()");
+		NR_Debug("CastQuenScripted");
 
 		if (nr_quenEntity) {
 			if (nr_quenEntity.GetCurrentStateName() == 'ShieldActive')
 				return false;
 
-			NR_Debug("Destroy old quen = " + nr_quenEntity);
+			NR_Debug("CastQuenScripted: Destroy old quen = " + nr_quenEntity);
 			nr_quenEntity.GotoState('Expired');
 			nr_quenEntity.DestroyAfter(5.f);
 		}
 		nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
+		nr_quenEntity.autoCasted = true;
 		nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen), /*skipCastingAnimation*/ true );
 		nr_quenEntity.OnStarted();
 		nr_quenEntity.OnThrowing();
 		nr_quenEntity.OnEnded();
 		return true;
+	}
+
+	public function StopQuenScripted(optional onlyIfAutoCasted : bool) {
+		NR_Debug("NR_StopQuenScripted");
+		if (!nr_quenEntity)
+			return;
+
+		if (onlyIfAutoCasted && !nr_quenEntity.autoCasted)
+			return;
+
+		nr_quenEntity.GotoState('Expired');
+		nr_quenEntity.DestroyAfter(5.f);
+	}
+
+	public function NR_ReattachQuen(onHorse : bool) {
+		NR_Debug("NR_ReattachQuen");
+		if (!nr_quenEntity)
+			return;
+
+		nr_quenEntity.BreakAttachment();
+		if (onHorse) {
+			nr_quenEntity.CreateAttachment( thePlayer, 'torso3_effect', Vector(0,0,0.3f) );
+			NR_Debug("NR_ReattachQuen: onHorse");
+		}
+		else {
+			nr_quenEntity.CreateAttachment( thePlayer, 'quen_sphere' );
+			NR_Debug("NR_ReattachQuen: !onHorse");
+		}
+	}
+
+	/*API*/ public function NR_IsQuenActive() : bool {
+		if (nr_quenEntity && nr_quenEntity.GetCurrentStateName() == 'ShieldActive') {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/* Wrapper: call fistfight attack */

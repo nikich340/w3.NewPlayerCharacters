@@ -54,8 +54,8 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		} else {
 			NR_Error("Unknown projectile type: " + projectile);
 		}
-		dk = 1.5f * SkillTotalDamageMultiplier();
-		projectile.projDMG = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+		dk = 1.8f * SkillTotalDamageMultiplier();
+		projectile.projDMG = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 		projectile.Init(thePlayer);
 		projectile.CreateAttachment( thePlayer, 'r_weapon' );
 		// explodes toxic gas

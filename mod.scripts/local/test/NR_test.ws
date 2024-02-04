@@ -97,13 +97,10 @@ exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bo
 		template = (CEntityTemplate)LoadResource("quests/main_npcs/emhyr.w2ent", true);
 	}
 	else if (id == 101) {
-		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress_inv.w2ent", true);
-	}
-	else if (id == 102) {
-		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_replacer_sorceress.w2ent", true);
+		template = (CEntityTemplate)LoadResource("quests/sidequests/skellige/quest_files/sq210_impossible_tower/characters/sq210_golemancer.w2ent", true);
 	}
 	if (!template) {
-		NR_Notify("Invalid id! 1+ for women, 11+ for men, 21+ for monsters");
+		NR_Notify("Invalid id! 1+ for women, 11+ for men, 21+ for monsters, 100+ sorcerers");
 		return;
 	}
 
@@ -111,9 +108,6 @@ exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bo
 	ent = theGame.CreateEntity(template, pos );
 	npc = (CNewNPC) ent;
 	npc.AddTag('nr_test_entity');
-	if (id == 0) {
-		npc.ApplyAppearance('nr_master_mage_naked2');
-	}
 
 	if (immortal) {
 		npc.SetImmortalityMode( AIM_Immortal, AIC_Combat );
@@ -138,6 +132,49 @@ exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bo
 	}
 	if (!notAdjust) {
 		npc.SetLevel( GetWitcherPlayer().GetLevel() );
+	}
+}
+
+exec function seffect(id : int, effectName : name, optional stop : bool, optional destroy : bool) {
+	var ent : CEntity;
+	var pos : Vector;
+	var tag : name;
+	var path : String;
+	var template : CEntityTemplate;
+	var npc : CNewNPC;
+
+	
+	if (id == 1) {
+		tag = 'nr_seffect_1';
+		path = "dlc/dlcnewreplacers/data/entities/magic/bomb/nr_sq210_lightning_yellow.w2ent";
+	} else if (id == 2) {
+		tag = 'nr_seffect_2';
+		path = "dlc/dlcnewreplacers/data/entities/magic/bomb/nr_sq210_lightning_violet.w2ent";
+	} else {
+		NR_Notify("Ids should be in [1-2]");
+	}
+	ent = theGame.GetEntityByTag(tag);
+	if (destroy) {
+		if (ent)
+			ent.DestroyAfter(1.f);
+		return;
+	}
+	if (!ent) {
+		pos = thePlayer.GetWorldPosition() + VecRingRand(1.f,2.f);
+		template = (CEntityTemplate)LoadResource(path, true);
+		if (!template) {
+			NR_Notify("!template: path = " + path);
+			return;
+		}
+		ent = theGame.CreateEntity(template, pos);
+		ent.AddTag(tag);
+		NR_Notify("Created: " + path);
+	}
+	if (stop) {
+		ent.StopEffect(effectName);
+		ent.StopAllEffects();
+	} else {
+		ent.PlayEffect(effectName);
 	}
 }
 

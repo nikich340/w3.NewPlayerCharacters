@@ -19,6 +19,9 @@ class NR_MagicSpecialShield extends NR_MagicAction {
 		if (newLevel == 5) {
 			ActionAbilityUnlock("AutoLightning");
 		}
+		if (newLevel == 8) {
+			ActionAbilityUnlock("AutoCombatApply");
+		}
 		super.SetSkillLevel(newLevel);
 	}
 

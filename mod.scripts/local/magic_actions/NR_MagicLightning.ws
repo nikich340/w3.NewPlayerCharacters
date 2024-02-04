@@ -73,9 +73,10 @@ class NR_MagicLightning extends NR_MagicAction {
 
 			damage = new W3DamageAction in this;
 			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
-			dk = 2.f * SkillTotalDamageMultiplier();
-			damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
-			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
+			dk = 1.5f * SkillTotalDamageMultiplier();
+			damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
+			damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, damageVal * 0.5f );
 			damage.AddEffectInfo(EET_Stagger, 2.f);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
@@ -142,7 +143,8 @@ class NR_MagicLightning extends NR_MagicAction {
 		damage.Initialize( thePlayer, newTarget, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 		dk = 1.f * SkillTotalDamageMultiplier();
 		damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
-		damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
+		damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
+		damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, damageVal * 0.5f );
 		damage.AddEffectInfo(EET_Stagger, 1.f);
 		theGame.damageMgr.ProcessAction( damage );
 		delete damage;
@@ -186,7 +188,7 @@ class NR_MagicLightning extends NR_MagicAction {
 		newTarget = NULL;
 		for (i = 0; i < entities.Size(); i += 1) {
 			actor = (CActor)entities[i];
-			if (actor && actor != oldTarget) {
+			if (actor && actor != oldTarget && GetAttitudeBetween(thePlayer, actor) == AIA_Hostile) {
 				distSq = VecDistanceSquared(oldTarget.GetWorldPosition(), actor.GetWorldPosition());
 				NR_Debug("OnPerformRebound: distSq = " + distSq + " actor = " + actor);
 				if (distSq < minDistSq) {

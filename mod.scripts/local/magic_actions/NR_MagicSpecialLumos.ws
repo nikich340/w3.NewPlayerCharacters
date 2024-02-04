@@ -6,6 +6,7 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	default actionType 		= ENR_SpecialLumos;
 	default actionSubtype = ENR_SpecialAbstractAlt;
 	default performsToLevelup = 1;
+	default maxLevelup 		  = 1; // action-specific
 	
 	latent function OnInit() : bool {
 		sceneInputs.PushBack(1);

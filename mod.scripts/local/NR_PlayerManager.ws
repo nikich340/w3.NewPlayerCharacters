@@ -715,7 +715,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 
 	// True if current player/replacer has female gender //
 	/* API */ public function IsFemale() : Bool {
-		return IsFemaleType(m_savedPlayerType);
+		return IsFemaleType(GetCurrentPlayerType());
 	}
 
 	// True if current player/replacer has female gender //
@@ -788,8 +788,8 @@ statemachine class NR_PlayerManager extends IScriptable {
 		FactsRemove("nr_player_female");
 		FactsRemove("nr_player_type");
 		
-		FactsAdd("nr_player_type", (int)m_savedPlayerType);
-		if (IsFemaleType(m_savedPlayerType)) {
+		FactsAdd("nr_player_type", (int)currentPlayerType);
+		if (IsFemaleType(currentPlayerType)) {
 			FactsAdd("nr_player_female", 1);
 		}
 		UpdateSpeechSwitchFacts();
@@ -803,7 +803,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 
 		// controlValue: 0 - auto, 1 - always female, 2 - never female
 		if (controlValue < 1) {
-			FactsAdd("nr_speech_switch", (int)IsFemaleType(m_savedPlayerType));
+			FactsAdd("nr_speech_switch", (int)IsFemaleType(GetCurrentPlayerType()));
 		} else if (controlValue == 1) {
 			FactsAdd("nr_speech_switch", 1);
 		}
@@ -1353,6 +1353,7 @@ state GameLaunched in NR_PlayerManager {
 		NR_Debug("NR_PlayerManager::GameLaunched.RunGameLaunched");
 		startTime = theGame.GetEngineTimeAsSeconds();
 		parent.OnStarted();
+		thePlayer.SetVisibility(false);
 		
 		// wait until player appearance component is loaded
 		while ( thePlayer.GetComponentsCountByClassName( 'CAppearanceComponent' ) < 1 ) {
@@ -1360,6 +1361,7 @@ state GameLaunched in NR_PlayerManager {
 		}
 		NR_Debug("NR_PlayerManager::GameLaunched.RunGameLaunched: Player is ready after = " + (theGame.GetEngineTimeAsSeconds() - startTime));
 		parent.OnPlayerSpawned();
+		thePlayer.SetVisibility(true);
 		parent.GotoState('Idle');
 	}
 
@@ -1380,6 +1382,7 @@ state PlayerChange in NR_PlayerManager {
 		var startTime : float;
 		
 		NR_Debug("NR_PlayerManager::PlayerChange.RunPlayerChange");
+		thePlayer.SetVisibility(false);
 		// wait player entity to change
 		Sleep(0.25f);
 		startTime = theGame.GetEngineTimeAsSeconds();
@@ -1389,7 +1392,8 @@ state PlayerChange in NR_PlayerManager {
 		}
 		NR_Debug("NR_PlayerManager::PlayerChange.RunPlayerChange: Player is ready after = " + (theGame.GetEngineTimeAsSeconds() - startTime));
 		parent.OnPlayerSpawned();
-		FactsAdd("nr_player_change_done");
+		FactsAdd("nr_player_change_done", 1);
+		thePlayer.SetVisibility(true);
 		parent.GotoState('Idle');
 	}
 

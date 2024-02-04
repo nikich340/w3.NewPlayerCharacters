@@ -5,7 +5,9 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         var currentPos          : Vector;
         var whereTo             : Vector;
         var randVec             : Vector;
+        var teleportVec         : Vector;
         var attemps             : int;
+        var teleportLength     : float;
         var npc                 : CNewNPC = GetNPC();
         var startTimeStamp      : float = GetLocalTime();
         
@@ -15,8 +17,9 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         currentPos = npc.GetWorldPosition();
         randVec = CalculateRandVec_Copy();
         whereTo = CalculateWhereToVec_Copy(randVec);
-        NR_GetSafeTeleportPoint( whereTo ); // snap to ground
-        whereTo = NR_GetTeleportMaxArchievablePoint( npc, currentPos, whereTo );
+		teleportVec = whereTo - currentPos;
+		teleportLength = VecLength2D(teleportVec);
+        whereTo = NR_GetTeleportMaxArchievablePoint( npc, teleportVec, teleportLength );
         
         while ( !IsPointSuitableForTeleport(whereTo) )
         {
@@ -27,12 +30,12 @@ class NR_TaskTeleportAction extends TaskTeleportAction
             
             SleepOneFrame();
             randVec = CalculateRandVec_Copy();
-            whereTo = CalculateWhereToVec_Copy(randVec);
-            whereTo = NR_GetTeleportMaxArchievablePoint( npc, currentPos, whereTo );
+			whereTo = CalculateWhereToVec_Copy(randVec);
+			teleportVec = whereTo - currentPos;
+			teleportLength = VecLength2D(teleportVec);
+			whereTo = NR_GetTeleportMaxArchievablePoint( npc, teleportVec, teleportLength );
             attemps += 1;
-            //NR_Debug("CHECK IsPointSuitableForTeleport::whereTo = " + VecToString(whereTo));
         }
-        //NR_Debug("TRUE IsPointSuitableForTeleport::whereTo = " + VecToString(whereTo));
         
         newPosition = whereTo;
         return true;
@@ -59,6 +62,8 @@ class NR_TaskTeleportAction extends TaskTeleportAction
             radius = npc.GetRadius();
         
         world = theGame.GetWorld();
+		// checked by NR_GetSafeTeleportPoint
+		/*
         if ( !world.NavigationFindSafeSpot( whereTo, radius, radius*3, newPos ) )
         {
             if ( world.NavigationComputeZ(whereTo, whereTo.Z - zTolerance, whereTo.Z + zTolerance, z) )
@@ -78,14 +83,11 @@ class NR_TaskTeleportAction extends TaskTeleportAction
                     newPos = whereTo;
                     newPos.Z = newZ;
                 } else {
-                    //NR_Debug("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")::FALSE");
-                    //NR_Debug(" -> PhysicsCorrectZ =" + world.PhysicsCorrectZ(whereTo, newZ));
-                    //NR_Debug(" -> newZ = " + newZ + ", waterZ = " + waterZ);
-                    //NR_Debug(" -> AbsF =" + AbsF(newZ - whereTo.Z));
                     return false;
                 }
             }
         }
+		*/
         
         if ( useCombatTarget )
         {

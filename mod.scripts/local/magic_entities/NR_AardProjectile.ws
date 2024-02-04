@@ -44,9 +44,12 @@ class NR_AardProjectile extends W3AardProjectile {
 			else
 				params.effectType = EET_KnockdownTypeApplicator;
 			*/
-			params.effectValue.valueBase = 100.f;
-			params.effectValue.valueMultiplicative = 100.f;
-			params.effectValue.valueAdditive = 100.f;
+			params.effectValue.valueBase = 1000.f;
+			params.effectValue.valueMultiplicative = 5.f;
+			params.effectValue.valueAdditive = 1000.f;
+			params.customPowerStatValue.valueBase = 1000.f;
+			params.customPowerStatValue.valueMultiplicative = 5.f;
+			params.customPowerStatValue.valueAdditive = 1000.f;
 			params.effectType = EET_KnockdownTypeApplicator;
 		}
 		npc.AddEffectCustom(params);

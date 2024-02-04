@@ -214,10 +214,14 @@ abstract statemachine class NR_MagicAction {
 	// invert = false: [1.0, ..]
 	// invert = true: [.., 1.0]
 	function SkillTotalDamageMultiplier(optional invert : bool) : float {
+		var difficultyBonus : float;
+
+		// [1 - easy, 2 - medium, 3 - hard, 4 - hardcore]
+		difficultyBonus = (2.5f - (float)(int)theGame.GetDifficultyMode()) * 7.f;
 		if (!invert)
-			return (100.f + NR_GetMagicManager().GetGeneralDamageBonus() + NR_GetMagicManager().GetActionDamageBonus(actionType)) / 100.f;
+			return (100.f + difficultyBonus + NR_GetMagicManager().GetGeneralDamageBonus() + NR_GetMagicManager().GetActionDamageBonus(actionType)) / 100.f;
 		else
-			return (100.f - NR_GetMagicManager().GetGeneralDamageBonus() - NR_GetMagicManager().GetActionDamageBonus(actionType)) / 100.f;
+			return (100.f - difficultyBonus - NR_GetMagicManager().GetGeneralDamageBonus() - NR_GetMagicManager().GetActionDamageBonus(actionType)) / 100.f;
 	}
 
 	// - x% to stamina cost
@@ -276,7 +280,7 @@ abstract statemachine class NR_MagicAction {
 				if (isOnHorse)
 					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 15.f;
 				else
-					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 5.f;
+					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 7.5f;
 
 				// correct a bit with physics raycast
 				if (theGame.GetWorld().PhysicsCorrectZ(pos, Z)) {
@@ -426,7 +430,7 @@ abstract statemachine class NR_MagicAction {
 			destroyableTarget.OnIgniHit(NULL);
 		}
 
-		clueEnt.AddTag('NR_Destroyed');
+		destroyableTarget.AddTag('NR_Destroyed');
 	}
 
 	latent function NR_OnLineOfSight(nodeA : CNode, nodeB : CNode, zOffset : float) : bool
@@ -506,7 +510,7 @@ abstract statemachine class NR_MagicAction {
 			damage = MinF(maxDamage, damage);
 			damage = MaxF(minDamage, damage);
 		}
-		NR_Debug(actionType + ".GetDamage: target = " + damageTarget + " (lvl bonus " + levelBonus + ", max HP " + damageTarget.GetMaxHealth() + "), [" + minDamage + "; " + maxDamage + "] -> " + damage);
+		NR_Debug(actionType + ".GetDamage: target = " + damageTarget + " (lvl bonus " + levelBonus + ", max HP " + damageTarget.GetMaxHealth() + ", HP " + damageTarget.GetHealth() + "), [" + minDamage + "; " + maxDamage + "] -> " + damage);
 		return damage;
 	}
 

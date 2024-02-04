@@ -99,6 +99,14 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 			return OnPerformed(true);
 		}
 
+		su_oneliner = SU_onelinerEntity(
+			"",
+			transformNPC
+		);
+		su_oneliner.setOffset( Vector(0, 0, 0.5f) );
+		su_oneliner.setRenderDistance( 100 );
+		su_oneliner.visible = false;
+
 		thePlayer.CreateAttachment(transformNPC);
 		thePlayer.GotoState('NR_Transformed');
 
@@ -152,31 +160,22 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 }
 
 state Active in NR_MagicSpecialPolymorphism {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("OnEnterState: " + this);
-		parent.inPostState = true;
-		RunActive();		
-	}
-	entry function RunActive() {
-		Sleep( parent.s_lifetime );
+	entry function ActiveLoop() {
+		parent.su_oneliner.visible = true;
+		while ( GetLocalTime() < parent.s_lifetime ) {
+			UpdateOnelinerTime(, "#FFA91B");
+	    	Sleep(0.1f);
+		}
+		parent.su_oneliner.visible = false;
 
 		NR_Debug("StopAction: " + this);
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("OnLeaveState: " + this);
-	}
 }
 
 state Stop in NR_MagicSpecialPolymorphism {
-	event OnEnterState( prevStateName : name )
-	{
-		parent.inPostState = true;
-		RunStop();
-	}
-	entry function RunStop() {
+	entry function StopLoop() {
+		parent.su_oneliner.unregister();
 		parent.transformNPC.PlayEffect('disappear');
 		Sleep(0.5f);
 		//parent.transformNPC.ResetTemporaryAttitudeGroup(AGP_Default);
@@ -188,24 +187,11 @@ state Stop in NR_MagicSpecialPolymorphism {
 		thePlayer.GotoState('Exploration');
 		parent.inPostState = false;
 	}
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("NR_MagicSpecialPolymorphism: Stop: OnLeaveState");
-	}
 }
 
 state Cursed in NR_MagicSpecialPolymorphism {
-	event OnEnterState( prevStateName : name )
-	{
-		parent.inPostState = true;
-		RunCursed();
-	}
-	entry function RunCursed() {
+	entry function CursedLoop() {
 		// do nothing
 		parent.StopAction();
-	}
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("OnLeaveState: " + this);
 	}
 }

@@ -19,7 +19,7 @@ quest function NR_InitPlayerManager_Q() {
     NR_GetPlayerManager();
 }
 
-quest function NR_ChangePlayer_Q() {
+latent quest function NR_ChangePlayer_Q() {
     var newPlayerType   : ENR_PlayerType;
     var nr_manager      : NR_PlayerManager;
 
@@ -29,7 +29,9 @@ quest function NR_ChangePlayer_Q() {
 
     newPlayerType = (ENR_PlayerType)FactsQuerySum("nr_scene_player_change_type");
     NR_Debug("NR_ChangePlayer_Q: scene change to -> " + newPlayerType);
-    NR_ChangePlayer(newPlayerType);
+    // NR_ChangePlayer(newPlayerType);
+    NR_ChangePlayerLatent(newPlayerType);
+    NR_Debug("NR_ChangePlayer_Q: DONE scene change to -> " + newPlayerType);
     FactsRemove("nr_scene_player_change_type");
 
     // kick from magic ship if player is not a sorceress
@@ -59,6 +61,7 @@ quest function NR_IsPlayerWitcheress_Q() : bool {
 }
 
 quest function NR_IsPlayerSorceress_Q() : bool {
+    NR_Debug("NR_IsPlayerSorceress_Q");
     return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerSorceress);
 }
 
@@ -798,9 +801,11 @@ latent function NR_ChangePlayerQuestWrapper( designatedTemplate: EQuestReplacerE
             if ( manager.HasReplacerForQuestSaved() ) {
                 NR_ChangePlayerLatent( manager.PullReplacerForQuest() );
             } else {
-                if ( manager.IsReplacerActive() )
-                    manager.SaveReplacerForQuest();
-                NR_ChangePlayerLatent( ENR_PlayerGeralt );
+                // if ( manager.IsReplacerActive() )
+                //    manager.SaveReplacerForQuest();
+                // NR_ChangePlayerLatent( ENR_PlayerGeralt );
+                if ( !manager.IsReplacerActive() )
+                    NR_ChangePlayerLatent( ENR_PlayerGeralt );
             }
             break;
         case EQRE_Ciri:
@@ -832,4 +837,8 @@ latent function NR_ChangePlayerQuestWrapper( designatedTemplate: EQuestReplacerE
     }
 
     thePlayer.abilityManager.RestoreStat(BCS_Vitality);
+}
+
+quest function NR_DebugQuestBlock(info : String) {
+    NR_Debug(info);
 }

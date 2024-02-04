@@ -186,8 +186,8 @@ production:
     strings-idspace: 5940
     strings-idstart: 650
 
-  safe_placement: false
-  snap_to_terrain: false
+  safe_placement: 0.5
+  snap_to_terrain: true
 
   placement: "PLAYER"
     # INFO: world coordinates of used origin:
@@ -836,7 +836,7 @@ dialogscript:
         parameter:
           - factName: nr_scene_ship_portal_created
           - value: 1
-    - NEXT: section_fadeout_exit
+    - NEXT: script_exit_state_blend
 
 
   section_trans_player_display_name_to_itself:
@@ -1806,6 +1806,7 @@ dialogscript:
           emphasize: true
         - choice: ["SLOT: Misc", section_trans_choice_slots_main_to_choice_misc]
           emphasize: true
+  
   section_fadeout_exit:
     - CUE: shot_fadeout_exit
     - PAUSE: 0.5

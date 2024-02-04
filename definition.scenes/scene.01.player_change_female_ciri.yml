@@ -186,8 +186,8 @@ production:
     strings-idspace: 5940
     strings-idstart: 650
 
-  safe_placement: false
-  snap_to_terrain: false
+  safe_placement: 0.5
+  snap_to_terrain: true
 
   placement: "PLAYER"
     # INFO: world coordinates of used origin:

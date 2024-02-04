@@ -12,9 +12,9 @@ templates:
       cookScenes:
         - "dlc/dlcnewreplacers/data/scenes/01.player_change_male.w2scene"
         - "dlc/dlcnewreplacers/data/scenes/01.player_change_female.w2scene"
+        - "dlc/dlcnewreplacers/data/scenes/01.player_change_female_ciri.w2scene"
         - "dlc/dlcnewreplacers/data/scenes/02.magic_lines.w2scene"
         - "dlc/dlcnewreplacers/data/scenes/03.player_change_sorceress.w2scene"
-        - "dlc/dlcnewreplacers/data/scenes/q103_16d_summon_birthling.w2scene"
 
       cookMeshes:
         - ".type": CMeshComponent

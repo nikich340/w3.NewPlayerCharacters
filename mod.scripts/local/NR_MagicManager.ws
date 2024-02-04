@@ -108,6 +108,7 @@ statemachine class NR_MagicManager extends IScriptable {
 	protected var m_entitiesRipCheck : array<CEntity>;
 	protected var aEventsStack 	: array<SNR_MagicEvent>;
 	protected var mAction 		: NR_MagicAction;
+	protected var mLastShieldColor : ENR_MagicColor;
 	protected var mMiscActionsBlocked : bool;
 
 	public var aData 			: CPreAttackEventData;
@@ -441,14 +442,27 @@ statemachine class NR_MagicManager extends IScriptable {
 		switch (characterName) {
 			// characters
 			case 'yennefer':
+			case 'yennefer_cs401':
+			case 'yennefer_q203':
+			case 'yennefer_q205':
+			case 'yennefer_q210':
+			case 'yennefer_q310':
 				return 162823;
 			case 'keira':
+			case 'keira_q104':
+			case 'keira_sq101':
 				return 334714;
 			case 'triss':
+			case 'triss_q301':
+			case 'triss_q303':
+			case 'triss_q309':
+			case 'triss_q310':
 				return 162822;
 			case 'lynx':
+			case 'lynx_mq7004':
 				return 1157557;
 			case 'philippa':
+			case 'philippa_q210':
 				return 300169;
 			case 'caranthir':
 				return 335803;
@@ -499,7 +513,7 @@ statemachine class NR_MagicManager extends IScriptable {
 	public function ShowMagicInfo(sectionName : name) {
 		var 		s, i, j : int;
 		var 	NBSP, BR : String;
-		var 	text : String;
+		var 	text, styeText : String;
 		var 	actionTypes : array<ENR_MagicAction>;
 		var styleName, appName, entityName : name;
 		var typeId, styleId, color, color2 : int;
@@ -537,9 +551,14 @@ statemachine class NR_MagicManager extends IScriptable {
 				if (eqSign == s) {
 					text += "=> ";
 				}
-				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_HandFx), 'keira') );
+				styleName = sMap[s].getN("style_" + ENR_MAToName(ENR_HandFx), 'keira');
+				styleId = MageLocId(styleName);
+				styeText = GetLocStringById(styleId);
+				if (StrFindFirst(NameToString(styleName), "_") >= 0) {
+					styeText += "{ }" + StrAfterLast(NameToString(styleName), "_");
+				}
 				color = sMap[s].getI("color_" + ENR_MAToName(ENR_HandFx), ENR_ColorWhite);
-				text += NR_GetSignIconFormattedByType(s,,,-20) + "{ }" + ColorFormattedValue(styleId, color);
+				text += NR_GetSignIconFormattedByType(s,,,-20) + "{ }" + ColorFormattedText(styeText, color);
 				text += BR;
 			}
 		} else if (sectionName == 'teleport') {
@@ -771,10 +790,10 @@ statemachine class NR_MagicManager extends IScriptable {
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialControl), 40.f);
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialShield), 100.f);
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialPolymorphism), 40.f);
-
-		// duration_<AttackType> in sec (interval between creating meteors/lightnings)
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialLumos), 999999.f);
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialField), 40.f);
+
+		// duration_<AttackType> in sec (interval between creating meteors/lightnings)
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialMeteorFall), 0.8f);
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialLightningFall), 0.5f);
 	}
@@ -851,14 +870,19 @@ statemachine class NR_MagicManager extends IScriptable {
 	}
 
 	function SetDefaults_HeavyBomb() {
+		sMap[ST_Aard].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
 		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorWhite);
 
+		sMap[ST_Axii].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
 		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorSeagreen);
 
+		sMap[ST_Igni].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'philippa');
 		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorOrange);
 
+		sMap[ST_Quen].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorYellow);
 
+		sMap[ST_Yrden].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'philippa');
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorViolet);
 	}
 
@@ -1432,10 +1456,10 @@ statemachine class NR_MagicManager extends IScriptable {
 	public function GetActionMaxApplies( type : ENR_MagicAction ) : int {
 		switch (type) {
 			case ENR_SpecialServant:
+			case ENR_SpecialMeteor:
 				return 1 + GetActionSkillLevel(type) / 10;
 			case ENR_SpecialControl:
 			case ENR_SpecialTornado:
-			case ENR_SpecialMeteor:
 				return 1 + GetActionSkillLevel(type) / 5;
 			case ENR_SpecialLightningFall:
 				return 4 + GetActionSkillLevel(type) / 2;
@@ -1476,7 +1500,11 @@ statemachine class NR_MagicManager extends IScriptable {
 			return "<b>- " + ENR_MAToLocString(type) + "</b>: " + NR_StrRed(locked) + "<br>";
 		}
 		// name, level
-		info = "<b>- " + ENR_MAToLocString(type) + "</b>: <i>" + StrLower(GetLocStringById(539939)) + "</i>: " + IntToString(GetActionSkillLevel(type)) + " / 10<br>";
+		info = "<b>";
+		if (!detailed) {
+			info += "- ";
+		}
+		info += ENR_MAToLocString(type) + "</b>: <i>" + StrLower(GetLocStringById(539939)) + "</i>: " + IntToString(GetActionSkillLevel(type)) + " / 10<br>";
 		// performs
 		info += "  <i>" + GetLocStringById(2115940225) + "</i>: " + IntToString(GetActionPerformedCount(type));
 		//damage
@@ -1554,6 +1582,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			info += "  <i>" + GetLocStringById(2115940240) + "</i>: " + GetActionMaxApplies(type) + "<br>";
 		} else if (type == ENR_SpecialShield) {
 			specialAbilities.PushBack("AutoLightning"); specialAbilityIds.PushBack(2115940230);
+			specialAbilities.PushBack("AutoApply"); specialAbilityIds.PushBack(2115940593);
 			info += "  <i>" + GetLocStringById(2115940241) + "</i>: " + GetShieldDamageAbsorption() + "%<br>";
 		} else if (type == ENR_SpecialPolymorphism) {
 			
@@ -1584,21 +1613,23 @@ statemachine class NR_MagicManager extends IScriptable {
 			
 
 			for (i = 0; i < specialAbilities.Size(); i += 1) {
+				tmp = "";
 				if (i > 0) {
 					if (!detailed) {
 						info += ", ";
 					} else {
-						info += "<br>  * ";
+						info += "<br>";
+						tmp += "  - ";
 					}
 				}
-				tmp = GetLocStringById(specialAbilityIds[i]);
+				tmp += GetLocStringById(specialAbilityIds[i]);
 				if (!detailed) {
 					StrSplitFirst( tmp, " [", tmp, r_tmp );
 				}
 				if (IsActionAbilityUnlocked(type, specialAbilities[i]))
-					info += NR_StrGreen( tmp );
+					info += NR_StrRGB( tmp, 20,100,20 );
 				else
-					info += NR_StrRed( tmp );
+					info += NR_StrRGB( tmp, 100,20,20 );
 			}
 			
 			info += "<br>";
@@ -1747,129 +1778,361 @@ statemachine class NR_MagicManager extends IScriptable {
 
 		switch (color) {
 			//case ENR_ColorBlack:
-			case ENR_ColorGrey:
-				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_grey';
-					case 'triss':
-						return 'hand_fx_triss_grey';
-					case 'philippa':
-						return 'hand_fx_philippa_grey';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_grey';
-				}
+			//case ENR_ColorGrey:
+			//case ENR_ColorSpecial1:
+			//case ENR_ColorSpecial2:
+			//case ENR_ColorSpecial3:
 			case ENR_ColorYellow:
 				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_yellow';
-					case 'triss':
-						return 'hand_fx_triss_yellow';
+					case 'keira':
+						return 'hand_fx_keira_yellow';
+					case 'keira_q104':
+						return 'hand_fx_keira_q104_yellow';
+					case 'keira_sq101':
+						return 'hand_fx_keira_sq101_yellow';
+					case 'lynx':
+						return 'hand_fx_lynx_yellow';
+					case 'lynx_mq7004':
+						return 'hand_fx_lynx_mq7004_yellow';
 					case 'philippa':
 						return 'hand_fx_philippa_yellow';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_yellow';
+					case 'philippa_q210':
+						return 'hand_fx_philippa_q210_yellow';
+					case 'triss':
+						return 'hand_fx_triss_yellow';
+					case 'triss_q301':
+						return 'hand_fx_triss_q301_yellow';
+					case 'triss_q303':
+						return 'hand_fx_triss_q303_yellow';
+					case 'triss_q309':
+						return 'hand_fx_triss_q309_yellow';
+					case 'triss_q310':
+						return 'hand_fx_triss_q310_yellow';
+					case 'yennefer':
+						return 'hand_fx_yennefer_yellow';
+					case 'yennefer_cs401':
+						return 'hand_fx_yennefer_cs401_yellow';
+					case 'yennefer_q203':
+						return 'hand_fx_yennefer_q203_yellow';
+					case 'yennefer_q205':
+						return 'hand_fx_yennefer_q205';
+					case 'yennefer_q210':
+						return 'hand_fx_yennefer_q210_yellow';
+					case 'yennefer_q310':
+						return 'hand_fx_yennefer_q310_yellow';
 				}
 			case ENR_ColorOrange:
 				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_orange';
-					case 'triss':
-						return 'hand_fx_triss_orange';
+					case 'keira':
+						return 'hand_fx_keira_orange';
+					case 'keira_q104':
+						return 'hand_fx_keira_q104_orange';
+					case 'keira_sq101':
+						return 'hand_fx_keira_sq101_orange';
+					case 'lynx':
+						return 'hand_fx_lynx_orange';
+					case 'lynx_mq7004':
+						return 'hand_fx_lynx_mq7004_orange';
 					case 'philippa':
 						return 'hand_fx_philippa_orange';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_orange';
+					case 'philippa_q210':
+						return 'hand_fx_philippa_q210_orange';
+					case 'triss':
+						return 'hand_fx_triss_orange';
+					case 'triss_q301':
+						return 'hand_fx_triss_q301_orange';
+					case 'triss_q303':
+						return 'hand_fx_triss_q303_orange';
+					case 'triss_q309':
+						return 'hand_fx_triss_q309_orange';
+					case 'triss_q310':
+						return 'hand_fx_triss_q310_orange';
+					case 'yennefer':
+						return 'hand_fx_yennefer_orange';
+					case 'yennefer_cs401':
+						return 'hand_fx_yennefer_cs401_orange';
+					case 'yennefer_q203':
+						return 'hand_fx_yennefer_q203_orange';
+					case 'yennefer_q205':
+						return 'hand_fx_yennefer_q205';
+					case 'yennefer_q210':
+						return 'hand_fx_yennefer_q210_orange';
+					case 'yennefer_q310':
+						return 'hand_fx_yennefer_q310_orange';
 				}
 			case ENR_ColorRed:
 				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_red';
-					case 'triss':
-						return 'hand_fx_triss_red';
+					case 'keira':
+						return 'hand_fx_keira_red';
+					case 'keira_q104':
+						return 'hand_fx_keira_q104_red';
+					case 'keira_sq101':
+						return 'hand_fx_keira_sq101_red';
+					case 'lynx':
+						return 'hand_fx_lynx_red';
+					case 'lynx_mq7004':
+						return 'hand_fx_lynx_mq7004_red';
 					case 'philippa':
 						return 'hand_fx_philippa_red';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_red';
+					case 'philippa_q210':
+						return 'hand_fx_philippa_q210_red';
+					case 'triss':
+						return 'hand_fx_triss_red';
+					case 'triss_q301':
+						return 'hand_fx_triss_q301_red';
+					case 'triss_q303':
+						return 'hand_fx_triss_q303_red';
+					case 'triss_q309':
+						return 'hand_fx_triss_q309_red';
+					case 'triss_q310':
+						return 'hand_fx_triss_q310_red';
+					case 'yennefer':
+						return 'hand_fx_yennefer_red';
+					case 'yennefer_cs401':
+						return 'hand_fx_yennefer_cs401_red';
+					case 'yennefer_q203':
+						return 'hand_fx_yennefer_q203_red';
+					case 'yennefer_q205':
+						return 'hand_fx_yennefer_q205';
+					case 'yennefer_q210':
+						return 'hand_fx_yennefer_q210_red';
+					case 'yennefer_q310':
+						return 'hand_fx_yennefer_q310_red';
 				}
 			case ENR_ColorPink:
 				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_pink';
-					case 'triss':
-						return 'hand_fx_triss_pink';
+					case 'keira':
+						return 'hand_fx_keira_pink';
+					case 'keira_q104':
+						return 'hand_fx_keira_q104_pink';
+					case 'keira_sq101':
+						return 'hand_fx_keira_sq101_pink';
+					case 'lynx':
+						return 'hand_fx_lynx_pink';
+					case 'lynx_mq7004':
+						return 'hand_fx_lynx_mq7004_pink';
 					case 'philippa':
 						return 'hand_fx_philippa_pink';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_pink';
+					case 'philippa_q210':
+						return 'hand_fx_philippa_q210_pink';
+					case 'triss':
+						return 'hand_fx_triss_pink';
+					case 'triss_q301':
+						return 'hand_fx_triss_q301_pink';
+					case 'triss_q303':
+						return 'hand_fx_triss_q303_pink';
+					case 'triss_q309':
+						return 'hand_fx_triss_q309_pink';
+					case 'triss_q310':
+						return 'hand_fx_triss_q310_pink';
+					case 'yennefer':
+						return 'hand_fx_yennefer_pink';
+					case 'yennefer_cs401':
+						return 'hand_fx_yennefer_cs401_pink';
+					case 'yennefer_q203':
+						return 'hand_fx_yennefer_q203_pink';
+					case 'yennefer_q205':
+						return 'hand_fx_yennefer_q205';
+					case 'yennefer_q210':
+						return 'hand_fx_yennefer_q210_pink';
+					case 'yennefer_q310':
+						return 'hand_fx_yennefer_q310_pink';
 				}
 			case ENR_ColorViolet:
 				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_violet';
-					case 'triss':
-						return 'hand_fx_triss_violet';
+					case 'keira':
+						return 'hand_fx_keira_violet';
+					case 'keira_q104':
+						return 'hand_fx_keira_q104_violet';
+					case 'keira_sq101':
+						return 'hand_fx_keira_sq101_violet';
+					case 'lynx':
+						return 'hand_fx_lynx_violet';
+					case 'lynx_mq7004':
+						return 'hand_fx_lynx_mq7004_violet';
 					case 'philippa':
 						return 'hand_fx_philippa_violet';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_violet';
+					case 'philippa_q210':
+						return 'hand_fx_philippa_q210_violet';
+					case 'triss':
+						return 'hand_fx_triss_violet';
+					case 'triss_q301':
+						return 'hand_fx_triss_q301_violet';
+					case 'triss_q303':
+						return 'hand_fx_triss_q303_violet';
+					case 'triss_q309':
+						return 'hand_fx_triss_q309_violet';
+					case 'triss_q310':
+						return 'hand_fx_triss_q310_violet';
+					case 'yennefer':
+						return 'hand_fx_yennefer_violet';
+					case 'yennefer_cs401':
+						return 'hand_fx_yennefer_cs401_violet';
+					case 'yennefer_q203':
+						return 'hand_fx_yennefer_q203_violet';
+					case 'yennefer_q205':
+						return 'hand_fx_yennefer_q205';
+					case 'yennefer_q210':
+						return 'hand_fx_yennefer_q210_violet';
+					case 'yennefer_q310':
+						return 'hand_fx_yennefer_q310_violet';
 				}
 			case ENR_ColorBlue:
 				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_blue';
-					case 'triss':
-						return 'hand_fx_triss_blue';
+					case 'keira':
+						return 'hand_fx_keira_blue';
+					case 'keira_q104':
+						return 'hand_fx_keira_q104_blue';
+					case 'keira_sq101':
+						return 'hand_fx_keira_sq101_blue';
+					case 'lynx':
+						return 'hand_fx_lynx_blue';
+					case 'lynx_mq7004':
+						return 'hand_fx_lynx_mq7004_blue';
 					case 'philippa':
 						return 'hand_fx_philippa_blue';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_blue';
+					case 'philippa_q210':
+						return 'hand_fx_philippa_q210_blue';
+					case 'triss':
+						return 'hand_fx_triss_blue';
+					case 'triss_q301':
+						return 'hand_fx_triss_q301_blue';
+					case 'triss_q303':
+						return 'hand_fx_triss_q303_blue';
+					case 'triss_q309':
+						return 'hand_fx_triss_q309_blue';
+					case 'triss_q310':
+						return 'hand_fx_triss_q310_blue';
+					case 'yennefer':
+						return 'hand_fx_yennefer_blue';
+					case 'yennefer_cs401':
+						return 'hand_fx_yennefer_cs401_blue';
+					case 'yennefer_q203':
+						return 'hand_fx_yennefer_q203_blue';
+					case 'yennefer_q205':
+						return 'hand_fx_yennefer_q205';
+					case 'yennefer_q210':
+						return 'hand_fx_yennefer_q210_blue';
+					case 'yennefer_q310':
+						return 'hand_fx_yennefer_q310_blue';
 				}
 			case ENR_ColorSeagreen:
 				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_seagreen';
-					case 'triss':
-						return 'hand_fx_triss_seagreen';
+					case 'keira':
+						return 'hand_fx_keira_seagreen';
+					case 'keira_q104':
+						return 'hand_fx_keira_q104_seagreen';
+					case 'keira_sq101':
+						return 'hand_fx_keira_sq101_seagreen';
+					case 'lynx':
+						return 'hand_fx_lynx_seagreen';
+					case 'lynx_mq7004':
+						return 'hand_fx_lynx_mq7004_seagreen';
 					case 'philippa':
 						return 'hand_fx_philippa_seagreen';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_seagreen';
+					case 'philippa_q210':
+						return 'hand_fx_philippa_q210_seagreen';
+					case 'triss':
+						return 'hand_fx_triss_seagreen';
+					case 'triss_q301':
+						return 'hand_fx_triss_q301_seagreen';
+					case 'triss_q303':
+						return 'hand_fx_triss_q303_seagreen';
+					case 'triss_q309':
+						return 'hand_fx_triss_q309_seagreen';
+					case 'triss_q310':
+						return 'hand_fx_triss_q310_seagreen';
+					case 'yennefer':
+						return 'hand_fx_yennefer_seagreen';
+					case 'yennefer_cs401':
+						return 'hand_fx_yennefer_cs401_seagreen';
+					case 'yennefer_q203':
+						return 'hand_fx_yennefer_q203_seagreen';
+					case 'yennefer_q205':
+						return 'hand_fx_yennefer_q205';
+					case 'yennefer_q210':
+						return 'hand_fx_yennefer_q210_seagreen';
+					case 'yennefer_q310':
+						return 'hand_fx_yennefer_q310_seagreen';
 				}
 			case ENR_ColorGreen:
 				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_green';
-					case 'triss':
-						return 'hand_fx_triss_green';
+					case 'keira':
+						return 'hand_fx_keira_green';
+					case 'keira_q104':
+						return 'hand_fx_keira_q104_green';
+					case 'keira_sq101':
+						return 'hand_fx_keira_sq101_green';
+					case 'lynx':
+						return 'hand_fx_lynx_green';
+					case 'lynx_mq7004':
+						return 'hand_fx_lynx_mq7004_green';
 					case 'philippa':
 						return 'hand_fx_philippa_green';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_green';
-				}
-			// case ENR_ColorSpecial1:
-			// case ENR_ColorSpecial2:
-			// case ENR_ColorSpecial3:
-			default:
-			case ENR_ColorWhite:
-				switch (fx_type) {
-					case 'yennefer':
-						return 'hand_fx_yennefer_white';
+					case 'philippa_q210':
+						return 'hand_fx_philippa_q210_green';
 					case 'triss':
-						return 'hand_fx_triss_white';
+						return 'hand_fx_triss_green';
+					case 'triss_q301':
+						return 'hand_fx_triss_q301_green';
+					case 'triss_q303':
+						return 'hand_fx_triss_q303_green';
+					case 'triss_q309':
+						return 'hand_fx_triss_q309_green';
+					case 'triss_q310':
+						return 'hand_fx_triss_q310_green';
+					case 'yennefer':
+						return 'hand_fx_yennefer_green';
+					case 'yennefer_cs401':
+						return 'hand_fx_yennefer_cs401_green';
+					case 'yennefer_q203':
+						return 'hand_fx_yennefer_q203_green';
+					case 'yennefer_q205':
+						return 'hand_fx_yennefer_q205';
+					case 'yennefer_q210':
+						return 'hand_fx_yennefer_q210_green';
+					case 'yennefer_q310':
+						return 'hand_fx_yennefer_q310_green';
+				}
+			case ENR_ColorWhite:
+			default:
+				switch (fx_type) {
+					case 'keira':
+						return 'hand_fx_keira_white';
+					case 'keira_q104':
+						return 'hand_fx_keira_q104_white';
+					case 'keira_sq101':
+						return 'hand_fx_keira_sq101_white';
+					case 'lynx':
+						return 'hand_fx_lynx_white';
+					case 'lynx_mq7004':
+						return 'hand_fx_lynx_mq7004_white';
 					case 'philippa':
 						return 'hand_fx_philippa_white';
-					case 'keira':
-					default:
-						return 'hand_fx_keira_white';
+					case 'philippa_q210':
+						return 'hand_fx_philippa_q210_white';
+					case 'triss':
+						return 'hand_fx_triss_white';
+					case 'triss_q301':
+						return 'hand_fx_triss_q301_white';
+					case 'triss_q303':
+						return 'hand_fx_triss_q303_white';
+					case 'triss_q309':
+						return 'hand_fx_triss_q309_white';
+					case 'triss_q310':
+						return 'hand_fx_triss_q310_white';
+					case 'yennefer':
+						return 'hand_fx_yennefer_white';
+					case 'yennefer_cs401':
+						return 'hand_fx_yennefer_cs401_white';
+					case 'yennefer_q203':
+						return 'hand_fx_yennefer_q203_white';
+					case 'yennefer_q205':
+						return 'hand_fx_yennefer_q205';
+					case 'yennefer_q210':
+						return 'hand_fx_yennefer_q210_white';
+					case 'yennefer_q310':
+						return 'hand_fx_yennefer_q310_white';
 				}
 		}
 	}
@@ -1877,6 +2140,7 @@ statemachine class NR_MagicManager extends IScriptable {
 	public function SphereFxName() : name {
 		var color 	: ENR_MagicColor = NR_FinalizeColor( sMap[eqSign].getI("color_" + ENR_MAToName(ENR_SpecialShield), ENR_ColorRed) );
 
+		mLastShieldColor = color;
 		switch (color) {
 			//case ENR_ColorBlack:
 			//case ENR_ColorGrey:
@@ -1906,9 +2170,7 @@ statemachine class NR_MagicManager extends IScriptable {
 	}
 
 	public function SphereHitFxName() : name {
-		var color 	: ENR_MagicColor = NR_FinalizeColor( sMap[eqSign].getI("color_" + ENR_MAToName(ENR_SpecialShield), ENR_ColorRed) );
-
-		switch (color) {
+		switch (mLastShieldColor) {
 			//case ENR_ColorBlack:
 			//case ENR_ColorGrey:
 			case ENR_ColorWhite:
@@ -2150,7 +2412,7 @@ state MagicLoop in NR_MagicManager {
 		pos.Z += parent.sMap[parent.ST_Universal].getF("used_ftt_z");
 		entity = theGame.CreateEntity(template, pos, thePlayer.GetWorldRotation());
 		entity.PlayEffect('teleport_fx');
-		thePlayer.ActionPlaySlotAnimation('PLAYER_SLOT', 'high_standing_determined_calm_exit_frontal', 0.25f, 0.5f);
+		thePlayer.ActionPlaySlotAnimation('PLAYER_SLOT', 'add_walk_three_steps_forward_casual', 0.25f, 0.5f);
 		NR_Debug("MM.PerformExitFromFTT: entity = " + entity);
 
 		parent.sMap[parent.ST_Universal].removeKey("used_ftt_entity");
@@ -2351,43 +2613,49 @@ latent function NR_SmoothMoveToTarget(dt : float, metersPerSec : float, out curr
 }
 
 // pos is input wanted position, is corrected after func call
-// set upMaxZ/downMaxZ to somewhat very small but > 0.f
-latent function NR_GetSafeTeleportPoint(out pos : Vector, optional allowUnderwater : bool, optional upMaxZ : float, optional downMaxZ : float) : bool {
+// basically tries to snap on ground in allowed range: returns true on succes
+latent function NR_GetSafeTeleportPoint(out pos : Vector, upMaxZ : float, downMaxZ : float, radius : float) : bool {
+	var normal, newPos 	: Vector;
 	var waterZ, newZ 	: float;
 	var world         	: CWorld;
 
 	world = theGame.GetWorld();
-	// from IsPointSuitableForTeleport()
-	//if ( !world.NavigationFindSafeSpot( pos, 0.5f, 0.5f*3, newPos ) )
-	//{
-	//NR_Debug("NR_GetSafeTeleportPoint::!NavigationFindSafeSpot");
-	if (upMaxZ < 0.001f)
-		upMaxZ = 7.f;
+	newPos = pos;
 
-	if (downMaxZ < 0.001f)
-		downMaxZ = 7.f;
-
-	if ( world.NavigationComputeZ(pos, pos.Z - downMaxZ, pos.Z + upMaxZ, newZ) )
-	{
-		NR_Debug("NR_GetSafeTeleportPoint: NavigationComputeZ = " + newZ);
-		pos.Z = newZ;
+	// 1. try NavigationFindSafeSpot
+	if ( !world.NavigationFindSafeSpot(pos, radius, radius*3, newPos) ) {
+		// 2. try NavigationComputeZ
+		if ( !world.NavigationComputeZ(pos, pos.Z - downMaxZ, pos.Z + upMaxZ, newZ) ) {
+			newPos.Z = newZ;
+			// 3. try StaticTrace down
+			if ( !world.StaticTrace(pos + Vector(0,0,upMaxZ), pos - Vector(0,0,downMaxZ), newPos, normal, NR_GetStandartCollisionNames()) ) {
+				// all failed
+				return false;
+			}
+		} else {
+			newPos.Z = newZ;
+		}
 	}
 
-	waterZ = world.GetWaterLevel( pos, true );
-	NR_Debug("NR_GetSafeTeleportPoint: waterZ = " + waterZ);
+	// 4. snap to terrain if possible
+	if (world.PhysicsCorrectZ(newPos, newZ)) {
+		newPos.Z = newZ;
+	}
 
-	// make sure that floor pos found + it's above water + it's in zTolerance (7) range
-	if ( world.PhysicsCorrectZ(pos, newZ) && (allowUnderwater || newZ > waterZ) && AbsF(newZ - pos.Z) < 7.f ) {
-		NR_Debug("NR_GetSafeTeleportPoint: PhysicsCorrectZ = " + newZ);
-		pos.Z = newZ;
+	waterZ = world.GetWaterLevel( newPos, true );
+
+	// make sure that floor pos found + it's above water + it's in zTolerance range
+	if (newPos.Z > waterZ && AbsF(newPos.Z - pos.Z) < MaxF(upMaxZ, downMaxZ)) {
+		pos = newPos;
 		return true;
+	} else {
+		return false;
 	}
-
-	return false;
 }
 
 // actor is used to calculate capsule radius and height
-latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, from : Vector, to : Vector ) : Vector {
+// from and to must be snapped to ground
+latent function NR_GetTeleportMaxArchievablePoint_OLD( actor : CActor, from : Vector, to : Vector ) : Vector {
 	var moveVec, result, normal : Vector;
 	var newZ : float;
 	var capsuleRadius : float;
@@ -2397,24 +2665,109 @@ latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, from : Vector
 	capsuleHeight = ((CMovingPhysicalAgentComponent)actor.GetMovingAgentComponent()).GetCapsuleHeight();
 	from.Z += capsuleHeight * 0.75f;
 	to.Z += capsuleHeight * 0.75f;
-	NR_Debug("NR_GetTeleportMaxArchievablePoint: capsuleHeight = " + capsuleHeight + ", capsuleRadius = " + capsuleRadius);
+	NR_Debug("NR_GetTeleportMaxArchievablePoint: capsuleHeight = " + capsuleHeight + ", capsuleRadius = " + capsuleRadius + ", from = " + VecToString(from) + ", to = " + VecToString(to));
 
 	// to avoid stopping inside actor body
 	moveVec = VecNormalize(to - from);
 	from += moveVec * capsuleRadius;
-	if ( theGame.GetWorld().StaticTrace(from, to, /*capsuleRadius,*/ result, normal, NR_GetStandartCollisionNames()) ) {
+	if ( theGame.GetWorld().StaticTrace(from, to, result, normal, NR_GetStandartCollisionNames()) ) {
 		NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = true, result = " + VecToString(result) + ", to = " + VecToString(to));
 	} else {
 		NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = false");
 		result = to;
 	}
 
-	if ( theGame.GetWorld().PhysicsCorrectZ(result, newZ) ) {
-		result.Z = newZ;
-	}
-	// result.Z -= capsuleHeight * 0.75f;
-	// result -= moveVec * capsuleRadius;
 	return result;
+}
+
+// actor - who teleporting
+// from = current actor position
+// teleportVec = heading or any normalized horizontal vector (Z-value is ignored)
+// teleportLength = distance in meters on 2D
+// to = from + teleportVec * teleportLength
+// returns: safe-to-tp and snapped to ground position
+latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, teleportVec : Vector, teleportLength : float ) : Vector {
+	var step, h, newZ, waterZ : float;
+	var traceMaterial : name;
+	var traceComponent : CComponent;
+	var stepsProceed, stepsLimit : int;
+	var world : CWorld;
+	var actorPos, pos, nextPos, traceNormal, tracePos : Vector;
+	var traceBumped : bool;
+	var collisionNames : array<name>;
+
+	actorPos = actor.GetWorldPosition();
+	teleportVec = VecNormalize2D(teleportVec);
+	step = ((CMovingPhysicalAgentComponent)actor.GetMovingAgentComponent()).GetCapsuleRadius();
+	h = ((CMovingPhysicalAgentComponent)actor.GetMovingAgentComponent()).GetCapsuleHeight() * 0.9f;
+	pos = actorPos + teleportVec * step * 1.f;  // to avoid bumping trace into player body
+	pos.Z += h;
+	world = theGame.GetWorld();
+	collisionNames = NR_GetStandartCollisionNames();
+	collisionNames.Remove('Character');
+	collisionNames.Remove('CommunityCollidables');
+	traceBumped = false;
+	stepsLimit = CeilF(teleportLength / step);
+	NR_Debug("NR_GetTeleportMaxArchievablePoint: step = " + step + ", h = " + h);
+
+	while ( VecDistanceSquared2D(actorPos, pos) < teleportLength * teleportLength && stepsProceed < stepsLimit ) {
+		nextPos = pos + teleportVec * step;
+		/*
+		traceBumped = world.StaticTraceWithAdditionalInfo(pos, nextPos, tracePos, traceNormal, traceMaterial, traceComponent, collisionNames);
+		if (traceBumped) {
+			NR_Debug("NR_GetTeleportMaxArchievablePoint: traceBumped (" + traceMaterial + ":" + traceComponent + "), step " + stepsProceed);
+			if (stepsProceed < 1) {
+				pos = actorPos;
+				pos.Z += h;
+			}
+			break;
+		}
+		*/
+		traceBumped = world.SweepTest(pos, nextPos, /*radius*/ 0.15f, tracePos, traceNormal, collisionNames);
+		if (traceBumped) {
+			NR_Debug("NR_GetTeleportMaxArchievablePoint: SweepTest bumped, step " + stepsProceed);
+			if (stepsProceed < 1) {
+				pos = actorPos;
+				pos.Z += h;
+			}
+			break;
+		}
+
+		// fast snap to ground
+		if ( world.NavigationFindSafeSpot(nextPos, step, step*3.f, tracePos) ) {
+			nextPos = tracePos;
+			NR_Debug("NR_GetTeleportMaxArchievablePoint: snapped with NavigationFindSafeSpot, step " + stepsProceed);
+		} else if ( world.NavigationComputeZ(nextPos, nextPos.Z - h*2.f, nextPos.Z, newZ) ) {
+			nextPos.Z = newZ;
+			NR_Debug("NR_GetTeleportMaxArchievablePoint: snapped with NavigationComputeZ, step " + stepsProceed);
+		} else if ( world.StaticTrace(nextPos, nextPos - Vector(0,0,h*2.f), tracePos, traceNormal, collisionNames) ) {
+			nextPos = tracePos;
+			NR_Debug("NR_GetTeleportMaxArchievablePoint: snapped with StaticTrace, step " + stepsProceed);
+		// all failed - can't snap to ground
+		} else {
+			NR_Debug("NR_GetTeleportMaxArchievablePoint: failed to snap, step " + stepsProceed);
+			break;
+		}
+
+		waterZ = world.GetWaterLevel(nextPos);
+		// underwater pos - not allowed
+		if (nextPos.Z + 0.5f < waterZ) {
+			NR_Debug("NR_GetTeleportMaxArchievablePoint: below water level, step " + stepsProceed);
+			break;
+		}
+
+		pos = nextPos;
+		pos.Z += h;
+		stepsProceed += 1;
+	}
+	pos.Z -= h;
+
+	// snap to terrain if possible
+	if (world.PhysicsCorrectZ(pos, newZ)) {
+		pos.Z = newZ;
+	}
+
+	return pos;
 }
 
 function NR_GetStandartCollisionNames() : array<name> {

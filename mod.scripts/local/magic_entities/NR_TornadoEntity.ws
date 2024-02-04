@@ -1,6 +1,7 @@
 statemachine class NR_TornadoEntity extends CGameplayEntity {
 	protected var m_caster, m_target : CActor;
 	protected var m_targetPos : Vector;
+	public var m_dk : float;
 	public var m_metersPerSec : float;
 
 	protected var m_tornadoLifetime, m_victimDistance, m_victimDistanceSq, m_slideDistance, m_slideDistanceSq : float;
@@ -15,6 +16,7 @@ statemachine class NR_TornadoEntity extends CGameplayEntity {
 	default m_slideDistance = 12.f;
 	default m_slideDistanceSq = 144.f;
 	default m_metersPerSec = 3.f;
+	default m_dk = 3.f;
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
@@ -73,7 +75,7 @@ state Active in NR_TornadoEntity {
 
 	entry function MainLoop() {
 		var moveTime, lastMoveTime, distSq 	: float;
-		var damageTime, lastDamageTime, damageVal, dk : float;
+		var damageTime, lastDamageTime, damageVal : float;
 		var currentPos, targetPos, reachPos : Vector;
 		var entities 	: array<CGameplayEntity>;
 		var actor 		: CActor;
@@ -83,7 +85,6 @@ state Active in NR_TornadoEntity {
 		startTime = theGame.GetEngineTimeAsSeconds();
 		lastMoveTime = GetLocalTime();
 		lastDamageTime = lastMoveTime;
-		dk = 20.f;
 
 		currentPos = parent.GetWorldPosition();
 		if (parent.m_target) {
@@ -174,9 +175,10 @@ state Active in NR_TornadoEntity {
 			{
 				damage = new W3DamageAction in this;
 				damage.Initialize(parent.m_caster, victims[i], NULL, parent, EHRT_None, CPS_Undefined, false, false, false, true );
-				damageVal = GetDamage(victims[i], /*min*/ 2.f*dk, /*max*/ 50.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/);
-				damageVal = damageVal * damageTime / 7.f;
-				damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
+				damageVal = GetDamage(victims[i], /*min*/ 2.f*parent.m_dk, /*max*/ 50.f*parent.m_dk, /*vitality*/ 25.f*parent.m_dk, 8.f*parent.m_dk, /*essence*/ 90.f*parent.m_dk, 12.f*parent.m_dk /*randRange*/);
+				damageVal = damageVal * damageTime / parent.m_tornadoLifetime;
+				damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
+				damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, damageVal * 0.5f );
 				//damage.SetCanPlayHitParticle( false );
 				damage.SetSuppressHitSounds( true );
 				damage.SetHitAnimationPlayType( EAHA_ForceNo );

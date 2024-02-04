@@ -44,7 +44,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		// BTTaskPullObjectsFromGroundAndShoot, Keira Metz & Djinni //
 		numberToSpawn			= 10;
-		dk 						= 2.5f * SkillTotalDamageMultiplier() / numberToSpawn;
+		dk 						= 2.25f * SkillTotalDamageMultiplier() / numberToSpawn;
 		numberToSpawn 			+= SkillLevel();
 
 		numberOfCircles 		= 1; // don't change this
@@ -63,12 +63,12 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			if (!IsInSetupScene())
 				spawnPos = spawnCenter + VecConeRand( thePlayer.GetHeading() - ( spawnObjectsInConeAngle * 0.5f ) + ( coneAngle * i ), coneWidth, circleRadiusMin, circleRadiusMax );
 			else
-				spawnPos = spawnCenter + thePlayer.GetHeadingVector() + VecRingRand(0, 0.5);
-			theGame.GetWorld().StaticTrace( spawnPos + Vector(0,0,5), spawnPos - Vector(0,0,5), spawnPos, normalCollision );
+				spawnPos = spawnCenter + thePlayer.GetHeadingVector() + VecRingRand(0, 0.5f);
+			theGame.GetWorld().StaticTrace( spawnPos + Vector(0,0,2.f), spawnPos - Vector(0,0,2.f), spawnPos, normalCollision );
 			spawnRot = VecToRotation( thePlayer.GetWorldPosition() - spawnPos);
 			
 			projectile = (W3AdvancedProjectile)theGame.CreateEntity( entityTemplate, spawnPos + Vector(0,0,0.3f), spawnRot );
-			projectile.projDMG = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+			projectile.projDMG = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 			projectile.PlayEffect( m_fxNameMain );
 			lStartPositions.PushBack( spawnPos );
 			lProjectiles.PushBack(projectile);

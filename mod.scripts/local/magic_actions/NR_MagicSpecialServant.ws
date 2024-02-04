@@ -2,6 +2,8 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 	var servantEntities 		: array<CNewNPC>;
 	var servantEntitiesBehIds 	: array<int>;
 	var servantTemplates 		: array<CEntityTemplate>;
+	var su_oneliners 			: array<SU_OnelinerEntity>;
+	var su_onelinerColors 		: array<String>;
 	var s_follower 		: bool;
 	var s_servantCount 	: int;
 
@@ -76,6 +78,9 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 			NR_Debug("Loading servant[" + i + "] = " + template);
 			servantTemplates.PushBack(template);
 		}
+		su_onelinerColors.PushBack("#B619FF");
+		su_onelinerColors.PushBack("#F81BFF");
+		su_onelinerColors.PushBack("#3A1BFF");
 
 		return OnPrepared(true);
 	}
@@ -120,6 +125,14 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 			servantEntitiesBehIds.PushBack(behId);
 		}
 
+		su_oneliner = SU_onelinerEntity(
+			"",
+			golemNPC
+		);
+		su_oneliner.setOffset( Vector(0, 0, ((CMovingPhysicalAgentComponent)golemNPC.GetMovingAgentComponent()).GetCapsuleHeight() * 0.75f) );
+		su_oneliner.setRenderDistance( 100 );
+		su_oneliner.visible = false;
+		su_oneliners.PushBack(su_oneliner);
 		servantEntities.PushBack(golemNPC);
 		return true;
 	}
@@ -250,22 +263,22 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 }
 
 state Active in NR_MagicSpecialServant {
-	protected var startTime : float;
+	entry function ActiveLoop() {
+		var i : int;
 
-	function GetLocalTime() : float {
-		return theGame.GetEngineTimeAsSeconds() - startTime;
-	}
+		for (i = 0; i < parent.su_oneliners.Size(); i += 1) {
+			parent.su_oneliners[i].visible = true;
+		}
+		while ( GetLocalTime() < parent.s_lifetime ) {
+			for (i = 0; i < parent.su_oneliners.Size(); i += 1) {
+				UpdateOnelinerTime(, parent.su_onelinerColors[i], parent.su_oneliners[i]);
+				Sleep(0.1f);
+			}
+		}
+		for (i = 0; i < parent.su_oneliners.Size(); i += 1) {
+			parent.su_oneliners[i].visible = false;
+		}
 
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Active: OnEnterState.");
-		startTime = theGame.GetEngineTimeAsSeconds();
-		parent.inPostState = true;
-		MainLoop();		
-	}
-
-	entry function MainLoop() {
-		Sleep( parent.s_lifetime );
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
 
@@ -278,45 +291,27 @@ state Active in NR_MagicSpecialServant {
 				parent.servantEntities[i].CancelAIBehavior(parent.servantEntitiesBehIds[i]);
 			}
 		}
-		NR_Debug("Active: OnLeaveState.");
+		super.OnLeaveState( nextStateName );
 	}
 }
 
 state Stop in NR_MagicSpecialServant {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Stop: OnEnterState.");
-		parent.inPostState = true;
-		RunStop();
-		parent.inPostState = false;
-	}
-
-	entry function RunStop() {
+	entry function StopLoop() {
 		var i : int;
+
+		for (i = 0; i < parent.su_oneliners.Size(); i += 1) {
+			parent.su_oneliners[i].unregister();
+		}
 
 		for ( i = 0; i < parent.s_servantCount; i += 1 ) {
 			Sleep(0.1f);
 			parent.servantEntities[i].Kill('NR_MagicSpecialServant', true);
 		}
 	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Stop: OnLeaveState.");
-		// can be removed from cached/cursed actions TODO CHECK
-		parent.inPostState = false;
-	}
 }
 
 state Cursed in NR_MagicSpecialServant {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Cursed: OnEnterState.");
-		parent.inPostState = true;
-		RunCurse();
-	}
-
-	entry function RunCurse() {
+	entry function CursedLoop() {
 		var i : int;
 
 		Sleep(0.5f);
@@ -326,12 +321,20 @@ state Cursed in NR_MagicSpecialServant {
 			parent.servantEntities[i].SetAttitude( thePlayer, AIA_Hostile );
 		}
 
-		Sleep( parent.s_lifetime * 0.5f );
-		parent.StopAction();
-	}
+		parent.s_lifetime *= 0.5f;
+		for (i = 0; i < parent.su_oneliners.Size(); i += 1) {
+			parent.su_oneliners[i].visible = true;
+		}
+		while ( GetLocalTime() < parent.s_lifetime ) {
+			for (i = 0; i < parent.su_oneliners.Size(); i += 1) {
+				UpdateOnelinerTime(,, parent.su_oneliners[i]);
+				Sleep(0.1f);
+			}
+		}
+		for (i = 0; i < parent.su_oneliners.Size(); i += 1) {
+			parent.su_oneliners[i].visible = false;
+		}
 
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Cursed: OnLeaveState.");
+		parent.StopAction();
 	}
 }

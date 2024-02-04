@@ -4395,6 +4395,12 @@ latent quest function BlockGameplayFunctionality(lock : bool, sourceName : name,
 		LogBlockGameplayFunctionality(sourceName, "Source name is not a valid name! You must provide it! Skipping block!");
 		return;
 	}
+
+	// NR MOD v
+	if ( lock && NR_GetReplacerSorceress() ) {
+		fistFight = false;
+	}
+	// NR MOD ^
 	
 	if(lock)
 		locking = "  Locking";

@@ -3244,7 +3244,7 @@ dialogscript:
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940143}: '
+            str: "{1061945}: {2115940143}: "
         - choice: ["2115940121|", section_choice_hand_aard_color]
           emphasize: true
           scriptAction:
@@ -3255,51 +3255,107 @@ dialogscript:
     - CHOICE:
         - choice: ["2115940103|", section_choice_hand_aard, exit]
           emphasize: true
-        - choice: ["0000162823|Yennefer", script_hand_aard_type_yennefer]
+        - choice: ["0001107617|.", script_hand_aard_type_keira]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940143}: '
-        - choice: ["0000334714|Keira Metz", script_hand_aard_type_keira]
+            str: '{1061945}: {2115940143}: {334714}'
+        - choice: ["0001107617|.", script_hand_aard_type_keira_q104]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940143}: '
-        - choice: ["0000162822|Triss", script_hand_aard_type_triss]
+            str: '{1061945}: {2115940143}: {334714} q104'
+        - choice: ["0001107617|.", script_hand_aard_type_keira_sq101]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940143}: '
-        - choice: ["0000300169|Philippa Eilhart", script_hand_aard_type_philippa]
+            str: '{1061945}: {2115940143}: {334714} sq101'
+        - choice: ["0001107617|.", script_hand_aard_type_lynx]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1061945}: {2115940143}: '
+            str: '{1061945}: {2115940143}: {1157557}'
+        - choice: ["0001107617|.", script_hand_aard_type_lynx_mq7004]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {1157557} mq7004'
+        - choice: ["0001107617|.", script_hand_aard_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {300169}'
+        - choice: ["0001107617|.", script_hand_aard_type_philippa_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {300169} q210'
+        - choice: ["0001107617|.", script_hand_aard_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162822}'
+        - choice: ["0001107617|.", script_hand_aard_type_triss_q301]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162822} q301'
+        - choice: ["0001107617|.", script_hand_aard_type_triss_q303]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162822} q303'
+        - choice: ["0001107617|.", script_hand_aard_type_triss_q309]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162822} q309'
+        - choice: ["0001107617|.", script_hand_aard_type_triss_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162822} q310'
+        - choice: ["0001107617|.", script_hand_aard_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162823}'
+        - choice: ["0001107617|.", script_hand_aard_type_yennefer_cs401]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162823} cs401'
+        - choice: ["0001107617|.", script_hand_aard_type_yennefer_q203]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162823} q203'
+        - choice: ["0001107617|.", script_hand_aard_type_yennefer_q205]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162823} q205'
+        - choice: ["0001107617|.", script_hand_aard_type_yennefer_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162823} q210'
+        - choice: ["0001107617|.", script_hand_aard_type_yennefer_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1061945}: {2115940143}: {162823} q310'
 
   section_entry_hand_aard_type:
     - PAUSE: 0.0
     - NEXT: section_choice_hand_aard_type
-
-  script_hand_aard_type_yennefer:
-    - SCRIPT:
-        function: NR_SetMagicParamName_S
-        parameter:
-          - signName: CNAME_Aard
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_yennefer
-    - NEXT: script_hand_aard_type_yennefer_upd
-
-  script_hand_aard_type_yennefer_upd:
-    - SCRIPT:
-        function: NR_SetMagicUpdateHandFx_S
-    - NEXT: section_entry_hand_aard_type
 
   script_hand_aard_type_keira:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Aard
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_keira
     - NEXT: script_hand_aard_type_keira_upd
 
@@ -3308,16 +3364,58 @@ dialogscript:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_aard_type
 
-  script_hand_aard_type_triss:
+  script_hand_aard_type_keira_q104:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Aard
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_triss
-    - NEXT: script_hand_aard_type_triss_upd
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_q104
+    - NEXT: script_hand_aard_type_keira_q104_upd
 
-  script_hand_aard_type_triss_upd:
+  script_hand_aard_type_keira_q104_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_keira_sq101:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_sq101
+    - NEXT: script_hand_aard_type_keira_sq101_upd
+
+  script_hand_aard_type_keira_sq101_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx
+    - NEXT: script_hand_aard_type_lynx_upd
+
+  script_hand_aard_type_lynx_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_lynx_mq7004:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx_mq7004
+    - NEXT: script_hand_aard_type_lynx_mq7004_upd
+
+  script_hand_aard_type_lynx_mq7004_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_aard_type
@@ -3327,11 +3425,179 @@ dialogscript:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Aard
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_philippa
     - NEXT: script_hand_aard_type_philippa_upd
 
   script_hand_aard_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_philippa_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_philippa_q210
+    - NEXT: script_hand_aard_type_philippa_q210_upd
+
+  script_hand_aard_type_philippa_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss
+    - NEXT: script_hand_aard_type_triss_upd
+
+  script_hand_aard_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_triss_q301:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q301
+    - NEXT: script_hand_aard_type_triss_q301_upd
+
+  script_hand_aard_type_triss_q301_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_triss_q303:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q303
+    - NEXT: script_hand_aard_type_triss_q303_upd
+
+  script_hand_aard_type_triss_q303_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_triss_q309:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q309
+    - NEXT: script_hand_aard_type_triss_q309_upd
+
+  script_hand_aard_type_triss_q309_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_triss_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q310
+    - NEXT: script_hand_aard_type_triss_q310_upd
+
+  script_hand_aard_type_triss_q310_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_aard_type_yennefer_upd
+
+  script_hand_aard_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_yennefer_cs401:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_cs401
+    - NEXT: script_hand_aard_type_yennefer_cs401_upd
+
+  script_hand_aard_type_yennefer_cs401_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_yennefer_q203:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q203
+    - NEXT: script_hand_aard_type_yennefer_q203_upd
+
+  script_hand_aard_type_yennefer_q203_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_yennefer_q205:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q205
+    - NEXT: script_hand_aard_type_yennefer_q205_upd
+
+  script_hand_aard_type_yennefer_q205_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_yennefer_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q210
+    - NEXT: script_hand_aard_type_yennefer_q210_upd
+
+  script_hand_aard_type_yennefer_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_aard_type
+
+  script_hand_aard_type_yennefer_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Aard
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q310
+    - NEXT: script_hand_aard_type_yennefer_q310_upd
+
+  script_hand_aard_type_yennefer_q310_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_aard_type
@@ -3550,7 +3816,7 @@ dialogscript:
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940143}: '
+            str: "{1066290}: {2115940143}: "
         - choice: ["2115940121|", section_choice_hand_axii_color]
           emphasize: true
           scriptAction:
@@ -3561,51 +3827,107 @@ dialogscript:
     - CHOICE:
         - choice: ["2115940103|", section_choice_hand_axii, exit]
           emphasize: true
-        - choice: ["0000162823|Yennefer", script_hand_axii_type_yennefer]
+        - choice: ["0001107617|.", script_hand_axii_type_keira]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940143}: '
-        - choice: ["0000334714|Keira Metz", script_hand_axii_type_keira]
+            str: '{1066290}: {2115940143}: {334714}'
+        - choice: ["0001107617|.", script_hand_axii_type_keira_q104]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940143}: '
-        - choice: ["0000162822|Triss", script_hand_axii_type_triss]
+            str: '{1066290}: {2115940143}: {334714} q104'
+        - choice: ["0001107617|.", script_hand_axii_type_keira_sq101]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940143}: '
-        - choice: ["0000300169|Philippa Eilhart", script_hand_axii_type_philippa]
+            str: '{1066290}: {2115940143}: {334714} sq101'
+        - choice: ["0001107617|.", script_hand_axii_type_lynx]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066290}: {2115940143}: '
+            str: '{1066290}: {2115940143}: {1157557}'
+        - choice: ["0001107617|.", script_hand_axii_type_lynx_mq7004]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {1157557} mq7004'
+        - choice: ["0001107617|.", script_hand_axii_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {300169}'
+        - choice: ["0001107617|.", script_hand_axii_type_philippa_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {300169} q210'
+        - choice: ["0001107617|.", script_hand_axii_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162822}'
+        - choice: ["0001107617|.", script_hand_axii_type_triss_q301]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162822} q301'
+        - choice: ["0001107617|.", script_hand_axii_type_triss_q303]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162822} q303'
+        - choice: ["0001107617|.", script_hand_axii_type_triss_q309]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162822} q309'
+        - choice: ["0001107617|.", script_hand_axii_type_triss_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162822} q310'
+        - choice: ["0001107617|.", script_hand_axii_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162823}'
+        - choice: ["0001107617|.", script_hand_axii_type_yennefer_cs401]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162823} cs401'
+        - choice: ["0001107617|.", script_hand_axii_type_yennefer_q203]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162823} q203'
+        - choice: ["0001107617|.", script_hand_axii_type_yennefer_q205]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162823} q205'
+        - choice: ["0001107617|.", script_hand_axii_type_yennefer_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162823} q210'
+        - choice: ["0001107617|.", script_hand_axii_type_yennefer_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066290}: {2115940143}: {162823} q310'
 
   section_entry_hand_axii_type:
     - PAUSE: 0.0
     - NEXT: section_choice_hand_axii_type
-
-  script_hand_axii_type_yennefer:
-    - SCRIPT:
-        function: NR_SetMagicParamName_S
-        parameter:
-          - signName: CNAME_Axii
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_yennefer
-    - NEXT: script_hand_axii_type_yennefer_upd
-
-  script_hand_axii_type_yennefer_upd:
-    - SCRIPT:
-        function: NR_SetMagicUpdateHandFx_S
-    - NEXT: section_entry_hand_axii_type
 
   script_hand_axii_type_keira:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Axii
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_keira
     - NEXT: script_hand_axii_type_keira_upd
 
@@ -3614,16 +3936,58 @@ dialogscript:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_axii_type
 
-  script_hand_axii_type_triss:
+  script_hand_axii_type_keira_q104:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Axii
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_triss
-    - NEXT: script_hand_axii_type_triss_upd
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_q104
+    - NEXT: script_hand_axii_type_keira_q104_upd
 
-  script_hand_axii_type_triss_upd:
+  script_hand_axii_type_keira_q104_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_keira_sq101:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_sq101
+    - NEXT: script_hand_axii_type_keira_sq101_upd
+
+  script_hand_axii_type_keira_sq101_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx
+    - NEXT: script_hand_axii_type_lynx_upd
+
+  script_hand_axii_type_lynx_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_lynx_mq7004:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx_mq7004
+    - NEXT: script_hand_axii_type_lynx_mq7004_upd
+
+  script_hand_axii_type_lynx_mq7004_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_axii_type
@@ -3633,11 +3997,179 @@ dialogscript:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Axii
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_philippa
     - NEXT: script_hand_axii_type_philippa_upd
 
   script_hand_axii_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_philippa_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_philippa_q210
+    - NEXT: script_hand_axii_type_philippa_q210_upd
+
+  script_hand_axii_type_philippa_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss
+    - NEXT: script_hand_axii_type_triss_upd
+
+  script_hand_axii_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_triss_q301:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q301
+    - NEXT: script_hand_axii_type_triss_q301_upd
+
+  script_hand_axii_type_triss_q301_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_triss_q303:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q303
+    - NEXT: script_hand_axii_type_triss_q303_upd
+
+  script_hand_axii_type_triss_q303_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_triss_q309:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q309
+    - NEXT: script_hand_axii_type_triss_q309_upd
+
+  script_hand_axii_type_triss_q309_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_triss_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q310
+    - NEXT: script_hand_axii_type_triss_q310_upd
+
+  script_hand_axii_type_triss_q310_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_axii_type_yennefer_upd
+
+  script_hand_axii_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_yennefer_cs401:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_cs401
+    - NEXT: script_hand_axii_type_yennefer_cs401_upd
+
+  script_hand_axii_type_yennefer_cs401_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_yennefer_q203:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q203
+    - NEXT: script_hand_axii_type_yennefer_q203_upd
+
+  script_hand_axii_type_yennefer_q203_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_yennefer_q205:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q205
+    - NEXT: script_hand_axii_type_yennefer_q205_upd
+
+  script_hand_axii_type_yennefer_q205_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_yennefer_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q210
+    - NEXT: script_hand_axii_type_yennefer_q210_upd
+
+  script_hand_axii_type_yennefer_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_axii_type
+
+  script_hand_axii_type_yennefer_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Axii
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q310
+    - NEXT: script_hand_axii_type_yennefer_q310_upd
+
+  script_hand_axii_type_yennefer_q310_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_axii_type
@@ -3856,7 +4388,7 @@ dialogscript:
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940143}: '
+            str: "{1066291}: {2115940143}: "
         - choice: ["2115940121|", section_choice_hand_igni_color]
           emphasize: true
           scriptAction:
@@ -3867,51 +4399,107 @@ dialogscript:
     - CHOICE:
         - choice: ["2115940103|", section_choice_hand_igni, exit]
           emphasize: true
-        - choice: ["0000162823|Yennefer", script_hand_igni_type_yennefer]
+        - choice: ["0001107617|.", script_hand_igni_type_keira]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940143}: '
-        - choice: ["0000334714|Keira Metz", script_hand_igni_type_keira]
+            str: '{1066291}: {2115940143}: {334714}'
+        - choice: ["0001107617|.", script_hand_igni_type_keira_q104]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940143}: '
-        - choice: ["0000162822|Triss", script_hand_igni_type_triss]
+            str: '{1066291}: {2115940143}: {334714} q104'
+        - choice: ["0001107617|.", script_hand_igni_type_keira_sq101]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940143}: '
-        - choice: ["0000300169|Philippa Eilhart", script_hand_igni_type_philippa]
+            str: '{1066291}: {2115940143}: {334714} sq101'
+        - choice: ["0001107617|.", script_hand_igni_type_lynx]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066291}: {2115940143}: '
+            str: '{1066291}: {2115940143}: {1157557}'
+        - choice: ["0001107617|.", script_hand_igni_type_lynx_mq7004]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {1157557} mq7004'
+        - choice: ["0001107617|.", script_hand_igni_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {300169}'
+        - choice: ["0001107617|.", script_hand_igni_type_philippa_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {300169} q210'
+        - choice: ["0001107617|.", script_hand_igni_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162822}'
+        - choice: ["0001107617|.", script_hand_igni_type_triss_q301]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162822} q301'
+        - choice: ["0001107617|.", script_hand_igni_type_triss_q303]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162822} q303'
+        - choice: ["0001107617|.", script_hand_igni_type_triss_q309]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162822} q309'
+        - choice: ["0001107617|.", script_hand_igni_type_triss_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162822} q310'
+        - choice: ["0001107617|.", script_hand_igni_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162823}'
+        - choice: ["0001107617|.", script_hand_igni_type_yennefer_cs401]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162823} cs401'
+        - choice: ["0001107617|.", script_hand_igni_type_yennefer_q203]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162823} q203'
+        - choice: ["0001107617|.", script_hand_igni_type_yennefer_q205]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162823} q205'
+        - choice: ["0001107617|.", script_hand_igni_type_yennefer_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162823} q210'
+        - choice: ["0001107617|.", script_hand_igni_type_yennefer_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066291}: {2115940143}: {162823} q310'
 
   section_entry_hand_igni_type:
     - PAUSE: 0.0
     - NEXT: section_choice_hand_igni_type
-
-  script_hand_igni_type_yennefer:
-    - SCRIPT:
-        function: NR_SetMagicParamName_S
-        parameter:
-          - signName: CNAME_Igni
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_yennefer
-    - NEXT: script_hand_igni_type_yennefer_upd
-
-  script_hand_igni_type_yennefer_upd:
-    - SCRIPT:
-        function: NR_SetMagicUpdateHandFx_S
-    - NEXT: section_entry_hand_igni_type
 
   script_hand_igni_type_keira:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Igni
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_keira
     - NEXT: script_hand_igni_type_keira_upd
 
@@ -3920,16 +4508,58 @@ dialogscript:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_igni_type
 
-  script_hand_igni_type_triss:
+  script_hand_igni_type_keira_q104:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Igni
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_triss
-    - NEXT: script_hand_igni_type_triss_upd
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_q104
+    - NEXT: script_hand_igni_type_keira_q104_upd
 
-  script_hand_igni_type_triss_upd:
+  script_hand_igni_type_keira_q104_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_keira_sq101:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_sq101
+    - NEXT: script_hand_igni_type_keira_sq101_upd
+
+  script_hand_igni_type_keira_sq101_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx
+    - NEXT: script_hand_igni_type_lynx_upd
+
+  script_hand_igni_type_lynx_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_lynx_mq7004:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx_mq7004
+    - NEXT: script_hand_igni_type_lynx_mq7004_upd
+
+  script_hand_igni_type_lynx_mq7004_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_igni_type
@@ -3939,11 +4569,179 @@ dialogscript:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Igni
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_philippa
     - NEXT: script_hand_igni_type_philippa_upd
 
   script_hand_igni_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_philippa_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_philippa_q210
+    - NEXT: script_hand_igni_type_philippa_q210_upd
+
+  script_hand_igni_type_philippa_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss
+    - NEXT: script_hand_igni_type_triss_upd
+
+  script_hand_igni_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_triss_q301:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q301
+    - NEXT: script_hand_igni_type_triss_q301_upd
+
+  script_hand_igni_type_triss_q301_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_triss_q303:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q303
+    - NEXT: script_hand_igni_type_triss_q303_upd
+
+  script_hand_igni_type_triss_q303_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_triss_q309:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q309
+    - NEXT: script_hand_igni_type_triss_q309_upd
+
+  script_hand_igni_type_triss_q309_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_triss_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q310
+    - NEXT: script_hand_igni_type_triss_q310_upd
+
+  script_hand_igni_type_triss_q310_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_igni_type_yennefer_upd
+
+  script_hand_igni_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_yennefer_cs401:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_cs401
+    - NEXT: script_hand_igni_type_yennefer_cs401_upd
+
+  script_hand_igni_type_yennefer_cs401_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_yennefer_q203:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q203
+    - NEXT: script_hand_igni_type_yennefer_q203_upd
+
+  script_hand_igni_type_yennefer_q203_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_yennefer_q205:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q205
+    - NEXT: script_hand_igni_type_yennefer_q205_upd
+
+  script_hand_igni_type_yennefer_q205_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_yennefer_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q210
+    - NEXT: script_hand_igni_type_yennefer_q210_upd
+
+  script_hand_igni_type_yennefer_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_igni_type
+
+  script_hand_igni_type_yennefer_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Igni
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q310
+    - NEXT: script_hand_igni_type_yennefer_q310_upd
+
+  script_hand_igni_type_yennefer_q310_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_igni_type
@@ -4162,7 +4960,7 @@ dialogscript:
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940143}: '
+            str: "{1066292}: {2115940143}: "
         - choice: ["2115940121|", section_choice_hand_quen_color]
           emphasize: true
           scriptAction:
@@ -4173,51 +4971,107 @@ dialogscript:
     - CHOICE:
         - choice: ["2115940103|", section_choice_hand_quen, exit]
           emphasize: true
-        - choice: ["0000162823|Yennefer", script_hand_quen_type_yennefer]
+        - choice: ["0001107617|.", script_hand_quen_type_keira]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940143}: '
-        - choice: ["0000334714|Keira Metz", script_hand_quen_type_keira]
+            str: '{1066292}: {2115940143}: {334714}'
+        - choice: ["0001107617|.", script_hand_quen_type_keira_q104]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940143}: '
-        - choice: ["0000162822|Triss", script_hand_quen_type_triss]
+            str: '{1066292}: {2115940143}: {334714} q104'
+        - choice: ["0001107617|.", script_hand_quen_type_keira_sq101]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940143}: '
-        - choice: ["0000300169|Philippa Eilhart", script_hand_quen_type_philippa]
+            str: '{1066292}: {2115940143}: {334714} sq101'
+        - choice: ["0001107617|.", script_hand_quen_type_lynx]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066292}: {2115940143}: '
+            str: '{1066292}: {2115940143}: {1157557}'
+        - choice: ["0001107617|.", script_hand_quen_type_lynx_mq7004]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {1157557} mq7004'
+        - choice: ["0001107617|.", script_hand_quen_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {300169}'
+        - choice: ["0001107617|.", script_hand_quen_type_philippa_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {300169} q210'
+        - choice: ["0001107617|.", script_hand_quen_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162822}'
+        - choice: ["0001107617|.", script_hand_quen_type_triss_q301]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162822} q301'
+        - choice: ["0001107617|.", script_hand_quen_type_triss_q303]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162822} q303'
+        - choice: ["0001107617|.", script_hand_quen_type_triss_q309]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162822} q309'
+        - choice: ["0001107617|.", script_hand_quen_type_triss_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162822} q310'
+        - choice: ["0001107617|.", script_hand_quen_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162823}'
+        - choice: ["0001107617|.", script_hand_quen_type_yennefer_cs401]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162823} cs401'
+        - choice: ["0001107617|.", script_hand_quen_type_yennefer_q203]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162823} q203'
+        - choice: ["0001107617|.", script_hand_quen_type_yennefer_q205]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162823} q205'
+        - choice: ["0001107617|.", script_hand_quen_type_yennefer_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162823} q210'
+        - choice: ["0001107617|.", script_hand_quen_type_yennefer_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066292}: {2115940143}: {162823} q310'
 
   section_entry_hand_quen_type:
     - PAUSE: 0.0
     - NEXT: section_choice_hand_quen_type
-
-  script_hand_quen_type_yennefer:
-    - SCRIPT:
-        function: NR_SetMagicParamName_S
-        parameter:
-          - signName: CNAME_Quen
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_yennefer
-    - NEXT: script_hand_quen_type_yennefer_upd
-
-  script_hand_quen_type_yennefer_upd:
-    - SCRIPT:
-        function: NR_SetMagicUpdateHandFx_S
-    - NEXT: section_entry_hand_quen_type
 
   script_hand_quen_type_keira:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Quen
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_keira
     - NEXT: script_hand_quen_type_keira_upd
 
@@ -4226,16 +5080,58 @@ dialogscript:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_quen_type
 
-  script_hand_quen_type_triss:
+  script_hand_quen_type_keira_q104:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Quen
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_triss
-    - NEXT: script_hand_quen_type_triss_upd
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_q104
+    - NEXT: script_hand_quen_type_keira_q104_upd
 
-  script_hand_quen_type_triss_upd:
+  script_hand_quen_type_keira_q104_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_keira_sq101:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_sq101
+    - NEXT: script_hand_quen_type_keira_sq101_upd
+
+  script_hand_quen_type_keira_sq101_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx
+    - NEXT: script_hand_quen_type_lynx_upd
+
+  script_hand_quen_type_lynx_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_lynx_mq7004:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx_mq7004
+    - NEXT: script_hand_quen_type_lynx_mq7004_upd
+
+  script_hand_quen_type_lynx_mq7004_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_quen_type
@@ -4245,11 +5141,179 @@ dialogscript:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Quen
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_philippa
     - NEXT: script_hand_quen_type_philippa_upd
 
   script_hand_quen_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_philippa_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_philippa_q210
+    - NEXT: script_hand_quen_type_philippa_q210_upd
+
+  script_hand_quen_type_philippa_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss
+    - NEXT: script_hand_quen_type_triss_upd
+
+  script_hand_quen_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_triss_q301:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q301
+    - NEXT: script_hand_quen_type_triss_q301_upd
+
+  script_hand_quen_type_triss_q301_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_triss_q303:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q303
+    - NEXT: script_hand_quen_type_triss_q303_upd
+
+  script_hand_quen_type_triss_q303_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_triss_q309:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q309
+    - NEXT: script_hand_quen_type_triss_q309_upd
+
+  script_hand_quen_type_triss_q309_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_triss_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q310
+    - NEXT: script_hand_quen_type_triss_q310_upd
+
+  script_hand_quen_type_triss_q310_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_quen_type_yennefer_upd
+
+  script_hand_quen_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_yennefer_cs401:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_cs401
+    - NEXT: script_hand_quen_type_yennefer_cs401_upd
+
+  script_hand_quen_type_yennefer_cs401_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_yennefer_q203:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q203
+    - NEXT: script_hand_quen_type_yennefer_q203_upd
+
+  script_hand_quen_type_yennefer_q203_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_yennefer_q205:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q205
+    - NEXT: script_hand_quen_type_yennefer_q205_upd
+
+  script_hand_quen_type_yennefer_q205_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_yennefer_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q210
+    - NEXT: script_hand_quen_type_yennefer_q210_upd
+
+  script_hand_quen_type_yennefer_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_quen_type
+
+  script_hand_quen_type_yennefer_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Quen
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q310
+    - NEXT: script_hand_quen_type_yennefer_q310_upd
+
+  script_hand_quen_type_yennefer_q310_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_quen_type
@@ -4468,7 +5532,7 @@ dialogscript:
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940143}: '
+            str: "{1066293}: {2115940143}: "
         - choice: ["2115940121|", section_choice_hand_yrden_color]
           emphasize: true
           scriptAction:
@@ -4479,51 +5543,107 @@ dialogscript:
     - CHOICE:
         - choice: ["2115940103|", section_choice_hand_yrden, exit]
           emphasize: true
-        - choice: ["0000162823|Yennefer", script_hand_yrden_type_yennefer]
+        - choice: ["0001107617|.", script_hand_yrden_type_keira]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940143}: '
-        - choice: ["0000334714|Keira Metz", script_hand_yrden_type_keira]
+            str: '{1066293}: {2115940143}: {334714}'
+        - choice: ["0001107617|.", script_hand_yrden_type_keira_q104]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940143}: '
-        - choice: ["0000162822|Triss", script_hand_yrden_type_triss]
+            str: '{1066293}: {2115940143}: {334714} q104'
+        - choice: ["0001107617|.", script_hand_yrden_type_keira_sq101]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940143}: '
-        - choice: ["0000300169|Philippa Eilhart", script_hand_yrden_type_philippa]
+            str: '{1066293}: {2115940143}: {334714} sq101'
+        - choice: ["0001107617|.", script_hand_yrden_type_lynx]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
-            str: '{1066293}: {2115940143}: '
+            str: '{1066293}: {2115940143}: {1157557}'
+        - choice: ["0001107617|.", script_hand_yrden_type_lynx_mq7004]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {1157557} mq7004'
+        - choice: ["0001107617|.", script_hand_yrden_type_philippa]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {300169}'
+        - choice: ["0001107617|.", script_hand_yrden_type_philippa_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {300169} q210'
+        - choice: ["0001107617|.", script_hand_yrden_type_triss]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162822}'
+        - choice: ["0001107617|.", script_hand_yrden_type_triss_q301]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162822} q301'
+        - choice: ["0001107617|.", script_hand_yrden_type_triss_q303]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162822} q303'
+        - choice: ["0001107617|.", script_hand_yrden_type_triss_q309]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162822} q309'
+        - choice: ["0001107617|.", script_hand_yrden_type_triss_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162822} q310'
+        - choice: ["0001107617|.", script_hand_yrden_type_yennefer]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162823}'
+        - choice: ["0001107617|.", script_hand_yrden_type_yennefer_cs401]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162823} cs401'
+        - choice: ["0001107617|.", script_hand_yrden_type_yennefer_q203]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162823} q203'
+        - choice: ["0001107617|.", script_hand_yrden_type_yennefer_q205]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162823} q205'
+        - choice: ["0001107617|.", script_hand_yrden_type_yennefer_q210]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162823} q210'
+        - choice: ["0001107617|.", script_hand_yrden_type_yennefer_q310]
+          emphasize: true
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: '{1066293}: {2115940143}: {162823} q310'
 
   section_entry_hand_yrden_type:
     - PAUSE: 0.0
     - NEXT: section_choice_hand_yrden_type
-
-  script_hand_yrden_type_yennefer:
-    - SCRIPT:
-        function: NR_SetMagicParamName_S
-        parameter:
-          - signName: CNAME_Yrden
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_yennefer
-    - NEXT: script_hand_yrden_type_yennefer_upd
-
-  script_hand_yrden_type_yennefer_upd:
-    - SCRIPT:
-        function: NR_SetMagicUpdateHandFx_S
-    - NEXT: section_entry_hand_yrden_type
 
   script_hand_yrden_type_keira:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Yrden
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_keira
     - NEXT: script_hand_yrden_type_keira_upd
 
@@ -4532,16 +5652,58 @@ dialogscript:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_yrden_type
 
-  script_hand_yrden_type_triss:
+  script_hand_yrden_type_keira_q104:
     - SCRIPT:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Yrden
-          - varName: style_ENR_HandFx
-          - varValue: CNAME_triss
-    - NEXT: script_hand_yrden_type_triss_upd
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_q104
+    - NEXT: script_hand_yrden_type_keira_q104_upd
 
-  script_hand_yrden_type_triss_upd:
+  script_hand_yrden_type_keira_q104_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_keira_sq101:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_keira_sq101
+    - NEXT: script_hand_yrden_type_keira_sq101_upd
+
+  script_hand_yrden_type_keira_sq101_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_lynx:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx
+    - NEXT: script_hand_yrden_type_lynx_upd
+
+  script_hand_yrden_type_lynx_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_lynx_mq7004:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_lynx_mq7004
+    - NEXT: script_hand_yrden_type_lynx_mq7004_upd
+
+  script_hand_yrden_type_lynx_mq7004_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_yrden_type
@@ -4551,11 +5713,179 @@ dialogscript:
         function: NR_SetMagicParamName_S
         parameter:
           - signName: CNAME_Yrden
-          - varName: style_ENR_HandFx
+          - varName: "style_ENR_HandFx"
           - varValue: CNAME_philippa
     - NEXT: script_hand_yrden_type_philippa_upd
 
   script_hand_yrden_type_philippa_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_philippa_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_philippa_q210
+    - NEXT: script_hand_yrden_type_philippa_q210_upd
+
+  script_hand_yrden_type_philippa_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_triss:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss
+    - NEXT: script_hand_yrden_type_triss_upd
+
+  script_hand_yrden_type_triss_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_triss_q301:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q301
+    - NEXT: script_hand_yrden_type_triss_q301_upd
+
+  script_hand_yrden_type_triss_q301_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_triss_q303:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q303
+    - NEXT: script_hand_yrden_type_triss_q303_upd
+
+  script_hand_yrden_type_triss_q303_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_triss_q309:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q309
+    - NEXT: script_hand_yrden_type_triss_q309_upd
+
+  script_hand_yrden_type_triss_q309_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_triss_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_triss_q310
+    - NEXT: script_hand_yrden_type_triss_q310_upd
+
+  script_hand_yrden_type_triss_q310_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_yennefer:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer
+    - NEXT: script_hand_yrden_type_yennefer_upd
+
+  script_hand_yrden_type_yennefer_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_yennefer_cs401:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_cs401
+    - NEXT: script_hand_yrden_type_yennefer_cs401_upd
+
+  script_hand_yrden_type_yennefer_cs401_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_yennefer_q203:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q203
+    - NEXT: script_hand_yrden_type_yennefer_q203_upd
+
+  script_hand_yrden_type_yennefer_q203_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_yennefer_q205:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q205
+    - NEXT: script_hand_yrden_type_yennefer_q205_upd
+
+  script_hand_yrden_type_yennefer_q205_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_yennefer_q210:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q210
+    - NEXT: script_hand_yrden_type_yennefer_q210_upd
+
+  script_hand_yrden_type_yennefer_q210_upd:
+    - SCRIPT:
+        function: NR_SetMagicUpdateHandFx_S
+    - NEXT: section_entry_hand_yrden_type
+
+  script_hand_yrden_type_yennefer_q310:
+    - SCRIPT:
+        function: NR_SetMagicParamName_S
+        parameter:
+          - signName: CNAME_Yrden
+          - varName: "style_ENR_HandFx"
+          - varValue: CNAME_yennefer_q310
+    - NEXT: script_hand_yrden_type_yennefer_q310_upd
+
+  script_hand_yrden_type_yennefer_q310_upd:
     - SCRIPT:
         function: NR_SetMagicUpdateHandFx_S
     - NEXT: section_entry_hand_yrden_type

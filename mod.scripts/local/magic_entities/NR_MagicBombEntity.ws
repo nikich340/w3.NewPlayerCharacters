@@ -101,8 +101,9 @@ state Active in NR_MagicBombEntity {
 				victim.AddEffectDefault( EET_Stagger, parent, parent.GetName() );
 				damage = new W3DamageAction in this;
 				damage.Initialize( parent.m_caster, victim, this, parent.m_caster.GetName(), EHRT_Heavy, CPS_SpellPower, false, false, false, true );
-				damage.AddDamage( parent.m_damageType, parent.m_damageVal );
-				// damage.AddEffectInfo(EET_Burning, 2.0);
+				damage.AddDamage( parent.m_damageType, parent.m_damageVal * 0.5f );
+				damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, parent.m_damageVal * 0.5f );
+				damage.AddEffectInfo(EET_Stagger, 2.0);
 				theGame.damageMgr.ProcessAction( damage );
 				delete damage;
 			} else {

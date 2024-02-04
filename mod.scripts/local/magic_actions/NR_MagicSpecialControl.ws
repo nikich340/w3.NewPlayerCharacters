@@ -63,12 +63,19 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			buffParams.creator = thePlayer;
 			buffParams.sourceName = "NR_MagicSpecialControl";
 			buffParams.duration = 5.f;
-			buffParams.effectValue.valueBase = 1.f;
-			buffParams.effectValue.valueMultiplicative = 1.f;
-			buffParams.effectValue.valueAdditive = 1.f;
+			buffParams.customPowerStatValue.valueBase = 1000.f;
+			buffParams.customPowerStatValue.valueMultiplicative = 5.f;
+			buffParams.customPowerStatValue.valueAdditive = 1000.f;
 			//buffParams.customFXName = 'axii_slowdown';
 			buffParams.isSignEffect = true;
 			target.AddEffectCustom(buffParams);
+			su_oneliner = SU_onelinerEntity(
+				"",
+				target
+			);
+			su_oneliner.setOffset( Vector(0, 0, ((CMovingPhysicalAgentComponent)target.GetMovingAgentComponent()).GetCapsuleHeight() * 0.75f) );
+			su_oneliner.setRenderDistance( 100 );
+			su_oneliner.visible = false;
 		}
 
 		return OnPrepared(true);
@@ -161,11 +168,11 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		// NEW
 		buffParams.creator = thePlayer;
 		buffParams.sourceName = "NR_MagicSpecialControl";  // "axii_" + S_Magic_5
-		buffParams.customPowerStatValue.valueBase = 1.f;
-		buffParams.customPowerStatValue.valueMultiplicative = 1.f;
-		buffParams.customPowerStatValue.valueAdditive = 1.f;
+		buffParams.customPowerStatValue.valueBase = 1000.f;
+		buffParams.customPowerStatValue.valueMultiplicative = 10.f;
+		buffParams.customPowerStatValue.valueAdditive = 1000.f;
 		buffParams.isSignEffect = true;
-		buffParams.duration = s_lifetime;
+		buffParams.duration = s_lifetime; // s_lifetime;
 		if (wasHostile)
 			buffParams.effectType = EET_AxiiGuardMe;
 		else
@@ -175,6 +182,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		if ( buffResult == EI_Undefined || buffResult == EI_Deny )
 		{
 			NR_Error(actionType + ".TakeControl: hostile = " + wasHostile + ", failed on npc = " + npc);
+			thePlayer.DisplayHudMessage(GetLocStringByKey("panel_hud_message_cant_attack_this_target"));
 			return;
 		}
 
@@ -218,20 +226,9 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		}
 	}
 }
+
 state Active in NR_MagicSpecialControl {
-	protected var startTime : float;
-
-	function GetLocalTime() : float {
-		return theGame.GetEngineTimeAsSeconds() - startTime;
-	}
-
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("OnEnterState: " + this);
-		parent.inPostState = true;
-		RunWait();
-	}
-	entry function RunWait() {
+	entry function ActiveLoop() {
 		var buffParams 	: SCustomEffectParams;
 		var result 		: EEffectInteract;
 		var npc 		: CNewNPC;
@@ -241,56 +238,52 @@ state Active in NR_MagicSpecialControl {
 		npc = (CNewNPC)parent.target;
 		thePlayer.StopEffect('mind_control');
 
-		if ( npc ) {
-			npc.RemoveBuff(EET_SlowdownAxii, true, "NR_MagicSpecialControl");
-			parent.TakeControl( npc );
-			parent.isControlled = true;
-
-			startTime = theGame.GetEngineTimeAsSeconds();
-			// wait for time exceed or NPC's death
-			while ( npc.IsAlive() && GetLocalTime() < parent.s_lifetime ) {
-				Sleep(0.2f);
-			}
-
-			// reset control
-			parent.StopControl( npc );
-			parent.isControlled = false;
-
-			/* Target is dead human */
-			/* TOREMOVE ?
-			if ( npc.IsHuman() && !npc.IsAlive() ) {
-				Sleep(0.5f);
-				parent.entityTemplate = (CEntityTemplate)LoadResourceAsync("wraith");
-				parent.wraithEntity = (CNewNPC)theGame.CreateEntity( parent.entityTemplate, npc.GetWorldPosition(), npc.GetWorldRotation() );
-
-				if (parent.IsActionAbilityUnlocked("Upscaling")) {
-					parent.wraithEntity.SetAppearance('wraith_02');
-				}
-				parent.NR_AdjustMinionLevel( parent.wraithEntity, 1 );
-				parent.TakeControl( parent.wraithEntity );
-
-				Sleep( parent.s_lifetime );
-			}
-			*/
-		} else {
-			NR_Debug("NULL target: " + this);
+		if ( !npc ) {
+			NR_Debug(parent.actionType + "::Active.ActiveLoop: NULL target.");
+			parent.GotoState('Stop');
+			return;
 		}
+
+		npc.RemoveBuff(EET_SlowdownAxii, true, "NR_MagicSpecialControl");
+		parent.TakeControl( npc );
+		parent.isControlled = true;
+
+		startTime = theGame.GetEngineTimeAsSeconds();
+		// wait for time exceed or NPC's death
+		parent.su_oneliner.visible = true;
+		while ( npc.IsAlive() && GetLocalTime() < parent.s_lifetime ) {
+			UpdateOnelinerTime(, "#19FFE3");
+			Sleep(0.1f);
+		}
+		parent.su_oneliner.visible = false;
+
+		// reset control
+		parent.StopControl( npc );
+		parent.isControlled = false;
+
+		/* Target is dead human */
+		/* TOREMOVE ?
+		if ( npc.IsHuman() && !npc.IsAlive() ) {
+			Sleep(0.5f);
+			parent.entityTemplate = (CEntityTemplate)LoadResourceAsync("wraith");
+			parent.wraithEntity = (CNewNPC)theGame.CreateEntity( parent.entityTemplate, npc.GetWorldPosition(), npc.GetWorldRotation() );
+
+			if (parent.IsActionAbilityUnlocked("Upscaling")) {
+				parent.wraithEntity.SetAppearance('wraith_02');
+			}
+			parent.NR_AdjustMinionLevel( parent.wraithEntity, 1 );
+			parent.TakeControl( parent.wraithEntity );
+
+			Sleep( parent.s_lifetime );
+		}
+		*/
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
-	}
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("OnLeaveState: " + this);
 	}
 }
 
 state Stop in NR_MagicSpecialControl {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("OnEnterState: " + this);
-		parent.inPostState = true;
-		Stop();
-	}
-	entry function Stop() {
+	entry function StopLoop() {
+		parent.su_oneliner.unregister();
 		if ( parent.isControlled && parent.target.IsAlive() ) {
 			parent.StopControl( (CNewNPC)parent.target );
 			parent.isControlled = false;
@@ -300,22 +293,10 @@ state Stop in NR_MagicSpecialControl {
 			parent.wraithEntity.Kill('NR_MagicSpecialControl', /*ignoreImmortalityMode*/ true);
 		}
 	}
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("OnLeaveState: " + this);
-		// can be removed from cached/cursed actions
-		parent.inPostState = false;
-	}
 }
 
 state Cursed in NR_MagicSpecialControl {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("OnEnterState: " + this);
-		parent.inPostState = true;
-		Curse();
-	}
-	entry function Curse() {
+	entry function CursedLoop() {
 		if ( parent.isControlled ) {
 			parent.StopControl( (CNewNPC)parent.target );
 			parent.isControlled = false;
@@ -326,18 +307,23 @@ state Cursed in NR_MagicSpecialControl {
 			// kill friendly wraith
 			parent.StopControl( parent.wraithEntity );
 			parent.wraithEntity.Kill('NR_MagicSpecialControl', /*ignoreImmortalityMode*/ true);
-		} 
+		}
+
 		// spawn new hostile wraith
 		parent.entityTemplate = (CEntityTemplate)LoadResourceAsync("wraith");
 		parent.wraithEntity = (CNewNPC)theGame.CreateEntity( parent.entityTemplate, parent.target.GetWorldPosition(), parent.target.GetWorldRotation() );
 		parent.wraithEntity.SetAppearance('wraith_03');
 		parent.wraithEntity.SetLevel( Max(1, thePlayer.GetLevel() - 5 - parent.SkillLevel() / 2) );
-		Sleep( parent.s_lifetime * 0.5f );
+		
+		parent.su_oneliner.entity = parent.wraithEntity;
+		parent.su_oneliner.visible = true;
+		parent.s_lifetime *= 0.5f;
+		while ( parent.wraithEntity.IsAlive() && GetLocalTime() < parent.s_lifetime ) {
+			UpdateOnelinerTime();
+			Sleep(0.1f);
+		}
+		parent.su_oneliner.visible = false;
 		
 		parent.StopAction();
-	}
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("OnLeaveState: " + this);
 	}
 }

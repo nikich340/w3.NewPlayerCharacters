@@ -64,7 +64,7 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 		if (IsInSetupScene()) {
 			safePosFound = true;
 		} else {
-			safePosFound = NR_GetSafeTeleportPoint( m_teleportPos, /*allowUnderwater*/ true );
+			safePosFound = NR_GetSafeTeleportPoint( m_teleportPos, /*upMaxZ*/ 1.4f, /*downMaxZ*/ 7.f, /*radius*/ 0.5f );
 		}
 		m_teleportZ = TeleportZ();
 		m_teleportPos.Z += m_teleportZ;

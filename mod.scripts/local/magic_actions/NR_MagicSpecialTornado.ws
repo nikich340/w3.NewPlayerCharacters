@@ -68,6 +68,15 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 			pos += VecRingRand(0.f, 1.f);
 		}
 		m_tornadoEntity = (NR_TornadoEntity)theGame.CreateEntity(entityTemplate, pos, rot);
+		m_tornadoEntity.m_dk = 20.f * SkillTotalDamageMultiplier();
+
+		su_oneliner = SU_onelinerEntity(
+			"",
+			m_tornadoEntity
+		);
+		su_oneliner.setOffset( Vector(0, 0, 1.5f) );
+		su_oneliner.setRenderDistance( 100 );
+		su_oneliner.visible = false;
 		
 		if (!m_tornadoEntity) {
 			NR_Error("m_tornadoEntity is invalid!");
@@ -106,74 +115,67 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 }
 
 state Active in NR_MagicSpecialTornado {
-	protected var startTime : float;
-
-	function GetLocalTime() : float {
-		return theGame.GetEngineTimeAsSeconds() - startTime;
-	}
-
+	/*
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("Active: OnEnterState.");
-		startTime = theGame.GetEngineTimeAsSeconds();
-		parent.inPostState = true;
+		super.OnEnterState(prevStateName);
 		MainLoop();		
 	}
+	*/
 
-	entry function MainLoop() {
+	entry function ActiveLoop() {
 		parent.m_tornadoEntity.Activate( parent.m_caster, parent.target, parent.pos, parent.m_fxNameMain, parent.s_lifetime, 
 			parent.s_respectCaster, parent.s_suck, parent.s_pursue, parent.s_freeze );
-		Sleep( parent.s_lifetime );
+		
+		Sleep(0.5f);
+		parent.su_oneliner.visible = true;
+		while ( GetLocalTime() < parent.s_lifetime ) {
+			UpdateOnelinerTime(, "#FCFF34");
+	    	Sleep(0.1f);
+		}
+		parent.su_oneliner.visible = false;
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
 
+	/*
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug("Active: OnLeaveState.");
+		super.OnLeaveState(nextStateName);
+	}
+	*/
+}
+
+state Cursed in NR_MagicSpecialTornado {
+	entry function CursedLoop() {
+		Sleep(0.5f);
+
+		parent.m_tornadoEntity.m_metersPerSec *= 0.5f;
+		parent.m_tornadoEntity.Activate( 
+			parent.m_caster, 
+			parent.m_caster, 
+			parent.m_caster.GetWorldPosition(), 
+			parent.m_fxNameExtra, 
+			parent.s_lifetime * 0.5f, 
+			/*respectCaster*/ false, 
+			parent.s_suck, 
+			parent.s_pursue, 
+			parent.s_freeze
+		);
+
+		Sleep(0.5f);
+		parent.su_oneliner.visible = true;
+		while ( GetLocalTime() < parent.s_lifetime * 0.5f ) {
+	    	UpdateOnelinerTime();
+	    	Sleep(0.1f);
+		}
+		parent.su_oneliner.visible = false;
+		parent.StopAction();
 	}
 }
 
 state Stop in NR_MagicSpecialTornado {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Stop: OnEnterState.");
-		parent.inPostState = true;
-		Stop();
-		parent.inPostState = false;
-	}
-
-	entry function Stop() {
+	entry function StopLoop() {
+		parent.su_oneliner.unregister();
 		parent.m_tornadoEntity.DestroyAfter(5.f);
-	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Stop: OnLeaveState.");
-		// can be removed from cached/cursed actions TODO CHECK
-		parent.inPostState = false;
-	}
-}
-
-state Cursed in NR_MagicSpecialTornado {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Cursed: OnEnterState.");
-		parent.inPostState = true;
-		Curse();
-	}
-
-	entry function Curse() {
-		Sleep(0.5f);
-
-		parent.m_tornadoEntity.m_metersPerSec *= 0.5f;
-		parent.m_tornadoEntity.Activate( parent.m_caster, parent.m_caster, parent.m_caster.GetWorldPosition(), parent.m_fxNameExtra, 
-			parent.s_lifetime * 0.5f, /*respectCaster*/ false, parent.s_suck, parent.s_pursue, parent.s_freeze );
-		Sleep( parent.s_lifetime * 0.5f );
-		parent.StopAction();
-	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Cursed: OnLeaveState.");
 	}
 }

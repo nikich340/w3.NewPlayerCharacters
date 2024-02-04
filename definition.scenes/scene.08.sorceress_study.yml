@@ -623,7 +623,7 @@ storyboard:
           .@pos: [0, anim_12441_add_gesture_point_forward_straight]
           blendin: 0.4
           blendout: 0.4
-    shot_happy_new_year_b:
+    shot_about_fella_b:
       - cam: [0.0, cam_1_cam_med_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
@@ -637,7 +637,7 @@ storyboard:
           .@pos: [0.6874404134678107, anim_7000_high_standing_determined_gesture_both_hands_2]
           blendin: 0.4
           blendout: 0.4
-    shot_happy_new_year_c:
+    shot_about_fella_c:
       - cam: [0.0, cam_5_cam_close_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
@@ -651,7 +651,7 @@ storyboard:
           .@pos: [0.3393238657785598, anim_6708_add_gesture_question_07]
           blendin: 0.4
           blendout: 0.4
-    shot_happy_new_year_d:
+    shot_about_fella_d:
       - cam: [0.0, cam_6_cam_close_to_sorceress]
       - actor.anim.additive:
           actor: sorceress
@@ -659,7 +659,7 @@ storyboard:
           .@pos: [0, anim_12469_add_reaction_agreeing_nod_02]
           blendin: 0.4
           blendout: 0.4
-    shot_happy_new_year_e:
+    shot_about_fella_e:
       - cam: [0.0, cam_3_cam_semiclose_to_mage]
       - actor.anim.additive:
           actor: nr_master_mage
@@ -667,23 +667,23 @@ storyboard:
           .@pos: [0, anim_6724_add_idle_weight_shift_02]
           blendin: 0.4
           blendout: 0.4
-  section_happy_new_year:
-    shot_happy_new_year_a:
-      - cam: [0.0, cam_6_cam_close_to_sorceress]
-      - actor.anim.additive:
-          actor: sorceress
-          # duration: 1.867
-          .@pos: [0, anim_12453_add_gesture_question_hand_flick_01]
-          blendin: 0.4
-          blendout: 0.4
-    shot_happy_new_year_b:
-      - cam: [0.0, cam_5_cam_close_to_mage]
-      - actor.anim.additive:
-          actor: nr_master_mage
-          # duration: 4.100
-          .@pos: [0, anim_6694_add_gesture_explain_05]
-          blendin: 0.4
-          blendout: 0.4
+  #section_happy_new_year:
+  #  shot_happy_new_year_a:
+  #    - cam: [0.0, cam_6_cam_close_to_sorceress]
+  #    - actor.anim.additive:
+  #        actor: sorceress
+  #        # duration: 1.867
+  #        .@pos: [0, anim_12453_add_gesture_question_hand_flick_01]
+  #        blendin: 0.4
+  #        blendout: 0.4
+  #  shot_happy_new_year_b:
+  #    - cam: [0.0, cam_5_cam_close_to_mage]
+  #    - actor.anim.additive:
+  #        actor: nr_master_mage
+  #        # duration: 4.100
+  #        .@pos: [0, anim_6694_add_gesture_explain_05]
+  #        blendin: 0.4
+  #        blendout: 0.4
   section_about_ainyerahn:
     # TODO: emotions, additives
     shot_about_ainyerahn_1s:
@@ -1594,37 +1594,38 @@ dialogscript:
           emphasize: true
           condition: ["nr_master_apprentice", ">=", 1]
         - choice: ["2115940306|One fella have seen your ship in the sky.", section_about_fella]
+          single_use: true
         - choice: ["2115940871|Tell me about yourself.", section_about_ainyerahn]
-        - choice: ["2115940311|Happy new year, my teacher.", section_happy_new_year]
-        # condition: ["fact", "=", 1]
+        # TOREMOVE - NY
+        # - choice: ["2115940311|Happy new year, my teacher.", section_happy_new_year]
         - choice: ["2115940867|See you later.", section_randomizer_goodbye, exit]
         # emphasize: true
   section_about_fella:
     - CUE: shot_about_fella_a
     - sorceress: "2115940306|One fella have seen your ship in the sky."
-    - CUE: shot_happy_new_year_b
+    - CUE: shot_about_fella_b
     - nr_master_mage: "2115940307|Ah, 'twas likely after I teleported to this place. I promptly casted an invisibility spell."
-    - CUE: shot_happy_new_year_c
+    - CUE: shot_about_fella_c
     - nr_master_mage: "2115940308|So now, even a horde of witch hunters would fail to discern my presence. But, I wonder, how did you get here?"
-    - CUE: shot_happy_new_year_d
+    - CUE: shot_about_fella_d
     - sorceress: "2115940309|By a shard of crystal on the ground. I was able to tune in to its trail."
-    - CUE: shot_happy_new_year_e
+    - CUE: shot_about_fella_e
     - nr_master_mage: "2115940310|Blast it, true enough. My megascope shattered, and in a burst of emotion, I flung its crystal far away."
     - NEXT: section_choice_main
 
-  section_happy_new_year:
-    - CUE: shot_happy_new_year_a
-    - sorceress: "2115940311|Happy new year, my teacher."
-    - CUE: shot_happy_new_year_b
-    - nr_master_mage: "2115940312|Bells are ringing, people singing, New Year's here, Happy Happy New Year."
-    - NEXT: script_give_newyear_reward
+  #section_happy_new_year:
+  #  - CUE: shot_happy_new_year_a
+  #  - sorceress: "2115940311|Happy new year, my teacher."
+  #  - CUE: shot_happy_new_year_b
+  #  - nr_master_mage: "2115940312|Bells are ringing, people singing, New Year's here, Happy Happy New Year."
+  #  - NEXT: script_give_newyear_reward
 
-  script_give_newyear_reward:
-    - SCRIPT:
-        function: GiveRewardToPlayer
-        parameter:
-          - rewardName: CNAME_nr_newyear_reward
-    - NEXT: section_choice_main
+  #script_give_newyear_reward:
+  #  - SCRIPT:
+  #      function: GiveRewardToPlayer
+  #      parameter:
+  #        - rewardName: CNAME_nr_newyear_reward
+  #  - NEXT: section_choice_main
 
   section_randomizer_goodbye:
     - section_goodbye_a

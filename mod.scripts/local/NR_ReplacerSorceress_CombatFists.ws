@@ -55,30 +55,9 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 		currentPos = parent.GetWorldPosition();
 		predictedDodgeRot = parent.GetWorldRotation();
-
-		foundSafePoint = false;
-		attempsToFindPoint = 5;
-		while (!foundSafePoint) {
-			if (!attempsToFindPoint) {
-				teleportLength = 0.f;
-				predictedDodgePos = currentPos;
-				break;
-			}
-
-			// 0. calculate naive pos from heading
-			predictedDodgePos = VecFromHeading( parent.rawPlayerHeading ) * teleportLength + currentPos;
-			// 1. correct Z (stairs etc)
-			NR_GetSafeTeleportPoint( predictedDodgePos );
-			// 2. static trace with capsule H offset (static objects)
-			predictedDodgePos = NR_GetTeleportMaxArchievablePoint( thePlayer, currentPos, predictedDodgePos );
-			// 3. correct Z (stairs etc)
-			foundSafePoint = NR_GetSafeTeleportPoint( predictedDodgePos, , /*upMaxZ*/ 0.1f );
-
-			// binary decrease teleportLength if failed
-			teleportLength = teleportLength * 0.5f;
-			attempsToFindPoint -= 1;
-		}
-		NR_Debug("PerformTeleport: found safe tp pos with length = " + teleportLength + ", pos = " + VecToString(predictedDodgePos) + ", playerPos = " + VecToString(parent.GetWorldPosition()));
+		predictedDodgePos = NR_GetTeleportMaxArchievablePoint(thePlayer, VecFromHeading( parent.rawPlayerHeading ), teleportLength);
+			
+		NR_Debug("PerformTeleport: found safe tp pos = " + VecToString(predictedDodgePos) + ", playerPos = " + VecToString(currentPos) + ", length 2D = " + VecDistance(currentPos, predictedDodgePos));
 
 		if (evadeTarget) {
 			playerToTargetHeading = VecHeading( evadeTarget.GetWorldPosition() - predictedDodgePos );
@@ -139,11 +118,19 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.SetRequiredItems('Any', 'fist' );
 		parent.ProcessRequiredItems();
 		parent.magicManager.HandFX(true);
+
+		if (thePlayer.IsCombatMusicEnabled() && parent.magicManager.IsActionAbilityUnlocked(ENR_SpecialShield, "AutoCombatApply")) {
+			parent.CastQuenScripted();
+		}
 	}
 	latent function NR_UnequipMagicFists() {
 		parent.magicManager.HandFX(false);
 		thePlayer.inv.RemoveItemByCategory('fist', -1);
 		thePlayer.inv.AddAnItem( 'Geralt fists', 1, true, true, false );
+
+		if (!thePlayer.IsCombatMusicEnabled() && parent.magicManager.IsActionAbilityUnlocked(ENR_SpecialShield, "AutoCombatApply")) {
+			parent.StopQuenScripted(/*onlyIfAutoCasted*/ true);
+		}
 
 		// needed?
 		//parent.SetRequiredItems('Any', 'fist' );

@@ -150,9 +150,10 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 			damage = new W3DamageAction in this;
 			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 			dk = 1.f * SkillTotalDamageMultiplier();
-			damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
-			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal );
-			damage.AddEffectInfo(EET_Stagger, 1.f);
+			damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
+			damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, damageVal * 0.5f );
+			damage.AddEffectInfo(EET_Stagger, 3.f);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
 		} else {
@@ -307,21 +308,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 }
 
 state Active in NR_MagicSpecialLightningFall {
-	protected var startTime : float;
-
-	function GetLocalTime() : float {
-		return theGame.GetEngineTimeAsSeconds() - startTime;
-	}
-
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Active: OnEnterState: " + this);
-		startTime = theGame.GetEngineTimeAsSeconds();
-		parent.inPostState = true;
-		RunWait();
-	}
-
-	entry function RunWait() {
+	entry function ActiveLoop() {
 		var i : int;
 	
 		Sleep(0.5f);
@@ -336,22 +323,10 @@ state Active in NR_MagicSpecialLightningFall {
 		}
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Active: OnLeaveState: " + this);
-	}
 }
 
 state Cursed in NR_MagicSpecialLightningFall {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Cursed: OnEnterState: " + this);
-		parent.inPostState = true;
-		Curse();
-	}
-
-	entry function Curse() {
+	entry function CursedLoop() {
 		var playerPosition : Vector;
 		var i : int;
 		var cursedInterval : float;
@@ -373,17 +348,10 @@ state Cursed in NR_MagicSpecialLightningFall {
 		}
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Cursed: OnLeaveState: " + this);
-	}
 }
 
 state Stop in NR_MagicSpecialLightningFall {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Stop: OnEnterState: " + this);
+	entry function StopLoop() {
 		RequestWeatherChangeTo(parent.savedWeather, 2.f, false);
 		thePlayer.UnblockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
 		thePlayer.UnblockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
@@ -391,14 +359,5 @@ state Stop in NR_MagicSpecialLightningFall {
 		thePlayer.UnblockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
 		thePlayer.UnblockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
 		thePlayer.UnblockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
-
-		parent.inPostState = false;
-	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Stop: OnLeaveState: " + this);
-		// can be removed from cached/cursed actions TODO CHECK
-		parent.inPostState = false;
 	}
 }

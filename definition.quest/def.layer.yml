@@ -277,15 +277,15 @@ layers:
     # spike-2 offset: [ 0.1443, 0.883, 6.4 ]
     statics:
       # TOREMOVE - NY v
-      christmas_ship: 
-        template: "CEntity:dlc\\dlcnrchristmas\\data\\entities\\vegetation\\christmas_tree.w2ent"
-        pos: [ -266.8805847168, -304.0723876953, 43.0459861755 ]
-        rot: [ 0.0, 0.0, 30.0 ]
+      #christmas_ship: 
+      #  template: "CEntity:dlc\\dlcnrchristmas\\data\\entities\\vegetation\\christmas_tree.w2ent"
+      #  pos: [ -266.8805847168, -304.0723876953, 43.0459861755 ]
+      #  rot: [ 0.0, 0.0, 30.0 ]
 
-      christmas_stone: 
-        template: "CEntity:dlc\\dlcnrchristmas\\data\\entities\\vegetation\\christmas_tree_big.w2ent"
-        pos: [ -224.4093322754, -304.6740112305, 41.5538711548 ]
-        rot: [ 0.0, 0.0, 120.0 ]
+      #christmas_stone: 
+      #  template: "CEntity:dlc\\dlcnrchristmas\\data\\entities\\vegetation\\christmas_tree_big.w2ent"
+      #  pos: [ -224.4093322754, -304.6740112305, 41.5538711548 ]
+      #  rot: [ 0.0, 0.0, 120.0 ]
       # TOREMOVE - NY ^
 
       master_notebook:

@@ -6,10 +6,13 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	editable var cameraShakeStrength 	: float;
 	protected var magicManager 			: NR_MagicManager;
 	protected var drainStamina, s_counterLightning 	: bool;
+	public var autoCasted : bool;
 	protected var m_cachedEffectName 	: name;
-	default playOnOwner = false;
-	default cameraShakeStrength = 0.2f;
+	protected var m_cachedHitEffectName : name;
 
+	default playOnOwner = false;
+	default autoCasted = false;
+	default cameraShakeStrength = 0.2f;
 	default skillEnum = S_Magic_4;
 
 	public function Init( inOwner : W3SignOwner, prevInstance : W3SignEntity, optional skipCastingAnimation : bool, optional notPlayerCast : bool ) : bool
@@ -36,6 +39,9 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 
 		initialShieldHealth = shieldHealth;
 		NR_Debug("NR_SorceressQuen Init: shieldDuration = " + shieldDuration + ", initialShieldHealth = " + initialShieldHealth);
+
+		m_cachedEffectName = magicManager.SphereFxName();
+		m_cachedHitEffectName = magicManager.SphereHitFxName();
 
 		if ( !skipCastingAnimation && !magicManager.HasStaminaForAction(ENR_SpecialShield) ) {
 			CleanUp();
@@ -119,11 +125,11 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	}
 
 	public function LastingShieldFxName() : name {
-		return magicManager.SphereHitFxName();
+		return m_cachedHitEffectName;
 	}
 
 	public function LastingImpulseFxName() : name {
-		return magicManager.SphereHitFxName();
+		return m_cachedHitEffectName;
 	}
 
 	public function DischargeFxName() : name {
@@ -131,14 +137,10 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	}
 
 	public function FxName() : name {
-		if (!IsNameValid(m_cachedEffectName))
-			m_cachedEffectName = magicManager.SphereFxName();
 		return m_cachedEffectName;
 	}
 
 	public function FxAltName() : name {
-		if (!IsNameValid(m_cachedEffectName))
-			m_cachedEffectName = magicManager.SphereFxName();
 		return m_cachedEffectName;
 	}
 
@@ -247,7 +249,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 
 	entry function RunWait() {
 		while (true) {
-			SleepOneFrame();
+			Sleep(0.5f);
 
 			if (attackers.Size() > 0) {
 				PerformAutoLightning(attackers[0]);

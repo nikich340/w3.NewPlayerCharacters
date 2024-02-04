@@ -7,7 +7,6 @@ class NR_MeteorProjectile extends W3FireballProjectile
 	editable var m_markerFxName 		: name;
 	editable var m_damageName 			: name;
 	editable var m_damageEffectDuration : float;
-	public var m_targetToAttach : CActor;
 	public var m_respectCaster : bool;
 	public var m_shakeStrength : float;
 	protected var markerEntity : CEntity;
@@ -35,7 +34,8 @@ class NR_MeteorProjectile extends W3FireballProjectile
 		
 		action = new W3DamageAction in theGame;
 		action.Initialize((CGameplayEntity)caster,victim,this,caster.GetName(),EHRT_Heavy,CPS_Undefined,false,true,false,false);
-		action.AddDamage( m_damageName, projDMG );
+		action.AddDamage( m_damageName, projDMG * 0.5f );
+		action.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, projDMG * 0.5f );
 
 		if ( projEfect != EET_Undefined )
 		{
@@ -102,7 +102,7 @@ class NR_MeteorProjectile extends W3FireballProjectile
 		
 		landPos = this.GetWorldPosition();
 		
-		FindGameplayEntitiesInSphere( entities, this.GetWorldPosition(), 2, 99, '', FLAG_ExcludeTarget, this );
+		FindGameplayEntitiesInSphere( entities, landPos, 2, 99, '', FLAG_ExcludeTarget, this );
 		
 		for ( i = 0; i < entities.Size(); i += 1 )
 		{
@@ -116,10 +116,11 @@ class NR_MeteorProjectile extends W3FireballProjectile
 				entities[i].PlayEffect(onCollisionFxName);
 			}
 		}
-		if (craterEntity) {
-			craterEntity.ApplyAppearance("hole");
-			craterEntity.DestroyAfter(30.f);
-		}
+		theGame.GetSurfacePostFX().AddSurfacePostFXGroup( landPos, /*in*/ 0.2f, /*active*/ 10.f, /*out*/ 2.f, 5.f, /*type*/ (int)(projEfect != EET_Frozen && projEfect != EET_SlowdownFrost) );
+		//if (craterEntity) {
+		//	craterEntity.ApplyAppearance("hole");
+		//	craterEntity.DestroyAfter(30.f);
+		//}
 
 		super.ProjectileHitGround();
 	}
@@ -134,9 +135,9 @@ class NR_MeteorProjectile extends W3FireballProjectile
 		createMarkerHelper.SetPostAttachedCallback( this, 'OnMarkerCreated' );
 		theGame.CreateEntityAsync( createMarkerHelper, markerEntityTemplate, targetCurrentPosition, EulerAngles(0,0,0) );
 		
-		createCraterHelper = new CCreateEntityHelper in this;
-		createCraterHelper.SetPostAttachedCallback( this, 'OnCraterCreated' );
-		theGame.CreateEntityAsync( createCraterHelper, craterEntityTemplate, targetCurrentPosition, EulerAngles(0,0,0) );
+		//createCraterHelper = new CCreateEntityHelper in this;
+		//createCraterHelper.SetPostAttachedCallback( this, 'OnCraterCreated' );
+		//theGame.CreateEntityAsync( createCraterHelper, craterEntityTemplate, targetCurrentPosition, EulerAngles(0,0,0) );
 	}
 
 	event OnMarkerCreated( entity : CEntity )
@@ -144,9 +145,6 @@ class NR_MeteorProjectile extends W3FireballProjectile
 		markerEntity = entity;
 		if ( markerEntity ) {
 			markerEntity.PlayEffect(m_markerFxName);
-			if (m_targetToAttach) {
-				markerEntity.CreateAttachment(m_targetToAttach);
-			}
 			theGame.GetBehTreeReactionManager().CreateReactionEvent( this, 'MeteorMarker', destroyMarkerAfter, explosionRadius, 0.1f, 999, true );
 		}
 	}

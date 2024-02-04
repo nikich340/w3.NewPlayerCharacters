@@ -146,6 +146,7 @@ exec function nrcheatfull() {
 	
 	// ENR_SpecialShield
 	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialShield, "AutoLightning");
+	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialShield, "AutoCombatApply");
 	
 	// ENR_SpecialTornado
 	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialTornado, "Pursuit");

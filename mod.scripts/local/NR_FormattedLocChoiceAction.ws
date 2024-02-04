@@ -43,7 +43,6 @@ function NR_FormatLocString(str : String) : String {
 class NR_FormattedLocChoiceAction extends CStorySceneChoiceLineActionScripted
 {
 	editable var str : String;
-	editable var suffix : String;
 
 	function CanUseAction() : bool {
 		return true;
@@ -51,12 +50,7 @@ class NR_FormattedLocChoiceAction extends CStorySceneChoiceLineActionScripted
 
 	function GetActionText() : string			
 	{
-		var text : String;
-		text = NR_FormatLocString(str);
-		if (StrLen(suffix) > 0)
-			text += suffix;
-		
-		return text;
+		return NR_FormatLocString(str);
 	}
 	
 	function GetActionIcon() : EDialogActionIcon 	

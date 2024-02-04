@@ -58,6 +58,14 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		l_distance = 10.f;
 		l_distanceSq = l_distance * l_distance;
 
+		su_oneliner = SU_onelinerEntity(
+			"",
+			l_fieldEntity
+		);
+		su_oneliner.setOffset( Vector(0, 0, 2.5f) );
+		su_oneliner.setRenderDistance( 100 );
+		su_oneliner.visible = false;
+
 		dk = SkillTotalDamageMultiplier(/*invert*/ true);
 		l_hostileSlowdown = MaxF(0.1f, dk);
 		l_hostileSlowdown = l_hostileSlowdown - 0.24 / l_hostileSlowdown;
@@ -165,20 +173,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 }
 
 state Active in NR_MagicSpecialField {
-	protected var startTime : float;
-
-	function GetLocalTime() : float {
-		return theGame.GetEngineTimeAsSeconds() - startTime;
-	}
-
-	event OnEnterState( prevStateName : name )
-	{
-		startTime = theGame.GetEngineTimeAsSeconds();
-		parent.inPostState = true;
-		RunActive();
-	}
-
-	entry function RunActive() {
+	entry function ActiveLoop() {
 		var i : int;
 		var pos, currentPos, targetPos, reachPos : Vector;
 		var moveTime, lastMoveTime, distSq : float;
@@ -190,6 +185,8 @@ state Active in NR_MagicSpecialField {
 		currentPos = parent.l_fieldEntity.GetWorldPosition();
 		reachPos = currentPos;
 		targetPos = currentPos;
+		parent.su_oneliner.visible = true;
+		UpdateOnelinerTime();
 
 		while (GetLocalTime() < parent.s_lifetime) {
 			SleepOneFrame();
@@ -230,60 +227,35 @@ state Active in NR_MagicSpecialField {
 					parent.AddVictim(actor);
 				}
 			}
+			UpdateOnelinerTime(, "#1BFF60");
 		}
 
+		parent.su_oneliner.visible = false;
 		parent.StopAction();
 	}
 
-	event OnLeaveState( nextStateName : name )
-	{
+	event OnLeaveState( nextStateName : name ) {
 		var i : int;
 
 		for ( i = parent.l_victims.Size() - 1; i >= 0; i -= 1 )
 		{
 			parent.RemoveVictim(parent.l_victims[i]);
 		}
+		super.OnLeaveState( nextStateName );
 	}
 }
 
 state Stop in NR_MagicSpecialField {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Stop: OnEnterState.");
-		parent.inPostState = true;
-		RunStop();
-		parent.inPostState = false;
-	}
-
-	entry function RunStop() {
+	entry function StopLoop() {
+		parent.su_oneliner.unregister();
 		parent.l_fieldEntity.StopEffect(parent.l_fieldCursedFxName);
 		parent.l_fieldEntity.StopEffect(parent.l_fieldFxName);
-	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Stop: OnLeaveState.");
-		// can be removed from cached/cursed actions TODO CHECK
-		parent.inPostState = false;
+		parent.l_fieldEntity.DestroyAfter(5.f);
 	}
 }
 
 state Cursed in NR_MagicSpecialField {
-	protected var startTime : float;
-
-	function GetLocalTime() : float {
-		return theGame.GetEngineTimeAsSeconds() - startTime;
-	}
-
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Cursed: OnEnterState.");
-		startTime = theGame.GetEngineTimeAsSeconds();
-		parent.inPostState = true;
-		RunCursed();
-	}
-
-	entry function RunCursed() {
+	entry function CursedLoop() {
 		var i : int;
 		var pos, currentPos, targetPos, reachPos : Vector;
 		var moveTime, lastMoveTime, distSq : float;
@@ -295,6 +267,9 @@ state Cursed in NR_MagicSpecialField {
 		currentPos = parent.l_fieldEntity.GetWorldPosition();
 		reachPos = currentPos;
 		targetPos = currentPos;
+
+		parent.su_oneliner.visible = true;
+		UpdateOnelinerTime();
 
 		while (GetLocalTime() < parent.s_lifetime * 0.5f) {
 			SleepOneFrame();
@@ -335,19 +310,20 @@ state Cursed in NR_MagicSpecialField {
 					parent.AddVictim(actor, /*allHostile*/ true);
 				}
 			}
+			UpdateOnelinerTime();
 		}
 
+		parent.su_oneliner.visible = false;
 		parent.StopAction();
 	}
 
-	event OnLeaveState( nextStateName : name )
-	{
+	event OnLeaveState( nextStateName : name ) {
 		var i : int;
-		NR_Debug("Cursed: OnLeaveState.");
 
 		for ( i = parent.l_victims.Size() - 1; i >= 0; i -= 1 )
 		{
 			parent.RemoveVictim(parent.l_victims[i]);
 		}
+		super.OnLeaveState( nextStateName );
 	}
 }

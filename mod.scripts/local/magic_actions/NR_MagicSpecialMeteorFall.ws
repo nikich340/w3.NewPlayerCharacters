@@ -103,7 +103,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		}
 		pos.Z -= 40.f;
 
-		dk = 3.f * SkillTotalDamageMultiplier();  // 5.f for single
+		dk = 2.5f * SkillTotalDamageMultiplier();  // 3.5f for single
 		meteor.projDMG = GetDamage(/*min*/ 2.f*dk, /*max*/ 60.f*dk, /*vitality*/ 32.f, 8.f*dk, /*essence*/ 90.f, 10.f*dk /*randRange*/ /*customTarget*/);
 		meteor.explosionRadius = 2.75f;
 		meteor.m_shakeStrength = 0.3f;
@@ -129,21 +129,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 }
 
 state Active in NR_MagicSpecialMeteorFall {
-	protected var startTime : float;
-
-	function GetLocalTime() : float {
-		return theGame.GetEngineTimeAsSeconds() - startTime;
-	}
-
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Active: OnEnterState: " + this);
-		startTime = theGame.GetEngineTimeAsSeconds();
-		parent.inPostState = true;
-		RunWait();
-	}
-
-	entry function RunWait() {
+	entry function ActiveLoop() {
 		var i : int;
 
 		while (parent.s_lifetime > 0.f) {
@@ -156,22 +142,10 @@ state Active in NR_MagicSpecialMeteorFall {
 		}
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Active: OnLeaveState: " + this);
-	}
 }
 
 state Cursed in NR_MagicSpecialMeteorFall {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Cursed: OnEnterState: " + this);
-		parent.inPostState = true;
-		Curse();
-	}
-
-	entry function Curse() {
+	entry function CursedLoop() {
 		var playerPosition : Vector;
 		var cursedInterval : float;
 		
@@ -188,32 +162,16 @@ state Cursed in NR_MagicSpecialMeteorFall {
 		}
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Cursed: OnLeaveState: " + this);
-	}
 }
 
 
 state Stop in NR_MagicSpecialMeteorFall {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Stop: OnEnterState: " + this);
+	entry function StopLoop() {
 		thePlayer.UnblockAction( EIAB_Movement, 'TryPeformLongMagicAttack' );
 		thePlayer.UnblockAction( EIAB_Jump, 'TryPeformLongMagicAttack' );
 		thePlayer.UnblockAction( EIAB_Roll, 'TryPeformLongMagicAttack' );
 		thePlayer.UnblockAction( EIAB_Dodge, 'TryPeformLongMagicAttack' );
 		thePlayer.UnblockAction( EIAB_Fists, 'TryPeformLongMagicAttack' );
 		thePlayer.UnblockAction( EIAB_Signs, 'TryPeformLongMagicAttack' );
-
-		parent.inPostState = false;
-	}
-
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Stop: OnLeaveState: " + this);
-		// can be removed from cached/cursed actions TODO CHECK
-		parent.inPostState = false;
 	}
 }

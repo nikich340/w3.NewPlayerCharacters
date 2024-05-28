@@ -1401,6 +1401,33 @@ storyboard:
     shot_ask_to_ground_3m:
       - actor.effect.stop: [0.99, nr_master_mage, generic_spell_rh]
 
+  section_play_gwent:
+    shot_play_gwent_1s:
+      - cam: [0.0, cam_2_cam_med_to_sorceress]
+      - actor.anim.additive:
+          actor: sorceress
+          .@pos: [0.0, anim_12429_add_gesture_closeup_question_02]
+          blendin: 0.5
+          blendout: 0.5
+
+    shot_play_gwent_2m:
+      - cam: [0.0, cam_3_cam_semiclose_to_mage]
+      - actor.anim.additive:
+          actor: nr_master_mage
+          .@pos: [0.0, anim_6731_add_reaction_agreeing_nod_02]
+          blendin: 0.4
+          blendout: 0.4
+
+      - actor.anim.mimic:
+          actor: nr_master_mage
+          .@pos: [0.0, mimicsanim_433_geralt_neutral_gesture_smile_face]
+          blendin: 0.5
+          blendout: 0.5
+
+  section_play_gwent_fadeout:
+    shot_play_gwent_fadeout:
+      - fade.in: [0.0, 1.0]
+
 dialogscript:
   actors: ["nr_master_mage", "sorceress"]
   player: "sorceress"
@@ -1578,6 +1605,9 @@ dialogscript:
         - choice: ["2115940870|I would like to become your apprentice.", section_apprentice_trial_again]
           emphasize: true
           condition: ["nr_master_apprentice_need_test", ">=", 1]
+        - choice: ["0001188506|Care for a round of gwent?", section_play_gwent]
+          emphasize: true
+          condition: ["nr_master_apprentice", ">=", 1]
         - choice: ["2115940995|Can we try to craft a golem again?", section_golem_accept_again]
           emphasize: true
           condition: ["nr_golem_recrafting_allowed", ">=", 1]
@@ -1590,7 +1620,7 @@ dialogscript:
         - choice: ["2115940919|Could you please remind me how to cast…", section_choice_apprentice_remind_spells]
           emphasize: true
           condition: ["nr_master_apprentice", ">=", 1]
-        - choice: ["2115940985|About my successes in practice…", script_show_spell_stats_black]
+        - choice: ["2115940985|About my successes in practice…", script_show_spell_stats1]
           emphasize: true
           condition: ["nr_master_apprentice", ">=", 1]
         - choice: ["2115940306|One fella have seen your ship in the sky.", section_about_fella]
@@ -1600,6 +1630,7 @@ dialogscript:
         # - choice: ["2115940311|Happy new year, my teacher.", section_happy_new_year]
         - choice: ["2115940867|See you later.", section_randomizer_goodbye, exit]
         # emphasize: true
+  
   section_about_fella:
     - CUE: shot_about_fella_a
     - sorceress: "2115940306|One fella have seen your ship in the sky."
@@ -2215,6 +2246,9 @@ dialogscript:
         - choice: ["2115940156|Shield", script_apprentice_new_spell_shield]
           condition: ["nr_magic_skill_level", ">=", 2]
           emphasize: true
+        - choice: ["2115940599|Weather change", script_apprentice_new_spell_weatherchange]
+          condition: ["nr_magic_skill_level", ">=", 2]
+          emphasize: true
         - choice: ["2115940153|Tornado", script_apprentice_new_spell_tornado]
           condition: ["nr_magic_skill_level", ">=", 3]
           emphasize: true
@@ -2291,6 +2325,14 @@ dialogscript:
         function: AddFact_S
         parameter:
           - factName: nr_magic_learning_ENR_SpecialShield
+          - value: 1
+    - NEXT: section_randomizer_apprentice_after_new_spell
+
+  script_apprentice_new_spell_weatherchange:
+    - SCRIPT:
+        function: AddFact_S
+        parameter:
+          - factName: nr_magic_learning_ENR_SpecialWeatherChange
           - value: 1
     - NEXT: section_randomizer_apprentice_after_new_spell
 
@@ -2501,22 +2543,64 @@ dialogscript:
           - reminder: true
     - NEXT: section_pre_choice_main
 
-  script_show_spell_stats_black:
+  script_show_spell_stats1:
     - SCRIPT:
         function: NR_ShowMagicSkillStats_S
         parameter:
           - fullscreen: true
-          - showGeneral: true
-          - showSpecial: false
-    - NEXT: script_show_spell_stats_black2
+          - showNovice: true
+          - showApprentice: false
+          - showExperienced: false
+          - showMistress: false
+          - showArchMistress: false
+    - NEXT: script_show_spell_stats2
 
-  script_show_spell_stats_black2:
+  script_show_spell_stats2:
     - SCRIPT:
         function: NR_ShowMagicSkillStats_S
         parameter:
           - fullscreen: true
-          - showGeneral: false
-          - showSpecial: true
+          - showNovice: false
+          - showApprentice: true
+          - showExperienced: false
+          - showMistress: false
+          - showArchMistress: false
+    - NEXT: script_show_spell_stats3
+
+  script_show_spell_stats3:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showNovice: false
+          - showApprentice: false
+          - showExperienced: true
+          - showMistress: false
+          - showArchMistress: false
+    - NEXT: script_show_spell_stats4
+
+  script_show_spell_stats4:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showNovice: false
+          - showApprentice: false
+          - showExperienced: false
+          - showMistress: true
+          - showArchMistress: false
+    - NEXT: script_show_spell_stats5
+
+  script_show_spell_stats5:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showNovice: false
+          - showApprentice: false
+          - showExperienced: false
+          - showMistress: false
+          - showArchMistress: true
     - NEXT: section_pre_choice_main
 
   section_ask_to_ground:
@@ -2538,6 +2622,31 @@ dialogscript:
           - worldName: prolog_village
           - activeTime: 60.0
     - NEXT: section_pre_choice_main
+
+  section_play_gwent:
+    - CUE: shot_play_gwent_1s
+    - sorceress: "0001188506|Care for a round of gwent?"
+    - CUE: shot_play_gwent_2m
+    - PAUSE: 2.5
+    - NEXT: script_set_gwent_reward
+
+  script_set_gwent_reward:
+    - SCRIPT:
+        function: PlaceBet
+        parameter:
+          - rewardName: CNAME_high_price_gwint_reward
+          - startingBetPercentage: 50
+    - NEXT: section_play_gwent_fadeout
+
+  section_play_gwent_fadeout:
+    - CUE: shot_play_gwent_fadeout
+    - PAUSE: 1.0
+    - NEXT: section_exit_gwent
+
+  section_exit_gwent:
+    - BLACKSCREEN: true
+    - OUTPUT: gwent
+    - EXIT 
 
   section_exit_blackscreen:
     - BLACKSCREEN: true

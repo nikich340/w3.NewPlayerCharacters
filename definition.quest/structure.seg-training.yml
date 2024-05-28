@@ -391,17 +391,6 @@ structure:
             - objective.practise_tornado: Activate
             - addfact.ENR_SpecialTornado
         
-        script.Unlock_hound_servant:
-          ".editor":
-            pos: [ 779.0, 944.0 ]
-            in: [ In ]
-            out: [ Out ]
-          function: NR_MagicActionAbilityUnlock_Q
-          parameter:
-            - type: cname_ENR_SpecialServant
-            - abilityName: Hound
-          next: ".done"
-        
         script.fade_in_half_sec:
           ".editor":
             pos: [ -183.0, 1055.0 ]
@@ -801,7 +790,6 @@ structure:
           value: [ nr_magic_skill_ENR_SpecialServant, 1 ]
           next:
             - script.reset_servant_fact
-            - script.Unlock_hound_servant
         
         addfact.ENR_SpecialShield:
           ".editor": [ 609.0, 408.0 ]

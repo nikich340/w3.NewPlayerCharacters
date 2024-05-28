@@ -70,6 +70,9 @@ templates:
                   parentName: scabbards_skeleton
                   childClass: CMeshComponent
                   childName: steel_scabbard_av_01
+        voiceset_geralt:
+          ".type": CStorySceneComponent
+          storyScene: "dlc/dlcnewreplacers/data/scenes/geralt_vset_female.w2scene"
 
     appearances:  #array:2,0,CEntityAppearance
       nr_player:

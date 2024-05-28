@@ -186,8 +186,8 @@ production:
     strings-idspace: 5940
     strings-idstart: 650
 
-  safe_placement: 0.5
-  snap_to_terrain: true
+  safe_placement: false
+  snap_to_terrain: false
 
   placement: "PLAYER"
     # INFO: world coordinates of used origin:
@@ -11462,6 +11462,86 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: "[{368969}: {2115940093}]"
+        - choice: ["0001107617|._skip_: head_01 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_01"
+        - choice: ["0001107617|._skip_: head_02 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_02"
+        - choice: ["0001107617|._skip_: head_03 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_03"
+        - choice: ["0001107617|._skip_: head_04 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_04"
+        - choice: ["0001107617|._skip_: head_05 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_05"
+        - choice: ["0001107617|._skip_: head_06 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_06"
+        - choice: ["0001107617|._skip_: head_07 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_07"
+        - choice: ["0001107617|._skip_: head_08 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_08"
+        - choice: ["0001107617|._skip_: head_09 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_09"
+        - choice: ["0001107617|._skip_: head_10 #0", script_head_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_head_10"
         - choice: ["0001107617|._skip_: h_01_wa__katarina #0", script_head_dc]
           emphasize: true
           scriptAction:
@@ -14630,6 +14710,126 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: "[{368969}: {2115940093}]"
+        - choice: ["0001107617|._skip_: hair_01 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_01"
+        - choice: ["0001107617|._skip_: hair_02 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_02"
+        - choice: ["0001107617|._skip_: hair_03 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_03"
+        - choice: ["0001107617|._skip_: hair_04 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_04"
+        - choice: ["0001107617|._skip_: hair_05 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_05"
+        - choice: ["0001107617|._skip_: hair_06 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_06"
+        - choice: ["0001107617|._skip_: hair_07 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_07"
+        - choice: ["0001107617|._skip_: hair_08 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_08"
+        - choice: ["0001107617|._skip_: hair_09 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_09"
+        - choice: ["0001107617|._skip_: hair_10 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_10"
+        - choice: ["0001107617|._skip_: hair_11 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_11"
+        - choice: ["0001107617|._skip_: hair_12 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_12"
+        - choice: ["0001107617|._skip_: hair_13 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_13"
+        - choice: ["0001107617|._skip_: hair_14 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_14"
+        - choice: ["0001107617|._skip_: hair_15 #0", script_hair_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_hair_15"
         - choice: ["0001107617|._skip_: c_katarina_duchess_2 #0", script_hair_dc]
           emphasize: true
           scriptAction:
@@ -15558,6 +15758,246 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: "[{368969}: {2115940093}]"
+        - choice: ["0001107617|._skip_: outfit_01 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_01"
+        - choice: ["0001107617|._skip_: outfit_02 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_02"
+        - choice: ["0001107617|._skip_: outfit_03 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_03"
+        - choice: ["0001107617|._skip_: outfit_04 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_04"
+        - choice: ["0001107617|._skip_: outfit_05 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_05"
+        - choice: ["0001107617|._skip_: outfit_06 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_06"
+        - choice: ["0001107617|._skip_: outfit_07 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_07"
+        - choice: ["0001107617|._skip_: outfit_08 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_08"
+        - choice: ["0001107617|._skip_: outfit_09 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_09"
+        - choice: ["0001107617|._skip_: outfit_10 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_10"
+        - choice: ["0001107617|._skip_: outfit_11 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_11"
+        - choice: ["0001107617|._skip_: outfit_12 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_12"
+        - choice: ["0001107617|._skip_: outfit_13 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_13"
+        - choice: ["0001107617|._skip_: outfit_14 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_14"
+        - choice: ["0001107617|._skip_: outfit_15 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_15"
+        - choice: ["0001107617|._skip_: outfit_16 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_16"
+        - choice: ["0001107617|._skip_: outfit_17 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_17"
+        - choice: ["0001107617|._skip_: outfit_18 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_18"
+        - choice: ["0001107617|._skip_: outfit_19 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_19"
+        - choice: ["0001107617|._skip_: outfit_20 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_20"
+        - choice: ["0001107617|._skip_: outfit_21 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_21"
+        - choice: ["0001107617|._skip_: outfit_22 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_22"
+        - choice: ["0001107617|._skip_: outfit_23 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_23"
+        - choice: ["0001107617|._skip_: outfit_24 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_24"
+        - choice: ["0001107617|._skip_: outfit_25 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_25"
+        - choice: ["0001107617|._skip_: outfit_26 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_26"
+        - choice: ["0001107617|._skip_: outfit_27 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_27"
+        - choice: ["0001107617|._skip_: outfit_28 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_28"
+        - choice: ["0001107617|._skip_: outfit_29 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_29"
+        - choice: ["0001107617|._skip_: outfit_30 #0", script_body_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_outfit_30"
         - choice: ["0001107617|._skip_: b_katarina_casual #0", script_body_dc]
           emphasize: true
           scriptAction:
@@ -22646,7 +23086,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_torso_dc_sub22]
           emphasize: true
@@ -22666,7 +23106,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_torso_dc_sub24]
           emphasize: true
@@ -23178,7 +23618,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_geralt_kontusz"
-            equip_variant: 3
+            equip_variant: 2
         - choice: ["0001107617|.Geralt: item_name_geralt_kontusz #0", script_torso_dc]
           emphasize: true
           scriptAction:
@@ -23187,7 +23627,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_geralt_kontusz"
-            equip_variant: 2
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_rose_armor #0", script_torso_dc]
           emphasize: true
           scriptAction:
@@ -26766,7 +27206,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 1
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #2", script_torso_dc_sub21]
           emphasize: true
@@ -26776,7 +27216,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 2
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #3", script_torso_dc_sub21]
           emphasize: true
@@ -26786,7 +27226,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 3
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #4", script_torso_dc_sub21]
           emphasize: true
@@ -26796,7 +27236,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 4
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #5", script_torso_dc_sub21]
           emphasize: true
@@ -26806,7 +27246,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 5
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #6", script_torso_dc_sub21]
           emphasize: true
@@ -26816,7 +27256,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 6
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #7", script_torso_dc_sub21]
           emphasize: true
@@ -26826,7 +27266,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 7
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #8", script_torso_dc_sub21]
           emphasize: true
@@ -26836,7 +27276,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 8
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #9", script_torso_dc_sub21]
           emphasize: true
@@ -26846,7 +27286,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 9
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #10", script_torso_dc_sub21]
           emphasize: true
@@ -26856,7 +27296,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 10
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #11", script_torso_dc_sub21]
           emphasize: true
@@ -26866,7 +27306,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 11
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #12", script_torso_dc_sub21]
           emphasize: true
@@ -26876,7 +27316,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 12
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes_jo #13", script_torso_dc_sub21]
           emphasize: true
@@ -26886,7 +27326,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 4
             index: 13
 
   script_torso_dc_sub21:
@@ -27060,7 +27500,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #2", script_torso_dc_sub23]
           emphasize: true
@@ -27070,7 +27510,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #3", script_torso_dc_sub23]
           emphasize: true
@@ -27080,7 +27520,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #4", script_torso_dc_sub23]
           emphasize: true
@@ -27090,7 +27530,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #5", script_torso_dc_sub23]
           emphasize: true
@@ -27100,7 +27540,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #6", script_torso_dc_sub23]
           emphasize: true
@@ -27110,7 +27550,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #7", script_torso_dc_sub23]
           emphasize: true
@@ -27120,7 +27560,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #8", script_torso_dc_sub23]
           emphasize: true
@@ -27130,7 +27570,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #9", script_torso_dc_sub23]
           emphasize: true
@@ -27140,7 +27580,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #10", script_torso_dc_sub23]
           emphasize: true
@@ -27150,7 +27590,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #11", script_torso_dc_sub23]
           emphasize: true
@@ -27160,7 +27600,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #12", script_torso_dc_sub23]
           emphasize: true
@@ -27170,7 +27610,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: t_02a_mg__lynx_lvl5_meshes_jo #13", script_torso_dc_sub23]
           emphasize: true
@@ -27180,7 +27620,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 4
+            equip_variant: 3
             index: 13
 
   script_torso_dc_sub23:
@@ -35389,7 +35829,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub3]
           emphasize: true
@@ -35409,7 +35849,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub5]
           emphasize: true
@@ -35429,7 +35869,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub7]
           emphasize: true
@@ -35449,7 +35889,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub9]
           emphasize: true
@@ -35469,7 +35909,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub11]
           emphasize: true
@@ -35479,7 +35919,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub12]
           emphasize: true
@@ -35489,7 +35929,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub13]
           emphasize: true
@@ -35499,7 +35939,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub14]
           emphasize: true
@@ -35539,7 +35979,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_baw_vampire_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_baw_vampire_gloves_2 #0", script_arms_dc]
           emphasize: true
           scriptAction:
@@ -35556,24 +35996,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_baw_vampire_gloves_2"
-            equip_variant: 3
-        - choice: ["0001107617|.Geralt: item_name_baw_vampire_gloves #0", script_arms_dc]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            dlc_id: "CNAME_dlc_jowitcheress"
-            dlc_name_key: "dlc_name_jowitcheress"
-            prefix_id: 318188
-            extra_name_key: "CNAME_item_name_baw_vampire_gloves"
-            equip_variant: 3
-        - choice: ["0001107617|.Geralt: item_name_baw_vampire_gloves #0", script_arms_dc]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            dlc_id: "CNAME_dlc_jowitcheress"
-            dlc_name_key: "dlc_name_jowitcheress"
-            prefix_id: 318188
-            extra_name_key: "CNAME_item_name_baw_vampire_gloves"
+            equip_variant: 2
         - choice: ["0001107617|.Geralt: item_name_baw_vampire_gloves #0", script_arms_dc]
           emphasize: true
           scriptAction:
@@ -35583,6 +36006,23 @@ dialogscript:
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_baw_vampire_gloves"
             equip_variant: 2
+        - choice: ["0001107617|.Geralt: item_name_baw_vampire_gloves #0", script_arms_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_dlc_jowitcheress"
+            dlc_name_key: "dlc_name_jowitcheress"
+            prefix_id: 318188
+            extra_name_key: "CNAME_item_name_baw_vampire_gloves"
+        - choice: ["0001107617|.Geralt: item_name_baw_vampire_gloves #0", script_arms_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_dlc_jowitcheress"
+            dlc_name_key: "dlc_name_jowitcheress"
+            prefix_id: 318188
+            extra_name_key: "CNAME_item_name_baw_vampire_gloves"
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_knight_A_geralt_gloves #0", script_arms_dc]
           emphasize: true
           scriptAction:
@@ -35643,24 +36083,24 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_knight_geralt_gloves"
-            equip_variant: 2
-        - choice: ["0001107617|.Geralt: item_name_knight_geralt_gloves #0", script_arms_dc]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            dlc_id: "CNAME_dlc_jowitcheress"
-            dlc_name_key: "dlc_name_jowitcheress"
-            prefix_id: 318188
-            extra_name_key: "CNAME_item_name_knight_geralt_gloves"
-        - choice: ["0001107617|.Geralt: item_name_knight_geralt_gloves #0", script_arms_dc]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            dlc_id: "CNAME_dlc_jowitcheress"
-            dlc_name_key: "dlc_name_jowitcheress"
-            prefix_id: 318188
-            extra_name_key: "CNAME_item_name_knight_geralt_gloves"
             equip_variant: 3
+        - choice: ["0001107617|.Geralt: item_name_knight_geralt_gloves #0", script_arms_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_dlc_jowitcheress"
+            dlc_name_key: "dlc_name_jowitcheress"
+            prefix_id: 318188
+            extra_name_key: "CNAME_item_name_knight_geralt_gloves"
+        - choice: ["0001107617|.Geralt: item_name_knight_geralt_gloves #0", script_arms_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_dlc_jowitcheress"
+            dlc_name_key: "dlc_name_jowitcheress"
+            prefix_id: 318188
+            extra_name_key: "CNAME_item_name_knight_geralt_gloves"
+            equip_variant: 2
         - choice: ["0001107617|.Geralt: item_name_guard_lvl1_geralt_gloves #0", script_arms_dc]
           emphasize: true
           scriptAction:
@@ -35720,7 +36160,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub18]
           emphasize: true
@@ -35730,7 +36170,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: item_name_q705_geralt_mask #0", script_arms_dc]
           emphasize: true
@@ -35765,7 +36205,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub20]
           emphasize: true
@@ -35785,7 +36225,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub22]
           emphasize: true
@@ -35840,24 +36280,24 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_ofir_gloves"
-            equip_variant: 3
-        - choice: ["0001107617|.Geralt: item_name_ofir_gloves #0", script_arms_dc]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            dlc_id: "CNAME_dlc_jowitcheress"
-            dlc_name_key: "dlc_name_jowitcheress"
-            prefix_id: 318188
-            extra_name_key: "CNAME_item_name_ofir_gloves"
-        - choice: ["0001107617|.Geralt: item_name_ofir_gloves #0", script_arms_dc]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            dlc_id: "CNAME_dlc_jowitcheress"
-            dlc_name_key: "dlc_name_jowitcheress"
-            prefix_id: 318188
-            extra_name_key: "CNAME_item_name_ofir_gloves"
             equip_variant: 2
+        - choice: ["0001107617|.Geralt: item_name_ofir_gloves #0", script_arms_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_dlc_jowitcheress"
+            dlc_name_key: "dlc_name_jowitcheress"
+            prefix_id: 318188
+            extra_name_key: "CNAME_item_name_ofir_gloves"
+        - choice: ["0001107617|.Geralt: item_name_ofir_gloves #0", script_arms_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_dlc_jowitcheress"
+            dlc_name_key: "dlc_name_jowitcheress"
+            prefix_id: 318188
+            extra_name_key: "CNAME_item_name_ofir_gloves"
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_thief_borsody_gloves #0", script_arms_dc]
           emphasize: true
           scriptAction:
@@ -35927,7 +36367,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_heavy_gloves_04"
-            equip_variant: 3
+            equip_variant: 2
         - choice: ["0001107617|.Geralt: item_name_heavy_gloves_01 #0", script_arms_dc]
           emphasize: true
           scriptAction:
@@ -35960,7 +36400,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_heavy_gloves_04"
-            equip_variant: 2
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_gloves_01 #0", script_arms_dc]
           emphasize: true
           scriptAction:
@@ -36037,7 +36477,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub25]
           emphasize: true
@@ -36057,7 +36497,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_dc_sub27]
           emphasize: true
@@ -36241,7 +36681,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #2", script_arms_dc_sub2]
           emphasize: true
@@ -36251,7 +36691,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #3", script_arms_dc_sub2]
           emphasize: true
@@ -36261,7 +36701,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #4", script_arms_dc_sub2]
           emphasize: true
@@ -36271,7 +36711,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #5", script_arms_dc_sub2]
           emphasize: true
@@ -36281,7 +36721,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #6", script_arms_dc_sub2]
           emphasize: true
@@ -36291,7 +36731,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #7", script_arms_dc_sub2]
           emphasize: true
@@ -36301,7 +36741,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #8", script_arms_dc_sub2]
           emphasize: true
@@ -36311,7 +36751,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #9", script_arms_dc_sub2]
           emphasize: true
@@ -36321,7 +36761,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #10", script_arms_dc_sub2]
           emphasize: true
@@ -36331,7 +36771,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #11", script_arms_dc_sub2]
           emphasize: true
@@ -36341,7 +36781,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #12", script_arms_dc_sub2]
           emphasize: true
@@ -36351,7 +36791,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl2_meshes_jo #13", script_arms_dc_sub2]
           emphasize: true
@@ -36361,7 +36801,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_dc_sub2:
@@ -36535,7 +36975,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #2", script_arms_dc_sub4]
           emphasize: true
@@ -36545,7 +36985,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #3", script_arms_dc_sub4]
           emphasize: true
@@ -36555,7 +36995,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #4", script_arms_dc_sub4]
           emphasize: true
@@ -36565,7 +37005,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #5", script_arms_dc_sub4]
           emphasize: true
@@ -36575,7 +37015,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #6", script_arms_dc_sub4]
           emphasize: true
@@ -36585,7 +37025,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #7", script_arms_dc_sub4]
           emphasize: true
@@ -36595,7 +37035,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #8", script_arms_dc_sub4]
           emphasize: true
@@ -36605,7 +37045,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #9", script_arms_dc_sub4]
           emphasize: true
@@ -36615,7 +37055,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #10", script_arms_dc_sub4]
           emphasize: true
@@ -36625,7 +37065,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #11", script_arms_dc_sub4]
           emphasize: true
@@ -36635,7 +37075,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #12", script_arms_dc_sub4]
           emphasize: true
@@ -36645,7 +37085,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl2_meshes_jo #13", script_arms_dc_sub4]
           emphasize: true
@@ -36655,7 +37095,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_dc_sub4:
@@ -36829,7 +37269,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #2", script_arms_dc_sub6]
           emphasize: true
@@ -36839,7 +37279,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #3", script_arms_dc_sub6]
           emphasize: true
@@ -36849,7 +37289,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #4", script_arms_dc_sub6]
           emphasize: true
@@ -36859,7 +37299,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #5", script_arms_dc_sub6]
           emphasize: true
@@ -36869,7 +37309,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #6", script_arms_dc_sub6]
           emphasize: true
@@ -36879,7 +37319,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #7", script_arms_dc_sub6]
           emphasize: true
@@ -36889,7 +37329,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #8", script_arms_dc_sub6]
           emphasize: true
@@ -36899,7 +37339,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #9", script_arms_dc_sub6]
           emphasize: true
@@ -36909,7 +37349,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #10", script_arms_dc_sub6]
           emphasize: true
@@ -36919,7 +37359,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #11", script_arms_dc_sub6]
           emphasize: true
@@ -36929,7 +37369,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #12", script_arms_dc_sub6]
           emphasize: true
@@ -36939,7 +37379,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl1_meshes_jo #13", script_arms_dc_sub6]
           emphasize: true
@@ -36949,7 +37389,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_dc_sub6:
@@ -37123,7 +37563,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #2", script_arms_dc_sub8]
           emphasize: true
@@ -37133,7 +37573,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #3", script_arms_dc_sub8]
           emphasize: true
@@ -37143,7 +37583,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #4", script_arms_dc_sub8]
           emphasize: true
@@ -37153,7 +37593,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #5", script_arms_dc_sub8]
           emphasize: true
@@ -37163,7 +37603,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #6", script_arms_dc_sub8]
           emphasize: true
@@ -37173,7 +37613,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #7", script_arms_dc_sub8]
           emphasize: true
@@ -37183,7 +37623,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #8", script_arms_dc_sub8]
           emphasize: true
@@ -37193,7 +37633,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #9", script_arms_dc_sub8]
           emphasize: true
@@ -37203,7 +37643,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #10", script_arms_dc_sub8]
           emphasize: true
@@ -37213,7 +37653,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #11", script_arms_dc_sub8]
           emphasize: true
@@ -37223,7 +37663,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #12", script_arms_dc_sub8]
           emphasize: true
@@ -37233,7 +37673,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl1_meshes_jo #13", script_arms_dc_sub8]
           emphasize: true
@@ -37243,7 +37683,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_dc_sub8:
@@ -37417,7 +37857,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #2", script_arms_dc_sub10]
           emphasize: true
@@ -37427,7 +37867,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #3", script_arms_dc_sub10]
           emphasize: true
@@ -37437,7 +37877,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #4", script_arms_dc_sub10]
           emphasize: true
@@ -37447,7 +37887,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #5", script_arms_dc_sub10]
           emphasize: true
@@ -37457,7 +37897,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #6", script_arms_dc_sub10]
           emphasize: true
@@ -37467,7 +37907,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #7", script_arms_dc_sub10]
           emphasize: true
@@ -37477,7 +37917,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #8", script_arms_dc_sub10]
           emphasize: true
@@ -37487,7 +37927,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #9", script_arms_dc_sub10]
           emphasize: true
@@ -37497,7 +37937,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #10", script_arms_dc_sub10]
           emphasize: true
@@ -37507,7 +37947,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #11", script_arms_dc_sub10]
           emphasize: true
@@ -37517,7 +37957,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #12", script_arms_dc_sub10]
           emphasize: true
@@ -37527,7 +37967,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl3_meshes_jo #13", script_arms_dc_sub10]
           emphasize: true
@@ -37537,7 +37977,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_dc_sub10:
@@ -37564,7 +38004,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #2", script_arms_dc_sub11]
           emphasize: true
@@ -37574,7 +38014,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #3", script_arms_dc_sub11]
           emphasize: true
@@ -37584,7 +38024,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #4", script_arms_dc_sub11]
           emphasize: true
@@ -37594,7 +38034,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #5", script_arms_dc_sub11]
           emphasize: true
@@ -37604,7 +38044,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #6", script_arms_dc_sub11]
           emphasize: true
@@ -37614,7 +38054,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #7", script_arms_dc_sub11]
           emphasize: true
@@ -37624,7 +38064,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #8", script_arms_dc_sub11]
           emphasize: true
@@ -37634,7 +38074,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #9", script_arms_dc_sub11]
           emphasize: true
@@ -37644,7 +38084,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #10", script_arms_dc_sub11]
           emphasize: true
@@ -37654,7 +38094,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #11", script_arms_dc_sub11]
           emphasize: true
@@ -37664,7 +38104,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #12", script_arms_dc_sub11]
           emphasize: true
@@ -37674,7 +38114,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl3_meshes_jo #13", script_arms_dc_sub11]
           emphasize: true
@@ -37684,7 +38124,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_dc_sub11:
@@ -37711,7 +38151,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #2", script_arms_dc_sub12]
           emphasize: true
@@ -37721,7 +38161,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #3", script_arms_dc_sub12]
           emphasize: true
@@ -37731,7 +38171,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #4", script_arms_dc_sub12]
           emphasize: true
@@ -37741,7 +38181,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #5", script_arms_dc_sub12]
           emphasize: true
@@ -37751,7 +38191,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #6", script_arms_dc_sub12]
           emphasize: true
@@ -37761,7 +38201,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #7", script_arms_dc_sub12]
           emphasize: true
@@ -37771,7 +38211,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #8", script_arms_dc_sub12]
           emphasize: true
@@ -37781,7 +38221,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #9", script_arms_dc_sub12]
           emphasize: true
@@ -37791,7 +38231,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #10", script_arms_dc_sub12]
           emphasize: true
@@ -37801,7 +38241,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #11", script_arms_dc_sub12]
           emphasize: true
@@ -37811,7 +38251,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #12", script_arms_dc_sub12]
           emphasize: true
@@ -37821,7 +38261,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes_jo #13", script_arms_dc_sub12]
           emphasize: true
@@ -37831,7 +38271,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_dc_sub12:
@@ -37858,7 +38298,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #2", script_arms_dc_sub13]
           emphasize: true
@@ -37868,7 +38308,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #3", script_arms_dc_sub13]
           emphasize: true
@@ -37878,7 +38318,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #4", script_arms_dc_sub13]
           emphasize: true
@@ -37888,7 +38328,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #5", script_arms_dc_sub13]
           emphasize: true
@@ -37898,7 +38338,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #6", script_arms_dc_sub13]
           emphasize: true
@@ -37908,7 +38348,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #7", script_arms_dc_sub13]
           emphasize: true
@@ -37918,7 +38358,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #8", script_arms_dc_sub13]
           emphasize: true
@@ -37928,7 +38368,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #9", script_arms_dc_sub13]
           emphasize: true
@@ -37938,7 +38378,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #10", script_arms_dc_sub13]
           emphasize: true
@@ -37948,7 +38388,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #11", script_arms_dc_sub13]
           emphasize: true
@@ -37958,7 +38398,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #12", script_arms_dc_sub13]
           emphasize: true
@@ -37968,7 +38408,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes_jo #13", script_arms_dc_sub13]
           emphasize: true
@@ -37978,7 +38418,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_dc_sub13:
@@ -38446,7 +38886,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #2", script_arms_dc_sub17]
           emphasize: true
@@ -38456,7 +38896,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #3", script_arms_dc_sub17]
           emphasize: true
@@ -38466,7 +38906,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #4", script_arms_dc_sub17]
           emphasize: true
@@ -38476,7 +38916,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #5", script_arms_dc_sub17]
           emphasize: true
@@ -38486,7 +38926,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #6", script_arms_dc_sub17]
           emphasize: true
@@ -38496,7 +38936,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #7", script_arms_dc_sub17]
           emphasize: true
@@ -38506,7 +38946,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #8", script_arms_dc_sub17]
           emphasize: true
@@ -38516,7 +38956,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #9", script_arms_dc_sub17]
           emphasize: true
@@ -38526,7 +38966,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #10", script_arms_dc_sub17]
           emphasize: true
@@ -38536,7 +38976,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #11", script_arms_dc_sub17]
           emphasize: true
@@ -38546,7 +38986,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #12", script_arms_dc_sub17]
           emphasize: true
@@ -38556,7 +38996,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl3_meshes_jo #13", script_arms_dc_sub17]
           emphasize: true
@@ -38566,7 +39006,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_dc_sub17:
@@ -38593,7 +39033,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #2", script_arms_dc_sub18]
           emphasize: true
@@ -38603,7 +39043,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #3", script_arms_dc_sub18]
           emphasize: true
@@ -38613,7 +39053,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #4", script_arms_dc_sub18]
           emphasize: true
@@ -38623,7 +39063,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #5", script_arms_dc_sub18]
           emphasize: true
@@ -38633,7 +39073,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #6", script_arms_dc_sub18]
           emphasize: true
@@ -38643,7 +39083,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #7", script_arms_dc_sub18]
           emphasize: true
@@ -38653,7 +39093,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #8", script_arms_dc_sub18]
           emphasize: true
@@ -38663,7 +39103,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #9", script_arms_dc_sub18]
           emphasize: true
@@ -38673,7 +39113,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #10", script_arms_dc_sub18]
           emphasize: true
@@ -38683,7 +39123,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #11", script_arms_dc_sub18]
           emphasize: true
@@ -38693,7 +39133,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #12", script_arms_dc_sub18]
           emphasize: true
@@ -38703,7 +39143,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl3_meshes_jo #13", script_arms_dc_sub18]
           emphasize: true
@@ -38713,7 +39153,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_dc_sub18:
@@ -38740,7 +39180,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #2", script_arms_dc_sub19]
           emphasize: true
@@ -38750,7 +39190,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #3", script_arms_dc_sub19]
           emphasize: true
@@ -38760,7 +39200,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #4", script_arms_dc_sub19]
           emphasize: true
@@ -38770,7 +39210,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #5", script_arms_dc_sub19]
           emphasize: true
@@ -38780,7 +39220,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #6", script_arms_dc_sub19]
           emphasize: true
@@ -38790,7 +39230,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #7", script_arms_dc_sub19]
           emphasize: true
@@ -38800,7 +39240,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #8", script_arms_dc_sub19]
           emphasize: true
@@ -38810,7 +39250,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #9", script_arms_dc_sub19]
           emphasize: true
@@ -38820,7 +39260,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #10", script_arms_dc_sub19]
           emphasize: true
@@ -38830,7 +39270,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #11", script_arms_dc_sub19]
           emphasize: true
@@ -38840,7 +39280,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #12", script_arms_dc_sub19]
           emphasize: true
@@ -38850,7 +39290,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes_jo #13", script_arms_dc_sub19]
           emphasize: true
@@ -38860,7 +39300,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_dc_sub19:
@@ -39034,7 +39474,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #2", script_arms_dc_sub21]
           emphasize: true
@@ -39044,7 +39484,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #3", script_arms_dc_sub21]
           emphasize: true
@@ -39054,7 +39494,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #4", script_arms_dc_sub21]
           emphasize: true
@@ -39064,7 +39504,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #5", script_arms_dc_sub21]
           emphasize: true
@@ -39074,7 +39514,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #6", script_arms_dc_sub21]
           emphasize: true
@@ -39084,7 +39524,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #7", script_arms_dc_sub21]
           emphasize: true
@@ -39094,7 +39534,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #8", script_arms_dc_sub21]
           emphasize: true
@@ -39104,7 +39544,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #9", script_arms_dc_sub21]
           emphasize: true
@@ -39114,7 +39554,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #10", script_arms_dc_sub21]
           emphasize: true
@@ -39124,7 +39564,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #11", script_arms_dc_sub21]
           emphasize: true
@@ -39134,7 +39574,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #12", script_arms_dc_sub21]
           emphasize: true
@@ -39144,7 +39584,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes_jo #13", script_arms_dc_sub21]
           emphasize: true
@@ -39154,7 +39594,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_dc_sub21:
@@ -39475,7 +39915,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #2", script_arms_dc_sub24]
           emphasize: true
@@ -39485,7 +39925,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #3", script_arms_dc_sub24]
           emphasize: true
@@ -39495,7 +39935,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #4", script_arms_dc_sub24]
           emphasize: true
@@ -39505,7 +39945,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #5", script_arms_dc_sub24]
           emphasize: true
@@ -39515,7 +39955,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #6", script_arms_dc_sub24]
           emphasize: true
@@ -39525,7 +39965,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #7", script_arms_dc_sub24]
           emphasize: true
@@ -39535,7 +39975,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #8", script_arms_dc_sub24]
           emphasize: true
@@ -39545,7 +39985,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #9", script_arms_dc_sub24]
           emphasize: true
@@ -39555,7 +39995,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #10", script_arms_dc_sub24]
           emphasize: true
@@ -39565,7 +40005,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #11", script_arms_dc_sub24]
           emphasize: true
@@ -39575,7 +40015,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #12", script_arms_dc_sub24]
           emphasize: true
@@ -39585,7 +40025,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__gryphon_lvl1_meshes_jo #13", script_arms_dc_sub24]
           emphasize: true
@@ -39595,7 +40035,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_dc_sub24:
@@ -39769,7 +40209,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #2", script_arms_dc_sub26]
           emphasize: true
@@ -39779,7 +40219,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #3", script_arms_dc_sub26]
           emphasize: true
@@ -39789,7 +40229,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #4", script_arms_dc_sub26]
           emphasize: true
@@ -39799,7 +40239,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #5", script_arms_dc_sub26]
           emphasize: true
@@ -39809,7 +40249,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #6", script_arms_dc_sub26]
           emphasize: true
@@ -39819,7 +40259,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #7", script_arms_dc_sub26]
           emphasize: true
@@ -39829,7 +40269,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #8", script_arms_dc_sub26]
           emphasize: true
@@ -39839,7 +40279,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #9", script_arms_dc_sub26]
           emphasize: true
@@ -39849,7 +40289,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #10", script_arms_dc_sub26]
           emphasize: true
@@ -39859,7 +40299,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #11", script_arms_dc_sub26]
           emphasize: true
@@ -39869,7 +40309,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #12", script_arms_dc_sub26]
           emphasize: true
@@ -39879,7 +40319,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__gryphon_lvl1_meshes_jo #13", script_arms_dc_sub26]
           emphasize: true
@@ -39889,7 +40329,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_gryphon_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_dc_sub26:
@@ -46906,7 +47346,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_legs_dc_sub28]
           emphasize: true
@@ -46916,7 +47356,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: item_name_ofir_pants #0", script_legs_dc]
           emphasize: true
@@ -50922,7 +51362,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #2", script_legs_dc_sub27]
           emphasize: true
@@ -50932,7 +51372,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #3", script_legs_dc_sub27]
           emphasize: true
@@ -50942,7 +51382,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #4", script_legs_dc_sub27]
           emphasize: true
@@ -50952,7 +51392,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #5", script_legs_dc_sub27]
           emphasize: true
@@ -50962,7 +51402,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #6", script_legs_dc_sub27]
           emphasize: true
@@ -50972,7 +51412,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #7", script_legs_dc_sub27]
           emphasize: true
@@ -50982,7 +51422,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #8", script_legs_dc_sub27]
           emphasize: true
@@ -50992,7 +51432,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #9", script_legs_dc_sub27]
           emphasize: true
@@ -51002,7 +51442,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #10", script_legs_dc_sub27]
           emphasize: true
@@ -51012,7 +51452,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #11", script_legs_dc_sub27]
           emphasize: true
@@ -51022,7 +51462,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #12", script_legs_dc_sub27]
           emphasize: true
@@ -51032,7 +51472,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_meshes_jo #13", script_legs_dc_sub27]
           emphasize: true
@@ -51042,7 +51482,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_legs_dc_sub27:
@@ -51069,7 +51509,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #2", script_legs_dc_sub28]
           emphasize: true
@@ -51079,7 +51519,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #3", script_legs_dc_sub28]
           emphasize: true
@@ -51089,7 +51529,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #4", script_legs_dc_sub28]
           emphasize: true
@@ -51099,7 +51539,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #5", script_legs_dc_sub28]
           emphasize: true
@@ -51109,7 +51549,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #6", script_legs_dc_sub28]
           emphasize: true
@@ -51119,7 +51559,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #7", script_legs_dc_sub28]
           emphasize: true
@@ -51129,7 +51569,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #8", script_legs_dc_sub28]
           emphasize: true
@@ -51139,7 +51579,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #9", script_legs_dc_sub28]
           emphasize: true
@@ -51149,7 +51589,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #10", script_legs_dc_sub28]
           emphasize: true
@@ -51159,7 +51599,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #11", script_legs_dc_sub28]
           emphasize: true
@@ -51169,7 +51609,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #12", script_legs_dc_sub28]
           emphasize: true
@@ -51179,7 +51619,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: l_01a_mg__viper_v2_shirt_meshes_jo #13", script_legs_dc_sub28]
           emphasize: true
@@ -51189,7 +51629,7 @@ dialogscript:
             dlc_name_key: "dlc_name_jowitcheress"
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_hoscorset_pants"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_legs_dc_sub28:
@@ -58798,6 +59238,86 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: "[{368969}: {2115940093}]"
+        - choice: ["0001107617|._skip_: items_01 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_01"
+        - choice: ["0001107617|._skip_: items_02 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_02"
+        - choice: ["0001107617|._skip_: items_03 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_03"
+        - choice: ["0001107617|._skip_: items_04 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_04"
+        - choice: ["0001107617|._skip_: items_05 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_05"
+        - choice: ["0001107617|._skip_: items_06 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_06"
+        - choice: ["0001107617|._skip_: items_07 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_07"
+        - choice: ["0001107617|._skip_: items_08 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_08"
+        - choice: ["0001107617|._skip_: items_09 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_09"
+        - choice: ["0001107617|._skip_: items_10 #0", script_misc_dc]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            dlc_id: "CNAME_cpc_cosmetic_404"
+            dlc_name_key: "cpc_cosmetic_404"
+            dlc_name_str: "DLC Cosmetic Outfits"
+            extra_name_key: "CNAME_items_10"
         - choice: ["0001107617|._skip_: i_katarina_necklace_01 #0", script_misc_dc]
           emphasize: true
           scriptAction:

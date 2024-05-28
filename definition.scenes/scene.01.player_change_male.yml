@@ -186,8 +186,8 @@ production:
     strings-idspace: 5940
     strings-idstart: 600
 
-  safe_placement: 0.5
-  snap_to_terrain: true
+  safe_placement: false
+  snap_to_terrain: false
 
   placement: "PLAYER"
     # INFO: world coordinates of used origin:
@@ -1228,7 +1228,7 @@ dialogscript:
         parameter:
           - factName: nr_scene_ship_portal_created
           - value: 1
-    - NEXT: section_fadeout_exit
+    - NEXT: script_exit_state_blend
 
 
   section_trans_player_display_name_to_itself:
@@ -1306,10 +1306,10 @@ dialogscript:
           emphasize: true
         - choice: ["2115940573|Load appearance set", section_choice_saved_sets_load]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 1]
+          condition: ["nr_appearance_sets_female", ">=", 1]
         - choice: ["2115940574|Remove appearance set", section_choice_saved_sets_remove]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 1]
+          condition: ["nr_appearance_sets_female", ">=", 1]
 
   section_trans_choice_saved_sets_to_itself:
     - PAUSE: 0.0
@@ -1326,181 +1326,181 @@ dialogscript:
           emphasize: true
         - choice: ["0001107617|.", script_saved_sets_load_0]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 1]
+          condition: ["nr_appearance_sets_female", ">=", 1]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #1"
         - choice: ["0001107617|.", script_saved_sets_load_1]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 2]
+          condition: ["nr_appearance_sets_female", ">=", 2]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #2"
         - choice: ["0001107617|.", script_saved_sets_load_2]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 3]
+          condition: ["nr_appearance_sets_female", ">=", 3]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #3"
         - choice: ["0001107617|.", script_saved_sets_load_3]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 4]
+          condition: ["nr_appearance_sets_female", ">=", 4]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #4"
         - choice: ["0001107617|.", script_saved_sets_load_4]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 5]
+          condition: ["nr_appearance_sets_female", ">=", 5]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #5"
         - choice: ["0001107617|.", script_saved_sets_load_5]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 6]
+          condition: ["nr_appearance_sets_female", ">=", 6]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #6"
         - choice: ["0001107617|.", script_saved_sets_load_6]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 7]
+          condition: ["nr_appearance_sets_female", ">=", 7]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #7"
         - choice: ["0001107617|.", script_saved_sets_load_7]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 8]
+          condition: ["nr_appearance_sets_female", ">=", 8]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #8"
         - choice: ["0001107617|.", script_saved_sets_load_8]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 9]
+          condition: ["nr_appearance_sets_female", ">=", 9]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #9"
         - choice: ["0001107617|.", script_saved_sets_load_9]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 10]
+          condition: ["nr_appearance_sets_female", ">=", 10]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #10"
         - choice: ["0001107617|.", script_saved_sets_load_10]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 11]
+          condition: ["nr_appearance_sets_female", ">=", 11]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #11"
         - choice: ["0001107617|.", script_saved_sets_load_11]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 12]
+          condition: ["nr_appearance_sets_female", ">=", 12]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #12"
         - choice: ["0001107617|.", script_saved_sets_load_12]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 13]
+          condition: ["nr_appearance_sets_female", ">=", 13]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #13"
         - choice: ["0001107617|.", script_saved_sets_load_13]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 14]
+          condition: ["nr_appearance_sets_female", ">=", 14]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #14"
         - choice: ["0001107617|.", script_saved_sets_load_14]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 15]
+          condition: ["nr_appearance_sets_female", ">=", 15]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #15"
         - choice: ["0001107617|.", script_saved_sets_load_15]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 16]
+          condition: ["nr_appearance_sets_female", ">=", 16]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #16"
         - choice: ["0001107617|.", script_saved_sets_load_16]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 17]
+          condition: ["nr_appearance_sets_female", ">=", 17]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #17"
         - choice: ["0001107617|.", script_saved_sets_load_17]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 18]
+          condition: ["nr_appearance_sets_female", ">=", 18]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #18"
         - choice: ["0001107617|.", script_saved_sets_load_18]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 19]
+          condition: ["nr_appearance_sets_female", ">=", 19]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #19"
         - choice: ["0001107617|.", script_saved_sets_load_19]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 20]
+          condition: ["nr_appearance_sets_female", ">=", 20]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #20"
         - choice: ["0001107617|.", script_saved_sets_load_20]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 21]
+          condition: ["nr_appearance_sets_female", ">=", 21]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #21"
         - choice: ["0001107617|.", script_saved_sets_load_21]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 22]
+          condition: ["nr_appearance_sets_female", ">=", 22]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #22"
         - choice: ["0001107617|.", script_saved_sets_load_22]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 23]
+          condition: ["nr_appearance_sets_female", ">=", 23]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #23"
         - choice: ["0001107617|.", script_saved_sets_load_23]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 24]
+          condition: ["nr_appearance_sets_female", ">=", 24]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #24"
         - choice: ["0001107617|.", script_saved_sets_load_24]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 25]
+          condition: ["nr_appearance_sets_female", ">=", 25]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #25"
         - choice: ["0001107617|.", script_saved_sets_load_25]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 26]
+          condition: ["nr_appearance_sets_female", ">=", 26]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #26"
         - choice: ["0001107617|.", script_saved_sets_load_26]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 27]
+          condition: ["nr_appearance_sets_female", ">=", 27]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #27"
         - choice: ["0001107617|.", script_saved_sets_load_27]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 28]
+          condition: ["nr_appearance_sets_female", ">=", 28]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #28"
         - choice: ["0001107617|.", script_saved_sets_load_28]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 29]
+          condition: ["nr_appearance_sets_female", ">=", 29]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #29"
         - choice: ["0001107617|.", script_saved_sets_load_29]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 30]
+          condition: ["nr_appearance_sets_female", ">=", 30]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940575} #30"
@@ -1725,181 +1725,181 @@ dialogscript:
           emphasize: true
         - choice: ["0001107617|.", script_saved_sets_remove_0]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 1]
+          condition: ["nr_appearance_sets_female", ">=", 1]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #1"
         - choice: ["0001107617|.", script_saved_sets_remove_1]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 2]
+          condition: ["nr_appearance_sets_female", ">=", 2]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #2"
         - choice: ["0001107617|.", script_saved_sets_remove_2]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 3]
+          condition: ["nr_appearance_sets_female", ">=", 3]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #3"
         - choice: ["0001107617|.", script_saved_sets_remove_3]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 4]
+          condition: ["nr_appearance_sets_female", ">=", 4]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #4"
         - choice: ["0001107617|.", script_saved_sets_remove_4]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 5]
+          condition: ["nr_appearance_sets_female", ">=", 5]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #5"
         - choice: ["0001107617|.", script_saved_sets_remove_5]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 6]
+          condition: ["nr_appearance_sets_female", ">=", 6]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #6"
         - choice: ["0001107617|.", script_saved_sets_remove_6]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 7]
+          condition: ["nr_appearance_sets_female", ">=", 7]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #7"
         - choice: ["0001107617|.", script_saved_sets_remove_7]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 8]
+          condition: ["nr_appearance_sets_female", ">=", 8]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #8"
         - choice: ["0001107617|.", script_saved_sets_remove_8]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 9]
+          condition: ["nr_appearance_sets_female", ">=", 9]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #9"
         - choice: ["0001107617|.", script_saved_sets_remove_9]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 10]
+          condition: ["nr_appearance_sets_female", ">=", 10]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #10"
         - choice: ["0001107617|.", script_saved_sets_remove_10]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 11]
+          condition: ["nr_appearance_sets_female", ">=", 11]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #11"
         - choice: ["0001107617|.", script_saved_sets_remove_11]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 12]
+          condition: ["nr_appearance_sets_female", ">=", 12]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #12"
         - choice: ["0001107617|.", script_saved_sets_remove_12]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 13]
+          condition: ["nr_appearance_sets_female", ">=", 13]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #13"
         - choice: ["0001107617|.", script_saved_sets_remove_13]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 14]
+          condition: ["nr_appearance_sets_female", ">=", 14]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #14"
         - choice: ["0001107617|.", script_saved_sets_remove_14]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 15]
+          condition: ["nr_appearance_sets_female", ">=", 15]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #15"
         - choice: ["0001107617|.", script_saved_sets_remove_15]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 16]
+          condition: ["nr_appearance_sets_female", ">=", 16]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #16"
         - choice: ["0001107617|.", script_saved_sets_remove_16]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 17]
+          condition: ["nr_appearance_sets_female", ">=", 17]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #17"
         - choice: ["0001107617|.", script_saved_sets_remove_17]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 18]
+          condition: ["nr_appearance_sets_female", ">=", 18]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #18"
         - choice: ["0001107617|.", script_saved_sets_remove_18]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 19]
+          condition: ["nr_appearance_sets_female", ">=", 19]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #19"
         - choice: ["0001107617|.", script_saved_sets_remove_19]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 20]
+          condition: ["nr_appearance_sets_female", ">=", 20]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #20"
         - choice: ["0001107617|.", script_saved_sets_remove_20]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 21]
+          condition: ["nr_appearance_sets_female", ">=", 21]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #21"
         - choice: ["0001107617|.", script_saved_sets_remove_21]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 22]
+          condition: ["nr_appearance_sets_female", ">=", 22]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #22"
         - choice: ["0001107617|.", script_saved_sets_remove_22]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 23]
+          condition: ["nr_appearance_sets_female", ">=", 23]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #23"
         - choice: ["0001107617|.", script_saved_sets_remove_23]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 24]
+          condition: ["nr_appearance_sets_female", ">=", 24]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #24"
         - choice: ["0001107617|.", script_saved_sets_remove_24]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 25]
+          condition: ["nr_appearance_sets_female", ">=", 25]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #25"
         - choice: ["0001107617|.", script_saved_sets_remove_25]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 26]
+          condition: ["nr_appearance_sets_female", ">=", 26]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #26"
         - choice: ["0001107617|.", script_saved_sets_remove_26]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 27]
+          condition: ["nr_appearance_sets_female", ">=", 27]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #27"
         - choice: ["0001107617|.", script_saved_sets_remove_27]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 28]
+          condition: ["nr_appearance_sets_female", ">=", 28]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #28"
         - choice: ["0001107617|.", script_saved_sets_remove_28]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 29]
+          condition: ["nr_appearance_sets_female", ">=", 29]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #29"
         - choice: ["0001107617|.", script_saved_sets_remove_29]
           emphasize: true
-          condition: ["nr_appearance_sets_male", ">=", 30]
+          condition: ["nr_appearance_sets_female", ">=", 30]
           scriptAction:
             .class: "NR_FormattedLocChoiceAction"
             str: "{2115940576} #30"
@@ -16150,74 +16150,81 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_Short Loose Hairstyle"
-            equip_variant: 3
+            equip_variant: 5
         - choice: ["0001107617|.Geralt: Short Loose Hairstyle #0", script_hair_vm]
           emphasize: true
           scriptAction:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_Short Loose Hairstyle"
-            equip_variant: 2
-        - choice: ["0001107617|.Geralt: Short Loose Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Short Loose Hairstyle"
-        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
-            equip_variant: 3
-        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
-            equip_variant: 5
-        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
-            equip_variant: 2
-        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
-            equip_variant: 6
-        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
-        - choice: ["0001107617|.Geralt: Nilfgaardian Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Nilfgaardian Hairstyle"
-            equip_variant: 5
-        - choice: ["0001107617|.Geralt: Nilfgaardian Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Nilfgaardian Hairstyle"
             equip_variant: 4
+        - choice: ["0001107617|.Geralt: Short Loose Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Short Loose Hairstyle"
+        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
+            equip_variant: 4
+        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
+            equip_variant: 7
+        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
+            equip_variant: 2
+        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
+            equip_variant: 3
+        - choice: ["0001107617|.Geralt: Mohawk With Ponytail Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Mohawk With Ponytail Hairstyle"
         - choice: ["0001107617|.Geralt: Nilfgaardian Hairstyle #0", script_hair_vm]
           emphasize: true
           scriptAction:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_Nilfgaardian Hairstyle"
+            equip_variant: 5
+        - choice: ["0001107617|.Geralt: Nilfgaardian Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Nilfgaardian Hairstyle"
+            equip_variant: 2
+        - choice: ["0001107617|.Geralt: Nilfgaardian Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Nilfgaardian Hairstyle"
+        - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Half With Tail Hairstyle"
+            equip_variant: 11
         - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
           emphasize: true
           scriptAction:
@@ -16238,41 +16245,13 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_Half With Tail Hairstyle"
-            equip_variant: 5
-        - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Half With Tail Hairstyle"
-            equip_variant: 7
+            equip_variant: 10
         - choice: ["0001107617|.Geralt: Shaved With Tail Hairstyle #0", script_hair_vm]
           emphasize: true
           scriptAction:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_Shaved With Tail Hairstyle"
-            equip_variant: 4
-        - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Half With Tail Hairstyle"
-            equip_variant: 8
-        - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Half With Tail Hairstyle"
-            equip_variant: 4
-        - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_Half With Tail Hairstyle"
             equip_variant: 2
         - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
           emphasize: true
@@ -16287,13 +16266,34 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_Half With Tail Hairstyle"
+            equip_variant: 8
+        - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Half With Tail Hairstyle"
+            equip_variant: 2
+        - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Half With Tail Hairstyle"
+            equip_variant: 4
+        - choice: ["0001107617|.Geralt: Half With Tail Hairstyle #0", script_hair_vm]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_Half With Tail Hairstyle"
         - choice: ["0001107617|.Geralt: Shaved With Tail Hairstyle #0", script_hair_vm]
           emphasize: true
           scriptAction:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_Shaved With Tail Hairstyle"
-            equip_variant: 2
+            equip_variant: 4
         - choice: ["0001107617|.Geralt: Shaved With Tail Hairstyle #0", script_hair_vm]
           emphasize: true
           scriptAction:
@@ -23516,7 +23516,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_torso_vs_sub30]
           emphasize: true
@@ -23524,7 +23524,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_torso_vs_sub31]
           emphasize: true
@@ -23921,14 +23921,14 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_geralt_kontusz"
-            equip_variant: 2
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_geralt_kontusz #0", script_torso_vs]
           emphasize: true
           scriptAction:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_geralt_kontusz"
-            equip_variant: 3
+            equip_variant: 2
         - choice: ["0001107617|.Geralt: item_name_geralt_kontusz #0", script_torso_vs]
           emphasize: true
           scriptAction:
@@ -27341,7 +27341,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #2", script_torso_vs_sub29]
           emphasize: true
@@ -27349,7 +27349,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #3", script_torso_vs_sub29]
           emphasize: true
@@ -27357,7 +27357,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #4", script_torso_vs_sub29]
           emphasize: true
@@ -27365,7 +27365,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #5", script_torso_vs_sub29]
           emphasize: true
@@ -27373,7 +27373,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #6", script_torso_vs_sub29]
           emphasize: true
@@ -27381,7 +27381,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #7", script_torso_vs_sub29]
           emphasize: true
@@ -27389,7 +27389,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #8", script_torso_vs_sub29]
           emphasize: true
@@ -27397,7 +27397,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #9", script_torso_vs_sub29]
           emphasize: true
@@ -27405,7 +27405,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #10", script_torso_vs_sub29]
           emphasize: true
@@ -27413,7 +27413,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #11", script_torso_vs_sub29]
           emphasize: true
@@ -27421,7 +27421,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #12", script_torso_vs_sub29]
           emphasize: true
@@ -27429,7 +27429,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: t_01a_mg__lynx_lvl5_meshes #13", script_torso_vs_sub29]
           emphasize: true
@@ -27437,7 +27437,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_torso_vs_sub29:
@@ -27462,7 +27462,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #2", script_torso_vs_sub30]
           emphasize: true
@@ -27470,7 +27470,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #3", script_torso_vs_sub30]
           emphasize: true
@@ -27478,7 +27478,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #4", script_torso_vs_sub30]
           emphasize: true
@@ -27486,7 +27486,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #5", script_torso_vs_sub30]
           emphasize: true
@@ -27494,7 +27494,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #6", script_torso_vs_sub30]
           emphasize: true
@@ -27502,7 +27502,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #7", script_torso_vs_sub30]
           emphasize: true
@@ -27510,7 +27510,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #8", script_torso_vs_sub30]
           emphasize: true
@@ -27518,7 +27518,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #9", script_torso_vs_sub30]
           emphasize: true
@@ -27526,7 +27526,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #10", script_torso_vs_sub30]
           emphasize: true
@@ -27534,7 +27534,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #11", script_torso_vs_sub30]
           emphasize: true
@@ -27542,7 +27542,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #12", script_torso_vs_sub30]
           emphasize: true
@@ -27550,7 +27550,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: t_02_mg__lynx_lvl5_meshes #13", script_torso_vs_sub30]
           emphasize: true
@@ -27558,7 +27558,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_armor_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_torso_vs_sub30:
@@ -47465,7 +47465,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_vs_sub2]
           emphasize: true
@@ -47481,7 +47481,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_vs_sub4]
           emphasize: true
@@ -47513,7 +47513,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_vs_sub8]
           emphasize: true
@@ -47529,7 +47529,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_vs_sub10]
           emphasize: true
@@ -47553,7 +47553,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_vs_sub13]
           emphasize: true
@@ -47561,7 +47561,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_vs_sub14]
           emphasize: true
@@ -47633,7 +47633,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_knight_A_geralt_gloves"
-            equip_variant: 2
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_knight_A_geralt_gloves #0", script_arms_vs]
           emphasize: true
           scriptAction:
@@ -47646,13 +47646,6 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_knight_A_geralt_gloves"
-            equip_variant: 3
-        - choice: ["0001107617|.Geralt: item_name_toussaint_gloves #0", script_arms_vs]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_item_name_toussaint_gloves"
             equip_variant: 2
         - choice: ["0001107617|.Geralt: item_name_toussaint_gloves #0", script_arms_vs]
           emphasize: true
@@ -47660,13 +47653,20 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_toussaint_gloves"
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_toussaint_gloves #0", script_arms_vs]
           emphasize: true
           scriptAction:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_toussaint_gloves"
-            equip_variant: 3
+        - choice: ["0001107617|.Geralt: item_name_toussaint_gloves #0", script_arms_vs]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_item_name_toussaint_gloves"
+            equip_variant: 2
         - choice: ["0001107617|.Geralt: item_name_knight_geralt_gloves #0", script_arms_vs]
           emphasize: true
           scriptAction:
@@ -47767,7 +47767,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_vs_sub20]
           emphasize: true
@@ -47783,7 +47783,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             variants: 13
         - choice: ["0001107617|.Geralt: 13 variants", script_arms_vs_sub22]
           emphasize: true
@@ -47839,20 +47839,20 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_ofir_gloves"
-            equip_variant: 3
-        - choice: ["0001107617|.Geralt: item_name_ofir_gloves #0", script_arms_vs]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_item_name_ofir_gloves"
-        - choice: ["0001107617|.Geralt: item_name_ofir_gloves #0", script_arms_vs]
-          emphasize: true
-          scriptAction:
-            .class: NR_LocalizedPreviewChoiceAction
-            prefix_id: 318188
-            extra_name_key: "CNAME_item_name_ofir_gloves"
             equip_variant: 2
+        - choice: ["0001107617|.Geralt: item_name_ofir_gloves #0", script_arms_vs]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_item_name_ofir_gloves"
+        - choice: ["0001107617|.Geralt: item_name_ofir_gloves #0", script_arms_vs]
+          emphasize: true
+          scriptAction:
+            .class: NR_LocalizedPreviewChoiceAction
+            prefix_id: 318188
+            extra_name_key: "CNAME_item_name_ofir_gloves"
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_thief_borsody_gloves #0", script_arms_vs]
           emphasize: true
           scriptAction:
@@ -47906,7 +47906,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_heavy_gloves_04"
-            equip_variant: 3
+            equip_variant: 2
         - choice: ["0001107617|.Geralt: item_name_heavy_gloves_01 #0", script_arms_vs]
           emphasize: true
           scriptAction:
@@ -47931,7 +47931,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_heavy_gloves_04"
-            equip_variant: 2
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_gloves_01 #0", script_arms_vs]
           emphasize: true
           scriptAction:
@@ -48156,7 +48156,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #2", script_arms_vs_sub1]
           emphasize: true
@@ -48164,7 +48164,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #3", script_arms_vs_sub1]
           emphasize: true
@@ -48172,7 +48172,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #4", script_arms_vs_sub1]
           emphasize: true
@@ -48180,7 +48180,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #5", script_arms_vs_sub1]
           emphasize: true
@@ -48188,7 +48188,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #6", script_arms_vs_sub1]
           emphasize: true
@@ -48196,7 +48196,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #7", script_arms_vs_sub1]
           emphasize: true
@@ -48204,7 +48204,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #8", script_arms_vs_sub1]
           emphasize: true
@@ -48212,7 +48212,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #9", script_arms_vs_sub1]
           emphasize: true
@@ -48220,7 +48220,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #10", script_arms_vs_sub1]
           emphasize: true
@@ -48228,7 +48228,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #11", script_arms_vs_sub1]
           emphasize: true
@@ -48236,7 +48236,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #12", script_arms_vs_sub1]
           emphasize: true
@@ -48244,7 +48244,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl1_meshes #13", script_arms_vs_sub1]
           emphasize: true
@@ -48252,7 +48252,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_vs_sub1:
@@ -48398,7 +48398,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #2", script_arms_vs_sub3]
           emphasize: true
@@ -48406,7 +48406,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #3", script_arms_vs_sub3]
           emphasize: true
@@ -48414,7 +48414,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #4", script_arms_vs_sub3]
           emphasize: true
@@ -48422,7 +48422,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #5", script_arms_vs_sub3]
           emphasize: true
@@ -48430,7 +48430,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #6", script_arms_vs_sub3]
           emphasize: true
@@ -48438,7 +48438,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #7", script_arms_vs_sub3]
           emphasize: true
@@ -48446,7 +48446,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #8", script_arms_vs_sub3]
           emphasize: true
@@ -48454,7 +48454,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #9", script_arms_vs_sub3]
           emphasize: true
@@ -48462,7 +48462,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #10", script_arms_vs_sub3]
           emphasize: true
@@ -48470,7 +48470,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #11", script_arms_vs_sub3]
           emphasize: true
@@ -48478,7 +48478,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #12", script_arms_vs_sub3]
           emphasize: true
@@ -48486,7 +48486,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl1_meshes #13", script_arms_vs_sub3]
           emphasize: true
@@ -48494,7 +48494,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_vs_sub3:
@@ -48882,7 +48882,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #2", script_arms_vs_sub7]
           emphasize: true
@@ -48890,7 +48890,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #3", script_arms_vs_sub7]
           emphasize: true
@@ -48898,7 +48898,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #4", script_arms_vs_sub7]
           emphasize: true
@@ -48906,7 +48906,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #5", script_arms_vs_sub7]
           emphasize: true
@@ -48914,7 +48914,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #6", script_arms_vs_sub7]
           emphasize: true
@@ -48922,7 +48922,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #7", script_arms_vs_sub7]
           emphasize: true
@@ -48930,7 +48930,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #8", script_arms_vs_sub7]
           emphasize: true
@@ -48938,7 +48938,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #9", script_arms_vs_sub7]
           emphasize: true
@@ -48946,7 +48946,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #10", script_arms_vs_sub7]
           emphasize: true
@@ -48954,7 +48954,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #11", script_arms_vs_sub7]
           emphasize: true
@@ -48962,7 +48962,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #12", script_arms_vs_sub7]
           emphasize: true
@@ -48970,7 +48970,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__bear_lvl2_meshes #13", script_arms_vs_sub7]
           emphasize: true
@@ -48978,7 +48978,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_vs_sub7:
@@ -49124,7 +49124,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #2", script_arms_vs_sub9]
           emphasize: true
@@ -49132,7 +49132,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #3", script_arms_vs_sub9]
           emphasize: true
@@ -49140,7 +49140,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #4", script_arms_vs_sub9]
           emphasize: true
@@ -49148,7 +49148,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #5", script_arms_vs_sub9]
           emphasize: true
@@ -49156,7 +49156,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #6", script_arms_vs_sub9]
           emphasize: true
@@ -49164,7 +49164,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #7", script_arms_vs_sub9]
           emphasize: true
@@ -49172,7 +49172,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #8", script_arms_vs_sub9]
           emphasize: true
@@ -49180,7 +49180,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #9", script_arms_vs_sub9]
           emphasize: true
@@ -49188,7 +49188,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #10", script_arms_vs_sub9]
           emphasize: true
@@ -49196,7 +49196,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #11", script_arms_vs_sub9]
           emphasize: true
@@ -49204,7 +49204,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #12", script_arms_vs_sub9]
           emphasize: true
@@ -49212,7 +49212,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__bear_lvl2_meshes #13", script_arms_vs_sub9]
           emphasize: true
@@ -49220,7 +49220,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_bear_gloves_4"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_vs_sub9:
@@ -49487,7 +49487,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #2", script_arms_vs_sub12]
           emphasize: true
@@ -49495,7 +49495,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #3", script_arms_vs_sub12]
           emphasize: true
@@ -49503,7 +49503,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #4", script_arms_vs_sub12]
           emphasize: true
@@ -49511,7 +49511,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #5", script_arms_vs_sub12]
           emphasize: true
@@ -49519,7 +49519,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #6", script_arms_vs_sub12]
           emphasize: true
@@ -49527,7 +49527,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #7", script_arms_vs_sub12]
           emphasize: true
@@ -49535,7 +49535,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #8", script_arms_vs_sub12]
           emphasize: true
@@ -49543,7 +49543,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #9", script_arms_vs_sub12]
           emphasize: true
@@ -49551,7 +49551,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #10", script_arms_vs_sub12]
           emphasize: true
@@ -49559,7 +49559,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #11", script_arms_vs_sub12]
           emphasize: true
@@ -49567,7 +49567,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #12", script_arms_vs_sub12]
           emphasize: true
@@ -49575,7 +49575,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__lynx_lvl5_meshes #13", script_arms_vs_sub12]
           emphasize: true
@@ -49583,7 +49583,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_vs_sub12:
@@ -49608,7 +49608,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #2", script_arms_vs_sub13]
           emphasize: true
@@ -49616,7 +49616,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #3", script_arms_vs_sub13]
           emphasize: true
@@ -49624,7 +49624,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #4", script_arms_vs_sub13]
           emphasize: true
@@ -49632,7 +49632,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #5", script_arms_vs_sub13]
           emphasize: true
@@ -49640,7 +49640,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #6", script_arms_vs_sub13]
           emphasize: true
@@ -49648,7 +49648,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #7", script_arms_vs_sub13]
           emphasize: true
@@ -49656,7 +49656,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #8", script_arms_vs_sub13]
           emphasize: true
@@ -49664,7 +49664,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #9", script_arms_vs_sub13]
           emphasize: true
@@ -49672,7 +49672,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #10", script_arms_vs_sub13]
           emphasize: true
@@ -49680,7 +49680,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #11", script_arms_vs_sub13]
           emphasize: true
@@ -49688,7 +49688,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #12", script_arms_vs_sub13]
           emphasize: true
@@ -49696,7 +49696,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__lynx_lvl5_meshes #13", script_arms_vs_sub13]
           emphasize: true
@@ -49704,7 +49704,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_lynx_gloves_5"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_vs_sub13:
@@ -50334,7 +50334,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 1
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #2", script_arms_vs_sub19]
           emphasize: true
@@ -50342,7 +50342,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 2
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #3", script_arms_vs_sub19]
           emphasize: true
@@ -50350,7 +50350,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 3
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #4", script_arms_vs_sub19]
           emphasize: true
@@ -50358,7 +50358,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 4
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #5", script_arms_vs_sub19]
           emphasize: true
@@ -50366,7 +50366,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 5
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #6", script_arms_vs_sub19]
           emphasize: true
@@ -50374,7 +50374,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 6
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #7", script_arms_vs_sub19]
           emphasize: true
@@ -50382,7 +50382,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 7
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #8", script_arms_vs_sub19]
           emphasize: true
@@ -50390,7 +50390,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 8
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #9", script_arms_vs_sub19]
           emphasize: true
@@ -50398,7 +50398,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 9
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #10", script_arms_vs_sub19]
           emphasize: true
@@ -50406,7 +50406,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 10
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #11", script_arms_vs_sub19]
           emphasize: true
@@ -50414,7 +50414,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 11
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #12", script_arms_vs_sub19]
           emphasize: true
@@ -50422,7 +50422,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 12
         - choice: ["0001107617|.Geralt: g_01_mg__wolf_lvl1_meshes #13", script_arms_vs_sub19]
           emphasize: true
@@ -50430,7 +50430,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 3
+            equip_variant: 2
             index: 13
 
   script_arms_vs_sub19:
@@ -50576,7 +50576,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 1
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #2", script_arms_vs_sub21]
           emphasize: true
@@ -50584,7 +50584,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 2
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #3", script_arms_vs_sub21]
           emphasize: true
@@ -50592,7 +50592,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 3
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #4", script_arms_vs_sub21]
           emphasize: true
@@ -50600,7 +50600,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 4
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #5", script_arms_vs_sub21]
           emphasize: true
@@ -50608,7 +50608,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 5
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #6", script_arms_vs_sub21]
           emphasize: true
@@ -50616,7 +50616,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 6
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #7", script_arms_vs_sub21]
           emphasize: true
@@ -50624,7 +50624,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 7
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #8", script_arms_vs_sub21]
           emphasize: true
@@ -50632,7 +50632,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 8
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #9", script_arms_vs_sub21]
           emphasize: true
@@ -50640,7 +50640,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 9
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #10", script_arms_vs_sub21]
           emphasize: true
@@ -50648,7 +50648,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 10
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #11", script_arms_vs_sub21]
           emphasize: true
@@ -50656,7 +50656,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 11
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #12", script_arms_vs_sub21]
           emphasize: true
@@ -50664,7 +50664,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 12
         - choice: ["0001107617|.Geralt: g_01a_mg__wolf_lvl1_meshes #13", script_arms_vs_sub21]
           emphasize: true
@@ -50672,7 +50672,7 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_newgame_wolf_gloves_2"
-            equip_variant: 2
+            equip_variant: 3
             index: 13
 
   script_arms_vs_sub21:
@@ -67478,14 +67478,14 @@ dialogscript:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_beauclair_pants"
-            equip_variant: 2
+            equip_variant: 3
         - choice: ["0001107617|.Geralt: item_name_beauclair_pants #0", script_legs_vs]
           emphasize: true
           scriptAction:
             .class: NR_LocalizedPreviewChoiceAction
             prefix_id: 318188
             extra_name_key: "CNAME_item_name_beauclair_pants"
-            equip_variant: 3
+            equip_variant: 2
         - choice: ["0001107617|.Geralt: item_name_knight_geralt_pants #0", script_legs_vs]
           emphasize: true
           scriptAction:

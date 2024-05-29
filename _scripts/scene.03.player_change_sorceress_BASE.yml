@@ -546,6 +546,10 @@ dialogscript:
         function: NR_ShowMagicInfo_S
         parameter:
           - sectionName: CNAME_main
+    - NEXT: section_pre_choice_main
+    
+  section_pre_choice_main:
+    - PAUSE: 0.0
     - NEXT: section_choice_main
 
   section_choice_main:
@@ -570,6 +574,87 @@ dialogscript:
         - choice: ["2115940158|Alt special spells", script_info_special_alt]
           emphasize: true
 
+        - choice: ["2115940086|Show magic control hints: enabled", script_switch_magic_hints]
+          emphasize: true
+          condition: ["nr_magic_hide_control_hints", "<", 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: "{2115940593}: "
+        - choice: ["2115940087|Show magic control hints: disabled", script_switch_magic_hints]
+          emphasize: true
+          condition: ["nr_magic_hide_control_hints", ">=", 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: "{2115940593}: "
+        - choice: ["2115940985|About my successes in practice…", script_show_spell_stats1]
+          emphasize: true
+          condition: ["nr_master_apprentice", ">=", 1]
+
+  script_show_spell_stats1:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showNovice: true
+          - showApprentice: false
+          - showExperienced: false
+          - showMistress: false
+          - showArchMistress: false
+    - NEXT: script_show_spell_stats2
+
+  script_show_spell_stats2:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showNovice: false
+          - showApprentice: true
+          - showExperienced: false
+          - showMistress: false
+          - showArchMistress: false
+    - NEXT: script_show_spell_stats3
+
+  script_show_spell_stats3:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showNovice: false
+          - showApprentice: false
+          - showExperienced: true
+          - showMistress: false
+          - showArchMistress: false
+    - NEXT: script_show_spell_stats4
+
+  script_show_spell_stats4:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showNovice: false
+          - showApprentice: false
+          - showExperienced: false
+          - showMistress: true
+          - showArchMistress: false
+    - NEXT: script_show_spell_stats5
+
+  script_show_spell_stats5:
+    - SCRIPT:
+        function: NR_ShowMagicSkillStats_S
+        parameter:
+          - fullscreen: true
+          - showNovice: false
+          - showApprentice: false
+          - showExperienced: false
+          - showMistress: false
+          - showArchMistress: true
+    - NEXT: script_info_main
+
+  script_switch_magic_hints:
+    - SCRIPT:
+        function: NR_SwitchMagicControlHints_S
+    - NEXT: script_info_main
+
   # LIGHT: RATIO
   section_light_ratio_entry:
     - PAUSE: 0.0
@@ -577,25 +662,25 @@ dialogscript:
   
   section_choice_light_ratio:
     - CHOICE:
-        - choice: ["2115940103|[BACK]", section_choice_light, exit]
+        - choice: ["2115940103|[BACK]", script_info_light, exit]
           emphasize: true
-        - choice: ["0:1 (only throw attacks)", script_light_ratio_0_1, exit]
+        - choice: ["0:1 (only throw attacks)", script_light_ratio_0_1]
           emphasize: true
-        - choice: ["1:4", script_light_ratio_1_4, exit]
+        - choice: ["1:4", script_light_ratio_1_4]
           emphasize: true
-        - choice: ["1:3", script_light_ratio_1_3, exit]
+        - choice: ["1:3", script_light_ratio_1_3]
           emphasize: true        
-        - choice: ["1:2", script_light_ratio_1_2, exit]
+        - choice: ["1:2", script_light_ratio_1_2]
           emphasize: true        
-        - choice: ["1:1", script_light_ratio_1_1, exit]
+        - choice: ["1:1", script_light_ratio_1_1]
           emphasize: true        
-        - choice: ["2:1", script_light_ratio_2_1, exit]
+        - choice: ["2:1", script_light_ratio_2_1]
           emphasize: true        
-        - choice: ["3:1", script_light_ratio_3_1, exit]
+        - choice: ["3:1", script_light_ratio_3_1]
           emphasize: true        
-        - choice: ["4:1", script_light_ratio_4_1, exit]
+        - choice: ["4:1", script_light_ratio_4_1]
           emphasize: true        
-        - choice: ["1:0 (only slash attacks)", script_light_ratio_1_0, exit]
+        - choice: ["1:0 (only slash attacks)", script_light_ratio_1_0]
           emphasize: true
 
   script_light_ratio_0_1:
@@ -678,25 +763,25 @@ dialogscript:
 
   section_choice_heavy_ratio:
     - CHOICE:
-        - choice: ["2115940103|[BACK]", section_choice_heavy, exit]
+        - choice: ["2115940103|[BACK]", script_info_heavy, exit]
           emphasize: true
-        - choice: ["0:1 (only bomb attacks)", script_heavy_ratio_0_1, exit]
+        - choice: ["0:1 (only bomb attacks)", script_heavy_ratio_0_1]
           emphasize: true
-        - choice: ["1:4", script_heavy_ratio_1_4, exit]
+        - choice: ["1:4", script_heavy_ratio_1_4]
           emphasize: true
-        - choice: ["1:3", script_heavy_ratio_1_3, exit]
+        - choice: ["1:3", script_heavy_ratio_1_3]
           emphasize: true        
-        - choice: ["1:2", script_heavy_ratio_1_2, exit]
+        - choice: ["1:2", script_heavy_ratio_1_2]
           emphasize: true        
-        - choice: ["1:1", script_heavy_ratio_1_1, exit]
+        - choice: ["1:1", script_heavy_ratio_1_1]
           emphasize: true        
-        - choice: ["2:1", script_heavy_ratio_2_1, exit]
+        - choice: ["2:1", script_heavy_ratio_2_1]
           emphasize: true        
-        - choice: ["3:1", script_heavy_ratio_3_1, exit]
+        - choice: ["3:1", script_heavy_ratio_3_1]
           emphasize: true        
-        - choice: ["4:1", script_heavy_ratio_4_1, exit]
+        - choice: ["4:1", script_heavy_ratio_4_1]
           emphasize: true        
-        - choice: ["1:0 (only rocks attacks)", script_heavy_ratio_1_0, exit]
+        - choice: ["1:0 (only rocks attacks)", script_heavy_ratio_1_0]
           emphasize: true
 
   script_heavy_ratio_0_1:

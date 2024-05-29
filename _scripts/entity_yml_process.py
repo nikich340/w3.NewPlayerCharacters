@@ -4,7 +4,7 @@ import string
 try:
     import ruamel.yaml.scalarstring
     from ruamel import yaml
-    from ruamel.yaml import comments, CommentedMap, CommentedSeq
+    from ruamel.yaml import YAML, comments, CommentedMap, CommentedSeq
 except:
     print(f"Error loading ruamel yml!")
     import yaml
@@ -23,7 +23,7 @@ from pathlib import Path
 
 # from frozendict import frozendict
 
-m_convert_json = True
+m_convert_json = False
 m_save_yml = True
 m_save_json = True
 m_DLC_DATA = "dlc/dlcnewreplacers/data"
@@ -40,6 +40,15 @@ class EG(enum.IntEnum):
     EG_Female = 2
     EG_Any = 3
 
+
+# player type
+class ENP(enum.IntEnum):
+    ENR_PlayerUnknown = 0
+    ENR_PlayerGeralt = 1
+    ENR_PlayerCiri = 2
+    ENR_PlayerWitcher = 3
+    ENR_PlayerWitcheress = 4
+    ENR_PlayerSorceress = 5
 
 # npc category
 class EAN(enum.IntEnum):
@@ -120,6 +129,20 @@ def test_cat(path: str):
 
 def quoted(text: str):
     return yaml.scalarstring.DoubleQuotedScalarString(text)
+
+
+def CNAME(value: str):
+    return quoted(f"CNAME_{value}")
+
+
+def STR_quoted(text: STR) -> str:
+    return quoted(f"{text.value}|{text.name}")
+
+
+def flowed(seq: list):
+    ret = comments.CommentedSeq(seq)
+    ret.fa.set_flow_style()
+    return ret
 
 
 def category(path: str):
@@ -253,7 +276,9 @@ def pre_filter_templates():
         print(f"[*] Converting YML->JSON dump..")
         with open(f"{m_FOLDER}/EntityDump.yml", mode="r", encoding="utf-8") as yf:
             start_t = time.time()
-            yml = yaml.load(yf, Loader=yaml.RoundTripLoader, preserve_quotes=True)
+            yaml_loader = YAML(typ="rt")
+            yaml_loader.preserve_quotes = True
+            yml = yaml_loader.load(yf)
             end_t = time.time()
             print(f"YML loaded in: {end_t - start_t} s")
             with open(f"{m_FOLDER}/EntityDump.json", mode="w", encoding="utf-8") as jf:
@@ -338,7 +363,7 @@ m_selector_yml = {
                 "m_customDLCInfo": CommentedSeq([
                     {
                         ".type": "NR_SceneCustomDLCInfo",
-                        "m_dlcID": quoted("dlc_jowitcheress"),
+                        "m_dlcID": "dlc_jowitcheress",
                         "m_dlcNameKey": quoted("dlc_name_jowitcheress"),
                         "m_dlcNameStr": quoted("JoWitcheress Models"),
                         "m_dlcAuthor": quoted("JoWitcheress"),
@@ -695,6 +720,9 @@ def load_data():
                     # not effective but we need to preserve order
                     if coloring_str not in m_templates[app_template]["colorings"]:
                         m_templates[app_template]["colorings"].append(coloring_str)
+
+        #if template == "quests/main_npcs/yennefer.w2ent":
+        #    breakpoint()
 
     # add equipment item templates & Armor sets ?
     load_xml_items()
@@ -1475,7 +1503,7 @@ def load_dlc_data():
 
             m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_customDLCInfo"].append({
                 ".type": "NR_SceneCustomDLCInfo",
-                "m_dlcID": quoted(data["dlc_id"]),
+                "m_dlcID": data["dlc_id"],
                 "m_dlcNameKey": quoted(data["dlc_name_key"]),
                 "m_dlcNameStr": quoted(data["dlc_name_str"]),
                 "m_dlcAuthor": quoted(data["dlc_author_nickname"]),
@@ -1517,6 +1545,7 @@ def load_dlc_data():
                                     "name": "_skip_",
                                     "dlc_id": data["dlc_id"],
                                     "dlc_name_key": data["dlc_name_key"],
+                                    "dlc_name_str": data["dlc_name_str"],
                                     "gender": EG.EG_Male if gender_str == "male" else EG.EG_Female,
                                     "category": EAN.EAN_DLCCustom,
                                     "appearances": dict()
@@ -1854,24 +1883,24 @@ def add_choice_scripted(text: str, from_section_name: str, to_section_name: str,
     }
 
     if "dlc_id" in template_obj:
-        choice_obj["scriptAction"]["dlc_id"] = template_obj["dlc_id"]
+        choice_obj["scriptAction"]["dlc_id"] = CNAME(template_obj["dlc_id"])
 
     if "dlc_name_key" in template_obj:
-        choice_obj["scriptAction"]["dlc_name_key"] = template_obj["dlc_name_key"]
+        choice_obj["scriptAction"]["dlc_name_key"] = quoted(template_obj["dlc_name_key"])
 
     if "dlc_name_str" in template_obj:
-        choice_obj["scriptAction"]["dlc_name_str"] = template_obj["dlc_name_str"]
+        choice_obj["scriptAction"]["dlc_name_str"] = quoted(template_obj["dlc_name_str"])
 
     if "nameID" in template_obj and template_obj["name"] != "_skip_":
         if template_obj["nameID"] == 1:
-            choice_obj["scriptAction"]["prefix_name_key"] = template_obj["name"]
+            choice_obj["scriptAction"]["prefix_name_key"] = quoted(template_obj["name"])
         else:
             choice_obj["scriptAction"]["prefix_id"] = template_obj["nameID"]
 
     if "extraKey" in template_obj:
-        choice_obj["scriptAction"]["extra_name_key"] = template_obj["extraKey"]
+        choice_obj["scriptAction"]["extra_name_key"] = CNAME(template_obj["extraKey"])
     elif extra_name_key:
-        choice_obj["scriptAction"]["extra_name_key"] = extra_name_key
+        choice_obj["scriptAction"]["extra_name_key"] = CNAME(extra_name_key)
 
     if "equip_variant" in template_obj:
         choice_obj["scriptAction"]["equip_variant"] = template_obj["equip_variant"]
@@ -2061,34 +2090,19 @@ def add_custom_script_section(script_section_name: str, next_section_name: str, 
     m_scene_yml["dialogscript"].yaml_set_comment_before_after_key(script_section_name, before="\n")
 
 
-def CNAME(value: str):
-    return f"CNAME_{value}"
-
-
-def quoted(text: str):
-    return yaml.scalarstring.DoubleQuotedScalarString(text)
-
-
-def STR_quoted(text: STR) -> str:
-    return quoted(f"{text.value}|{text.name}")
-
-
-def flowed(seq: list):
-    ret = comments.CommentedSeq(seq)
-    ret.fa.set_flow_style()
-    return ret
-
-
 def create_scene(gender: EG):
     global m_scene_yml, m_templates, m_templates_by_cats, m_selector_yml, m_localized_names
     with open(f"{m_FOLDER}/scene.01.player_change_BASE.yml", mode="r", encoding="utf-8") as f_yml:
         start_t = time.time()
-        m_scene_yml = yaml.load(f_yml, Loader=yaml.RoundTripLoader, preserve_quotes=True)
+        yaml_loader = YAML(typ="rt")
+        yaml_loader.preserve_quotes = True
+        m_scene_yml = yaml_loader.load(f_yml)
         end_t = time.time()
         print(f"Scene YML loaded in: {end_t - start_t} s")
 
     if gender == EG.EG_Female:
         m_scene_yml["production"]["settings"]["strings-idstart"] = 650
+        m_scene_yml["repository"]["actors"]["geralt"]["template"] = quoted("dlc\\dlcnewreplacers\\data\\entities\\nr_replacer_witcheress.w2ent")
     selector_nodes = m_selector_yml["templates"]["nr_scene_selector"]["entityObject"]["m_nodesMale" if gender == EG.EG_Male else "m_nodesFemale"]
 
     # Create display name selection
@@ -2126,6 +2140,7 @@ def create_scene(gender: EG):
         if not is_valid_slot_category(slot):
             continue
         valid_slots.append(slot)
+
     for i, slot in enumerate(valid_slots):
         slot_section_name = f"section_choice_{friendly_slot_category(slot)}"
 
@@ -2143,12 +2158,25 @@ def create_scene(gender: EG):
         add_choice(STR_quoted(STR.BACK), slot_section_name, trans(slot_section_name, "section_choice_slots_main"), is_exit=True)
 
         # clear slot
-        add_custom_script_section(f"script_clear_{friendly_slot_category(slot)}", trans(slot_section_name, slot_section_name), "NR_ClearAppearanceSlot_S", params=[
-            {
-                "slot_index": slot.value
-            }
-        ])
-        add_choice(STR_quoted(STR.CLEAR_SLOT), slot_section_name, f"script_clear_{friendly_slot_category(slot)}")
+        if slot == ENR.ENR_RSlotMisc:
+            add_choice_section("section_choice_clear_misc")
+            add_trans_section("section_pre_choice_clear_misc", "section_choice_clear_misc")
+            add_choice(STR_quoted(STR.CLEAR_SLOT), slot_section_name, f"section_pre_choice_clear_misc")
+            add_choice(STR_quoted(STR.BACK), "section_choice_clear_misc", slot_section_name, is_exit=True)
+            for i in range(1, 30 + 1):
+                add_custom_script_section(f"script_clear_misc_{i}", "section_pre_choice_clear_misc", "NR_ClearItemSlot_S", params= [
+                                              {
+                                                  "item_index": i
+                                              }
+                                          ])
+                add_choice_formatted("2115940546|Remove item #", f"{i}", "section_choice_clear_misc", f"script_clear_misc_{i}", cond=[quoted(f"nr_appearance_item_{i}"), quoted(">"), 0])
+        else:
+            add_custom_script_section(f"script_clear_{friendly_slot_category(slot)}", trans(slot_section_name, slot_section_name), "NR_ClearAppearanceSlot_S", params=[
+                {
+                    "slot_index": slot.value
+                }
+            ])
+            add_choice(STR_quoted(STR.CLEAR_SLOT), slot_section_name, f"script_clear_{friendly_slot_category(slot)}")
 
         # to next slot
         next_slot = valid_slots[(i + 1) % len(valid_slots)]
@@ -2638,3 +2666,5 @@ write_rename_head_files()
 create_scene(EG.EG_Male)
 create_scene(EG.EG_Female)
 write_selector_file()
+print(f"Don't forget: nr_appearance_sets_female -> nr_appearance_sets_male")
+print(f"Don't forget: female scene -> ciri scene + rename player entity")

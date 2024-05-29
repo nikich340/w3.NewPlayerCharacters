@@ -15,6 +15,7 @@ class STR(StrEnum):
     BACK = "2115940103"
     dot = "0001107617"
     random = "2115940138"
+    horse = "0001048438"
     #yennefer = "0000162823"
     #keira = "0000334714"
     #triss = "0000162822"
@@ -54,7 +55,10 @@ class STR(StrEnum):
     polymorphism = "2115940166"
     set_spell_voiceline_chance = "2115940587"
     effect = "0001226888"
+    buffs = "0001210139"
     water_trap = "2115940168"
+    appearance = "2115940598"
+    weather_change = "2115940599"
 
 class ECompareOp(IntEnum):
     CO_Lesser = 0
@@ -157,6 +161,22 @@ m_mages = {
         "id": 1084974,
         "str": "0001084974|Fire Elemental",
         "depot": "dlc/dlcnewreplacers/data/entities/nr_mq4006_ifryt_fixed.w2ent"
+    },
+    "tower_nowhere": {
+        "id": 578567,
+        "str": "0000578567|The Tower Outta Nowheres"
+    },
+    "cat": {
+        "id": 1085583,
+        "str": "0001085583|Cat"
+    },
+    "crow": {
+        "id": 1055653,
+        "str": "0001055653|Raven"
+    },
+    "owl": {
+        "id": 2115940597,
+        "str": "2115940597|Owl"
     }
 }
 
@@ -354,7 +374,6 @@ m_willey_anims = {
 }
 
 m_pain_mimic_name = "mimicsanim_168_geralt_reaction_pain_face"
-#section_entry_section = dict()
 
 class ENR_MA(IntEnum):
     ENR_Unknown = 0
@@ -375,6 +394,7 @@ class ENR_MA(IntEnum):
     ENR_SpecialMeteor = auto()
     ENR_SpecialTornado = auto()
     ENR_SpecialShield = auto()
+    ENR_SpecialWeatherChange = auto()
     ENR_SpecialAbstractAlt = auto()
     ENR_SpecialPolymorphism = auto()
     ENR_SpecialMeteorFall = auto()
@@ -427,6 +447,43 @@ m_signs = [
     ["Quen", 1066292, "0001066292|Quen"],
     ["Yrden", 1066293, "0001066293|Yrden"],
 ]
+
+m_spell_abilities = {
+    ENR_MA.ENR_Lightning: ["Rebound"],
+    ENR_MA.ENR_ProjectileWithPrepare: ["AutoAim"],
+    ENR_MA.ENR_Rock: ["AutoAim"],
+    ENR_MA.ENR_Slash: ["DoubleSlash"],
+    ENR_MA.ENR_BombExplosion: ["Pursuit", "DamageControl"],
+    ENR_MA.ENR_Teleport: ["AutoCounterPush"],
+    ENR_MA.ENR_CounterPush: ["FullBlast", "Freezing", "Burning"],
+    ENR_MA.ENR_SpecialControl: ["Upscaling"],
+    ENR_MA.ENR_SpecialField: ["Pursuit"],
+    ENR_MA.ENR_SpecialServant: ["Followers", "TwoServants"],
+    ENR_MA.ENR_SpecialMeteor: ["DamageControl"],
+    ENR_MA.ENR_SpecialTornado: ["Pursuit", "Vacuum", "DamageControl", "Freezing"],
+    ENR_MA.ENR_SpecialShield: ["AutoLightning", "AutoCombatApply"],
+    ENR_MA.ENR_SpecialLightningFall: ["DamageControl", "AutoShield"],
+    ENR_MA.ENR_SpecialMeteorFall: ["DamageControl", "AutoShield"],
+}
+
+m_spell_ability_str_ids = {
+    "Rebound": 2115940230,
+    "AutoCounterPush": 2115940232,
+    "DoubleSlash": 2115940228,
+    "AutoAim": 2115940229,
+    "FullBlast": 2115940231,
+    "Freezing": 1081836,
+    "Burning": 2115940245,
+    "Pursuit": 2115940239,
+    "DamageControl": 2115940244,
+    "Vacuum": 2115940244,
+    "Upscaling": 2115940233,
+    "Followers": 2115940237,
+    "TwoServants": 2115940249,
+    "AutoLightning": 2115940230,
+    "AutoCombatApply": 2115940252,
+    "AutoShield": 2115940251,
+}
 
 def transition_name(from_section_name: str, to_section_name: str):
     return f"section_trans_{from_section_name[len('section_'):]}_to_{to_section_name[len('section_'):]}"
@@ -564,6 +621,209 @@ def connect_sections(sections: list):
     return
 
 
+def add_generic_type_option(action_types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim,
+                            willey_anim_name, custom_var_name=str(), custom_var_values=[], fact_condition=[],
+                            ability_name=str(), option_abilities=[], custom_var_type="CName", dlc_names=[],
+                            is_long=False, unlock_if_learned=False):
+    lsign = sign[0].lower()
+    prefix = prefix.lower()
+    suffix = suffix.lower()
+
+    if cast_anim["name"]:
+        preview_type_script_section = f"script_preview_{prefix}_{lsign}_{suffix}"
+        add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
+        if is_long:
+            add_script_section(preview_type_script_section, "NR_SimulateLongMagicAction_S",
+                               {"actionType": action.value})
+        else:
+            add_script_section(preview_type_script_section, "NR_SetMagicActionType_S", {"actionType": action.value})
+
+        shot_duration = cast_anim["duration"] + 0.5
+        willey_start_s = cast_anim["perform"] - 0.1
+        add_preview_section(f"section_preview_{prefix}_{lsign}_{suffix}", f"shot_preview_{prefix}_{lsign}_{suffix}",
+                            shot_duration)
+        add_preview_sbui_section(f"section_preview_{prefix}_{lsign}_{suffix}",
+                                 f"shot_preview_{prefix}_{lsign}_{suffix}",
+                                 {
+                                     "name": cast_anim["name"],
+                                     "clipend": cast_anim["duration"],
+                                     "blendin": min(cast_anim["duration"] * 0.25, 0.4),
+                                     "blendout": min(cast_anim["duration"] * 0.25, 0.4),
+                                 },
+                                 {
+                                     "start": willey_start_s / shot_duration,
+                                     "name": m_willey_anims[willey_anim_name]["name"],
+                                     "clipend": min(m_willey_anims[willey_anim_name]["duration"],
+                                                    shot_duration - willey_start_s + 0.5),
+                                     "clipfront": 0.5
+                                 } if willey_anim_name else {}
+                                 )
+        connect_sections([preview_type_script_section, f"section_preview_{prefix}_{lsign}_{suffix}",
+                          f"section_choice_{prefix}_{lsign}_{suffix}"])
+        script_action = {
+            ".class": "NR_FormattedMagicChoiceAction",
+            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
+            "type": CNAME(action.name),
+            "unlockIfLearned": unlock_if_learned
+        }
+        if ability_name:
+            script_action["abilityName"] = ability_name
+
+        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|",
+                          f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition, script_action=script_action)
+        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{STR.BACK}|",
+                          f"section_choice_{prefix}_{lsign}")
+    else:
+        # NO PREVIEW!
+        preview_type_script_section = f"section_entry_{prefix}_{lsign}_{suffix}"
+        add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
+        add_dummy_section(preview_type_script_section)
+        connect_sections([preview_type_script_section, f"section_choice_{prefix}_{lsign}_{suffix}"])
+        script_action = {
+            ".class": "NR_FormattedMagicChoiceAction",
+            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
+            "type": CNAME(action.name),
+            "unlockIfLearned": unlock_if_learned
+        }
+        if ability_name:
+            script_action["abilityName"] = ability_name
+
+        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|",
+                          f"section_choice_{prefix}_{lsign}_{suffix}", condition=fact_condition,
+                          script_action=script_action)
+        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.BACK + "|",
+                          f"section_choice_{prefix}_{lsign}")
+
+    for type_i, type_v in enumerate(action_types):
+        script_set_section = f"script_{prefix}_{lsign}_{suffix}_{type_v.lower()}"
+        if custom_var_type.lower() == "cname":
+            add_script_section(script_set_section, "NR_SetMagicParamName_S", {
+                "signName": CNAME(sign[0]),
+                "varName": custom_var_name if custom_var_name else f"style_{action.name}",
+                "varValue": CNAME(custom_var_values[type_i]) if custom_var_values else CNAME(type_v)
+            })
+        elif custom_var_type.lower() == "string":
+            add_script_section(script_set_section, "NR_SetMagicParamString_S", {
+                "signName": CNAME(sign[0]),
+                "varName": custom_var_name if custom_var_name else f"style_{action.name}",
+                "varValue": custom_var_values[type_i] if custom_var_values else type_v
+            })
+        elif custom_var_type.lower() == "float":
+            add_script_section(script_set_section, "NR_SetMagicParamFloat_S", {
+                "signName": CNAME(sign[0]),
+                "varName": custom_var_name if custom_var_name else f"style_{action.name}",
+                "varValue": custom_var_values[type_i] if custom_var_values else type_v
+            })
+        elif custom_var_type.lower() == "int":
+            add_script_section(script_set_section, "NR_SetMagicParamInt_S", {
+                "signName": CNAME(sign[0]),
+                "varName": custom_var_name if custom_var_name else f"style_{action.name}",
+                "varValue": custom_var_values[type_i] if custom_var_values else type_v
+            })
+
+        connect_sections([script_set_section, preview_type_script_section])
+        script_action = {
+            ".class": "NR_FormattedMagicChoiceAction",
+            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",
+            "type": CNAME(action.name),
+            "unlockIfLearned": unlock_if_learned
+        }
+        if dlc_names and len(dlc_names) > type_i and dlc_names[type_i]:
+            script_action["dlcName"] = dlc_names[type_i]
+
+        if option_abilities:
+            script_action["abilityName"] = option_abilities[type_i]
+
+        if type_v in m_mages:
+            add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{m_mages[type_v]['str']}",
+                              script_set_section, [], script_action=script_action)
+        else:
+            script_action["str"] += f"{type_v}"
+            add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.dot + "|.",
+                              script_set_section, [], script_action=script_action)
+
+
+def add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name,
+                             forbidden_colors, custom_var_name=str(), fact_condition=[], is_long=False, horse=0):
+    global m_colors
+    lsign = sign[0].lower() if not horse else f"horse"
+    prefix = prefix.lower()
+    suffix = suffix.lower()
+    var_suffix = "" if not horse else f"horse_"
+    sign_str = "{" + (str(sign[1]) if not horse else STR.horse) + "}"
+
+    if cast_anim["name"]:
+        preview_color_script_section = f"script_preview_{prefix}_{lsign}_{suffix}"
+        add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
+        if is_long:
+            add_script_section(preview_color_script_section, "NR_SimulateLongMagicAction_S",
+                               {"actionType": action.value})
+        else:
+            add_script_section(preview_color_script_section, "NR_SetMagicActionType_S", {"actionType": action.value})
+        shot_duration = cast_anim["duration"] + 0.5
+        willey_start_s = cast_anim["perform"] - 0.1
+        add_preview_section(f"section_preview_{prefix}_{lsign}_{suffix}", f"shot_preview_{prefix}_{lsign}_{suffix}",
+                            shot_duration)
+        add_preview_sbui_section(f"section_preview_{prefix}_{lsign}_{suffix}",
+                                 f"shot_preview_{prefix}_{lsign}_{suffix}",
+                                 {
+                                     "name": cast_anim["name"],
+                                     "clipend": cast_anim["duration"],
+                                     "blendin": min(cast_anim["duration"] * 0.25, 0.4),
+                                     "blendout": min(cast_anim["duration"] * 0.25, 0.4),
+                                 },
+                                 {
+                                     "start": willey_start_s / shot_duration,
+                                     "name": m_willey_anims[willey_anim_name]["name"],
+                                     "clipend": min(m_willey_anims[willey_anim_name]["duration"],
+                                                    shot_duration - willey_start_s + 0.5),
+                                     "clipfront": 0.5
+                                 } if willey_anim_name else {}
+                                 )
+        connect_sections([preview_color_script_section, f"section_preview_{prefix}_{lsign}_{suffix}",
+                          f"section_choice_{prefix}_{lsign}_{suffix}"])
+
+        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|",
+                          f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition,
+                          {
+                              ".class": "NR_FormattedMagicChoiceAction",
+                              "str": f"{sign_str}: {{{choice_str0}}}: ",  # SIGN name
+                              "type": CNAME(action.name)  # SIGN name
+                          })
+        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{STR.BACK}|",
+                          f"section_choice_{prefix}_{lsign}")
+    else:
+        # NO PREVIEW!
+        preview_color_script_section = f"section_entry_{prefix}_{lsign}_{suffix}"
+        add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
+        add_dummy_section(preview_color_script_section)
+        connect_sections([preview_color_script_section, f"section_choice_{prefix}_{lsign}_{suffix}"])
+        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|",
+                          f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition,
+                          {
+                              ".class": "NR_FormattedMagicChoiceAction",
+                              "str": f"{sign_str}: {{{choice_str0}}}: ",  # SIGN name
+                              "type": CNAME(action.name)  # SIGN name
+                          })
+        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.BACK + "|",
+                          f"section_choice_{prefix}_{lsign}")
+
+    for color_i, color in enumerate(m_colors):
+        if color[0] in forbidden_colors:
+            continue
+        script_set_color_name = f"script_{prefix}_{lsign}_{suffix}_{color[0].lower()}"
+        add_script_section(script_set_color_name, "NR_SetMagicParamInt_S", {
+            "signName": f"CNAME_{sign[0]}",
+            "varName": custom_var_name if custom_var_name else f"color_{var_suffix}{action.name}",
+            "varValue": color_i
+        })
+        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{color[-1]}", script_set_color_name, [], {
+            ".class": "NR_FormattedLocChoiceAction",
+            "str": f"{sign_str}: {{{choice_str0}}}: "  # SIGN name: Throw color
+        })
+        connect_sections([script_set_color_name, preview_color_script_section])
+
+
 def add_slash_type_option(sign: list):
     slash_types = [ "yennefer", "triss", "lynx", "philippa" ]
     suffix = "slash_type"
@@ -587,14 +847,17 @@ def add_slash_color_option(sign: list):
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors)
 
 # special case (2 subtypes)
-def add_throw_type_option(sign: list):
+def add_throw_type_option(sign: list, horse: int = 0):
     lightning_types = [ "keira", "lynx" ]
     projectile_types = [ "triss", "philippa", "caranthir" ]
-    lsign = sign[0].lower()
-    suffix = "throw_type"
+    lsign = sign[0].lower() if not horse else f"horse"
+    suffix = "throw_type" if not horse else "lightning_type" if horse == 1 else "projectile_type"
+    var_suffix = "" if not horse else f"horse_"
+    sign_str = "{" + (str(sign[1]) if not horse else STR.horse) + "}"
+
     preview_type_script_section = f"script_preview_light_{lsign}_{suffix}"
     add_choice_section(f"section_choice_light_{lsign}_{suffix}")
-    add_script_section(preview_type_script_section, "NR_SetMagicActionType_S", {"actionType": ENR_MA.ENR_ThrowAbstract.value})
+    add_script_section(preview_type_script_section, "NR_SetMagicActionType_S", {"actionType": ENR_MA.ENR_ThrowAbstract.value if not horse else ENR_MA.ENR_Lightning.value if horse == 1 else ENR_MA.ENR_ProjectileWithPrepare.value})
     shot_duration = m_sorc_anims["AttackLightThrow"][0]["duration"] + 0.5
     willey_start_s = m_sorc_anims["AttackLightThrow"][0]["perform"] - 0.1
     add_preview_section(f"section_preview_light_{lsign}_{suffix}", f"shot_preview_light_{lsign}_{suffix}", shot_duration)
@@ -613,72 +876,76 @@ def add_throw_type_option(sign: list):
     add_choice_option(f"section_choice_light_{lsign}", f"{STR.type}|", f"section_choice_light_{lsign}_{suffix}", [],
         {
           ".class": "NR_FormattedMagicChoiceAction",
-          "str": f"{{{sign[1]}}}: {{{STR.throw}}}: ",  # SIGN name
+          "str": f"{sign_str}: {{{STR.throw if not horse else STR.lightning if horse == 1 else STR.projectile}}}: ",  # SIGN name
           "type": CNAME(ENR_MA.ENR_ThrowAbstract.name)
         })
     add_choice_option(f"section_choice_light_{lsign}_{suffix}", STR.BACK + "|",
                       f"section_choice_light_{lsign}")
 
-    for type_i, type_v in enumerate(lightning_types):
-        script_set_section = f"script_light_{lsign}_{suffix}_lightning_{type_v}_1"
-        add_script_section(script_set_section, "NR_SetMagicParamInt_S", {
-            "signName": f"CNAME_{sign[0]}",
-            "varName": f"type_{ENR_MA.ENR_ThrowAbstract.name}",
-            "varValue": ENR_MA.ENR_Lightning.value
-        })
-        script_set_section2 = f"script_light_{lsign}_{suffix}_lightning_{type_v}_2"
-        add_script_section(script_set_section2, "NR_SetMagicParamName_S", {
-            "signName": CNAME(sign[0]),
-            "varName": f"style_{ENR_MA.ENR_Lightning.name}",
-            "varValue": CNAME(type_v)
-        })
-        add_choice_option(f"section_choice_light_{lsign}_{suffix}", f"{m_mages[type_v]['str']}", script_set_section, [], {
-            ".class": "NR_FormattedLocChoiceAction",
-            "str": f"{{{sign[1]}}}: {{{STR.lightning}}}: ",
-            # "type": ENR_MA.ENR_Lightning.name
-        })
-        connect_sections([script_set_section, script_set_section2, preview_type_script_section])
+    if not horse or horse == 1:
+        for type_i, type_v in enumerate(lightning_types):
+            script_set_section = f"script_light_{lsign}_{suffix}_lightning_{type_v}_1"
+            add_script_section(script_set_section, "NR_SetMagicParamInt_S", {
+                "signName": f"CNAME_{sign[0]}",
+                "varName": f"type_{var_suffix}{ENR_MA.ENR_ThrowAbstract.name}",
+                "varValue": ENR_MA.ENR_Lightning.value
+            })
+            script_set_section2 = f"script_light_{lsign}_{suffix}_lightning_{type_v}_2"
+            add_script_section(script_set_section2, "NR_SetMagicParamName_S", {
+                "signName": CNAME(sign[0]),
+                "varName": f"style_{var_suffix}{ENR_MA.ENR_Lightning.name}",
+                "varValue": CNAME(type_v)
+            })
+            add_choice_option(f"section_choice_light_{lsign}_{suffix}", f"{m_mages[type_v]['str']}", script_set_section, [], {
+                ".class": "NR_FormattedLocChoiceAction",
+                "str": f"{sign_str}: {{{STR.lightning}}}: ",
+                # "type": ENR_MA.ENR_Lightning.name
+            })
+            connect_sections([script_set_section, script_set_section2, preview_type_script_section])
 
-    for type_i, type_v in enumerate(projectile_types):
-        script_set_section = f"script_light_{lsign}_{suffix}_projectile_{type_v}_1"
-        add_script_section(script_set_section, "NR_SetMagicParamInt_S", {
-            "signName": f"CNAME_{sign[0]}",
-            "varName": f"type_{ENR_MA.ENR_ThrowAbstract.name}",
-            "varValue": ENR_MA.ENR_ProjectileWithPrepare.value
-        })
-        script_set_section2 = f"script_light_{lsign}_{suffix}_projectile_{type_v}_2"
-        add_script_section(script_set_section2, "NR_SetMagicParamName_S", {
-            "signName": CNAME(sign[0]),
-            "varName": f"style_{ENR_MA.ENR_ProjectileWithPrepare.name}",
-            "varValue": CNAME(type_v)
-        })
-        add_choice_option(f"section_choice_light_{lsign}_{suffix}", f"{m_mages[type_v]['str']}", script_set_section, [], {
-            ".class": "NR_FormattedLocChoiceAction",
-            "str": f"{{{sign[1]}}}: {{{STR.projectile}}}: ",
-            # "type": ENR_MA.ENR_Lightning.name
-        })
-        connect_sections([script_set_section, script_set_section2, preview_type_script_section])
+    if not horse or horse == 2:
+        for type_i, type_v in enumerate(projectile_types):
+            script_set_section = f"script_light_{lsign}_{suffix}_projectile_{type_v}_1"
+            add_script_section(script_set_section, "NR_SetMagicParamInt_S", {
+                "signName": f"CNAME_{sign[0]}",
+                "varName": f"type_{var_suffix}{ENR_MA.ENR_ThrowAbstract.name}",
+                "varValue": ENR_MA.ENR_ProjectileWithPrepare.value
+            })
+            script_set_section2 = f"script_light_{lsign}_{suffix}_projectile_{type_v}_2"
+            add_script_section(script_set_section2, "NR_SetMagicParamName_S", {
+                "signName": CNAME(sign[0]),
+                "varName": f"style_{var_suffix}{ENR_MA.ENR_ProjectileWithPrepare.name}",
+                "varValue": CNAME(type_v)
+            })
+            add_choice_option(f"section_choice_light_{lsign}_{suffix}", f"{m_mages[type_v]['str']}", script_set_section, [], {
+                ".class": "NR_FormattedLocChoiceAction",
+                "str": f"{sign_str}: {{{STR.projectile}}}: ",
+                # "type": ENR_MA.ENR_Lightning.name
+            })
+            connect_sections([script_set_section, script_set_section2, preview_type_script_section])
 
-def add_throw_color_option(sign: list):
-    suffix = "throw_color"
+def add_throw_color_option(sign: list, horse: int = 0):
+    suffix = "throw_color" if not horse else "lightning_color" if horse == 1 else "projectile_color"
     prefix = "light"
-    choice_str0 = STR.throw
+    choice_str0 = STR.throw if not horse else STR.lightning if horse == 1 else STR.projectile
     choice_str1 = STR.color
-    action = ENR_MA.ENR_ThrowAbstract
+    action = ENR_MA.ENR_ThrowAbstract if not horse else ENR_MA.ENR_Lightning if horse == 1 else ENR_MA.ENR_ProjectileWithPrepare
     cast_anim = m_sorc_anims["AttackLightThrow"][0]
     willey_anim_name = "hit3"
     forbidden_colors = {"Black", "Grey", "Special1", "Special2", "Special3"}
-    add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors)
+    add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors, horse=horse)
 
 # special case (updating fx from scripts)
 def add_hand_type_option(sign: list):
-    hand_types = [ "yennefer", "keira", "triss", "philippa" ]
+    hand_types = [ "keira", "keira_q104", "keira_sq101", "lynx", "lynx_mq7004", "philippa", "philippa_q210",
+                   "triss", "triss_q301", "triss_q303", "triss_q309", "triss_q310", "yennefer", "yennefer_cs401",
+                   "yennefer_q203", "yennefer_q205", "yennefer_q210", "yennefer_q310" ]
     lsign = sign[0].lower()
     suffix = "type"
     prefix = "hand"
     add_choice_option(f"section_choice_{prefix}_{lsign}", STR.type + "|", f"section_choice_{prefix}_{lsign}_{suffix}", [], {
         ".class": "NR_FormattedLocChoiceAction",
-        "str": f"{{{sign[1]}}}: {{{STR.hand_effect}}}: "  # SIGN name
+        "str": quoted(f"{{{sign[1]}}}: {{{STR.hand_effect}}}: ")  # SIGN name
     })
     add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
     add_dummy_section(f"section_entry_{prefix}_{lsign}_{suffix}")  # NO PREVIEW!
@@ -690,16 +957,40 @@ def add_hand_type_option(sign: list):
         script_set_section = f"script_{prefix}_{lsign}_{suffix}_{type_v}"
         add_script_section(script_set_section, "NR_SetMagicParamName_S", {
             "signName": CNAME(sign[0]),
-            "varName": f"style_{ENR_MA.ENR_HandFx.name}",
+            "varName": quoted(f"style_{ENR_MA.ENR_HandFx.name}"),
             "varValue": CNAME(type_v)
         })
         script_upd_section = f"script_{prefix}_{lsign}_{suffix}_{type_v}_upd"
         add_script_section(script_upd_section, "NR_SetMagicUpdateHandFx_S", {})
-        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{m_mages[type_v]['str']}", script_set_section, [], {
+        script_action = {
             ".class": "NR_FormattedLocChoiceAction",
-            "str": f"{{{sign[1]}}}: {{{STR.hand_effect}}}: "
-        })
+            "str": quoted(f"{{{sign[1]}}}: {{{STR.hand_effect}}}: ")
+        }
+        # extra suffix after sorceress name
+        if "_" in type_v:
+            script_action["str"] += "{" + str(m_mages[type_v.split('_', 1)[0]]['id']) + "} " + type_v.split("_", 1)[1]
+        else:
+            script_action["str"] += "{" + str(m_mages[type_v]['id']) + "}"
+
+        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{STR.dot}|.", script_set_section, [], script_action)
         connect_sections([script_set_section, script_upd_section, f"section_entry_{prefix}_{lsign}_{suffix}"])
+
+    with open("ws_hand_fx_cases.ws", mode="w", encoding="utf-8") as ws_out:
+        ws_colors = ["ENR_ColorYellow", "ENR_ColorOrange", "ENR_ColorRed", "ENR_ColorPink", "ENR_ColorViolet", "ENR_ColorBlue", "ENR_ColorSeagreen", "ENR_ColorGreen", "ENR_ColorWhite"]
+        for enum_color in ws_colors:
+            color = enum_color.split("ENR_Color")[1].lower()
+            ws_out.write(f"			case {enum_color}:\n")
+            if enum_color == "ENR_ColorWhite":
+                ws_out.write(f"			default:\n")
+            ws_out.write("				switch (fx_type) {\n")
+            for type_v in hand_types:
+                ws_out.write(f"					case '{type_v}':\n")
+                if type_v == "yennefer_q205":
+                    # no color for necro effect
+                    ws_out.write(f"						return 'hand_fx_{type_v}';\n")
+                else:
+                    ws_out.write(f"						return 'hand_fx_{type_v}_{color}';\n")
+            ws_out.write("				}\n")
 
 # special case (updating fx from scripts)
 def add_hand_color_option(sign: list):
@@ -767,6 +1058,20 @@ def add_rocks_cone_color_option(sign: list):
     forbidden_colors = {"Black", "Grey", "Special1", "Special2", "Special3"}
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors, custom_var_name=f"color_cone_{action.name}")
 
+
+def add_bomb_type_option(sign: list):
+    bomb_types = [ "philippa", "tower_nowhere" ]
+    # not_colorized_types = { "ofieri" }
+    suffix = "bomb_type"
+    prefix = "heavy"
+    choice_str0 = STR.bomb
+    choice_str1 = STR.type
+    action = ENR_MA.ENR_BombExplosion
+    cast_anim = m_sorc_anims["AttackHeavyThrow"][0]
+    willey_anim_name = "hit3"
+    add_generic_type_option(bomb_types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name)
+
+
 def add_bomb_color_option(sign: list):
     suffix = "bomb_color"
     prefix = "heavy"
@@ -801,185 +1106,8 @@ def add_teleport_color_option(sign: list):
     forbidden_colors = {"Black", "Grey", "Special1", "Special2", "Special3"}
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors)
 
-def add_generic_type_option(action_types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=str(), custom_var_values=[], fact_condition=[], ability_name=str(), option_conditions=[], custom_var_type="CName", dlc_names=[], is_long=False):
-    lsign = sign[0].lower()
-    prefix = prefix.lower()
-    suffix = suffix.lower()
-
-    if cast_anim["name"]:
-        preview_type_script_section = f"script_preview_{prefix}_{lsign}_{suffix}"
-        add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
-        if is_long:
-            add_script_section(preview_type_script_section, "NR_SimulateLongMagicAction_S", {"actionType": action.value})
-        else:
-            add_script_section(preview_type_script_section, "NR_SetMagicActionType_S", {"actionType": action.value})
-
-        shot_duration = cast_anim["duration"] + 0.5
-        willey_start_s = cast_anim["perform"] - 0.1
-        add_preview_section(f"section_preview_{prefix}_{lsign}_{suffix}", f"shot_preview_{prefix}_{lsign}_{suffix}", shot_duration)
-        add_preview_sbui_section(f"section_preview_{prefix}_{lsign}_{suffix}", f"shot_preview_{prefix}_{lsign}_{suffix}",
-            {
-                "name": cast_anim["name"],
-                "clipend": cast_anim["duration"],
-                "blendin": min(cast_anim["duration"] * 0.25, 0.4),
-                "blendout": min(cast_anim["duration"] * 0.25, 0.4),
-            },
-            {
-                 "start": willey_start_s / shot_duration,
-                 "name": m_willey_anims[willey_anim_name]["name"],
-                 "clipend": min(m_willey_anims[willey_anim_name]["duration"], shot_duration - willey_start_s + 0.5),
-                 "clipfront": 0.5
-            } if willey_anim_name else {}
-        )
-        connect_sections([preview_type_script_section, f"section_preview_{prefix}_{lsign}_{suffix}", f"section_choice_{prefix}_{lsign}_{suffix}"])
-        script_action = {
-            ".class": "NR_FormattedMagicChoiceAction",
-            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
-            "type": CNAME(action.name),  # SIGN name
-        }
-        if ability_name:
-            script_action["abilityName"] = CNAME(ability_name)
-
-        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|",
-                          f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition, script_action=script_action)
-        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{STR.BACK}|",
-                          f"section_choice_{prefix}_{lsign}")
-    else:
-        # NO PREVIEW!
-        preview_type_script_section = f"section_entry_{prefix}_{lsign}_{suffix}"
-        add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
-        add_dummy_section(preview_type_script_section)
-        connect_sections([preview_type_script_section, f"section_choice_{prefix}_{lsign}_{suffix}"])
-        script_action = {
-            ".class": "NR_FormattedMagicChoiceAction",
-            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
-            "type": CNAME(action.name),  # SIGN name
-        }
-        if ability_name:
-            script_action["abilityName"] = CNAME(ability_name)
-
-        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|",
-                         f"section_choice_{prefix}_{lsign}_{suffix}", condition=fact_condition, script_action=script_action)
-        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.BACK + "|",
-                          f"section_choice_{prefix}_{lsign}")
-
-    for type_i, type_v in enumerate(action_types):
-        script_set_section = f"script_{prefix}_{lsign}_{suffix}_{type_v.lower()}"
-        if custom_var_type.lower() == "cname":
-            add_script_section(script_set_section, "NR_SetMagicParamName_S", {
-                "signName": CNAME(sign[0]),
-                "varName": custom_var_name if custom_var_name else f"style_{action.name}",
-                "varValue": CNAME(custom_var_values[type_i]) if custom_var_values else CNAME(type_v)
-            })
-        elif custom_var_type.lower() == "string":
-            add_script_section(script_set_section, "NR_SetMagicParamString_S", {
-                "signName": CNAME(sign[0]),
-                "varName": custom_var_name if custom_var_name else f"style_{action.name}",
-                "varValue": custom_var_values[type_i] if custom_var_values else type_v
-            })
-        elif custom_var_type.lower() == "float":
-            add_script_section(script_set_section, "NR_SetMagicParamFloat_S", {
-                "signName": CNAME(sign[0]),
-                "varName": custom_var_name if custom_var_name else f"style_{action.name}",
-                "varValue": custom_var_values[type_i] if custom_var_values else type_v
-            })
-        elif custom_var_type.lower() == "int":
-            add_script_section(script_set_section, "NR_SetMagicParamInt_S", {
-                "signName": CNAME(sign[0]),
-                "varName": custom_var_name if custom_var_name else f"style_{action.name}",
-                "varValue": custom_var_values[type_i] if custom_var_values else type_v
-            })
-
-
-        connect_sections([script_set_section, preview_type_script_section])
-        script_action = {
-            ".class": "NR_FormattedMagicChoiceAction",
-            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: "
-        }
-        if dlc_names and len(dlc_names) > type_i and dlc_names[type_i]:
-            script_action["dlcName"] = dlc_names[type_i]
-
-        if type_v in m_mages:
-            add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{m_mages[type_v]['str']}",
-                              script_set_section, option_conditions[type_i] if option_conditions else [], script_action=script_action)
-        else:
-            script_action["str"] += f"{type_v}"
-            add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.dot + "|.",
-                              script_set_section, option_conditions[type_i] if option_conditions else [], script_action=script_action)
-
-def add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors, custom_var_name=str(), fact_condition=[], is_long=False):
-    global m_colors
-    lsign = sign[0].lower()
-    prefix = prefix.lower()
-    suffix = suffix.lower()
-
-    if cast_anim["name"]:
-        preview_color_script_section = f"script_preview_{prefix}_{lsign}_{suffix}"
-        add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
-        if is_long:
-            add_script_section(preview_color_script_section, "NR_SimulateLongMagicAction_S", {"actionType": action.value})
-        else:
-            add_script_section(preview_color_script_section, "NR_SetMagicActionType_S", {"actionType": action.value})
-        shot_duration = cast_anim["duration"] + 0.5
-        willey_start_s = cast_anim["perform"] - 0.1
-        add_preview_section(f"section_preview_{prefix}_{lsign}_{suffix}", f"shot_preview_{prefix}_{lsign}_{suffix}", shot_duration)
-        add_preview_sbui_section(f"section_preview_{prefix}_{lsign}_{suffix}", f"shot_preview_{prefix}_{lsign}_{suffix}",
-            {
-                "name": cast_anim["name"],
-                "clipend": cast_anim["duration"],
-                "blendin": min(cast_anim["duration"] * 0.25, 0.4),
-                "blendout": min(cast_anim["duration"] * 0.25, 0.4),
-            },
-            {
-             "start": willey_start_s / shot_duration,
-             "name": m_willey_anims[willey_anim_name]["name"],
-             "clipend": min(m_willey_anims[willey_anim_name]["duration"], shot_duration - willey_start_s + 0.5),
-             "clipfront": 0.5
-            } if willey_anim_name else {}
-        )
-        connect_sections([preview_color_script_section, f"section_preview_{prefix}_{lsign}_{suffix}",
-                          f"section_choice_{prefix}_{lsign}_{suffix}"])
-
-        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|", f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition,
-            {
-              ".class": "NR_FormattedMagicChoiceAction",
-              "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
-              "type": CNAME(action.name)  # SIGN name
-            })
-        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{STR.BACK}|",
-                          f"section_choice_{prefix}_{lsign}")
-    else:
-        # NO PREVIEW!
-        preview_color_script_section = f"section_entry_{prefix}_{lsign}_{suffix}"
-        add_choice_section(f"section_choice_{prefix}_{lsign}_{suffix}")
-        add_dummy_section(preview_color_script_section)
-        connect_sections([preview_color_script_section, f"section_choice_{prefix}_{lsign}_{suffix}"])
-        add_choice_option(f"section_choice_{prefix}_{lsign}", f"{choice_str1}|", f"section_choice_{prefix}_{lsign}_{suffix}", fact_condition,
-            {
-              ".class": "NR_FormattedMagicChoiceAction",
-              "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
-              "type": CNAME(action.name)  # SIGN name
-            })
-        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.BACK + "|",
-                          f"section_choice_{prefix}_{lsign}")
-
-    for color_i, color in enumerate(m_colors):
-        if color[0] in forbidden_colors:
-            continue
-        script_set_color_name = f"script_{prefix}_{lsign}_{suffix}_{color[0].lower()}"
-        add_script_section(script_set_color_name, "NR_SetMagicParamInt_S", {
-            "signName": f"CNAME_{sign[0]}",
-            "varName": custom_var_name if custom_var_name else f"color_{action.name}",
-            "varValue": color_i
-        })
-        add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{color[-1]}", script_set_color_name, [], {
-            ".class": "NR_FormattedLocChoiceAction",
-            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: "  # SIGN name: Throw color
-        })
-        connect_sections([script_set_color_name, preview_color_script_section])
-
 def add_push_color_option(sign: list):
-    prefix = "heavy"
+    prefix = "light"
     suffix = "push_color"
     choice_str0 = STR.push
     choice_str1 = STR.color
@@ -990,10 +1118,10 @@ def add_push_color_option(sign: list):
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors)
 
 def add_push_buff_option(sign: list):
-    prefix = "heavy"
+    prefix = "light"
     suffix = "push_buff"
     choice_str0 = STR.push
-    choice_str1 = STR.effect
+    choice_str1 = STR.buffs
     action = ENR_MA.ENR_CounterPush
     cast_anim = m_sorc_anims["AttackPush"][0]
     willey_anim_name = str()  # "hit3"
@@ -1009,15 +1137,15 @@ def add_push_buff_option(sign: list):
                       {
                           ".class": "NR_FormattedMagicChoiceAction",
                           "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",  # SIGN name
-                          "type": CNAME(action.name),  # SIGN name
-                          "abilityName": "Burning"
+                          "type": CNAME(action.name),
                       })
     add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", STR.BACK + "|",
                       f"section_choice_{prefix}_{lsign}")
 
     m_buffs = [
-        ["Freezing", "0001081836|Freezing"],
-        ["Burning", "0001083738|Burning"]
+        ["Freezing", "Freezing", "0001081836|Freezing"],
+        ["Burning", "Burning", "0001083738|Burning"],
+        ["Standart", "", "0001117589|Standart"]
     ]
     for buff_i, buff in enumerate(m_buffs):
         script_set_buff_name = f"script_{prefix}_{lsign}_{suffix}_{buff[0].lower()}"
@@ -1027,8 +1155,10 @@ def add_push_buff_option(sign: list):
             "varValue": buff_i
         })
         add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{buff[-1]}", script_set_buff_name, [], {
-            ".class": "NR_FormattedLocChoiceAction",
-            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: "  # SIGN name: Throw color
+            ".class": "NR_FormattedMagicChoiceAction",
+            "str": f"{{{sign[1]}}}: {{{choice_str0}}}: ",
+            "type": CNAME(action.name),
+            "abilityName": quoted(buff[1])
         })
         connect_sections([script_set_buff_name, preview_buff_script_section])
 
@@ -1055,8 +1185,8 @@ def add_ft_teleport_color_option(sign: list):
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors)
 
 def add_special_type_option(sign: list):
-    special_types_str = [ STR.tornado, STR.control, STR.meteor, STR.shield, STR.servant ]
-    special_types_val = [ ENR_MA.ENR_SpecialTornado, ENR_MA.ENR_SpecialControl, ENR_MA.ENR_SpecialMeteor, ENR_MA.ENR_SpecialShield, ENR_MA.ENR_SpecialServant ]
+    special_types_str = [ STR.tornado, STR.control, STR.meteor, STR.shield, STR.servant, STR.weather_change ]
+    special_types_val = [ ENR_MA.ENR_SpecialTornado, ENR_MA.ENR_SpecialControl, ENR_MA.ENR_SpecialMeteor, ENR_MA.ENR_SpecialShield, ENR_MA.ENR_SpecialServant, ENR_MA.ENR_SpecialWeatherChange ]
 
     suffix = "type"
     prefix = "special"
@@ -1091,7 +1221,9 @@ def add_special_type_option(sign: list):
         add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{special_types_str[type_i].value}|", script_set_section, [], {
             ".class": "NR_FormattedMagicChoiceAction",
             "str": f"{{{choice_str0}}}: {{{sign[1]}}}: ",
-            "type": CNAME(type_v.name)
+            "type": CNAME(type_v.name),
+            "unlockIfLearned": True,
+            "unlockIfLearning": True
         })
 
 def add_special_tornado_type_option(sign: list):
@@ -1151,9 +1283,7 @@ def add_special_servant_type_0_option(sign: list):
     # depot paths
     # custom_var_values = [m_mages[x]['depot'] for x in types]
     fact_condition = [f"nr_type_special_{lsign}", "=", action.value]
-    option_conditions = [[f"nr_magic_{action.name}_{x}", ">", 0] for x in types]
-    option_conditions[0] = []  # Hound is unlocked by default
-    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=custom_var_name, fact_condition=fact_condition, option_conditions=option_conditions, custom_var_type="cname")
+    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=custom_var_name, fact_condition=fact_condition, option_abilities=types, custom_var_type="cname")
 
 def add_special_servant_type_1_option(sign: list):
     lsign = sign[0].lower()
@@ -1170,9 +1300,7 @@ def add_special_servant_type_1_option(sign: list):
     # custom_var_values = [m_mages[x]['depot'] for x in types]
     fact_condition = [f"nr_type_special_{lsign}", "=", action.value]
     ability_name = "TwoServants"
-    option_conditions = [[f"nr_magic_{action.name}_{x}", ">", 0] for x in types]
-    option_conditions[0] = []  # Hound is unlocked by default
-    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=custom_var_name, fact_condition=fact_condition, ability_name=ability_name, option_conditions=option_conditions, custom_var_type="cname")
+    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, custom_var_name=custom_var_name, fact_condition=fact_condition, ability_name=ability_name, option_abilities=types, custom_var_type="cname")
 
 def add_special_servant_fx_color_option(sign: list):
     lsign = sign[0].lower()
@@ -1238,7 +1366,9 @@ def add_special_alt_type_option(sign: list):
         add_choice_option(f"section_choice_{prefix}_{lsign}_{suffix}", f"{special_types_str[type_i].value}|", script_set_section, [], {
             ".class": "NR_FormattedMagicChoiceAction",
             "str": f"{{{choice_str0}}}: {{{sign[1]}}}: ",
-            "type": CNAME(type_v.name)
+            "type": CNAME(type_v.name),
+            "unlockIfLearned": True,
+            "unlockIfLearning": True
         })
 
 def add_special_alt_thunder_type_option(sign: list):
@@ -1320,13 +1450,12 @@ def add_special_alt_lumos_color_option(sign: list):
     cast_anim = m_sorc_anims["AttackSpecialPray"][0]
     willey_anim_name = str()  # "hit1"
     fact_condition = [f"nr_type_special_alt_{lsign}", "=", action.value]
-    forbidden_colors = {"Black", "Grey", "Special1", "Special2", "Special3"}
+    forbidden_colors = {"Black", "Grey", "Special2", "Special3"}
     add_generic_color_option(sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, forbidden_colors, fact_condition=fact_condition)
 
 def add_special_alt_polymorphism_type_option(sign: list):
     lsign = sign[0].lower()
-    '''
-    types = [ "cat", "dog" ]
+    types = [ "cat", "crow", "owl" ]
     suffix = "polymorphism_type"
     prefix = "special_alt"
     choice_str0 = STR.polymorphism
@@ -1337,8 +1466,7 @@ def add_special_alt_polymorphism_type_option(sign: list):
     # custom_var_name = f"style_{action.name}"
     # custom_var_values = [ "ofieri", "hermit" ]
     fact_condition = [f"nr_type_special_alt_{lsign}", "=", action.value]
-    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, fact_condition=fact_condition)
-    '''
+    add_generic_type_option(types, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, fact_condition=fact_condition, unlock_if_learned=True)
 
 def add_special_alt_polymorphism_color_option(sign: list):
     lsign = sign[0].lower()
@@ -1368,13 +1496,44 @@ def add_special_alt_polymorphism_cat_appearance_option(sign: list):
     suffix = "polymorphism_cat_appearance"
     prefix = "special_alt"
     choice_str0 = STR.polymorphism
-    choice_str1 = STR.type
+    choice_str1 = STR.appearance
     action = ENR_MA.ENR_SpecialPolymorphism
     cast_anim = m_sorc_anims["AttackSpecialTransform"][0]
     willey_anim_name = str()  # "hit1"
     custom_var_name = f"cat_app_{action.name}"
     fact_condition = [f"nr_type_special_alt_{lsign}", "=", action.value]
     add_generic_type_option(appearances, sign, suffix, prefix, choice_str0, choice_str1, action, cast_anim, willey_anim_name, fact_condition=fact_condition, custom_var_name=custom_var_name, dlc_names=dlcNames)
+
+def add_switchable_skills_sections(in_section: str, back_section: str, type_str_id: str, skills: list):
+    manage_skills_section = f"{in_section}_manage_skills"
+    entry_manage_skills_section = f"{in_section.replace('_choice', '')}_manage_skills_entry"
+    add_dummy_section(entry_manage_skills_section, 0)
+    add_choice_section(manage_skills_section)
+    add_choice_option(in_section, "2115940592|Manage abilities", entry_manage_skills_section, [], {
+        ".class": "NR_FormattedLocChoiceAction",
+        "str": f"{{{type_str_id}}}: "
+    })
+    connect_sections([entry_manage_skills_section, manage_skills_section])
+    add_choice_option(manage_skills_section, STR.BACK + "|", back_section)
+
+    for skill in skills:
+        if skill not in m_spell_abilities:
+            continue
+        for ability in m_spell_abilities[skill]:
+            ability_id = m_spell_ability_str_ids[ability]
+            script_section = f"script_switch_skill_" + skill.name.lower() + "_" + ability.lower()
+            add_script_section(script_section, "NR_SwitchActionAbility_S", {
+                "type": CNAME(skill.name),
+                "abilityName": quoted(ability)
+            })
+            add_choice_option(manage_skills_section, STR.dot + "|", script_section, [], {
+                ".class": "NR_SwitchableAbilityMagicChoiceAction",
+                "str": f"{{{type_str_id}}}: ",
+                "type": CNAME(skill.name),
+                "abilityName": quoted(ability),
+                "abilityStrId": ability_id,
+            })
+            connect_sections([script_section, entry_manage_skills_section])
 
 def load_yml():
     global m_yml_scene
@@ -1465,7 +1624,9 @@ def main():
         add_choice_option("section_choice_spell_voicelines", voiceline_strs[i] + "|", script_section, [], {
             ".class": "NR_FormattedMagicChoiceAction",
             "str": f"{{{STR.set_spell_voiceline_chance}}}: ", # Set spell voiceline chance
-            "type": CNAME(action_type.name)
+            "type": CNAME(action_type.name),
+            "unlockIfLearned": True,
+            "unlockIfLearning": True
         })
         connect_sections([script_section, f"script_info_spell_voicelines"])
 
@@ -1489,7 +1650,7 @@ def main():
         connect_sections([script_section, f"section_choice_hand_{lsign}"])
 
         add_choice_section(f"section_choice_hand_{lsign}")
-        add_choice_option(f"section_choice_hand_{lsign}", STR.BACK + "|", "section_choice_hand")
+        add_choice_option(f"section_choice_hand_{lsign}", STR.BACK + "|", "script_info_hand")
 
         add_hand_type_option(sign)
         add_hand_color_option(sign)
@@ -1501,13 +1662,13 @@ def main():
     connect_sections(["script_info_light", "section_choice_light"])
 
     # LIGHT: Ratio (section_light_ratio_entry predefined)
-    add_choice_option("section_choice_light", STR.light_ratio + "|",
-    "section_light_ratio_entry", [], {
+    add_choice_option("section_choice_light", STR.light_ratio + "|", "section_light_ratio_entry", [], {
       ".class": "NR_FormattedLocChoiceAction",
       "str": f"{{{STR.light_attacks}}}: "
     })
 
     # LIGHT: SIGNS base
+    horse_sign = ["Horse", 1048438, "0001048438|Horse"]
     for sign in m_signs:
         lsign = sign[0].lower()
         script_section = f"script_set_light_sign_{lsign}"
@@ -1523,16 +1684,52 @@ def main():
 
         # add light <sign> section
         add_choice_section(f"section_choice_light_{lsign}")
-        add_choice_option(f"section_choice_light_{lsign}", STR.BACK + "|", "section_choice_light")
+        add_choice_option(f"section_choice_light_{lsign}", STR.BACK + "|", "script_info_light")
 
         add_slash_type_option(sign)
         add_slash_color_option(sign)
 
         # LIGHT: <SIGN> : Throw type
         add_throw_type_option(sign)
-
-        # LIGHT: <SIGN> : Throw color
         add_throw_color_option(sign)
+
+        # PUSH color & buff
+        add_push_color_option(sign)
+        add_push_buff_option(sign)
+
+    # HORSE
+    script_section1 = f"script_set_light_sign_horse2"
+    add_script_section(script_section1, "NR_SetMagicParamInt_S", {
+        "signName": CNAME("Universal"),
+        "varName": f"setup_scene_horse",
+        "varValue": 1
+    })
+    script_section2 = f"script_set_light_sign_horse"
+    add_script_section(script_section2, "NR_SetMagicSignName_S", {"signName": f"CNAME_Axii"})
+    add_choice_option("section_choice_light", STR.horse + "|", script_section1, [], {
+        ".class": "NR_FormattedLocChoiceAction",
+        "str": f"{{{STR.light_attacks}}}: "
+    })
+    connect_sections([script_section1, script_section2, f"section_choice_light_horse"])
+    add_choice_section("section_choice_light_horse")
+    # HORSE - BACK
+    script_section_back = "script_set_light_sign_horse_back"
+    add_script_section(script_section_back, "NR_SetMagicParamInt_S", {
+        "signName": CNAME("Universal"),
+        "varName": f"setup_scene_horse",
+        "varValue": 0
+    })
+    connect_sections([script_section_back, "script_info_light"])
+    add_choice_option("section_choice_light_horse", STR.BACK + "|", script_section_back)
+    # HORSE - entries
+    add_throw_type_option(m_signs[1], 1)
+    add_throw_type_option(m_signs[1], 2)
+    add_throw_color_option(m_signs[1], 1)
+    add_throw_color_option(m_signs[1], 2)
+
+    # add option to disable/enable abilities
+    add_switchable_skills_sections("section_choice_light", "script_info_light", STR.light_attacks,
+                                   [ENR_MA.ENR_Slash, ENR_MA.ENR_Lightning, ENR_MA.ENR_ProjectileWithPrepare, ENR_MA.ENR_CounterPush])
 
     # HEAVY ATTACKS
     add_choice_section("section_choice_heavy")
@@ -1569,11 +1766,12 @@ def main():
         add_rocks_color_option(sign)
         add_rocks_cone_color_option(sign)
 
-        #add_bomb_type_option(sign)
+        add_bomb_type_option(sign)
         add_bomb_color_option(sign)
 
-        add_push_buff_option(sign)
-        add_push_color_option(sign)
+    # add option to disable/enable abilities
+    add_switchable_skills_sections("section_choice_heavy", "script_info_heavy", STR.heavy_attacks,
+                                   [ENR_MA.ENR_Rock, ENR_MA.ENR_BombExplosion, ENR_MA.ENR_RipApart])
 
     # TELEPORT
     add_choice_section("section_choice_teleport")
@@ -1604,6 +1802,10 @@ def main():
 
         add_ft_teleport_type_option(sign)
         add_ft_teleport_color_option(sign)
+
+    # add option to disable/enable abilities
+    add_switchable_skills_sections("section_choice_teleport", "script_info_teleport", STR.teleport,
+                                   [ENR_MA.ENR_Teleport])
 
     # SPECIAL ATTACKS
     add_choice_section("section_choice_special")
@@ -1641,6 +1843,10 @@ def main():
 
         # unlocked fact: nr_magic_skill_ENR_Teleport
         # unlocked coloring: IsActionCustomizationUnlocked( type : ENR_MagicAction )
+
+    # add option to disable/enable abilities
+    add_switchable_skills_sections("section_choice_special", "script_info_special", STR.special_spells,
+                                   [ENR_MA.ENR_SpecialTornado, ENR_MA.ENR_SpecialControl, ENR_MA.ENR_SpecialMeteor, ENR_MA.ENR_SpecialShield, ENR_MA.ENR_SpecialServant])
 
     # ALT SPECIAL ATTACKS
     add_choice_section("section_choice_special_alt")
@@ -1680,6 +1886,10 @@ def main():
 
         # unlocked fact: nr_magic_skill_ENR_Teleport
         # unlocked coloring: IsActionCustomizationUnlocked( type : ENR_MagicAction )
+
+        # add option to disable/enable abilities
+        add_switchable_skills_sections("section_choice_special_alt", "script_info_special_alt", STR.special_spells_alt,
+                                       [ENR_MA.ENR_SpecialLightningFall, ENR_MA.ENR_SpecialField, ENR_MA.ENR_SpecialMeteorFall, ENR_MA.ENR_SpecialLumos, ENR_MA.ENR_SpecialPolymorphism])
 
     end_t = time.time()
     print(f"[*] Scene YML handled in: {end_t - start_t} s")

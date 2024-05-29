@@ -11,13 +11,17 @@ statemachine class NR_MagicBombEntity extends CGameplayEntity
 	editable var m_damageType			: name;
 	editable var m_fxName				: name;
 	editable var m_explosionFxName		: name;
-	default m_timeToExplode 	= 2.5f;
+	editable var m_effectType			: EEffectType;
+	editable var m_effectDuration		: float;
+	default m_timeToExplode 	= 2.f;
 	default m_metersPerSec 		= 2.5f;
-	default m_damageRadius 		= 3.f;
+	default m_damageRadius 		= 2.5f;
 	default m_damageVal 		= 100.f;
 	default m_damageType 		= 'ElementalDamage';
 	default m_fxName 			= 'arcane_circle';
 	default m_explosionFxName 	= 'explosion';
+	default m_effectType 		= EET_Stagger;
+	default m_effectDuration 	= 2.f;
 
 	function Init( caster : CActor, target : CActor, respectCaster : bool, pursueTarget : bool )
 	{
@@ -88,7 +92,6 @@ state Active in NR_MagicBombEntity {
 		var i : int;
 
 		NR_Debug("Bomb: Explosion");
-		parent.StopEffect(parent.m_fxName);
 		parent.PlayEffect(parent.m_explosionFxName);
 		GCameraShake( 0.5, true, parent.GetWorldPosition(), 15.0f );
 		FindGameplayEntitiesInRange( entitiesInRange, parent, parent.m_damageRadius, 250 );
@@ -98,12 +101,13 @@ state Active in NR_MagicBombEntity {
 			victim = (CActor)entitiesInRange[i];
 			if ( victim && (!parent.m_respectCaster || GetAttitudeBetween(victim, parent.m_caster) == AIA_Hostile) )
 			{
-				victim.AddEffectDefault( EET_Stagger, parent, parent.GetName() );
+				// victim.AddEffectDefault( EET_Stagger, parent, parent.GetName() );
 				damage = new W3DamageAction in this;
 				damage.Initialize( parent.m_caster, victim, this, parent.m_caster.GetName(), EHRT_Heavy, CPS_SpellPower, false, false, false, true );
 				damage.AddDamage( parent.m_damageType, parent.m_damageVal * 0.5f );
-				damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, parent.m_damageVal * 0.5f );
-				damage.AddEffectInfo(EET_Stagger, 2.0);
+				damage.AddDamage( theGame.params.DAMAGE_NAME_SLASHING, parent.m_damageVal * 0.25f );
+				damage.AddDamage( theGame.params.DAMAGE_NAME_SILVER, parent.m_damageVal * 0.25f );
+				damage.AddEffectInfo(parent.m_effectType, parent.m_effectDuration);
 				theGame.damageMgr.ProcessAction( damage );
 				delete damage;
 			} else {
@@ -115,6 +119,9 @@ state Active in NR_MagicBombEntity {
 		}
 		// explodes toxic gas
 		parent.AddTag(theGame.params.TAG_OPEN_FIRE);
+
+		Sleep(0.1f);
+		parent.StopEffect(parent.m_fxName);
 	}
 
 	event OnLeaveState( nextStateName : name )

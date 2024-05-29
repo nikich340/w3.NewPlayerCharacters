@@ -101,6 +101,10 @@ latent function NR_ShowTutorial(type : String, fullscreen : bool, optional remin
         popupData.messageTitle = GetLocStringById(397231);
         popupData.messageText = NR_FormatLocString( GetLocStringById(2115940590) );
     }
+    else if (type == "PolymorphismWarning") {
+        popupData.messageTitle = GetLocStringById(1185194);
+        popupData.messageText = NR_FormatLocString( GetLocStringById(2115940548) );
+    }
     else if (StrStartsWith(type, "SorceressLevel")) {
         //if (!reminder) {
         popupData.messageTitle = GetLocStringById(2115940208);
@@ -135,24 +139,56 @@ latent function NR_ShowTutorial(type : String, fullscreen : bool, optional remin
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940211) );
         else if (type == "SorceressSkillFastTravelTeleport")
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940212) );
-        else if (type == "SorceressSkillTornado")
+        else if (type == "SorceressSkillTornado") {
+            FactsSet("nr_type_special_aard", (int)ENR_SpecialTornado);
+            manager.SetParamInt('Aard', "type_" + ENR_MAToName(ENR_SpecialAbstract), (int)ENR_SpecialTornado);
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940214) );
-        else if (type == "SorceressSkillControl")
+        }
+        else if (type == "SorceressSkillControl") {
+            FactsSet("nr_type_special_axii", (int)ENR_SpecialControl);
+            manager.SetParamInt('Axii', "type_" + ENR_MAToName(ENR_SpecialAbstract), (int)ENR_SpecialControl);
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940215) );
-        else if (type == "SorceressSkillShield")
+        }
+        else if (type == "SorceressSkillShield") {
+            FactsSet("nr_type_special_quen", (int)ENR_SpecialShield);
+            manager.SetParamInt('Quen', "type_" + ENR_MAToName(ENR_SpecialAbstract), (int)ENR_SpecialShield);
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940216) );
-        else if (type == "SorceressSkillMeteor")
+        }
+        else if (type == "SorceressSkillWeatherChange") {
+            FactsSet("nr_type_special_aard", (int)ENR_SpecialWeatherChange);
+            manager.SetParamInt('Aard', "type_" + ENR_MAToName(ENR_SpecialAbstract), (int)ENR_SpecialWeatherChange);
+            popupData.messageText += NR_FormatLocString( GetLocStringById(2115940549) );
+        }
+        else if (type == "SorceressSkillMeteor") {
+            FactsSet("nr_type_special_igni", (int)ENR_SpecialMeteor);
+            manager.SetParamInt('Igni', "type_" + ENR_MAToName(ENR_SpecialAbstract), (int)ENR_SpecialMeteor);
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940218) );
-        else if (type == "SorceressSkillServant")
+        }
+        else if (type == "SorceressSkillServant") {
+            FactsSet("nr_type_special_yrden", (int)ENR_SpecialServant);
+            manager.SetParamInt('Yrden', "type_" + ENR_MAToName(ENR_SpecialAbstract), (int)ENR_SpecialServant);
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940219) );
-        else if (type == "SorceressSkillLightningFall")
+        }
+        else if (type == "SorceressSkillLightningFall") {
+            FactsSet("nr_type_special_alt_aard", (int)ENR_SpecialLightningFall);
+            manager.SetParamInt('Aard', "type_" + ENR_MAToName(ENR_SpecialAbstractAlt), (int)ENR_SpecialLightningFall);
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940220) );
-        else if (type == "SorceressSkillField")
-            popupData.messageText += NR_FormatLocString( GetLocStringById(2115940221) );
-        else if (type == "SorceressSkillMeteorFall")
+        }
+        else if (type == "SorceressSkillField") {
+            FactsSet("nr_type_special_alt_axii", (int)ENR_SpecialField);
+            manager.SetParamInt('Axii', "type_" + ENR_MAToName(ENR_SpecialAbstract), (int)ENR_SpecialField);
+            popupData.messageText += NR_FormatLocString( GetLocStringById(ENR_SpecialAbstractAlt) );
+        }
+        else if (type == "SorceressSkillMeteorFall") {
+            FactsSet("nr_type_special_alt_igni", (int)ENR_SpecialMeteorFall);
+            manager.SetParamInt('Igni', "type_" + ENR_MAToName(ENR_SpecialAbstractAlt), (int)ENR_SpecialMeteorFall);
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940223) );
-        else if (type == "SorceressSkillPolymorphism")
+        }
+        else if (type == "SorceressSkillPolymorphism") {
+            FactsSet("nr_type_special_alt_yrden", (int)ENR_SpecialPolymorphism);
+            manager.SetParamInt('Yrden', "type_" + ENR_MAToName(ENR_SpecialAbstractAlt), (int)ENR_SpecialPolymorphism);
             popupData.messageText += NR_FormatLocString( GetLocStringById(2115940224) );
+        }
     }
     else {
         NR_Error("NR_ShowTutorial: Unknown tutorial type: " + type);
@@ -163,54 +199,95 @@ latent function NR_ShowTutorial(type : String, fullscreen : bool, optional remin
     theGame.GetTutorialSystem().ShowTutorialHint(popupData);
 }
 
-latent storyscene function NR_ShowMagicSkillStats_S(player: CStoryScenePlayer, fullscreen : bool, showGeneral : bool, showSpecial : bool) {
+latent storyscene function NR_ShowMagicSkillStats_S(player: CStoryScenePlayer, fullscreen : bool, showNovice : bool, showApprentice : bool, showExperienced : bool, showMistress : bool, showArchMistress : bool) {
     NR_Debug("NR_ShowMagicSkillStats_S");
-    NR_ShowMagicSkillStats(fullscreen, showGeneral, showSpecial);
+    if (NR_GetMagicManager().IsInSetupScene()) {
+        NR_GetMagicManager().HideMagicInfo();
+    }
+    NR_ShowMagicSkillStats(fullscreen, showNovice, showApprentice, showExperienced, showMistress, showArchMistress);
+    /*
+    Sleep(0.3f);
+    while (theGame.GetGuiManager().IsModalPopupShown()) {
+        SleepOneFrame();
+    }
+    */
+    // NR_Debug("NR_ShowMagicSkillStats_S end");
 }
 
-latent function NR_ShowMagicSkillStats(fullscreen : bool, showGeneral : bool, showSpecial : bool) {
+latent function NR_ShowMagicSkillStats(fullscreen : bool, showNovice : bool, showApprentice : bool, showExperienced : bool, showMistress : bool, showArchMistress : bool) {
     var manager   : NR_MagicManager;
     var popupData : W3TutorialPopupData;
     var         i : int;
+    var    skills : array<ENR_MagicAction>;
 
     manager = NR_GetMagicManager();
     SoundEventQuest("gui_enchanting_socket_add", SESB_DontSave);
     popupData = new W3TutorialPopupData in thePlayer;
     popupData.messageTitle = GetLocStringById(2115940194);
     // general 
-    popupData.messageText = "<font size=\"21\">" + GetLocStringById(2115940243) + "<br><b>- " + GetLocStringById(1210143) + "</b>: " + NR_StrLightBlue(manager.GetCurrentSkillLevelLocStr() + "(" + (int)manager.GetSkillLevel() + "/5)") + "<br>";
+    popupData.messageText = "<font size=\"21\">" + GetLocStringById(2115940243) + "<br><b>" + GetLocStringById(1210143) + "</b>: " + NR_StrLightBlue(manager.GetCurrentSkillLevelLocStr() + " (" + (int)manager.GetSkillLevel() + " / 5)") + "<br>";
     popupData.messageText += "  <i>" + GetLocStringById(1070900) + "</i>: " + NR_StrGreen("+" + IntToString(manager.GetGeneralDamageBonus()) + "%");
     popupData.messageText += ", <i>" + StrLower(GetLocStringById(174112)) + "</i>: " + NR_StrGreen("-" + IntToString(manager.GetGeneralStaminaBonus()) + "%");
-    popupData.messageText += ", <i>" + StrLower(GetLocStringById(593508)) + "</i>: " + NR_StrGreen("+" + IntToString(manager.GetGeneralDurationBonus()) + "%<br>");
+    popupData.messageText += ", <i>" + StrLower(GetLocStringById(593508)) + "</i>: " + NR_StrGreen("+" + IntToString(manager.GetGeneralDurationBonus()) + "%<br><br>");
     
     // spells
-    if (showGeneral) {
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_Teleport);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_FastTravelTeleport);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_CounterPush);
+    if (showNovice) {
+        popupData.messageText += "[" + GetLocStringById(2115940253) + "]<br>";
+        skills.PushBack(ENR_Teleport);
+        skills.PushBack(ENR_CounterPush);
 
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_Slash);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_Lightning);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_ProjectileWithPrepare);
-        
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_RipApart);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_BombExplosion);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_Rock);
+        skills.PushBack(ENR_Slash);
+        skills.PushBack(ENR_Lightning);
+        skills.PushBack(ENR_ProjectileWithPrepare);
+
+        skills.PushBack(ENR_SpecialLumos);
+    }
+
+    if (showApprentice) {
+        popupData.messageText += "[" + GetLocStringById(2115940254) + "]<br>";
+        skills.PushBack(ENR_FastTravelTeleport);
+
+        skills.PushBack(ENR_RipApart);
+        skills.PushBack(ENR_BombExplosion);
+        skills.PushBack(ENR_Rock);
+
+        skills.PushBack(ENR_SpecialShield);
+        skills.PushBack(ENR_SpecialWeatherChange);
+    }
+
+    if (showExperienced) {
+        popupData.messageText += "[" + GetLocStringById(2115940255) + "]<br>";
+        skills.PushBack(ENR_SpecialTornado);
+        skills.PushBack(ENR_SpecialControl);
+
+        skills.PushBack(ENR_SpecialField);
+    }
+
+    if (showMistress) {
+        popupData.messageText += "[" + GetLocStringById(2115940256) + "]<br>";
+        skills.PushBack(ENR_SpecialServant);
+        skills.PushBack(ENR_SpecialMeteor);
+
+        skills.PushBack(ENR_SpecialLightningFall);
     }
     
-    if (showSpecial) {
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialServant);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialMeteor);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialTornado);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialControl);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialShield);
-
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialLightningFall);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialField);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialMeteorFall);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialLumos);
-        popupData.messageText += manager.GetSkillInfoLocStr(ENR_SpecialPolymorphism);
+    if (showArchMistress) {
+        popupData.messageText += "[" + GetLocStringById(2115940257) + "]<br>";
+        
+        skills.PushBack(ENR_SpecialMeteorFall);
+        skills.PushBack(ENR_SpecialPolymorphism);
     }
+    // first learned
+    for (i = 0; i < skills.Size(); i += 1) {
+        if ( manager.IsActionLearned(skills[i]) )
+            popupData.messageText += manager.GetSkillInfoLocStr(skills[i]);
+    }
+    // second locked
+    for (i = 0; i < skills.Size(); i += 1) {
+        if ( !manager.IsActionLearned(skills[i]) )
+            popupData.messageText += manager.GetSkillInfoLocStr(skills[i]);
+    }
+
     popupData.messageText += "</font>";
 
     popupData.managerRef = theGame.GetTutorialSystem();

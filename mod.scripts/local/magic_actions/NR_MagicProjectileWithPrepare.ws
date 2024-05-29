@@ -1,5 +1,5 @@
 class NR_MagicProjectileWithPrepare extends NR_MagicAction {
-	var projectile 		: W3AdvancedProjectile;
+	var projectile 		: NR_AdvancedProjectile;
 	
 	default actionType = ENR_ProjectileWithPrepare;
 	default actionSubtype = ENR_ThrowAbstract;
@@ -13,16 +13,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 3) {
-			ActionAbilityUnlock("AutoAim");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
-		var spearProjectile 	: W3IceSpearProjectile;
-		var fireballProjectile 	: W3FireballProjectile;
 		var dk 		: float;
 		super.OnPrepare();
 
@@ -35,25 +26,16 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		//if (actionType == ENR_Projectile)
 		//	projectile = (W3AdvancedProjectile)theGame.CreateEntity( entityTemplate, pos + theCamera.GetCameraForwardOnHorizontalPlane() * 1.f, rot );
 		pos.Z += 1.f;
-		projectile = (W3AdvancedProjectile)theGame.CreateEntity( entityTemplate, pos, rot );
+		projectile = (NR_AdvancedProjectile)theGame.CreateEntity( entityTemplate, pos, rot );
 		if (!projectile) {
 			NR_Error("NR_MagicProjectileWithPrepare:: No valid projectile.");
 			return OnPrepared(false);
 		}
-		spearProjectile = (W3IceSpearProjectile)projectile;
-		fireballProjectile = (W3FireballProjectile)projectile;
-		if (spearProjectile) {
-			spearProjectile.initFxName = InitFxName();
-			spearProjectile.onCollisionFxName = CollisionFxName();
-			spearProjectile.onCollisionVictimFxName = m_fxNameHit;
-			NR_Debug("spearProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName() + ", m_fxNameHit = " + m_fxNameHit);
-		} else if (fireballProjectile) {
-			fireballProjectile.initFxName = InitFxName();
-			fireballProjectile.onCollisionFxName = CollisionFxName();
-			NR_Debug("fireballProjectile: initFxName = " + InitFxName() + ", CollisionFxName = " + CollisionFxName());
-		} else {
-			NR_Error("Unknown projectile type: " + projectile);
-		}
+
+		projectile.initFxName = InitFxName();
+		projectile.onCollisionFxName = CollisionFxName();
+		projectile.onCollisionVictimFxName = m_fxNameHit;
+
 		dk = 1.8f * SkillTotalDamageMultiplier();
 		projectile.projDMG = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 		projectile.Init(thePlayer);
@@ -75,7 +57,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 			return OnPerformed(false);
 		}
 		projectile.BreakAttachment();
-		if (target && IsActionAbilityUnlocked("AutoAim")) {
+		if (target && IsActionAbilityEnabled("AutoAim")) {
 			component = target.GetComponent('torso3effect');
 			if (component)
 				projectile.ShootProjectileAtNode( projectile.projAngle, projectile.projSpeed, component, 25.f, standartCollisions );
@@ -122,7 +104,13 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 	}
 
 	latent function InitFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor(ENR_ThrowAbstract);
+		var color : ENR_MagicColor;
+
+		if (isOnHorse) {
+			color = NR_GetActionColor(ENR_ProjectileWithPrepare);
+		} else {
+			color = NR_GetActionColor(ENR_ThrowAbstract);
+		}
 
 		switch (color) {
 			//case ENR_ColorBlack:
@@ -158,7 +146,13 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 	}
 	
 	latent function CollisionFxName() : name {
-		var color : ENR_MagicColor = NR_GetActionColor(ENR_ThrowAbstract);
+		var color : ENR_MagicColor;
+
+		if (isOnHorse) {
+			color = NR_GetActionColor(ENR_ProjectileWithPrepare);
+		} else {
+			color = NR_GetActionColor(ENR_ThrowAbstract);
+		}
 
 		switch (color) {
 			//case ENR_ColorBlack:

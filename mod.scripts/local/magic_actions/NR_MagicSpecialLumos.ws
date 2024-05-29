@@ -50,11 +50,13 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 		if (enable) {
 			if (!IsActive()) {
 				NR_GetReplacerSorceress().PlayEffect( m_fxNameMain );
+				GotoState('Active');
 			}
 		}
 		if (!enable) {
 			if (IsActive()) {
 				NR_GetReplacerSorceress().StopEffect( m_fxNameMain );
+				GotoState('Stop');
 			}
 		}
 		SetActive(enable);
@@ -121,59 +123,61 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	}
 }
 
-/*
-state RunWait in NR_MagicSpecialLumos {
+state Active in NR_MagicSpecialLumos {
+	var lightenedEntities : array<CGameplayEntity>;
+
 	event OnEnterState( prevStateName : name )
 	{
-		parent.inPostState = true;
-		NR_Debug("RunWait: OnEnterState: " + this);
-		RunWait();		
+		ActiveLoop();		
 	}
-	entry function RunWait() {
-		NR_GetReplacerSorceress().SetLumosActive(true);
-		parent.isActive = true;
-		Sleep( parent.s_lifetime );
-		NR_Debug("RunWait: Stop lumos!");
-		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
+
+	entry function ActiveLoop() {
+		var i : int;
+		var comp : CGameplayLightComponent;
+		var entities : array<CGameplayEntity>;
+
+		while (true) {
+			Sleep(0.1f);
+
+			if ( !parent.IsActionAbilityEnabled("AutoLighten") ) {
+				NR_Debug("AutoLighten is disabled");
+				DisableAllLightened();
+				continue;
+			}
+
+			entities.Clear();
+			FindGameplayEntitiesInRange( entities, thePlayer, 20.f, 999 );
+			NR_Debug("AutoLighten: check " + entities.Size());
+			for (i = 0; i < entities.Size(); i += 1) {
+				if (lightenedEntities.Contains(entities[i]))
+					continue;
+				comp = (CGameplayLightComponent)entities[i].GetComponentByClassName('CGameplayLightComponent');
+				NR_Debug("AutoLighten: check entity: " + comp);
+				if (comp && !comp.IsLightOn()/* && !comp.factOnIgnite*/) {
+					comp.SetFadeLight(true);
+					lightenedEntities.PushBack(entities[i]);
+					NR_Debug("AutoLighten: lighten " + entities[i]);
+				}
+			}
+		}
 	}
+
+	protected function DisableAllLightened() {
+		var i : int;
+		var comp : CGameplayLightComponent;
+
+		for (i = lightenedEntities.Size() - 1; i >= 0; i -= 1) {
+			comp = (CGameplayLightComponent)lightenedEntities[i].GetComponentByClassName('CGameplayLightComponent');
+			if (comp && comp.IsLightOn()) {
+				comp.SetFadeLight(false);
+			}
+			NR_Debug("AutoLighten: disable " + lightenedEntities[i]);
+			lightenedEntities.PopBack();
+		}
+	}
+
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug("RunWait: OnLeaveState: " + this);
-		parent.inPostState = false;
+		DisableAllLightened();
 	}
 }
-state Stop in NR_MagicSpecialLumos {
-	event OnEnterState( prevStateName : name )
-	{
-		parent.inPostState = true;
-		NR_Debug("Stop: OnEnterState: " + this);
-		Stop();
-		parent.inPostState = false;
-	}
-	entry function Stop() {
-		NR_GetReplacerSorceress().SetLumosActive(false);
-		parent.isActive = false;
-		NR_GetReplacerSorceress().StopEffect( parent.m_fxNameMain );
-	}
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("Stop: OnLeaveState: " + this);
-		// can be removed from cached/cursed actions
-	}
-}
-state Curse in NR_MagicSpecialLumos {
-	event OnEnterState( prevStateName : name )
-	{
-		NR_Debug("Curse: OnEnterState: " + this);
-		Curse();
-	}
-	entry function Curse() {
-		// do nothing
-		parent.StopAction();
-	}
-	event OnLeaveState( nextStateName : name )
-	{
-		NR_Debug("OnLeaveState: " + this);
-	}
-}
-*/

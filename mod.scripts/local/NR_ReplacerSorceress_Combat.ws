@@ -77,6 +77,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		CombatInit();
 		theTelemetry.LogWithName(TE_STATE_COMBAT);
 		StatsInit();
+		parent.magicManager.UpdateMagicControlHints( thePlayer.GetCurrentStateName() );
 	}
 	
 	function StatsInit()
@@ -112,6 +113,8 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		skillAbilityName = SkillEnumToName(S_Alchemy_s17);
 		while (thePlayer.HasAbility(skillAbilityName))
 			thePlayer.RemoveAbility(skillAbilityName);
+
+		parent.magicManager.UpdateMagicControlHints( nextStateName );
 	}
 	
 	event OnStateCanGoToCombat()
@@ -1609,6 +1612,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			return;
 		}
 
+		thePlayer.PlayBattleCry( 'BattleCryAttack', 1.f );
 		if ( parent.magicManager.HasStaminaForAction(actionType) ) {
 			parent.magicManager.SetActionType( actionType );
 			NR_Debug("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
@@ -1649,6 +1653,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			return false;
 		}
 
+		thePlayer.PlayBattleCry( 'BattleCryAttack', 0.2f );
 		parent.magicManager.SetActionType( actionType );
 		// manually push action to Active state
 		playRet = comboPlayer.PlayAttack( aspectName );

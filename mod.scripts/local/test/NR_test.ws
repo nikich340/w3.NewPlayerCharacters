@@ -271,9 +271,41 @@ exec function nrMoveTo3(pointNum : int) {
 	NR_Notify("nrMoveTo3 = " + npc.ActionMoveCustomAsync(targeter));
 }
 
+exec function nrBehCrow() {
+	var template : CEntityTemplate;
+	var entity : CEntity;
+
+	//template = (CEntityTemplate)LoadResource("characters\npc_entities\animals\crow.w2ent", true);
+	template = (CEntityTemplate)LoadResource("dlc\ep1\data\items\quest_items\q603\q603_dialog_crow.w2ent", true);
+	entity = (CEntity)theGame.CreateEntity(template, thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 2.f + Vector(0,0,1.f), thePlayer.GetWorldRotation());
+	entity.AddTag('nr_test_entity');
+}
+
+exec function nrBehAnim(animName : name) {
+	var actor : CEntity;
+
+	actor = (CEntity)theGame.GetEntityByTag('nr_test_entity');
+	if (!actor) {
+		NR_Notify("No entity!");
+		return;
+	}
+	actor.GetRootAnimatedComponent().PlaySlotAnimationAsync(animName, 'NPC_ANIM_SLOT');
+}
+
+exec function nrBehAnim2(animName : name) {
+	var actor : CEntity;
+
+	actor = (CEntity)theGame.GetEntityByTag('nr_test_entity');
+	if (!actor) {
+		NR_Notify("No entity!");
+		return;
+	}
+	actor.GetRootAnimatedComponent().PlaySlotAnimationAsync(animName, 'GAMEPLAY_SLOT');
+}
+
 exec function nrBehRaise(eventName : name) {
-	var npc : CNewNPC;
-	npc = (CNewNPC)theGame.GetEntityByTag('nr_test_entity');
+	var npc : CEntity;
+	npc = (CEntity)theGame.GetEntityByTag('nr_test_entity');
 	if (!npc) {
 		NR_Notify("No entity!");
 		return;
@@ -281,8 +313,8 @@ exec function nrBehRaise(eventName : name) {
 	NR_Notify("RaiseEvent [" + eventName + "] = " + npc.GetRootAnimatedComponent().RaiseBehaviorEvent(eventName));
 }
 exec function nrBehSet(varName : name, varValue : float) {
-	var npc : CNewNPC;
-	npc = (CNewNPC)theGame.GetEntityByTag('nr_test_entity');
+	var npc : CEntity;
+	npc = (CEntity)theGame.GetEntityByTag('nr_test_entity');
 	if (!npc) {
 		NR_Notify("No entity!");
 		return;
@@ -348,23 +380,6 @@ exec function nrAllSkills() {
 	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialMeteorFall, 10);
 	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialPolymorphism, 10);
 	NR_GetMagicManager().SetActionSkillLevel(ENR_WaterTrap, 10);
-
-	// Pursuit
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialField, "Pursuit");
-	
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialTornado, "Pursuit");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialTornado, "Suck");
-
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "TwoServants");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Barghest");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Endriaga");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Arachnomorph");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Arachas");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Followers");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "Gargoyle");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "EarthElemental");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "IceElemental");
-	NR_GetMagicManager().ActionAbilityUnlock(ENR_SpecialServant, "FireElemental");
 }
 
 exec function nrMasterBarrier(enable : bool) {
@@ -430,15 +445,6 @@ exec function nrSkill(skillLevel : int) {
 	}
 	NR_Notify("Set skill value = [" + NR_GetMagicManager().GetSkillLevelLocStr(skillLevel) + "]");
 	NR_GetMagicManager().SetParamInt('universal', "DEBUG_skillLevel", skillLevel);
-}
-
-exec function nrElement(element : int) {
-	if (element > EnumGetMax('ENR_MagicElement') || element < 1) {
-		NR_Notify("Invalid element value, it must be [1; " + EnumGetMax('ENR_MagicElement') + "]");
-		return;
-	}
-	NR_Notify("Set element value = [" + NR_GetMagicManager().GetMagicElementLocStr(element) + "]");
-	NR_GetMagicManager().SetParamInt('universal', "magic_skill_element", element);
 }
 
 exec function nrProjectile(damage : float) {
@@ -514,6 +520,7 @@ exec function scene1m() {
 	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
 }
 
+// nrscene(quests\part_1\quest_files\q305_blanka\scenes\q305_08_the_play.w2scene, Act3_abe_pri)
 exec function nrscene(path : string, optional input : String) {
 	var scene      : CStoryScene;
 	scene = (CStoryScene)LoadResource(path, true);
@@ -1576,10 +1583,6 @@ function PlayHeadEffect( effect : name, optional stop : bool )
 	}
 }
 
-function NR_EulerToString(euler: EulerAngles) : String {
-	return "[" + FloatToStringPrec(euler.Pitch,3) + ", " + FloatToStringPrec(euler.Yaw,3) + ", " + FloatToStringPrec(euler.Roll,3) + "]";
-}
-
 exec function NR_Range(range : float, optional makeFriendly : bool) {
 		var entities: array<CGameplayEntity>;
     var actor : CActor;
@@ -2100,14 +2103,6 @@ exec function testgate(optional enable: bool) {
 
 exec function nrresetsaved() {
 	NR_GetPlayerManager().PullReplacerForQuest();	
-}
-
-exec function getdebug() {
-	NR_Notify("Lines = " + NR_GetPlayerManager().GetDebugLineCount());
-}
-
-exec function printdebug() {
-	NR_GetPlayerManager().PrintDebugLines();
 }
 
 exec function nrworld(worldName : String) {

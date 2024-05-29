@@ -1,5 +1,6 @@
 statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
-	var transformNPC 	: CNewNPC;
+	var transformNPC 	: CActor;
+	var animalType 		: name;
 	var idleActionId 	: int;
 	var appearanceName 	: name;
 	
@@ -18,7 +19,6 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 	}
 
 	latent function OnPrepare() : bool {
-		var animalType 	: name;
 		var appNames 	: array<name>;
 		super.OnPrepare();
 
@@ -26,7 +26,6 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		animalType = map[sign].getN("style_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat');
 		if (animalType == 'cat') {
 			resourceName = "nr_transform_cat";
-			entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 
 			// Dhu's cats: https://www.nexusmods.com/witcher3/mods/3527
 			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
@@ -47,11 +46,17 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 				}
 				appearanceName = appNames[ NR_GetRandomGenerator().next(appNames.Size()) ];
 			}
+		} else if (animalType == 'crow') {
+			resourceName = "nr_transform_crow";
+			appearanceName = 'crow_01';
+		} else if (animalType == 'owl') {
+			resourceName = "nr_transform_owl";
+			appearanceName = 'owl_01';
 		} else {
 			NR_Error("NR_MagicSpecialPolymorphism: Unknown animalType = " + animalType);
 			return OnPrepared(false);
 		}
-		// TODO #C: more types
+		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 		
 		return OnPrepared(true);
 	}
@@ -67,8 +72,11 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		thePlayer.PlayEffect(m_fxNameMain);
 		Sleep(0.3f);
 		pos = thePlayer.GetWorldPosition();
+		if (animalType == 'crow' || animalType == 'owl') {
+			pos.Z += 2.f;
+		}
 		rot = thePlayer.GetWorldRotation();
-		transformNPC = (CNewNPC)theGame.CreateEntity(entityTemplate, pos, rot);
+		transformNPC = (CActor)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!transformNPC) {
 			NR_Error("transformNPC is invalid.");
 			return OnPerformed(false);
@@ -80,7 +88,9 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 
 		if (IsInSetupScene()) {
 			// fast transform without changing thePlayer state
-			pos.Z += 1.f;
+			if (animalType == 'cat') {
+				pos.Z += 1.f;
+			}
 			transformNPC.EnablePhysicalMovement(true);
 			((CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent()).SetAnimatedMovement(true);
 			((CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent()).SetGravity(false);
@@ -99,6 +109,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 			return OnPerformed(true);
 		}
 
+		/*
 		su_oneliner = SU_onelinerEntity(
 			"",
 			transformNPC
@@ -106,11 +117,17 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		su_oneliner.setOffset( Vector(0, 0, 0.5f) );
 		su_oneliner.setRenderDistance( 100 );
 		su_oneliner.visible = false;
+		*/
 
 		thePlayer.CreateAttachment(transformNPC);
-		thePlayer.GotoState('NR_Transformed');
+		NR_Debug("ENR_SpecialPolymorphism: goto state transformed: " + animalType);
+		if (animalType == 'cat') {
+			thePlayer.GotoState('NR_TransformedCat', false);
+		} else if (animalType == 'crow' || animalType == 'owl') {
+			thePlayer.GotoState('NR_TransformedCrow', false);
+		}
 
-		GotoState('Active');
+		this.GotoState('Active');
 		return OnPerformed(true);
 	}
 	
@@ -160,13 +177,24 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 }
 
 state Active in NR_MagicSpecialPolymorphism {
+	var sorceress : NR_ReplacerSorceress;
+
 	entry function ActiveLoop() {
-		parent.su_oneliner.visible = true;
-		while ( GetLocalTime() < parent.s_lifetime ) {
-			UpdateOnelinerTime(, "#FFA91B");
-	    	Sleep(0.1f);
+		sorceress = NR_GetReplacerSorceress();
+
+		Sleep(0.5f);
+
+		// show base tutorial
+		if (FactsQuerySum("nr_magic_polymorphism_tutorial") < 1) {
+			NR_ShowTutorial("PolymorphismWarning", true);
+			FactsAdd("nr_magic_polymorphism_tutorial", 1);
 		}
-		parent.su_oneliner.visible = false;
+
+		while (true) {
+			SleepOneFrame();
+			if (theInput.GetActionValue( 'CastSignHold' ) > 0.f)
+				break;
+		}
 
 		NR_Debug("StopAction: " + this);
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
@@ -179,12 +207,14 @@ state Stop in NR_MagicSpecialPolymorphism {
 		parent.transformNPC.PlayEffect('disappear');
 		Sleep(0.5f);
 		//parent.transformNPC.ResetTemporaryAttitudeGroup(AGP_Default);
+		parent.transformNPC.SetVisibility(false);
 		thePlayer.BreakAttachment();
 
 		thePlayer.PlayEffect(parent.m_fxNameMain);
 		
-		parent.transformNPC.Destroy();
-		thePlayer.GotoState('Exploration');
+		parent.transformNPC.StopAllEffects();
+		parent.transformNPC.DestroyAfter(1.f);
+		thePlayer.GotoState('Exploration', false);
 		parent.inPostState = false;
 	}
 }

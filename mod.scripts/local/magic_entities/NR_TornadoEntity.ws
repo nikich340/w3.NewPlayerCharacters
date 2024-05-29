@@ -178,7 +178,8 @@ state Active in NR_TornadoEntity {
 				damageVal = GetDamage(victims[i], /*min*/ 2.f*parent.m_dk, /*max*/ 50.f*parent.m_dk, /*vitality*/ 25.f*parent.m_dk, 8.f*parent.m_dk, /*essence*/ 90.f*parent.m_dk, 12.f*parent.m_dk /*randRange*/);
 				damageVal = damageVal * damageTime / parent.m_tornadoLifetime;
 				damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
-				damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, damageVal * 0.5f );
+				damage.AddDamage( theGame.params.DAMAGE_NAME_SLASHING, damageVal * 0.25f );
+				damage.AddDamage( theGame.params.DAMAGE_NAME_SILVER, damageVal * 0.25f );
 				//damage.SetCanPlayHitParticle( false );
 				damage.SetSuppressHitSounds( true );
 				damage.SetHitAnimationPlayType( EAHA_ForceNo );

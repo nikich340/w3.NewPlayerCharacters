@@ -1,6 +1,6 @@
 /* Remove swords stuff after scene is ended */
 state PlayerDialogScene in NR_ReplacerSorceress
-{
+{	
 	event OnBlockingSceneEnded( optional output : CStorySceneOutput)
 	{
 		parent.ExterminateSwordStuff();

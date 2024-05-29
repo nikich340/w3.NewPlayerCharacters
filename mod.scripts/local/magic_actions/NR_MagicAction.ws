@@ -67,7 +67,7 @@ abstract statemachine class NR_MagicAction {
         if (!IsInSetupScene()) {
 			target = thePlayer.GetTarget();
 		}
-		isOnHorse = thePlayer.IsUsingHorse();
+		isOnHorse = thePlayer.IsUsingHorse() || (IsInSetupScene() && IsInSetupSceneHorse());
 		
         NR_Debug(actionType + ".OnInit: target = " + target);
 		if ( !IsInSetupScene() && !IsScripted() && voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
@@ -202,12 +202,8 @@ abstract statemachine class NR_MagicAction {
 		return NR_GetMagicManager().GetActionSkillLevel(actionType);
 	}
 
-	protected function ActionAbilityUnlock(abilityName : String) {
-		NR_GetMagicManager().ActionAbilityUnlock(actionType, abilityName);
-	}
-
-	protected function IsActionAbilityUnlocked(abilityName : String) : bool {
-		return NR_GetMagicManager().IsActionAbilityUnlocked(actionType, abilityName);
+	protected function IsActionAbilityEnabled(abilityName : String) : bool {
+		return NR_GetMagicManager().IsActionAbilityEnabled(actionType, abilityName);
 	}
 
 	// + x% to damage
@@ -514,6 +510,12 @@ abstract statemachine class NR_MagicAction {
 		return damage;
 	}
 
+	function AddMagicDamage(damageAction : W3DamageAction, damageTotalVal : float) {
+		damageAction.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageTotalVal * 0.5f );
+		damageAction.AddDamage( theGame.params.DAMAGE_NAME_SLASHING, damageTotalVal * 0.25f );
+		damageAction.AddDamage( theGame.params.DAMAGE_NAME_SILVER, damageTotalVal * 0.25f );
+	}
+
 	// [playerLevel - 2step, playerLevel - step, playerLevel, playerLevel + step, playerLevel + 2step]
 	function NR_AdjustMinionLevel(npc : CNewNPC, optional step : int) {
 		var newLevel : int;
@@ -530,7 +532,11 @@ abstract statemachine class NR_MagicAction {
 	}
 
 	function IsInSetupScene() : bool {
-		return map[ST_Universal].getI("setup_scene_active", 0);
+		return map[ST_Universal].getI("setup_scene_active", 0) > 0;
+	}
+
+	function IsInSetupSceneHorse() : bool {
+		return map[ST_Universal].getI("setup_scene_horse", 0) > 0;
 	}
 
 	function MidPosInScene(optional farFromCamera : bool) : Vector {
@@ -547,11 +553,13 @@ abstract statemachine class NR_MagicAction {
 
 	// get action color enum for current action type
 	public function NR_GetActionColor(optional customActionType : ENR_MagicAction) : ENR_MagicColor {
-		var prefix : String = "color_";
+		var prefix : String;
 		var color : ENR_MagicColor;
 
 		if (isOnHorse)
-			 prefix += "horse_";
+			prefix = "color_horse_";
+		else
+			prefix = "color_";
 
 		if (customActionType != ENR_Unknown)
 			color = (ENR_MagicColor)map[sign].getI(prefix + ENR_MAToName(customActionType), ENR_ColorWhite);

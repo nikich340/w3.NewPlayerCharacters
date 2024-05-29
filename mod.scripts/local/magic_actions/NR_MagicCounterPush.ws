@@ -15,19 +15,6 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("FullBlast");
-		}
-		if (newLevel == 7) {
-			ActionAbilityUnlock("Freezing");
-		}
-		if (newLevel == 10) {
-			ActionAbilityUnlock("Burning");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
@@ -41,11 +28,11 @@ class NR_MagicCounterPush extends NR_MagicAction {
 			return OnPrepared(false);
 		}
 
-		s_fullSphere = !isScripted && IsActionAbilityUnlocked("FullBlast");
+		s_fullSphere = !isScripted && IsActionAbilityEnabled("FullBlast");
 		if (!isScripted && SkillLevel() + 20 >= NR_GetRandomGenerator().nextRange(1, 100)) {
-			if ( BuffType() == 1 && IsActionAbilityUnlocked("Burning") )
+			if ( BuffType() == 1 && IsActionAbilityEnabled("Burning") )
 				s_burn = true;
-			else if ( BuffType() == 0 && IsActionAbilityUnlocked("Freezing") )
+			else if ( BuffType() == 0 && IsActionAbilityEnabled("Freezing") )
 				s_freeze = true;		
 		}
 		

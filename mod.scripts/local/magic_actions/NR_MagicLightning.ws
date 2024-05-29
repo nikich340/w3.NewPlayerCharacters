@@ -14,13 +14,6 @@ class NR_MagicLightning extends NR_MagicAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("Rebound");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
@@ -34,7 +27,7 @@ class NR_MagicLightning extends NR_MagicAction {
 			NR_Error("DummyEntity is invalid.");
 			return OnPrepared(false);
 		}
-		s_rebound = !isScripted && IsActionAbilityUnlocked("Rebound");
+		s_rebound = !isScripted && IsActionAbilityEnabled("Rebound");
 		dummyEntity.DestroyAfter( 5.f );
 		m_fxNameMain = LightningFxName();
 		m_fxNameHit = HitFxName();
@@ -75,8 +68,7 @@ class NR_MagicLightning extends NR_MagicAction {
 			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 			dk = 1.5f * SkillTotalDamageMultiplier();
 			damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
-			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
-			damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, damageVal * 0.5f );
+			AddMagicDamage(damage, damageVal);
 			damage.AddEffectInfo(EET_Stagger, 2.f);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
@@ -143,8 +135,6 @@ class NR_MagicLightning extends NR_MagicAction {
 		damage.Initialize( thePlayer, newTarget, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 		dk = 1.f * SkillTotalDamageMultiplier();
 		damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
-		damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
-		damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, damageVal * 0.5f );
 		damage.AddEffectInfo(EET_Stagger, 1.f);
 		theGame.damageMgr.ProcessAction( damage );
 		delete damage;
@@ -216,10 +206,15 @@ class NR_MagicLightning extends NR_MagicAction {
 
 	latent function HitFxName(optional customActionType : ENR_MagicAction) : name {
 		var color : ENR_MagicColor;
-		if (customActionType != ENR_Unknown)
+		if (customActionType != ENR_Unknown) {
 			color = NR_GetActionColor(customActionType);
-		else
-			color = NR_GetActionColor(ENR_ThrowAbstract);
+		} else {
+			if (isOnHorse) {
+				color = NR_GetActionColor(ENR_Lightning);
+			} else {
+				color = NR_GetActionColor(ENR_ThrowAbstract);
+			}
+		}
 
 		switch (color) {
 			//case ENR_ColorBlack:
@@ -256,11 +251,22 @@ class NR_MagicLightning extends NR_MagicAction {
 
 	latent function LightningFxName(optional customActionType : ENR_MagicAction) : name {
 		var color 	: ENR_MagicColor;
-		var fx_type : name			 = map[sign].getN("style_" + ENR_MAToName(actionType));
-		if (customActionType != ENR_Unknown)
-			color = NR_GetActionColor(customActionType);
+		var fx_type : name;
+
+		if (isOnHorse)
+			fx_type = map[sign].getN("style_horse_" + ENR_MAToName(actionType));
 		else
-			color = NR_GetActionColor(ENR_ThrowAbstract);
+			fx_type = map[sign].getN("style_" + ENR_MAToName(actionType));
+
+		if (customActionType != ENR_Unknown) {
+			color = NR_GetActionColor(customActionType);
+		} else {
+			if (isOnHorse) {
+				color = NR_GetActionColor(ENR_Lightning);
+			} else {
+				color = NR_GetActionColor(ENR_ThrowAbstract);
+			}
+		}
 		
 		switch (color) {
 			//case ENR_ColorBlack:

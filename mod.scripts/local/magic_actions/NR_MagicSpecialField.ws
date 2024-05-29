@@ -22,13 +22,6 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("Pursuit");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
@@ -54,7 +47,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		}
 		l_fieldFxName = FieldFxName();
 		l_fieldCursedFxName = 'field_fx_red';
-		l_pursue = IsActionAbilityUnlocked("Pursuit");
+		l_pursue = IsActionAbilityEnabled("Pursuit");
 		l_distance = 10.f;
 		l_distanceSq = l_distance * l_distance;
 

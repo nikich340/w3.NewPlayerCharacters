@@ -19,13 +19,6 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 3) {
-			ActionAbilityUnlock("AutoAim");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		var i, numberOfCircles, numberToSpawn, numPerCircle : int;
 		var startTime				: float;
@@ -142,7 +135,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 				projectileFlightTime = distance3DToTarget / drawSpeedLimit;
 				target.SignalGameplayEventParamFloat( 'Time2DodgeProjectile', projectileFlightTime );
 			}
-			if (target && IsActionAbilityUnlocked("AutoAim")) {
+			if (target && IsActionAbilityEnabled("AutoAim")) {
 				projectile.ShootProjectileAtNode( projectile.projAngle, projectile.projSpeed, target, range, standartCollisions );
 			} else {
 				projectile.ShootProjectileAtPosition( projectile.projAngle, projectile.projSpeed, pos, range, standartCollisions );

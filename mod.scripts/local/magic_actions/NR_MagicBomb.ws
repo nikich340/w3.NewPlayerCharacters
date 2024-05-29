@@ -13,20 +13,17 @@ class NR_MagicBomb extends NR_MagicAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("Pursuit");
-		}
-		if (newLevel == 10) {
-			ActionAbilityUnlock("DamageControl");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
+		var depotPath : String;
+
 		super.OnPrepare();
 
-		entityTemplate = (CEntityTemplate)LoadResourceAsync( "nr_philippa_arcane" );
+		depotPath = BombDepotPath();
+		entityTemplate = (CEntityTemplate)LoadResourceAsync( depotPath, true );
+		if (!entityTemplate) {
+			NR_Error(actionType + ".OnPrepare: !entityTemplate, " + depotPath);
+			return OnPrepared(false);
+		}
 
 		return OnPrepared(true);
 	}
@@ -48,13 +45,13 @@ class NR_MagicBomb extends NR_MagicAction {
 			NR_Error("l_bombEntity is invalid, template = " + entityTemplate);
 			return OnPerformed(false);
 		}
-		bombPursue = IsActionAbilityUnlocked("Pursuit");
-		respectCaster = IsActionAbilityUnlocked("DamageControl");
+		bombPursue = IsActionAbilityEnabled("Pursuit");
+		respectCaster = IsActionAbilityEnabled("DamageControl");
+
 		l_bombEntity.m_fxName = ArcaneFxName();
 		l_bombEntity.m_explosionFxName = ExplosionFxName();
 		l_bombEntity.m_metersPerSec = 1.f;
-		l_bombEntity.m_timeToExplode = 3.f;
-		dk = 2.25f * SkillTotalDamageMultiplier();
+		dk = 2.f * SkillTotalDamageMultiplier();
 		l_bombEntity.m_damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 		l_bombEntity.Init(thePlayer, target, /*respectCaster*/ respectCaster, /*pursue*/ bombPursue);
 		l_bombEntity.DestroyAfter(l_bombEntity.m_timeToExplode + 5.f);
@@ -72,8 +69,24 @@ class NR_MagicBomb extends NR_MagicAction {
 		}
 	}
 
-	latent function ArcaneFxName() : name {
+	latent function BombDepotPath() : String {
+		var style : name = map[sign].getN("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
 		var color : ENR_MagicColor = NR_GetActionColor();
+
+		switch (style) {
+			case 'tower_nowhere':
+				return "dlc\dlcnewreplacers\data\entities\magic\bomb\nr_sq210_lightning_" + ENR_MCToStringShort(color) + ".w2ent";
+			default:
+				return "dlc\dlcnewreplacers\data\entities\magic\bomb\nr_" + NameToString(style) + "_bomb.w2ent";
+		}
+	}
+
+	latent function ArcaneFxName() : name {
+		var style : name = map[sign].getN("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
+		var color : ENR_MagicColor = NR_GetActionColor();
+
+		if (style == 'tower_nowhere')
+			return 'pre_lightning';
 
 		switch (color) {
 			//case ENR_ColorBlack:
@@ -109,7 +122,11 @@ class NR_MagicBomb extends NR_MagicAction {
 	}
 
 	latent function ExplosionFxName() : name {
+		var style : name = map[sign].getN("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
 		var color : ENR_MagicColor = NR_GetActionColor();
+
+		if (style == 'tower_nowhere')
+			return 'lightning';
 
 		switch (color) {
 			//case ENR_ColorBlack:

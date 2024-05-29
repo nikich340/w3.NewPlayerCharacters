@@ -1,9 +1,8 @@
-/* I have to change some params which are hard-coded in vanilla states */
-state Exploration in NR_ReplacerSorceress
+/* Update magic hint info */
+state Swimming in NR_ReplacerSorceress
 {
 	event OnEnterState( prevStateName : name )
 	{
-		parent.AddTimer('NR_SetTargetDist', 0.5f);
 		parent.magicManager.UpdateMagicControlHints( thePlayer.GetCurrentStateName() );
 		super.OnEnterState( prevStateName );
 	}

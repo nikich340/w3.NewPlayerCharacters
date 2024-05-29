@@ -653,10 +653,6 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
     }
 }
 
-quest function NR_MagicActionAbilityUnlock_Q( type : name, abilityName : String ) {
-    NR_GetMagicManager().ActionAbilityUnlock(ENR_NameToMA(type), abilityName);
-}
-
 latent quest function NR_ProcessMasterThunder_Q() {
     var i, factVal, oldFactVal : int;
     var interval : float;

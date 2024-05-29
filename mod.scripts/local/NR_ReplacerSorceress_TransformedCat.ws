@@ -1,74 +1,17 @@
-state NR_Transformed in NR_ReplacerSorceress extends Base {
-	var transformNPC 	: CNewNPC;
-	var MAC				: CMovingPhysicalAgentComponent; 
-	var movementAdjustor: CMovementAdjustor; 
+state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 	var jumpEndEvent	: bool; 
-	var attackEndEvent	: bool; 
-	var collisionObstaclesGround : array<name>;
+	var attackEndEvent	: bool;
 
 	var IN_WATER, IN_JUMP, IN_FALL, IN_ATTACK : bool;
 	var breathingBubble : NR_BreathingBubble;
-	var i, j 			: int;
-	var blockedActions 	: array<EInputActionBlock>;
 
 	event OnEnterState( prevStateName : name )
 	{
 		var bubbleTemplate : CEntityTemplate;
 		// Pass to base class
 		super.OnEnterState(prevStateName);
-		theInput.SetContext( 'Exploration' );
-
-		transformNPC = theGame.GetNPCByTag('NR_TRANSFORM_NPC');
-		if (!transformNPC) {
-			NR_Error("Leaving NR_Transformed: null transformNPC!");
-			GotoState('Exploration');
-		}
-		MAC = (CMovingPhysicalAgentComponent)transformNPC.GetMovingAgentComponent();
-		movementAdjustor = MAC.GetMovementAdjustor();
-
-		virtual_parent.SetPlayerCombatStance( PCS_Normal, true );
-		theGame.GetGuiManager().DisableHudHoldIndicator();
-		parent.RemoveBuffImmunity_AllCritical('Swimming');
+		NR_Debug("NR_TransformedCat.OnEnterState");
 		
-		((CMovingPhysicalAgentComponent)parent.GetMovingAgentComponent()).SetSwimming( false );
-		((CMovingPhysicalAgentComponent)parent.GetMovingAgentComponent()).SetDiving( false );
-		((CMovingPhysicalAgentComponent)parent.GetMovingAgentComponent()).SetTerrainInfluence(0.f);
-
-		parent.SetOrientationTarget( OT_Player );
-		parent.ClearCustomOrientationInfoStack();
-		// Force AI
-		parent.SetCombatIdleStance( 1.f );
-		parent.OnCombatActionEndComplete();
-		parent.RaiseForceEvent( 'ForceIdle' );
-		parent.SetBIsInputAllowed(true, 'ExplorationInit');
-
-		//blockedActions.PushBack( EIAB_Signs );
-		blockedActions.PushBack( EIAB_DrawWeapon );
-		blockedActions.PushBack( EIAB_OpenInventory );
-		blockedActions.PushBack( EIAB_RadialMenu );
-		blockedActions.PushBack( EIAB_CallHorse );
-		blockedActions.PushBack( EIAB_Fists );
-		blockedActions.PushBack( EIAB_Roll );
-		blockedActions.PushBack( EIAB_InteractionAction );
-		blockedActions.PushBack( EIAB_ThrowBomb );
-		blockedActions.PushBack( EIAB_Interactions );
-		blockedActions.PushBack( EIAB_Dodge );
-		blockedActions.PushBack( EIAB_SwordAttack );
-		blockedActions.PushBack( EIAB_Parry );
-		blockedActions.PushBack( EIAB_LightAttacks );
-		blockedActions.PushBack( EIAB_HeavyAttacks );
-		blockedActions.PushBack( EIAB_QuickSlots );
-		blockedActions.PushBack( EIAB_Crossbow );
-		blockedActions.PushBack( EIAB_UsableItem );
-		blockedActions.PushBack( EIAB_Climb );
-		blockedActions.PushBack( EIAB_Slide );
-		blockedActions.PushBack( EIAB_MountVehicle );
-		blockedActions.PushBack( EIAB_InteractionContainers );
-		blockedActions.PushBack( EIAB_SpecialAttackLight );
-		blockedActions.PushBack( EIAB_SpecialAttackHeavy );
-		blockedActions.PushBack( EIAB_OpenGwint );
-		//blockedActions.PushBack( EIAB_OpenMeditation );
-
 		// JUMP & ATTACK & WATER stuff
 		bubbleTemplate = (CEntityTemplate)LoadResource("nr_breathing_bubble");
 		breathingBubble = (NR_BreathingBubble)theGame.CreateEntity(bubbleTemplate, transformNPC.GetWorldPosition());
@@ -79,25 +22,10 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 			NR_Error("NR_Transformed: can't attach bubble!");
 		}
 		breathingBubble.Init(0.25f, 2.f);
-
 		transformNPC.AddAnimEventChildCallback(parent, 'JumpEnd', 'OnAnimEvent_JumpEnd');
 		transformNPC.AddAnimEventChildCallback(parent, 'AttackEnd', 'OnAnimEvent_AttackEnd');
-		collisionObstaclesGround.PushBack( 'Terrain' );
-		collisionObstaclesGround.PushBack( 'Static' );
-		collisionObstaclesGround.PushBack( 'Foliage' );
-		collisionObstaclesGround.PushBack( 'Dynamic' );
-		collisionObstaclesGround.PushBack( 'Destructible' );
-		collisionObstaclesGround.PushBack( 'RigidBody' );
-		collisionObstaclesGround.PushBack( 'Platforms' );
-		collisionObstaclesGround.PushBack( 'Boat' );
-		collisionObstaclesGround.PushBack( 'BoatDocking' );
-		// ENABLE PUPPET
-		for (i = 0; i < blockedActions.Size(); i += 1) {
-			parent.BlockAction( blockedActions[i], 'NR_Transformed' );
-		}
-		TooglePlayerPotency(false);
 
-		MainLoop();
+		CatLoop();
 	}
 
 	event OnAnimEvent_JumpEnd( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
@@ -111,8 +39,8 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		attackEndEvent = true;
 	}
 
-	latent function CheckInWater() {
-		if (MAC.GetSubmergeDepth() + /* MAC.GetCapsuleHeight()*/ 0.4f < 0.f) {
+	latent function CheckIsInWater() {
+		if (MAC.GetSubmergeDepth() + MAC.GetCapsuleHeight() /*0.4f*/ < 0.f) {
 			if (!IN_WATER) {
 				breathingBubble.Activate();
 				NR_Debug("GetCurrentGameState: " + theSound.GetCurrentGameState());
@@ -135,7 +63,8 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 			IN_WATER = false;
 		}
 	}
-	latent function CheckInAir() {
+
+	latent function CheckIsInAir() {
 		var world : CWorld;
 		var pos, outPos, outNormal : Vector;
 		var groundZ, outZ : float;
@@ -173,6 +102,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		}
 		IN_FALL = false;
 	}
+
 	latent function AttackLoop(alternate : bool) {
 		var startTime, frameTime : float;
 		var MAX_ATTACK_DURATION : float;
@@ -193,7 +123,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		while (true) {
 			SleepOneFrame();
 			frameTime = theGame.GetEngineTimeAsSeconds();
-			CheckInWater();
+			CheckIsInWater();
 
 			if (attackEndEvent || frameTime - startTime > MAX_ATTACK_DURATION) {
 				IN_ATTACK = false;
@@ -245,7 +175,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 			SleepOneFrame();
 			frameTime = theGame.GetEngineTimeAsSeconds();
 
-			CheckInWater();
+			CheckIsInWater();
 
 			if (IN_JUMP) {
 				if (jumpEndEvent) {
@@ -301,7 +231,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 			}
 		}
 	}
-	entry function MainLoop() {
+	entry function CatLoop() {
     	var ticketAngle			: float;
     	var ticketAngles		: EulerAngles;
 		var isRunPressed, isJumpPressed, isAttackPressed, isAttackAltPressed	: bool;
@@ -311,7 +241,6 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		var RL, FB, sumAngle, angleToReach, npcHeadingAngle, angleL, angleR : float;
 		var numAxises : int;
 
-		var IN_WATER : bool;
 		var pos, groundPos : Vector;
 		var outPos, outNormal : Vector;
 		var outZ, groundZ : float;
@@ -332,6 +261,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 
 			frameTime = theGame.GetEngineTimeAsSeconds();
 			if (!transformNPC.IsAlive()) {
+				NR_Debug("transformCat is dead!");
 				thePlayer.Kill( 'NR_TransformNPC', true );
 				break;
 			}
@@ -344,7 +274,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 			FB = theInput.GetActionValue( 'GI_AxisLeftY' );
 			RL = theInput.GetActionValue( 'GI_AxisLeftX' );
 
-			CheckInWater();
+			CheckIsInWater();
 			if (isJumpPressed) {
 				lEditor_MovementSpeed = 0.f;
 				lEditor_MovementRotation = 0.f;
@@ -354,7 +284,7 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 				continue;
 			}
 
-			CheckInAir();
+			CheckIsInAir();
 			if (IN_FALL) {
 				lEditor_MovementSpeed = 0.f;
 				lEditor_MovementRotation = 0.f;
@@ -445,61 +375,14 @@ state NR_Transformed in NR_ReplacerSorceress extends Base {
 		}
 	}
 
-	function TooglePlayerPotency( enable : bool ) {
-		thePlayer.EnableStaticCollisions(enable);
-		thePlayer.EnableDynamicCollisions(enable);
-		thePlayer.EnableCharacterCollisions(enable);
-		thePlayer.EnableCollisions(enable);
-		thePlayer.SetGameplayVisibility(enable);
-		thePlayer.SetVisibility(enable);
-		thePlayer.SetManualControl(enable, enable);
-		
-		if (enable)
-			thePlayer.ResetTemporaryAttitudeGroup( AGP_Default );
-		else
-			thePlayer.SetTemporaryAttitudeGroup('animals_peacefull', AGP_Default);  // q104_avallach_friendly_to_all?
-	}
-
 	event OnLeaveState( nextStateName : name )
-	{	
-		// DISABLE PUPET
-		TooglePlayerPotency(true);
-		for (i = 0; i < blockedActions.Size(); i += 1) {
-			parent.UnblockAction( blockedActions[i], 'NR_Transformed' );
-		}
-		((CMovingPhysicalAgentComponent)parent.GetMovingAgentComponent()).SetTerrainInfluence(0.4f);
+	{
+		breathingBubble.Deactivate();
+		breathingBubble.DestroyAfter(1.f);
 		transformNPC.RemoveAnimEventChildCallback(parent, 'JumpEnd');
 
 		// Pass to base class
 		super.OnLeaveState(nextStateName);
-
-		if ( nextStateName == 'PlayerDialogScene') {
-			NR_Debug("NR_Transformed: TO SCENE!");
-		}
-		NR_Debug("NR_Transformed: " + nextStateName);
-
-		///theInput.RestoreContext('Exploration', true);
-	}
-
-	// TODO: Check why it here?
-	event OnBlockingSceneStarted( scene: CStoryScene )
-	{
-		virtual_parent.OnBlockingSceneStarted( scene );
-		NR_Notify("NR_Transformed: OnBlockingSceneStarted: " + scene);
-	}
-
-	// TODO: Check why it here?
-	event OnBlockingSceneStarted_OnIntroCutscene( scene: CStoryScene )
-	{
-		virtual_parent.OnBlockingSceneStarted_OnIntroCutscene( scene );
-		NR_Notify("NR_Transformed: OnBlockingSceneStarted_OnIntroCutscene: " + scene);
-	}
-
-	// TODO: Check why it here?
-	public function SetupCombatAction( action : EBufferActionType, stage : EButtonStage )
-	{
-		NR_Debug("NR_Transformed: SetupCombatAction: " + action + ", stage: " + stage);
-		virtual_parent.SetupCombatAction(action, stage);
 	}
 
 	event OnGameCameraTick( out moveData : SCameraMovementData, dt : float )

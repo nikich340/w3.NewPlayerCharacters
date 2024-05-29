@@ -8,32 +8,43 @@
 */
 
 class NR_MagicAspectSelector {
-	private var attackNames 	: array<name>;
-	private var attackCounts 	: array<int>;
+	protected var attackNames 	: array<name>;
+	protected var attackCounts 	: array<int>;
 
-	private var currentAttackCounts : array<int>;
-	private var currentAttackIndex : int;
+	protected var currentAttackCounts : array<int>;
+	protected var currentAttackIndex : int;
+	protected var dontIncreaseIndex : bool;
 
 	public function AddAttack(aName : name, repeats : int) {
 		attackNames.PushBack(aName);
 		attackCounts.PushBack(repeats);
 		RefillCurrent();
 	}
+
 	public function Reset() {
 		attackNames.Clear();
 		attackCounts.Clear();
 		currentAttackCounts.Clear();
 		currentAttackIndex = 0;
+		dontIncreaseIndex = false;
 	}
+
 	public function RefillCurrent() {
 		currentAttackCounts = attackCounts;
 		currentAttackIndex = 0;
 	}
+
 	public function SelectAttack() : name {
 		if ( currentAttackCounts.Size() == 0 ) {
 			NR_Error("NR_MagicAttackSelector.SelectAttack(): empty currentAttackCounts!");
 			return '';
 		}
+
+		if (dontIncreaseIndex) {
+			dontIncreaseIndex = false;
+			return attackNames[currentAttackIndex];
+		}
+
 		while (currentAttackCounts[currentAttackIndex] == 0) {
 			/* Use next attack */
 			currentAttackIndex += 1;
@@ -48,5 +59,14 @@ class NR_MagicAspectSelector {
 			NR_Error("NR_MagicAspectSelector::SelectAttack -> invalid index");
 
 		return attackNames[currentAttackIndex];
+	}
+
+	public function PreviewAttack() : name {
+		var attackName : name;
+
+		attackName = SelectAttack();
+		// mark that selected attack is not used
+		dontIncreaseIndex = true;
+		return attackName;
 	}
 }

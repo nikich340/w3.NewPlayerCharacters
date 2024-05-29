@@ -21,16 +21,6 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("DamageControl");
-		}
-		if (newLevel == 10) {
-			ActionAbilityUnlock("AutoShield");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
@@ -48,8 +38,8 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		m_fxNameHit = HitFxName();
 		NR_Debug("ENR_SpecialLightningFall: m_fxNameMain = " + m_fxNameMain + ", m_fxNameHit = " + m_fxNameHit);
 		
-		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
-		s_autoShield = IsActionAbilityUnlocked("AutoShield");
+		s_respectCaster = IsActionAbilityEnabled("DamageControl");
+		s_autoShield = IsActionAbilityEnabled("AutoShield");
 		s_lightningNum = SkillMaxApplies();
 		savedWeather = GetWeatherConditionName();
 		RequestWeatherChangeTo('WT_Rain_Storm', 1.f, false);
@@ -151,8 +141,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 			dk = 1.f * SkillTotalDamageMultiplier();
 			damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
-			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
-			damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, damageVal * 0.5f );
+			AddMagicDamage(damage, damageVal);
 			damage.AddEffectInfo(EET_Stagger, 3.f);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;

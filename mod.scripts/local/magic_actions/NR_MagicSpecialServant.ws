@@ -20,42 +20,6 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		switch (newLevel) {
-			case 1:
-				ActionAbilityUnlock("barghest");
-				break;
-			case 2:
-				ActionAbilityUnlock("endriaga");
-				break;
-			case 3:
-				ActionAbilityUnlock("arachnomorph");
-				break;
-			case 4:
-				ActionAbilityUnlock("Followers");
-				break;
-			case 5:
-				ActionAbilityUnlock("arachas");
-				break;
-			case 6:
-				ActionAbilityUnlock("TwoServants");
-				break;
-			case 7:
-				ActionAbilityUnlock("gargoyle");
-				break;
-			case 8:
-				ActionAbilityUnlock("earth_elemental");
-				break;
-			case 9:
-				ActionAbilityUnlock("ice_elemental");
-				break;
-			case 10:
-				ActionAbilityUnlock("fire_elemental");
-				break;
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		var i 			: int;
 		var template 	: CEntityTemplate;
@@ -63,9 +27,9 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 		var depotPath 	: String;
 
 		super.OnPrepare();
-		s_follower = IsActionAbilityUnlocked("Followers");
+		s_follower = IsActionAbilityEnabled("Followers");
 		s_servantCount = 1;
-		if (IsActionAbilityUnlocked("TwoServants")) {
+		if (IsActionAbilityEnabled("TwoServants")) {
 			s_servantCount += 1;
 		}
 

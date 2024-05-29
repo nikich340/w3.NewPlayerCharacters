@@ -35,7 +35,7 @@ class NR_MeteorProjectile extends W3FireballProjectile
 		action = new W3DamageAction in theGame;
 		action.Initialize((CGameplayEntity)caster,victim,this,caster.GetName(),EHRT_Heavy,CPS_Undefined,false,true,false,false);
 		action.AddDamage( m_damageName, projDMG * 0.5f );
-		action.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, projDMG * 0.5f );
+		action.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, projDMG * 0.5f );
 
 		if ( projEfect != EET_Undefined )
 		{

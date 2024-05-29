@@ -15,13 +15,6 @@ class NR_MagicSlash extends NR_MagicAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("DoubleSlash");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function SetSwingData(newSwingType : int, newSwingDir : int) {
 		swingType = newSwingType;
 		swingDir = newSwingDir;
@@ -34,7 +27,7 @@ class NR_MagicSlash extends NR_MagicAction {
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
-		if ( IsActionAbilityUnlocked("DoubleSlash") ) {
+		if ( IsActionAbilityEnabled("DoubleSlash") ) {
 			pos.Z += 0.15f;
 			dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
 			pos.Z -= 0.3f;
@@ -87,9 +80,7 @@ class NR_MagicSlash extends NR_MagicAction {
 				dk = 1.f * SkillTotalDamageMultiplier();
 			}
 			damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
-			damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
-			damage.AddDamage( theGame.params.DAMAGE_NAME_DIRECT, damageVal * 0.5f );
-			// damage.AddEffectInfo(EET_Burning, 2.0);
+			AddMagicDamage(damage, damageVal);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
 		} else if (destroyableTarget) {

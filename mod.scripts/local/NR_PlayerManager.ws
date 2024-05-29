@@ -78,8 +78,9 @@ statemachine class NR_PlayerManager extends IScriptable {
 	default    			m_replacerForQuestSaved = ENR_PlayerUnknown;
 
 	// for testing
-	protected saved var m_debugLines : array<String>;
 	public saved var m_debugObject : IScriptable;
+	protected saved var m_magicVersion : int;
+	default 			m_magicVersion = -1;
 
 	// called once: after entity created //
 	public function Init() {
@@ -182,32 +183,12 @@ statemachine class NR_PlayerManager extends IScriptable {
 		}
 	}
 
-	// testing stuff
-	public function AddDebugLine(line : String) {
-		var i : int;
-		var newLines : array<String>;
-
-		m_debugLines.PushBack(line);
-		if (m_debugLines.Size() > 2000) {
-			LogChannel('NR_DEBUG', "Cropping debug lines to 1000");
-
-			for (i = m_debugLines.Size() - 1000; i < m_debugLines.Size(); i += 1) {
-				newLines.PushBack(m_debugLines[i]);
-			}
-			m_debugLines = newLines;
-		}
+	public function GetMagicVersion() : int {
+		return m_magicVersion;
 	}
 
-	public function GetDebugLineCount() : int {
-		return m_debugLines.Size();
-	}
-
-	public function PrintDebugLines() {
-		var i : int;
-
-		for (i = 0; i < m_debugLines.Size(); i += 1) {
-			LogChannel('NR_SAVEDDEBUG', m_debugLines[i]);
-		}
+	public function SetMagicVersion(newVersion : int) {
+		m_magicVersion = newVersion;
 	}
 
 	// check if dlc installed - use pre-checked array
@@ -1223,8 +1204,9 @@ statemachine class NR_PlayerManager extends IScriptable {
 			// CREATE cell
 			m_appearanceItems[GetCurrentPlayerType()].PushBack(templateName);
 			m_appearanceItemIsLoaded[GetCurrentPlayerType()].PushBack(false);
+
 			itemIndex = m_appearanceItems[GetCurrentPlayerType()].Size() - 1;
-			FactsAdd("nr_appearance_item_" + IntToString(itemIndex + 1), 1);
+			FactsSet("nr_appearance_item_" + IntToString(itemIndex + 1), 1);
 		} else {
 			// UNLOAD cell
 			if (m_appearanceItems[GetCurrentPlayerType()][itemIndex] != "" && m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex]) {
@@ -1238,9 +1220,9 @@ statemachine class NR_PlayerManager extends IScriptable {
 			// REMOVE cell //
 			m_appearanceItems[GetCurrentPlayerType()].Erase(itemIndex);
 			m_appearanceItemIsLoaded[GetCurrentPlayerType()].Erase(itemIndex);
-			itemIndex = m_appearanceItems[GetCurrentPlayerType()].Size();
-			if (FactsDoesExist("nr_appearance_item_" + IntToString(itemIndex + 1)))
-				FactsRemove("nr_appearance_item_" + IntToString(itemIndex + 1));
+
+			itemIndex = m_appearanceItems[GetCurrentPlayerType()].Size() - 1;
+			FactsSet("nr_appearance_item_" + IntToString(itemIndex + 1), 1);
 		} else if (!m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex]) {
 			// LOAD cell //
 			IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][itemIndex]);
@@ -1259,8 +1241,12 @@ statemachine class NR_PlayerManager extends IScriptable {
 				m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = true;
 			}
 		}
+		for (i = 0; i < 30; i += 1) {
+			FactsSet("nr_appearance_item_" + IntToString(i + 1), 0);
+		}
 		for (i = 0; i < m_appearanceItems[GetCurrentPlayerType()].Size(); i += 1) {
 			IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
+			FactsSet("nr_appearance_item_" + IntToString(i + 1), 1);
 		}
 	}
 

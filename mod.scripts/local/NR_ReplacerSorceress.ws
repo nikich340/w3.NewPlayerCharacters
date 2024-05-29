@@ -31,17 +31,20 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
+		var test : SResistanceValue;
+
 		super.OnSpawned( spawnData );
 
 		magicManager = new NR_MagicManager in this;
-		AddTimer('NR_LaunchMagicManager', 0.25f);  // post-pone to let player manager load
+		// post-pone to let player manager load
+		AddTimer('NR_LaunchMagicManager', 0.1f);
 
 		AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
 		AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
 		AddAnimEventCallback('RotatePrePerformAction','OnAnimEventMagic');
 		AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
 		AddAnimEventCallback('UnblockMiscActions',	'OnAnimEventMagic');
-		//AddAnimEventCallback('AllowBlend',	'OnAnimEventBlend');
+		AddAnimEventCallback('AllowBlend',			'OnAnimEventBlend');
 		AddAnimEventCallback('PrepareTeleport',		'OnAnimEventMagic');
 		AddAnimEventCallback('PerformTeleport',		'OnAnimEventMagic');
 
@@ -59,9 +62,17 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		NR_SetTargetDist( 0.0, 0 );
 		softLockDist = nr_targetDist * 1.25;
 		findMoveTargetDistMax = nr_targetDist + 10.f;
+		NR_Debug( "abilityManager.HasResistStat = " + this.abilityManager.HasResistStat(CDS_SlashingRes) );
+		this.abilityManager.GetResistStat(CDS_SlashingRes, test);
+		NR_Debug( "abilityManager.GetResistStat = " + NR_AttributeToStr(test.points) + ", " + NR_AttributeToStr(test.percents) + ", " + test.type );
 	}
 
 	timer function NR_LaunchMagicManager( delta : float, id : int) {
+		if ( !NR_GetPlayerManager().IsReady() ) {
+			// player manager still not loaded
+			AddTimer('NR_LaunchMagicManager', 0.1f);
+			return;
+		}
 		magicManager.Init();
 		magicManager.GotoState('MagicLoop');
 		// launch lumos fx if was active
@@ -83,6 +94,10 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		nr_targetDist = 15.f;
 		findMoveTargetDistMin = nr_targetDist;
 		NR_Debug("NR_SetTargetDist = " + nr_targetDist);
+	}
+
+	public function NR_IsTransformed() : bool {
+		return false;
 	}
 
 	public function ExterminateSwordStuff() {
@@ -153,16 +168,18 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		super.OnBlockingSceneStarted(scene);
 	}
 	
-	public function GoToStateIfNew( newState : name, optional keepStack : bool, optional forceEvents : bool  )
+	/* public function GoToStateIfNew( newState : name, optional keepStack : bool, optional forceEvents : bool  )
 	{
 		NR_Debug("NR_ReplacerSorceress.GoToStateIfNew: newState = " + newState);
 		super.GoToStateIfNew(newState, keepStack, forceEvents);
+		//magicManager.UpdateMagicControlHints();
 	}
+	*/
 
 	// TODO: Remove this later!!
 	event OnAnimEventBlend( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
 	{
-		// NR_Notify("OnAnimEventBlend: (" + animEventName + ") " + GetAnimNameFromEventAnimInfo(animInfo));
+		// NR_Debug("OnAnimEventBlend: (" + animEventName + ") " + GetAnimNameFromEventAnimInfo(animInfo));
 	}
 
 	public function NR_RestoreQuen( quenHealth : float, quenDuration : float ) : bool
@@ -219,6 +236,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	{
 		NR_Debug("NR_ReplacerSorceress.SetEquippedSign: " + signType);
 		super.SetEquippedSign(signType);
+		magicManager.UpdateEquippedSign();
 		magicManager.HandFX(true, true);
 	}
 

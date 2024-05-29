@@ -233,6 +233,29 @@ storyscene function NR_SetMagicParamName_S(player: CStoryScenePlayer, signName :
 	magicManager.UpdateMagicInfo();
 }
 
+storyscene function NR_SwitchActionAbility_S(player: CStoryScenePlayer, type : name, abilityName : String) {
+	var magicManager : NR_MagicManager = NR_GetMagicManager();
+	var oldValue : bool;
+	var enumType : ENR_MagicAction;
+
+	enumType = ENR_NameToMA(type);
+	oldValue = magicManager.IsActionAbilityDisabledByUser(enumType, abilityName);
+	NR_Debug("NR_SwitchActionAbility_S: [" + type + "] (" + abilityName + ") = " + oldValue);
+	magicManager.SetActionAbilityDisabledByUser(enumType, abilityName, !oldValue);
+}
+
+storyscene function NR_SwitchMagicControlHints_S(player: CStoryScenePlayer) {
+	var magicManager : NR_MagicManager = NR_GetMagicManager();
+	
+	if (FactsQuerySum("nr_magic_hide_control_hints") > 0) {
+		FactsSet("nr_magic_hide_control_hints", 0);
+		magicManager.ShowMagicControlHints(true);
+	} else {
+		FactsSet("nr_magic_hide_control_hints", 1);
+		magicManager.ShowMagicControlHints(false);
+	}
+}
+
 latent storyscene function NR_CreatePortal_S(player: CStoryScenePlayer, waypointTag : name, worldName : String, optional activeTime : float) {
 	NR_CreatePortal( waypointTag, worldName, activeTime );
 }

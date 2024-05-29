@@ -56,13 +56,6 @@ class NR_MagicTeleport extends NR_MagicAction {
 		return OnPrepared(true);
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("AutoCounterPush");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPerform() : bool {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
@@ -71,7 +64,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		}
 
 		thePlayer.PlayEffect( m_fxNameExtra );
-		if (thePlayer.IsInCombat() && IsActionAbilityUnlocked("AutoCounterPush") && SkillLevel() * 2 + 10 >= NR_GetRandomGenerator().nextRange(1, 100)) {
+		if (thePlayer.IsInCombat() && IsActionAbilityEnabled("AutoCounterPush") && SkillLevel() * 2 + 10 >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			PerformAutoPush();
 		}
 

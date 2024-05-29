@@ -4,7 +4,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 {
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("NR_ReplacerSorceress.CombatFists.OnEnterState from " + prevStateName);
 		theInput.SetContext(parent.GetCombatInputContext());
 
 		super.OnEnterState(prevStateName);
@@ -14,7 +13,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	event OnLeaveState( nextStateName : name ) {
 		startupAction = IA_None;
 		this.CombatFistsDone( nextStateName );
-		super.OnLeaveState(nextStateName);		
+		super.OnLeaveState(nextStateName);
 	}
 
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )

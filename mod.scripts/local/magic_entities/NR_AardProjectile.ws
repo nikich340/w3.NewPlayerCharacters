@@ -13,12 +13,15 @@ class NR_AardProjectile extends W3AardProjectile {
 	protected function ProcessCollisionOnEntity( target : CGameplayEntity ) {
 		var params 	: SCustomEffectParams;
 		var npc  	: CNewNPC;
+		var buffResult 	: EEffectInteract;
+		var i 			: int;
+		var effectTypes : array<EEffectType>;
 
 		if (targetEntities.FindFirst(target) > -1)
 			return;
 
 		targetEntities.PushBack(target);
-		target.OnAardHit( this );
+		// target.OnAardHit( this );
 
 		npc = (CNewNPC)target;
 		if (!npc)
@@ -27,32 +30,46 @@ class NR_AardProjectile extends W3AardProjectile {
 		params.creator = thePlayer;
 		params.sourceName = 'NR_AardProjectile';
 		//params.effectValue.valueAdditive = 50.f + 20.f * target.GetLevel();
-
-		if (useFreeze) {
-			params.duration = 5.f;
-			params.effectType = EET_Frozen;
-		} else if (useBurn) {
-			params.duration = 5.f;
-			params.effectType = EET_Burning;
-		} else {
-			params.duration = 5.f;
-			/*
-			if (!target.IsImmuneToBuff(EET_HeavyKnockdown))
-				params.effectType = EET_HeavyKnockdown;
-			else if (!target.IsImmuneToBuff(EET_LongStagger))
-				params.effectType = EET_LongStagger;
-			else
-				params.effectType = EET_KnockdownTypeApplicator;
-			*/
-			params.effectValue.valueBase = 1000.f;
-			params.effectValue.valueMultiplicative = 5.f;
-			params.effectValue.valueAdditive = 1000.f;
-			params.customPowerStatValue.valueBase = 1000.f;
-			params.customPowerStatValue.valueMultiplicative = 5.f;
-			params.customPowerStatValue.valueAdditive = 1000.f;
-			params.effectType = EET_KnockdownTypeApplicator;
+		params.effectValue.valueBase = 1000.f;
+		params.effectValue.valueMultiplicative = 1.25f;
+		params.effectValue.valueAdditive = 1000.f;
+		params.customPowerStatValue.valueBase = 1000.f;
+		params.customPowerStatValue.valueMultiplicative = 1.25f;
+		params.customPowerStatValue.valueAdditive = 1000.f;
+		params.duration = 5.f;
+		
+		if (useFreeze || useBurn) {
+			params.duration = 7.f;
+			if (useFreeze) {
+				params.effectType = EET_Frozen;
+			} else {
+				//params.effectValue.valueBase = 50.f + 10.f * target.GetLevel();
+				//params.effectValue.valueMultiplicative = 1.f;
+				//params.effectValue.valueAdditive = 0.f;
+				params.effectType = EET_Burning;
+			}
+			npc.AddEffectCustom(params);
+			return;
 		}
-		npc.AddEffectCustom(params);
+
+		effectTypes.PushBack(EET_HeavyKnockdown);
+		effectTypes.PushBack(EET_Knockdown);
+		effectTypes.PushBack(EET_LongStagger);
+		effectTypes.PushBack(EET_Stagger);
+		effectTypes.PushBack(EET_KnockdownTypeApplicator);
+
+		for (i = 0; i < effectTypes.Size(); i += 1) {
+			params.effectType = effectTypes[i];
+			// remove old to prevent cumulating
+			// npc.RemoveBuff(effectTypes[i]);
+			buffResult = npc.AddEffectCustom(params);
+			if (buffResult != EI_Deny) {
+				// success
+				NR_Debug("ProcessCollisionOnEntity: " + buffResult + " (" + effectTypes[i] + "), npc = " + npc);
+				break;
+			}
+		}
+		NR_Debug("ProcessCollisionOnEntity: " + buffResult + ", npc = " + npc);
 	}
 
 	protected function ProcessCollision( collider : CGameplayEntity, pos, normal : Vector )
@@ -95,7 +112,7 @@ class NR_AardProjectile extends W3AardProjectile {
 	}
 	*/
 
-	latent function NR_ProcessCollisionNPCsInCone(range : float, angle : float, metersPerSec : float) {
+	latent function NR_ProcessCollisionNPCsInCone_OLD(range : float, angle : float, metersPerSec : float) {
 		var actors 	: array <CActor>;
 		var nodes 	: array <CNode>;
 		var npc 	: CNewNPC;
@@ -105,9 +122,9 @@ class NR_AardProjectile extends W3AardProjectile {
 
 		pos = this.GetWorldPosition();
 		if (angle > 359.f) {
-			actors = thePlayer.GetNPCsAndPlayersInRange(/*range*/ range, , , /*flags*/ FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile);
+			//actors = thePlayer.GetNPCsAndPlayersInRange(/*range*/ range, , , /*flags*/ FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile);
 		} else {
-			actors = thePlayer.GetNPCsAndPlayersInCone(/*range*/ range, /*coneDir*/ thePlayer.GetHeading(), /*coneAngle*/ angle, , , /*flags*/ FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile);
+			//actors = thePlayer.GetNPCsAndPlayersInCone(/*range*/ range, /*coneDir*/ thePlayer.GetHeading(), /*coneAngle*/ angle, , , /*flags*/ FLAG_OnlyAliveActors + FLAG_ExcludeTarget + FLAG_Attitude_Hostile);
 		}
 		
 		NR_Debug("AARD: " + actors.Size() + " targets");
@@ -121,7 +138,7 @@ class NR_AardProjectile extends W3AardProjectile {
 		for (i = 0; i < nodes.Size(); i += 1) {
 			npc = (CNewNPC)nodes[i];
 			npcPos = npc.GetWorldPosition();
-			if (!npc || !npc.IsAlive() || AbsF(pos.Z - npcPos.Z) > 2.f)
+			if (!npc || !npc.IsAlive() || AbsF(pos.Z - npcPos.Z) > 4.f)
 				continue;
 			
 			timeWait = VecDistance2D(pos, npcPos) / metersPerSec;
@@ -165,7 +182,7 @@ class NR_AardProjectile extends W3AardProjectile {
 				continue;
 
 			entityPos = entity.GetWorldPosition();
-			if (AbsF(pos.Z - entityPos.Z) > 2.5f)
+			if (AbsF(pos.Z - entityPos.Z) > 3.f)
 				continue;
 			
 			timeWait = VecDistance2D(pos, entityPos) / metersPerSec;

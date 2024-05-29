@@ -83,12 +83,44 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 
 		return ret;
 	}
+
+	// fix missed armor value
+	public function GetTotalArmor() : SAbilityAttributeValue
+	{
+		var armor : SAbilityAttributeValue;
+		var armorItem : SItemUniqueId;
+		
+		armor.valueMultiplicative = 1.0;
+		
+		if(GetItemEquippedOnSlot(EES_Armor, armorItem))
+		{
+			armor += inv.GetItemArmorTotal(armorItem);			
+		}
+		
+		if(GetItemEquippedOnSlot(EES_Pants, armorItem))
+		{
+			armor += inv.GetItemArmorTotal(armorItem);			
+		}
+			
+		if(GetItemEquippedOnSlot(EES_Boots, armorItem))
+		{
+			armor += inv.GetItemArmorTotal(armorItem);			
+		}
+			
+		if(GetItemEquippedOnSlot(EES_Gloves, armorItem))
+		{
+			armor += inv.GetItemArmorTotal(armorItem);			
+		}
+		
+		NR_Debug("GetTotalArmor = " + NR_AttributeToStr(armor));
+		return armor;
+	}
 	
 	/* WRAPPER: TODO: Check why it here? */
 	public function SetupCombatAction( action : EBufferActionType, stage : EButtonStage )
 	{
 		NR_Debug("NR_ReplacerWitcher: SetupCombatAction: " + action + ", stage: " + stage);
-		if ( !IsInState('NR_Transformed') ) {
+		if ( !StrStartsWith(NameToString(GetCurrentStateName()), 'NR_Transformed') ) {
 			super.SetupCombatAction(action, stage);
 		}
 	}

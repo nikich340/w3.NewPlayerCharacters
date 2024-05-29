@@ -13,13 +13,11 @@ quest function NR_Notify_Quest(message : String, optional seconds : float) {
 function NR_Debug(message : String, optional removeOnRelease : bool)
 {
 	LogChannel('NR_DEBUG', "(" + FloatToStringPrec(theGame.GetEngineTimeAsSeconds(), 3) + "): " + message);
-	NR_GetPlayerManager().AddDebugLine(message);
 }
 
 function NR_Error(message : String)
 {
     LogChannel('NR_ERROR', "(" + FloatToStringPrec(theGame.GetEngineTimeAsSeconds(), 3) + "): " + message);
-    NR_GetPlayerManager().AddDebugLine(message);
 }
 
 function NR_stringByItemUID(inv : CInventoryComponent, itemId : SItemUniqueId) : String {
@@ -68,6 +66,8 @@ function ENR_MAToName(action : ENR_MagicAction) : name {
 			return 'ENR_SpecialTornado';
 		case ENR_SpecialShield:
 			return 'ENR_SpecialShield';
+		case ENR_SpecialWeatherChange:
+			return 'ENR_SpecialWeatherChange';
 		case ENR_Teleport:
 			return 'ENR_Teleport';
 		case ENR_HandFx:
@@ -149,6 +149,9 @@ function ENR_MAToLocString(action : ENR_MagicAction) : String {
 		case ENR_SpecialShield:
 			id = 2115940156;
 			break;
+		case ENR_SpecialWeatherChange:
+			id = 2115940599;
+			break;
 		case ENR_Teleport:
 			id = 2115940589;
 			break;
@@ -222,6 +225,8 @@ function ENR_NameToMA(actionName : name) : ENR_MagicAction {
 			return ENR_SpecialTornado;
 		case 'ENR_SpecialShield':
 			return ENR_SpecialShield;
+		case 'ENR_SpecialWeatherChange':
+			return ENR_SpecialWeatherChange;
 		case 'ENR_Teleport':
 			return ENR_Teleport;
 		case 'ENR_HandFx':
@@ -663,11 +668,14 @@ function NR_GetSignIconPathByType( signType : ESignType ) : string
 	}
 }
 
-function NR_GetSignIconFormattedByType( signType : ESignType, optional height : int, optional width : int, optional vspace : int ) : string
+// shorten paths relative to gui_new folder:
+// dlc\bob\data\gameplay\gui_new\icons\monsters\bestiary_nightmare_horse_locked.png
+// -> icons\monsters\bestiary_nightmare_horse_locked.png
+function NR_GetHtmlIconFormatted( iconPath : String, optional height : int, optional width : int, optional vspace : int ) : string
 {
 	var text : String;
 
-	text = "<img src='img://" + NR_GetSignIconPathByType(signType) + "'";
+	text = "<img src='img://" + iconPath + "'";
 	if (height > 0)
 		text += " height='" + height + "'";
 
@@ -681,10 +689,33 @@ function NR_GetSignIconFormattedByType( signType : ESignType, optional height : 
 	return text;
 }
 
+function NR_AttributeToStr(attr : SAbilityAttributeValue) : String {
+	return "[" + attr.valueBase + " * " + attr.valueMultiplicative + " + " + attr.valueAdditive + " = " + CalculateAttributeValue(attr) + "]";
+}
+
+function NR_GetSignIconFormattedByType( signType : ESignType, optional height : int, optional width : int, optional vspace : int ) : String
+{
+	return NR_GetHtmlIconFormatted( NR_GetSignIconPathByType(signType), height, width, vspace );
+}
+
 function NR_IsPlayerFree() : bool {
     if (!theGame.IsActive() || theGame.IsDialogOrCutscenePlaying() || thePlayer.IsInNonGameplayCutscene() || thePlayer.IsInGameplayScene() 
         || theGame.IsFading() || theGame.IsBlackscreen() || theGame.HasBlackscreenRequested() || thePlayer.IsInCombat()) {
         return false;
     }
     return true;
+}
+
+function NR_EulerToString(angles : EulerAngles) : String {
+	return angles.Pitch + " " + angles.Roll + " " + angles.Yaw;
+}
+
+function NR_AngleToVec(angles: EulerAngles) : Vector {
+	var vecX, vecY, vecZ : Vector;
+
+	vecX = RotX(angles);
+	vecY = RotY(angles);
+	vecZ = RotZ(angles);
+
+	return Vector( vecX.X, vecY.Y, vecZ.Z );
 }

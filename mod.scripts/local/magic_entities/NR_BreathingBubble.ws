@@ -1,7 +1,7 @@
 statemachine class NR_BreathingBubble extends CGameplayEntity {
-	var m_scale, m_targetScale, m_scalePerSec : float;
-	var m_isActive : bool;
-	var m_component : CMeshComponent;
+	protected var m_scale, m_targetScale, m_scalePerSec : float;
+	protected var m_isActive : bool;
+	protected var m_component : CMeshComponent;
 
 	default m_targetScale 	= 1.0f;
 	default m_scalePerSec 	= 0.5f; // 2 sec for 100%
@@ -13,6 +13,10 @@ statemachine class NR_BreathingBubble extends CGameplayEntity {
 		SetScale(0.f);
 		m_isActive = false;
 		NR_Debug("NR_BreathingBubble: Init, m_scalePerSec = " + m_scalePerSec);
+	}
+
+	public function IsActive() : Bool {
+		return m_isActive;
 	}
 
 	protected function SetScale(newScale : float) {
@@ -35,6 +39,7 @@ statemachine class NR_BreathingBubble extends CGameplayEntity {
 state Activating in NR_BreathingBubble {
 	event OnEnterState( prevStateName : name )
 	{
+		parent.m_isActive = true;
 		ActivatingLoop();
 	}
 	entry function ActivatingLoop() {
@@ -57,7 +62,6 @@ state Activating in NR_BreathingBubble {
 			prevFrameTime = frameTime;
 		}
 		NR_Debug("NR_BreathingBubble: ActivatingLoop: target scale reached in " + (frameTime - startTime));
-		parent.m_isActive = true;
 	}
 	event OnLeaveState( nextStateName : name )
 	{
@@ -67,6 +71,7 @@ state Activating in NR_BreathingBubble {
 state Deactivating in NR_BreathingBubble {
 	event OnEnterState( prevStateName : name )
 	{
+		parent.m_isActive = false;
 		DeactivatingLoop();
 	}
 	entry function DeactivatingLoop() {
@@ -89,7 +94,6 @@ state Deactivating in NR_BreathingBubble {
 			prevFrameTime = frameTime;
 		}
 		NR_Debug("NR_BreathingBubble: DeactivatingLoop: target scale reached in " + (frameTime - startTime));
-		parent.m_isActive = false;
 	}
 	event OnLeaveState( nextStateName : name )
 	{

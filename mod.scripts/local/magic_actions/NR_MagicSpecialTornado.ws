@@ -16,29 +16,13 @@ statemachine class NR_MagicSpecialTornado extends NR_MagicSpecialAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 1) {
-			ActionAbilityUnlock("Pursuit");
-		}
-		if (newLevel == 2) {
-			ActionAbilityUnlock("Suck");
-		}
-		if (newLevel == 4) {
-			ActionAbilityUnlock("DamageControl");
-		}
-		if (newLevel == 7) {
-			ActionAbilityUnlock("Freezing");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
-		s_pursue = IsActionAbilityUnlocked("Pursuit");
-		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
-		s_freeze = IsActionAbilityUnlocked("Freezing");
-		s_suck = IsActionAbilityUnlocked("Suck");
+		s_pursue = IsActionAbilityEnabled("Pursuit");
+		s_respectCaster = IsActionAbilityEnabled("DamageControl");
+		s_freeze = IsActionAbilityEnabled("Freezing");
+		s_suck = IsActionAbilityEnabled("Suck");
 		m_caster = thePlayer;
 
 		// load action-specific resources

@@ -16,20 +16,13 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("DamageControl");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
 		resourceName = MeteorEntityName();
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName, true);
 
-		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
+		s_respectCaster = IsActionAbilityEnabled("DamageControl");
 		s_meteorNum = SkillMaxApplies();
 
 		return OnPrepared(true);

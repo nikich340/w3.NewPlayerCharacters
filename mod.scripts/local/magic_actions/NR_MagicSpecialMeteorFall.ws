@@ -18,16 +18,6 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("DamageControl");
-		}
-		if (newLevel == 10) {
-			ActionAbilityUnlock("AutoShield");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		super.OnPrepare();
 
@@ -36,14 +26,14 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		} else {
 			s_lifetime = 0.2f; // how long should spell work after anim ends
 		}
-		s_interval = 0.25f;
+		s_interval = 0.4f;
 
 		resourceName = MeteorEntityName();
 		NR_Debug("MeteorEntityName = " + resourceName);
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName, true);
 		
-		s_respectCaster = IsActionAbilityUnlocked("DamageControl");
-		s_autoShield = IsActionAbilityUnlocked("AutoShield");
+		s_respectCaster = IsActionAbilityEnabled("DamageControl");
+		s_autoShield = IsActionAbilityEnabled("AutoShield");
 		s_meteorNum = SkillMaxApplies();
 
 		return OnPrepared(true);
@@ -103,7 +93,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		}
 		pos.Z -= 40.f;
 
-		dk = 2.5f * SkillTotalDamageMultiplier();  // 3.5f for single
+		dk = 2.75f * SkillTotalDamageMultiplier();  // 3.5f for single
 		meteor.projDMG = GetDamage(/*min*/ 2.f*dk, /*max*/ 60.f*dk, /*vitality*/ 32.f, 8.f*dk, /*essence*/ 90.f, 10.f*dk /*randRange*/ /*customTarget*/);
 		meteor.explosionRadius = 2.75f;
 		meteor.m_shakeStrength = 0.3f;

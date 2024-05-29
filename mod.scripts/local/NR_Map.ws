@@ -211,4 +211,23 @@ class NR_Map {
 			return false;
 		}		
 	}
+
+	public function debugAll() : void {
+		var str : String;
+		for (i = 0; i < values.Size(); i += 1) {
+			str = "MAP[" + i + "] = " + "(" + values[i].key + ", " + values[i].type + ")";
+			if (values[i].type == ENR_Int) {
+				str += " " + IntToString(values[i].valI);
+			} else if (values[i].type == ENR_Float) {
+				str += " " + FloatToString(values[i].valF);
+			} else if (values[i].type == ENR_Name) {
+				str += " " + NameToString(values[i].valN);
+			} else if (values[i].type == ENR_String) {
+				str += " " + values[i].valS;
+			} else if (values[i].type == ENR_Object) {
+				str += " " + values[i].valO;
+			}
+			NR_Debug(str);
+		}
+	}
 }

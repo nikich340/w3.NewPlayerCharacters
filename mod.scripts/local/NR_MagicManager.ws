@@ -42,6 +42,7 @@ enum ENR_MagicAction {
 	ENR_SpecialMeteor,
 	ENR_SpecialTornado,
 	ENR_SpecialShield,
+	ENR_SpecialWeatherChange,
 		// special attack (alternative)
 	ENR_SpecialAbstractAlt,	// not a real type
 	ENR_SpecialPolymorphism,
@@ -101,6 +102,7 @@ statemachine class NR_MagicManager extends IScriptable {
 	// shared stuff
 	protected var mLumosAction 	: NR_MagicSpecialLumos;
 	protected var aActionType 	: ENR_MagicAction;
+	protected var passiveActions : array<NR_MagicPassiveAction>;
 	protected var cachedActions : array<NR_MagicAction>;
 	protected var cursedActions : array<NR_MagicAction>;
 	protected var willeyVictim 	: CActor;
@@ -110,6 +112,8 @@ statemachine class NR_MagicManager extends IScriptable {
 	protected var mAction 		: NR_MagicAction;
 	protected var mLastShieldColor : ENR_MagicColor;
 	protected var mMiscActionsBlocked : bool;
+	protected var mSuolOnelinerCorner : SU_OnelinerScreen;
+	protected var mSuolManager	: SUOL_Manager;
 
 	public var aData 			: CPreAttackEventData;
 	public var aTargetPinTag 	: name;
@@ -129,11 +133,21 @@ statemachine class NR_MagicManager extends IScriptable {
 	
 	public function Init(optional forceReset : bool) {
 		var wasLoaded : bool;
+		var 		i : int;
 
+		NR_Debug("NR_MagicManager: Init(" + forceReset + ")");
 		NR_GetPlayerManager().GetMagicDataMaps(sMap, wasLoaded);
+		mSuolManager = SUOL_getManager();
+		mSuolOnelinerCorner = SU_onelinerScreen(
+			"",
+			Vector(0.22, 0.95)
+		);
+		ApplyMagicUpdates();
 
 		SetDefaults_StaminaCost(); // TOREMOVE!
 		if (!wasLoaded || forceReset) {
+			// show control hints by default
+			FactsSet("nr_magic_hide_control_hints", 0);
 			// basic spells are learned by default
 			FactsAdd("nr_magic_skill_level", 1);
 			FactsAdd("nr_magic_skill_learned", 5); // hand-fx, counter-push, teleport, light attacks, lumos
@@ -174,10 +188,69 @@ statemachine class NR_MagicManager extends IScriptable {
 			NR_Debug("MagicManager: Load spell params");
 		}
 
+		if (FactsQuerySum("nr_magic_hide_control_hints") > 0)
+			ShowMagicControlHints(false);
+		else
+			ShowMagicControlHints(true);
+		UpdateEquippedSign();
+		UpdateMagicControlHints( thePlayer.GetCurrentStateName() );
+
 		aSelectorLight = new NR_MagicAspectSelector in this;
 		aSelectorHorse = new NR_MagicAspectSelector in this;
 		aSelectorHeavy = new NR_MagicAspectSelector in this;
 		InitAspectsSelectors();
+
+		for (i = ENR_SkillNovice; i <= GetSkillLevel(); i += 1) {
+			LaunchPassiveActionsForSkillLevel(i);
+		}
+	}
+
+	public function ApplyMagicUpdates() {
+		var oldVersion : int;
+		var actualVersion : int = 1;
+
+		oldVersion = NR_GetPlayerManager().GetMagicVersion();
+		if (oldVersion < actualVersion) {
+			// apply fixes here depending on old version
+			// TOREMOVE: for beta
+			if (GetSkillLevel() >= ENR_SkillApprentice)
+				FactsAdd("nr_magic_skill_points", 1); // ftt
+
+			NR_GetPlayerManager().SetMagicVersion(actualVersion);
+		}
+	}
+
+	/*function IsRadialMenuOpened() : bool
+	{
+		var radialMenuModule : CR4HudModuleRadialMenu;
+		radialMenuModule =  (CR4HudModuleRadialMenu)GetHudModule( "RadialMenuModule" );
+		
+		if(radialMenuModule)
+			return radialMenuModule.IsRadialMenuOpened();
+			
+		return false;
+	}*/
+
+	protected function LaunchPassiveActionsForSkillLevel(skillLevel : ENR_MagicSkill) {
+		var action : NR_MagicPassiveAction;
+
+		switch (skillLevel) {
+			case ENR_SkillNovice:
+				break;
+			case ENR_SkillApprentice:
+				break;
+			case ENR_SkillExperienced:
+				action = new NR_MagicPassiveUnderwaterBreathing in this;
+				action.GotoState('Run');
+				passiveActions.PushBack(action);
+				break;
+			case ENR_SkillMistress:
+				break;
+			case ENR_SkillArchMistress:
+				break;
+			default:
+				break;
+		}
 	}
 
 	public function SetDefaults_LightAbstract() {
@@ -202,6 +275,64 @@ statemachine class NR_MagicManager extends IScriptable {
 		aSelectorHeavy.Reset();
 		aSelectorHeavy.AddAttack('AttackHeavyRock', 	sMap[ST_Universal].getI("heavy_rocks_amount", 2));
 		aSelectorHeavy.AddAttack('AttackHeavyThrow', 	sMap[ST_Universal].getI("heavy_bomb_amount",  1));
+	}
+
+	public function PreviewAction(actionType : ENR_MagicAction, optional horse : bool, optional underwater : bool) : ENR_MagicAction {
+		var aspectName : name;
+
+		// select aspect name for light/heavy
+		if (horse) {
+			aspectName = aSelectorHorse.PreviewAttack();
+			if (aspectName == 'AttackHorseLightning')
+				return ENR_Lightning;
+			else
+				return ENR_ProjectileWithPrepare;
+		}
+
+		if (underwater) {
+			return ENR_WaterTrap;
+		}
+
+		// select action type based on aspect (light/heavy) and selected action type (heavy throw/special attacks)
+		switch (actionType) {
+			case ENR_LightAbstract:
+				aspectName = aSelectorLight.PreviewAttack();
+				if (aspectName == 'AttackLightSlash')
+					return ENR_Slash;
+				else
+					return (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_ThrowAbstract));
+				break;
+			case ENR_HeavyAbstract:
+				aspectName = aSelectorHeavy.PreviewAttack();
+				if (aspectName == 'AttackHeavyRock')
+					return ENR_Rock;
+				else
+					return ENR_BombExplosion;
+				break;
+			case ENR_SpecialAbstract:
+				return (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_SpecialAbstract));
+				break;
+			case ENR_SpecialAbstractAlt:
+				return (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_SpecialAbstractAlt));
+				break;
+			default:
+				break;
+		}
+		return actionType;
+	}
+
+	public function PreviewColor(actionType : ENR_MagicAction, sign : ESignType) : ENR_MagicColor {
+		if (actionType == ENR_Lightning || actionType == ENR_ProjectileWithPrepare)
+			actionType = ENR_ThrowAbstract;
+
+		return (ENR_MagicColor)sMap[sign].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite);
+	}
+
+	public function PreviewLocActionColored(actionType : ENR_MagicAction, optional horse : bool, optional underwater : bool) : String {
+		var finalType : ENR_MagicAction;
+
+		finalType = PreviewAction( actionType, horse, underwater );
+		return ColorFormattedText( ENR_MAToLocString(finalType), PreviewColor(finalType, eqSign) );
 	}
 
 	public function CorrectAspectAction(out actionType : ENR_MagicAction, out aspectName : name) {
@@ -265,6 +396,9 @@ statemachine class NR_MagicManager extends IScriptable {
 			case ENR_SpecialShield:
 				aspectName = 'AttackSpecialShield';
 				break;
+			case ENR_SpecialWeatherChange:
+				aspectName = 'AttackSpecialHeal';
+				break;
 			case ENR_SpecialServant:
 				aspectName = 'AttackHeavyRock';
 				break;
@@ -294,8 +428,80 @@ statemachine class NR_MagicManager extends IScriptable {
 	}
 
 	public function UpdateEquippedSign() {
-		if (!IsInSetupScene())
-			eqSign = GetWitcherPlayer().GetEquippedSign();
+		var newEqSign : ESignType;
+
+		if (!IsInSetupScene()) {
+			newEqSign = GetWitcherPlayer().GetEquippedSign();
+			if (newEqSign != eqSign) {
+				eqSign = newEqSign;
+				UpdateMagicControlHints(thePlayer.GetCurrentStateName());
+			}
+		}
+	}
+
+	public function ShowMagicControlHints(show : bool) {
+		mSuolOnelinerCorner.visible = show;
+	}
+
+	public function UpdateMagicControlHints(stateName : name) {
+		var text : String;
+		var nextLightAction : ENR_MagicAction;
+		var nextHeavyAction : ENR_MagicAction;
+		var nextSpecialAction : ENR_MagicAction;
+		var nextSpecialAltAction : ENR_MagicAction;
+
+		text = "<p align=\"left\"><font size=\"20\">";
+		if (stateName == 'CombatFists' || stateName == 'Combat') {
+			// fast attack
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_groupname_fast_attack") + "</font>: " + PreviewLocActionColored( ENR_LightAbstract ) + "<br>";
+			// heavy attack
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_groupname_strong_attack") + "</font>: " + PreviewLocActionColored( ENR_HeavyAbstract ) + "<br>";
+			// guard - no place for 6th line!
+			// text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_input_action_guard") + "</font>: " + PreviewLocActionColored( ENR_CounterPush ) + "<br>";
+			// dodge/roll
+			text += "<font color=\"#FFFF66\">" + GetLocStringById(1083248) + " / " + GetLocStringById(1084729) + " (+ W/A/S/D)" + "</font>: " + PreviewLocActionColored( ENR_Teleport ) + "<br>";
+			// special
+			text += "<font color=\"#FFFF66\">" + GetLocStringById(1084109) + "</font>: " + PreviewLocActionColored( ENR_SpecialAbstract ) + "<br>";
+			// special (hold)
+			text += "<font color=\"#FFFF66\">" + GetLocStringById(1084109) + " (" + GetLocStringById(1083802) + ")" + "</font>: " + PreviewLocActionColored( ENR_SpecialAbstractAlt ) + "<br>";
+		} else if (stateName == 'Exploration') {
+			// fast attack
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_groupname_fast_attack") + "</font>: " + PreviewLocActionColored( ENR_LightAbstract ) + "<br>";
+			// heavy attack
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_groupname_strong_attack") + "</font>: " + PreviewLocActionColored( ENR_HeavyAbstract ) + "<br>";
+			// potion_4
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("potion_4") + " (+ W/A/S/D)" + "</font>: " + PreviewLocActionColored( ENR_Teleport ) + "<br>";
+			// special
+			text += "<font color=\"#FFFF66\">" + GetLocStringById(1084109) + "</font>: " + PreviewLocActionColored( ENR_SpecialAbstract ) + "<br>";
+			// special (hold)
+			text += "<font color=\"#FFFF66\">" + GetLocStringById(1084109) + " (" + GetLocStringById(1083802) + ")" + "</font>: " + PreviewLocActionColored( ENR_SpecialAbstractAlt ) + "<br>";
+		} else if (stateName == 'Swimming') {
+			// fast attack
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_groupname_fast_attack") + "</font>: " + PreviewLocActionColored( ENR_LightAbstract, false, true ) + "<br>";
+		} else if (stateName == 'HorseRiding') {
+			// fast attack
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_groupname_fast_attack") + "</font>: " + PreviewLocActionColored( ENR_LightAbstract, true, false ) + "<br>";
+		} else if (stateName == 'NR_TransformedCat') {
+			// fast attack (taunt)
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_groupname_fast_attack") + "</font>: " + GetLocStringById(1076766) + "<br>";
+			// special (hold)
+			text += "<font color=\"#FFFF66\">" + GetLocStringById(1084109) + " (" + GetLocStringById(1083802) + ")" + "</font>: " + ENR_MAToLocString( ENR_SpecialPolymorphism ) + "<br>";
+		} else if (stateName == 'NR_TransformedCrow') {
+			// fast attack
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_groupname_fast_attack") + "</font>: " + GetLocStringByKey("panel_groupname_fast_attack") + "<br>";
+			// special (hold)
+			text += "<font color=\"#FFFF66\">" + GetLocStringById(1084109) + " (" + GetLocStringById(1083802) + ")" + "</font>: " + ENR_MAToLocString( ENR_SpecialPolymorphism ) + "<br>";
+			// W (hold)
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_button_common_use") + " (" + GetLocStringById(1083802) + ")" + "</font>: " + GetLocStringById(1072949) + "<br>";
+			// Space (hold)
+			text += "<font color=\"#FFFF66\">" + GetLocStringById(1075763) + " (" + GetLocStringById(1083802) + ")" + "</font>: " + GetLocStringById(2115940594) + "<br>";
+			// E (hold)
+			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_button_common_use") + " (" + GetLocStringById(1083802) + ")" + "</font>: " + GetLocStringById(2115940595) + "<br>";
+		}
+		text += "</font></p>";
+		
+		mSuolOnelinerCorner.setText( text );
+		mSuolManager.updateOneliner( mSuolOnelinerCorner );
 	}
 
 	/* Function for scene setup - should not be called during combat! */
@@ -435,9 +641,11 @@ statemachine class NR_MagicManager extends IScriptable {
 
 		return "<font color = '" + ColorHexStr(color) + "'>" + text + "</font>";
 	}
+
 	protected function ColorFormattedValue(valueId : int, color : ENR_MagicColor) : String {
 		return ColorFormattedText( GetLocStringById(valueId), color );
 	}
+
 	public function MageLocId(characterName : name) : int {
 		switch (characterName) {
 			// characters
@@ -481,6 +689,10 @@ statemachine class NR_MagicManager extends IScriptable {
 			// animals
 			case 'cat':
 				return 1085583;
+			case 'crow':
+				return 1055653;
+			case 'owl':
+				return 2115940597;
 			// minions
 			case 'wild_hunt_hound':
 				return 1050491;
@@ -528,10 +740,11 @@ statemachine class NR_MagicManager extends IScriptable {
 		// <img src='img://" + GetItemIconPathByName + "' height='" + GetNotificationFontSize() + "' width='" + GetNotificationFontSize() + "' vspace='-10' />&nbsp;
 		BR = "<br>";
 		NBSP = "&nbsp;";
-		text = GetLocStringById(2115940583) + BR + BR;
+		text = "";
 
 		if (sectionName == 'main') {
 			// sorceress
+			text += GetLocStringById(2115940583) + BR + BR;
 			text += NR_StrRGB("[{358190}]", 40,25,0) + BR;
 			// level
 			s = GetSkillLevel();
@@ -580,7 +793,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			text += "{2115940119}{ }={ }" + sMap[ST_Universal].getI("light_slash_amount", 2) + ":" + sMap[ST_Universal].getI("light_throw_amount", 1) + BR;
 			for (i = 0; i < signsAlphabetically.Size(); i += 1) {
 				s = signsAlphabetically[i];
-				if (eqSign == s) {
+				if (eqSign == s && !IsInSetupSceneHorse()) {
 					text += "=> ";
 				}
 				styleId = MageLocId( sMap[s].getN("style_" + ENR_MAToName(ENR_Slash), 'yennefer') );
@@ -607,6 +820,19 @@ statemachine class NR_MagicManager extends IScriptable {
 
 				text += BR;
 			}
+			// horse
+			if (eqSign == ST_Axii && IsInSetupSceneHorse()) {
+				text += "=> ";
+			}
+			color = sMap[ST_Axii].getI("color_horse_" + ENR_MAToName(ENR_Lightning), ENR_ColorWhite);
+			styleId = MageLocId( sMap[ST_Axii].getN("style_horse_" + ENR_MAToName(ENR_Lightning), 'yennefer') );
+			text += NR_GetHtmlIconFormatted("icons/monsters/bestiary_nightmare_horse_locked.png",28,28,-20) + "{ }";
+			text += "{2115940141}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
+
+			color = sMap[ST_Axii].getI("color_horse_" + ENR_MAToName(ENR_ProjectileWithPrepare), ENR_ColorWhite);
+			styleId = MageLocId( sMap[ST_Axii].getN("style_horse_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'triss') );
+			text += "{2115940142}:{ }" + ColorFormattedValue(styleId, color) + ";{ }";
+			text += BR;
 		} else if (sectionName == 'heavy') {
 			// heavy attacks
 			text += "<font color='#004e01'>[{2115940146}]</font><br>";
@@ -646,6 +872,8 @@ statemachine class NR_MagicManager extends IScriptable {
                     text += "{2115940155}:{ }" + ColorFormattedValue(styleId, color);
                 } else if (typeId == ENR_SpecialShield) {
                     text += "{2115940156}:{ }" + ColorFormattedValue(ColorLocId(color), color);
+                } else if (typeId == ENR_SpecialWeatherChange) {
+                    text += "{2115940599}";
                 } else if (typeId == ENR_SpecialServant) {
                     text += "{2115940157}:{ }";
                     entityName = sMap[s].getN("entity_0_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound');
@@ -691,7 +919,7 @@ statemachine class NR_MagicManager extends IScriptable {
 							text += BR + NR_StrRed("   {1223720}: ", true) + NR_StrGreen("Immersive Wildlife Project (Dhu Cats)", true) + BR + "nexusmods.com/witcher3/mods/3527";
 						}
                 	} else {
-                		text += "??? " + styleName;
+                		text += GetLocStringById( styleId );
                 	}
                 }
                 text += BR;
@@ -710,6 +938,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			text += "{2115940154}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialControl)) ) + BR;
 			text += "{2115940155}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteor)) ) + BR;
 			text += "{2115940156}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialShield)) ) + BR;
+			text += "{2115940599}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialWeatherChange)) ) + BR;
 			text += "{2115940157}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialServant)) ) + BR;
 			text += "{2115940162}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLightningFall)) ) + BR;
 			text += "{2115940163}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialField)) ) + BR;
@@ -759,6 +988,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialTornado), 50.f);
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialControl), 40.f);
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialShield), 40.f);
+		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialWeatherChange), 20.f);
 
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialLightningFall), 50.f);
 		sMap[ST_Universal].setF("cost_" + ENR_MAToName(ENR_SpecialField), 50.f);
@@ -775,6 +1005,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialTornado), 15);
 		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialControl), 15);
 		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialShield), 0);
+		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialWeatherChange), 0);
 
 		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialLightningFall), 25);
 		sMap[ST_Universal].setI("curse_chance_" + ENR_MAToName(ENR_SpecialField), 25);
@@ -842,7 +1073,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'philippa');
 
 		// horse attacks
-		sMap[ST_Axii].setI("color_horse_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorRandom);
+		sMap[ST_Axii].setI("color_horse_" + ENR_MAToName(ENR_ThrowAbstract), ENR_ColorYellow);
 		sMap[ST_Axii].setN("style_horse_" + ENR_MAToName(ENR_Lightning), 'keira');
 		sMap[ST_Axii].setN("style_horse_" + ENR_MAToName(ENR_ProjectileWithPrepare), 'philippa');
 	}
@@ -870,19 +1101,19 @@ statemachine class NR_MagicManager extends IScriptable {
 	}
 
 	function SetDefaults_HeavyBomb() {
-		sMap[ST_Aard].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
+		sMap[ST_Aard].setN("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
 		sMap[ST_Aard].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorWhite);
 
-		sMap[ST_Axii].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
+		sMap[ST_Axii].setN("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
 		sMap[ST_Axii].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorSeagreen);
 
-		sMap[ST_Igni].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'philippa');
+		sMap[ST_Igni].setN("style_" + ENR_MAToName(ENR_BombExplosion), 'philippa');
 		sMap[ST_Igni].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorOrange);
 
-		sMap[ST_Quen].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
+		sMap[ST_Quen].setN("style_" + ENR_MAToName(ENR_BombExplosion), 'tower_nowhere');
 		sMap[ST_Quen].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorYellow);
 
-		sMap[ST_Yrden].setI("style_" + ENR_MAToName(ENR_BombExplosion), 'philippa');
+		sMap[ST_Yrden].setN("style_" + ENR_MAToName(ENR_BombExplosion), 'philippa');
 		sMap[ST_Yrden].setI("color_" + ENR_MAToName(ENR_BombExplosion), ENR_ColorViolet);
 	}
 
@@ -929,7 +1160,7 @@ statemachine class NR_MagicManager extends IScriptable {
 
 			// GOLEM
 			sMap[i].setI("color_" + ENR_MAToName(ENR_SpecialServant), ENR_ColorViolet);
-			sMap[i].setN("entity_0_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound');
+			sMap[i].setN("entity_0_" + ENR_MAToName(ENR_SpecialServant), 'barghest');
 			sMap[i].setN("entity_1_" + ENR_MAToName(ENR_SpecialServant), 'wild_hunt_hound');
 		}
 	}
@@ -987,6 +1218,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialControl), 30);
 		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteor), 30);
 		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialShield), 30);
+		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialWeatherChange), 30);
 		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialServant), 30);
 		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLightningFall), 30);
 		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialField), 30);
@@ -1048,7 +1280,7 @@ statemachine class NR_MagicManager extends IScriptable {
 	}
 
 	public function IsInSetupScene() : bool {
-		return sMap[ST_Universal].getI("setup_scene_active", 0);
+		return sMap[ST_Universal].getI("setup_scene_active", 0) > 0;
 	}
 
 	public function SetIsInSetupScene(value : bool) {
@@ -1058,6 +1290,19 @@ statemachine class NR_MagicManager extends IScriptable {
 		}
 		else {
 			sMap[ST_Universal].setI("setup_scene_active", 0);
+		}
+	}
+
+	public function IsInSetupSceneHorse() : bool {
+		return sMap[ST_Universal].getI("setup_scene_horse", 0) > 0;
+	}
+
+	public function SetIsInSetupSceneHorse(value : bool) {
+		if (value) {
+			sMap[ST_Universal].setI("setup_scene_horse", 1);
+		}
+		else {
+			sMap[ST_Universal].setI("setup_scene_horse", 0);
 		}
 	}
 	
@@ -1141,7 +1386,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		}
 		action.sign 		= eqSign;
 		action.map 			= sMap;
-		action.m_fxNameHit 	= GetHitFXName( GetActionColor() );
+		action.m_fxNameHit 	= GetHitFXName( GetActionColor(action.actionType) );
 		action.magicSkill 	= GetSkillLevel();
 		action.SetScripted(true);
 		if (isCursed) {
@@ -1174,8 +1419,13 @@ statemachine class NR_MagicManager extends IScriptable {
 			return sMap[ST_Universal].getI("distance_far_" + ENR_MAToName(ENR_Teleport), 10) * 1.f;
 	}
 
-	public function GetActionColor() : ENR_MagicColor {
-		var actionType : ENR_MagicAction = GetActionType();
+	public function GetActionColor(optional customActionType : ENR_MagicAction) : ENR_MagicColor {
+		var actionType : ENR_MagicAction;
+
+		if (customActionType != ENR_Unknown)
+			actionType = customActionType;
+		else
+			actionType = GetActionType();
 
 		switch (actionType) {
 			case ENR_Lightning:
@@ -1186,6 +1436,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			case ENR_SpecialControl:
 			case ENR_SpecialMeteor:
 			case ENR_SpecialShield:
+			case ENR_SpecialWeatherChange:
 			case ENR_SpecialServant:
 				actionType = ENR_SpecialAbstract;
 				break;
@@ -1321,18 +1572,20 @@ statemachine class NR_MagicManager extends IScriptable {
 			NR_Error("UpgradeSkillLevel: Can't upgrade to level: " + nextLevel);
 			return;
 		}
+
 		FactsAdd("nr_magic_skill_level", 1);
+		LaunchPassiveActionsForSkillLevel( GetSkillLevel() );
 
 		// points = how many new spells can you learn, used for scene
 		if (nextLevel == 2) {
-			// Heavy Attacks, Shield
-			FactsAdd("nr_magic_skill_points", 2);
+			// Heavy Attacks, Shield, Weather change
+			FactsAdd("nr_magic_skill_points", 3);
 		} else if (nextLevel == 3) {
-			// Tornado, Control
-			FactsAdd("nr_magic_skill_points", 2);
+			// Tornado, Control, Gravitational Field
+			FactsAdd("nr_magic_skill_points", 3);
 		} else if (nextLevel == 4) {
-			// Meteor, Servant, Alzur's Thunder, Gravitational Field
-			FactsAdd("nr_magic_skill_points", 4);
+			// Meteor, Servant, Alzur's Thunder
+			FactsAdd("nr_magic_skill_points", 3);
 		} else if (nextLevel == 5) {
 			// Melgar's fire, Polymorphism
 			FactsAdd("nr_magic_skill_points", 2);
@@ -1421,7 +1674,7 @@ statemachine class NR_MagicManager extends IScriptable {
 
 	public function GetActionSkillLevel( type : ENR_MagicAction ) : int {
 		// return sMap[ST_Universal].getI("level_" + ENR_MAToName(type), 0);
-		// do -1,+1 because skill = 1 means learned but level 0
+		// do -1 because skill = 1 means learned but level 0
 		return FactsQuerySum("nr_magic_skill_" + ENR_MAToName(type)) - 1;
 	}
 
@@ -1474,17 +1727,154 @@ statemachine class NR_MagicManager extends IScriptable {
 		return FactsQuerySum("nr_magic_skill_" + ENR_MAToName(type)) >= 1;
 	}
 
+	public function IsActionLearning( type : ENR_MagicAction ) : bool {
+		return FactsQuerySum("nr_magic_learning_" + ENR_MAToName(type)) >= 1;
+	}
+
 	public function IsActionCustomizationUnlocked( type : ENR_MagicAction ) : bool {
 		//return FactsQuerySum("nr_skill_customization_" + ENR_MAToName(type)) >= 1;
 		return IsActionLearned(type) && GetActionSkillLevel(type) >= 1;
 	}
 
-	public function ActionAbilityUnlock( type : ENR_MagicAction, abilityName : String ) {
-		FactsAdd("nr_magic_" + ENR_MAToName(type) + "_" + abilityName, 1);
+	public function GetActionLevelForAbility( actionType : ENR_MagicAction, abilityName : String ) : int {
+		switch (actionType) {
+			case ENR_Teleport:
+				if (abilityName == "AutoCounterPush")
+					return 5;
+				break;
+			case ENR_CounterPush:
+				if (abilityName == "FullBlast")
+					return 3;
+				if (abilityName == "Freezing")
+					return 6;
+				if (abilityName == "Burning")
+					return 9;
+				break;
+			case ENR_Slash:
+				if (abilityName == "DoubleSlash")
+					return 5;
+				break;
+			case ENR_Lightning:
+				if (abilityName == "Rebound")
+					return 5;
+				break;
+			case ENR_ProjectileWithPrepare:
+			case ENR_Rock:
+				if (abilityName == "AutoAim")
+					return 3;
+				break;
+			case ENR_BombExplosion:
+				if (abilityName == "Pursuit")
+					return 4;
+				if (abilityName == "DamageControl")
+					return 8;
+				break;
+			case ENR_SpecialControl:
+				if (abilityName == "Upscaling")
+					return 5;
+				break;
+			case ENR_SpecialField:
+				if (abilityName == "Pursuit")
+					return 5;
+				break;
+			case ENR_SpecialServant:
+				if (abilityName == "barghest" || abilityName == "wild_hunt_hound")
+					return 0;
+				if (abilityName == "endriaga")
+					return 1;
+				if (abilityName == "arachnomorph")
+					return 2;
+				if (abilityName == "arachas")
+					return 3;
+				if (abilityName == "gargoyle")
+					return 4;
+				if (abilityName == "Followers")
+					return 5;
+				if (abilityName == "earth_elemental")
+					return 6;
+				if (abilityName == "TwoServants")
+					return 7;
+				if (abilityName == "ice_elemental")
+					return 8;
+				if (abilityName == "fire_elemental")
+					return 9;
+				break;
+			case ENR_SpecialMeteor:
+				if (abilityName == "DamageControl")
+					return 5;
+				break;
+			case ENR_SpecialTornado:
+				if (abilityName == "Pursuit")
+					return 1;
+				if (abilityName == "Vacuum")
+					return 2;
+				if (abilityName == "DamageControl")
+					return 4;
+				if (abilityName == "Freezing")
+					return 8;
+				break;
+			case ENR_SpecialShield:
+				if (abilityName == "AutoLightning")
+					return 5;
+				if (abilityName == "AutoCombatApply")
+					return 8;
+				break;
+			case ENR_SpecialLightningFall:
+				if (abilityName == "DamageControl")
+					return 5;
+				if (abilityName == "AutoShield")
+					return 10;
+				break;
+			case ENR_SpecialMeteorFall:
+				if (abilityName == "DamageControl")
+					return 5;
+				if (abilityName == "AutoShield")
+					return 10;
+				break;
+			case ENR_SpecialLumos:
+				if (abilityName == "AutoLighten")
+					return 1;
+				break;
+			default:
+				NR_Error("GetActionLevelForAbility: unknown type: " + actionType);
+				break;
+		}
+		return 999;
 	}
 
-	public function IsActionAbilityUnlocked( type : ENR_MagicAction, abilityName : String ) : bool {
-		return FactsQuerySum("nr_magic_" + ENR_MAToName(type) + "_" + abilityName) >= 1;
+	public function IsActionAbilityUnlocked( actionType : ENR_MagicAction, abilityName : String ) : bool {
+		var actionLevel, actionReqLevel : int;
+
+		actionLevel = GetActionSkillLevel(actionType);
+		actionReqLevel = GetActionLevelForAbility(actionType, abilityName);
+		
+		return actionLevel >= actionReqLevel;
+		// return FactsQuerySum("nr_magic_" + ENR_MAToName(type) + "_" + abilityName) >= 1;
+	}
+
+	public function SetActionAbilityDisabledByUser( actionType : ENR_MagicAction, abilityName : String, disabled : bool ) {
+		if (disabled)
+			sMap[ST_Universal].setI("nr_user_disabled_" + ENR_MAToName(actionType) + "_" + abilityName, 1);
+		else
+			sMap[ST_Universal].setI("nr_user_disabled_" + ENR_MAToName(actionType) + "_" + abilityName, 0);
+	}
+
+	public function IsActionAbilityDisabledByUser( actionType : ENR_MagicAction, abilityName : String ) : bool {
+		return sMap[ST_Universal].getI("nr_user_disabled_" + ENR_MAToName(actionType) + "_" + abilityName, 0) > 0;
+	}
+
+	public function IsActionAbilityEnabled( actionType : ENR_MagicAction, abilityName : String ) : bool {
+		return IsActionAbilityUnlocked( actionType, abilityName ) && !IsActionAbilityDisabledByUser( actionType, abilityName );
+	}
+
+	public function RemoveDetails( str : String ) : String {
+		var l_tmp, r_tmp : String;
+
+		if (StrFindFirst(str, "[") < 0)
+			return str;
+
+		StrSplitFirst( str, " [", l_tmp, r_tmp );
+		return l_tmp;
 	}
 
 	public function GetSkillInfoLocStr( type : ENR_MagicAction, optional detailed : bool ) : String {
@@ -1497,14 +1887,14 @@ statemachine class NR_MagicManager extends IScriptable {
 		locked = StrLower(GetLocStringById(1066070));
 
 		if (!IsActionLearned(type)) {
-			return "<b>- " + ENR_MAToLocString(type) + "</b>: " + NR_StrRed(locked) + "<br>";
+			return "<font color=\"#FFFF4C\"><b>- " + ENR_MAToLocString(type) + "</b>:</font> " + NR_StrRed(locked) + "<br><br>";
 		}
 		// name, level
-		info = "<b>";
+		info = "<font color=\"#FFFF4C\"><b>";
 		if (!detailed) {
 			info += "- ";
 		}
-		info += ENR_MAToLocString(type) + "</b>: <i>" + StrLower(GetLocStringById(539939)) + "</i>: " + IntToString(GetActionSkillLevel(type)) + " / 10<br>";
+		info += ENR_MAToLocString(type) + "</b>:</font> <i>" + StrLower(GetLocStringById(539939)) + "</i>: " + IntToString(GetActionSkillLevel(type)) + " / 10<br>";
 		// performs
 		info += "  <i>" + GetLocStringById(2115940225) + "</i>: " + IntToString(GetActionPerformedCount(type));
 		//damage
@@ -1524,14 +1914,13 @@ statemachine class NR_MagicManager extends IScriptable {
 		if (type != ENR_SpecialControl && type != ENR_RipApart && type != ENR_SpecialPolymorphism) {
 			tmp = GetLocStringById(2115940226);
 			if (!detailed) {
-				StrSplitFirst( tmp, " [", tmp, r_tmp );
+				tmp = RemoveDetails(tmp);
 			}
 			if ( IsActionCustomizationUnlocked(type) )
 				info += ". <i>" + NR_StrGreen(tmp) + "</i>";
 			else
 				info += ". <i>" + NR_StrRed(tmp) + "</i>";			
 		}
-		info += "<br>";
 
 		// special info
 		if (type == ENR_Teleport) {
@@ -1557,61 +1946,83 @@ statemachine class NR_MagicManager extends IScriptable {
 		//} else if (type == ENR_FastTravelTeleport) {
 		} else if (type == ENR_SpecialTornado) {
 			specialAbilities.PushBack("Pursuit"); specialAbilityIds.PushBack(2115940239);
-			specialAbilities.PushBack("Suck"); specialAbilityIds.PushBack(2115940591);
+			specialAbilities.PushBack("Vacuum"); specialAbilityIds.PushBack(2115940250);
 			specialAbilities.PushBack("DamageControl"); specialAbilityIds.PushBack(2115940244);
 			specialAbilities.PushBack("Freezing"); specialAbilityIds.PushBack(1081836);
-			info += "  <i>" + GetLocStringById(2115940236) + "</i>: " + GetActionMaxApplies(type) + "<br>";
+			tmp = GetLocStringById(2115940236);
+			if (!detailed)
+				tmp = RemoveDetails(tmp);
+			info += "  <i>" + tmp + "</i>: " + GetActionMaxApplies(type);
 		} else if (type == ENR_SpecialControl) {
 			specialAbilities.PushBack("Upscaling"); specialAbilityIds.PushBack(2115940233);
-			info += "  <i>" + GetLocStringById(2115940234) + "</i>: " + GetActionMaxApplies(type) + "<br>";
+			tmp = GetLocStringById(2115940234);
+			if (!detailed)
+				tmp = RemoveDetails(tmp);
+			info += "  <i>" + tmp + "</i>: " + GetActionMaxApplies(type);
 		} else if (type == ENR_SpecialServant) {
 			specialAbilities.PushBack("Followers"); specialAbilityIds.PushBack(2115940237);
 			specialAbilities.PushBack("TwoServants"); specialAbilityIds.PushBack(2115940249);
-			specialAbilities.PushBack("WildHuntHound"); specialAbilityIds.PushBack(1050491);
-			specialAbilities.PushBack("Barghest"); specialAbilityIds.PushBack(1174826);
-			specialAbilities.PushBack("Endrega"); specialAbilityIds.PushBack(447384);
-			specialAbilities.PushBack("Arachnomorph"); specialAbilityIds.PushBack(1130243);
-			specialAbilities.PushBack("Arachas"); specialAbilityIds.PushBack(452894);
-			specialAbilities.PushBack("Gargoyle"); specialAbilityIds.PushBack(1080238);
-			specialAbilities.PushBack("EarthElemental"); specialAbilityIds.PushBack(572370);
-			specialAbilities.PushBack("IceElemental"); specialAbilityIds.PushBack(1084776);
-			specialAbilities.PushBack("FireElemental"); specialAbilityIds.PushBack(1065074);
-			info += "  <i>" + GetLocStringById(2115940235) + "</i>: " + GetActionMaxApplies(type) + "<br>";
+			specialAbilities.PushBack("wild_hunt_hound"); specialAbilityIds.PushBack(1050491);
+			specialAbilities.PushBack("barghest"); specialAbilityIds.PushBack(1174826);
+			specialAbilities.PushBack("endriaga"); specialAbilityIds.PushBack(447384);
+			specialAbilities.PushBack("arachnomorph"); specialAbilityIds.PushBack(1130243);
+			specialAbilities.PushBack("arachas"); specialAbilityIds.PushBack(452894);
+			specialAbilities.PushBack("gargoyle"); specialAbilityIds.PushBack(1080238);
+			specialAbilities.PushBack("earth_elemental"); specialAbilityIds.PushBack(572370);
+			specialAbilities.PushBack("ice_elemental"); specialAbilityIds.PushBack(1084776);
+			specialAbilities.PushBack("fire_elemental"); specialAbilityIds.PushBack(1065074);
+			tmp = GetLocStringById(2115940235);
+			if (!detailed)
+				tmp = RemoveDetails(tmp);
+			info += ". <i>" + tmp + "</i>: " + GetActionMaxApplies(type);
 		} else if (type == ENR_SpecialMeteor) {
 			specialAbilities.PushBack("DamageControl"); specialAbilityIds.PushBack(2115940244);
-			info += "  <i>" + GetLocStringById(2115940240) + "</i>: " + GetActionMaxApplies(type) + "<br>";
+			tmp = GetLocStringById(2115940240);
+			if (!detailed)
+				tmp = RemoveDetails(tmp);
+			info += ". <i>" + tmp + "</i>: " + GetActionMaxApplies(type);
 		} else if (type == ENR_SpecialShield) {
 			specialAbilities.PushBack("AutoLightning"); specialAbilityIds.PushBack(2115940230);
-			specialAbilities.PushBack("AutoApply"); specialAbilityIds.PushBack(2115940593);
-			info += "  <i>" + GetLocStringById(2115940241) + "</i>: " + GetShieldDamageAbsorption() + "%<br>";
+			specialAbilities.PushBack("AutoCombatApply"); specialAbilityIds.PushBack(2115940252);
+			tmp = GetLocStringById(2115940241);
+			if (!detailed)
+				tmp = RemoveDetails(tmp);
+			info += ". <i>" + tmp + "</i>: " + GetShieldDamageAbsorption() + "%";
+		} else if (type == ENR_SpecialWeatherChange) {
+			// nothing
 		} else if (type == ENR_SpecialPolymorphism) {
-			
+			// nothing
 		} else if (type == ENR_SpecialMeteorFall || type == ENR_SpecialLightningFall) {
 			specialAbilities.PushBack("DamageControl"); specialAbilityIds.PushBack(2115940244);
-			specialAbilities.PushBack("AutoShield"); specialAbilityIds.PushBack(2115940592);
+			specialAbilities.PushBack("AutoShield"); specialAbilityIds.PushBack(2115940251);
 			
 			// num
-			info += "  <i>" + GetLocStringById(2115940247) + "</i>: " + GetActionMaxApplies(type) + "<br>";
+			tmp = GetLocStringById(2115940247);
+			if (!detailed)
+				tmp = RemoveDetails(tmp);
+			info += ". <i>" + tmp + "</i>: " + GetActionMaxApplies(type);
 			// interval
-			info += ". <i>" + GetLocStringById(2115940248) + "</i>: " + FloatToString(sMap[ST_Universal].getF("duration_" + ENR_MAToName(type))) + " " + GetLocStringById(1086450); 
+			tmp = GetLocStringById(2115940248);
+			if (!detailed)
+				tmp = RemoveDetails(tmp);
+			info += ". <i>" + tmp + "</i>: " + FloatToString(sMap[ST_Universal].getF("duration_" + ENR_MAToName(type))) + " " + GetLocStringById(1086450); 
 			info += NR_StrGreen(" (-" + IntToString(GetActionDurationBonus(type)) + "%)");
 		} else if (type == ENR_SpecialLumos) {
-			// nothing
+			specialAbilities.PushBack("AutoLighten"); specialAbilityIds.PushBack(2115940596);
 		} else if (type == ENR_SpecialField) {
 			specialAbilities.PushBack("Pursuit"); specialAbilityIds.PushBack(2115940237);
 		}
+		info += "<br>";
 
 		// print special abilities
 		if (specialAbilities.Size() > 0) {
 			tmp = GetLocStringById(2115940227);
 			if (!detailed) {
-				StrSplitFirst( tmp, " [", tmp, r_tmp );
-				info += "  <i>" + tmp + "</i>: ";
+				info += "  " + RemoveDetails(tmp) + ": ";
 			} else {
-				info += "  <i>" + tmp + "</i>:<br>";
+				info += "  " + tmp + ":<br>";
 			}
 			
-
 			for (i = 0; i < specialAbilities.Size(); i += 1) {
 				tmp = "";
 				if (i > 0) {
@@ -1622,18 +2033,22 @@ statemachine class NR_MagicManager extends IScriptable {
 						tmp += "  - ";
 					}
 				}
-				tmp += GetLocStringById(specialAbilityIds[i]);
+				tmp += NR_GetLocStringByIdExt(specialAbilityIds[i]);
 				if (!detailed) {
-					StrSplitFirst( tmp, " [", tmp, r_tmp );
+					tmp = RemoveDetails(tmp);
 				}
-				if (IsActionAbilityUnlocked(type, specialAbilities[i]))
+				if (IsActionAbilityUnlocked(type, specialAbilities[i])) {
 					info += NR_StrRGB( tmp, 20,100,20 );
-				else
+				} else {
+					tmp += " (" + GetLocStringById(2115940085) + " " + GetActionLevelForAbility(type, specialAbilities[i]) + ")";
 					info += NR_StrRGB( tmp, 100,20,20 );
+				}
 			}
 			
 			info += "<br>";
 		}
+		info += "<br>";
+		LogChannel('NR_DEBUG', "Info (" + type + ") = [" + StrReplace(info, "<br>", "!BR!") + "]");
 
 		return info;
 	}
@@ -1672,23 +2087,6 @@ statemachine class NR_MagicManager extends IScriptable {
 			thePlayer.BlockAction( EIAB_DismountVehicle, 'MagicManager' );
 		} else {
 			thePlayer.UnblockAction( EIAB_DismountVehicle, 'MagicManager' );
-		}
-	}
-
-	public function GetMagicElementLocStr(element : ENR_MagicElement) : String
-	{
-		//var skillLevel : ENR_MagicSkill = GetSkillLevel();
-		switch (element) {
-			case ENR_ElementAir:
-				return "Air";
-			case ENR_ElementWater:
-				return "Water";
-			case ENR_ElementEarth:
-				return "Earth";
-			case ENR_ElementFire:
-				return "Fire";
-			case ENR_ElementMixed:
-				return "Mixed";
 		}
 	}
 
@@ -2267,6 +2665,9 @@ state MagicLoop in NR_MagicManager {
 			case ENR_SpecialShield:
 				parent.mAction = new NR_MagicSpecialShield in this;
 				break;
+			case ENR_SpecialWeatherChange:
+				parent.mAction = new NR_MagicSpecialWeatherChange in this;
+				break;
 			case ENR_SpecialPolymorphism:
 				parent.mAction = new NR_MagicSpecialPolymorphism in this;
 				break;
@@ -2302,6 +2703,7 @@ state MagicLoop in NR_MagicManager {
 
 		// protect new action from deleting by RAM cleaner
 		parent.cachedActions.PushBack( parent.mAction );
+		parent.UpdateMagicControlHints( thePlayer.GetCurrentStateName() );
 	}
 
 	latent function PrepareMagicAction() {
@@ -2403,6 +2805,7 @@ state MagicLoop in NR_MagicManager {
 	/* Nice exit from FTT */
 	latent function PerformExitFromFTT() {
 		var pos : Vector;
+		var rot : EulerAngles;
 		var template : CEntityTemplate;
 		var entity : CEntity;
 
@@ -2410,7 +2813,9 @@ state MagicLoop in NR_MagicManager {
 		template = (CEntityTemplate)LoadResourceAsync(parent.sMap[parent.ST_Universal].getS("used_ftt_entity"), true);
 		pos = thePlayer.GetWorldPosition() - thePlayer.GetHeadingVector() * 0.1f;
 		pos.Z += parent.sMap[parent.ST_Universal].getF("used_ftt_z");
-		entity = theGame.CreateEntity(template, pos, thePlayer.GetWorldRotation());
+		rot = thePlayer.GetWorldRotation();
+		rot.Yaw -= 150.f;
+		entity = theGame.CreateEntity(template, pos, rot);
 		entity.PlayEffect('teleport_fx');
 		thePlayer.ActionPlaySlotAnimation('PLAYER_SLOT', 'add_walk_three_steps_forward_casual', 0.25f, 0.5f);
 		NR_Debug("MM.PerformExitFromFTT: entity = " + entity);
@@ -2479,6 +2884,12 @@ state MagicLoop in NR_MagicManager {
 				if ( theInput.IsActionJustPressed( 'DrinkPotion4' ) )
 					PerformExplorationTeleport();
 				break;
+			// works badly
+			//case 'Combat':
+			//case 'JumpClimb':
+			//	if ( theInput.GetActionValue( 'CastSignHold' ) > 0.f )
+			//		PerformCastInMove();
+			//	break;
 			case 'Swimming':
 				if ( theInput.IsActionJustPressed( 'Finish' ) )
 					PerformSwimmingAction();
@@ -2521,6 +2932,22 @@ state MagicLoop in NR_MagicManager {
 		//	NR_Debug("PerformExplorationTeleport: EBAT_Dodge");
 		//	NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Dodge );
 		//}
+	}
+
+	latent function PerformCastInMove() {
+		//var actionType : ENR_MagicAction;
+
+		parent.SetMiscStateActionsBlocked(true);
+		parent.SetActionType(ENR_SpecialAbstractAlt);
+		
+		if (parent.GetActionType() == ENR_SpecialPolymorphism && (parent.IsActionLearned(ENR_SpecialPolymorphism) || parent.IsActionLearning(ENR_SpecialPolymorphism)) ) {
+			InitMagicAction("PerformCastInMove");
+			Sleep(0.5f);
+			PrepareMagicAction();
+			Sleep(1.f);
+			PerformMagicAction();
+		}
+		parent.SetMiscStateActionsBlocked(false);
 	}
 
 	latent function PerformSwimmingAction() {

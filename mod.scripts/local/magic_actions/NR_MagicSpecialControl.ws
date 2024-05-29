@@ -17,13 +17,6 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		return true;
 	}
 
-	protected function SetSkillLevel(newLevel : int) {
-		if (newLevel == 5) {
-			ActionAbilityUnlock("Upscaling");
-		}
-		super.SetSkillLevel(newLevel);
-	}
-
 	latent function OnPrepare() : bool {
 		var actors : array <CActor>;
 		var targetIdx 	: int;
@@ -188,7 +181,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 
 		npc.OnAxiied( thePlayer );
 		npc.AddTag('NR_MagicSpecialControl');
-		if (IsActionAbilityUnlocked("Upscaling")) {
+		if (IsActionAbilityEnabled("Upscaling")) {
 			bonusAbilityName = thePlayer.GetSkillAbilityName(S_Magic_s05);
 			npc.AddAbility(bonusAbilityName, true);
 			npc.SetLevel(npc.GetLevel() + 3);
@@ -211,7 +204,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 
 		bonusAbilityName = thePlayer.GetSkillAbilityName(S_Magic_s05);
 		npc.RemoveAbilityAll(bonusAbilityName);
-		if (IsActionAbilityUnlocked("Upscaling")) {
+		if (IsActionAbilityEnabled("Upscaling")) {
 			npc.SetLevel(npc.GetLevel() - 3);
 		}
 		if (wasHostile)
@@ -221,7 +214,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		*/
 		npc.RemoveAllBuffsWithSource("NR_MagicSpecialControl");
 		npc.RemoveTag('NR_MagicSpecialControl');
-		if (IsActionAbilityUnlocked("Upscaling")) {
+		if (IsActionAbilityEnabled("Upscaling")) {
 			npc.SetLevel(npc.GetLevel() - 3);
 		}
 	}
@@ -268,7 +261,7 @@ state Active in NR_MagicSpecialControl {
 			parent.entityTemplate = (CEntityTemplate)LoadResourceAsync("wraith");
 			parent.wraithEntity = (CNewNPC)theGame.CreateEntity( parent.entityTemplate, npc.GetWorldPosition(), npc.GetWorldRotation() );
 
-			if (parent.IsActionAbilityUnlocked("Upscaling")) {
+			if (parent.IsActionAbilityEnabled("Upscaling")) {
 				parent.wraithEntity.SetAppearance('wraith_02');
 			}
 			parent.NR_AdjustMinionLevel( parent.wraithEntity, 1 );

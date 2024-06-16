@@ -47,6 +47,12 @@ abstract class W3RegenEffect extends CBaseGameplayEffect
 				baseStaminaRegenVal = GetWitcherPlayer().CalculatedArmorStaminaRegenBonus();
 				
 				regenPoints *= 1 + baseStaminaRegenVal;
+				
+				// NR_MOD v
+				if ( NR_GetMagicManager() ) {
+					regenPoints = NR_GetMagicManager().GetStaminaRegenPoints(regenPoints, dt);
+				}
+				// NR_MOD ^
 			}
 			
 			else if(regenStat == CRS_Vitality || regenStat == CRS_Essence)

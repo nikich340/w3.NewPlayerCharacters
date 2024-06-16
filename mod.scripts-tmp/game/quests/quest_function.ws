@@ -664,6 +664,11 @@ quest function SetGeraltHairQuest( hairstyleName : name )
 	var size : int;
 	var i : int;
 
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	witcher = GetWitcherPlayer();
 	inv = witcher.GetInventory();
 
@@ -691,6 +696,11 @@ quest function SetGeraltTorsoQuest( torsoName : name )
 	var size : int;
 	var i : int;
 
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	witcher = GetWitcherPlayer();
 	inv = witcher.GetInventory();
 
@@ -721,6 +731,11 @@ quest function SetGeraltPalmsQuest( palmsName : name )
 	var size : int;
 	var i : int;
 
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	witcher = GetWitcherPlayer();
 	inv = witcher.GetInventory();
 
@@ -1002,6 +1017,11 @@ quest function ShaveGeralt_Quest()
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).Shave();
 }
@@ -1011,6 +1031,11 @@ quest function SetGeraltBeard_Quest( maxBeard : bool, optional stage : int )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).SetBeardStage( maxBeard, stage);
 }
@@ -1020,6 +1045,11 @@ quest function SetTattoo_Quest( hasTattoo : bool )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).SetTattoo( hasTattoo );
 }
@@ -1029,6 +1059,11 @@ quest function SetDemonMarkQuest( hasDemonMark : bool )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).SetDemonMark( hasDemonMark );
 }
@@ -1039,6 +1074,11 @@ quest function BlockBeardGrowth_Quest( optional block : bool )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).BlockGrowing( block );
 }
@@ -1048,6 +1088,11 @@ quest function SetCustomHead_Quest( head : name, barberSystem : bool )
 {
 	var acs : array< CComponent >;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	if( barberSystem )
 	{
 		thePlayer.RememberCustomHead( head );
@@ -1063,6 +1108,11 @@ quest function RemoveCustomHead_Quest( barberSystem : bool)
 	var acs : array< CComponent >;
 	var barberHead : name;
 	
+	// NR_MOD v
+	if (NR_GetWitcherReplacer()) {
+		return;
+	}
+	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 
 	if(!barberSystem)
@@ -2752,6 +2802,10 @@ quest function ChangeUnconsciousDuration( targetsTag : name, newMinDuration : fl
 
 latent quest function ChangePlayerQuest( designatedTemplate: EQuestReplacerEntities )
 {
+	// NR_MOD v
+	NR_ChangePlayerQuestWrapper( designatedTemplate );
+	return;
+	// NR_MOD ^
 	if( designatedTemplate == EQRE_Geralt )
 	{
 		theGame.ChangePlayer( "Geralt" );
@@ -4338,6 +4392,12 @@ latent quest function BlockGameplayFunctionality(lock : bool, sourceName : name,
 		LogBlockGameplayFunctionality(sourceName, "Source name is not a valid name! You must provide it! Skipping block!");
 		return;
 	}
+
+	// NR MOD v
+	if ( lock && NR_GetReplacerSorceress() ) {
+		fistFight = false;
+	}
+	// NR MOD ^
 	
 	if(lock)
 		locking = "  Locking";

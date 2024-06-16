@@ -1230,6 +1230,19 @@ class CR4MapMenu extends CR4MenuBase
 			showNotification( GetLocStringByKeyExt("panel_hud_message_actionnotallowed") );
 			return false;
 		}
+		
+		// NR_MOD v
+		if ( NR_GetMagicManager() && NR_GetMagicManager().IsActionLearned(ENR_FastTravelTeleport) && NR_GetMagicManager().CreateFastTravelTeleport(pinTag, areaId, m_currentArea) ) {
+			// teleport will be created - close map
+			theGame.Unpause("menus");
+			rootMenu = theGame.GetGuiManager().GetRootMenu();
+			if ( rootMenu )
+			{
+				rootMenu.CloseMenu();
+			}
+			return false;
+		}
+		// NR_MOD ^
 
 		if ( !manager.DBG_IsAllowedFT() )
 		{

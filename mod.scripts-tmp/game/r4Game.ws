@@ -66,9 +66,6 @@ import class CR4Game extends CCommonGame
 	private saved var dynamicallySpawnedBoatsToDestroy : array<EntityHandle>;	
 	
 	private saved var uberMovement : bool; 	default uberMovement = false;
-	// NR_MOD v
-	public saved var nr_playerManager : NR_PlayerManager;
-	// NR_MOD ^
 	
 	function EnableUberMovement( flag : bool )
 	{
@@ -184,11 +181,6 @@ import class CR4Game extends CCommonGame
 				}
 			}
 		}
-
-		// NR_MOD v
-		// clear var in case the loaded savegame hasn't it
-		nr_playerManager = NULL;
-		// NR_MOD ^
 
 		if ( loadResult != LOAD_MissingContent && loadResult != LOAD_Error && isRespawningInLastCheckpoint )
 		{
@@ -764,10 +756,6 @@ import class CR4Game extends CCommonGame
 			thePlayer.SetTeleportedOnBoatToOtherHUB( false );
 			thePlayer.AddTimer( 'DelayedSpawnAndMountBoat', 0.001f, false );
 		}
-		
-		// NR_MOD v
-		NR_OnGameStarted(this);
-		// NR_MOD ^
 	}
 	
 	event OnHandleWorldChange()

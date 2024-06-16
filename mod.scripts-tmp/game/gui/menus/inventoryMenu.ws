@@ -909,11 +909,6 @@ class CR4InventoryMenu extends CR4MenuBase
 			
 			
 			templateFilename             = "GeraltForUI";
-			// v NR_MOD v
-			if ( NR_GetWitcherReplacer() ) {
-				templateFilename = NR_GetWitcherReplacer().inventoryTemplate;
-			}
-			// ^ NR_MOD ^
 			appearance                   = '';
 			environmentSunRotation.Yaw   = 0;
 			environmentSunRotation.Pitch = 0;
@@ -1568,7 +1563,7 @@ class CR4InventoryMenu extends CR4MenuBase
 		slot = 	EES_InvalidSlot;
 		
 		currentSelectedQuickItem = GetWitcherPlayer().GetSelectedItemId();
-		for( i = EES_Quickslot1; i < EES_Quickslot2 + 1; i += 1 )
+		for( i = EES_Petard1; i < EES_Quickslot2 + 1; i += 1 )
 		{
 			if(GetWitcherPlayer().GetItemEquippedOnSlot(i,itemOnSlot))
 			{
@@ -2119,14 +2114,6 @@ class CR4InventoryMenu extends CR4MenuBase
 		
 		OnSlot = false;
 		itemAlreadyEuipped = false;
-		
-		// v NR_MOD v
-		if ( NR_GetWitcherReplacer() && NR_GetWitcherReplacer().NR_IsSlotDenied(slot) ) {
-			showNotification( "<font color='#00008B'>(" + GetLocStringById(NR_GetWitcherReplacer().GetNameID()) + ")</font> " + GetLocStringById(2115940100) + SlotEnumToName(slot) );
-			OnPlaySoundEvent("gui_global_denied");
-			return false;
-		}
-		// ^ NR_MOD ^
 		
 		if( _currentInv == _containerInv )
 		{
@@ -3384,7 +3371,7 @@ class CR4InventoryMenu extends CR4MenuBase
 	
 	event  OnConsumeItem( item : SItemUniqueId ) 
 	{
-		if (thePlayer.IsInCombat())
+		if (thePlayer.IsInCombat() && !thePlayer.inv.ItemHasTag(item, 'Edibles'))
 		{
 			showNotification(GetLocStringByKeyExt("menu_cannot_perform_action_combat"));
 			OnPlaySoundEvent("gui_global_denied");

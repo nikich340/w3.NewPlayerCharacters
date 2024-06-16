@@ -208,11 +208,6 @@ class CR4GuiSceneController
 			templateResource = ( CEntityTemplate )LoadResource( entityTemplateAlias );
 			if ( templateResource )
 			{
-				// v NR_MOD
-				if ( !StrStartsWith(entityTemplateAlias, "Horse") && NR_GetPlayerManager().IsReplacerActive() ) {
-					NR_GetPlayerManager().UpdateInventoryTemplateAppearance( templateResource );
-				}
-				// ^ NR_MOD
 				_isEntitySpawning = true;
 				theGame.GetGuiManager().SetSceneEntityTemplate( templateResource );
 			}

@@ -60,11 +60,6 @@ latent storyscene function SetGeraltHair( player: CStoryScenePlayer, hairstyleNa
 	var size : int;
 	var i : int;
 
-	// NR_MOD v
-	if (NR_GetWitcherReplacer()) {
-		return;
-	}
-	// NR_MOD ^
 	witcher = GetWitcherPlayer();
 	inv = witcher.GetInventory();
 
@@ -430,11 +425,6 @@ latent storyscene function ShaveGeralt( player: CStoryScenePlayer )
 {
 	var acs : array< CComponent >;
 	
-	// NR_MOD v
-	if (NR_GetWitcherReplacer()) {
-		return;
-	}
-	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).Shave();
 	
@@ -446,11 +436,6 @@ latent storyscene function SetGeraltBeard( player: CStoryScenePlayer, maxBeard :
 {
 	var acs : array< CComponent >;
 	
-	// NR_MOD v
-	if (NR_GetWitcherReplacer()) {
-		return;
-	}
-	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).SetBeardStage( maxBeard, stage);
 	
@@ -462,11 +447,6 @@ storyscene function SetTattoo( player: CStoryScenePlayer, hasTattoo : bool )
 {
 	var acs : array< CComponent >;
 	
-	// NR_MOD v
-	if (NR_GetWitcherReplacer()) {
-		return;
-	}
-	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).SetTattoo( hasTattoo );
 }
@@ -476,11 +456,6 @@ storyscene function BlockBeardGrowth( player: CStoryScenePlayer, optional block 
 {
 	var acs : array< CComponent >;
 	
-	// NR_MOD v
-	if (NR_GetWitcherReplacer()) {
-		return;
-	}
-	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 	( ( CHeadManagerComponent ) acs[0] ).BlockGrowing( block );
 }
@@ -490,11 +465,6 @@ storyscene function SetCustomHead( player: CStoryScenePlayer, head : name, barbe
 {
 	var acs : array< CComponent >;
 	
-	// NR_MOD v
-	if (NR_GetWitcherReplacer()) {
-		return;
-	}
-	// NR_MOD ^
 	if( barberSystem )
 	{
 		thePlayer.RememberCustomHead( head );
@@ -510,11 +480,6 @@ storyscene function RemoveCustomHead( player: CStoryScenePlayer, barberSystem : 
 	var acs : array< CComponent >;
 	var barberHead : name;
 	
-	// NR_MOD v
-	if (NR_GetWitcherReplacer()) {
-		return;
-	}
-	// NR_MOD ^
 	acs = thePlayer.GetComponentsByClassName( 'CHeadManagerComponent' );
 
 	if(!barberSystem)

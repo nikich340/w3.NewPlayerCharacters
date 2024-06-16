@@ -125,20 +125,18 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			wasHostile = true;
 		}
 
+		if ( npc.HasAbility( 'Boss' ) ) {
+			thePlayer.DisplayHudMessage(GetLocStringByKey("panel_hud_message_cant_attack_this_target"));
+			return;
+		}
+
 		if ( npc.HasAttitudeTowards( thePlayer ) && npc.GetAttitude( thePlayer ) == AIA_Hostile )
 		{
 			npc.ResetAttitude( thePlayer );
 		}
 
 		// from W3Effect_AxiiGuardMe
-		/*
 		((CAIStorageReactionData)npc.GetScriptStorageObject('ReactionData')).ResetAttitudes(npc);
-		
-		if ( npc.HasAttitudeTowards( thePlayer ) && npc.GetAttitude( thePlayer ) == AIA_Hostile )
-		{
-			wasHostile = true;
-			npc.ResetAttitude( thePlayer );
-		}
 
 		if ( npc.HasTag('animal') || npc.IsHorse() ) {
 			npc.SetTemporaryAttitudeGroup('animals_charmed', AGP_Axii);
@@ -150,22 +148,21 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 
 		if (npc.IsHorse())
 			npc.GetHorseComponent().ResetPanic();
-		npc.OnAxiied( thePlayer );
-		npc.AddTag('NR_SpecialControl');
+
 		if (wasHostile)
 			npc.PlayEffect('axii_guardian');
 		else
 			npc.PlayEffect('axii_confusion');
-		*/
 
 		// NEW
+		/*
 		buffParams.creator = thePlayer;
 		buffParams.sourceName = "NR_MagicSpecialControl";  // "axii_" + S_Magic_5
 		buffParams.customPowerStatValue.valueBase = 1000.f;
-		buffParams.customPowerStatValue.valueMultiplicative = 10.f;
+		buffParams.customPowerStatValue.valueMultiplicative = 1000.f;
 		buffParams.customPowerStatValue.valueAdditive = 1000.f;
 		buffParams.isSignEffect = true;
-		buffParams.duration = s_lifetime; // s_lifetime;
+		buffParams.duration = 100000.f; // s_lifetime;
 		if (wasHostile)
 			buffParams.effectType = EET_AxiiGuardMe;
 		else
@@ -178,6 +175,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			thePlayer.DisplayHudMessage(GetLocStringByKey("panel_hud_message_cant_attack_this_target"));
 			return;
 		}
+		*/
 
 		npc.OnAxiied( thePlayer );
 		npc.AddTag('NR_MagicSpecialControl');
@@ -197,7 +195,6 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			return;
 
 		// npc.ResetAttitude(thePlayer);
-		/*
 		npc.ResetTemporaryAttitudeGroup(AGP_Axii);
 		npc.SignalGameplayEvent('NoticedObjectReevaluation');
 		((CAIStorageReactionData)npc.GetScriptStorageObject('ReactionData')).ResetAttitudes(npc);
@@ -211,8 +208,11 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			npc.StopEffect('axii_guardian');
 		else
 			npc.StopEffect('axii_confusion');
-		*/
+
+		/*
 		npc.RemoveAllBuffsWithSource("NR_MagicSpecialControl");
+		*/
+
 		npc.RemoveTag('NR_MagicSpecialControl');
 		if (IsActionAbilityEnabled("Upscaling")) {
 			npc.SetLevel(npc.GetLevel() - 3);

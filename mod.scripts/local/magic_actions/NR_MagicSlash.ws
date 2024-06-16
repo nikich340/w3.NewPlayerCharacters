@@ -1,6 +1,7 @@
 class NR_MagicSlash extends NR_MagicAction {
-	var dummyEntity2 : CEntity;
-	var swingType, swingDir	: int;
+	protected var entityTemplate2 	: CEntityTemplate;
+	protected var dummyEntity2, hitEntity, hitEntity2 : CEntity;
+	protected var swingType, swingDir	: int;
 	
 	default actionType = ENR_Slash;
 	default actionSubtype = ENR_LightAbstract;
@@ -25,6 +26,8 @@ class NR_MagicSlash extends NR_MagicAction {
 
 		resourceName = SlashEntityName();
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName);
+		entityTemplate2 = (CEntityTemplate)LoadResourceAsync("nr_dummy_hit_fx");
+
 		NR_CalculateTarget(	/*tryFindDestroyable*/ true, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 1.f, /*staticOffsetZ*/ 1.f );
 		if ( IsActionAbilityEnabled("DoubleSlash") ) {
@@ -35,12 +38,19 @@ class NR_MagicSlash extends NR_MagicAction {
 		} else {
 			dummyEntity = theGame.CreateEntity( entityTemplate, pos, rot );
 		}
+		hitEntity = theGame.CreateEntity( entityTemplate2, pos, rot );
+		hitEntity.DestroyAfter( 5.f );
 
 		m_fxNameMain = SlashFxName();
-		if (dummyEntity && m_fxNameMain != '') {
+		m_fxNameHit = HitFxName();
+
+		if (dummyEntity && IsNameValid(m_fxNameMain)) {
 			dummyEntity.PlayEffect(m_fxNameMain);
 			dummyEntity.DestroyAfter(5.f);
 			if (dummyEntity2) {
+				hitEntity2 = theGame.CreateEntity( entityTemplate2, pos, rot );
+				hitEntity2.DestroyAfter( 5.f );
+
 				dummyEntity2.PlayEffect(m_fxNameMain);
 				dummyEntity2.DestroyAfter(5.f);
 			}
@@ -64,13 +74,15 @@ class NR_MagicSlash extends NR_MagicAction {
 		if (target) {
 			targetNPC = (CNewNPC) target;
 			targetNPC.NoticeActor( thePlayer );
-			if ( m_fxNameHit != '' && (!targetNPC || !targetNPC.HasAlternateQuen()) ) {
-				dummyEntity.PlayEffect(m_fxNameHit);
-				if (dummyEntity2) {
-					dummyEntity2.PlayEffect(m_fxNameHit);
+			if ( IsNameValid(m_fxNameHit) && (!targetNPC || !targetNPC.HasAlternateQuen()) ) {
+				hitEntity.Teleport(target.GetWorldPosition() + Vector(0,0,1.f));
+				hitEntity.PlayEffect(m_fxNameHit);
+				if (hitEntity2) {
+					hitEntity2.Teleport(target.GetWorldPosition() + Vector(0,0,1.f - 0.3f));
+					hitEntity2.PlayEffect(m_fxNameHit);
 				}
 			}
-			thePlayer.OnCollisionFromItem( target );
+			// thePlayer.OnCollisionFromItem( target );
 
 			damage = new W3DamageAction in this;
 			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
@@ -84,7 +96,12 @@ class NR_MagicSlash extends NR_MagicAction {
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
 		} else if (destroyableTarget) {
+			hitEntity.PlayEffect(m_fxNameHit);
+			if (hitEntity2) {
+				hitEntity2.PlayEffect(m_fxNameHit);
+			}
 			NR_DestroyDestroyableTarget();
+
 		}
 		// explodes toxic gas
 		dummyEntity.AddTag(theGame.params.TAG_OPEN_FIRE);
@@ -214,6 +231,40 @@ class NR_MagicSlash extends NR_MagicAction {
 					default:
 						return 'down_right_white';
 				}
+		}
+	}
+
+	latent function HitFxName(optional customActionType : ENR_MagicAction) : name {
+		switch (NR_GetActionColor(actionType)) {
+			//case ENR_ColorBlack:
+			//	return 'black';
+			//case ENR_ColorGrey:
+			//	return 'grey';
+			case ENR_ColorYellow:
+				return 'hit_electric_yellow';
+			case ENR_ColorOrange:
+				return 'hit_electric_orange';
+			case ENR_ColorRed:
+				return 'hit_electric_red';
+			case ENR_ColorPink:
+				return 'hit_electric_pink';
+			case ENR_ColorViolet:
+				return 'hit_electric_violet';
+			case ENR_ColorBlue:
+				return 'hit_electric_blue';
+			case ENR_ColorSeagreen:
+				return 'hit_electric_seagreen';
+			case ENR_ColorGreen:
+				return 'hit_electric_green';
+			//case ENR_ColorSpecial1:
+			//	return 'special1';
+			//case ENR_ColorSpecial2:
+			//	return 'special2';
+			//case ENR_ColorSpecial3:
+			//	return 'special3';
+			case ENR_ColorWhite:
+			default:
+				return 'hit_electric_white';
 		}
 	}
 }

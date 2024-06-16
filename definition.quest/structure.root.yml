@@ -1,7 +1,7 @@
 #
 # quest structure root segment
 # 
-# (version: 587, saved: 2023-12-29 23:39:40)
+# (version: 588, saved: 2024-06-02 19:51:17)
 #
 ---
 structure:
@@ -40,9 +40,9 @@ structure:
         interruptable: true
         _fadein: true
         next.ChangeType:
-          - script.wait_exit_scene
+          - script.NR_RestorePlayerPosition_1
         next.Output:
-          - waituntil.Wait_setup_scene_fact
+          - script.NR_RestorePlayerPosition_2
       
       scene.Launch_female_scene:
         ".editor":
@@ -54,11 +54,11 @@ structure:
         interruptable: true
         _fadein: true
         next.ChangeType:
-          - script.wait_exit_scene
+          - script.NR_RestorePlayerPosition_1
         next.Output:
-          - waituntil.Wait_setup_scene_fact
+          - script.NR_RestorePlayerPosition_2
         next.Sorceress:
-          - scene.Sorceress_spell_scene: Input
+          - script.NR_RestorePlayerPosition_3
       
       scene.Launch_male_scene:
         ".editor":
@@ -70,9 +70,9 @@ structure:
         interruptable: true
         _fadein: true
         next.ChangeType:
-          - script.wait_exit_scene
+          - script.NR_RestorePlayerPosition_1
         next.Output:
-          - waituntil.Wait_setup_scene_fact
+          - script.NR_RestorePlayerPosition_2
       
       scene.Oh_no_comment:
         ".editor":
@@ -101,7 +101,7 @@ structure:
       
       scene.Sorceress_spell_scene:
         ".editor":
-          pos: [ 1505.0, -171.0 ]
+          pos: [ 1625.0, -136.0 ]
           in: [ Input ]
           out: [ Back ]
         scene: 03.player_change_sorceress.yml
@@ -541,7 +541,7 @@ structure:
       waituntil.Wait_setup_scene_fact:
         factdb: [ item_use_nr_chameleon_potion, ">=", 1 ]
         ".editor":
-          pos: [ 393.0, -410.0 ]
+          pos: [ 399.0, -402.0 ]
           in: [ In ]
           out: [ Out ]
         next:
@@ -1031,6 +1031,33 @@ structure:
           - killTag: cname_nr_cross_stone_boss_spider
         next:
           - script.Teleport_spider_corpse
+      
+      script.NR_RestorePlayerPosition_1:
+        ".editor":
+          pos: [ 1663.9647216797, -404.377166748 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_RestorePlayerPosition
+        next:
+          - script.wait_exit_scene
+      
+      script.NR_RestorePlayerPosition_2:
+        ".editor":
+          pos: [ 401.0, -536.0 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_RestorePlayerPosition
+        next:
+          - waituntil.Wait_setup_scene_fact
+      
+      script.NR_RestorePlayerPosition_3:
+        ".editor":
+          pos: [ 1464.6790771484, -186.2818603516 ]
+          in: [ In ]
+          out: [ Out ]
+        function: NR_RestorePlayerPosition
+        next:
+          - scene.Sorceress_spell_scene: Input
       
       script.Play_blue_necro_fx:
         ".editor":
@@ -1689,7 +1716,7 @@ structure:
       
       script.wait_100_ms:
         ".editor":
-          pos: [ 1698.0, -326.0 ]
+          pos: [ 1837.0, -309.0 ]
           in: [ In ]
           out: [ Out ]
         function: NR_Wait_Q
@@ -1744,7 +1771,7 @@ structure:
       
       script.wait_exit_scene:
         ".editor":
-          pos: [ 1693.0, -422.0 ]
+          pos: [ 1801.0, -405.0 ]
           in: [ In ]
           out: [ "False", "True" ]
         function: NR_IsInSceneCond_Q

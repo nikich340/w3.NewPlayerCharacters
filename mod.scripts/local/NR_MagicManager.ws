@@ -114,6 +114,7 @@ statemachine class NR_MagicManager extends IScriptable {
 	protected var mMiscActionsBlocked : bool;
 	protected var mSuolOnelinerCorner : SU_OnelinerScreen;
 	protected var mSuolManager	: SUOL_Manager;
+	protected var mCooldowns    : array<float>;
 
 	public var aData 			: CPreAttackEventData;
 	public var aTargetPinTag 	: name;
@@ -202,6 +203,11 @@ statemachine class NR_MagicManager extends IScriptable {
 
 		for (i = ENR_SkillNovice; i <= GetSkillLevel(); i += 1) {
 			LaunchPassiveActionsForSkillLevel(i);
+		}
+
+		mCooldowns.Resize( EnumGetMax('ENR_MagicAction') );
+		for (i = 0; i < mCooldowns.Size(); i += 1) {
+			mCooldowns[i] = -1.f;
 		}
 	}
 
@@ -332,6 +338,9 @@ statemachine class NR_MagicManager extends IScriptable {
 		var finalType : ENR_MagicAction;
 
 		finalType = PreviewAction( actionType, horse, underwater );
+		if (!IsActionLearned(finalType) && !IsActionLearning(finalType)) {
+			return ColorFormattedText( ENR_MAToLocString(finalType) + " [" + GetLocStringById(1066070) + "]", ENR_ColorRed );
+		}
 		return ColorFormattedText( ENR_MAToLocString(finalType), PreviewColor(finalType, eqSign) );
 	}
 
@@ -491,8 +500,8 @@ statemachine class NR_MagicManager extends IScriptable {
 			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_groupname_fast_attack") + "</font>: " + GetLocStringByKey("panel_groupname_fast_attack") + "<br>";
 			// special (hold)
 			text += "<font color=\"#FFFF66\">" + GetLocStringById(1084109) + " (" + GetLocStringById(1083802) + ")" + "</font>: " + ENR_MAToLocString( ENR_SpecialPolymorphism ) + "<br>";
-			// W (hold)
-			text += "<font color=\"#FFFF66\">" + GetLocStringByKey("panel_button_common_use") + " (" + GetLocStringById(1083802) + ")" + "</font>: " + GetLocStringById(1072949) + "<br>";
+			// Forward (hold)
+			text += "<font color=\"#FFFF66\">" + GetLocStringById(2115940545) + " (" + GetLocStringById(1083802) + ")" + "</font>: " + GetLocStringById(1072949) + "<br>";
 			// Space (hold)
 			text += "<font color=\"#FFFF66\">" + GetLocStringById(1075763) + " (" + GetLocStringById(1083802) + ")" + "</font>: " + GetLocStringById(2115940594) + "<br>";
 			// E (hold)
@@ -1734,6 +1743,17 @@ statemachine class NR_MagicManager extends IScriptable {
 	public function IsActionCustomizationUnlocked( type : ENR_MagicAction ) : bool {
 		//return FactsQuerySum("nr_skill_customization_" + ENR_MAToName(type)) >= 1;
 		return IsActionLearned(type) && GetActionSkillLevel(type) >= 1;
+	}
+
+	public function SetActionCooldown( type : ENR_MagicAction, cooldownTime : float ) {
+		NR_Debug("SetActionCooldown (" + type + ") = " + cooldownTime);
+		mCooldowns[type] = cooldownTime;
+	}
+
+	// true if action still can't be applied
+	public function IsActionCooldowned( type : ENR_MagicAction ) : bool {
+		NR_Debug("IsActionCooldowned (" + type + ") = " + mCooldowns[type]);
+		return mCooldowns[type] > theGame.GetEngineTimeAsSeconds();
 	}
 
 	public function GetActionLevelForAbility( actionType : ENR_MagicAction, abilityName : String ) : int {

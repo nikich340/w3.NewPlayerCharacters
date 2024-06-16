@@ -15,6 +15,7 @@ abstract statemachine class NR_MagicAction {
 	protected var standartCollisions : array<name>;
 	protected var sceneInputs : array<int>;
 	protected var rotatePrePerform : bool;
+	protected var cooldownInterval : float;
 
 	public var m_fxNameMain   	: name;
 	public var m_fxNameExtra  	: name;
@@ -49,6 +50,7 @@ abstract statemachine class NR_MagicAction {
 	default isDamaging 	= true;
 	default rotatePrePerform = true;
 	default drainStaminaOnPerform 	= true;
+	default cooldownInterval 		= -1.f; // disabled
 	default performsToLevelup 		= 50; // action-specific
 	default maxLevelup 				= 10; // action-specific
 	default ST_Universal 			= 5; // EnumGetMax(ESignType);
@@ -155,6 +157,9 @@ abstract statemachine class NR_MagicAction {
 		}
 
 		if (isPerformed && !IsScripted() && !IsInSetupScene()) {
+			if (cooldownInterval > 0.f) {
+				magicManager.SetActionCooldown(actionType, theGame.GetEngineTimeAsSeconds() + cooldownInterval);
+			}
 			FactsAdd("nr_magic_performed_" + ENR_MAToName(actionType), 1);
 			if (actionSubtype != ENR_Unknown)
 				FactsAdd("nr_magic_performed_" + ENR_MAToName(actionSubtype), 1);

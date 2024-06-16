@@ -5,6 +5,7 @@ class NR_MagicCounterPush extends NR_MagicAction {
 	
 	default actionType = ENR_CounterPush;
 	default performsToLevelup = 150;
+	default cooldownInterval = 2.f;
 
 	latent function OnInit() : bool {
 		sceneInputs.PushBack(3);

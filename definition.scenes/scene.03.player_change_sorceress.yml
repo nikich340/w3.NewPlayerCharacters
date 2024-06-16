@@ -11032,22 +11032,6 @@ dialogscript:
             type: CNAME_ENR_CounterPush
             abilityName: "FullBlast"
             abilityStrId: 2115940231
-        - choice: ["0001107617|", script_switch_skill_enr_counterpush_freezing]
-          emphasize: true
-          scriptAction:
-            .class: NR_SwitchableAbilityMagicChoiceAction
-            str: '{2115940118}: '
-            type: CNAME_ENR_CounterPush
-            abilityName: "Freezing"
-            abilityStrId: 1081836
-        - choice: ["0001107617|", script_switch_skill_enr_counterpush_burning]
-          emphasize: true
-          scriptAction:
-            .class: NR_SwitchableAbilityMagicChoiceAction
-            str: '{2115940118}: '
-            type: CNAME_ENR_CounterPush
-            abilityName: "Burning"
-            abilityStrId: 2115940245
 
   script_switch_skill_enr_slash_doubleslash:
     - SCRIPT:
@@ -11079,22 +11063,6 @@ dialogscript:
         parameter:
           - type: CNAME_ENR_CounterPush
           - abilityName: "FullBlast"
-    - NEXT: section_light_manage_skills_entry
-
-  script_switch_skill_enr_counterpush_freezing:
-    - SCRIPT:
-        function: NR_SwitchActionAbility_S
-        parameter:
-          - type: CNAME_ENR_CounterPush
-          - abilityName: "Freezing"
-    - NEXT: section_light_manage_skills_entry
-
-  script_switch_skill_enr_counterpush_burning:
-    - SCRIPT:
-        function: NR_SwitchActionAbility_S
-        parameter:
-          - type: CNAME_ENR_CounterPush
-          - abilityName: "Burning"
     - NEXT: section_light_manage_skills_entry
 
   section_choice_heavy:
@@ -22798,17 +22766,7 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: '{2115940158}: '
-        - choice: ["2115940592|Manage abilities", section_special_alt_manage_skills_entry]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{2115940158}: '
         - choice: ["0001066290|Axii", script_set_sign_special_alt_axii]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{2115940158}: '
-        - choice: ["2115940592|Manage abilities", section_special_alt_manage_skills_entry]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
@@ -22818,17 +22776,7 @@ dialogscript:
           scriptAction:
             .class: NR_FormattedLocChoiceAction
             str: '{2115940158}: '
-        - choice: ["2115940592|Manage abilities", section_special_alt_manage_skills_entry]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{2115940158}: '
         - choice: ["0001066292|Quen", script_set_sign_special_alt_quen]
-          emphasize: true
-          scriptAction:
-            .class: NR_FormattedLocChoiceAction
-            str: '{2115940158}: '
-        - choice: ["2115940592|Manage abilities", section_special_alt_manage_skills_entry]
           emphasize: true
           scriptAction:
             .class: NR_FormattedLocChoiceAction
@@ -24643,123 +24591,6 @@ dialogscript:
           - varName: cat_app_ENR_SpecialPolymorphism
           - varValue: CNAME_cat_31
     - NEXT: script_preview_special_alt_aard_polymorphism_cat_appearance
-
-
-
-
-
-  section_special_alt_manage_skills_entry:
-    - PAUSE: 0
-    - NEXT: section_choice_special_alt_manage_skills
-
-
-
-
-
-  section_choice_special_alt_manage_skills:
-    - CHOICE:
-        - choice: ["2115940103|", script_info_special_alt, exit]
-          emphasize: true
-        - choice: ["0001107617|", script_switch_skill_enr_speciallightningfall_damagecontrol]
-          emphasize: true
-          scriptAction:
-            .class: NR_SwitchableAbilityMagicChoiceAction
-            str: '{2115940158}: '
-            type: CNAME_ENR_SpecialLightningFall
-            abilityName: "DamageControl"
-            abilityStrId: 2115940244
-        - choice: ["0001107617|", script_switch_skill_enr_speciallightningfall_autoshield]
-          emphasize: true
-          scriptAction:
-            .class: NR_SwitchableAbilityMagicChoiceAction
-            str: '{2115940158}: '
-            type: CNAME_ENR_SpecialLightningFall
-            abilityName: "AutoShield"
-            abilityStrId: 2115940251
-        - choice: ["0001107617|", script_switch_skill_enr_specialfield_pursuit]
-          emphasize: true
-          scriptAction:
-            .class: NR_SwitchableAbilityMagicChoiceAction
-            str: '{2115940158}: '
-            type: CNAME_ENR_SpecialField
-            abilityName: "Pursuit"
-            abilityStrId: 2115940239
-        - choice: ["0001107617|", script_switch_skill_enr_specialmeteorfall_damagecontrol]
-          emphasize: true
-          scriptAction:
-            .class: NR_SwitchableAbilityMagicChoiceAction
-            str: '{2115940158}: '
-            type: CNAME_ENR_SpecialMeteorFall
-            abilityName: "DamageControl"
-            abilityStrId: 2115940244
-        - choice: ["0001107617|", script_switch_skill_enr_specialmeteorfall_autoshield]
-          emphasize: true
-          scriptAction:
-            .class: NR_SwitchableAbilityMagicChoiceAction
-            str: '{2115940158}: '
-            type: CNAME_ENR_SpecialMeteorFall
-            abilityName: "AutoShield"
-            abilityStrId: 2115940251
-
-
-
-
-
-  script_switch_skill_enr_speciallightningfall_damagecontrol:
-    - SCRIPT:
-        function: NR_SwitchActionAbility_S
-        parameter:
-          - type: CNAME_ENR_SpecialLightningFall
-          - abilityName: "DamageControl"
-    - NEXT: section_special_alt_manage_skills_entry
-
-
-
-
-
-  script_switch_skill_enr_speciallightningfall_autoshield:
-    - SCRIPT:
-        function: NR_SwitchActionAbility_S
-        parameter:
-          - type: CNAME_ENR_SpecialLightningFall
-          - abilityName: "AutoShield"
-    - NEXT: section_special_alt_manage_skills_entry
-
-
-
-
-
-  script_switch_skill_enr_specialfield_pursuit:
-    - SCRIPT:
-        function: NR_SwitchActionAbility_S
-        parameter:
-          - type: CNAME_ENR_SpecialField
-          - abilityName: "Pursuit"
-    - NEXT: section_special_alt_manage_skills_entry
-
-
-
-
-
-  script_switch_skill_enr_specialmeteorfall_damagecontrol:
-    - SCRIPT:
-        function: NR_SwitchActionAbility_S
-        parameter:
-          - type: CNAME_ENR_SpecialMeteorFall
-          - abilityName: "DamageControl"
-    - NEXT: section_special_alt_manage_skills_entry
-
-
-
-
-
-  script_switch_skill_enr_specialmeteorfall_autoshield:
-    - SCRIPT:
-        function: NR_SwitchActionAbility_S
-        parameter:
-          - type: CNAME_ENR_SpecialMeteorFall
-          - abilityName: "AutoShield"
-    - NEXT: section_special_alt_manage_skills_entry
 
   script_set_sign_special_alt_axii:
     - SCRIPT:
@@ -31932,3 +31763,92 @@ dialogscript:
           - varName: cat_app_ENR_SpecialPolymorphism
           - varValue: CNAME_cat_31
     - NEXT: script_preview_special_alt_yrden_polymorphism_cat_appearance
+
+  section_special_alt_manage_skills_entry:
+    - PAUSE: 0
+    - NEXT: section_choice_special_alt_manage_skills
+
+  section_choice_special_alt_manage_skills:
+    - CHOICE:
+        - choice: ["2115940103|", script_info_special_alt, exit]
+          emphasize: true
+        - choice: ["0001107617|", script_switch_skill_enr_speciallightningfall_damagecontrol]
+          emphasize: true
+          scriptAction:
+            .class: NR_SwitchableAbilityMagicChoiceAction
+            str: '{2115940158}: '
+            type: CNAME_ENR_SpecialLightningFall
+            abilityName: "DamageControl"
+            abilityStrId: 2115940244
+        - choice: ["0001107617|", script_switch_skill_enr_speciallightningfall_autoshield]
+          emphasize: true
+          scriptAction:
+            .class: NR_SwitchableAbilityMagicChoiceAction
+            str: '{2115940158}: '
+            type: CNAME_ENR_SpecialLightningFall
+            abilityName: "AutoShield"
+            abilityStrId: 2115940251
+        - choice: ["0001107617|", script_switch_skill_enr_specialfield_pursuit]
+          emphasize: true
+          scriptAction:
+            .class: NR_SwitchableAbilityMagicChoiceAction
+            str: '{2115940158}: '
+            type: CNAME_ENR_SpecialField
+            abilityName: "Pursuit"
+            abilityStrId: 2115940239
+        - choice: ["0001107617|", script_switch_skill_enr_specialmeteorfall_damagecontrol]
+          emphasize: true
+          scriptAction:
+            .class: NR_SwitchableAbilityMagicChoiceAction
+            str: '{2115940158}: '
+            type: CNAME_ENR_SpecialMeteorFall
+            abilityName: "DamageControl"
+            abilityStrId: 2115940244
+        - choice: ["0001107617|", script_switch_skill_enr_specialmeteorfall_autoshield]
+          emphasize: true
+          scriptAction:
+            .class: NR_SwitchableAbilityMagicChoiceAction
+            str: '{2115940158}: '
+            type: CNAME_ENR_SpecialMeteorFall
+            abilityName: "AutoShield"
+            abilityStrId: 2115940251
+
+  script_switch_skill_enr_speciallightningfall_damagecontrol:
+    - SCRIPT:
+        function: NR_SwitchActionAbility_S
+        parameter:
+          - type: CNAME_ENR_SpecialLightningFall
+          - abilityName: "DamageControl"
+    - NEXT: section_special_alt_manage_skills_entry
+
+  script_switch_skill_enr_speciallightningfall_autoshield:
+    - SCRIPT:
+        function: NR_SwitchActionAbility_S
+        parameter:
+          - type: CNAME_ENR_SpecialLightningFall
+          - abilityName: "AutoShield"
+    - NEXT: section_special_alt_manage_skills_entry
+
+  script_switch_skill_enr_specialfield_pursuit:
+    - SCRIPT:
+        function: NR_SwitchActionAbility_S
+        parameter:
+          - type: CNAME_ENR_SpecialField
+          - abilityName: "Pursuit"
+    - NEXT: section_special_alt_manage_skills_entry
+
+  script_switch_skill_enr_specialmeteorfall_damagecontrol:
+    - SCRIPT:
+        function: NR_SwitchActionAbility_S
+        parameter:
+          - type: CNAME_ENR_SpecialMeteorFall
+          - abilityName: "DamageControl"
+    - NEXT: section_special_alt_manage_skills_entry
+
+  script_switch_skill_enr_specialmeteorfall_autoshield:
+    - SCRIPT:
+        function: NR_SwitchActionAbility_S
+        parameter:
+          - type: CNAME_ENR_SpecialMeteorFall
+          - abilityName: "AutoShield"
+    - NEXT: section_special_alt_manage_skills_entry

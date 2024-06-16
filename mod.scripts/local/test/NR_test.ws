@@ -188,6 +188,54 @@ exec function dialog(tag : name) {
 	npc.PlayDialog();
 }
 
+exec function battlecry1() {
+	thePlayer.PlayBattleCry( 'BattleCryTaunt', 1.0f );
+}
+
+exec function vset(vset_input : String) {
+	NR_Notify("PlayVoiceset = " + thePlayer.PlayVoiceset( 100, vset_input ));
+}
+
+exec function vset1() {
+	thePlayer.PlayVoiceset( 100, "BattleCryAttack" );
+}
+
+exec function vset2() {
+	thePlayer.PlayVoiceset( 100, "BattleCryMonstersStart" );
+}
+
+exec function battlecry2() {
+	thePlayer.PlayBattleCry( 'BattleCryAttack', 1.0f );
+}
+
+exec function battlecry3() {
+	thePlayer.PlayBattleCry( 'BattleCryHumansStart', 1.0f );
+}
+
+exec function battlecry4() {
+	thePlayer.PlayBattleCry( 'BattleCryMonstersStart', 1.0f );
+}
+
+exec function battlecry5() {
+	thePlayer.PlayBattleCry( 'BattleCryHumansEnd', 1.0f );
+}
+
+exec function battlecry6() {
+	thePlayer.PlayBattleCry( 'BattleCryMonstersEnd', 1.0f );
+}
+
+exec function battlecry7() {
+	thePlayer.PlayBattleCry( 'BattleCryHumansHit', 1.0f );
+}
+
+exec function battlecry8() {
+	thePlayer.PlayBattleCry( 'BattleCryMonstersHit', 1.0f );
+}
+
+exec function battlecry9() {
+	thePlayer.PlayBattleCry( 'BattleCryBadSituation', 1.0f );
+}
+
 exec function nr_female(enable: bool) {
 	if (enable) {
 		NR_Notify("FEMALE ON");

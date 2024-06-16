@@ -1,0 +1,5 @@
+templates:
+  nr_dummy_celestine_name:
+    entityObject:
+      ".type": CNewNPC
+      displayName: "Celestine"

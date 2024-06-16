@@ -167,7 +167,8 @@ layers:
 
       snow_arena_9: [-231.21844482409995, -316.3665466309, 41.7458457947, 27.9999885559]
 
-      snow_arena_center: [-237.56506347649997, -304.7667541504, 40.3227920532, 120.1999359131]
+      # snow_arena_center: [-237.56506347649997, -304.7667541504, 40.3227920532, 120.1999359131]
+      snow_arena_center: [-237.56506347649997, -304.7667541504, 40.3227920532, 300.1999359131]
       
       snow_arena_celestine: [ -241.7316741943, -308.7763061523, 40.6181297302, -40.4000053406 ]
 
@@ -1547,9 +1548,14 @@ layers:
         rot: [0.0, 0.0, 1400.7995605469]
 
       ship_chest_secret:
+        .type: W3AnimatedContainer
         template: "W3AnimatedContainer:quests\\minor_quests\\novigrad\\quest_files\\mq3012_jade_statuettes\\entities\\mq3012_statuette_chest.w2ent"
-        pos: [-279.6800231933, -295.9710388184, 44.9269371033]
-        rot: [0.0, 0.0, 140.4000549316]
+        lockedByKey: true
+        keyItemName: "~nr_ship_chest_secret_key"
+        factOnUnlockedByKey: "nr_ship_chest_secret_unlocked"
+        transform:
+          pos: [-279.6800231933, -295.9710388184, 44.9269371033]
+          rot: [0.0, 0.0, 140.4000549316]
 
       ship_lamp_1:
         template: "CGameplayEntity:dlc\\dlcnewreplacers\\data\\entities\\nr_hanging_lamp_blue.w2ent"

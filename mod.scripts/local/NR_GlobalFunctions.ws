@@ -27,7 +27,6 @@ function NR_stringByItemUID(inv : CInventoryComponent, itemId : SItemUniqueId) :
 		return "<invalid>";
 }
 
-
 function ENR_MAToName(action : ENR_MagicAction) : name {
 	switch (action) {
 		case ENR_LightAbstract:

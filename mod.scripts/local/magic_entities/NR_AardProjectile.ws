@@ -11,7 +11,7 @@ class NR_AardProjectile extends W3AardProjectile {
 	}*/
 
 	protected function ProcessCollisionOnEntity( target : CGameplayEntity ) {
-		var params 	: SCustomEffectParams;
+		var params, params2 : SCustomEffectParams;
 		var npc  	: CNewNPC;
 		var buffResult 	: EEffectInteract;
 		var i 			: int;
@@ -21,36 +21,23 @@ class NR_AardProjectile extends W3AardProjectile {
 			return;
 
 		targetEntities.PushBack(target);
-		// target.OnAardHit( this );
 
 		npc = (CNewNPC)target;
-		if (!npc)
+		if (!npc) {
+			target.OnAardHit( this );
 			return;
+		}
 
 		params.creator = thePlayer;
 		params.sourceName = 'NR_AardProjectile';
-		//params.effectValue.valueAdditive = 50.f + 20.f * target.GetLevel();
+		//params.effectValue.valueAdditive = 50.f + 20.f * npc.GetLevel();
 		params.effectValue.valueBase = 1000.f;
 		params.effectValue.valueMultiplicative = 1.25f;
 		params.effectValue.valueAdditive = 1000.f;
 		params.customPowerStatValue.valueBase = 1000.f;
 		params.customPowerStatValue.valueMultiplicative = 1.25f;
 		params.customPowerStatValue.valueAdditive = 1000.f;
-		params.duration = 5.f;
-		
-		if (useFreeze || useBurn) {
-			params.duration = 7.f;
-			if (useFreeze) {
-				params.effectType = EET_Frozen;
-			} else {
-				//params.effectValue.valueBase = 50.f + 10.f * target.GetLevel();
-				//params.effectValue.valueMultiplicative = 1.f;
-				//params.effectValue.valueAdditive = 0.f;
-				params.effectType = EET_Burning;
-			}
-			npc.AddEffectCustom(params);
-			return;
-		}
+		params.duration = 4.5f + 0.4f * (int)NR_GetMagicManager().GetSkillLevel() + 0.2f * NR_GetMagicManager().GetActionSkillLevel(ENR_CounterPush);
 
 		effectTypes.PushBack(EET_HeavyKnockdown);
 		effectTypes.PushBack(EET_Knockdown);
@@ -70,6 +57,19 @@ class NR_AardProjectile extends W3AardProjectile {
 			}
 		}
 		NR_Debug("ProcessCollisionOnEntity: " + buffResult + ", npc = " + npc);
+
+		if (useFreeze || useBurn) {
+			params2.creator = thePlayer;
+			params2.sourceName = 'NR_AardProjectile';
+			params2.duration = 6.f + 0.5f * (int)NR_GetMagicManager().GetSkillLevel() + 0.25f * NR_GetMagicManager().GetActionSkillLevel(ENR_CounterPush);
+			if (useFreeze) {
+				params2.effectType = EET_Frozen;
+			} else {
+				params2.effectType = EET_Burning;
+			}
+			npc.AddEffectCustom(params2);
+			return;
+		}
 	}
 
 	protected function ProcessCollision( collider : CGameplayEntity, pos, normal : Vector )

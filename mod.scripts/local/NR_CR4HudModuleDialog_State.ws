@@ -1,16 +1,22 @@
 state NR_ScenePreviewAppearance_DialogState in CR4HudModuleDialog {
 	event OnEnterState( prevStateName : name )
     {
-        theInput.RegisterListener( this, 'OnBack', 'EnablePhotoMode' );
         NR_GetPlayerManager().SetCanShowAppearanceInfo(true);
+        Run_ScenePreviewAppearance();
     }
 
-    event OnBack( action : SInputAction )
-    {
-        if ( IsReleased( action ) ) {
-            OnDialogOptionSelected(0);
-            OnDialogOptionAccepted(0);
+    entry function Run_ScenePreviewAppearance() {
+        while (true) {
+            SleepOneFrame();
+            if ( theInput.IsActionJustReleased( 'EnablePhotoMode' ) )
+                GoBack();
         }
+    }
+
+    public function GoBack()
+    {
+        OnDialogOptionSelected(0);
+        OnDialogOptionAccepted(0);
     }
     
     event OnDialogOptionSelected( index : int )
@@ -27,7 +33,6 @@ state NR_ScenePreviewAppearance_DialogState in CR4HudModuleDialog {
 
     event OnLeaveState( nextStateName : name )
     {
-        theInput.UnregisterListener( this, 'EnablePhotoMode' );
         NR_GetPlayerManager().SetCanShowAppearanceInfo(false);
     }
 }
@@ -35,20 +40,25 @@ state NR_ScenePreviewAppearance_DialogState in CR4HudModuleDialog {
 state NR_ScenePreviewSpells_DialogState in CR4HudModuleDialog {
     event OnEnterState( prevStateName : name )
     {
-        theInput.RegisterListener( this, 'OnBack', 'EnablePhotoMode' );
+        Run_ScenePreviewSpells();
     }
 
-    event OnBack( action : SInputAction )
-    {
-        if ( IsReleased( action ) ) {
-            parent.OnDialogOptionSelected(0);
-            parent.OnDialogOptionAccepted(0);
+    entry function Run_ScenePreviewSpells() {
+        while (true) {
+            SleepOneFrame();
+            if ( theInput.IsActionJustReleased( 'EnablePhotoMode' ) )
+                GoBack();
         }
+    }
+
+    public function GoBack()
+    {
+        parent.OnDialogOptionSelected(0);
+        parent.OnDialogOptionAccepted(0);
     }
 
     event OnLeaveState( nextStateName : name )
     {
-        theInput.UnregisterListener( this, 'EnablePhotoMode' );
     }
 }
 

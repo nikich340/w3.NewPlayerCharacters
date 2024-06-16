@@ -39,6 +39,10 @@ storyscene function NR_UserSetsRemove_S(player: CStoryScenePlayer, setIndex : in
 	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
+storyscene function NR_ShowAppearanceInfo_S(player: CStoryScenePlayer) {
+	NR_GetPlayerManager().ShowAppearanceInfo();
+}
+
 latent storyscene function NR_ShowCustomDLCInfo_S(player: CStoryScenePlayer) {
 	NR_GetPlayerManager().HideAppearanceInfo();
 	NR_GetPlayerManager().ShowCustomDLCInfo();

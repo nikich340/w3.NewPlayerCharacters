@@ -635,20 +635,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	
 	event OnPerformGuard()
 	{
-		NR_Debug("NR_ReplacerSorceress.OnPerformGuard");
-		OnInterruptAttack();
-		parent.FindMoveTarget();
-		parent.SetCanPlayHitAnim( true );
-		parent.SetBIsCombatActionAllowed( true );
-		parent.FindTarget();
-		parent.UpdateDisplayTarget( true );
-		if (parent.GetTarget()) {
-			parent.SetSlideTarget( parent.GetTarget() );
-			thePlayer.SetCombatActionHeading( VecHeading(parent.GetTarget().GetWorldPosition() - thePlayer.GetWorldPosition()) );
-		}
-		else {
-			parent.SetCombatActionHeading( parent.ProcessCombatActionHeading( EBAT_LightAttack ) );
-		}
 		OnPerformAttack('attack_magic_push');
 	}
 	
@@ -1608,11 +1594,33 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		}
 
 		if ( !parent.magicManager.IsActionLearned(actionType) ) {
-			thePlayer.DisplayHudMessage( NR_StrRed(GetLocStringById(2115940242) + ": " + ENR_MAToLocString(actionType)) );
+			thePlayer.DisplayHudMessage( NR_StrRed(GetLocStringById(2115940242) + ": ") + ENR_MAToLocString(actionType) );
 			return;
 		}
 
-		thePlayer.PlayBattleCry( 'BattleCryAttack', 1.f );
+		if ( parent.magicManager.IsActionCooldowned(actionType) ) {
+			theSound.SoundEvent("gui_inventory_overweighted");
+			return;
+		}
+
+		if ( actionType == ENR_CounterPush ) {
+			// moved from OnPerformGuard
+			OnInterruptAttack();
+			parent.FindMoveTarget();
+			parent.SetCanPlayHitAnim( true );
+			parent.SetBIsCombatActionAllowed( true );
+			parent.FindTarget();
+			parent.UpdateDisplayTarget( true );
+			if (parent.GetTarget()) {
+				parent.SetSlideTarget( parent.GetTarget() );
+				thePlayer.SetCombatActionHeading( VecHeading(parent.GetTarget().GetWorldPosition() - thePlayer.GetWorldPosition()) );
+			}
+			else {
+				parent.SetCombatActionHeading( parent.ProcessCombatActionHeading( EBAT_LightAttack ) );
+			}
+		}
+
+		thePlayer.PlayBattleCry( 'BattleCryAttack', 0.3f );
 		if ( parent.magicManager.HasStaminaForAction(actionType) ) {
 			parent.magicManager.SetActionType( actionType );
 			NR_Debug("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
@@ -1653,7 +1661,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			return false;
 		}
 
-		thePlayer.PlayBattleCry( 'BattleCryAttack', 0.2f );
+		thePlayer.PlayBattleCry( 'BattleCryAttack', 0.3f );
 		parent.magicManager.SetActionType( actionType );
 		// manually push action to Active state
 		playRet = comboPlayer.PlayAttack( aspectName );

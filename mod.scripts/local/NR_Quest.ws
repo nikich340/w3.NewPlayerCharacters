@@ -378,7 +378,13 @@ quest function NR_AddChameleonPotion() {
 quest function NR_UseChameleonPotion() {
     //var invMenu : CR4InventoryMenu;
     //var rootMenu : CR4Menu;
+    var playerManager : NR_PlayerManager;
     var commonMenuRef : CR4CommonMenu;
+
+    // save pos and rot before scene
+    playerManager = NR_GetPlayerManager();
+    playerManager.m_worldPosition = thePlayer.GetWorldPosition();
+    playerManager.m_worldRotation = thePlayer.GetWorldRotation();
 
     commonMenuRef = theGame.GetGuiManager().GetCommonMenu();
 
@@ -403,6 +409,14 @@ quest function NR_UseChameleonPotion() {
     {
         thePlayer.PlayEffect( 'use_potion' );
     }
+}
+
+quest function NR_RestorePlayerPosition() {
+    var playerManager : NR_PlayerManager;
+
+    playerManager = NR_GetPlayerManager();
+    if ( VecDistanceSquared(playerManager.m_worldPosition, thePlayer.GetWorldPosition()) > 1.f )
+        thePlayer.TeleportWithRotation(playerManager.m_worldPosition, playerManager.m_worldRotation);
 }
 
 latent quest function NR_SaveGameAndWait(type : string, slot : int, wait : float) {

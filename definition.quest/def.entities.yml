@@ -1,7 +1,7 @@
 #
 # definition of entities
 #
-templates:
+templates:  
   nr_radish_cooker:
     entityObject:
       ".type": NR_AssetCooker

@@ -1097,15 +1097,15 @@ storyboard:
       #- cam.blend.start: [0.0, cam_16_Shot_attack3_lop_cast_above, smooth]
       - cam.blend.start: [0.0, cam_17_Shot_attack4_lop_cast_above2, smooth]
       #- cam.blend.end: [0.999, cam_17_Shot_attack4_lop_cast_above2, smooth]
-      - world.addfact: [0.3, nr_scene_spider_spawn_meteors, 1]
+      - world.addfact: [0.2, nr_scene_spider_spawn_meteors, 1]
 
       - actor.anim: # 0.5
-          .@pos: [0.2, nr_black_spider_34_boss_big_monster_archas_block_start]
-          blendin: 0.4
-          blendout: 0.1
+          .@pos: [0.3, nr_black_spider_34_boss_big_monster_archas_block_start]
+          blendin: 0.3
+          blendout: 0.2
           motionExtraction: true
 
-      - actor.pose: [0.263, nr_black_spider_34_boss_big_monster_archas_block_loop]
+      - actor.pose: [0.347, nr_black_spider_34_boss_big_monster_archas_block_loop]
 
       - actor.sound: [0.5, nr_black_spider_34_boss_big, Play_arachas_pain3]
       - actor.anim: # 0.8

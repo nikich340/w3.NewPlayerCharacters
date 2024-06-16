@@ -8,7 +8,9 @@ class NR_MagicWaterTrap extends NR_MagicAction {
 	default actionSubtype = ENR_LightAbstract;
 	
 	latent function OnInit() : bool {
-		sceneInputs.PushBack(26);
+		sceneInputs.PushBack(27);
+		sceneInputs.PushBack(28);
+		sceneInputs.PushBack(29);
 		super.OnInit();
 
 		return true;

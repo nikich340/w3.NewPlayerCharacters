@@ -81,6 +81,8 @@ statemachine class NR_PlayerManager extends IScriptable {
 	public saved var m_debugObject : IScriptable;
 	protected saved var m_magicVersion : int;
 	default 			m_magicVersion = -1;
+	public 		var m_worldPosition : Vector;
+	public 		var m_worldRotation : EulerAngles;
 
 	// called once: after entity created //
 	public function Init() {
@@ -95,9 +97,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 		m_appearanceSets.Resize( 2 );
 		m_headNames.Resize( typesCount );
 		m_appearanceItems.Resize( typesCount );
-		m_appearanceItemIsLoaded.Resize( typesCount );
 		m_appearanceTemplates.Resize( typesCount );
-		m_appearanceTemplateIsLoaded.Resize( typesCount );
 
 		for (i = 0; i < typesCount; i += 1) {
 			m_appearanceTemplates[i].Resize( slotsCount );
@@ -141,11 +141,24 @@ statemachine class NR_PlayerManager extends IScriptable {
 	// run on every game load (load non-saved data) //
 	public latent function OnStarted() {
 		var template : CEntityTemplate;
-		var 	   i : int;
+		var 	   i, typesCount, slotsCount : int;
 
 		NR_Debug("NR_PlayerManager.OnStarted: " + this);
 		// scene stuff //
-		m_appearancePreviewTemplates.Resize( EnumGetMax('ENR_AppearanceSlots') );
+		typesCount = EnumGetMax('ENR_PlayerType') + 1;
+		slotsCount = EnumGetMax('ENR_AppearanceSlots') + 1;
+		m_appearanceItemIsLoaded.Clear();
+		m_appearanceItemIsLoaded.Resize( typesCount );
+		m_appearanceTemplateIsLoaded.Clear();
+		m_appearanceTemplateIsLoaded.Resize( typesCount );
+		for (i = 0; i < typesCount; i += 1) {
+			m_appearanceTemplateIsLoaded[i].Clear();
+			m_appearanceTemplateIsLoaded[i].Resize( slotsCount );
+		}
+
+		m_appearancePreviewItems.Clear();
+		m_appearancePreviewTemplates.Clear();
+		m_appearancePreviewTemplates.Resize( slotsCount );
 		template = (CEntityTemplate)LoadResourceAsync("nr_scene_selector");
 		if ( !template ) {
 			NR_Error("NR_PlayerManager.OnStarted: !m_sceneSelector template");
@@ -269,13 +282,17 @@ statemachine class NR_PlayerManager extends IScriptable {
 		}
 
 		// handle items
+		NR_Debug("NR_PlayerManager.OnDialogOptionSelected: m_appearanceItemIsLoaded.size = " + m_appearanceItemIsLoaded[GetCurrentPlayerType()].Size());
 		for (i = 0; i < m_appearanceItems[GetCurrentPlayerType()].Size(); i += 1) {
+			NR_Debug("NR_PlayerManager.OnDialogOptionSelected: m_appearanceItemIsLoaded[" + i + "] = " + m_appearanceItemIsLoaded[GetCurrentPlayerType()][i]);
 			if ((forceUnloadAll || forceUnloadAllExceptHair) && m_appearanceItemIsLoaded[GetCurrentPlayerType()][i]) {
-				ExcludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
+				NR_Debug("NR_PlayerManager.OnDialogOptionSelected: handle (unload) item[" + i + "] = ");
 				m_appearanceItemIsLoaded[GetCurrentPlayerType()][i] = false;
+				ExcludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
 			} else if (!forceUnloadAll && !forceUnloadAllExceptHair && !m_appearanceItemIsLoaded[GetCurrentPlayerType()][i]) {
-				IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
+				NR_Debug("NR_PlayerManager.OnDialogOptionSelected: handle (load) item[" + i + "] = ");
 				m_appearanceItemIsLoaded[GetCurrentPlayerType()][i] = true;
+				IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
 			}
 		}
 
@@ -426,12 +443,13 @@ statemachine class NR_PlayerManager extends IScriptable {
 
 	// scene (preview) stuff functions //
 	public function ClearItemSlot(item_index : int) {
+		NR_Debug("ClearItemSlot: item_index = " + item_index);
 		if (item_index == -1) {
 			for (item_index = m_appearanceItems[GetCurrentPlayerType()].Size() - 1; item_index >= 0; item_index -= 1) {
 				UpdateAppearanceItem("", item_index);
 			}
-		} else if (item_index > 0 && item_index <= m_appearanceItems[GetCurrentPlayerType()].Size()) {
-			UpdateAppearanceItem("", item_index - 1);
+		} else if (item_index >= 0 && item_index < m_appearanceItems[GetCurrentPlayerType()].Size()) {
+			UpdateAppearanceItem("", item_index);
 		}
 	}
 
@@ -1006,7 +1024,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 		inv = thePlayer.GetInventory();
 
 		category = inv.GetItemCategory(id);
-		NR_Debug("NR_PlayerManager.RemoveSavedItem : " + category);
+		// NR_Debug("NR_PlayerManager.RemoveSavedItem : " + category);
 		m_geraltSavedItems[ NR_ENRSlotByCategory(category) ] = GetDefaultItemByCategory(category);
 	}
 
@@ -1021,7 +1039,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 
 		category = inv.GetItemCategory(id);
 		itemName = inv.GetItemName(id);
-		NR_Debug("NR_PlayerManager.UpdateSavedItem : " + itemName + " (" + category + "), inStoryScene = " + theGame.IsDialogOrCutscenePlaying());
+		// NR_Debug("NR_PlayerManager.UpdateSavedItem : " + itemName + " (" + category + "), inStoryScene = " + theGame.IsDialogOrCutscenePlaying());
 		if ( inv.IsItemMounted(id) && (category == 'armor' || category == 'gloves' 
 			|| category == 'pants' || category == 'boots') )
 		{
@@ -1029,7 +1047,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 		}
 
 		if (theGame.IsDialogOrCutscenePlaying()) {
-			NR_Debug("NR_PlayerManager.UpdateSavedItem: in story scene, ignoring");
+			// NR_Debug("NR_PlayerManager.UpdateSavedItem: in story scene, ignoring");
 			return;
 		}
 
@@ -1046,7 +1064,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 
 		inv = thePlayer.GetInventory();
 		inv.GetAllItems(ids);
-		NR_Debug("NR_PlayerManager.UnmountEquipment: inv = " + ids.Size());
+		// NR_Debug("NR_PlayerManager.UnmountEquipment: inv = " + ids.Size());
 
 		for (i = 0; i < ids.Size(); i += 1) {
 			if ( !inv.IsItemMounted(ids[i]) )
@@ -1064,7 +1082,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 				(inv.ItemHasTag(ids[i], 'Body') && StrStartsWith(NR_stringByItemUID(inv, ids[i]), "Body")) )
 			{
 				UpdateSavedItem( ids[i] );
-				NR_Debug("NR_PlayerManager.UnmountEquipment: " + NR_stringByItemUID(inv, ids[i]) + ", name: " + inv.GetItemName(ids[i]) + " slot = " + equippedOnSlot);
+				// NR_Debug("NR_PlayerManager.UnmountEquipment: " + NR_stringByItemUID(inv, ids[i]) + ", name: " + inv.GetItemName(ids[i]) + " slot = " + equippedOnSlot);
 			}
 		}
 	}
@@ -1084,6 +1102,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 			template = (CEntityTemplate)LoadResource( templateName, true );
 			if (template) {
 				appearanceComponent.IncludeAppearanceTemplate(template);
+				// NR_Debug("NR_PlayerManager.IncludeAppearanceTemplate: templateName = " + templateName);
 			} else {
 				NR_Error("NR_PlayerManager.IncludeAppearanceTemplate: !template = " + templateName);
 			}
@@ -1107,6 +1126,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 			template = (CEntityTemplate)LoadResource( templateName, true );
 			if (template) {
 				appearanceComponent.ExcludeAppearanceTemplate(template);
+				// NR_Debug("NR_PlayerManager.ExcludeAppearanceTemplate: templateName = " + templateName);
 			} else {
 				NR_Error("NR_PlayerManager.ExcludeAppearanceTemplate: !template = " + templateName);
 			}
@@ -1182,7 +1202,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 
 	// Helper function: updates template in given slot: Exclude old + Include new (if new != "") //
 	/* API */ public function UpdateAppearanceTemplate(templateName : String, slot : ENR_AppearanceSlots) {
-		NR_Debug("NR_PlayerManager.UpdateAppearanceTemplate: templateName = " + templateName + ", slot = " + slot);
+		// NR_Debug("NR_PlayerManager.UpdateAppearanceTemplate: templateName = " + templateName + ", slot = " + slot);
 		if (IsReplacerActive() && m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot]) {
 			ExcludeAppearanceTemplate(m_appearanceTemplates[GetCurrentPlayerType()][slot]);
 			m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = false;
@@ -1199,19 +1219,20 @@ statemachine class NR_PlayerManager extends IScriptable {
 	// Helper function: updates template ITEM (slot == ENR_RSlotMisc) in given slot: Exclude old + Include new (if new != "") //
 	// itemIndex: defines if given template should be appended (-1) or replace existing [0; itemCount - 1] //
 	/* API */ public function UpdateAppearanceItem(templateName : String, itemIndex : int) {
-		NR_Debug("NR_PlayerManager.UpdateAppearanceTemplate: templateName = " + templateName + ", itemIndex = " + itemIndex);
+		// NR_Debug("NR_PlayerManager.UpdateAppearanceItem: templateName = " + templateName + ", itemIndex = " + itemIndex);
+		// NR_Debug("NR_PlayerManager.UpdateAppearanceItem: m_appearanceItems.size = " + m_appearanceItems[GetCurrentPlayerType()].Size() + ", m_appearanceItemIsLoaded.size = " + m_appearanceItemIsLoaded[GetCurrentPlayerType()].Size());
 		if (itemIndex < 0 || itemIndex >= m_appearanceItems[GetCurrentPlayerType()].Size()) {
 			// CREATE cell
 			m_appearanceItems[GetCurrentPlayerType()].PushBack(templateName);
 			m_appearanceItemIsLoaded[GetCurrentPlayerType()].PushBack(false);
 
 			itemIndex = m_appearanceItems[GetCurrentPlayerType()].Size() - 1;
-			FactsSet("nr_appearance_item_" + IntToString(itemIndex + 1), 1);
+			FactsAdd("nr_appearance_item_" + IntToString(itemIndex), 1);
 		} else {
 			// UNLOAD cell
 			if (m_appearanceItems[GetCurrentPlayerType()][itemIndex] != "" && m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex]) {
-				ExcludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][itemIndex]);
 				m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex] = false;
+				ExcludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][itemIndex]);
 			}
 			m_appearanceItems[GetCurrentPlayerType()][itemIndex] = templateName;
 		}
@@ -1221,12 +1242,12 @@ statemachine class NR_PlayerManager extends IScriptable {
 			m_appearanceItems[GetCurrentPlayerType()].Erase(itemIndex);
 			m_appearanceItemIsLoaded[GetCurrentPlayerType()].Erase(itemIndex);
 
-			itemIndex = m_appearanceItems[GetCurrentPlayerType()].Size() - 1;
-			FactsSet("nr_appearance_item_" + IntToString(itemIndex + 1), 1);
+			itemIndex = m_appearanceItems[GetCurrentPlayerType()].Size();
+			FactsRemove("nr_appearance_item_" + IntToString(itemIndex));
 		} else if (!m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex]) {
 			// LOAD cell //
-			IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][itemIndex]);
 			m_appearanceItemIsLoaded[GetCurrentPlayerType()][itemIndex] = true;
+			IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][itemIndex]);
 		}
 	}
 
@@ -1241,12 +1262,15 @@ statemachine class NR_PlayerManager extends IScriptable {
 				m_appearanceTemplateIsLoaded[GetCurrentPlayerType()][slot] = true;
 			}
 		}
+
+		m_appearanceItemIsLoaded[GetCurrentPlayerType()].Clear();
 		for (i = 0; i < 30; i += 1) {
-			FactsSet("nr_appearance_item_" + IntToString(i + 1), 0);
+			FactsRemove("nr_appearance_item_" + IntToString(i));
 		}
 		for (i = 0; i < m_appearanceItems[GetCurrentPlayerType()].Size(); i += 1) {
 			IncludeAppearanceTemplate(m_appearanceItems[GetCurrentPlayerType()][i]);
-			FactsSet("nr_appearance_item_" + IntToString(i + 1), 1);
+			m_appearanceItemIsLoaded[GetCurrentPlayerType()].PushBack(true);
+			FactsAdd("nr_appearance_item_" + IntToString(i), 1);
 		}
 	}
 

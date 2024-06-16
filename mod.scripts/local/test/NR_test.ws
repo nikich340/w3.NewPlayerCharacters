@@ -204,6 +204,38 @@ exec function vset2() {
 	thePlayer.PlayVoiceset( 100, "BattleCryMonstersStart" );
 }
 
+exec function vset3() {
+	thePlayer.PlayVoiceset( 100, "BattleCryHumansEnd" );
+}
+
+exec function vline1() {
+	var id : int;
+	id = 2115940724;
+	thePlayer.PlayLine(id, true);
+	NR_Notify("PlayLine (" + id + ") [" + GetLocStringById(id) + "]");
+}
+
+exec function vline2() {
+	var id : int;
+	id = 2100007481;
+	thePlayer.PlayLine(id, true);
+	NR_Notify("PlayLine (" + id + ") [" + GetLocStringById(id) + "]");
+}
+
+exec function vline1v() {
+	var id : int;
+	id = 1041495;
+	thePlayer.PlayLine(id, true);
+	NR_Notify("PlayLine (" + id + ") [" + GetLocStringById(id) + "]");
+}
+
+exec function vline2v() {
+	var id : int;
+	id = 1054165;
+	thePlayer.PlayLine(id, true);
+	NR_Notify("PlayLine (" + id + ") [" + GetLocStringById(id) + "]");
+}
+
 exec function battlecry2() {
 	thePlayer.PlayBattleCry( 'BattleCryAttack', 1.0f );
 }

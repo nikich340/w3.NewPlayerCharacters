@@ -4,13 +4,15 @@ state Exploration in NR_ReplacerSorceress
 	event OnEnterState( prevStateName : name )
 	{
 		parent.AddTimer('NR_SetTargetDist', 0.5f);
-		parent.magicManager.UpdateMagicControlHints( thePlayer.GetCurrentStateName() );
+		if (parent.magicManager)
+			parent.magicManager.UpdateMagicControlHints( thePlayer.GetCurrentStateName() );
 		super.OnEnterState( prevStateName );
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
 		super.OnLeaveState( nextStateName );
-		parent.magicManager.UpdateMagicControlHints( nextStateName );
+		if (parent.magicManager)
+			parent.magicManager.UpdateMagicControlHints( nextStateName );
 	}
 }

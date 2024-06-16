@@ -111,6 +111,9 @@ class NR_MagicTeleport extends NR_MagicAction {
 	latent function BreakAction() {
 		// do not break if player is already invulnerable
 		if (isPrepared) {
+			// forcely finish action
+			if (!isPerformed)
+				OnPerform();
 			return;
 		}
 

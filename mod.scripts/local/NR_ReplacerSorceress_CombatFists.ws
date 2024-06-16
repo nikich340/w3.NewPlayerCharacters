@@ -142,9 +142,12 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	entry function CombatFistsInit( prevStateName : name )
 	{
 		parent.SetBIsCombatActionAllowed( true );
+		
+		
+		
 		BuildComboPlayer();
 		parent.LockEntryFunction( false );
-		NR_Debug("CombatFistsInit: " + startupAction);
+		// NR_Debug("CombatFistsInit: " + startupAction);
 		switch( startupAction )
 		{
 			case IA_AttackLight:
@@ -179,6 +182,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		CombatFistsLoop();	
 	}
 	
+	
 	entry function CombatFistsDone( nextStateName : name )
 	{
 		NR_UnequipMagicFists();
@@ -187,7 +191,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	
 	latent function CombatFistsLoop()
 	{
-		while ( true )
+		while( true )
 		{
 			Sleep( 0.5 );
 		}		
@@ -276,6 +280,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 			aspect.AddLink('woman_sorceress_attack_slash_right_rp', 'woman_sorceress_attack_slash_left_rp');
 			aspect.AddLink('woman_sorceress_attack_slash_left_rp', 'woman_sorceress_attack_slash_right_rp');
 		}
+		
 		{
 			str = aspect.CreateComboString( true );
 			str.AddDirAttack( 'woman_sorceress_attack_slash_right_lp', AD_Front, ADIST_Medium );

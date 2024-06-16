@@ -50,19 +50,29 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	private var	timeToCheckCombatEndCur	: float;
 	private	var	timeToCheckCombatEndMax	: float;		default	timeToCheckCombatEndMax	= 0.5f;
 	
+	
 	private var	timeToExitCombatFromSprinting	: float;	default	timeToExitCombatFromSprinting	= 2.0f;
 	
 	public function SetupState( initialAction : EInitialAction, optional initialBuff : CBaseGameplayEffect )
 	{
 		startupAction = initialAction;
 		startupBuff	= initialBuff;
-	}
-
+	}	
+	
+	
+	
+	
 	event OnEnterState( prevStateName : name )
 	{
 		var i : int;
 		
+		
+		lerpAmount = 0;
+		geraltCmbtV = Vector(0.74,-0.38,0.147);
+		geraltCmbtRightV = Vector(0.184,-0.38,0.147);
+		geraltCmbtSignV = Vector(-0.35,-0.38,0.147);
 		NR_Debug("NR_ReplacerSorceress.Combat: OnEnterState from " + prevStateName);
+		
 		parent.AddAnimEventCallback('AllowInput',		'OnAnimEvent_AllowInput');
 		parent.AddAnimEventCallback('AllowRoll',		'OnAnimEvent_AllowRoll');
 		parent.AddAnimEventCallback('ForceAttack',		'OnAnimEvent_ForceAttack');
@@ -70,12 +80,23 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.AddAnimEventCallback('PunchHand_Right',	'OnAnimEvent_PunchHand');
 		
 		super.OnEnterState(prevStateName);
+			
+		
+		
 		parent.AddTimer( 'CombatComboUpdate', 0, true, false,  TICK_PrePhysics );
 		parent.AddTimer( 'CombatEndCheck', 0.1f, true );
-
+		
+		
+		
+		
+		
+		
 		parent.SetBehaviorMimicVariable( 'gameplayMimicsMode', (float)(int)PGMM_Combat );
+		
 		CombatInit();
+		
 		theTelemetry.LogWithName(TE_STATE_COMBAT);
+		
 		StatsInit();
 		parent.magicManager.UpdateMagicControlHints( thePlayer.GetCurrentStateName() );
 	}
@@ -89,14 +110,22 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	event OnLeaveState( nextStateName : name )
 	{ 
 		var skillAbilityName : name;
-
+	
+		
 		super.OnLeaveState(nextStateName);
 		
 		parent.RemoveTimer( 'CombatComboUpdate' );
 		parent.RemoveTimer( 'CombatEndCheck' );
-
+		
+		
+		
+		
+		
+		
 		if ( nextStateName != 'AimThrow' )
 			OnCombatActionEndComplete();
+		
+
 		
 		if ( nextStateName != 'CombatFocusMode_SelectSpot' )
 		{
@@ -105,13 +134,18 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				comboPlayer.Deinit();
 			}
 		}
-
+		
+		
+		
+		
+		
 		parent.SetInteractionPriority( IP_Prio_0 );
 		
 		CleanUpComboStuff();
 		
+		
 		skillAbilityName = SkillEnumToName(S_Alchemy_s17);
-		while (thePlayer.HasAbility(skillAbilityName))
+		while(thePlayer.HasAbility(skillAbilityName))
 			thePlayer.RemoveAbility(skillAbilityName);
 
 		parent.magicManager.UpdateMagicControlHints( nextStateName );
@@ -128,7 +162,11 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var camera : CCustomCamera = theGame.GetGameCamera();
 		
 		camera.ChangePivotPositionController( 'Default' );
+		
+		
+		
 		parent.AddTimer( 'CombatLoop', 0, true );
+		
 	}
 		
 	timer function CombatLoop( timeDelta : float , id : int)
@@ -138,9 +176,12 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		parent.GetVisualDebug().AddArrow( 'heading3', parent.GetWorldPosition(), parent.GetWorldPosition() + VecFromHeading( parent.cachedRawPlayerHeading ), 1.f, 0.2f, 0.2f, true, Color(255,0,255), true );
 		
+		
 		UpdateIsInAir();
 		
 		StatsUpdate();
+		
+		
 		
 		
 		
@@ -155,13 +196,14 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var isInGround	: bool;
 		
 		
-		if ( thePlayer.IsRagdolled() )
+		
+		if( thePlayer.IsRagdolled() )
 		{
 			return;
 		}
 		
 		mac = ( CMovingPhysicalAgentComponent ) thePlayer.GetMovingAgentComponent();
-		if ( mac )
+		if( mac )
 		{
 			isInGround	= mac.IsOnGround();
 			thePlayer.SetIsInAir( !isInGround );
@@ -179,9 +221,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	timer function CombatEndCheck( timeDelta : float , id : int)
 	{
 		
-		if ( !parent.IsInCombat() )
+		if( !parent.IsInCombat() )
 		{
-			if ( timeToCheckCombatEndCur < 0.0f )
+			if( timeToCheckCombatEndCur < 0.0f )
 			{
 				parent.GoToExplorationIfNeeded(); 
 			}
@@ -236,12 +278,12 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	event OnGameCameraTick( out moveData : SCameraMovementData, dt : float )
 	{	
 		
-			
-		if ( super.OnGameCameraTick( moveData, dt ) )
+
+		if( super.OnGameCameraTick( moveData, dt ) )
 		{
 			return true;
 		}
-		if ( thePlayer.IsFistFightMinigameEnabled() )
+		if( thePlayer.IsFistFightMinigameEnabled() )
 		{
 			theGame.GetGameCamera().ChangePivotRotationController( 'Exploration' );
 			theGame.GetGameCamera().ChangePivotDistanceController( 'Default' );
@@ -257,7 +299,18 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			moveData.pivotDistanceController.SetDesiredDistance( 3.5f );
 			moveData.pivotPositionController.offsetZ = 1.3f;
 			
-			DampVectorSpring( moveData.cameraLocalSpaceOffset, moveData.cameraLocalSpaceOffsetVel, Vector( 1.0f, 2.0f, 0), 0.3f, dt );
+			
+			
+			if(parent.GetCmbtCamera())
+			{
+				
+			}
+			else
+			{
+				DampVectorSpring( moveData.cameraLocalSpaceOffset, moveData.cameraLocalSpaceOffsetVel, Vector( 1.0f, 2.0f, 0), 0.3f, dt );
+			}
+			
+			
 			moveData.pivotRotationController.SetDesiredHeading( VecHeading( parent.GetDisplayTarget().GetWorldPosition() - parent.GetWorldPosition() ) + 60.0f, 0.5f );
 			
 			
@@ -284,6 +337,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	}
 	
 	
+	private var geraltCmbtV, geraltCmbtRightV, geraltCmbtSignV : Vector;
+	
+	
 	event OnGameCameraPostTick( out moveData : SCameraMovementData, dt : float )
 	{
 		var enemies : array<CActor> = parent.GetMoveTargets();
@@ -293,7 +349,24 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var playerToTargetVector	: Vector;
 		
 		
-		if ( parent.movementLockType == PMLT_NoRun && !GetWitcherPlayer().HasBuff( EET_Mutation11Immortal ) )
+		var pos, targetPos, camPos, distanceAndHeightOffset, screenPos : Vector;
+		var heading, offsetSide, offsetPitch, distanceOffset, heightOffset, vecHeadingTarget, vecHeadingPlayer, zDiff, screenPosMultiplier : float;
+		var right, normalize, dodging, closeSignCam, usingController : bool;
+		var target : CActor;
+		var camera : CCustomCamera;
+		var hostileEnemies : array<CActor>;
+		
+		camera = theCamera.GetTopmostCamera();
+		
+		lerpAmount += dt/2;
+		lerpAmount = ClampF(lerpAmount,0,1);
+		
+		usingController = theInput.LastUsedGamepad();
+		
+		
+		
+		
+		if( parent.movementLockType == PMLT_NoRun && !GetWitcherPlayer().HasBuff( EET_Mutation11Immortal ) && !parent.GetCmbtCamera() ) 
 		{			
 			if ( enemies.Size() == 1 )
 			{
@@ -320,15 +393,19 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			virtual_parent.UpdateCameraSprint( moveData, dt );
 			
 		if ( virtual_parent.UpdateCameraForSpecialAttack( moveData, dt ) )
+		{
+			lerpAmount = 0; 
 			return true;
+		}
 		
 		if ( ( parent.IsCameraLockedToTarget()  ) && !cameraChanneledSignEnabled )
 		{
 			UpdateCameraInterior( moveData, dt );
-			return true;
+			if(!parent.GetCmbtCamera()) 
+				return true;
 		}			
 		
-		if ( parent.GetPlayerCombatStance() == PCS_AlertNear )
+		if ( parent.GetPlayerCombatStance() == PCS_AlertNear && !parent.GetCmbtCamera() )
 		{
 			if ( enemies.Size() <= 1 && parent.moveTarget)
 			{
@@ -337,14 +414,227 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				{
 					playerToTargetVector = parent.moveTarget.GetWorldPosition() - parent.GetWorldPosition();
 					offset = ( 2 - ( targetCapsuleHeight + playerToTargetVector.Z ) )/(-2);
-					offset = ClampF( offset, 0.f, 1.f );
+					offset = ClampF( offset, 0.f, 3.f );
 					DampVectorSpring( moveData.cameraLocalSpaceOffset, moveData.cameraLocalSpaceOffsetVel, Vector( moveData.cameraLocalSpaceOffset.X, moveData.cameraLocalSpaceOffset.Y, moveData.cameraLocalSpaceOffset.Z + offset ), 1.f, dt );
 				}
 			}
 		}
 		
+		
+		if(parent.GetCmbtCamera()  )
+		{	
+			pos = parent.GetWorldPosition();
+			target = parent.GetTarget();	
+			targetPos = target.GetWorldPosition();
+			camPos = camera.GetWorldPosition();
+			heading = parent.GetHeading();
+			
+			zDiff = ClampF((targetPos.Z - pos.Z) * 3, -30.f, 30.f);
+
+			moveData.pivotPositionController.SetDesiredPosition( pos, 15.f );			
+			moveData.pivotPositionController.offsetZ = 1.15f;
+			
+			
+			hostileEnemies = parent.GetHostileEnemies();
+			distanceOffset = parent.GetHostileEnemiesCount();
+			distanceOffset = ClampF(distanceOffset, 1,4);
+			
+			
+			offsetSide = 6.f;
+
+			
+			
+			if(target && usingController)
+			{
+				
+				if(VecDistanceSquared(pos,targetPos) < VecDistanceSquared(camPos,targetPos))
+				{
+					vecHeadingTarget = VecHeading(targetPos - camPos);
+					vecHeadingPlayer = VecHeading(pos - camPos);
+					
+					if( AbsF(vecHeadingTarget) > 100 )
+					{
+						normalize = true;
+					}
+				
+					if(normalize)
+					{
+						if(AngleNormalize(vecHeadingTarget) > AngleNormalize(vecHeadingPlayer) )
+						{
+							offsetSide *= 0.25;	
+							right = true;				
+						}
+					}
+					else
+					{
+						if(vecHeadingTarget > vecHeadingPlayer )
+						{
+							offsetSide *= 0.25;	
+							right = true;	
+						}
+					}
+				}
+				
+				
+				if(cachedRight != right)
+				{
+					lerpAmount = 0;
+				}
+				cachedRight = right;
+				
+				
+				GetBaseScreenPosition(screenPos, target);
+				if(screenPos.X == 0)
+					screenPosMultiplier = 1.f;
+				else
+				{
+					screenPosMultiplier = AbsF(ClampF(screenPos.X - 960, -1920, 1920 ));
+					screenPosMultiplier = 1 - (screenPosMultiplier / 1920);
+				}				
+				
+				if(parent.GetSoftLockCameraAssist() && !thePlayer.GetIsSprinting() && target.IsAlive())
+				{
+					if(thePlayer.IsHardLockEnabled())
+					{
+						if(right)
+							moveData.pivotRotationController.SetDesiredHeading( VecHeading(targetPos - pos) - 15, 0.5f );
+						else
+							moveData.pivotRotationController.SetDesiredHeading( VecHeading(targetPos - pos) + 15, 0.5f );	
+					}
+					else
+					{
+						if(right)
+							moveData.pivotRotationController.SetDesiredHeading( VecHeading(targetPos - pos) - 15, 0.6f + screenPosMultiplier);
+						else
+							moveData.pivotRotationController.SetDesiredHeading( VecHeading(targetPos - pos) + 15, 0.6f + screenPosMultiplier);	
+					}
+						
+					
+					if(parent.GetBehaviorVariable( 'combatActionType' ) == (int)CAT_CiriDodge)
+						moveData.pivotRotationController.SetDesiredHeading( VecHeading(targetPos - pos), 2 );
+				}
+			}
+			
+			
+			if(target.IsHuman())
+			{
+				if(target && !thePlayer.IsHardLockEnabled())	
+					moveData.pivotRotationController.SetDesiredPitch( ClampF( -12 + zDiff, -25, 5 ) );
+			}
+			else
+			{
+				targetCapsuleHeight = ( (CMovingPhysicalAgentComponent)target.GetMovingAgentComponent() ).GetCapsuleHeight();
+				
+				
+				if(targetCapsuleHeight >= 1.81f && !((CNewNPC)target).IsFlying()) 
+				{
+					offsetPitch = ( -VecDistance(pos,targetPos) + targetCapsuleHeight ) * 2;
+																						 
+					if(target)
+						moveData.pivotRotationController.SetDesiredPitch( ClampF( offsetPitch + zDiff, -25, 5 ) );
+					
+					distanceOffset = ClampF(distanceOffset + targetCapsuleHeight/2, 1,5);
+				}
+				else
+				{
+					if(target && !thePlayer.IsHardLockEnabled())	
+						moveData.pivotRotationController.SetDesiredPitch( -12 + zDiff );
+				}
+			}
+			
+			distanceOffset = distanceOffset / 1.3;
+			heightOffset = distanceOffset / 1.5;
+			
+			distanceOffset = MaxF(distanceOffset, 1);
+			heightOffset = MaxF(heightOffset, 1);
+			
+			if(thePlayer.IsFistFightMinigameEnabled())
+				distanceOffset = 0.3;
+			
+			
+			if(cachedDistanceOffset != distanceOffset || cachedHeightOffset != heightOffset)
+				lerpAmount = 0;
+			cachedDistanceOffset = distanceOffset;
+			cachedHeightOffset = heightOffset;			
+			distanceAndHeightOffset = Vector(0, -cachedDistanceOffset * 0.2, cachedHeightOffset * 0.1);
+			
+			
+			dodging = parent.IsCurrentlyDodging();
+			if(cachedDodging != dodging)
+			{
+				lerpAmount = 0;
+			}
+			cachedDodging = dodging;
+			
+			if(!thePlayer.IsCiri() && cachedDodging)
+			{		
+				
+				moveData.pivotDistanceController.SetDesiredDistance( 3.0f );	
+				moveData.pivotPositionController.SetDesiredPosition( pos, 25.f );
+				moveData.pivotPositionController.offsetZ = 1.15f;	
+	
+				if(thePlayer.IsHardLockEnabled())
+					DampVectorSpring( moveData.cameraLocalSpaceOffset, moveData.cameraLocalSpaceOffsetVel, Vector( offsetSide * 1.4, -3.1f* distanceOffset, 1.2f * heightOffset ), 5.0f, dt );
+				else
+					DampVectorSpring( moveData.cameraLocalSpaceOffset, moveData.cameraLocalSpaceOffsetVel, Vector( offsetSide, -3.1f* distanceOffset, 1.2f * heightOffset ), 5.0f, dt );
+			}				
+			else
+			{
+				
+				moveData.pivotDistanceController.SetDesiredDistance( 1.5f );
+				
+				closeSignCam = parent.GetCloseSignCam();
+				if(cachedSignCam != closeSignCam)
+				{
+					lerpAmount = 0;
+				}
+				cachedSignCam = closeSignCam;
+				
+				if( cachedSignCam && usingController )
+				{
+					if( cachedRight )
+						moveData.cameraLocalSpaceOffset = LerpV(moveData.cameraLocalSpaceOffset, geraltCmbtSignV + distanceAndHeightOffset, lerpAmount);
+					else
+						moveData.cameraLocalSpaceOffset = LerpV(moveData.cameraLocalSpaceOffset, geraltCmbtV + distanceAndHeightOffset, lerpAmount);
+				}
+				else if ( cachedRight && usingController )
+					moveData.cameraLocalSpaceOffset = LerpV(moveData.cameraLocalSpaceOffset, geraltCmbtRightV + distanceAndHeightOffset, lerpAmount);
+				else
+					moveData.cameraLocalSpaceOffset = LerpV(moveData.cameraLocalSpaceOffset, geraltCmbtV + distanceAndHeightOffset, lerpAmount);
+				moveData.cameraLocalSpaceOffsetVel = Vector(0,0,0);	
+			}
+		}
+		else
+		{
+			lerpAmount = 0;
+			
+			pos = parent.GetWorldPosition();
+			target = parent.GetTarget();	
+			targetPos = target.GetWorldPosition();
+			if(target && theInput.LastUsedGamepad())
+			{
+				if(parent.GetSoftLockCameraAssist() && !thePlayer.GetIsSprinting() && target.IsAlive())
+				{
+					if(right)
+						moveData.pivotRotationController.SetDesiredHeading( VecHeading(targetPos - pos) - 15 );
+					else
+						moveData.pivotRotationController.SetDesiredHeading( VecHeading(targetPos - pos) + 15 );	
+						
+					
+					if(parent.GetBehaviorVariable( 'combatActionType' ) == (int)CAT_CiriDodge)
+						moveData.pivotRotationController.SetDesiredHeading( VecHeading(targetPos - pos), 2 );
+				}
+			}
+		}
+		
+
 		super.OnGameCameraPostTick( moveData, dt );
 	}
+	
+	
+	private var cachedRight, cachedDodging, cachedSignCam : bool;
+	private var lerpAmount, cachedDistanceOffset, cachedHeightOffset : float;
+	
 
 	
 	private function ProcessPlayerOrientation()
@@ -370,6 +660,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		else if ( parent.IsCastingSign() && !parent.IsInCombat() )
 			newOrientationTarget = OT_CameraOffset;
 		
+		
 		else
 			newOrientationTarget = OT_Player;
 			
@@ -378,7 +669,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 		if ( parent.IsGuarded() )
 		{
-			if ( parent.moveTarget )
+			if( parent.moveTarget )
 			{
 				if ( VecDistance( parent.moveTarget.GetWorldPosition(), parent.GetWorldPosition() ) > parent.findMoveTargetDist )
 					newOrientationTarget = OT_Camera;
@@ -387,6 +678,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				newOrientationTarget = OT_Camera;
 		}
 
+		
 		
 			
 		if ( parent.IsThrowingItemWithAim() )
@@ -412,7 +704,8 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var moveTargetNPC			: CNewNPC;
 	
 		
-		if ( GetWitcherPlayer() && GetWitcherPlayer().HasBuff( EET_Mutation11Buff ) )
+		
+		if( GetWitcherPlayer() && GetWitcherPlayer().HasBuff( EET_Mutation11Buff ) )
 		{
 			return;
 		}
@@ -442,7 +735,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 					targetCapsuleHeight = ( (CMovingPhysicalAgentComponent)parent.moveTarget.GetMovingAgentComponent() ).GetCapsuleHeight();
 					if ( targetCapsuleHeight > 2.f )  
 					{
-						parent.findMoveTargetDistMin = parent.nr_targetDist + 5.f;
+						parent.findMoveTargetDistMin = parent.nr_targetDist * 1.5f;
 						parent.findMoveTargetDist = parent.findMoveTargetDistMin;
 						
 						if ( playerToTargetDist <= parent.findMoveTargetDist )
@@ -471,6 +764,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 		
 		
+		
 		if ( !parent.IsEnemyVisible( parent.moveTarget ) )
 		{
 			if ( virtual_parent.GetPlayerCombatStance() == PCS_AlertNear || parent.IsInCombat() )
@@ -489,7 +783,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		if ( !parent.IsThreatened() )	
 			stance = PCS_Normal;	
 		
-		if ( FactsQuerySum("force_stance_normal") > 0 )
+		if( FactsQuerySum("force_stance_normal") > 0 )
 		{
 			stance = PCS_Normal;
 		}
@@ -590,34 +884,34 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var aerondight		: W3Effect_Aerondight;
 		var weaponId		: SItemUniqueId;
 		
-		if (parent.HasAbility('Runeword 2 _Stats', true))
+		if(parent.HasAbility('Runeword 2 _Stats', true))
 		{
-			if (data.attackName == 'attack_heavy_special')
+			if(data.attackName == 'attack_heavy_special')
 			{
 				data.rangeName = 'runeword2_heavy';		
 				weaponEntity = thePlayer.inv.GetItemEntityUnsafe(thePlayer.inv.GetItemFromSlot(data.weaponSlot));
 				weaponEntity.PlayEffectSingle('heavy_trail_extended_fx');
 			}
-			else if (data.attackName == 'attack_light_special')
+			else if(data.attackName == 'attack_light_special')
 			{
 				data.rangeName = 'runeword2_light';		
 				weaponEntity = thePlayer.inv.GetItemEntityUnsafe(thePlayer.inv.GetItemFromSlot(data.weaponSlot));
 				weaponEntity.PlayEffectSingle('light_trail_extended_fx');
 			}
 		}
-		else if (parent.HasAbility('Runeword 1 _Stats', true) && (W3PlayerWitcher)parent && GetWitcherPlayer().GetRunewordInfusionType() == ST_Igni)
+		else if(parent.HasAbility('Runeword 1 _Stats', true) && (W3PlayerWitcher)parent && GetWitcherPlayer().GetRunewordInfusionType() == ST_Igni)
 		{
 			weaponEntity = thePlayer.inv.GetItemEntityUnsafe(thePlayer.inv.GetItemFromSlot(data.weaponSlot));
 			weaponEntity.PlayEffectSingle('runeword1_fire_trail');
 		}
-		else if ( parent.HasBuff( EET_Aerondight ) )
+		else if( parent.HasBuff( EET_Aerondight ) )
 		{
 			weaponId = thePlayer.inv.GetCurrentlyHeldSword();
-			if ( thePlayer.inv.ItemHasTag( weaponId, 'Aerondight' ) )
+			if( thePlayer.inv.ItemHasTag( weaponId, 'Aerondight' ) )
 			{			
 				aerondight = (W3Effect_Aerondight)thePlayer.GetBuff( EET_Aerondight );
 				
-				if ( aerondight.IsFullyCharged() )
+				if( aerondight.IsFullyCharged() )
 				{
 					weaponEntity.PlayEffectSingle( 'aerondight_special_trail' );
 				}
@@ -641,9 +935,11 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	
 	
 	
+	
+	
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
 	{		
-		NR_Debug("combat:: OnPerformEvade: " + playerEvadeType);
+		// NR_Debug("combat:: OnPerformEvade: " + playerEvadeType);
 		if ( playerEvadeType == PET_Dodge )
 		{
 			parent.bIsRollAllowed = true;
@@ -695,6 +991,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var perkStats 					: SAbilityAttributeValue;
 		
 		
+		
 		parent.ResetUninterruptedHitsCount();		
 		parent.SetIsCurrentlyDodging(true, isRolling);
 	
@@ -707,6 +1004,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			parent.FindMoveTarget();
 			evadeTarget = parent.moveTarget;		
 		}
+		
 		
 			
 			
@@ -730,12 +1028,14 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		rawDodgeHeading = GetRawDodgeHeading();
 		parent.evadeHeading = rawDodgeHeading;
 		
+		
 		predictedDodgePos = VecFromHeading( rawDodgeHeading ) * dodgeLength + parent.GetWorldPosition();
 		parent.GetVisualDebug().AddSphere('predictedDodgePos', 0.25, predictedDodgePos, true, Color(0,128,256), 5.0f );
 		parent.GetVisualDebug().AddSphere('evadeTargetPos', 0.25, evadeTargetPos, true, Color(255,255,0), 5.0f );
 		parent.GetVisualDebug().AddArrow( 'DodgeVector', parent.GetWorldPosition(), predictedDodgePos, 1.f, 0.2f, 0.2f, true, Color(0,128,256), true, 5.f );
 
 		turnInPlaceBeforeDodge = false;		
+		
 		
 		if ( evadeTarget )
 		{
@@ -862,17 +1162,18 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			}
 		}		
 
-		if (!SkipStaminaDodgeEvadeCost())
+		if(!SkipStaminaDodgeEvadeCost())
 		{
-			if (isRolling)
+			if(isRolling)
 				parent.DrainStamina(ESAT_Roll);
 			else
 				parent.DrainStamina(ESAT_Dodge);
 		}
 		
-		if ( parent.CanUseSkill(S_Perk_21) )
+		
+		if( parent.CanUseSkill(S_Perk_21) )
 		{
-			if ( isRolling )
+			if( isRolling )
 			{
 				GetWitcherPlayer().GainAdrenalineFromPerk21( 'roll' );
 			}
@@ -963,6 +1264,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.WaitForBehaviorNodeDeactivation( 'DodgeComplete', 0.7f );
 		parent.RemoveTimer( 'UpdateDodgeInfoTimer' );
 		
+		
 		parent.SetIsCurrentlyDodging(false);
 		
 	}
@@ -1019,10 +1321,10 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var targetNPC : CNewNPC;
 		
 		targetNPC = (CNewNPC)parent.GetTarget();
-		if ( targetNPC )
+		if( targetNPC )
 		{
 			
-			if ( targetNPC.IsAttacking() && parent.CanUseSkill(S_Sword_s09) )
+			if( targetNPC.IsAttacking() && parent.CanUseSkill(S_Sword_s09) )
 			{
 				return true;
 			}
@@ -1078,13 +1380,13 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		if ( parent.lAxisReleasedAfterCounterNoCA )
 			evadeDirection = PED_Back;
-		else if ( parent.GetIsSprinting() )
+		else if( parent.GetIsSprinting() )
 			evadeDirection = PED_Forward;
-		else if ( rawToHeadingAngleDiff >= ( -1 * inputToleranceFwd ) && rawToHeadingAngleDiff < inputToleranceFwd  )
+		else if( rawToHeadingAngleDiff >= ( -1 * inputToleranceFwd ) && rawToHeadingAngleDiff < inputToleranceFwd  )
 			evadeDirection = PED_Forward;
-		else if ( rawToHeadingAngleDiff >= inputToleranceFwd && rawToHeadingAngleDiff < ( 180 - inputToleranceBck ) )
+		else if( rawToHeadingAngleDiff >= inputToleranceFwd && rawToHeadingAngleDiff < ( 180 - inputToleranceBck ) )
 			evadeDirection = PED_Right;		
-		else if ( rawToHeadingAngleDiff >= ( -180 + inputToleranceBck ) && rawToHeadingAngleDiff < ( -1 * inputToleranceFwd ) )
+		else if( rawToHeadingAngleDiff >= ( -180 + inputToleranceBck ) && rawToHeadingAngleDiff < ( -1 * inputToleranceFwd ) )
 			evadeDirection = PED_Left;
 		else
 			evadeDirection = PED_Back;		
@@ -1222,19 +1524,19 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		headingDiff = AngleDistance( playerToTargetHeading, currentDodgeFwdHeading );
 
 		
-		if ( headingDiff >= -dontChangeAngle && headingDiff < dontChangeAngle  )
+		if( headingDiff >= -dontChangeAngle && headingDiff < dontChangeAngle  )
 			changeDirection = PED_Forward;
-		else if ( headingDiff >= dontChangeAngle )
+		else if( headingDiff >= dontChangeAngle )
 			changeDirection = PED_Right;		
 		else
 			changeDirection = PED_Left;
 
-		if ( changeDirection == PED_Forward)
+		if( changeDirection == PED_Forward)
 		{
 			return dodgeDirection;
 		}
 		
-		if ( changeDirection == PED_Right)
+		if( changeDirection == PED_Right)
 		{
 			switch( dodgeDirection )
 			{
@@ -1244,7 +1546,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				case PED_Left:		return PED_Forward;
 			}
 		}
-		if ( changeDirection == PED_Left)
+		if( changeDirection == PED_Left)
 		{
 			switch( dodgeDirection )
 			{
@@ -1305,7 +1607,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		comboDefinition = new CComboDefinition in this;
 		
+		
 		OnCreateAttackAspects();
+		
 		
 		comboPlayer = new CComboPlayer in this;
 		if ( !comboPlayer.Build( comboDefinition, parent ) )
@@ -1313,7 +1617,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			LogChannel( 'ComboNode', "Error: BuildCombo" );	
 		}
 		
-		NR_Debug("SS: BuildCombo()");
+		// NR_Debug("SS: BuildCombo()");
 		comboPlayer.SetDurationBlend( magicAnimBlendTime );
 		
 		CleanUpComboStuff();
@@ -1330,7 +1634,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		var aiStorageObject	: IScriptable;
 		var newTarget : CActor;
 	
-		NR_Debug("OnPerformAttack: " + playerAttackType);
+		// NR_Debug("OnPerformAttack: " + playerAttackType);
 		if ( parent.DisableManualCameraControlStackHasSource('Finisher') )
 			return false;
 		
@@ -1403,8 +1707,20 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		actor = (CActor)parent.slideTarget;
 		npc = (CNewNPC)parent.slideTarget;
 		
-		NR_Debug("ProcessAttackApproach: " + playerAttackType);
+		
+		
+		if(playerAttackType == theGame.params.ATTACK_NAME_LIGHT)
+		{
+			FactsAdd("ach_attack_light", 1, 4 );
+		}
+		else if(playerAttackType == theGame.params.ATTACK_NAME_HEAVY)
+		{
+			FactsAdd("ach_attack_heavy", 1, 4 );
+		}
+		
+		
 		FactsAdd("ach_attack", 1, 4 );
+		
 		theGame.GetGamerProfile().CheckLearningTheRopes();
 		if ( actor && ( !npc || npc.GetCurrentStance() != NS_Fly ) )
 		{	
@@ -1479,7 +1795,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	entry function EnableAttackApproach( playerAttackType : name )
 	{
 		var playerToTargetHeading	: float;
-		
+			
 		previousSlideTarget = parent.slideTarget;
 		playerToTargetHeading = VecHeading( parent.slideTarget.GetWorldPosition() - parent.GetWorldPosition() );
 		
@@ -1890,6 +2206,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		LogChannel( 'ComboNode', "inGlobalAttackCounter = " + callbackInfo.inGlobalAttackCounter + ", inStringAttackCounter = " + callbackInfo.inStringAttackCounter );	
 		
+		
 		callbackInfo.outShouldRotate = true;
 		
 		if (	callbackInfo.inAspectName == 'AttackLight' 
@@ -2051,13 +2368,15 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		
 		
+		
+		
 			
 		if ( callbackInfo.inAspectName == 'AttackNeutral' )
 			callbackInfo.outDirection = AD_Front;
 		
 		if ( callbackInfo.inAspectName == 'AttackNeutral' )
 			callbackInfo.outAttackType = ComboAT_Normal;
-		else if ( ( callbackInfo.inStringAttackCounter == 0 || AbsF(playerToTargetAngleDiff) >= 45.f || playerToTargetDist > farAttackMinDist || !parent.slideTarget )  )
+		else if( ( callbackInfo.inStringAttackCounter == 0 || AbsF(playerToTargetAngleDiff) >= 45.f || playerToTargetDist > farAttackMinDist || !parent.slideTarget )  )
 		{
 			callbackInfo.outAttackType = ComboAT_Directional;
 			callbackInfo.outShouldTranslate = true;
@@ -2165,7 +2484,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		
 		InteralCombatComboUpdate( timeDelta );
 		
-		if ( thePlayer.IsInCombatAction_Attack() && !thePlayer.IsInCombatActionFriendly() )
+		if( thePlayer.IsInCombatAction_Attack() && !thePlayer.IsInCombatActionFriendly() )
 		{
 			thePlayer.ProcessWeaponCollision();
 		}
@@ -2234,7 +2553,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			
 		}
 			
-		if (comboPlayer)
+		if(comboPlayer)
 			comboPlayer.Update( timeDelta );
 	}	
 	

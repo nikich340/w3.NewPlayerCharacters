@@ -63,6 +63,7 @@ class NR_MagicSlash extends NR_MagicAction {
 	}
 
 	latent function OnPerform() : bool {
+		var typeName : name = map[sign].getN("style_" + ENR_MAToName(actionType));
 		var targetNPC : CNewNPC;
 		var dk : float;
 
@@ -77,6 +78,9 @@ class NR_MagicSlash extends NR_MagicAction {
 			if ( IsNameValid(m_fxNameHit) && (!targetNPC || !targetNPC.HasAlternateQuen()) ) {
 				hitEntity.Teleport(target.GetWorldPosition() + Vector(0,0,1.f));
 				hitEntity.PlayEffect(m_fxNameHit);
+				if (typeName == 'triss')
+					targetNPC.PlayEffect('fire_hit');
+				
 				if (hitEntity2) {
 					hitEntity2.Teleport(target.GetWorldPosition() + Vector(0,0,1.f - 0.3f));
 					hitEntity2.PlayEffect(m_fxNameHit);
@@ -235,12 +239,15 @@ class NR_MagicSlash extends NR_MagicAction {
 	}
 
 	latent function HitFxName(optional customActionType : ENR_MagicAction) : name {
+		var typeName : name = map[sign].getN("style_" + ENR_MAToName(actionType));
+
 		switch (NR_GetActionColor(actionType)) {
 			//case ENR_ColorBlack:
 			//	return 'black';
 			//case ENR_ColorGrey:
 			//	return 'grey';
 			case ENR_ColorYellow:
+				// return 'fire_hit_yellow';
 				return 'hit_electric_yellow';
 			case ENR_ColorOrange:
 				return 'hit_electric_orange';

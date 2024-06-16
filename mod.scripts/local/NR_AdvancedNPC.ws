@@ -7,6 +7,8 @@ statemachine class NR_AdvancedNPC extends CNewNPC {
 	protected var commentInputNames : array<String>;
 	protected var commentCombatStartInputNames : array<String>;
 	protected var commentCombatEndInputNames : array<String>;
+	protected var preventDeathEvent : bool;
+	default preventDeathEvent = false;
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
@@ -14,11 +16,17 @@ statemachine class NR_AdvancedNPC extends CNewNPC {
 		NR_Debug("NR_AdvancedNPC.OnSpawned");
 		AddTimer('PlayVoicesetTimer', NR_GetRandomGenerator().nextRangeF(commentTimeIntervalMin, commentTimeIntervalMax), false);
 	}
+	
+	event OnDeath( damageAction : W3DamageAction  )	{
+		NR_Debug("NR_AdvancedNPC.OnDeath");
+		if (!preventDeathEvent) {
+			super.OnDeath( damageAction );
+        }
+	}
 
 	timer function PlayVoicesetTimer( time : float , id : int)
 	{
 		AddTimer('PlayVoicesetTimer', NR_GetRandomGenerator().nextRangeF(commentTimeIntervalMin, commentTimeIntervalMax), false);
-		NR_Debug("NR_AdvancedNPC.PlayVoicesetTimer");
 		if ( !IsInCombat() && commentInputNames.Size() > 0 )
 		{
 			NR_Debug("NR_AdvancedNPC.PlayVoicesetTimer: Play");
@@ -31,13 +39,12 @@ statemachine class NR_AdvancedNPC extends CNewNPC {
 		var chance : int;
 
 		super.OnCombatModeSet( toggle );
-		NR_Debug("NR_AdvancedNPC.OnCombatModeSet");
 		if (toggle && commentCombatStartInputNames.Size() > 0 && commentCombatStartChance >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			PlayComment( commentCombatStartInputNames[NR_GetRandomGenerator().next(commentCombatStartInputNames.Size())] );
 		} else if (!toggle && commentCombatEndInputNames.Size() > 0 && commentCombatEndChance >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			PlayComment( commentCombatEndInputNames[NR_GetRandomGenerator().next(commentCombatEndInputNames.Size())] );
 		}
-		NR_Debug("(" + this + ") OnCombatModeSet = " + toggle);
+		NR_Debug("NR_AdvancedNPC.(" + this + ").OnCombatModeSet = " + toggle);
 	}
 
 	protected function PlayComment(inputName : String) {

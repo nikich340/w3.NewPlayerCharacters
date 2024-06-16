@@ -178,12 +178,11 @@ latent quest function NR_UseCrossStoneBossSpider_Q() {
     npc.AddTag('nr_cross_stone_entity');
     npc.AddTag('nr_cross_stone_boss_spider');
     npc.SetLevel( Max(1, thePlayer.GetLevel() - 10) );
-    npc.SetAnimationSpeedMultiplier( 1.1f );
-    npc.SetImmortalityMode( AIM_Immortal, AIC_Combat );
-    npc.SetImmortalityMode( AIM_Immortal, AIC_Default );
+    npc.SetAnimationSpeedMultiplier( 1.1f );    
     npc.SetImmortalityMode( AIM_Immortal, AIC_Fistfight );
     npc.SetImmortalityMode( AIM_Immortal, AIC_IsAttackableByPlayer );
-    NR_Debug("Check1 = " + theGame.GetActorByTag('nr_cross_stone_boss_spider'));
+    npc.SetImmortalityMode( AIM_Immortal, AIC_Default );
+    npc.SetImmortalityMode( AIM_Immortal, AIC_Combat );
 }
 
 latent quest function NR_UseCrossStone_Q() {

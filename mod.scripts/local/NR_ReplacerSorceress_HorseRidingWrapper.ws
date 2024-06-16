@@ -8,7 +8,8 @@ state HorseRiding in NR_ReplacerSorceress
 		if (parent.NR_IsQuenActive()) {
 			parent.NR_ReattachQuen(true);
 		}
-		parent.magicManager.UpdateMagicControlHints( thePlayer.GetCurrentStateName() );
+		if (parent.magicManager)
+			parent.magicManager.UpdateMagicControlHints( thePlayer.GetCurrentStateName() );
 		super.OnEnterState( prevStateName );
 	}
 
@@ -16,10 +17,12 @@ state HorseRiding in NR_ReplacerSorceress
 	{
 		super.OnLeaveState( nextStateName );
 		parent.NR_SetTargetDist(0.0, 0);
-		parent.magicManager.SetMiscStateActionsBlocked(false);
+		if (parent.magicManager)
+			parent.magicManager.SetMiscStateActionsBlocked(false);
 		if (parent.NR_IsQuenActive()) {
 			parent.NR_ReattachQuen(false);
 		}
-		parent.magicManager.UpdateMagicControlHints( nextStateName );
+		if (parent.magicManager)
+			parent.magicManager.UpdateMagicControlHints( nextStateName );
 	}
 }

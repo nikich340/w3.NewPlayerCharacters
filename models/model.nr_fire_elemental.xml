@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<mesh>
+    <mesh_data autohideDistance="100.00" isTwoSided="false" useExtraStreams="false" mergeInGlobalShadowMesh="true" entityProxy="false">
+        <LODs>
+            <LOD_info distance="0.00" />
+        </LODs>
+    </mesh_data>
+    <materials>
+        <material name="Material0" local="true" base="engine\materials\graphs\pbr_std_tint_mask_2det.w2mg">
+            <param name="Diffuse" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_d01.xbm" />
+            <param name="Normal" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_n01.xbm" />
+            <param name="TintMask" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_a01.xbm" />
+            <param name="AmbientPower" type="Float" value="0" />
+            <param name="DetailNormal1" type="handle:ITexture" value="characters\models\common\textures\detailmaps_pbr\detailmap_cloth_04.xbm" />
+            <param name="RSpecScale" type="Float" value="1" />
+            <param name="RSpecBase" type="Float" value="0" />
+            <param name="SpecularColor" type="Color" value="84; 84; 84; 255" />
+            <param name="Translucency" type="Float" value="0.3" />
+            <param name="DetailPower" type="Float" value="0.5" />
+        </material>
+        <material name="Material1" local="true" base="engine\materials\graphs\pbr_std_tint_mask_det.w2mg">
+            <param name="Normal" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_n01.xbm" />
+            <param name="Diffuse" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_d01.xbm" />
+            <param name="TintMask" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_a01.xbm" />
+            <param name="AOPower" type="Float" value="0" />
+            <param name="Translucency" type="Float" value="0.3" />
+            <param name="RSpecScale" type="Float" value="1" />
+            <param name="RSpecBase" type="Float" value="0" />
+            <param name="SpecularColor" type="Color" value="72; 80; 77; 255" />
+            <param name="DetailNormal" type="handle:ITexture" value="characters\models\common\textures\detailmaps_pbr\detailmap_cloth_04.xbm" />
+            <param name="DetailPower" type="Float" value="0.5" />
+        </material>
+        <material name="Material2" local="true" base="engine\materials\graphs\pbr_std_tint_mask_det.w2mg">
+            <param name="Diffuse" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_d01.xbm" />
+            <param name="Normal" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_n01.xbm" />
+            <param name="AOPower" type="Float" value="0" />
+            <param name="TintMask" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_a01.xbm" />
+            <param name="RSpecScale" type="Float" value="1" />
+            <param name="RSpecBase" type="Float" value="-0.1" />
+            <param name="SpecularColor" type="Color" value="90; 90; 90; 255" />
+            <param name="Translucency" type="Float" value="0" />
+            <param name="DetailNormal" type="handle:ITexture" value="characters\models\common\textures\detailmaps_pbr\detailmap_metal_03.xbm" />
+            <param name="DetailTile" type="Vector" value="18; 18; 1; 1" />
+            <param name="DetailPower" type="Float" value="1.5" />
+        </material>
+        <material name="Material3" local="true" base="engine\materials\graphs\pbr_std.w2mg">
+            <param name="Diffuse" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_d01.xbm" />
+            <param name="Normal" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_n01.xbm" />
+            <param name="TintMask" type="handle:ITexture" value="characters\models\monsters\elemental\model\t_01__elemental_a01.xbm" />
+            <param name="AmbientPower" type="Float" value="0" />
+            <param name="DetailNormal1" type="handle:ITexture" value="characters\models\common\textures\detailmaps_pbr\detailmap_cloth_04.xbm" />
+            <param name="RSpecScale" type="Float" value="1" />
+            <param name="RSpecBase" type="Float" value="0" />
+            <param name="SpecularColor" type="Color" value="84; 84; 84; 255" />
+            <param name="Translucency" type="Float" value="0.3" />
+            <param name="DetailPower" type="Float" value="0.5" />
+        </material>
+    </materials>
+</mesh>

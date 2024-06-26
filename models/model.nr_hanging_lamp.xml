@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<mesh>
+    <mesh_data autohideDistance="25.00" isTwoSided="true" useExtraStreams="false" mergeInGlobalShadowMesh="true" entityProxy="false">
+        <LODs>
+            <LOD_info distance="0.00" />
+            <LOD_info distance="8.00" />
+        </LODs>
+    </mesh_data>
+    <materials>
+        <material name="Material2" local="true" base="environment\textures_tileable\common_materials\novigrad_poor\metal_stripes.w2mi" />
+        <material name="Material3" local="true" base="fx\light_sources\hanging_lamp_light.w2mg">
+			<param name="EmisiveColor" type="Color" value="36; 164; 240; 255" />
+		</material>
+    </materials>
+</mesh>

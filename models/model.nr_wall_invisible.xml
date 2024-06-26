@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<mesh>
+    <mesh_data autohideDistance="100.00" isTwoSided="false" useExtraStreams="false" mergeInGlobalShadowMesh="true" entityProxy="false">
+        <LODs>
+            <LOD_info distance="0.00" />
+        </LODs>
+    </mesh_data>
+    <materials>
+        <material name="Material0" local="true" base="fx\gameplay\illusion_medalion\illusion_shader_pbr_det.w2mg">
+            <param name="Normal" type="handle:ITexture" value="environment\textures_tileable\floor\elven_ruin_edges_n.xbm" />
+            <param name="Diffuse" type="handle:ITexture" value="environment\textures_tileable\floor\elven_ruin_edges.xbm" />
+            <param name="Translucency" type="Float" value="0" />
+            <param name="DetailPower" type="Float" value="1" />
+            <param name="VarianceColor" type="Color" value="60; 60; 60; 255" />
+            <param name="VarianceOffset" type="Float" value="1" />
+            <param name="SpecularColor" type="Color" value="93; 100; 83; 255" />
+            <param name="RSpecScale" type="Float" value="1" />
+            <param name="RSpecBase" type="Float" value="0.2" />
+            <param name="DetailNormal" type="handle:ITexture" value="environment\textures_tileable\detailmaps\plaster_small.xbm" />
+            <param name="DetailRange" type="Float" value="10" />
+            <param name="DetailTile" type="Vector" value="10; 10; 1; 1" />
+            <param name="DetailRotation" type="Float" value="0" />
+            <param name="illusion_scalar" type="Float" value="1" />
+            <param name="Amplitude" type="Float" value="0" />
+            <param name="texture_illusion_effects" type="Float" value="0" />
+            <param name="MovementSpeed" type="Float" value="0" />
+            <param name="Gusts" type="Float" value="0" />
+            <param name="Frequency" type="Float" value="0" />
+        </material>
+        <material name="Material1" local="true" base="fx\gameplay\illusion_medalion\illusion_shader_pbr_det.w2mg">
+            <param name="Normal" type="handle:ITexture" value="environment\textures_tileable\brick\bright_ruin_brick_n.xbm" />
+            <param name="Diffuse" type="handle:ITexture" value="environment\textures_tileable\brick\bright_ruin_brick.xbm" />
+            <param name="Translucency" type="Float" value="0" />
+            <param name="DetailPower" type="Float" value="1" />
+            <param name="VarianceColor" type="Color" value="60; 60; 60; 255" />
+            <param name="VarianceOffset" type="Float" value="1" />
+            <param name="SpecularColor" type="Color" value="93; 100; 83; 255" />
+            <param name="RSpecScale" type="Float" value="1" />
+            <param name="RSpecBase" type="Float" value="0.2" />
+            <param name="DetailNormal" type="handle:ITexture" value="environment\textures_tileable\detailmaps\plaster_small.xbm" />
+            <param name="DetailRange" type="Float" value="10" />
+            <param name="DetailTile" type="Vector" value="10; 10; 1; 1" />
+            <param name="DetailRotation" type="Float" value="0" />
+            <param name="Amplitude" type="Float" value="0" />
+            <param name="texture_illusion_effects" type="Float" value="0" />
+            <param name="illusion_scalar" type="Float" value="1" />
+            <param name="Gusts" type="Float" value="0" />
+            <param name="Frequency" type="Float" value="0" />
+            <param name="MovementSpeed" type="Float" value="0" />
+        </material>
+    </materials>
+</mesh>

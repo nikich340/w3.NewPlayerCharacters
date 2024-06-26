@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<mesh>
+    <mesh_data autohideDistance="100.00" isTwoSided="true" useExtraStreams="false" mergeInGlobalShadowMesh="true" entityProxy="false">
+        <LODs>
+            <LOD_info distance="0.00" />
+        </LODs>
+    </mesh_data>
+    <materials>
+        <material name="Material0" local="true" base="engine\materials\graphs\pbr_spec_tint_mask_det.w2mg">
+            <param name="Diffuse" type="handle:ITexture" value="characters\models\monsters\golem\model\t_01__golem_d01.xbm" />
+            <param name="Normal" type="handle:ITexture" value="characters\models\monsters\golem\model\t_01__golem_n01.xbm" />
+            <param name="DetailNormal" type="handle:ITexture" value="characters\models\common\textures\detailmaps_pbr\detailmap_paint_01.xbm" />
+            <param name="DetailTile" type="Vector" value="40; 40; 20; 1" />
+            <param name="TintMask" type="handle:ITexture" value="characters\models\monsters\golem\model\t_01__golem_a01.xbm" />
+            <param name="Roughness_max" type="Float" value="0.8" />
+            <param name="SpecularTexture" type="handle:ITexture" value="characters\models\monsters\golem\model\t_01__golem_s01.xbm" />
+            <param name="RSpecScale" type="Float" value="1.1" />
+            <param name="RSpecBase" type="Float" value="0" />
+            <param name="Roughness_min" type="Float" value="0.2" />
+            <param name="AOPower" type="Float" value="0.3" />
+            <param name="DetailPower" type="Float" value="1" />
+            <param name="DetailAlbedoSpecPower" type="Float" value="1" />
+            <param name="DetailRange" type="Float" value="20" />
+            <param name="Translucency" type="Float" value="0.1" />
+        </material>
+        <material name="Material2" local="false" base="engine\materials\defaults\mesh.w2mg" />
+    </materials>
+</mesh>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<mesh>
+    <mesh_data autohideDistance="100.00" isTwoSided="true" useExtraStreams="false" mergeInGlobalShadowMesh="true" entityProxy="false">
+        <LODs>
+            <LOD_info distance="0.00" />
+        </LODs>
+    </mesh_data>
+    <materials>
+        <material name="Material0" local="true" base="engine\materials\graphs\pbr_std.w2mg">
+            <param name="Diffuse" type="handle:ITexture" value="environment\textures_tileable\snow\ice_cliff.xbm" />
+            <param name="Normal" type="handle:ITexture" value="environment\textures_tileable\snow\ice_cliff_n.xbm" />
+            <param name="Translucency" type="Float" value="0.5" />
+            <param name="RSpecBase" type="Float" value="0" />
+            <param name="RSpecScale" type="Float" value="1" />
+			<param name="VarianceOffset" type="Float" value="1" />
+            <param name="VarianceColor" type="Color" value="219; 233; 254; 255" />
+            <param name="SpecularColor" type="Color" value="96; 113; 136; 255" />
+        </material>
+    </materials>
+</mesh>

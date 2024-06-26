@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<mesh>
+    <mesh_data autohideDistance="100.00" isTwoSided="true" useExtraStreams="true" mergeInGlobalShadowMesh="true" entityProxy="false">
+        <LODs>
+            <LOD_info distance="0.00" />
+        </LODs>
+    </mesh_data>
+    <materials>
+        <material name="Material0" local="true" base="engine\materials\graphs\pbr_vert_blend.w2mg">
+            <param name="DiffuseArray" type="handle:CTextureArray" value="environment\terrain_surroundings\common\cave\cave_big\texture\cave_wall_ice.texarray" />
+            <param name="NormalArray" type="handle:CTextureArray" value="environment\terrain_surroundings\common\cave\cave_big\texture\cave_wall_ice_n.texarray" />
+            <param name="Mask" type="handle:ITexture" value="environment\skyboxes\textures\clouds_noise_m.xbm" />
+            <param name="SpecularColor" type="Color" value="67; 81; 83; 0" />
+            <param name="RSpecScale" type="Float" value="0.5" />
+            <param name="RSpecBase" type="Float" value="0.5" />
+            <param name="AOPower" type="Float" value="0.6" />
+            <param name="VertexPaintOffset" type="Float" value="0.5" />
+            <param name="MaskTile" type="Vector" value="1; 1; 1; 1" />
+            <param name="MaskSharpness" type="Float" value="4" />
+        </material>
+    </materials>
+</mesh>

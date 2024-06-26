@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<mesh>
+    <mesh_data autohideDistance="100.00" isTwoSided="true" useExtraStreams="false" mergeInGlobalShadowMesh="true" entityProxy="false">
+        <LODs>
+            <LOD_info distance="0.00" />
+        </LODs>
+    </mesh_data>
+    <materials>
+        <material name="Material0" local="true" base="engine\materials\graphs\pbr_skin.w2mg">
+            <param name="Ambient" type="handle:ITexture" value="characters\models\monsters\golem\model\t_01__golem_a01.xbm" />
+            <param name="Diffuse" type="handle:ITexture" value="dlc\dlcnewreplacers\data\textures\nr_golem_d01.xbm" />
+            <param name="Normal" type="handle:ITexture" value="characters\models\monsters\golem\model\t_02__golem_n01_sss_no_raf.xbm" />
+            <param name="AntiLightbleedScale" type="Float" value="0.2" />
+            <param name="AntiLightbleedUseRounded" type="Float" value="0.2" />
+            <param name="DiffuseBumpinessAngleExp" type="Float" value="2" />
+            <param name="DiffuseBumpinessSteepLight" type="Float" value="0" />
+            <param name="DiffuseBumpinessStraightLight" type="Float" value="1" />
+            <param name="EnvProbeBumpiness" type="Float" value="0.5" />
+            <param name="ReflectionGainScale" type="Float" value="1" />
+            <param name="Roughness2Bias" type="Float" value="0.5" />
+            <param name="RoughnessBias" type="Float" value="0.1" />
+            <param name="RSpecBase" type="Float" value="0.4" />
+            <param name="RSpecBase2" type="Float" value="0.02" />
+            <param name="RSpecPower2" type="Float" value="1" />
+            <param name="RSpecScale" type="Float" value="0.7" />
+            <param name="RSpecScale2" type="Float" value="0.02" />
+            <param name="SSAOImpact" type="Float" value="0.3" />
+            <param name="SSS_CoarseColorInvRange" type="Float" value="0.5" />
+            <param name="SSS_CoarseWrapBase" type="Float" value="1" />
+            <param name="SSS_CoarseWrapScale" type="Float" value="0.5" />
+            <param name="SSS_DiffuseDistribPow" type="Float" value="0.1" />
+            <param name="SSS_DiffuseScale" type="Float" value="2" />
+            <param name="TranslucencyFresnel" type="Float" value="1" />
+            <param name="TranslucencyFresnelGain" type="Float" value="3" />
+            <param name="VarianceOffset" type="Float" value="3" />
+            <param name="VarianceColor" type="Color" value="188; 197; 239; 255" />
+            <param name="SSS_CoarseColor" type="Color" value="168; 250; 255; 255" />
+            <param name="AntiLightbleedUpOffFront" type="Float" value="0.2" />
+            <param name="AntiLightbleedUpOffRound" type="Float" value="0" />
+            <param name="DetailAlbedoPower" type="Float" value="0" />
+            <param name="DetailPower" type="Float" value="0.5" />
+            <param name="DetailRange" type="Float" value="20" />
+            <param name="DetailTile" type="Vector" value="25; 10; 1; 1" />
+            <param name="DetailNormal" type="handle:ITexture" value="characters\models\common\textures\detailmaps_pbr\detailmap_paint_01.xbm" />
+        </material>
+    </materials>
+</mesh>

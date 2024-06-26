@@ -1,1 +1,23 @@
-1. TaskTeleportActionDef.instanceClass: TaskTeleportAction -> NR_TaskTeleportAction (allows teleportations where no navdata)
+npc_def_counter_push_master.w2behtree:
+npc_attackbehavior_master.w2behtree:
+npc_tactic_sorcerer_master.w2behtree:
+TaskTeleportActionDef.instanceClass: TaskTeleportAction -> NR_TaskTeleportAction (allows teleportations where no navdata)
+
+TaskTeleportActionDef.instanceClass: TaskTeleportAction -> NR_TaskTeleportAction (allows teleportations where no navdata)
+TaskTeleportActionDef.testNavigationBetweenCombatTargetAndNewPosition = false
+
+npc_special_cast_water_tornado_bob_master.w2behtree:
+TaskTeleportActionDef.instanceClass: TaskTeleportAction -> NR_TaskTeleportAction (allows teleportations where no navdata)
+stopTaskAfterDealingDmg = false
+damageInterval = 0.5
+damageMultiplier = 0.01
+affectEnemiesInRangeMin = 2.0
+debuffTypeInRangeMin = EET_Bleeding
+rotateToNodeByTagOnDebuffMin =  
+debuffTypeInRangeMax = EET_SlowdownFrost
+debuffDurationInRangeMin = 0.2
+TaskTeleportActionDef
+
+water_cage:
+-> NR_CBTTaskGroundTrapAttack
+

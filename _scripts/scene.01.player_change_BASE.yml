@@ -38,8 +38,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -53,8 +53,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -68,8 +68,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -83,8 +83,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -98,8 +98,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -113,8 +113,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -128,8 +128,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -143,8 +143,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -158,8 +158,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -173,8 +173,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -312,7 +312,7 @@ dialogscript:
     #- PAUSE: 0.0
     - NEXT:
         condition: [ "nr_quest_track_SceneHelp", ">=", 1 ]
-        on_true: section_choice_main
+        on_true: script_show_scene_missed_content
         on_false: script_show_scene_help_info
 
   section_trans_main_to_itself:
@@ -1330,6 +1330,11 @@ dialogscript:
   script_show_custom_dlc_info:
     - SCRIPT:
         function: NR_ShowCustomDLCInfo_S
+    - NEXT: script_show_custom_dlc_info2
+
+  script_show_custom_dlc_info2:
+    - SCRIPT:
+        function: NR_ShowAppearanceInfo_S
     - NEXT: section_trans_choice_player_appearance_to_itself
 
   script_show_appearance_help_info:
@@ -1337,7 +1342,24 @@ dialogscript:
         function: NR_ShowTutorial_S
         parameter:
           - type: "AppearanceHelp"
+    - NEXT: script_show_appearance_help_info2
+
+  script_show_appearance_help_info2:
+    - SCRIPT:
+        function: NR_ShowAppearanceInfo_S
     - NEXT: section_trans_choice_player_appearance_to_itself
+
+  script_show_scene_missed_content:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SceneMissedExtraContent"
+    - NEXT: script_show_scene_missed_content2
+
+  script_show_scene_missed_content2:
+    - SCRIPT:
+        function: NR_ShowAppearanceInfo_S
+    - NEXT: section_trans_main_to_itself
 
   script_show_scene_help_info:
     - SCRIPT:
@@ -1351,6 +1373,11 @@ dialogscript:
         function: NR_ShowTutorial_S
         parameter:
           - type: "SceneHelp2"
+    - NEXT: script_show_scene_help_info3
+
+  script_show_scene_help_info3:
+    - SCRIPT:
+        function: NR_ShowAppearanceInfo_S
     - NEXT: section_trans_main_to_itself
 
   script_switch_female_speech:

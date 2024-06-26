@@ -2158,18 +2158,18 @@ def create_scene(gender: EG):
         add_choice(STR_quoted(STR.BACK), slot_section_name, trans(slot_section_name, "section_choice_slots_main"), is_exit=True)
 
         # clear slot
+        # section_trans_choice_clear_misc_to_itself
         if slot == ENR.ENR_RSlotMisc:
-            add_choice_section("section_choice_clear_misc")
-            add_trans_section("section_pre_choice_clear_misc", "section_choice_clear_misc")
-            add_choice(STR_quoted(STR.CLEAR_SLOT), slot_section_name, f"section_pre_choice_clear_misc")
-            add_choice(STR_quoted(STR.BACK), "section_choice_clear_misc", slot_section_name, is_exit=True)
-            for i in range(1, 30 + 1):
-                add_custom_script_section(f"script_clear_misc_{i}", "section_pre_choice_clear_misc", "NR_ClearItemSlot_S", params= [
+            add_choice_section("section_choice_clear_misc")  # -> section_trans_choice_clear_misc_to_itself
+            add_choice(STR_quoted(STR.CLEAR_SLOT), slot_section_name, "section_trans_choice_clear_misc_to_itself")
+            add_choice(STR_quoted(STR.BACK), "section_choice_clear_misc", trans(slot_section_name, slot_section_name), is_exit=True)
+            for i in range(0, 30):
+                add_custom_script_section(f"script_clear_misc_{i}", "section_trans_choice_clear_misc_to_itself", "NR_ClearItemSlot_S", params= [
                                               {
                                                   "item_index": i
                                               }
                                           ])
-                add_choice_formatted("2115940546|Remove item #", f"{i}", "section_choice_clear_misc", f"script_clear_misc_{i}", cond=[quoted(f"nr_appearance_item_{i}"), quoted(">"), 0])
+                add_choice_formatted(STR.DOT + "|.", quoted(f"{{{2115940546}}}: #{i + 1}"), "section_choice_clear_misc", f"script_clear_misc_{i}", cond=[quoted(f"nr_appearance_item_{i}"), quoted(">"), 0])
         else:
             add_custom_script_section(f"script_clear_{friendly_slot_category(slot)}", trans(slot_section_name, slot_section_name), "NR_ClearAppearanceSlot_S", params=[
                 {
@@ -2665,6 +2665,7 @@ write_coloring_files()
 write_rename_head_files()
 create_scene(EG.EG_Male)
 create_scene(EG.EG_Female)
+shutil.copy2(f"{m_FOLDER}/scene.01.player_change_female.yml", f"{m_FOLDER}/scene.01.player_change_female_ciri.yml")
 write_selector_file()
 print(f"Don't forget: nr_appearance_sets_female -> nr_appearance_sets_male")
 print(f"Don't forget: female scene -> ciri scene + rename player entity")

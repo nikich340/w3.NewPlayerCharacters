@@ -42,7 +42,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [0.0, 5.0]
         focus: [2.1400001049, 2.5000000000]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Medium"
         tags: ["ext"]
@@ -57,7 +57,7 @@ repository:
         aperture: [42.1379013062, 2.7060298920]
         blur: [0.0, 5.0]
         focus: [2.0, 2.5000000000]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Medium"
         tags: ["ext"]
@@ -72,7 +72,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [0.0, 5.0]
         focus: [1.7500000000, 2.5000000000]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Semicloseup"
         tags: ["ext"]
@@ -87,7 +87,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [0.0, 5.0]
         focus: [1.1499999762, 2.5000000000]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Semicloseup"
         tags: ["ext"]
@@ -102,7 +102,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [2.0, 5.0]
         focus: [2.0, 2.5000000000]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Closeup"
         tags: ["ext"]
@@ -117,7 +117,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [0.0, 2.5000000000]
         focus: [2.0199999809, 5.0]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Closeup"
         tags: ["ext"]
@@ -132,7 +132,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [0.0, 5.0]
         focus: [0.0, 2.5000000000]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Supercloseup"
         tags: ["ext"]
@@ -147,7 +147,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [0.0, 5.0]
         focus: [0.0, 1.5000000000]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Supercloseup"
         tags: ["ext"]
@@ -1605,7 +1605,7 @@ dialogscript:
         - choice: ["2115940870|I would like to become your apprentice.", section_apprentice_trial_again]
           emphasize: true
           condition: ["nr_master_apprentice_need_test", ">=", 1]
-        - choice: ["0001188506|Care for a round of gwent?", section_play_gwent]
+        - choice: ["2100001231|Care for a round of gwent?", section_play_gwent]
           emphasize: true
           condition: ["nr_master_apprentice", ">=", 1]
         - choice: ["2115940995|Can we try to craft a golem again?", section_golem_accept_again]
@@ -2625,7 +2625,7 @@ dialogscript:
 
   section_play_gwent:
     - CUE: shot_play_gwent_1s
-    - sorceress: "0001188506|Care for a round of gwent?"
+    - sorceress: "2100001231|Care for a round of gwent?"
     - CUE: shot_play_gwent_2m
     - PAUSE: 2.5
     - NEXT: script_set_gwent_reward

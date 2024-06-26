@@ -211,8 +211,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -226,8 +226,8 @@ repository:
       zoom: 0.0
       dof:
         aperture: [28.2495002747, 1.2700699568]
-        blur: [1.0, 5.0]
-        focus: [1.0, 5.0]
+        blur: [0.0, 5.0]
+        focus: [0.0, 5.0]
         intensity: 0.2500000000
       event_generator:
         plane: "Medium"
@@ -22660,6 +22660,14 @@ dialogscript:
             type: CNAME_ENR_SpecialShield
             abilityName: "AutoCombatApply"
             abilityStrId: 2115940252
+        - choice: ["0001107617|", script_switch_skill_enr_specialshield_autohealing]
+          emphasize: true
+          scriptAction:
+            .class: NR_SwitchableAbilityMagicChoiceAction
+            str: '{2115940152}: '
+            type: CNAME_ENR_SpecialShield
+            abilityName: "AutoHealing"
+            abilityStrId: 2115940541
         - choice: ["0001107617|", script_switch_skill_enr_specialservant_followers]
           emphasize: true
           scriptAction:
@@ -22739,6 +22747,14 @@ dialogscript:
         parameter:
           - type: CNAME_ENR_SpecialShield
           - abilityName: "AutoCombatApply"
+    - NEXT: section_special_manage_skills_entry
+
+  script_switch_skill_enr_specialshield_autohealing:
+    - SCRIPT:
+        function: NR_SwitchActionAbility_S
+        parameter:
+          - type: CNAME_ENR_SpecialShield
+          - abilityName: "AutoHealing"
     - NEXT: section_special_manage_skills_entry
 
   script_switch_skill_enr_specialservant_followers:

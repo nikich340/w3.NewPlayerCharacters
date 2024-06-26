@@ -455,13 +455,13 @@ m_spell_abilities = {
     ENR_MA.ENR_Slash: ["DoubleSlash"],
     ENR_MA.ENR_BombExplosion: ["Pursuit", "DamageControl"],
     ENR_MA.ENR_Teleport: ["AutoCounterPush"],
-    ENR_MA.ENR_CounterPush: ["FullBlast", "Freezing", "Burning"],
+    ENR_MA.ENR_CounterPush: ["FullBlast"], # , "Freezing", "Burning"],
     ENR_MA.ENR_SpecialControl: ["Upscaling"],
     ENR_MA.ENR_SpecialField: ["Pursuit"],
     ENR_MA.ENR_SpecialServant: ["Followers", "TwoServants"],
     ENR_MA.ENR_SpecialMeteor: ["DamageControl"],
     ENR_MA.ENR_SpecialTornado: ["Pursuit", "Vacuum", "DamageControl", "Freezing"],
-    ENR_MA.ENR_SpecialShield: ["AutoLightning", "AutoCombatApply"],
+    ENR_MA.ENR_SpecialShield: ["AutoLightning", "AutoCombatApply", "AutoHealing"],
     ENR_MA.ENR_SpecialLightningFall: ["DamageControl", "AutoShield"],
     ENR_MA.ENR_SpecialMeteorFall: ["DamageControl", "AutoShield"],
 }
@@ -483,6 +483,7 @@ m_spell_ability_str_ids = {
     "AutoLightning": 2115940230,
     "AutoCombatApply": 2115940252,
     "AutoShield": 2115940251,
+    "AutoHealing": 2115940541,
 }
 
 def transition_name(from_section_name: str, to_section_name: str):
@@ -1887,9 +1888,9 @@ def main():
         # unlocked fact: nr_magic_skill_ENR_Teleport
         # unlocked coloring: IsActionCustomizationUnlocked( type : ENR_MagicAction )
 
-        # add option to disable/enable abilities
-        add_switchable_skills_sections("section_choice_special_alt", "script_info_special_alt", STR.special_spells_alt,
-                                       [ENR_MA.ENR_SpecialLightningFall, ENR_MA.ENR_SpecialField, ENR_MA.ENR_SpecialMeteorFall, ENR_MA.ENR_SpecialLumos, ENR_MA.ENR_SpecialPolymorphism])
+    # add option to disable/enable abilities
+    add_switchable_skills_sections("section_choice_special_alt", "script_info_special_alt", STR.special_spells_alt,
+                                   [ENR_MA.ENR_SpecialLightningFall, ENR_MA.ENR_SpecialField, ENR_MA.ENR_SpecialMeteorFall, ENR_MA.ENR_SpecialLumos, ENR_MA.ENR_SpecialPolymorphism])
 
     end_t = time.time()
     print(f"[*] Scene YML handled in: {end_t - start_t} s")

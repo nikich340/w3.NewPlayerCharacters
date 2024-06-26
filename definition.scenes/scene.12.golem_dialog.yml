@@ -71,7 +71,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [0.0, 5.0]
         focus: [2.1400001049, 2.5000000000]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Medium"
         tags: ["ext"]
@@ -86,7 +86,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [0.0, 2.5000000000]
         focus: [2.0199999809, 5.0]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Closeup"
         tags: ["ext"]
@@ -101,7 +101,7 @@ repository:
         aperture: [28.2495422363, 1.2700729370]
         blur: [0.0, 5.0]
         focus: [2.1400001049, 2.5000000000]
-        intensity: 1.0
+        intensity: 0.2
       event_generator:
         plane: "Medium"
         tags: ["ext"]

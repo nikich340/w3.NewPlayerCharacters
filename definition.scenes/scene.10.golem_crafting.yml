@@ -174,7 +174,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 1.0, 5.0 ]
         focus: [ 1.0, 5.0 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -189,7 +189,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 1.0, 5.0 ]
         focus: [ 1.0, 5.0 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -204,7 +204,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -219,7 +219,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -234,7 +234,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -249,7 +249,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -264,7 +264,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -279,7 +279,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -294,7 +294,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -309,7 +309,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -324,7 +324,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -339,7 +339,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -354,7 +354,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -369,7 +369,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -384,7 +384,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -399,7 +399,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]
@@ -414,7 +414,7 @@ repository:
         aperture: [ 28.2495002747, 1.2700699568 ]
         blur: [ 2.0836489201, 5.0836486816 ]
         focus: [ 2.5836489201, 3.5836489201 ]
-        intensity: 0.2500000000
+        intensity: 0.0
       event_generator:
         plane: "Medium"
         tags: [ "ext" ]

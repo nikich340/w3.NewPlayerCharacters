@@ -1,245 +1,241 @@
 ;meta[language=en]
-; id      |key(hex)|key(str)| text
+; id      |key(hex)|key(str)                                                     | source                                                           | type                |actor| text
+;0001192021|||generic definitions|localized string||Quite true.
+2115940050|||generic definitions|localized string||Arha'an lumar!
+2115940051|||generic definitions|localized string||Cais'te aet disgleir!
+2115940052|||generic definitions|localized string||Gveryd me cassel!
+2115940053|||generic definitions|localized string||Greame et dwyr!
+2115940054|||generic definitions|localized string||Rhobeir'me gelle!
+2115940055|||generic definitions|localized string||Greame et dwyr!
+2115940056|||generic definitions|localized string||Ess pyr'shena a et cleytte!
+2115940057|||generic definitions|localized string||Nevid! Ariva!
+2115940058|||generic definitions|localized string||Agored, teirgan.
+2115940059|||generic definitions|localized string||Vryff cais'te aem gyhar!
+; do not translate spells and Hen Llinge text --^
 ;
-; rename this file to mod<YOUR MODNAME>.speech.csv and
-; add all strings for custom voicelines like the example line below.
-;
-; make sure the XXXX is the string id-space of the project and nnn is unique
-; for every line.
-;
-;211XXXXnnn|||example voiceline text
-;
-;0001192021|||Quite true.
-2115940050|||Arha'an lumar!
-2115940051|||Cais'te aet disgleir!
-2115940052|||Gveryd me cassel!
-2115940053|||Greame et dwyr!
-2115940054|||Rhobeir'me gelle!
-2115940055|||Greame et dwyr!
-2115940056|||Ess pyr'shena a et cleytte!
-2115940057|||Nevid! Ariva!
-2115940058|||Agored, teirgan.
-2115940059|||Vryff cais'te aem gyhar!
-2115940060|||I sense a great power within me… But I need to learn how to channel it. I need a teacher.
-2115940061|||Interesting, maybe there is some magic in that place. I should check.
-2115940062|||The Megascope crystal! And the magical trail clearly points to its source. I shall try to conjure a portal to that location.
-2115940063|||Wow, what place is this?
-2115940064|||A powerful flow of magic emanates from this stone…
-2115940065|||Oh, no, not that!
-2115940066|||*shriek*
-2115940067|||Oh…
+2115940060|||generic definitions|localized string||I sense a great power within me… But I need to learn how to channel it. I need a teacher.
+2115940061|||generic definitions|localized string||Interesting, maybe there is some magic in that place. I should check.
+2115940062|||generic definitions|localized string||The Megascope crystal! And the magical trail clearly points to its source. I shall try to conjure a portal to that location.
+2115940063|||generic definitions|localized string||Wow, what place is this?
+2115940064|||generic definitions|localized string||A powerful flow of magic emanates from this stone…
+2115940065|||generic definitions|localized string||Oh, no, not that!
+2115940066|||generic definitions|localized string||*shriek*
+2115940067|||generic definitions|localized string||Oh…
 ; *shriek*
 ; Кристалл мегаскопа. И магический след явно указывает на исходное местоположение. Попробую создать портал туда.
-2115940068|||You saved me life. Who might you be? And where the blazes am I?
+2115940068|||generic definitions|localized string||You saved me life. Who might you be? And where the blazes am I?
 ; female comment
-2115940069|||Wish I were a sorceress…
+2115940069|||generic definitions|localized string||Wish I were a sorceress…
 ; male comment
-2115940081|||Wish I were a sorceress…
+2115940081|||generic definitions|localized string||Wish I were a sorceress…
 ; Who created you?
-2115940070|||Qued se creoest?
+2115940070|||generic definitions|localized string||Qued se creoest?
 ; Go to me!
-2115940071|||Caem a me!
+2115940071|||generic definitions|localized string||Caem a me!
 ; Calm down, girl
-2115940072|||Caelm, luned.
+2115940072|||generic definitions|localized string||Caelm, luned.
 ; Purifying the blood from poison
-2115940073|||Aeksin a'bloed vort nimh!
-2115940074|||Hey, can you hear me?
-2115940075|||D'yaebl! She's still dying…
+2115940073|||generic definitions|localized string||Aeksin a'bloed vort nimh!
+2115940074|||generic definitions|localized string||Hey, can you hear me?
+2115940075|||generic definitions|localized string||D'yaebl! She's still dying…
 ; I breathe life into you
-2115940076|||Me aedit'ef a'vita as te!
-2115940077|||Maith.
+2115940076|||generic definitions|localized string||Me aedit'ef a'vita as te!
+2115940077|||generic definitions|localized string||Maith.
 ; swears
-2115940078|||An'badraigh aen cuach.
-2115940079|||Gar'ean!
-2115940080|||Ess'tuath esse!
+2115940078|||generic definitions|localized string||An'badraigh aen cuach.
+2115940079|||generic definitions|localized string||Gar'ean!
+2115940080|||generic definitions|localized string||Ess'tuath esse!
 ; 
-2115940850|||Cead, luned. Conas esseath aelaedde?
-2115940851|||I'm fine, thank you. Do you speak the Common Tongue?
-2115940852|||Squaess… Excuse me. I've taken to speakin' to meself in Hen Llinge.
-2115940853|||Where am I? This ship and icy environment…
-2115940854|||…are floating mid-air, true. I've been exploring the origins of a formidable magic intersection, which was located in the ice of the North Sea.
-2115940855|||Was located?
-2115940856|||Yes, when I tried to manipulate the flow of magic towards the air element, it rupted the space and whisked me away to this spot, along with everything' ye now witness.
-2115940857|||It appears that the intersection is produced by that stone. At times, the flow becomes unruly, attractin' hostile creatures.
-2115940858|||So it seems I've stirred up a surge in the flow…
-2115940859|||Hahaha, indeed. Every time I make contact with the stone, a like event takes place. It's reminiscent of the workings of Alzur's Double Cross magic, I'd say.
-2115940860|||Now I reckon I understand. Well, probably, at least…
+2115940850|||generic definitions|localized string||Cead, luned. Conas esseath aelaedde?
+2115940851|||generic definitions|localized string||I'm fine, thank you. Do you speak the Common Tongue?
+2115940852|||generic definitions|localized string||Squaess… Excuse me. I've taken to speakin' to meself in Hen Llinge.
+2115940853|||generic definitions|localized string||Where am I? This ship and icy environment…
+2115940854|||generic definitions|localized string||…are floating mid-air, true. I've been exploring the origins of a formidable magic intersection, which was located in the ice of the North Sea.
+2115940855|||generic definitions|localized string||Was located?
+2115940856|||generic definitions|localized string||Yes, when I tried to manipulate the flow of magic towards the air element, it rupted the space and whisked me away to this spot, along with everything' ye now witness.
+2115940857|||generic definitions|localized string||It appears that the intersection is produced by that stone. At times, the flow becomes unruly, attractin' hostile creatures.
+2115940858|||generic definitions|localized string||So it seems I've stirred up a surge in the flow…
+2115940859|||generic definitions|localized string||Hahaha, indeed. Every time I make contact with the stone, a like event takes place. It's reminiscent of the workings of Alzur's Double Cross magic, I'd say.
+2115940860|||generic definitions|localized string||Now I reckon I understand. Well, probably, at least…
 ; greetings to apprentice
-2115940861|||Cead, my young apprentice.
-2115940862|||A pleasure to witness the presence of the most formidable sorceress… aboard this ship.
-2115940863|||Warms me heart to lay eyes upon my apprentice.
+2115940861|||generic definitions|localized string||Cead, my young apprentice.
+2115940862|||generic definitions|localized string||A pleasure to witness the presence of the most formidable sorceress… aboard this ship.
+2115940863|||generic definitions|localized string||Warms me heart to lay eyes upon my apprentice.
 ; greetings common
-2115940864|||Greetings.
-2115940865|||Welcome back!
+2115940864|||generic definitions|localized string||Greetings.
+2115940865|||generic definitions|localized string||Welcome back!
 ; exit
-2115940867|||See you later.
-2115940868|||Farewell.
-2115940869|||So long.
+2115940867|||generic definitions|localized string||See you later.
+2115940868|||generic definitions|localized string||Farewell.
+2115940869|||generic definitions|localized string||So long.
 ; teaching dialogs
-2115940870|||I would like to become your apprentice.
-2115940871|||Tell me about yourself.
-2115940872|||How unexpected… Why? Undoubtedly, you could have acquired more knowledge at Aretuza.
-2115940873|||I was banished from that place.
-2115940874|||The weight of their relentless demands became too much for me to endure.
-2115940875|||Was it because you dabbled in forbidden arts?
-2115940876|||Yes, I summoned a demon.
-2115940877|||Yes, I dared to tinker with necromancy.
-2115940878|||No, I killed a teacher by an accident.
-2115940879|||No, I'd rather not speak of it.
-2115940880|||I lost control over it almost immediately, and ere rector could halt the demon, it killed several novices…
-2115940881|||And to accomplish this, I pilfered magic crystals from our mentor's megascope…
-2115940882|||Do you now carry regret for what you've done?
-2115940883|||Yes, very much.
-2115940884|||Not really.
-2115940885|||It was crucial for me to hear those words.
-2115940886|||You failed to grasp that lesson, hence ye shall not learn mine either.
-2115940887|||Hope I ain't meant to be the next…
-2115940888|||Well, sure not!
-2115940889|||As you wish.
-2115940890|||I comprehend you well enough.
-2115940891|||Hmm… 'Tis been quite some time since I last took on apprentices…
-2115940892|||Please! I… I will not fail you.
-2115940893|||Well, first you must demonstrate your readiness.
-2115940894|||I shall pose a few questions to you.
-2115940895|||What is Magic?
-2115940896|||What mages were responsible for the creation of the first witchers?
-2115940897|||Who was the first human sorceress and a virtuoso of air magic?
-2115940898|||What type of magic grants the ability to perceive the current fate of individuals?
-2115940899|||Why was the practice of necromancy forbidden?
-2115940900|||From which element does the witcher's Quen sign derive its power?
-2115940901|||Of all the magical elements, which one is considered the most hazardous?
+2115940870|||generic definitions|localized string||I would like to become your apprentice.
+2115940871|||generic definitions|localized string||Tell me about yourself.
+2115940872|||generic definitions|localized string||How unexpected… Why? Undoubtedly, you could have acquired more knowledge at Aretuza.
+2115940873|||generic definitions|localized string||I was banished from that place.
+2115940874|||generic definitions|localized string||The weight of their relentless demands became too much for me to endure.
+2115940875|||generic definitions|localized string||Was it because you dabbled in forbidden arts?
+2115940876|||generic definitions|localized string||Yes, I summoned a demon.
+2115940877|||generic definitions|localized string||Yes, I dared to tinker with necromancy.
+2115940878|||generic definitions|localized string||No, I killed a teacher by an accident.
+2115940879|||generic definitions|localized string||No, I'd rather not speak of it.
+2115940880|||generic definitions|localized string||I lost control over it almost immediately, and ere rector could halt the demon, it killed several novices…
+2115940881|||generic definitions|localized string||And to accomplish this, I pilfered magic crystals from our mentor's megascope…
+2115940882|||generic definitions|localized string||Do you now carry regret for what you've done?
+2115940883|||generic definitions|localized string||Yes, very much.
+2115940884|||generic definitions|localized string||Not really.
+2115940885|||generic definitions|localized string||It was crucial for me to hear those words.
+2115940886|||generic definitions|localized string||You failed to grasp that lesson, hence ye shall not learn mine either.
+2115940887|||generic definitions|localized string||Hope I ain't meant to be the next…
+2115940888|||generic definitions|localized string||Well, sure not!
+2115940889|||generic definitions|localized string||As you wish.
+2115940890|||generic definitions|localized string||I comprehend you well enough.
+2115940891|||generic definitions|localized string||Hmm… 'Tis been quite some time since I last took on apprentices…
+2115940892|||generic definitions|localized string||Please! I… I will not fail you.
+2115940893|||generic definitions|localized string||Well, first you must demonstrate your readiness.
+2115940894|||generic definitions|localized string||I shall pose a few questions to you.
+2115940895|||generic definitions|localized string||What is Magic?
+2115940896|||generic definitions|localized string||What mages were responsible for the creation of the first witchers?
+2115940897|||generic definitions|localized string||Who was the first human sorceress and a virtuoso of air magic?
+2115940898|||generic definitions|localized string||What type of magic grants the ability to perceive the current fate of individuals?
+2115940899|||generic definitions|localized string||Why was the practice of necromancy forbidden?
+2115940900|||generic definitions|localized string||From which element does the witcher's Quen sign derive its power?
+2115940901|||generic definitions|localized string||Of all the magical elements, which one is considered the most hazardous?
 ; master dialogs
-2115940902|||You need further preparation. You can make use of my ship's library.
-2115940903|||Don't they teach you a thing in Aretuza? You've managed to answer all my questions wrong.
-2115940904|||Very well, you're prepared. And you've already familiarized with the basic spells.
-2115940905|||You can learn new advanced spells, or improve the ones you already know.
-2115940906|||Remember, you must successfully perform every new spell several times before advancing to the next one.
-2115940907|||Before moving on, you still need to practice the spell we studied last time.
-2115940908|||Your level of magic is still insufficient to delve into new spells.
-2115940909|||By the way, you've reached the point where you can learn new spells.
-2115940910|||You must decide which one sparks your interest.
-2115940911|||I see. I shall instruct you on the steps to perform this spell, and it is your task to practice and master it.
-2115940912|||Understood. I will now explain how to execute this spell, and your responsibility will be to work it out by practicing.
-2115940913|||I have teached you all the advanced spells. Meaning, I am currently unable to provide further knowledge.
-2115940914|||Call me Ainyerahn. My father, a seasoned sailor, often took me along on his maritime expeditions. However, one fateful day, a tempestuous storm mercilessly wrecked our ship.
-2115940915|||Amidst the chaos, wreckage of the ship and drowning sailors, a blinding flash consumed me, and I awake in the depths of Kaedwen's forests.
-2115940916|||I lost my father that day, but fate granted me the chance to study at the esteemed academy of mages. Although, during my final year at Ban Ard, circumstances compelled my departure..
-2115940917|||Since then, my focus has been on researching magical anomalies and intersections. Purposefully distant from the conflicts of the noble houses and the ignorance of the masses.
-2115940918|||I would like to learn new spells.
-2115940919|||Could you please remind me how to cast…
-2115940985|||About my successes in practice…
+2115940902|||generic definitions|localized string||You need further preparation. You can make use of my ship's library.
+2115940903|||generic definitions|localized string||Don't they teach you a thing in Aretuza? You've managed to answer all my questions wrong.
+2115940904|||generic definitions|localized string||Very well, you're prepared. And you've already familiarized with the basic spells.
+2115940905|||generic definitions|localized string||You can learn new advanced spells, or improve the ones you already know.
+2115940906|||generic definitions|localized string||Remember, you must successfully perform every new spell several times before advancing to the next one.
+2115940907|||generic definitions|localized string||Before moving on, you still need to practice the spell we studied last time.
+2115940908|||generic definitions|localized string||Your level of magic is still insufficient to delve into new spells.
+2115940909|||generic definitions|localized string||By the way, you've reached the point where you can learn new spells.
+2115940910|||generic definitions|localized string||You must decide which one sparks your interest.
+2115940911|||generic definitions|localized string||I see. I shall instruct you on the steps to perform this spell, and it is your task to practice and master it.
+2115940912|||generic definitions|localized string||Understood. I will now explain how to execute this spell, and your responsibility will be to work it out by practicing.
+2115940913|||generic definitions|localized string||I have teached you all the advanced spells. Meaning, I am currently unable to provide further knowledge.
+2115940914|||generic definitions|localized string||Call me Ainyerahn. My father, a seasoned sailor, often took me along on his maritime expeditions. However, one fateful day, a tempestuous storm mercilessly wrecked our ship.
+2115940915|||generic definitions|localized string||Amidst the chaos, wreckage of the ship and drowning sailors, a blinding flash consumed me, and I awake in the depths of Kaedwen's forests.
+2115940916|||generic definitions|localized string||I lost my father that day, but fate granted me the chance to study at the esteemed academy of mages. Although, during my final year at Ban Ard, circumstances compelled my departure..
+2115940917|||generic definitions|localized string||Since then, my focus has been on researching magical anomalies and intersections. Purposefully distant from the conflicts of the noble houses and the ignorance of the masses.
+2115940918|||generic definitions|localized string||I would like to learn new spells.
+2115940919|||generic definitions|localized string||Could you please remind me how to cast…
+2115940985|||generic definitions|localized string||About my successes in practice…
 ; sorceress answers
 ; q0
-2115940920|||Energy of 6 elements.
-2115940921|||Bright flashes and sparks.
-2115940922|||Art and science of controlling chaos.
-2115940923|||Easy way to get what you want.
+2115940920|||generic definitions|localized string||Energy of 6 elements.
+2115940921|||generic definitions|localized string||Bright flashes and sparks.
+2115940922|||generic definitions|localized string||Art and science of controlling chaos.
+2115940923|||generic definitions|localized string||Easy way to get what you want.
 ; q1A
-2115940924|||Geoffrey Monck and Raffard the White.
-2115940925|||Alzur and Cosimo Malaspina.
-2115940926|||Nina Fioravanti and Aurora Henson.
-2115940927|||Ortolan and Sorel Degerlund.
+2115940924|||generic definitions|localized string||Geoffrey Monck and Raffard the White.
+2115940925|||generic definitions|localized string||Alzur and Cosimo Malaspina.
+2115940926|||generic definitions|localized string||Nina Fioravanti and Aurora Henson.
+2115940927|||generic definitions|localized string||Ortolan and Sorel Degerlund.
 ; q1B
-2115940928|||Agnes of Glanville.
-2115940929|||Klara Larissa de Winter.
-2115940930|||Tissaia de Vries.
-2115940931|||Lara Dorren aep Shiadhal.
+2115940928|||generic definitions|localized string||Agnes of Glanville.
+2115940929|||generic definitions|localized string||Klara Larissa de Winter.
+2115940930|||generic definitions|localized string||Tissaia de Vries.
+2115940931|||generic definitions|localized string||Lara Dorren aep Shiadhal.
 ; q2A
-2115940975|||Goetia.
-2115940976|||Transmutation.
-2115940977|||Lesbomancy.
-2115940978|||Hydromancy.
+2115940975|||generic definitions|localized string||Goetia.
+2115940976|||generic definitions|localized string||Transmutation.
+2115940977|||generic definitions|localized string||Lesbomancy.
+2115940978|||generic definitions|localized string||Hydromancy.
 ; q2B
-2115940932|||Because it requires a huge amount of energy.
-2115940933|||Because of a superstitious fear of the dead.
-2115940934|||Because it always lead to entirely negative side effects, despite any motives.
-2115940935|||Because it allows to extract information from a corpse.
+2115940932|||generic definitions|localized string||Because it requires a huge amount of energy.
+2115940933|||generic definitions|localized string||Because of a superstitious fear of the dead.
+2115940934|||generic definitions|localized string||Because it always lead to entirely negative side effects, despite any motives.
+2115940935|||generic definitions|localized string||Because it allows to extract information from a corpse.
 ; q3A/B
-2115940936|||The Air Element.
-2115940937|||The Water Element.
-2115940938|||The Fire Element.
-2115940939|||The Earth Element.
+2115940936|||generic definitions|localized string||The Air Element.
+2115940937|||generic definitions|localized string||The Water Element.
+2115940938|||generic definitions|localized string||The Fire Element.
+2115940939|||generic definitions|localized string||The Earth Element.
 ; Golem creation
-2115940940|||Ah, greetings, apprentice. Could you assist me with something?
-2115940941|||Yes, what happened?
-2115940942|||Sorry, no time for this.
-2115940943|||Before your arrival, there were moments when I found myself contemplating the insidious nature of loneliness. That's why I welcomed a feline companion into my life, and the idea of crafting a loyal golem has crossed my mind on numerous occasions.
-2115940944|||However, every attempt I made resulted in unsatisfactory outcomes. Presently, I have the utmost confidence that, in collaboration with you, we can bring into existence an astounding creature.
-2115940945|||Are there any risks we should be aware of?
-2115940946|||Unless you deem a wasted obsidian heart or an unruly, hostile heap of stone as significant risks, then no.
-2115940947|||Sure. This is gonna be interesting.
-2115940948|||Sorry, I'm not sure I can help.
-2115940949|||So, let us begin. I will summon the enlivening thunder, and while I do, you shall infuse it with the elements of earth and water, maintaining an equal balance.
+2115940940|||generic definitions|localized string||Ah, greetings, apprentice. Could you assist me with something?
+2115940941|||generic definitions|localized string||Yes, what happened?
+2115940942|||generic definitions|localized string||Sorry, no time for this.
+2115940943|||generic definitions|localized string||Before your arrival, there were moments when I found myself contemplating the insidious nature of loneliness. That's why I welcomed a feline companion into my life, and the idea of crafting a loyal golem has crossed my mind on numerous occasions.
+2115940944|||generic definitions|localized string||However, every attempt I made resulted in unsatisfactory outcomes. Presently, I have the utmost confidence that, in collaboration with you, we can bring into existence an astounding creature.
+2115940945|||generic definitions|localized string||Are there any risks we should be aware of?
+2115940946|||generic definitions|localized string||Unless you deem a wasted obsidian heart or an unruly, hostile heap of stone as significant risks, then no.
+2115940947|||generic definitions|localized string||Sure. This is gonna be interesting.
+2115940948|||generic definitions|localized string||Sorry, I'm not sure I can help.
+2115940949|||generic definitions|localized string||So, let us begin. I will summon the enlivening thunder, and while I do, you shall infuse it with the elements of earth and water, maintaining an equal balance.
 ; Я призываю звёздные молнии жизни! (Ainyerahn)
-2115940950|||Me galwad iersann sigellen aep vita!
-2115940305|||Me galwad iersann sigellen aep vita!
-2115940951|||You've made a right mess of it! The elements of earth and water should have been mixed in equal parts, not skewed like this!
-2115940952|||Hey… What is your name? What is your goal?
-2115940953|||I am Celestine. I protect my creators, master and mistress. And do what they order.
-2115940954|||Brilliant! We have succeeded! The aspect of water gives him extraordinary mindset. Welcome to my ship, Celestine.
-2115940955|||Thank you, master.
+2115940950|||generic definitions|localized string||Me galwad iersann sigellen aep vita!
+2115940305|||generic definitions|localized string||Me galwad iersann sigellen aep vita!
+2115940951|||generic definitions|localized string||You've made a right mess of it! The elements of earth and water should have been mixed in equal parts, not skewed like this!
+2115940952|||generic definitions|localized string||Hey… What is your name? What is your goal?
+2115940953|||generic definitions|localized string||I am Celestine. I protect my creators, master and mistress. And do what they order.
+2115940954|||generic definitions|localized string||Brilliant! We have succeeded! The aspect of water gives him extraordinary mindset. Welcome to my ship, Celestine.
+2115940955|||generic definitions|localized string||Thank you, master.
 ; Dialogs with Celestine
-2115940956|||Mistress. A pleasure.
-2115940957|||Morning. Nice day.
-2115940958|||Are you aware of yourself?
-2115940959|||I was in the earth, water, air. Everywhere. And now I am here.
-2115940960|||Do you have any wishes?
-2115940961|||Calmness. Silence. Slowness.
-2115940962|||What will you do if we disappear?
-2115940963|||Fulfill your last will. Protect your property.
-2115940964|||How much is eight plus four?
-2115940965|||Hmm.. Ten two.
-2115940966|||Do you like this place?
-2115940967|||Yes. It is quiet, blue, beautiful.
-2115940968|||Are you experiencing emotions?
-2115940969|||I follow the algorithm. Anything outside of it is an annoyance. The rest is a calmness.
+2115940956|||generic definitions|localized string||Mistress. A pleasure.
+2115940957|||generic definitions|localized string||Morning. Nice day.
+2115940958|||generic definitions|localized string||Are you aware of yourself?
+2115940959|||generic definitions|localized string||I was in the earth, water, air. Everywhere. And now I am here.
+2115940960|||generic definitions|localized string||Do you have any wishes?
+2115940961|||generic definitions|localized string||Calmness. Silence. Slowness.
+2115940962|||generic definitions|localized string||What will you do if we disappear?
+2115940963|||generic definitions|localized string||Fulfill your last will. Protect your property.
+2115940964|||generic definitions|localized string||How much is eight plus four?
+2115940965|||generic definitions|localized string||Hmm.. Ten two.
+2115940966|||generic definitions|localized string||Do you like this place?
+2115940967|||generic definitions|localized string||Yes. It is quiet, blue, beautiful.
+2115940968|||generic definitions|localized string||Are you experiencing emotions?
+2115940969|||generic definitions|localized string||I follow the algorithm. Anything outside of it is an annoyance. The rest is a calmness.
 ; Farewell
-2115940970|||I shall wait.
-2115940971|||Luck to you.
+2115940970|||generic definitions|localized string||I shall wait.
+2115940971|||generic definitions|localized string||Luck to you.
 ; Auto-onelines
-2115940972|||I am strong as a rock.
-2115940973|||I am nice as a crystal.
-2115940974|||I am smart as water.
+2115940972|||generic definitions|localized string||I am strong as a rock.
+2115940973|||generic definitions|localized string||I am nice as a crystal.
+2115940974|||generic definitions|localized string||I am smart as water.
 ; Attack-oneliners
-2115940979|||Intruders!
-2115940980|||Red Alert!
-2115940981|||Going into combat mode!
-2115940982|||Calmness has been restored.
-2115940983|||Intruders have been eliminated.
-2115940984|||The creator's safety is ensured.
+2115940979|||generic definitions|localized string||Intruders!
+2115940980|||generic definitions|localized string||Red Alert!
+2115940981|||generic definitions|localized string||Going into combat mode!
+2115940982|||generic definitions|localized string||Calmness has been restored.
+2115940983|||generic definitions|localized string||Intruders have been eliminated.
+2115940984|||generic definitions|localized string||The creator's safety is ensured.
 ; 86 used
-2115940987|||Sure, no problem.
-2115940988|||I am ready.
+2115940987|||generic definitions|localized string||Sure, no problem.
+2115940988|||generic definitions|localized string||I am ready.
 ; правый: вода (бирюзовый), земля (коричневый) 
 ; / левый: вода (бирюзовый), огонь (оранжевый), земля (коричневый), воздух (голубой)
 ; Я вдыхаю в тебя воду и землю! (Sorceress) -> Celestine
-2115940989|||Me aedit'ef a'lagi shed a'ear as te!
-2115940300|||Me aedit'ef a'lagi shed a'ear as te! [I breathe Water and Earth into you!]
+2115940989|||generic definitions|localized string||Me aedit'ef a'lagi shed a'ear as te!
+2115940300|||generic definitions|localized string||Me aedit'ef a'lagi shed a'ear as te! [I breathe Water and Earth into you!]
 ; Я вдыхаю в тебя воду! (Sorceress) -> Лужица
-2115940990|||Me aedit'ef a'lagi as te!
-2115940301|||Me aedit'ef a'lagi as te! [I breathe Water into you!]
+2115940990|||generic definitions|localized string||Me aedit'ef a'lagi as te!
+2115940301|||generic definitions|localized string||Me aedit'ef a'lagi as te! [I breathe Water into you!]
 ; Я вдыхаю в тебя огонь и землю! (Sorceress) -> Огненный голем
-2115940991|||Me aedit'ef a'enye shed a'ear as te!
-2115940302|||Me aedit'ef a'enye shed a'ear as te! [I breathe Fire and Earth into you!]
+2115940991|||generic definitions|localized string||Me aedit'ef a'enye shed a'ear as te!
+2115940302|||generic definitions|localized string||Me aedit'ef a'enye shed a'ear as te! [I breathe Fire and Earth into you!]
 ; Я вдыхаю в тебя землю! (Sorceress) -> Каменный голем
-2115940992|||Me aedit'ef a'ear as te!
-2115940303|||Me aedit'ef a'ear as te! [I breathe Earth into you!]
+2115940992|||generic definitions|localized string||Me aedit'ef a'ear as te!
+2115940303|||generic definitions|localized string||Me aedit'ef a'ear as te! [I breathe Earth into you!]
 ; Я вдыхаю в тебя воздух и землю! (Sorceress) -> Взрыв
-2115940993|||Me aedit'ef a'eire shed a'ear as te!
-2115940304|||Me aedit'ef a'eire shed a'ear as te! [I breathe Air and Earth into you!]
+2115940993|||generic definitions|localized string||Me aedit'ef a'eire shed a'ear as te!
+2115940304|||generic definitions|localized string||Me aedit'ef a'eire shed a'ear as te! [I breathe Air and Earth into you!]
 ; 2115940305 used
-2115940306|||One fella have seen your ship in the sky.
+2115940306|||generic definitions|localized string||One fella have seen your ship in the sky.
 ; Ох, должно быть это было после телепортации сюда. Я почти сразу накастовал заклинание невидимости.
-2115940307|||Ah, 'twas likely after I teleported to this place. I promptly casted an invisibility spell.
-2115940308|||So now, even a horde of witch hunters would fail to discern my presence. But, I wonder, how did you get here?
-2115940309|||By a shard of crystal on the ground. I was able to tune in to its trail.
-2115940310|||Blast it, true enough. My megascope shattered, and in a burst of emotion, I flung its crystal far away.
-2115940311|||Happy new year, my teacher.
-2115940312|||Bells are ringing, people singing, New Year's here, Happy Happy New Year!
+2115940307|||generic definitions|localized string||Ah, 'twas likely after I teleported to this place. I promptly casted an invisibility spell.
+2115940308|||generic definitions|localized string||So now, even a horde of witch hunters would fail to discern my presence. But, I wonder, how did you get here?
+2115940309|||generic definitions|localized string||By a shard of crystal on the ground. I was able to tune in to its trail.
+2115940310|||generic definitions|localized string||Blast it, true enough. My megascope shattered, and in a burst of emotion, I flung its crystal far away.
+2115940311|||generic definitions|localized string||Happy new year, my teacher.
+2115940312|||generic definitions|localized string||Bells are ringing, people singing, New Year's here, Happy Happy New Year!
 ; Пусть в окошко постучится, В полночь добрый Новый год, Всем мечтам поможет сбыться, Счастье, радость принесёт!
 ; Призываю осколки огня с неба! (Ainyerahn)
-2115940994|||Invocare aedden aep aenye al uide!
-2115940995|||Can we try to craft a golem again?
-2115940996|||Agreed, but I request a finer attention to detail this time. I trust you've not forgotten that in Hen Llinge, "ear" stands for Earth and "lagi" for Water.
-2115940997|||I need a portal to get back to the ground.
+2115940994|||generic definitions|localized string||Invocare aedden aep aenye al uide!
+2115940995|||generic definitions|localized string||Can we try to craft a golem again?
+2115940996|||generic definitions|localized string||Agreed, but I request a finer attention to detail this time. I trust you've not forgotten that in Hen Llinge, "ear" stands for Earth and "lagi" for Water.
+2115940997|||generic definitions|localized string||I need a portal to get back to the ground.
+2115940313|||generic definitions|localized string||Eys'u failte.
+2115940314|||generic definitions|localized string||Beydem.
+2115940315|||generic definitions|localized string||Aen eich'te llyvaid.
 ;

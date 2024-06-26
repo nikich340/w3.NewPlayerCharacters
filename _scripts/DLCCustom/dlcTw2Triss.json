@@ -1,0 +1,73 @@
+{
+  "dlc_id": "dlc_tw2triss",
+  "dlc_name_key": "dlc_tw2triss",
+  "dlc_name_str": "TW2 Triss",
+  "dlc_author_nickname": "ScoutBr0",
+  "dlc_link": "www.nexusmods.com/witcher3/mods/2223",
+  "dlc_appearance_templates": {
+    "dlc/dlc_tw2triss/data/characters/models/main_npc/triss/body_01_wa__triss.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlc_tw2triss/data/characters/models/main_npc/triss/body_01_wa__triss_hooded_01.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlc_tw2triss/data/characters/models/main_npc/triss/body_01_wa__triss_hooded_02.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlc_tw2triss/data/characters/models/main_npc/triss/body_01_wa__triss_tortured.w2ent": {
+      "slot": "ENR_RSlotBody",
+      "rig": "female",
+      "coloring": {}
+    }
+  },
+  "dlc_male_appearance_sets": {},
+  "dlc_female_appearance_sets": {
+	"triss": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlc_tw2triss/data/characters/models/main_npc/triss/body_01_wa__triss.w2ent",
+      "characters/models/main_npc/triss/c_01_wa__triss.w2ent"
+    ],
+	"triss_hooded_01": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlc_tw2triss/data/characters/models/main_npc/triss/body_01_wa__triss_hooded_01.w2ent",
+      "characters/models/main_npc/triss/c_02_wa__triss.w2ent"
+    ],
+	"triss_hooded_02": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__triss.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlc_tw2triss/data/characters/models/main_npc/triss/body_01_wa__triss_hooded_02.w2ent",
+      "characters/models/main_npc/triss/c_01_wa__triss.w2ent"
+    ],
+	"triss_tortured": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_02_wa__triss_tortured.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "characters/models/main_npc/triss/i_02_wa__triss.w2ent",
+      "dlc/dlc_tw2triss/data/characters/models/main_npc/triss/body_01_wa__triss_tortured.w2ent",
+      "characters/models/main_npc/triss/c_01_wa__triss.w2ent"
+    ],
+	"triss_tortured_bloody_face": [
+      {
+		"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_03_wa__triss_blood.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlc_tw2triss/data/characters/models/main_npc/triss/body_01_wa__triss_tortured.w2ent",
+      "characters/models/main_npc/triss/c_01_wa__triss.w2ent"
+    ]
+  }
+}

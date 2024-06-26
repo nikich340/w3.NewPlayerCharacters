@@ -52,7 +52,7 @@ class NR_MagicBomb extends NR_MagicAction {
 		l_bombEntity.m_explosionFxName = ExplosionFxName();
 		l_bombEntity.m_metersPerSec = 1.f;
 		dk = 2.f * SkillTotalDamageMultiplier();
-		l_bombEntity.m_damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+		l_bombEntity.m_damageVal = NR_GetDamageGeneric("NR_MagicBomb", thePlayer, target, /*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/);
 		l_bombEntity.Init(thePlayer, target, /*respectCaster*/ respectCaster, /*pursue*/ bombPursue);
 		l_bombEntity.DestroyAfter(l_bombEntity.m_timeToExplode + 5.f);
 

@@ -71,7 +71,7 @@ abstract statemachine class NR_MagicAction {
 		}
 		isOnHorse = thePlayer.IsUsingHorse() || (IsInSetupScene() && IsInSetupSceneHorse());
 		
-        NR_Debug(actionType + ".OnInit: target = " + target);
+        NR_Info(actionType + ".OnInit: target = " + target);
 		if ( !IsInSetupScene() && !IsScripted() && voicelineChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
 			PlayScene( sceneInputs );
 		}
@@ -85,7 +85,7 @@ abstract statemachine class NR_MagicAction {
 		var input_index : int;
 
 		if (inputs.Size() == 0) {
-			NR_Debug("action = " + actionType + ": No scene inputs");
+			NR_Error("action = " + actionType + ": No scene inputs");
 			return false;
 		}
 		path = "dlc/dlcnewreplacers/data/scenes/02.magic_lines.w2scene";
@@ -95,14 +95,14 @@ abstract statemachine class NR_MagicAction {
 			return false;
 		}
 		input_index = inputs[ NR_GetRandomGenerator().next( inputs.Size() ) ];
-		NR_Debug(actionType + ".PlayScene: input = " + input_index);
+		NR_Info(actionType + ".PlayScene: input = " + input_index);
 
 		theGame.GetStorySceneSystem().PlayScene(scene, "spell_" + IntToString(input_index));
 		return true;
 	}
 
 	latent function OnPrepare() : bool {
-		NR_Debug(actionType + ".OnPrepare: isBroken = " + isBroken);
+		NR_Info(actionType + ".OnPrepare: isBroken = " + isBroken);
 		standartCollisions = NR_GetStandartCollisionNames();
 
 		return !isBroken;
@@ -121,7 +121,7 @@ abstract statemachine class NR_MagicAction {
 
 	latent function OnRotatePrePerform() {
 		if (rotatePrePerform && !isOnHorse && !IsInSetupScene()) {
-		    NR_Debug(actionType + ".OnRotatePrePerform");
+		    NR_Info(actionType + ".OnRotatePrePerform");
 			if (target) {
 				NR_GetReplacerSorceress().NR_RotateTowardsNode('NR_OnRotatePrePerform', target, 360.f, 0.2f);
 				thePlayer.SetCombatActionHeading( VecHeading(target.GetWorldPosition() - thePlayer.GetWorldPosition()) );
@@ -137,7 +137,7 @@ abstract statemachine class NR_MagicAction {
 
 	latent function OnPerform() : bool {
 		// perform action, fx
-		NR_Debug(actionType + ".OnPerform: isPrepared = " + isPrepared);
+		NR_Info(actionType + ".OnPerform: isPrepared = " + isPrepared);
 
 		return isPrepared && !isBroken && !isPerformed;
 	}
@@ -146,7 +146,7 @@ abstract statemachine class NR_MagicAction {
 		var magicManager : NR_MagicManager;
 
 		isPerformed = result;
-		NR_Debug(actionType + ".OnPerformed: " + result + ", isScripted = " + IsScripted());
+		// NR_Debug(actionType + ".OnPerformed: " + result + ", isScripted = " + IsScripted());
 		if (result && drainStaminaOnPerform) {
 			magicManager = NR_GetMagicManager();
 			if (isOnHorse) {
@@ -163,7 +163,7 @@ abstract statemachine class NR_MagicAction {
 			FactsAdd("nr_magic_performed_" + ENR_MAToName(actionType), 1);
 			if (actionSubtype != ENR_Unknown)
 				FactsAdd("nr_magic_performed_" + ENR_MAToName(actionSubtype), 1);
-			//NR_Debug("OnPerformed: " + "nr_magic_performed_" + ENR_MAToName(actionType) + "=" + FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType)));
+			// NR_Debug("OnPerformed: " + "nr_magic_performed_" + ENR_MAToName(actionType) + "=" + FactsQuerySum("nr_magic_performed_" + ENR_MAToName(actionType)));
 			CheckSkillLevelup();
 		}
 
@@ -174,7 +174,7 @@ abstract statemachine class NR_MagicAction {
 		// should not be launched on successful perform!
 		// makes cleanup if action was interrupted
 		isBroken = true;
-		NR_Debug(actionType + ".BreakAction: isPrepared = " + isPrepared + ", isPerformed = " + isPerformed);
+		NR_Info(actionType + ".BreakAction: isPrepared = " + isPrepared + ", isPerformed = " + isPerformed);
 	}
 
 	function CheckSkillLevelup() {
@@ -182,7 +182,7 @@ abstract statemachine class NR_MagicAction {
 
 		newSkillLevel = PerformedCount() / performsToLevelup;
 		if (newSkillLevel > SkillLevel() && newSkillLevel <= maxLevelup) {
-			NR_Debug(actionType + ".CheckSkillLevelup: newSkillLevel = " + newSkillLevel);
+			// NR_Debug(actionType + ".CheckSkillLevelup: newSkillLevel = " + newSkillLevel);
 			SetSkillLevel(newSkillLevel);
 			NR_GetMagicManager().ShowSkillLevelup( actionType );
 		}
@@ -254,7 +254,7 @@ abstract statemachine class NR_MagicAction {
 		// calculate real target rot,pos
 		rot = thePlayer.GetWorldRotation();
 		if (target) {
-			NR_Debug(actionType + ".NR_CalculateTarget: target = " + target);
+			// NR_Debug(actionType + ".NR_CalculateTarget: target = " + target);
 			pos = target.GetWorldPosition();
 			// must be really good for all enemies
 			if (targetCorrectZ)
@@ -267,16 +267,15 @@ abstract statemachine class NR_MagicAction {
 				foundDestroyable = NR_FindDestroyableTarget();
 			}
 			if (foundDestroyable) {
-				NR_Debug(actionType + ".NR_CalculateTarget: destoyable target = " + destroyableTarget);
+				// NR_Debug(actionType + ".NR_CalculateTarget: destoyable target = " + destroyableTarget);
 				pos = destroyableTarget.GetWorldPosition();
-				// TODO #D: calculate object height via components
 				if ( (CMonsterNestEntity)destroyableTarget ) {
 					pos.Z += 0.1f;
 				} else {
 					pos.Z += 0.7f;
 				}
 			} else {
-				NR_Debug(actionType + ".NR_CalculateTarget: no target.");
+				// NR_Debug(actionType + ".NR_CalculateTarget: no target.");
 				//pos = thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 5.f;
 				if (isOnHorse)
 					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 15.f;
@@ -321,12 +320,12 @@ abstract statemachine class NR_MagicAction {
 			if ( !thePlayer.WasVisibleInScaledFrame(ents[i], 1.f, 1.f) ) {
 				continue;
 			}
-			// NR_Debug("NR_FindDestroyableTarget: Check " + ents[i]);
+			// // NR_Debug("NR_FindDestroyableTarget: Check " + ents[i]);
 
 			/*
 			onLine = NR_OnLineOfSight(thePlayer, ents[i], 1.f);
 			if (!onLine) {
-				NR_Debug("NR_FindDestroyableTarget: !onLine");
+				// NR_Debug("NR_FindDestroyableTarget: !onLine");
 				continue;
 			}
 			*/
@@ -383,7 +382,7 @@ abstract statemachine class NR_MagicAction {
 				return true;
 			}
 
-			NR_Debug("NR_FindDestroyableTarget: dEnt = " + dEnt + ", nestEnt = " + nestEnt + ", toxEnt = " + toxEnt + ", riftEnt = " + riftEnt + ", clueEnt = " + clueEnt);
+			// NR_Debug("NR_FindDestroyableTarget: dEnt = " + dEnt + ", nestEnt = " + nestEnt + ", toxEnt = " + toxEnt + ", riftEnt = " + riftEnt + ", clueEnt = " + clueEnt);
 		}
 		return false;
 	}
@@ -472,49 +471,6 @@ abstract statemachine class NR_MagicAction {
 		return pos;
 	}
 
-	latent function GetDamage(minPerc : float, maxPerc : float, basicVitality : float, addVitality : float, basicEssence : float, addEssence : float, optional randMin : float, optional randMax : float, optional customTarget : CActor) : float {
-		var damageTarget : CActor;
-		var damage, maxDamage, minDamage : float;
-		var levelBonus : float;
-
-		if (customTarget) {
-			damageTarget = customTarget;
-		} else if (target) {
-			damageTarget = target;
-		}
-
-		if (randMin < 0.1) {
-			randMin = 0.8;
-		}
-		if (randMax < 0.1) {
-			randMax = 1.2;
-		}
-
-		if (damageTarget) {
-			levelBonus = Max(0, thePlayer.GetLevel() - damageTarget.GetLevel());
-			maxDamage = damageTarget.GetMaxHealth() * (maxPerc + levelBonus * 0.5f) / 100.f;
-			minDamage = damageTarget.GetMaxHealth() * (minPerc + levelBonus * 0.1f) / 100.f;
-		} else {
-			levelBonus = 0;
-			maxDamage = 1000.f;
-			minDamage = 1.f;
-		}
-
-		if (damageTarget.UsesVitality()) {
-			damage = basicVitality + addVitality * thePlayer.GetLevel();
-		} else {
-			damage = basicEssence + addEssence * thePlayer.GetLevel();
-		}
-		damage = damage * NR_GetRandomGenerator().nextRangeF(randMin, randMax);
-
-		if (damageTarget) {
-			damage = MinF(maxDamage, damage);
-			damage = MaxF(minDamage, damage);
-		}
-		NR_Debug(actionType + ".GetDamage: target = " + damageTarget + " (lvl bonus " + levelBonus + ", max HP " + damageTarget.GetMaxHealth() + ", HP " + damageTarget.GetHealth() + "), [" + minDamage + "; " + maxDamage + "] -> " + damage);
-		return damage;
-	}
-
 	function AddMagicDamage(damageAction : W3DamageAction, damageTotalVal : float) {
 		damageAction.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageTotalVal * 0.5f );
 		damageAction.AddDamage( theGame.params.DAMAGE_NAME_SLASHING, damageTotalVal * 0.25f );
@@ -531,7 +487,7 @@ abstract statemachine class NR_MagicAction {
 		newLevel = GetWitcherPlayer().GetLevel() - 2 * step;
 		newLevel += step * ((int)magicSkill - (int)ENR_SkillNovice);
 		if (npc) {
-			NR_Debug(actionType + ".NR_AdjustMinionLevel: Set level (" + newLevel + ") to: " + npc);
+			// NR_Debug(actionType + ".NR_AdjustMinionLevel: Set level (" + newLevel + ") to: " + npc);
 			npc.SetLevel(newLevel);
 		}
 	}

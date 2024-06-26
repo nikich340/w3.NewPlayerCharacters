@@ -25,14 +25,14 @@ state Active in NR_FastTravelTeleport {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("NR_FastTravelTeleport: Active: OnEnterState");
+		// NR_Debug("NR_FastTravelTeleport: Active: OnEnterState");
 		parent.PlayEffect( parent.m_fxName );
 		MainLoop();
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug("NR_FastTravelTeleport: Active: OnLeaveState");
+		// NR_Debug("NR_FastTravelTeleport: Active: OnLeaveState");
 		parent.StopEffect( parent.m_fxName );
 	}
 
@@ -59,7 +59,7 @@ state Active in NR_FastTravelTeleport {
 	latent function PerformFastTravel() {
 		var manager	: CCommonMapManager = theGame.GetCommonMapManager();
 
-		NR_Debug("PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
+		NR_Info("NR_FastTravelTeleport.PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
 		if ( !manager )
 		{
 			return;
@@ -77,10 +77,10 @@ state Active in NR_FastTravelTeleport {
 state Inactive in NR_FastTravelTeleport {
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("NR_FastTravelTeleport: Stop: OnEnterState");
+		// NR_Debug("NR_FastTravelTeleport: Stop: OnEnterState");
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug("NR_FastTravelTeleport: Stop: OnLeaveState");
+		// NR_Debug("NR_FastTravelTeleport: Stop: OnLeaveState");
 	}
 }

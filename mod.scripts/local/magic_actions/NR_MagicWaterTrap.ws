@@ -44,7 +44,7 @@ class NR_MagicWaterTrap extends NR_MagicAction {
 			NR_Error("l_trapEntity is invalid, template = " + entityTemplate);
 			return OnPerformed(false);
 		}
-		NR_Debug("MagicTrap: target = " + target + ", IsSwimming = " + target.IsSwimming() + ", can stagger = " + target.IsImmuneToBuff(EET_Stagger) + ", can immobilize = " + target.IsImmuneToBuff(EET_Immobilized));
+		// NR_Debug("MagicTrap: target = " + target + ", IsSwimming = " + target.IsSwimming() + ", can stagger = " + target.IsImmuneToBuff(EET_Stagger) + ", can immobilize = " + target.IsImmuneToBuff(EET_Immobilized));
 		if (target && target.IsSwimming()) {
 			l_target = target;
 			buffParams.effectType = EET_Frozen;

@@ -1,7 +1,7 @@
 statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	public var magicManager 	: NR_MagicManager;
 	public var nr_signOwner 	: W3SignOwnerSorceress;
-	protected saved var nr_quenEntity 	: NR_SorceressQuen;
+	protected       var nr_quenEntity 	: NR_SorceressQuen;
 	protected saved var nr_lumosActive	: bool;
 	protected saved var nr_lumosFxName	: name;
 	protected var nr_targetDist : float;
@@ -13,7 +13,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Remove guarded stance - sorceress never use real fistfight */
 	public function SetGuarded(flag : bool)
 	{
-		NR_Debug("NR_ReplacerSorceress.SetGuarded = " + flag);
+		// NR_Debug("NR_ReplacerSorceress.SetGuarded = " + flag);
 		// super.SetGuarded(flag);
 	}
 
@@ -62,9 +62,6 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		NR_SetTargetDist( 0.0, 0 );
 		softLockDist = nr_targetDist * 1.25;
 		findMoveTargetDistMax = nr_targetDist + 10.f;
-		NR_Debug( "abilityManager.HasResistStat = " + this.abilityManager.HasResistStat(CDS_SlashingRes) );
-		this.abilityManager.GetResistStat(CDS_SlashingRes, test);
-		NR_Debug( "abilityManager.GetResistStat = " + NR_AttributeToStr(test.points) + ", " + NR_AttributeToStr(test.percents) + ", " + test.type );
 	}
 
 	timer function NR_LaunchMagicManager( delta : float, id : int) {
@@ -77,7 +74,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		magicManager.GotoState('MagicLoop');
 		// launch lumos fx if was active
 		if (nr_lumosActive) {
-			NR_Debug("NR_ReplacerSorceress.NR_LaunchMagicManager: launch nr_lumosFxName = " + nr_lumosFxName);
+			// NR_Debug("NR_ReplacerSorceress.NR_LaunchMagicManager: launch nr_lumosFxName = " + nr_lumosFxName);
 			magicManager.LumosFX(/*enable*/ true, nr_lumosFxName);
 		}
 
@@ -85,7 +82,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	}
 
 	function SetLumosActive(active : bool, fxName : name) {
-		NR_Debug("SetLumosActive: " + active);
+		// NR_Debug("SetLumosActive: " + active);
 		nr_lumosActive = active;
 		nr_lumosFxName = fxName;
 	}
@@ -93,7 +90,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	timer function NR_SetTargetDist( delta : float, id : int ) {
 		nr_targetDist = 15.f;
 		findMoveTargetDistMin = nr_targetDist;
-		NR_Debug("NR_SetTargetDist = " + nr_targetDist);
+		// NR_Debug("NR_SetTargetDist = " + nr_targetDist);
 	}
 
 	public function NR_IsTransformed() : bool {
@@ -104,7 +101,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		var i 	: int;
 		var ids : array<SItemUniqueId>;
 
-		NR_Debug("NR_ReplacerSorceress.ExterminateSwordStuff");
+		NR_Info("NR_ReplacerSorceress.ExterminateSwordStuff");
 		UnequipItemFromSlot(EES_SteelSword);
 		UnequipItemFromSlot(EES_SilverSword);
 		UnequipItemFromSlot(EES_Potion4);
@@ -138,7 +135,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 		//magicEvent.animTime = GetLocalAnimTimeFromEventAnimInfo(animInfo);
 		//magicEvent.eventDuration = GetEventDurationFromEventAnimInfo(animInfo);
-		NR_Debug("NR_ReplacerSorceress.OnAnimEventMagic: eventName = " + animEventName + ", type = " + animEventType + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
+		// NR_Debug("NR_ReplacerSorceress.OnAnimEventMagic: eventName = " + animEventName + ", type = " + animEventType + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
 		// will be auto-processed async in next frame
 		magicManager.AddActionEvent( animEventName, GetAnimNameFromEventAnimInfo(animInfo) );
 	}
@@ -155,41 +152,21 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	event OnBlockingSceneEnded( optional output : CStorySceneOutput)
 	{
 		ExterminateSwordStuff();
-		NR_Debug("NR_ReplacerSorceress.OnBlockingSceneEnded: action = " + output.action);
+		// NR_Debug("NR_ReplacerSorceress.OnBlockingSceneEnded: action = " + output.action);
 
 		if (output.action == SSOA_EnterCombatSteel || output.action == SSOA_EnterCombatSilver)
 			output.action = SSOA_EnterCombatFists;
 		super.OnBlockingSceneEnded( output );
 	}
 
-	event OnBlockingSceneStarted( scene: CStoryScene )
-	{
-		NR_Debug("NR_ReplacerSorceress.OnBlockingSceneStarted: scene = " + scene);
-		super.OnBlockingSceneStarted(scene);
-	}
-	
-	/* public function GoToStateIfNew( newState : name, optional keepStack : bool, optional forceEvents : bool  )
-	{
-		NR_Debug("NR_ReplacerSorceress.GoToStateIfNew: newState = " + newState);
-		super.GoToStateIfNew(newState, keepStack, forceEvents);
-		//magicManager.UpdateMagicControlHints();
-	}
-	*/
-
-	// TODO: Remove this later!!
-	event OnAnimEventBlend( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
-	{
-		// NR_Debug("OnAnimEventBlend: (" + animEventName + ") " + GetAnimNameFromEventAnimInfo(animInfo));
-	}
-
 	public function NR_RestoreQuen( quenHealth : float, quenDuration : float ) : bool
 	{
-		NR_Debug("NR_RestoreQuen: quenHealth = " + quenHealth + ", quenDuration = " + quenDuration);
+		NR_Info("NR_ReplacerSorceress.NR_RestoreQuen: quenHealth = " + quenHealth + ", quenDuration = " + quenDuration);
 		if (quenHealth > 0.f && quenDuration >= 3.f)
 		{
 			if (!nr_quenEntity) {
 				nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
-				NR_Debug("NR_RestoreQuen: recreate entity");
+				// NR_Debug("NR_RestoreQuen: recreate entity");
 			}
 			
 			nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen), true );
@@ -215,14 +192,26 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
         // damageAction.GetBuffSourceName() != "petard"
         animPlayed = super.ReactToBeingHit(damageAction);
+        // NR_Debug("ReactToBeingHit1: buffSourceName = " + damageAction.GetBuffSourceName() + ", attacker = " + damageAction.attacker + ", causer = " + damageAction.causer + ", hitReactionType = " + damageAction.GetHitReactionType() + ", hitAnimationPlayType = " + damageAction.GetHitAnimationPlayType() + ", animPlayed = " + animPlayed);
 
         if ( !canIgnoreHit && animPlayed ) {
-        	NR_Debug("ReactToBeingHit: buffSourceName = " + damageAction.GetBuffSourceName() + ", attacker = " + damageAction.attacker + ", causer = " + damageAction.causer + ", hitReactionType = " + damageAction.GetHitReactionType() + ", hitAnimationPlayType = " + damageAction.GetHitAnimationPlayType() + ", animPlayed = " + animPlayed);
+        	// NR_Debug("ReactToBeingHit: buffSourceName = " + damageAction.GetBuffSourceName() + ", attacker = " + damageAction.attacker + ", causer = " + damageAction.causer + ", hitReactionType = " + damageAction.GetHitReactionType() + ", hitAnimationPlayType = " + damageAction.GetHitAnimationPlayType() + ", animPlayed = " + animPlayed);
         	magicManager.AddActionEvent('BreakMagicAttack', 'ReactToBeingHit');
         	//PrintDamageAction("ReactToBeingHit", damageAction);
         }
 
         return animPlayed;
+	}
+
+	public function StartCSAnim(buff : CBaseGameplayEffect) : bool
+	{
+		var ret : bool;
+
+		ret = super.StartCSAnim(buff);
+		// NR_Debug("StartCSAnim: buff = " + buff.GetEffectType() + " [" + ret + "]");
+		if (ret)
+			magicManager.AddActionEvent('BreakMagicAttack', 'StartCSAnim');
+		return ret;
 	}
 	
 	/* All sorceress attacks are made from distance - never allow reflected damage! */
@@ -234,15 +223,10 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Wrapper: process hand fx change immediately */
 	function SetEquippedSign( signType : ESignType )
 	{
-		NR_Debug("NR_ReplacerSorceress.SetEquippedSign: " + signType);
+		// NR_Debug("NR_ReplacerSorceress.SetEquippedSign: " + signType);
 		super.SetEquippedSign(signType);
 		magicManager.UpdateEquippedSign();
 		magicManager.HandFX(true, true);
-	}
-
-	public function SetVehicleCachedSign( sign : ESignType ) {
-		NR_Debug("NR_ReplacerSorceress.SetVehicleCachedSign: " + sign);
-		super.SetVehicleCachedSign(sign);
 	}
 
 	public function GotoCombatStateWithDodge( bufferAction : EBufferActionType )
@@ -260,7 +244,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Function to really cast Quen (when we are sure that attack is not alternate) */
 	public function CastQuen() : bool
 	{
-		NR_Debug("CastQuen()");
+		// NR_Debug("CastQuen()");
 		/* make standart Quen launching to use vanilla logic */
 		SetBehaviorVariable('NR_isMagicAttack', 1);
 		
@@ -273,7 +257,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 		// destroy old shield
 		if (nr_quenEntity) {
-			NR_Debug("Destroy old quen = " + nr_quenEntity);
+			// NR_Debug("Destroy old quen = " + nr_quenEntity);
 			nr_quenEntity.GotoState('Expired');
 			nr_quenEntity.DestroyAfter(5.f);
 		}
@@ -284,13 +268,13 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Function to manually cast quen */
 	public function CastQuenScripted() : bool
 	{
-		NR_Debug("CastQuenScripted");
+		// NR_Debug("CastQuenScripted");
 
 		if (nr_quenEntity) {
 			if (nr_quenEntity.GetCurrentStateName() == 'ShieldActive')
 				return false;
 
-			NR_Debug("CastQuenScripted: Destroy old quen = " + nr_quenEntity);
+			// NR_Debug("CastQuenScripted: Destroy old quen = " + nr_quenEntity);
 			nr_quenEntity.GotoState('Expired');
 			nr_quenEntity.DestroyAfter(5.f);
 		}
@@ -304,7 +288,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	}
 
 	public function StopQuenScripted(optional onlyIfAutoCasted : bool) {
-		NR_Debug("NR_StopQuenScripted");
+		// NR_Debug("NR_StopQuenScripted");
 		if (!nr_quenEntity)
 			return;
 
@@ -316,18 +300,18 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	}
 
 	public function NR_ReattachQuen(onHorse : bool) {
-		NR_Debug("NR_ReattachQuen");
+		// NR_Debug("NR_ReattachQuen");
 		if (!nr_quenEntity)
 			return;
 
 		nr_quenEntity.BreakAttachment();
 		if (onHorse) {
 			nr_quenEntity.CreateAttachment( thePlayer, 'torso3_effect', Vector(0,0,0.3f) );
-			NR_Debug("NR_ReattachQuen: onHorse");
+			// NR_Debug("NR_ReattachQuen: onHorse");
 		}
 		else {
 			nr_quenEntity.CreateAttachment( thePlayer, 'quen_sphere' );
-			NR_Debug("NR_ReattachQuen: !onHorse");
+			// NR_Debug("NR_ReattachQuen: !onHorse");
 		}
 	}
 
@@ -345,7 +329,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		if ( IsUsingHorse() ) {
 			return super.CastSign();
 		}
-		NR_Debug("CastSign()");
+		// NR_Debug("CastSign()");
 		GotoCombatStateWithAction( IA_None );
 		return OnPerformAttack('attack_magic_special');
 	}
@@ -355,7 +339,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		var ret : bool;
 
 		ret = super.DisplayCannotAttackMessage(actor);
-		NR_Debug("DisplayCannotAttackMessage: " + ret + " actor = " + actor);
+		// NR_Debug("DisplayCannotAttackMessage: " + ret + " actor = " + actor);
 		
 		return ret;
 	}
@@ -363,7 +347,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	/* Wrapper: fool stamina checking when "casting signs" */
 	public function HasStaminaToUseSkill(skill : ESkill, optional perSec : bool, optional signHack : bool) : bool
 	{
-		//NR_Debug("sorceress.HasStaminaToUseSkill: skill = " + skill + ", perSec = " + perSec);
+		// NR_Debug("sorceress.HasStaminaToUseSkill: skill = " + skill + ", perSec = " + perSec);
 		if (skill >= S_Magic_1 && skill <= S_Magic_5 )
 			return true;
 
@@ -450,6 +434,14 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		} else {
 			movementAdjustor.Continuous( ticket );
 			movementAdjustor.KeepActiveFor( ticket, activeTime );
+		}
+	}
+
+	public function SetupCombatAction( action : EBufferActionType, stage : EButtonStage )
+	{
+		// NR_Debug("NR_ReplacerWitcher: SetupCombatAction: " + action + ", stage: " + stage);
+		if ( !StrStartsWith(NameToString(GetCurrentStateName()), 'NR_Transformed') ) {
+			super.SetupCombatAction(action, stage);
 		}
 	}
 }

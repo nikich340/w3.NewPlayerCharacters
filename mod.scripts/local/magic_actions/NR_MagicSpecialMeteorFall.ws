@@ -29,7 +29,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		s_interval = 0.4f;
 
 		resourceName = MeteorEntityName();
-		NR_Debug("MeteorEntityName = " + resourceName);
+		// NR_Debug("MeteorEntityName = " + resourceName);
 		entityTemplate = (CEntityTemplate)LoadResourceAsync(resourceName, true);
 		
 		s_respectCaster = IsActionAbilityEnabled("DamageControl");
@@ -84,7 +84,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		else
 			pos += VecRingRand(minRange, maxRange);
 		pos = SnapToGround(pos);
-		//NR_Debug("NR_MagicSpecialMeteorFall: Distance pos = " + VecDistance(thePlayer.GetWorldPosition(), pos) + ", dist2D = " + VecDistance2D(thePlayer.GetWorldPosition(), pos));
+		// NR_Debug("NR_MagicSpecialMeteorFall: Distance pos = " + VecDistance(thePlayer.GetWorldPosition(), pos) + ", dist2D = " + VecDistance2D(thePlayer.GetWorldPosition(), pos));
 		pos.Z += 40.f;
 		meteor = (NR_MeteorProjectile)theGame.CreateEntity(entityTemplate, pos, rot);
 		if (!meteor) {
@@ -94,7 +94,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 		pos.Z -= 40.f;
 
 		dk = 2.75f * SkillTotalDamageMultiplier();  // 3.5f for single
-		meteor.projDMG = GetDamage(/*min*/ 2.f*dk, /*max*/ 60.f*dk, /*vitality*/ 32.f, 8.f*dk, /*essence*/ 90.f, 10.f*dk /*randRange*/ /*customTarget*/);
+		meteor.projDMG = NR_GetDamageGeneric("NR_MagicSpecialMeteorFall", thePlayer, target, /*min*/ 2.f*dk, /*max*/ 60.f*dk, /*vitality*/ 32.f, 8.f*dk, /*essence*/ 90.f, 10.f*dk /*randRange*/);
 		meteor.explosionRadius = 2.75f;
 		meteor.m_shakeStrength = 0.3f;
 		if (cursed)
@@ -112,7 +112,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 	{
 		var typeName 	: name = map[sign].getN("style_" + ENR_MAToName(actionType));
 		var color 		: ENR_MagicColor = NR_GetActionColor();
-		NR_Debug("MeteorEntityName: typeName = " + typeName + ", color = " + color);
+		// NR_Debug("MeteorEntityName: typeName = " + typeName + ", color = " + color);
 
 		return "dlc/dlcnewreplacers/data/entities/magic/meteor/nr_" + NameToString(typeName) + "_meteor_" + ENR_MCToStringShort(color) + ".w2ent";
 	}
@@ -125,7 +125,7 @@ state Active in NR_MagicSpecialMeteorFall {
 		while (parent.s_lifetime > 0.f) {
 			parent.s_lifetime -= parent.s_interval;
 			Sleep(parent.s_interval);
-			NR_Debug("Active: ShootMeteor, s_lifetime = " + parent.s_lifetime);
+			// NR_Debug("Active: ShootMeteor, s_lifetime = " + parent.s_lifetime);
 			for (i = 0; i < parent.s_meteorNum; i += 1) {
 				parent.ShootMeteor(/*cursed*/ false, thePlayer.GetWorldPosition());
 			}

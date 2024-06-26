@@ -71,12 +71,12 @@ statemachine class NR_MagicFastTravelTeleport extends NR_MagicAction {
 
 		// can't create teleport without player teleported instantly
 		if ( !safePosFound ) {
-			NR_Debug(actionType + ".OnPrepare: Can't find safe pos");
+			NR_Error(actionType + ".OnPrepare: Can't find safe pos");
 			thePlayer.DisplayHudMessage(GetLocStringByKeyExt( "menu_cannot_perform_action_here" ));
 			return OnPrepared(false);
 		}
 		if ( VecDistanceSquared(pos, m_teleportPos) < 1.5f ) {
-			NR_Debug(actionType + ".OnPrepare: Teleport pos is too close");
+			NR_Error(actionType + ".OnPrepare: Safe point is too close");
 			thePlayer.DisplayHudMessage(GetLocStringByKeyExt( "menu_cannot_perform_action_here" ));
 			return OnPrepared(false);
 		}
@@ -198,7 +198,7 @@ state Active in NR_MagicFastTravelTeleport {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("NR_MagicFastTravelTeleport: Active: OnEnterState");
+		// NR_Debug("NR_MagicFastTravelTeleport: Active: OnEnterState");
 		parent.inPostState = true;
 		parent.dummyEntity.PlayEffect( parent.m_fxNameMain );
 		MainLoop();
@@ -206,7 +206,7 @@ state Active in NR_MagicFastTravelTeleport {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug("NR_MagicFastTravelTeleport: Active: OnLeaveState");
+		// NR_Debug("NR_MagicFastTravelTeleport: Active: OnLeaveState");
 		parent.inPostState = false;
 		parent.dummyEntity.StopEffect( parent.m_fxNameMain );
 		parent.dummyEntity.DestroyAfter(5.f);
@@ -235,7 +235,7 @@ state Active in NR_MagicFastTravelTeleport {
 	latent function PerformFastTravel() {
 		var manager	: CCommonMapManager = theGame.GetCommonMapManager();
 
-		NR_Debug("NR_MagicFastTravelTeleport.PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
+		// NR_Debug("NR_MagicFastTravelTeleport.PerformFastTravel: pinTag = " + parent.m_targetPinTag + ", area = " + parent.m_targetAreaId);
 		if ( !manager )
 		{
 			return;
@@ -260,10 +260,10 @@ state Active in NR_MagicFastTravelTeleport {
 state Inactive in NR_MagicFastTravelTeleport {
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("NR_MagicFastTravelTeleport: Inactive: OnEnterState");
+		// NR_Debug("NR_MagicFastTravelTeleport: Inactive: OnEnterState");
 	}
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug("NR_MagicFastTravelTeleport: Inactive: OnLeaveState");
+		// NR_Debug("NR_MagicFastTravelTeleport: Inactive: OnLeaveState");
 	}
 }

@@ -85,7 +85,6 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		aardStandartCollisions.PushBack( 'ParticleCollider' );
 
 		aardProjectile.useFullSphere = s_fullSphere;
-		//aardProjectile.useSlowdown = s_slowdown;
 		aardProjectile.useFreeze = s_freeze;
 		aardProjectile.useBurn = s_burn;
 		
@@ -101,13 +100,6 @@ class NR_MagicCounterPush extends NR_MagicAction {
 		}
 		aardProjectile.SetAttackRange( attackRange );
 		aardEntity.PlayEffect( m_fxNameMain );
-
-		/*
-		if (aardProjectile.useSlowdown) {
-			NR_Debug("AARD: Add ProcessSlowdown timer");
-			aardProjectile.AddTimer('ProcessSlowdownTimer', 1.5f, false, , , true);
-		}
-		*/
 
 		hitsWater = ((CMovingPhysicalAgentComponent)thePlayer.GetMovingAgentComponent()).GetSubmergeDepth() < 0;
 		if (hitsWater)

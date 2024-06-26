@@ -54,7 +54,7 @@ state Active in NR_TornadoEntity {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("Active: OnEnterState");
+		// NR_Debug("Active: OnEnterState");
 		parent.PlayEffect( parent.m_fxName );
 		MainLoop();
 	}
@@ -64,7 +64,7 @@ state Active in NR_TornadoEntity {
 		var actorVictim				: CActor;
 		var i, j					: int;
 
-		NR_Debug("Active: OnLeaveState");
+		// NR_Debug("Active: OnLeaveState");
 		parent.StopEffect( parent.m_fxName );
 		victims.Clear();
 	}
@@ -107,7 +107,7 @@ state Active in NR_TornadoEntity {
 				}
 
 				NR_SmoothMoveToTarget(moveTime, parent.m_metersPerSec, currentPos, targetPos, reachPos);
-				NR_Debug("Tornado: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
+				// NR_Debug("Tornado: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
 				parent.Teleport(currentPos);
 			}
 			lastMoveTime = GetLocalTime();
@@ -175,7 +175,7 @@ state Active in NR_TornadoEntity {
 			{
 				damage = new W3DamageAction in this;
 				damage.Initialize(parent.m_caster, victims[i], NULL, parent, EHRT_None, CPS_Undefined, false, false, false, true );
-				damageVal = GetDamage(victims[i], /*min*/ 2.f*parent.m_dk, /*max*/ 50.f*parent.m_dk, /*vitality*/ 25.f*parent.m_dk, 8.f*parent.m_dk, /*essence*/ 90.f*parent.m_dk, 12.f*parent.m_dk /*randRange*/);
+				damageVal = NR_GetDamageGeneric("NR_TornadoEntity", parent.m_caster, victims[i], /*min*/ 2.f*parent.m_dk, /*max*/ 50.f*parent.m_dk, /*vitality*/ 25.f*parent.m_dk, 8.f*parent.m_dk, /*essence*/ 90.f*parent.m_dk, 12.f*parent.m_dk /*randRange*/);
 				damageVal = damageVal * damageTime / parent.m_tornadoLifetime;
 				damage.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageVal * 0.5f );
 				damage.AddDamage( theGame.params.DAMAGE_NAME_SLASHING, damageVal * 0.25f );
@@ -209,7 +209,7 @@ state Active in NR_TornadoEntity {
 		movementAdjustor.AdjustLocationVertically( ticket, true );
 		movementAdjustor.DontEnd( ticket );
 		// movementAdjustor.KeepActiveFor( ticket, parent.m_tornadoLifetime - GetLocalTime() );
-		NR_Debug("AddSlideVictim: " + victim);
+		// NR_Debug("AddSlideVictim: " + victim);
 
 		slideVictims.PushBack(victim);
 		slideVictimTickets.PushBack(ticket);
@@ -228,51 +228,15 @@ state Active in NR_TornadoEntity {
 		slideVictims.Erase(victimIndex);
 		slideVictimTickets.Erase(victimIndex);
 	}
-
-	latent function GetDamage(damageTarget : CActor, minPerc : float, maxPerc : float, basicVitality : float, addVitality : float, basicEssence : float, addEssence : float, optional randMin : float, optional randMax : float) : float {
-		var damage, maxDamage, minDamage : float;
-		var levelDiff : float;
-
-		if (randMin < 0.1) {
-			randMin = 0.9;
-		}
-		if (randMax < 0.1) {
-			randMax = 1.1;
-		}
-
-		if (damageTarget) {
-			levelDiff = thePlayer.GetLevel() - damageTarget.GetLevel();
-			maxDamage = damageTarget.GetMaxHealth() * maxPerc / 100.f + levelDiff * 1.f;
-			minDamage = MaxF(damageTarget.GetMaxHealth() * 0.5f / 100.f, damageTarget.GetMaxHealth() * minPerc / 100.f + levelDiff * 0.1f);
-		} else {
-			levelDiff = 0;
-			maxDamage = 1000000.f;
-			minDamage = 1.f;
-		}
-
-		if (damageTarget.UsesVitality()) {
-			damage = basicVitality + addVitality * thePlayer.GetLevel();
-		} else {
-			damage = basicEssence + addEssence * thePlayer.GetLevel();
-		}
-		damage = damage * NR_GetRandomGenerator().nextRangeF(randMin, randMax);
-
-		if (damageTarget) {
-			damage = MinF(maxDamage, damage);
-			damage = MaxF(minDamage, damage);
-		}
-		NR_Debug("Tornado: GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
-		return damage;
-	}
 }
 state Stop in NR_TornadoEntity {
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("Stop: OnEnterState");
+		// NR_Debug("Stop: OnEnterState");
 	}
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug("Stop: OnLeaveState");
+		// NR_Debug("Stop: OnLeaveState");
 	}
 }

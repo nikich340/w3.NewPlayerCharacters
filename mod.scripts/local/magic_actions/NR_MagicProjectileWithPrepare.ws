@@ -37,7 +37,7 @@ class NR_MagicProjectileWithPrepare extends NR_MagicAction {
 		projectile.onCollisionVictimFxName = m_fxNameHit;
 
 		dk = 1.8f * SkillTotalDamageMultiplier();
-		projectile.projDMG = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+		projectile.projDMG = NR_GetDamageGeneric("NR_MagicProjectileWithPrepare", thePlayer, target, /*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/);
 		projectile.Init(thePlayer);
 		projectile.CreateAttachment( thePlayer, 'r_weapon' );
 		// explodes toxic gas

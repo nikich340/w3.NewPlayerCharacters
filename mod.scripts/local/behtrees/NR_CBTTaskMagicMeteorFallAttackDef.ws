@@ -1,4 +1,4 @@
-class CAIMagicMeteorFallSpecialAction extends CAISpecialAction
+class NR_CAIMagicMeteorFallSpecialAction extends CAISpecialAction
 {
 	default aiTreeName = "dlc\dlcnewreplacers\data\behaviortrees\npc_special_cast_ice_meteor_master.w2behtree";
 
@@ -8,7 +8,6 @@ class CAIMagicMeteorFallSpecialAction extends CAISpecialAction
 		params.OnCreated();
 	}
 }
-
 
 class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 {
@@ -66,7 +65,6 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 			if ( m_lastShootTime + shootInterval /* npc.GetAnimationTimeMultiplier()*/ < GetLocalTime() ) {
 				m_lastShootTime = GetLocalTime();
 				ShootMeteor();
-				NR_Debug("NR_CBTTaskMagicMeteorFallAttack: m_activated, ShootMeteor, time = " + m_lastShootTime);
 			}
 		}
 		
@@ -80,7 +78,7 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 	{
 		if ( animEventName == activateOnAnimEvent )
 		{
-			//NR_Debug("NR_CBTTaskMagicMeteorFallAttack: set m_activated, animEventName = " + animEventName);
+			// NR_Debug("NR_CBTTaskMagicMeteorFallAttack: set m_activated, animEventName = " + animEventName);
 			m_activated = true;	
 			return true;
 		}
@@ -112,56 +110,18 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 		}
 		pos.Z -= 40.f;
 
-		meteor.projDMG = GetDamage( /*target*/ enemies[index], /*min*/ 5.f, /*max*/ 25.f, /*vitality*/ 32.f, 16.f, /*essence*/ 90.f, 20.f);
+		meteor.projDMG = NR_GetDamageGeneric( "NR_CBTTaskMagicMeteorFallAttack", /*caster*/ GetNPC(), /*target*/ enemies[index], /*min*/ 20.f, /*max*/ 50.f, /*vitality*/ 30.f, 25.f, /*essence*/ 80.f, 40.f);
 		meteor.explosionRadius = 2.5f;
 		meteor.m_shakeStrength = 0.5f;
 		meteor.m_respectCaster = true;
-		meteor.m_damageName = 'DirectDamage';
+		meteor.m_damageName = 'FrostDamage';
 		meteor.Init( caster );
 		meteor.ShootProjectileAtPosition( meteor.projAngle, meteor.projSpeed, pos, 500.f, m_collisionGroups );
 		meteor.DestroyAfter(10.f);
-		//NR_Debug("NR_CBTTaskMagicMeteorFallAttack: ShootMeteor (" + meteor + ") at: " + VecToString(pos) + ", enemy: " + enemies[ index ]);
+		// NR_Debug("NR_CBTTaskMagicMeteorFallAttack: ShootMeteor (" + meteor + ") at: " + VecToString(pos) + ", enemy: " + enemies[ index ]);
 
 		return true;
-	}
-
-	latent function GetDamage(damageTarget : CActor, minPerc : float, maxPerc : float, basicVitality : float, addVitality : float, basicEssence : float, addEssence : float, optional randMin : float, optional randMax : float) : float {
-		var damage, maxDamage, minDamage : float;
-		var levelDiff : float;
-
-		if (randMin < 0.1) {
-			randMin = 0.8;
-		}
-		if (randMax < 0.1) {
-			randMax = 1.2;
-		}
-
-		if (damageTarget) {
-			levelDiff = GetNPC().GetLevel() - damageTarget.GetLevel();
-			maxDamage = damageTarget.GetMaxHealth() * maxPerc / 100.f + levelDiff * 1.f;
-			minDamage = MaxF(damageTarget.GetMaxHealth() * 0.5f / 100.f, damageTarget.GetMaxHealth() * minPerc / 100.f + levelDiff * 0.1f);
-		} else {
-			levelDiff = 0;
-			maxDamage = 1000000.f;
-			minDamage = 1.f;
-		}
-
-		if (damageTarget.UsesVitality()) {
-			damage = basicVitality + addVitality * GetNPC().GetLevel();
-		} else {
-			damage = basicEssence + addEssence * GetNPC().GetLevel();
-		}
-		damage = damage * RandRangeF(randMax, randMin);
-
-		if (damageTarget) {
-			damage = MinF(maxDamage, damage);
-			damage = MaxF(minDamage, damage);
-		}
-		NR_Debug("NR_CBTTaskMagicMeteorFallAttack.GetDamage: target = " + damageTarget + " lvl diff = " + levelDiff + ", max health = " + damageTarget.GetMaxHealth());
-		NR_Debug("NR_CBTTaskMagicMeteorFallAttack.GetDamage: minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
-		
-		return damage;
-	}
+	}	
 	
 	/*
 	function OnGameplayEvent( eventName : name ) : bool

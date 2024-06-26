@@ -37,7 +37,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		if ( !target ) {
 			for (i = 0; i < actors.Size(); i += 1) {
 				targetAngle = VecGetAngleBetween(thePlayer.GetHeadingVector(), actors[i].GetWorldPosition() - thePlayer.GetWorldPosition());
-				NR_Debug("Control: filter actor: [" + i + "], vecAngle: " + targetAngle);
+				// NR_Debug("Control: filter actor: [" + i + "], vecAngle: " + targetAngle);
 				if ( !actors[i].HasTag('NR_SpecialControl') 
 					&& minAngle > targetAngle ) 
 				{
@@ -125,7 +125,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			wasHostile = true;
 		}
 
-		if ( npc.HasAbility( 'Boss' ) ) {
+		if ( npc.HasAbility('Boss') || npc.HasAbility('SkillBoss') ) {
 			thePlayer.DisplayHudMessage(GetLocStringByKey("panel_hud_message_cant_attack_this_target"));
 			return;
 		}
@@ -154,7 +154,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		else
 			npc.PlayEffect('axii_confusion');
 
-		// NEW
+		// NEW - duration is hardcoded in vanilla scripts
 		/*
 		buffParams.creator = thePlayer;
 		buffParams.sourceName = "NR_MagicSpecialControl";  // "axii_" + S_Magic_5
@@ -185,7 +185,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 			npc.SetLevel(npc.GetLevel() + 3);
 		}
 
-		NR_Debug(actionType + ".TakeControl: hostile = " + wasHostile + ", success on npc = " + npc);
+		NR_Info(actionType + ".TakeControl: wasHostile = " + wasHostile + ", npc = " + npc);
 	}
 	
 	latent function StopControl(npc : CNewNPC) {
@@ -217,6 +217,7 @@ statemachine class NR_MagicSpecialControl extends NR_MagicSpecialAction {
 		if (IsActionAbilityEnabled("Upscaling")) {
 			npc.SetLevel(npc.GetLevel() - 3);
 		}
+		NR_Info(actionType + ".StopControl: wasHostile = " + wasHostile + ", npc = " + npc);
 	}
 }
 
@@ -227,12 +228,11 @@ state Active in NR_MagicSpecialControl {
 		var npc 		: CNewNPC;
 
 		Sleep( 0.5f );
-		//NR_Debug("EnableManualCameraControl: " + this);
 		npc = (CNewNPC)parent.target;
 		thePlayer.StopEffect('mind_control');
 
 		if ( !npc ) {
-			NR_Debug(parent.actionType + "::Active.ActiveLoop: NULL target.");
+			// NR_Debug(parent.actionType + "::Active.ActiveLoop: NULL target.");
 			parent.GotoState('Stop');
 			return;
 		}

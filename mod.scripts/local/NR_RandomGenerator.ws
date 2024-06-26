@@ -33,7 +33,7 @@ class NR_RandomGenerator extends CEntity {
     {
         super.OnSpawned(spawnData);
         setSeed(getGameplayBasedSeed());
-        NR_Debug("NR_RandomGenerator: Spawned with seed = " + Uint64ToString(seed));
+        NR_Info("NR_RandomGenerator: Spawned with seed = " + Uint64ToString(seed));
     }
 
     protected function getGameplayBasedSeed() : Uint64 {
@@ -268,11 +268,11 @@ exec function nr_testrandom() {
     var generator : NR_RandomGenerator;
 
     generator = NR_GetRandomGenerator();
-    NR_Debug("nr_testrandom: rand int = " + generator.next(2147483647));
-    NR_Debug("nr_testrandom: rand uint64 = " + Uint64ToString( generator.nextU(generator.getLongLongMax()) ));
-    NR_Debug("nr_testrandom: rand float = " + generator.nextF());
+    // NR_Debug("nr_testrandom: rand int = " + generator.next(2147483647));
+    // NR_Debug("nr_testrandom: rand uint64 = " + Uint64ToString( generator.nextU(generator.getLongLongMax()) ));
+    // NR_Debug("nr_testrandom: rand float = " + generator.nextF());
 
-    NR_Debug("nr_testrandom: rand weighted int in range(-100, 100) = " + generator.wnextRange(-100, 100, 5));
-    NR_Debug("nr_testrandom: rand weighted uint64 in range(0, 500) = " + Uint64ToString( generator.wnextRangeU(IntToUint64(0), IntToUint64(500), -5) ));
-    NR_Debug("nr_testrandom: rand weighted float in range(-1000, 1000) = " + generator.wnextRangeF(-1000.f, 1000.f, -10));
+    // NR_Debug("nr_testrandom: rand weighted int in range(-100, 100) = " + generator.wnextRange(-100, 100, 5));
+    // NR_Debug("nr_testrandom: rand weighted uint64 in range(0, 500) = " + Uint64ToString( generator.wnextRangeU(IntToUint64(0), IntToUint64(500), -5) ));
+    // NR_Debug("nr_testrandom: rand weighted float in range(-1000, 1000) = " + generator.wnextRangeF(-1000.f, 1000.f, -10));
 }

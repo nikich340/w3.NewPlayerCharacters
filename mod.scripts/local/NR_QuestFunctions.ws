@@ -2,6 +2,10 @@ latent quest function NR_Wait_Q(sec : float) {
     Sleep(sec);
 }
 
+quest function NR_Notify_Quest(message : String, optional seconds : float) {
+    NR_Notify(message, seconds);
+}
+
 latent quest function NR_HideMaster_Q(phaseTag : name) {
     var masterNPC : CNewNPC;
 
@@ -19,20 +23,55 @@ quest function NR_InitPlayerManager_Q() {
     NR_GetPlayerManager();
 }
 
-latent quest function NR_ChangePlayer_Q() {
-    var newPlayerType   : ENR_PlayerType;
+// true if player type is Ciri/Witcheress/Sorceress
+/* API */ quest function NR_IsPlayerFemale_Q() : bool {
+    return NR_GetPlayerManager().IsFemale();
+}
+
+// true if player type is Geralt
+/* API */ quest function NR_IsPlayerGeralt_Q() : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerGeralt);
+}
+
+// true if player type is Ciri
+/* API */ quest function NR_IsPlayerCiri_Q() : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerCiri);
+}
+
+// true if player type is Witcher
+/* API */ quest function NR_IsPlayerWitcher_Q() : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerWitcheress);
+}
+
+// true if player type is Witcheress
+/* API */ quest function NR_IsPlayerWitcheress_Q() : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerWitcheress);
+}
+
+// true if player type is Sorceress
+/* API */ quest function NR_IsPlayerSorceress_Q() : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerSorceress);
+}
+
+// true if NR mod version is >= minVersion (checking compability)
+/* API */ quest function NR_IsModVersionEqualHigher_Q(minVersion : int) : bool {
+    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerSorceress);
+}
+
+// true if any stuff has locked player type change (in setup scene only, you still can change type with NR_ChangePlayerLatent_Q)
+/* API */ quest function NR_IsPlayerTypeChangeLocked_Q() : bool {
+    return NR_GetPlayerManager().IsPlayerTypeChangeLocked();
+}
+
+// changes player and waits until new player is fully ready
+/* API */ latent quest function NR_ChangePlayerLatent_Q(newPlayerType : ENR_PlayerType) {
     var nr_manager      : NR_PlayerManager;
 
     nr_manager = NR_GetPlayerManager();
     if (!nr_manager)
         return;
 
-    newPlayerType = (ENR_PlayerType)FactsQuerySum("nr_scene_player_change_type");
-    NR_Debug("NR_ChangePlayer_Q: scene change to -> " + newPlayerType);
-    // NR_ChangePlayer(newPlayerType);
     NR_ChangePlayerLatent(newPlayerType);
-    NR_Debug("NR_ChangePlayer_Q: DONE scene change to -> " + newPlayerType);
-    FactsRemove("nr_scene_player_change_type");
 
     // kick from magic ship if player is not a sorceress
     if (newPlayerType != ENR_PlayerSorceress && FactsQuerySum("nr_on_master_ship") > 0) {
@@ -40,35 +79,77 @@ latent quest function NR_ChangePlayer_Q() {
     }
 }
 
-quest function NR_IsPlayerFemale_Q() : bool {
-    return NR_GetPlayerManager().IsFemale();
+// saves current appearance set
+/* API */ quest function NR_SaveAppearanceSet_Q(headName : name) {
+    NR_GetPlayerManager().SaveAppearanceSet();
 }
 
-quest function NR_IsPlayerGeralt_Q() : bool {
-    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerGeralt);
+// resets all current appearance
+/* API */ latent quest function NR_SetNewPlayerAppearance_Q(playerType : ENR_PlayerType, headName : name, appearanceEntries : array<SNR_ApperanceEntry>) {
+    var nr_manager : NR_PlayerManager;
+    var i : int;
+
+    NR_Info("NR_SetNewPlayerAppearance_Q: playerType = " + playerType + ", headName = " + headName + ", appearanceEntries.Size = " + appearanceEntries.Size());
+    nr_manager = NR_GetPlayerManager();
+    if (!nr_manager)
+        return;
+
+    NR_ChangePlayerLatent(playerType);
+    // kick from magic ship if player is not a sorceress
+    if (playerType != ENR_PlayerSorceress && FactsQuerySum("nr_on_master_ship") > 0) {
+        thePlayer.Teleport(Vector(-108.719444, -208.481003, 15.512835));
+    }
+    nr_manager.ResetAllAppearanceHeadHair();
+    nr_manager.UpdateHead(headName);
+    for (i = 0; i < appearanceEntries.Size(); i += 1) {
+        if (appearanceEntries[i].slot == ENR_RSlotMisc) {
+            nr_manager.UpdateAppearanceItem(appearanceEntries[i].templatePath, -1);
+        } else {
+            nr_manager.UpdateAppearanceTemplate(appearanceEntries[i].templatePath, appearanceEntries[i].slot);
+        }
+    }
+    NR_Info("NR_SetNewPlayerAppearance_Q: READY");
 }
 
-quest function NR_IsPlayerCiri_Q() : bool {
-    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerCiri);
+// sets type change locked for user - do not forget to unlock later!
+/* API */ quest function NR_SetPlayerTypeChangeLocked_Q(locked : bool, reason : String) {
+    NR_GetPlayerManager().SetPlayerTypeChangeLocked(locked, reason);
 }
 
-quest function NR_IsPlayerWitcher_Q() : bool {
-    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerWitcheress);
+// resets all current appearance
+/* API */ quest function NR_ResetAllAppearanceHeadHair_Q() {
+    NR_GetPlayerManager().ResetAllAppearanceHeadHair();
 }
 
-quest function NR_IsPlayerWitcheress_Q() : bool {
-    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerWitcheress);
+// changes head to new one
+/* API */ quest function NR_UpdateHead_Q(headName : name) {
+    NR_GetPlayerManager().UpdateHead(headName);
 }
 
-quest function NR_IsPlayerSorceress_Q() : bool {
-    NR_Debug("NR_IsPlayerSorceress_Q");
-    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerSorceress);
+// changes a template under single slot
+/* API */ quest function NR_UpdateAppearanceTemplate_Q(path : String, slot : ENR_AppearanceSlots) {
+    NR_GetPlayerManager().UpdateAppearanceTemplate(path, slot);
 }
 
+// changes item under single index, adds new item if itemIndex == -1
+/* API */ quest function NR_UpdateAppearanceItem_Q(path : String, itemIndex : int) {
+    NR_GetPlayerManager().UpdateAppearanceItem(path, itemIndex);
+}
+
+// radish-compatibility
 quest function NR_FadeOutQuestBlack( fadeTime : float ) {
     FadeOutQuest(fadeTime, Color(0, 0, 0, 0));
 }
 
+// radish-compatibility
+quest function NR_SetPreventDeathOnEntity( entityTag : name, prevent : bool ) {
+    var adv_npc : NR_AdvancedNPC;
+
+    adv_npc = (NR_AdvancedNPC)theGame.GetEntityByTag(entityTag);
+    adv_npc.SetPreventDeathEvent(prevent);
+}
+
+// radish-compatibility
 quest function NR_AddContractToNoticeBoard( boardTag : CName, errandStringKey : string, newQuestFact : string, addedItemName : CName, optional forceActivate : bool ) {
   var newErrand : ErrandDetailsList;
   var newErrands : array<ErrandDetailsList>;
@@ -81,6 +162,7 @@ quest function NR_AddContractToNoticeBoard( boardTag : CName, errandStringKey : 
   AddErrandsToTheNoticeBoard( boardTag, newErrands, forceActivate );
 }
 
+// radish-compatibility
 quest function NR_CheckFactCond_Q(factName : string, factCond : string, factVal : int) : bool {
     var factValReal : int;
     var ret : bool;
@@ -110,8 +192,30 @@ quest function NR_CheckFactCond_Q(factName : string, factCond : string, factVal 
     return ret;
 }
 
+// true if random value in range [1; maxChance] is in range [1; chance]
 quest function NR_CheckRandomChance_Q( chance : int, maxChance : int ) : bool {
     return chance >= NR_GetRandomGenerator().nextRange(1, maxChance);
+}
+
+// setup-scene function
+latent quest function NR_SwitchPlayerAfterScene_Q() {
+    var newPlayerType   : ENR_PlayerType;
+    var nr_manager      : NR_PlayerManager;
+
+    nr_manager = NR_GetPlayerManager();
+    if (!nr_manager)
+        return;
+
+    newPlayerType = (ENR_PlayerType)FactsQuerySum("nr_scene_player_change_type");
+    NR_Info("NR_SwitchPlayerAfterScene_Q: scene change to -> " + newPlayerType);
+    NR_ChangePlayerLatent(newPlayerType);
+    NR_Info("NR_SwitchPlayerAfterScene_Q: DONE scene change to -> " + newPlayerType);
+    FactsRemove("nr_scene_player_change_type");
+
+    // kick from magic ship if player is not a sorceress
+    if (newPlayerType != ENR_PlayerSorceress && FactsQuerySum("nr_on_master_ship") > 0) {
+        thePlayer.Teleport(Vector(-108.719444, -208.481003, 15.512835));
+    }
 }
 
 latent quest function NR_CheckEntitiesAlive_Q( tag : name, moreThan : int ) : bool {
@@ -206,7 +310,7 @@ latent quest function NR_UseCrossStone_Q() {
     // 1 = player, 2 = auto, 3 = scene (longer activation)
 
     skillsLearned = FactsQuerySum("nr_magic_skill_learned");
-    NR_Debug("NR_UseCrossStone_Q, skillsLearned = " + skillsLearned + " triggerType = " + triggerType);
+    NR_Info("NR_UseCrossStone_Q: skillsLearned = " + skillsLearned + ", triggerType = " + triggerType);
 
     teleportTemplate = (CEntityTemplate)LoadResourceAsync("dlc/dlcnewreplacers/data/entities/magic/ft_teleport/nr_q109_keira_teleport_red.w2ent", true);
     crossTemplate = (CEntityTemplate)LoadResourceAsync("dlc/dlcnewreplacers/data/entities/nr_cross_effect.w2ent", true);
@@ -321,7 +425,7 @@ latent quest function NR_UseCrossStone_Q() {
 
         entityLevel = Max(1, thePlayer.GetLevel() - levelReduct + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
-        NR_Debug("NR_UseCrossStone_Q: Spawn npc tier1[" + i + "] = (" + idx + ")(" + pidx + ") <" + npc.GetAttitudeGroup() + "> = " + npc);
+        // NR_Debug("NR_UseCrossStone_Q: Spawn npc tier1[" + i + "] = (" + idx + ")(" + pidx + ") <" + npc.GetAttitudeGroup() + "> = " + npc);
         Sleep(0.2f);
     }
 
@@ -339,7 +443,7 @@ latent quest function NR_UseCrossStone_Q() {
 
         entityLevel = Max(1, thePlayer.GetLevel() - levelReduct - 2 + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
-        NR_Debug("NR_UseCrossStone_Q: Spawn npc tier2[" + i + "] = (" + idx + ")(" + pidx + ") <" + npc.GetAttitudeGroup() + "> = " + npc);
+        // NR_Debug("NR_UseCrossStone_Q: Spawn npc tier2[" + i + "] = (" + idx + ")(" + pidx + ") <" + npc.GetAttitudeGroup() + "> = " + npc);
         Sleep(0.2f);
     }
 }
@@ -365,13 +469,14 @@ latent quest function NR_SpawnMeteorsAtEntity_Q(entityTag : name, meteorsNum : i
         meteor.Init( thePlayer );
         meteor.ShootProjectileAtPosition( meteor.projAngle, meteor.projSpeed, pos, 500.f, NR_GetStandartCollisionNames() );
         meteor.DestroyAfter(10.f);
-        NR_Debug("NR_SpawnMeteorsAtEntity_Q[" + i + "] = " + meteor);
+        // NR_Debug("NR_SpawnMeteorsAtEntity_Q[" + i + "] = " + meteor);
         Sleep(intervalSec);
     }
 }
 
 quest function NR_AddChameleonPotion() {
-    thePlayer.inv.AddAnItem('nr_chameleon_potion', 1);
+    if ( !thePlayer.inv.HasItem('nr_chameleon_potion') )
+        thePlayer.inv.AddAnItem('nr_chameleon_potion', 1);
 }
 
 quest function NR_UseChameleonPotion() {
@@ -391,17 +496,6 @@ quest function NR_UseChameleonPotion() {
     {
           commonMenuRef.CloseMenu();
     }
-    //invMenu = (CR4InventoryMenu) ((CR4MenuBase)theGame.GetGuiManager().GetRootMenu()).GetLastChild();
-    //if (invMenu)
-    //  invMenu.OnCloseMenu();
-    
-    //NR_Notify("NR_UseChameleonPotion");
-    /*theGame.Unpause("menus");
-    rootMenu = theGame.GetGuiManager().GetRootMenu();
-    if ( rootMenu )
-    {
-        rootMenu.CloseMenu();
-    }*/
 
     theSound.SoundEvent("gui_character_synergy_effect");
     if ( !thePlayer.IsEffectActive( 'invisible' ) )
@@ -418,6 +512,7 @@ quest function NR_RestorePlayerPosition() {
         thePlayer.TeleportWithRotation(playerManager.m_worldPosition, playerManager.m_worldRotation);
 }
 
+// radish-compatibility
 latent quest function NR_SaveGameAndWait(type : string, slot : int, wait : float) {
     switch (type) {
         case "SGT_QuickSave":
@@ -434,30 +529,6 @@ latent quest function NR_SaveGameAndWait(type : string, slot : int, wait : float
             break;
     }
     Sleep(wait);
-}
-
-latent function NR_PlaySound( bankName : string, eventName : string, optional saveType : string ) {
-    if ( !theSound.SoundIsBankLoaded(bankName) ) {
-        theSound.SoundLoadBank(bankName, /*async*/ true);
-        NR_Debug("NR_PlaySound: Loading bank [" + bankName + "]");
-        while ( !theSound.SoundIsBankLoaded(bankName) ) {
-            SleepOneFrame();
-        }
-        NR_Debug("NR_PlaySound: Loaded bank [" + bankName + "]");
-    }
-    NR_Debug("NR_PlaySound: bnk [" + bankName + "], event [" + eventName + "], saveType [" + saveType + "]");
-
-    switch (saveType) {
-        case "SESB_Save":
-            SoundEventQuest(eventName, SESB_Save);
-            break;
-        case "SESB_ClearSaved":
-            SoundEventQuest(eventName, SESB_ClearSaved);
-            break;
-        default:
-            SoundEventQuest(eventName, SESB_DontSave);
-            break;
-    }
 }
 
 latent quest function NR_PlaySound_Q( bankName : string, eventName : string, optional saveType : string ) {
@@ -559,16 +630,17 @@ quest function NR_PlayEffectWithTargetComp_Q( entityTag : name, effectName : nam
         if (activate)
         {
             res = entities[i].PlayEffect(effectName, comp);
-            NR_Debug("NR_PlayEffectWithTargetComp_Q: PlayEffect(" + effectName + ", " + comp + ") = " + res);
+            NR_Info("NR_PlayEffectWithTargetComp_Q: PlayEffect(" + effectName + ", " + comp + ") = " + res);
         }
         else
         {
             res = entities[i].StopEffect(effectName);
+			NR_Info("NR_PlayEffectWithTargetComp_Q: StopEffect(" + effectName + ", " + comp + ") = " + res);
         }
     }
 }
 
-quest function NR_ToogleEffect_Q( entityTag : name, effectName : name ) {
+quest function NR_ToggleEffect_Q( entityTag : name, effectName : name ) {
     var entity : CEntity;
 
     entity = theGame.GetEntityByTag( entityTag );
@@ -577,10 +649,10 @@ quest function NR_ToogleEffect_Q( entityTag : name, effectName : name ) {
         return;
     }
     if ( entity.IsEffectActive(effectName) ) {
-        NR_Debug("NR_ToogleEffect_Q: entity [" + entity + "] = stop effect");
+        // NR_Debug("NR_ToogleEffect_Q: entity [" + entity + "] = stop effect");
         entity.StopEffect(effectName);
     } else {
-        NR_Debug("NR_ToogleEffect_Q: entity [" + entity + "] = play effect");
+        // NR_Debug("NR_ToogleEffect_Q: entity [" + entity + "] = play effect");
         entity.PlayEffect(effectName);
     }
 }
@@ -637,7 +709,7 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
                 
         if (!inv.IsIdValid( headId ))
         {
-            NR_Debug("NR_PlayHeadEffect: invalid head item id [" + i + "]");
+            NR_Error("NR_PlayHeadEffect: invalid head item id [" + i + "]");
             continue;
         }
         
@@ -645,7 +717,7 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
         
         if ( !head )
         {
-            NR_Debug("NR_PlayHeadEffect: null head entity [" + i + "]");
+            NR_Error("NR_PlayHeadEffect: null head entity [" + i + "]");
             continue;
         }
 
@@ -653,7 +725,7 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
         {
             if ( head.IsEffectActive( effect ) ) {
                 head.StopEffect( effect );
-                NR_Debug("NR_PlayHeadEffect: stop head effect: " + effect + " [" + i + "]");
+                // NR_Debug("NR_PlayHeadEffect: stop head effect: " + effect + " [" + i + "]");
             }
         }
         else
@@ -661,7 +733,7 @@ function NR_PlayHeadEffect( tag : name, effect : name, optional stop : bool )
             if ( head.IsEffectActive( effect ) )    
                 head.StopEffect( effect );          
             head.PlayEffect( effect );
-            NR_Debug("NR_PlayHeadEffect: play head effect: " + effect + " [" + i + "]");
+            // NR_Debug("NR_PlayHeadEffect: play head effect: " + effect + " [" + i + "]");
         }
     }
 }
@@ -711,7 +783,7 @@ latent quest function NR_ProcessMasterThunder_Q() {
     }
 
     for (i = 0; i < lightningEntities.Size(); i += 1) {
-        NR_Debug("Stop effects: [" + i + "] " + lightningEntities[i]);
+        // NR_Debug("Stop effects: [" + i + "] " + lightningEntities[i]);
         lightningEntities[i].StopAllEffects();
         lightningEntities[i].DestroyAfter(5.f);
     }
@@ -730,30 +802,30 @@ quest function NR_ProcessSorceressFlowFx_Q() {
     // R: water = 1, earth = 2, fire = 4, air = 8
     // L: water = 16, earth = 32, fire = 64, air = 128
     if (factVal & 1) {
-        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_water_r");
+        // NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_water_r");
         thePlayer.PlayEffect('energy_flow_water_r', golemComp);
     } else if (factVal & 2) {
-        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_r");
+        // NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_r");
         thePlayer.PlayEffect('energy_flow_ground_r', golemComp);
     } else if (factVal & 4) {
-        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_r");
+        // NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_r");
         thePlayer.PlayEffect('energy_flow_fire_r', golemComp);
     } else if (factVal & 8) {
-        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_air_r");
+        // NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_air_r");
         thePlayer.PlayEffect('energy_flow_air_r', golemComp);
     }
 
     if (factVal & 16) {
-        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_water_l");
+        // NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_water_l");
         thePlayer.PlayEffect('energy_flow_water_l', golemComp);
     } else if (factVal & 32) {
-        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_l");
+        // NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_ground_l");
         thePlayer.PlayEffect('energy_flow_ground_l', golemComp);
     } else if (factVal & 64) {
-        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_l");
+        // NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_fire_l");
         thePlayer.PlayEffect('energy_flow_fire_l', golemComp);
     } else if (factVal & 128) {
-        NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_air_l");
+        // NR_Debug("NR_ProcessSorceressFlowFx_Q: energy_flow_air_l");
         thePlayer.PlayEffect('energy_flow_air_l', golemComp);
     }
 }
@@ -770,16 +842,16 @@ quest function NR_ProcessGolemMorph_Q() {
         return;
     }
     components = golem.GetComponentsByClassName('CMorphedMeshManagerComponent');
-    NR_Debug("NR_ProcessGolemMorph_Q: Celestine app = " + golem.GetAppearance());
+    // NR_Debug("NR_ProcessGolemMorph_Q: Celestine app = " + golem.GetAppearance());
     if (components.Size() == 0) {
-        NR_Debug("NR_ProcessGolemMorph_Q: [ERROR] Not found morph managers for " + golem);
+        NR_Error("NR_ProcessGolemMorph_Q: Not found morph managers for " + golem);
     }
     for (j = 0; j < components.Size(); j += 1) {
         manager = (CMorphedMeshManagerComponent) components[j];
         if (manager) {
-            NR_Debug("NR_ProcessGolemMorph_Q: [Info] Current morph ratio: " + manager.GetMorphBlend());
+            // NR_Debug("NR_ProcessGolemMorph_Q: [Info] Current morph ratio: " + manager.GetMorphBlend());
             manager.SetMorphBlend( ratio, blendTime );
-            NR_Debug("NR_ProcessGolemMorph_Q: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blendTime + " sec");
+            // NR_Debug("NR_ProcessGolemMorph_Q: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blendTime + " sec");
         }
     }
 }
@@ -790,7 +862,7 @@ latent quest function NR_SpawnHostileEntity_Q(path : String, relativeLevel : int
 
     template = (CEntityTemplate)LoadResourceAsync(path, true);
     if (!template) {
-        NR_Debug("NR_SpawnHostileEntity_Q: !template: " + path);
+        NR_Error("NR_SpawnHostileEntity_Q: !template: " + path);
         return;
     }
     npc = (CNewNPC)theGame.CreateEntity(template, Vector(x,y,z), EulerAngles(0.f, yaw, 0.f));
@@ -799,12 +871,12 @@ latent quest function NR_SpawnHostileEntity_Q(path : String, relativeLevel : int
     npc.AddTag('fairytale_witch');
 }
 
-// Change from replacer - save type, change to geralt - restore replacer if saved
+// Change from replacer - saves current player type, change to EQRE_Geralt - restores replacer if saved any
 latent function NR_ChangePlayerQuestWrapper( designatedTemplate: EQuestReplacerEntities )
 {
     var manager : NR_PlayerManager = NR_GetPlayerManager();
 
-    NR_Debug("NR_ChangePlayerQuestWrapper: player = " + manager.GetCurrentPlayerType() + ", designatedTemplate = " + designatedTemplate);
+    NR_Info("NR_ChangePlayerQuestWrapper: player = " + manager.GetCurrentPlayerType() + ", designatedTemplate = " + designatedTemplate);
     switch (designatedTemplate) {
         case EQRE_Geralt:
             if ( manager.HasReplacerForQuestSaved() ) {
@@ -848,6 +920,13 @@ latent function NR_ChangePlayerQuestWrapper( designatedTemplate: EQuestReplacerE
     thePlayer.abilityManager.RestoreStat(BCS_Vitality);
 }
 
+// this must be used ONLY in two cases: before savegame loading, on NewGame+ started (called from prologue w2phase)
+quest function NR_ErasePlayerManager_Q(reason : String) {
+    NR_Info("NR_ErasePlayerManager_Q: reason = " + reason);
+    NR_ErasePlayerManager(theGame, reason);
+}
+
+// don't ask
 quest function NR_DebugQuestBlock(info : String) {
-    NR_Debug(info);
+    // NR_Debug(info);
 }

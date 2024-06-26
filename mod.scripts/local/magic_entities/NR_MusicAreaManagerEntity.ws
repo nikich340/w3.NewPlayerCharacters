@@ -6,7 +6,7 @@ statemachine class NR_MusicAreaManagerEntity extends CGameplayEntity {
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
-		NR_Debug("NR_MusicAreaManagerEntity: OnSpawned = " + this);
+		NR_Info("NR_MusicAreaManagerEntity: OnSpawned = " + this);
 		super.OnSpawned(spawnData);
 		GotoState('Active');
 	}

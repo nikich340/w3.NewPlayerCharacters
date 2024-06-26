@@ -3,7 +3,7 @@ state HorseRiding in NR_ReplacerSorceress
 {
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("NR_ReplacerSorceress.HorseRiding: OnEnterState from " + prevStateName);
+		NR_Info("NR_ReplacerSorceress.HorseRiding: OnEnterState from " + prevStateName);
 		parent.AddTimer('NR_SetTargetDist', 0.5f);
 		if (parent.NR_IsQuenActive()) {
 			parent.NR_ReattachQuen(true);

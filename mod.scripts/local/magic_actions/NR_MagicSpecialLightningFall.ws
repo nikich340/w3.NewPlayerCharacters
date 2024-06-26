@@ -36,7 +36,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		
 		m_fxNameMain = LightningFxName();
 		m_fxNameHit = HitFxName();
-		NR_Debug("ENR_SpecialLightningFall: m_fxNameMain = " + m_fxNameMain + ", m_fxNameHit = " + m_fxNameHit);
+		// NR_Debug("ENR_SpecialLightningFall: m_fxNameMain = " + m_fxNameMain + ", m_fxNameHit = " + m_fxNameHit);
 		
 		s_respectCaster = IsActionAbilityEnabled("DamageControl");
 		s_autoShield = IsActionAbilityEnabled("AutoShield");
@@ -83,8 +83,8 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 	
 	latent function ShootLightning(cursed : bool, center : Vector) : bool {
 		var dk : float;
-		var thunderboltRange : float = 1.75f;
-		var minRange : float = 2.5f;  // > thunderboltRange
+		var thunderboltRange : float;
+		var minRange : float;
 		var maxRange : float = 12.f;
 		var capsuleHeight : float;
 		var entities 	: array<CGameplayEntity>;
@@ -94,6 +94,8 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		var i 		 	: int;
 		var damage 		: W3DamageAction;
 
+		thunderboltRange = 1.75f * SkillDurationMultiplier();
+		minRange = thunderboltRange + 0.5f;
 		pos = center;
 		if (cursed)
 			pos += VecRingRand(0.f, minRange);
@@ -107,7 +109,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 		dummyEntity = (CEntity)theGame.CreateEntity( entityTemplate, pos, rot );
 		
 		target = NULL;
-		FindGameplayEntitiesInCylinder( entities, pos, thunderboltRange, 2.f, 99, , FLAG_ExcludeTarget, lightningEntity );
+		FindGameplayEntitiesInCylinder( entities, pos, thunderboltRange, 3.f, 99, , FLAG_ExcludeTarget, lightningEntity );
 		for ( i = 0; i < entities.Size(); i += 1 )
 		{
 			targetTemp = (CActor)entities[i];
@@ -119,7 +121,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 			}
 		}
 		
-		NR_Debug("ENR_SpecialLightningFall: target = " + target);
+		// NR_Debug("ENR_SpecialLightningFall: target = " + target);
 		if (target) {
 			targetNPC = (CNewNPC)target;
 			// if target can't have quen (not NPC) or doesn't have quen - play hit fx
@@ -140,7 +142,7 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 			damage = new W3DamageAction in this;
 			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 			dk = 1.f * SkillTotalDamageMultiplier();
-			damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+			damageVal = NR_GetDamageGeneric("NR_MagicSpecialLightningFall", thePlayer, target, /*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/);
 			AddMagicDamage(damage, damageVal);
 			damage.AddEffectInfo(EET_Stagger, 3.f);
 			theGame.damageMgr.ProcessAction( damage );
@@ -149,10 +151,10 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 			component = dummyEntity.GetComponent('CEffectDummyComponent0');
 			if (component) {
 				lightningEntity.PlayEffect(m_fxNameMain, component);
-				NR_Debug("Component = " + component);
+				// NR_Debug("Component = " + component);
 			} else {
 				lightningEntity.PlayEffect(m_fxNameMain, dummyEntity);
-				NR_Debug("Component NULL = " + component);
+				// NR_Debug("Component NULL = " + component);
 			}
 			dummyEntity.PlayEffect(m_fxNameHit);
 		}
@@ -304,7 +306,7 @@ state Active in NR_MagicSpecialLightningFall {
 		while (parent.s_lifetime > 0.f) {
 			parent.s_lifetime -= parent.s_interval;
 			Sleep(parent.s_interval);
-			NR_Debug("Active: ShootLightning, s_lifetime = " + parent.s_lifetime);
+			// NR_Debug("Active: ShootLightning, s_lifetime = " + parent.s_lifetime);
 			for (i = 1; i <= parent.s_lightningNum; i += 1) {
 				parent.ShootLightning(/*cursed*/ false, thePlayer.GetWorldPosition());
 				SleepOneFrame();

@@ -58,7 +58,7 @@ state Active in NR_LatentTesterScenes {
 			scenePaths.PushBack(scenePath);
 			hasCutscene.PushBack(hasCs);
 			inputNames.PushBack(sceneInputs);
-			NR_Debug("Loaded scene: " + scenePath + ", inputs: " + sceneInputs.Size());
+			// NR_Debug("Loaded scene: " + scenePath + ", inputs: " + sceneInputs.Size());
 		}
 		NR_Notify("Loaded scenes: " + scenePaths.Size());
 		Sleep(2.f);

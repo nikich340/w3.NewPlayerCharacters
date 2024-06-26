@@ -29,7 +29,7 @@ statemachine class NR_MagicBombEntity extends CGameplayEntity
 		m_target = target;
 		m_respectCaster = respectCaster;
 		m_pursueTarget = pursueTarget;
-		NR_Debug("NR_MagicBombEntity: Init, m_target = " + m_target);
+		// NR_Debug("NR_MagicBombEntity: Init, m_target = " + m_target);
 		GotoState('Active');
 	}
 }
@@ -39,7 +39,7 @@ state Active in NR_MagicBombEntity {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug("NR_MagicBombEntity: OnEnterState");
+		// NR_Debug("NR_MagicBombEntity: OnEnterState");
 		parent.PlayEffect( parent.m_fxName );
 		MainLoop();
 	}
@@ -76,7 +76,7 @@ state Active in NR_MagicBombEntity {
 				}
 
 				NR_SmoothMoveToTarget(moveTime, parent.m_metersPerSec, currentPos, targetPos, reachPos);
-				NR_Debug("Bomb: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
+				// NR_Debug("Bomb: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
 				parent.Teleport(currentPos);
 			}
 			lastMoveTime = GetLocalTime();
@@ -91,7 +91,7 @@ state Active in NR_MagicBombEntity {
 		var damage : W3DamageAction;
 		var i : int;
 
-		NR_Debug("Bomb: Explosion");
+		// NR_Debug("Bomb: Explosion");
 		parent.PlayEffect(parent.m_explosionFxName);
 		GCameraShake( 0.5, true, parent.GetWorldPosition(), 15.0f );
 		FindGameplayEntitiesInRange( entitiesInRange, parent, parent.m_damageRadius, 250 );

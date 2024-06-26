@@ -18,7 +18,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 
 	event OnPerformEvade( playerEvadeType : EPlayerEvadeType )
 	{
-		NR_Debug("NR_ReplacerSorceress.CombatFists.OnPerformEvade");
+		// NR_Debug("NR_ReplacerSorceress.CombatFists.OnPerformEvade");
 		PerformTeleport( playerEvadeType, playerEvadeType == PET_Roll);
 		return true;
 	}
@@ -56,7 +56,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		predictedDodgeRot = parent.GetWorldRotation();
 		predictedDodgePos = NR_GetTeleportMaxArchievablePoint(thePlayer, VecFromHeading( parent.rawPlayerHeading ), teleportLength);
 			
-		NR_Debug("PerformTeleport: found safe tp pos = " + VecToString(predictedDodgePos) + ", playerPos = " + VecToString(currentPos) + ", length 2D = " + VecDistance(currentPos, predictedDodgePos));
+		// NR_Debug("PerformTeleport: found safe tp pos = " + VecToString(predictedDodgePos) + ", playerPos = " + VecToString(currentPos) + ", length 2D = " + VecDistance(currentPos, predictedDodgePos));
 
 		if (evadeTarget) {
 			playerToTargetHeading = VecHeading( evadeTarget.GetWorldPosition() - predictedDodgePos );
@@ -69,7 +69,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		parent.magicManager.SetActionType( ENR_Teleport );
 		parent.magicManager.aTeleportPos = predictedDodgePos;
 
-		NR_Debug("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
+		// NR_Debug("TELEPORT: rawPlayerHeading = " + parent.rawPlayerHeading + ", playerToTargetHeading = " + playerToTargetHeading);
 		parent.SetBehaviorVariable( 'dodgeNum', 0 );
 		parent.SetBehaviorVariable( 'combatActionType', (int)CAT_Dodge );
 		parent.SetBehaviorVariable(	'playerEvadeDirection', (int)PED_Forward );
@@ -103,7 +103,7 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	}
 
 	event OnInterruptAttack() {
-		NR_Debug("OnInterruptAttack!");
+		// NR_Debug("OnInterruptAttack!");
 		return virtual_parent.OnInterruptAttack();
 	}
 
@@ -112,7 +112,8 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 		thePlayer.inv.RemoveItemByCategory('fist', -1);
 
 		ids = thePlayer.inv.AddAnItem('nr_fists', 1, true, true, false);
-		parent.magicManager.UpdateFistsLevel( ids[0] );
+		// magic uses direct damage actions
+		// parent.magicManager.UpdateFistsLevel( ids[0] );
 
 		parent.SetRequiredItems('Any', 'fist' );
 		parent.ProcessRequiredItems();

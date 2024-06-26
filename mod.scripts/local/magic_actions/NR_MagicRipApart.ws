@@ -43,8 +43,7 @@ class NR_MagicRipApart extends NR_MagicAction {
 
 		if (target) {
 			dismembermentComp = (CDismembermentComponent)(target.GetComponentByClassName( 'CDismembermentComponent' ));
-			if (!dismembermentComp) {
-				NR_Debug("NR_MagicRipApart: target <" + target + "> has no dismembermentComp.");
+			if (dismembermentComp) {
 				dismembermentComp.GetWoundsNames( wounds, WTF_Explosion );
 	
 				if ( wounds.Size() > 0 )
@@ -52,6 +51,8 @@ class NR_MagicRipApart extends NR_MagicAction {
 						
 				target.SetDismembermentInfo( usedWound, Vector( 0, 0, 10 ), /*forceRagdoll*/ true );
 				target.AddTimer( 'DelayedDismemberTimer', 0.05f );
+			} else {
+				// NR_Debug("NR_MagicRipApart: target <" + target + "> has no dismembermentComp.");
 			}
 			thePlayer.OnCollisionFromItem( target );
 

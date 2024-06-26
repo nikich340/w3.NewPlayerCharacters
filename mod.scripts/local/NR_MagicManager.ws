@@ -18,6 +18,7 @@ enum ENR_MagicElement {
 	ENR_ElementFire,		// 4
 	ENR_ElementMixed		// 5
 }
+
 enum ENR_MagicAction {
 		// unknown
 	ENR_Unknown,
@@ -136,8 +137,8 @@ statemachine class NR_MagicManager extends IScriptable {
 		var wasLoaded : bool;
 		var 		i : int;
 
-		NR_Debug("NR_MagicManager: Init(" + forceReset + ")");
 		NR_GetPlayerManager().GetMagicDataMaps(sMap, wasLoaded);
+		NR_Info("NR_MagicManager.Init: forceReset = " + forceReset + ", wasLoaded = " + wasLoaded);
 		mSuolManager = SUOL_getManager();
 		mSuolOnelinerCorner = SU_onelinerScreen(
 			"",
@@ -145,7 +146,6 @@ statemachine class NR_MagicManager extends IScriptable {
 		);
 		ApplyMagicUpdates();
 
-		SetDefaults_StaminaCost(); // TOREMOVE!
 		if (!wasLoaded || forceReset) {
 			// show control hints by default
 			FactsSet("nr_magic_hide_control_hints", 0);
@@ -184,9 +184,9 @@ statemachine class NR_MagicManager extends IScriptable {
 			SetDefaults_Special();
 			SetDefaults_SpecialAlt();
 			SetDefaults_VoicelineChances();
-			NR_Debug("MagicManager: Init default spell params");
+			// NR_Debug("MagicManager: Init default spell params");
 		} else {
-			NR_Debug("MagicManager: Load spell params");
+			// NR_Debug("MagicManager: Load spell params");
 		}
 
 		if (FactsQuerySum("nr_magic_hide_control_hints") > 0)
@@ -205,7 +205,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			LaunchPassiveActionsForSkillLevel(i);
 		}
 
-		mCooldowns.Resize( EnumGetMax('ENR_MagicAction') );
+		mCooldowns.Resize( EnumGetMax('ENR_MagicAction') + 1 );
 		for (i = 0; i < mCooldowns.Size(); i += 1) {
 			mCooldowns[i] = -1.f;
 		}
@@ -346,7 +346,7 @@ statemachine class NR_MagicManager extends IScriptable {
 
 	public function CorrectAspectAction(out actionType : ENR_MagicAction, out aspectName : name) {
 		UpdateEquippedSign();
-		NR_Debug("CorrectAspectAction: (before) actionType = " + ENR_MAToName(actionType) + ", aspectName = " + aspectName);
+		NR_Info("NR_MagicManager.CorrectAspectAction: (before) actionType = " + ENR_MAToName(actionType) + ", aspectName = " + aspectName);
 
 		// select aspect name for light/heavy
 		switch (aspectName) {
@@ -429,7 +429,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			default:
 				break;
 		}
-		NR_Debug("CorrectAspectAction: (after) actionType = " + ENR_MAToName(actionType) + ", aspectName = " + aspectName);
+		NR_Info("NR_MagicManager.CorrectAspectAction: (after) actionType = " + ENR_MAToName(actionType) + ", aspectName = " + aspectName);
 	}
 
 	public function CanContinueMagicAction() : bool {
@@ -973,7 +973,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		var regenPerSec : float = 200.f; // 100 => 60 sec
 		var skillLevel : int = GetSkillLevel();
 		var skillReductionBonus : float = 0.05f * ((float)skillLevel - 1.f); // [0.0 - 0.2]
-		//NR_Debug("GetRegenPoints: regenPoints = " + regenPoints + " (" + dt + " s, time " + theGame.GetEngineTimeAsSeconds() + ")");
+		// NR_Debug("GetRegenPoints: regenPoints = " + regenPoints + " (" + dt + " s, time " + theGame.GetEngineTimeAsSeconds() + ")");
 
 		return regenPerSec * (1.f - skillReductionBonus) * dt;
 	}
@@ -1325,7 +1325,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			mLumosAction.magicSkill 	= GetSkillLevel();
 		}
 
-		NR_Debug("MagicManager.LumosFX: enable = " + enable);
+		// NR_Debug("MagicManager.LumosFX: enable = " + enable);
 		mLumosAction.OnSwitchSync(enable, fxName);
 	}
 
@@ -1338,7 +1338,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		}
 
 		newHandEffect = HandFxName();
-		NR_Debug("HandFX (enable = " + enable + "), fx = " + newHandEffect);
+		NR_Info("NR_MagicManager.HandFX: enable = " + enable + ", fx = " + newHandEffect);
 
 		if (!enable && aHandEffect != '') {
 			thePlayer.StopEffect(aHandEffect);
@@ -1361,7 +1361,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		// TOREMOVE: break old action for a case
 		// aEventsStack.PushBack(SNR_MagicEvent('BreakMagicAttack', 'dummy_anim', 0.f));
 
-		NR_Debug("SetActionType = " + type);
+		// NR_Debug("SetActionType = " + type);
 		switch (type) {
 			case ENR_ThrowAbstract:
 				aActionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_ThrowAbstract), (int)ENR_Lightning);
@@ -1456,6 +1456,8 @@ statemachine class NR_MagicManager extends IScriptable {
 			case ENR_SpecialPolymorphism:
 				actionType = ENR_SpecialAbstractAlt;
 				break;
+			default:
+				break;
 		}
 		return NR_FinalizeColor( sMap[eqSign].getI("color_" + ENR_MAToName(actionType), ENR_ColorWhite) );
 	}
@@ -1485,7 +1487,7 @@ statemachine class NR_MagicManager extends IScriptable {
 	{
 		var hitFXName : name;
 
-		NR_Debug("MagicManager::OnPreAttackEvent -> anim = " + aName + ", swingType = " + data.swingType + ", swingDir = " + data.swingDir);
+		NR_Info("NR_MagicManager.OnPreAttackEvent -> anim = " + aName + ", swingType = " + data.swingType + ", swingDir = " + data.swingDir);
 		UpdateEquippedSign();
 
 		hitFXName = GetHitFXName( GetActionColor() );
@@ -1562,7 +1564,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		costPerc = GetStaminaCostForAction(actionType);
 		if (specialMultiplier > 0.f)
 			costPerc = costPerc * specialMultiplier;
-		NR_Debug("DrainStaminaForAction: " + actionType + " = " + costPerc);
+		NR_Info("NR_MagicManager.DrainStaminaForAction: actionType = " + actionType + ", costPerc = " + costPerc);
 		thePlayer.DrainStamina(ESAT_FixedValue, thePlayer.GetStatMax(BCS_Stamina) * costPerc / 100.f, /*delay*/ 0.5f);
 	}
 
@@ -1604,17 +1606,9 @@ statemachine class NR_MagicManager extends IScriptable {
 	public function GetPossibleSkillLevel() : ENR_MagicSkill
 	{
 		var playerLevel : int;
-		var playerMax	: int;
 		var skillLevel	: int;
 
 		playerLevel = GetWitcherPlayer().GetLevel();
-		playerMax = GetWitcherPlayer().GetMaxLevel();
-		if ( FactsQuerySum("NewGamePlus") < 1 ) {
-			playerMax = playerMax / 2;
-			// ? theGame.params.NEW_GAME_PLUS_MIN_LEVEL;
-		}
-		//NR_Debug("GetPossibleSkillLevel: playerMax = " + playerMax);
-
 		for ( skillLevel = ENR_SkillArchMistress; skillLevel >= ENR_SkillNovice; skillLevel -= 1 ) {
 			if ( playerLevel >= GetPlayerLevelForSkillLevel((ENR_MagicSkill)skillLevel) ) {
 				return (ENR_MagicSkill)skillLevel;
@@ -1626,12 +1620,14 @@ statemachine class NR_MagicManager extends IScriptable {
 	public function GetPlayerLevelForSkillLevel(skillLevel : ENR_MagicSkill) : int {
 		var playerMax, startLevel	: int;
 
-		playerMax = GetWitcherPlayer().GetMaxLevel();
-		startLevel = 50;
-		if ( FactsQuerySum("NewGamePlus") < 1 ) {
-			playerMax = playerMax / 2;
-			startLevel = 0;
+		if ( FactsQuerySum("NewGamePlus") > 0 ) {
+			startLevel = theGame.params.GetNewGamePlusLevel();
+			playerMax = theGame.params.GetPlayerMaxLevel();
+		} else {
+			startLevel = 1;
+			playerMax = theGame.params.GetPlayerMaxLevel() / 2;
 		}
+		// NR_Debug("startLevel = " + startLevel + ", playerMax = " + playerMax);
 
 		switch (skillLevel) {
 			case ENR_SkillNovice:
@@ -1715,6 +1711,10 @@ statemachine class NR_MagicManager extends IScriptable {
 		return (int)(100 * (3.f + GetActionSkillLevel(ENR_SpecialShield) / 2.f));
 	}
 
+	public function GetShieldDamageRestoring() : int {
+		return (int)(10 * (1.f + GetActionSkillLevel(ENR_SpecialShield) / 5.f));
+	}
+
 	public function GetActionMaxApplies( type : ENR_MagicAction ) : int {
 		switch (type) {
 			case ENR_SpecialServant:
@@ -1746,13 +1746,13 @@ statemachine class NR_MagicManager extends IScriptable {
 	}
 
 	public function SetActionCooldown( type : ENR_MagicAction, cooldownTime : float ) {
-		NR_Debug("SetActionCooldown (" + type + ") = " + cooldownTime);
+		// NR_Debug("SetActionCooldown (" + type + ") = " + cooldownTime);
 		mCooldowns[type] = cooldownTime;
 	}
 
 	// true if action still can't be applied
 	public function IsActionCooldowned( type : ENR_MagicAction ) : bool {
-		NR_Debug("IsActionCooldowned (" + type + ") = " + mCooldowns[type]);
+		// NR_Debug("IsActionCooldowned (" + type + ") = " + mCooldowns[type]);
 		return mCooldowns[type] > theGame.GetEngineTimeAsSeconds();
 	}
 
@@ -1835,9 +1835,11 @@ statemachine class NR_MagicManager extends IScriptable {
 				break;
 			case ENR_SpecialShield:
 				if (abilityName == "AutoLightning")
-					return 5;
+					return 4;
 				if (abilityName == "AutoCombatApply")
 					return 8;
+				if (abilityName == "AutoHealing")
+					return 10;
 				break;
 			case ENR_SpecialLightningFall:
 				if (abilityName == "DamageControl")
@@ -2004,6 +2006,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		} else if (type == ENR_SpecialShield) {
 			specialAbilities.PushBack("AutoLightning"); specialAbilityIds.PushBack(2115940230);
 			specialAbilities.PushBack("AutoCombatApply"); specialAbilityIds.PushBack(2115940252);
+			specialAbilities.PushBack("AutoHealing"); specialAbilityIds.PushBack(2115940541);
 			tmp = GetLocStringById(2115940241);
 			if (!detailed)
 				tmp = RemoveDetails(tmp);
@@ -2068,7 +2071,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			info += "<br>";
 		}
 		info += "<br>";
-		LogChannel('NR_DEBUG', "Info (" + type + ") = [" + StrReplace(info, "<br>", "!BR!") + "]");
+		// NR_Debug("Info (" + type + ") = [" + StrReplace(info, "<br>", "!BR!") + "]");
 
 		return info;
 	}
@@ -2138,7 +2141,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		var abilities, attributes : array<name>;
 		var att : SAbilityAttributeValue;
 
-		//NR_Debug("UpdateFistsLevel: GetSkillLevel = " + GetSkillLevel());
+		// NR_Debug("UpdateFistsLevel: GetSkillLevel = " + GetSkillLevel());
 		playerLevel = GetWitcherPlayer().GetLevel();
 		inv = thePlayer.GetInventory();
 		// vanilla logic from 'GenerateItemLevel'
@@ -2164,24 +2167,24 @@ statemachine class NR_MagicManager extends IScriptable {
 			inv.SetItemModifierInt(id, 'NGPItemAdjusted', 1);
 		}*/
 
-		NR_Debug("--- NR FISTS STATS ---");
-		NR_Debug("Level: " + inv.GetItemLevel(id));
+		// NR_Debug("--- NR FISTS STATS ---");
+		// NR_Debug("Level: " + inv.GetItemLevel(id));
 		inv.GetItemAbilities(id, abilities);
 		for ( i = 0; i < abilities.Size(); i += 1 ) 
 		{
-			NR_Debug("Abilitiy[" + i + "] = " + abilities[i]);
+			// NR_Debug("Abilitiy[" + i + "] = " + abilities[i]);
 		}
 		inv.GetItemBaseAttributes(id, attributes);
 		for ( i = 0; i < attributes.Size(); i += 1 ) 
 		{
 			att = inv.GetItemAttributeValue(id, attributes[i]);
-			NR_Debug("Base attribute[" + i + "] = " + attributes[i] + " (" + att.valueBase + " * (1 + " + att.valueMultiplicative + ") + " + att.valueAdditive + ")");
+			// NR_Debug("Base attribute[" + i + "] = " + attributes[i] + " (" + att.valueBase + " * (1 + " + att.valueMultiplicative + ") + " + att.valueAdditive + ")");
 		}
 		inv.GetItemAttributes(id, attributes);
 		for ( i = 0; i < attributes.Size(); i += 1 ) 
 		{
 			att = inv.GetItemAttributeValue(id, attributes[i]);
-			NR_Debug("Attribute[" + i + "] = " + attributes[i] + " (" + att.valueBase + " * (1 + " + att.valueMultiplicative + ") + " + att.valueAdditive + ")");
+			// NR_Debug("Attribute[" + i + "] = " + attributes[i] + " (" + att.valueBase + " * (1 + " + att.valueMultiplicative + ") + " + att.valueAdditive + ")");
 		}
 
 		// BONUS GIFT
@@ -2615,6 +2618,35 @@ statemachine class NR_MagicManager extends IScriptable {
 				return 'philippa_shield_hit_red';
 		}
 	}
+
+	public function SphereHealingFxName() : name {
+		switch (mLastShieldColor) {
+			//case ENR_ColorBlack:
+			//case ENR_ColorGrey:
+			case ENR_ColorWhite:
+				return 'healing_white';
+			case ENR_ColorYellow:
+				return 'healing_yellow';
+			case ENR_ColorOrange:
+				return 'healing_orange';
+			case ENR_ColorPink:
+				return 'healing_pink';
+			case ENR_ColorViolet:
+				return 'healing_violet';
+			case ENR_ColorBlue:
+				return 'healing_blue';
+			case ENR_ColorSeagreen:
+				return 'healing_seagreen';
+			case ENR_ColorGreen:
+				return 'healing_green';
+			// case ENR_ColorSpecial1:
+			// case ENR_ColorSpecial2:
+			// case ENR_ColorSpecial3:
+			case ENR_ColorRed:
+			default:
+				return 'healing_red';
+		}
+	}
 }
 
 state MagicLoop in NR_MagicManager {
@@ -2635,7 +2667,7 @@ state MagicLoop in NR_MagicManager {
 		parent.mAction = NULL;
 		parent.aName = animName;
 		type = parent.GetActionType();
-		NR_Debug("InitMagicAction: type = " + type);
+		// NR_Debug("InitMagicAction: type = " + type);
 		switch(type) {
 			case ENR_Slash:
 				parent.mAction = new NR_MagicSlash in this;
@@ -2728,7 +2760,7 @@ state MagicLoop in NR_MagicManager {
 
 	latent function PrepareMagicAction() {
 		if (parent.mAction) {
-			NR_Debug("MM: PrepareMagicAction: type = " + parent.mAction.actionType);
+			// NR_Debug("MM: PrepareMagicAction: type = " + parent.mAction.actionType);
 			if (parent.mAction.isBroken)
 				return;
 			if ( parent.mAction.actionType == ENR_Slash ) {
@@ -2746,7 +2778,7 @@ state MagicLoop in NR_MagicManager {
 
 	latent function RotatePrePerformMagicAction() {
 		if (parent.mAction) {
-			NR_Debug("MM: RotatePrePerformMagicAction: type = " + parent.mAction.actionType);
+			// NR_Debug("MM: RotatePrePerformMagicAction: type = " + parent.mAction.actionType);
 			if (parent.mAction.isBroken)
 				return;
 
@@ -2762,7 +2794,7 @@ state MagicLoop in NR_MagicManager {
 		var    i : int;
 
 		if (parent.mAction) {
-			NR_Debug("MM: PerformMagicAction: type = " + parent.mAction.actionType);
+			// NR_Debug("MM: PerformMagicAction: type = " + parent.mAction.actionType);
 			if (parent.mAction.isBroken)
 				return;
 			parent.mAction.OnPerform();
@@ -2797,7 +2829,7 @@ state MagicLoop in NR_MagicManager {
 		// check if new action is special and stop old ones if limit is exceed
 		maxActionCnt = parent.GetActionMaxApplies(parent.mAction.actionType);
 		while (sameActions.Size() + 1 > maxActionCnt) {
-			NR_Debug("MM: PerformMagicAction: Stopping special duplicate action: maxActionCnt = " + maxActionCnt + ", sameActions.Size() = " + sameActions.Size());
+			// NR_Debug("MM: PerformMagicAction: Stopping special duplicate action: maxActionCnt = " + maxActionCnt + ", sameActions.Size() = " + sameActions.Size());
 			// from front - older actions
 			sameActions[0].StopAction();
 			sameActions.Erase( 0 );
@@ -2807,7 +2839,7 @@ state MagicLoop in NR_MagicManager {
 	public function ContinueMagicAction(animName : name) {
 		if (parent.mAction && parent.mAction.isPerformed) {
 			parent.mAction.ContinueAction();
-			NR_Debug("MM: ContinueMagicAction: " + parent.mAction);
+			// NR_Debug("MM: ContinueMagicAction: " + parent.mAction);
 		} else {
 			NR_Error("MM: ContinueMagicAction: NULL or !performed.");
 		}
@@ -2816,9 +2848,7 @@ state MagicLoop in NR_MagicManager {
 	latent function BreakMagicAction() {
 		if (parent.mAction) {
 			parent.mAction.BreakAction();
-			NR_Debug("MM: BreakMagicAction: " + parent.mAction);
-		} else {
-			NR_Error("MM: BreakMagicAction: NULL parent.mAction.");
+			// NR_Debug("MM: BreakMagicAction: " + parent.mAction);
 		}
 	}
 
@@ -2829,7 +2859,7 @@ state MagicLoop in NR_MagicManager {
 		var template : CEntityTemplate;
 		var entity : CEntity;
 
-		NR_Debug("MM.PerformExitFromFTT: start");
+		NR_Info("NR_MagicManager.PerformExitFromFTT");
 		template = (CEntityTemplate)LoadResourceAsync(parent.sMap[parent.ST_Universal].getS("used_ftt_entity"), true);
 		pos = thePlayer.GetWorldPosition() - thePlayer.GetHeadingVector() * 0.1f;
 		pos.Z += parent.sMap[parent.ST_Universal].getF("used_ftt_z");
@@ -2838,7 +2868,7 @@ state MagicLoop in NR_MagicManager {
 		entity = theGame.CreateEntity(template, pos, rot);
 		entity.PlayEffect('teleport_fx');
 		thePlayer.ActionPlaySlotAnimation('PLAYER_SLOT', 'add_walk_three_steps_forward_casual', 0.25f, 0.5f);
-		NR_Debug("MM.PerformExitFromFTT: entity = " + entity);
+		// NR_Debug("MM.PerformExitFromFTT: entity = " + entity);
 
 		parent.sMap[parent.ST_Universal].removeKey("used_ftt_entity");
 		entity.StopAllEffectsAfter(2.f);
@@ -2852,7 +2882,7 @@ state MagicLoop in NR_MagicManager {
 		while (true) {
 			SleepOneFrame();
 			if (parent.aEventsStack.Size() > 0) {
-				NR_Debug("MAIN LOOP: anim = " + NameToString(parent.aEventsStack[0].animName) + ", event = " + parent.aEventsStack[0].eventName + ", time: " + EngineTimeToFloat(theGame.GetEngineTime()));
+				// NR_Debug("MAIN LOOP: anim = " + NameToString(parent.aEventsStack[0].animName) + ", event = " + parent.aEventsStack[0].eventName + ", time: " + EngineTimeToFloat(theGame.GetEngineTime()));
 				switch (parent.aEventsStack[0].eventName) {
 					case 'InitAction':
 						InitMagicAction( NameToString(parent.aEventsStack[0].animName) );
@@ -2878,7 +2908,7 @@ state MagicLoop in NR_MagicManager {
 						parent.SetMiscStateActionsBlocked(false);
 						break;
 					default:
-						NR_Notify("Unknown magic event! event = " + parent.aEventsStack[0].eventName + ", anim = " + parent.aEventsStack[0].animName);
+						NR_Error("Unknown magic event! event = " + parent.aEventsStack[0].eventName + ", anim = " + parent.aEventsStack[0].animName);
 						break;
 				}
 				// pop front - processed
@@ -2923,7 +2953,7 @@ state MagicLoop in NR_MagicManager {
 				// PerformSailingAction();
 				break;
 			default:
-				// NR_Debug("PerformMiscStateAction in unwrapped state: " + stateName);
+				// NR_Error("PerformMiscStateAction in unwrapped state: " + stateName);
 				break;
 		}
 	}
@@ -2946,10 +2976,10 @@ state MagicLoop in NR_MagicManager {
 
 		//hold = CheckIsActionHeld('DrinkPotion4');
 		//if ( hold ) {
-		//	NR_Debug("PerformExplorationTeleport: EBAT_Roll");
+		//	// NR_Debug("PerformExplorationTeleport: EBAT_Roll");
 		NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Roll );
 		//} else {
-		//	NR_Debug("PerformExplorationTeleport: EBAT_Dodge");
+		//	// NR_Debug("PerformExplorationTeleport: EBAT_Dodge");
 		//	NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Dodge );
 		//}
 	}
@@ -2973,7 +3003,7 @@ state MagicLoop in NR_MagicManager {
 	latent function PerformSwimmingAction() {
 		var target : CActor;
 		target = thePlayer.GetTarget();
-		NR_Debug("PerformSwimmingAction, target swimming = " + target.IsSwimming());
+		// NR_Debug("PerformSwimmingAction, target swimming = " + target.IsSwimming());
 		if (!target || !target.IsSwimming())
 			return;
 
@@ -3005,7 +3035,7 @@ state MagicLoop in NR_MagicManager {
 			inCanter = horseComp.inCanter;
 			inGallop = horseComp.inGallop;
 		}
-		NR_Debug("PerformHorseRidingAction: horseComp = " + horseComp + ", inJump = " + inJump + ", inCanter = " + inCanter + ", inGallop = " + inGallop);
+		// NR_Debug("PerformHorseRidingAction: horseComp = " + horseComp + ", inJump = " + inJump + ", inCanter = " + inCanter + ", inGallop = " + inGallop);
 	
 		actionType = ENR_LightAbstract;
 		aspectName = 'AttackHorse';
@@ -3112,15 +3142,15 @@ latent function NR_GetTeleportMaxArchievablePoint_OLD( actor : CActor, from : Ve
 	capsuleHeight = ((CMovingPhysicalAgentComponent)actor.GetMovingAgentComponent()).GetCapsuleHeight();
 	from.Z += capsuleHeight * 0.75f;
 	to.Z += capsuleHeight * 0.75f;
-	NR_Debug("NR_GetTeleportMaxArchievablePoint: capsuleHeight = " + capsuleHeight + ", capsuleRadius = " + capsuleRadius + ", from = " + VecToString(from) + ", to = " + VecToString(to));
+	// NR_Debug("NR_GetTeleportMaxArchievablePoint: capsuleHeight = " + capsuleHeight + ", capsuleRadius = " + capsuleRadius + ", from = " + VecToString(from) + ", to = " + VecToString(to));
 
 	// to avoid stopping inside actor body
 	moveVec = VecNormalize(to - from);
 	from += moveVec * capsuleRadius;
 	if ( theGame.GetWorld().StaticTrace(from, to, result, normal, NR_GetStandartCollisionNames()) ) {
-		NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = true, result = " + VecToString(result) + ", to = " + VecToString(to));
+		// NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = true, result = " + VecToString(result) + ", to = " + VecToString(to));
 	} else {
-		NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = false");
+		// NR_Debug("NR_GetTeleportMaxArchievablePoint: StaticTrace = false");
 		result = to;
 	}
 
@@ -3155,14 +3185,14 @@ latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, teleportVec :
 	collisionNames.Remove('CommunityCollidables');
 	traceBumped = false;
 	stepsLimit = CeilF(teleportLength / step);
-	NR_Debug("NR_GetTeleportMaxArchievablePoint: step = " + step + ", h = " + h);
+	// NR_Debug("NR_GetTeleportMaxArchievablePoint: step = " + step + ", h = " + h);
 
 	while ( VecDistanceSquared2D(actorPos, pos) < teleportLength * teleportLength && stepsProceed < stepsLimit ) {
 		nextPos = pos + teleportVec * step;
 		/*
 		traceBumped = world.StaticTraceWithAdditionalInfo(pos, nextPos, tracePos, traceNormal, traceMaterial, traceComponent, collisionNames);
 		if (traceBumped) {
-			NR_Debug("NR_GetTeleportMaxArchievablePoint: traceBumped (" + traceMaterial + ":" + traceComponent + "), step " + stepsProceed);
+			// NR_Debug("NR_GetTeleportMaxArchievablePoint: traceBumped (" + traceMaterial + ":" + traceComponent + "), step " + stepsProceed);
 			if (stepsProceed < 1) {
 				pos = actorPos;
 				pos.Z += h;
@@ -3172,7 +3202,7 @@ latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, teleportVec :
 		*/
 		traceBumped = world.SweepTest(pos, nextPos, /*radius*/ 0.15f, tracePos, traceNormal, collisionNames);
 		if (traceBumped) {
-			NR_Debug("NR_GetTeleportMaxArchievablePoint: SweepTest bumped, step " + stepsProceed);
+			// NR_Debug("NR_GetTeleportMaxArchievablePoint: SweepTest bumped, step " + stepsProceed);
 			if (stepsProceed < 1) {
 				pos = actorPos;
 				pos.Z += h;
@@ -3183,23 +3213,23 @@ latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, teleportVec :
 		// fast snap to ground
 		if ( world.NavigationFindSafeSpot(nextPos, step, step*3.f, tracePos) ) {
 			nextPos = tracePos;
-			NR_Debug("NR_GetTeleportMaxArchievablePoint: snapped with NavigationFindSafeSpot, step " + stepsProceed);
+			// NR_Debug("NR_GetTeleportMaxArchievablePoint: snapped with NavigationFindSafeSpot, step " + stepsProceed);
 		} else if ( world.NavigationComputeZ(nextPos, nextPos.Z - h*2.f, nextPos.Z, newZ) ) {
 			nextPos.Z = newZ;
-			NR_Debug("NR_GetTeleportMaxArchievablePoint: snapped with NavigationComputeZ, step " + stepsProceed);
+			// NR_Debug("NR_GetTeleportMaxArchievablePoint: snapped with NavigationComputeZ, step " + stepsProceed);
 		} else if ( world.StaticTrace(nextPos, nextPos - Vector(0,0,h*2.f), tracePos, traceNormal, collisionNames) ) {
 			nextPos = tracePos;
-			NR_Debug("NR_GetTeleportMaxArchievablePoint: snapped with StaticTrace, step " + stepsProceed);
+			// NR_Debug("NR_GetTeleportMaxArchievablePoint: snapped with StaticTrace, step " + stepsProceed);
 		// all failed - can't snap to ground
 		} else {
-			NR_Debug("NR_GetTeleportMaxArchievablePoint: failed to snap, step " + stepsProceed);
+			// NR_Debug("NR_GetTeleportMaxArchievablePoint: failed to snap, step " + stepsProceed);
 			break;
 		}
 
 		waterZ = world.GetWaterLevel(nextPos);
 		// underwater pos - not allowed
 		if (nextPos.Z + 0.5f < waterZ) {
-			NR_Debug("NR_GetTeleportMaxArchievablePoint: below water level, step " + stepsProceed);
+			// NR_Debug("NR_GetTeleportMaxArchievablePoint: below water level, step " + stepsProceed);
 			break;
 		}
 
@@ -3265,13 +3295,13 @@ latent function NR_StartLightningToNode(from : Vector, to : CNode, lightningFxNa
 
     template = (CEntityTemplate)LoadResourceAsync("nr_lightning_fx", false);
     lightningEntity = theGame.CreateEntity(template, from);
-   	NR_Debug("NR_StartLightningToNode: lightningFxName = " + lightningFxName + ", to = " + to + " = " + lightningEntity.PlayEffect(lightningFxName, to));
+	lightningEntity.PlayEffect(lightningFxName, to);
 
     if (IsNameValid(hitFxName)) {
     	template = (CEntityTemplate)LoadResourceAsync("nr_dummy_hit_fx", false);
     	hitEntity = theGame.CreateEntity(template, to.GetWorldPosition(), to.GetWorldRotation());
     	Sleep(0.1f);
-    	NR_Debug("NR_StartLightningToNode: hitFxName = " + hitFxName + " = " + hitEntity.PlayEffect(hitFxName));
+		hitEntity.PlayEffect(hitFxName);
     	hitEntity.DestroyAfter(5.f);
     }
     
@@ -3316,13 +3346,12 @@ latent function NR_CreatePortal( waypointTag : name, worldName : String, optiona
     var action : NR_MagicFastTravelTeleport;
     var position : Vector;
 
-    NR_Debug("NR_CreatePortal: waypointTag = " + waypointTag + ", worldName = " + worldName);
+    NR_Info("NR_CreatePortal: waypointTag = " + waypointTag + ", worldName = " + worldName + ", activeTime = " + activeTime);
     if (!nr_manager)
         return;
 
     action = new NR_MagicFastTravelTeleport in nr_manager;
     action.drainStaminaOnPerform = false;
-    //action.SetTravelData('newreplacers_prologue_snow_arena_center_wp', AN_Prologue_Village, theGame.GetCommonMapManager().GetCurrentArea());
     action.SetTravelData(waypointTag, AreaNameToType(worldName), theGame.GetCommonMapManager().GetCurrentArea());
     action.SetDoStaticTrace( false );
     if (activeTime > 1.f) {
@@ -3342,12 +3371,12 @@ function NR_FindActorInScene(voicetag : name, out actorRes : CActor) : bool {
 	FindGameplayEntitiesInRange(entities, thePlayer, 5.f, 500);
 	for (i = 0; i < entities.Size(); i += 1) {
 		actor = (CActor)entities[i];
-		NR_Debug("NR_FindActorInScene: actor: " + entities[i].GetReadableName() + ", " + actor.IsInNonGameplayCutscene() + ", " + actor.GetVoicetag());
+		// NR_Debug("NR_FindActorInScene: actor: " + entities[i].GetReadableName() + ", " + actor.IsInNonGameplayCutscene() + ", " + actor.GetVoicetag());
 		if (actor && actor.IsAlive() && actor.IsInNonGameplayCutscene() && actor.GetVoicetag() == voicetag) {
 			actorRes = actor;
 			return true;
 		}
 	}
-	NR_Debug("NR_FindActorInScene: [" + voicetag + "] not found!");
+	// NR_Debug("NR_FindActorInScene: [" + voicetag + "] not found!");
 	return false;
 }

@@ -67,7 +67,7 @@ class NR_MagicLightning extends NR_MagicAction {
 			damage = new W3DamageAction in this;
 			damage.Initialize( thePlayer, target, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 			dk = 1.5f * SkillTotalDamageMultiplier();
-			damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+			damageVal = NR_GetDamageGeneric("NR_MagicLightning", thePlayer, target, /*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/);
 			AddMagicDamage(damage, damageVal);
 			damage.AddEffectInfo(EET_Stagger, 2.f);
 			theGame.damageMgr.ProcessAction( damage );
@@ -77,7 +77,7 @@ class NR_MagicLightning extends NR_MagicAction {
 				Sleep(0.1f);
 				oldTarget = target;
 				target = FindNewTarget(oldTarget, 20.f);
-				NR_Debug("Rebound: newTarget = " + target);
+				// NR_Debug("Rebound: newTarget = " + target);
 				if (target)
 					OnPerformReboundFromActor(target, oldTarget);
 			}
@@ -134,7 +134,7 @@ class NR_MagicLightning extends NR_MagicAction {
 		damage = new W3DamageAction in this;
 		damage.Initialize( thePlayer, newTarget, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 		dk = 1.f * SkillTotalDamageMultiplier();
-		damageVal = GetDamage(/*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+		damageVal = NR_GetDamageGeneric("NR_MagicLightning", thePlayer, target, /*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
 		damage.AddEffectInfo(EET_Stagger, 1.f);
 		theGame.damageMgr.ProcessAction( damage );
 		delete damage;
@@ -180,10 +180,10 @@ class NR_MagicLightning extends NR_MagicAction {
 			actor = (CActor)entities[i];
 			if (actor && actor != oldTarget && GetAttitudeBetween(thePlayer, actor) == AIA_Hostile) {
 				distSq = VecDistanceSquared(oldTarget.GetWorldPosition(), actor.GetWorldPosition());
-				NR_Debug("OnPerformRebound: distSq = " + distSq + " actor = " + actor);
+				// NR_Debug("OnPerformRebound: distSq = " + distSq + " actor = " + actor);
 				if (distSq < minDistSq) {
 					onLine = NR_OnLineOfSight(oldTarget, actor, 1.f);
-					NR_Debug("OnPerformRebound: onLine = " + onLine);
+					// NR_Debug("OnPerformRebound: onLine = " + onLine);
 					if (onLine) {
 						newTarget = actor;
 						minDistSq = distSq;

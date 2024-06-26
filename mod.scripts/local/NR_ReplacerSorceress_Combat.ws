@@ -71,7 +71,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		geraltCmbtV = Vector(0.74,-0.38,0.147);
 		geraltCmbtRightV = Vector(0.184,-0.38,0.147);
 		geraltCmbtSignV = Vector(-0.35,-0.38,0.147);
-		NR_Debug("NR_ReplacerSorceress.Combat: OnEnterState from " + prevStateName);
+		NR_Info("NR_ReplacerSorceress.Combat: OnEnterState from " + prevStateName);
 		
 		parent.AddAnimEventCallback('AllowInput',		'OnAnimEvent_AllowInput');
 		parent.AddAnimEventCallback('AllowRoll',		'OnAnimEvent_AllowRoll');
@@ -1939,7 +1939,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		thePlayer.PlayBattleCry( 'BattleCryAttack', 0.3f );
 		if ( parent.magicManager.HasStaminaForAction(actionType) ) {
 			parent.magicManager.SetActionType( actionType );
-			NR_Debug("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
+			// NR_Debug("Combat.TryPeformMagicAttack: aspect = " + aspectName + ", type = " + actionType);
 			// activate sorceress "quen"
 			if (actionType == ENR_SpecialShield) {
 				parent.CastQuen();
@@ -1949,11 +1949,12 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 				parent.NR_RotateToHeading('NR_OnRotatePrePerform', thePlayer.GetHeading(), 360.f, 0.2f);
 				parent.SetCombatActionHeading( thePlayer.GetHeading() );
 			}
-			NR_Debug("PlayAttack: aspect = " + aspectName + ", = " + comboPlayer.PlayAttack( aspectName ));
+			// NR_Debug("PlayAttack: aspect = " + aspectName + ", = ");
+			comboPlayer.PlayAttack( aspectName );
 		} else {
 			parent.magicManager.SetActionType( ENR_Unknown );
 			comboPlayer.PlayAttack( 'AttackNoStamina' );
-			NR_Debug("Combat.TryPeformMagicAttack: No stamina to make attack: " + actionType);
+			// NR_Debug("Combat.TryPeformMagicAttack: No stamina to make attack: " + actionType);
 		}
 		virtual_parent.OnCombatActionStart();
 	}
@@ -1972,7 +1973,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		if ( !parent.magicManager.HasStaminaForAction(actionType) ) {
 			parent.magicManager.SetActionType( ENR_Unknown );
 			playRet = comboPlayer.PlayAttack( 'AttackNoStamina' );
-			NR_Debug("Combat.TryPeformMagicAttack: No stamina to launch attack: " + actionType + ", playAnim = " + playRet);
+			// NR_Debug("Combat.TryPeformMagicAttack: No stamina to launch attack: " + actionType + ", playAnim = " + playRet);
 			virtual_parent.OnCombatActionStart();
 			return false;
 		}
@@ -1992,7 +1993,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		startTime = theGame.GetEngineTimeAsSeconds();
 		lastTime = startTime;
 		lastAnimTime = startTime;
-		NR_Debug("TryPeformLongMagicAttack: animTime = " + animTime);
+		// NR_Debug("TryPeformLongMagicAttack: animTime = " + animTime);
 
 		virtual_parent.OnCombatActionStart();
 
@@ -2020,7 +2021,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 			if ( currentTime - lastAnimTime > animTime ) {
 				playRet = comboPlayer.PlayAttack( aspectName );
-				NR_Debug("TryPeformLongMagicAttack: PlayAttack = " + aspectName + ", ret = " + playRet);
+				// NR_Debug("TryPeformLongMagicAttack: PlayAttack = " + aspectName + ", ret = " + playRet);
 				lastAnimTime = currentTime;
 			}
 		}
@@ -2030,7 +2031,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			Sleep(magicAnimBlendTime - (currentTime - startTime));
 		}
 
-		NR_Debug("TryPeformLongMagicAttack: OnInterruptAttack");
+		// NR_Debug("TryPeformLongMagicAttack: OnInterruptAttack");
 		comboPlayer.StopAttack();
 		OnInterruptAttack();
 		parent.RaiseForceEvent( 'AnimEndAUX' );
@@ -2074,7 +2075,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		parent.RemoveTimer( 'ProcessAttackTimer' );
 		parent.RemoveTimer( 'AttackTimerEnd' );
 		npc = (CNewNPC)parent.slideTarget;
-		NR_Debug("ProcessAttack: playerAttackType = " + playerAttackType + ", time = " + theGame.GetEngineTimeAsSeconds());
+		NR_Info("NR_ReplacerSorceress::Combat.ProcessAttack: playerAttackType = " + playerAttackType);
 			
 		parent.GetMovingAgentComponent().GetMovementAdjustor().CancelAll();
 
@@ -2139,7 +2140,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 			{
 				ResetTimeToEndCombat();
 				isAlternateAttack = CheckIsAlternateAttack( 0.2f );
-				NR_Debug("Combat.ProcessAttack: isAlternate = " + isAlternateAttack);
+				// NR_Debug("Combat.ProcessAttack: isAlternate = " + isAlternateAttack);
 				
 				if (isAlternateAttack)
 					TryPeformMagicAttack( 'AttackSpecialElectricity', ENR_SpecialAbstractAlt );
@@ -2166,7 +2167,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		while (theGame.GetEngineTimeAsSeconds() - startTime < minHoldTime) {
 			SleepOneFrame();
 			if ( !theInput.IsActionPressed( 'CastSign' ) ) {
-				NR_Debug("Hold time: " + FloatToStringPrec(theGame.GetEngineTimeAsSeconds() - startTime, 5));
+				// NR_Debug("Hold time: " + FloatToStringPrec(theGame.GetEngineTimeAsSeconds() - startTime, 5));
 				return false;
 			}
 		}

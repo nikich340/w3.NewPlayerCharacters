@@ -123,7 +123,7 @@ state NR_TransformedBase in NR_ReplacerSorceress extends Base {
 		// Pass to base class
 		super.OnLeaveState(nextStateName);
 		parent.magicManager.UpdateMagicControlHints( nextStateName );
-		NR_Debug("NR_TransformedBase: go to: " + nextStateName);
+		// NR_Debug("NR_TransformedBase: go to: " + nextStateName);
 		///theInput.RestoreContext('Exploration', true);
 	}
 
@@ -144,7 +144,7 @@ state NR_TransformedBase in NR_ReplacerSorceress extends Base {
 	// TODO: Check why it here?
 	public function SetupCombatAction( action : EBufferActionType, stage : EButtonStage )
 	{
-		NR_Debug("NR_Transformed: SetupCombatAction: " + action + ", stage: " + stage);
+		// NR_Debug("NR_Transformed: SetupCombatAction: " + action + ", stage: " + stage);
 		virtual_parent.SetupCombatAction(action, stage);
 	}
 

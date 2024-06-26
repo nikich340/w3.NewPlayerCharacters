@@ -14,7 +14,6 @@ storyscene function NR_ClearItemSlot_S(player: CStoryScenePlayer, item_index : i
 	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
-
 storyscene function NR_ClearAllSlotsItems_S(player: CStoryScenePlayer) {
 	NR_GetPlayerManager().ResetAllAppearanceHeadHair();
 	NR_GetPlayerManager().ShowAppearanceInfo();
@@ -48,7 +47,7 @@ latent storyscene function NR_ShowCustomDLCInfo_S(player: CStoryScenePlayer) {
 	NR_GetPlayerManager().ShowCustomDLCInfo();
 }
 
-storyscene function NR_SetPlayerDisplayName_S(player: CStoryScenePlayer, nameID : int) {
+/* API */ storyscene function NR_SetPlayerDisplayName_S(player: CStoryScenePlayer, nameID : int) {
 	NR_GetPlayerManager().SetPlayerDisplayName(nameID);
 	NR_GetPlayerManager().ShowAppearanceInfo();
 }
@@ -106,7 +105,7 @@ storyscene function NR_SetMagicInSetupScene_S(player: CStoryScenePlayer, inSetup
 storyscene function NR_ShowMagicInfo_S(player: CStoryScenePlayer, sectionName : name) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
-	NR_Debug("NR_ShowMagicInfo_S: sectionName = " + sectionName);
+	// NR_Debug("NR_ShowMagicInfo_S: sectionName = " + sectionName);
 	if (!magicManager) {
 		NR_Error("NR_SetMagicInSetupScene_S: NULL magicManager!");
 		return;
@@ -117,7 +116,7 @@ storyscene function NR_ShowMagicInfo_S(player: CStoryScenePlayer, sectionName : 
 storyscene function NR_SetMagicSignName_S(player: CStoryScenePlayer, signName : name) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
-	NR_Debug("NR_SetMagicSignName_S: signName = " + signName);
+	// NR_Debug("NR_SetMagicSignName_S: signName = " + signName);
 	if (!magicManager) {
 		NR_Error("NR_SetMagicInSetupScene_S: NULL magicManager!");
 		return;
@@ -139,7 +138,7 @@ storyscene function NR_SetMagicUpdateHandFx_S(player: CStoryScenePlayer) {
 storyscene function NR_SetMagicActionType_S(player: CStoryScenePlayer, actionType : int) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
-	NR_Debug("NR_SetMagicActionType_S: actionType = " + ENR_MAToName((ENR_MagicAction)actionType));
+	// NR_Debug("NR_SetMagicActionType_S: actionType = " + ENR_MAToName((ENR_MagicAction)actionType));
 	if (!magicManager) {
 		NR_Error("NR_SetMagicInSetupScene_S: NULL magicManager!");
 		return;
@@ -150,7 +149,7 @@ storyscene function NR_SetMagicActionType_S(player: CStoryScenePlayer, actionTyp
 storyscene function NR_SimulateLongMagicAction_S(player: CStoryScenePlayer, actionType : int) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
-	NR_Debug("NR_SimulateLongMagicAction_S: actionType = " + ENR_MAToName((ENR_MagicAction)actionType));
+	// NR_Debug("NR_SimulateLongMagicAction_S: actionType = " + ENR_MAToName((ENR_MagicAction)actionType));
 	if (!magicManager) {
 		NR_Error("NR_SetMagicInSetupScene_S: NULL magicManager!");
 		return;
@@ -164,7 +163,7 @@ storyscene function NR_SimulateLongMagicAction_S(player: CStoryScenePlayer, acti
 storyscene function NR_SetMagicLightRatio_S(player: CStoryScenePlayer, slashNum : int, throwNum : int) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
-	NR_Debug("NR_SetMagicLightRatio_S: slashNum = " + slashNum + ", throwNum = " + throwNum);
+	// NR_Debug("NR_SetMagicLightRatio_S: slashNum = " + slashNum + ", throwNum = " + throwNum);
 	if (!magicManager) {
 		NR_Error("NR_SetMagicSettingInt_S: NULL magicManager!");
 		return;
@@ -178,7 +177,7 @@ storyscene function NR_SetMagicLightRatio_S(player: CStoryScenePlayer, slashNum 
 storyscene function NR_SetMagicHeavyRatio_S(player: CStoryScenePlayer, rocksNum : int, bombNum : int) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
-	NR_Debug("NR_SetMagicHeavyRatio_S: slashNum = " + rocksNum + ", bombNum = " + bombNum);
+	// NR_Debug("NR_SetMagicHeavyRatio_S: slashNum = " + rocksNum + ", bombNum = " + bombNum);
 	if (!magicManager) {
 		NR_Error("NR_SetMagicSettingInt_S: NULL magicManager!");
 		return;
@@ -192,7 +191,7 @@ storyscene function NR_SetMagicHeavyRatio_S(player: CStoryScenePlayer, rocksNum 
 storyscene function NR_SetMagicParamInt_S(player: CStoryScenePlayer, signName : name, varName : String, varValue : int) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
-	NR_Debug("NR_SetMagicParamInt_S: [" + signName + "] (" + varName + ") = " + varValue);
+	// NR_Debug("NR_SetMagicParamInt_S: [" + signName + "] (" + varName + ") = " + varValue);
 	if (!magicManager) {
 		NR_Error("NR_SetMagicSettingInt_S: NULL magicManager!");
 		return;
@@ -204,7 +203,7 @@ storyscene function NR_SetMagicParamInt_S(player: CStoryScenePlayer, signName : 
 storyscene function NR_SetMagicParamFloat_S(player: CStoryScenePlayer, signName : name, varName : String, varValue : float) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 	
-	NR_Debug("NR_SetMagicParamFloat_S: [" + signName + "] (" + varName + ") = " + varValue);
+	// NR_Debug("NR_SetMagicParamFloat_S: [" + signName + "] (" + varName + ") = " + varValue);
 	if (!magicManager) {
 		NR_Error("NR_SetMagicSettingFloat_S: NULL magicManager!");
 		return;
@@ -216,7 +215,7 @@ storyscene function NR_SetMagicParamFloat_S(player: CStoryScenePlayer, signName 
 storyscene function NR_SetMagicParamString_S(player: CStoryScenePlayer, signName : name, varName : String, varValue : String) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 
-	NR_Debug("NR_SetMagicParamString_S: [" + signName + "] (" + varName + ") = " + varValue);
+	// NR_Debug("NR_SetMagicParamString_S: [" + signName + "] (" + varName + ") = " + varValue);
 	if (!magicManager) {
 		NR_Error("NR_SetMagicSettingString_S: NULL magicManager!");
 		return;
@@ -228,7 +227,7 @@ storyscene function NR_SetMagicParamString_S(player: CStoryScenePlayer, signName
 storyscene function NR_SetMagicParamName_S(player: CStoryScenePlayer, signName : name, varName : String, varValue : name) {
 	var magicManager : NR_MagicManager = NR_GetMagicManager();
 	
-	NR_Debug("NR_SetMagicParamName_S: [" + signName + "] (" + varName + ") = " + varValue);
+	// NR_Debug("NR_SetMagicParamName_S: [" + signName + "] (" + varName + ") = " + varValue);
 	if (!magicManager) {
 		NR_Error("NR_SetMagicSettingName_S: NULL magicManager!");
 		return;
@@ -244,7 +243,7 @@ storyscene function NR_SwitchActionAbility_S(player: CStoryScenePlayer, type : n
 
 	enumType = ENR_NameToMA(type);
 	oldValue = magicManager.IsActionAbilityDisabledByUser(enumType, abilityName);
-	NR_Debug("NR_SwitchActionAbility_S: [" + type + "] (" + abilityName + ") = " + oldValue);
+	// NR_Debug("NR_SwitchActionAbility_S: [" + type + "] (" + abilityName + ") = " + oldValue);
 	magicManager.SetActionAbilityDisabledByUser(enumType, abilityName, !oldValue);
 }
 
@@ -260,7 +259,7 @@ storyscene function NR_SwitchMagicControlHints_S(player: CStoryScenePlayer) {
 	}
 }
 
-latent storyscene function NR_CreatePortal_S(player: CStoryScenePlayer, waypointTag : name, worldName : String, optional activeTime : float) {
+/* API */ latent storyscene function NR_CreatePortal_S(player: CStoryScenePlayer, waypointTag : name, worldName : String, optional activeTime : float) {
 	NR_CreatePortal( waypointTag, worldName, activeTime );
 }
 
@@ -299,7 +298,7 @@ latent storyscene function NR_ChooseMagicParamPercent_S(player: CStoryScenePlaye
 		theGame.CloseMenu('PopupMenu');
 	}
 
-	NR_Debug("NR_ChooseMagicParamPercent_S: [" + signName + "] (" + varName + ")");
+	// NR_Debug("NR_ChooseMagicParamPercent_S: [" + signName + "] (" + varName + ")");
 	magicManager.UpdateMagicInfo();
 }
 

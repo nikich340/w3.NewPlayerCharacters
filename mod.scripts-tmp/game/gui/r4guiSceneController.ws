@@ -547,6 +547,11 @@ class CR4GuiSceneController
 					
 				}
 				
+				// v NR_MOD
+				if ( NR_GetPlayerManager().IsReplacerActive() ) {
+					NR_GetPlayerManager().RemoveArmorItems( inventory, items, enhancements );
+				}
+				// ^ NR_MOD
 				theGame.GetGuiManager().UpdateSceneEntityItems( items, enhancements );
 			}
 		}

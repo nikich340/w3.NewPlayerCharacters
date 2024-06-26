@@ -3,6 +3,26 @@ class NR_AssetCooker extends CEntity {
 	editable var cookMeshes : array<CMeshComponent>;
 }
 
+exec function NREraseEverything() {
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+
+	if (manager) {
+		if (manager.GetCurrentPlayerType() != ENR_PlayerGeralt) {
+			NR_Notify("You are not Geralt (" + manager.GetCurrentPlayerType() + "), first use command: NRToGeralt");
+			return;
+		}
+		NR_ErasePlayerManager( theGame, "NREraseEverything" );
+		NR_Notify("Player and Magic managers data erased!");
+	}
+}
+
+exec function masteratt() {
+	var npc : CNewNPC;
+
+	npc = (CNewNPC)theGame.GetEntityByTag('nr_master_mage');
+	NR_Notify("GetAttitudeGroup = " + npc.GetAttitudeGroup() + ", GetBaseAttitudeGroup = " + npc.GetBaseAttitudeGroup());
+}
+
 exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bool, optional immortal : Bool) {
 	var ent : CEntity;
 	var pos : Vector;
@@ -188,6 +208,8 @@ exec function dialog(tag : name) {
 	npc.PlayDialog();
 }
 
+
+
 exec function battlecry1() {
 	thePlayer.PlayBattleCry( 'BattleCryTaunt', 1.0f );
 }
@@ -283,9 +305,10 @@ exec function nrCross() {
 	var entity : CEntity;
 	entityTemplate = (CEntityTemplate)LoadResource("dlc\dlcnewreplacers\data\entities\nr_cross_effect.w2ent", true);
 	entity = theGame.CreateEntity(entityTemplate, thePlayer.GetWorldPosition() + Vector(0,0,1.5f), thePlayer.GetWorldRotation());
-	NR_Debug("nrCross: entityTemplate = " + entityTemplate + ", enttiy = " + entity);
+	// NR_Debug("nrCross: entityTemplate = " + entityTemplate + ", enttiy = " + entity);
 	if (entity) {
-		NR_Debug("nrCross: PlayEffect = " + entity.PlayEffect('cross'));
+		// NR_Debug("nrCross: PlayEffect = " +);
+		entity.PlayEffect('cross');
 	}
 }
 
@@ -310,9 +333,9 @@ exec function nrMoveTo(pointNum : int) {
 	}
 	points.PushBack(Vector(-278.8874206543, -313.2870178223, 40.0178413391));
 	points.PushBack(Vector(-286.2327575684, -307.2341308594, 40.1103897095));
-	NR_Debug("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
+	// NR_Debug("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
 	npc.ActionCancelAll();
-	NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
+	// NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
 	NR_Notify("nrMoveTo1 = " + npc.ActionMoveToAsync(points[pointNum]));
 }
 exec function nrMoveTo2(pointNum : int) {
@@ -327,9 +350,9 @@ exec function nrMoveTo2(pointNum : int) {
 	}
 	points.PushBack(Vector(-278.8874206543, -313.2870178223, 40.0178413391));
 	points.PushBack(Vector(-286.2327575684, -307.2341308594, 40.1103897095));
-	NR_Debug("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
+	// NR_Debug("IsReadyForNewAction 1 = " + npc.IsReadyForNewAction());
 	npc.ActionCancelAll();
-	NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
+	// NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
 	NR_Notify("nrMoveTo2 = " + npc.ActionMoveOnCurveToAsync(points[pointNum], 10.f, true));
 }
 exec function nrMoveTo3(pointNum : int) {
@@ -347,7 +370,7 @@ exec function nrMoveTo3(pointNum : int) {
 		return;
 	}
 	npc.ActionCancelAll();
-	NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
+	// NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
 	NR_Notify("nrMoveTo3 = " + npc.ActionMoveCustomAsync(targeter));
 }
 
@@ -545,19 +568,19 @@ exec function playerAbl() {
 	thePlayer.GetCharacterStats().GetAllAttributesNames(attrs);
 
 	for (i = 0; i < abls.Size(); i += 1) {
-		NR_Debug("Ability: " + abls[i]);
+		// NR_Debug("Ability: " + abls[i]);
 	}
 	for (i = 0; i < attrs.Size(); i += 1) {
 		if ( theGame.params.IsForbiddenAttribute(attrs[i]) )
 			continue;
 		val = thePlayer.GetAttributeValue(attrs[i]);
-		NR_Debug("Attribute: " + attrs[i] + ", value: [base = " + val.valueBase + "], [mult = " + val.valueMultiplicative + "], [add = " + val.valueAdditive + "]");
+		// NR_Debug("Attribute: " + attrs[i] + ", value: [base = " + val.valueBase + "], [mult = " + val.valueMultiplicative + "], [add = " + val.valueAdditive + "]");
 	}
-	NR_Debug("Max ess: " + thePlayer.GetStatMax(BCS_Essence));
-	NR_Debug("Cur ess: " + thePlayer.GetStat(BCS_Essence));
-	NR_Debug("Max vit: " + thePlayer.GetStatMax(BCS_Vitality));
-	NR_Debug("Cur vit: " + thePlayer.GetStat(BCS_Vitality));
-	NR_Debug("Immortality: " + thePlayer.GetImmortalityMode());
+	// NR_Debug("Max ess: " + thePlayer.GetStatMax(BCS_Essence));
+	// NR_Debug("Cur ess: " + thePlayer.GetStat(BCS_Essence));
+	// NR_Debug("Max vit: " + thePlayer.GetStatMax(BCS_Vitality));
+	// NR_Debug("Cur vit: " + thePlayer.GetStat(BCS_Vitality));
+	// NR_Debug("Immortality: " + thePlayer.GetImmortalityMode());
 }
 
 exec function testl11() {
@@ -623,9 +646,9 @@ exec function nrshowlocks() {
 	locks = thePlayer.GetAllActionLocks();
 	for (i = EIAB_Signs; i <= EIAB_CameraLock; i += 1) {
 		if (locks[i].Size() > 0)
-			NR_Debug("Lock[" + (EInputActionBlock)i + "] = ");
+			// NR_Debug("Lock[" + (EInputActionBlock)i + "] = ");
 		for (j = 0; j < locks[i].Size(); j += 1) {
-			NR_Debug("   " + locks[i][j].sourceName + ", removedOnSpawn = " + locks[i][j].removedOnSpawn + ", isFromQuest = " + locks[i][j].isFromQuest + ", isFromPlace = " + locks[i][j].isFromPlace);
+			// NR_Debug("   " + locks[i][j].sourceName + ", removedOnSpawn = " + locks[i][j].removedOnSpawn + ", isFromQuest = " + locks[i][j].isFromQuest + ", isFromPlace = " + locks[i][j].isFromPlace);
 		}
 	}
 }
@@ -922,25 +945,25 @@ function PrintDamageAction( source: String, action : W3DamageAction )
 		size = action.GetEffects( effectInfos );
 		attackerPowerStatValue = action.GetPowerStatValue();
 
-		NR_Debug("[" + source + "] PrintDamageAction");
-		NR_Debug("AddEffectsFromAction(): causer = " + action.causer);
-		NR_Debug("AddEffectsFromAction(): vitalityDamage = " + action.processedDmg.vitalityDamage);
-		NR_Debug("AddEffectsFromAction(): essenceDamage = " + action.processedDmg.essenceDamage);
-		NR_Debug("AddEffectsFromAction(): moraleDamage = " + action.processedDmg.moraleDamage);
-		NR_Debug("AddEffectsFromAction(): staminaDamage = " + action.processedDmg.staminaDamage);
-		NR_Debug("AddEffectsFromAction(): effSize = " + size);
-		NR_Debug("AddEffectsFromAction(): attacker = " + action.attacker);
-		NR_Debug("AddEffectsFromAction(): GetBuffSourceName = " + action.GetBuffSourceName());
-		NR_Debug("AddEffectsFromAction(): attackerPowerStatValue = " + CalculateAttributeValue(attackerPowerStatValue));
+		// NR_Debug("[" + source + "] PrintDamageAction");
+		// NR_Debug("AddEffectsFromAction(): causer = " + action.causer);
+		// NR_Debug("AddEffectsFromAction(): vitalityDamage = " + action.processedDmg.vitalityDamage);
+		// NR_Debug("AddEffectsFromAction(): essenceDamage = " + action.processedDmg.essenceDamage);
+		// NR_Debug("AddEffectsFromAction(): moraleDamage = " + action.processedDmg.moraleDamage);
+		// NR_Debug("AddEffectsFromAction(): staminaDamage = " + action.processedDmg.staminaDamage);
+		// NR_Debug("AddEffectsFromAction(): effSize = " + size);
+		// NR_Debug("AddEffectsFromAction(): attacker = " + action.attacker);
+		// NR_Debug("AddEffectsFromAction(): GetBuffSourceName = " + action.GetBuffSourceName());
+		// NR_Debug("AddEffectsFromAction(): attackerPowerStatValue = " + CalculateAttributeValue(attackerPowerStatValue));
 			
 		for ( i = 0; i < size; i += 1 )
 		{	
-			NR_Debug("AddEffectsFromAction(): effectType[" + i + "] = " + effectInfos[i].effectType);
-			NR_Debug("AddEffectsFromAction(): effectDuration[" + i + "] = " + effectInfos[i].effectDuration);
-			NR_Debug("AddEffectsFromAction(): effectCustomValue[" + i + "] = " + CalculateAttributeValue(effectInfos[i].effectCustomValue));
-			NR_Debug("AddEffectsFromAction(): effectAbilityName[" + i + "] = " + effectInfos[i].effectAbilityName, );
-			NR_Debug("AddEffectsFromAction(): customFXName[" + i + "] = " + effectInfos[i].customFXName);
-			NR_Debug("AddEffectsFromAction(): effectCustomParam[" + i + "] = " + effectInfos[i].effectCustomParam);
+			// NR_Debug("AddEffectsFromAction(): effectType[" + i + "] = " + effectInfos[i].effectType);
+			// NR_Debug("AddEffectsFromAction(): effectDuration[" + i + "] = " + effectInfos[i].effectDuration);
+			// NR_Debug("AddEffectsFromAction(): effectCustomValue[" + i + "] = " + CalculateAttributeValue(effectInfos[i].effectCustomValue));
+			// NR_Debug("AddEffectsFromAction(): effectAbilityName[" + i + "] = " + effectInfos[i].effectAbilityName, );
+			// NR_Debug("AddEffectsFromAction(): customFXName[" + i + "] = " + effectInfos[i].customFXName);
+			// NR_Debug("AddEffectsFromAction(): effectCustomParam[" + i + "] = " + effectInfos[i].effectCustomParam);
 		}
 }
 
@@ -1530,7 +1553,7 @@ exec function getInRange(range : float, optional makeFriendly : bool) {
         comps.Clear();
         comps = entities[i].GetComponentsByClassName('CComponent');
         for (t = 0; t < comps.Size(); t += 1) {
-           LogChannel('getInRange', "   > component: " + comps[t]);
+           LogChannel('getInRange', "   > component: " + comps[t].GetName());
         }
 
         actor = (CActor)entities[i];
@@ -1675,36 +1698,36 @@ exec function NR_Range(range : float, optional makeFriendly : bool) {
     FindGameplayEntitiesInRange(entities, thePlayer, range, maxEntities);
 
     pos = thePlayer.GetWorldPosition();
-    NR_Debug("player pos: [" + pos.X + ", " + pos.Y + ", " + pos.Z + "]");
-    NR_Debug("player rot: " + NR_EulerToString(thePlayer.GetWorldRotation()));
+    // NR_Debug("player pos: [" + pos.X + ", " + pos.Y + ", " + pos.Z + "]");
+    // NR_Debug("player rot: " + NR_EulerToString(thePlayer.GetWorldRotation()));
 		NR_Notify("nik_range: found entities: " + entities.Size());
     
 		
     for (i = 0; i < entities.Size(); i += 1) {
-        NR_Debug("entity: " + entities[i]);
-        NR_Debug("   " + entities[i]);
-        NR_Debug("   - pos: " + VecToString(entities[i].GetWorldPosition()));
-           NR_Debug("   - rot: " + NR_EulerToString(entities[i].GetWorldRotation()));
+        // NR_Debug("entity: " + entities[i]);
+        // NR_Debug("   " + entities[i]);
+        // NR_Debug("   - pos: " + VecToString(entities[i].GetWorldPosition()));
+           // NR_Debug("   - rot: " + NR_EulerToString(entities[i].GetWorldRotation()));
         tags = entities[i].GetTags();
 
         for (t = 0; t < tags.Size(); t += 1) {
-           NR_Debug("   > tag " + tags[t]);
+           // NR_Debug("   > tag " + tags[t]);
         }
         actor = (CActor)entities[i];
         if (actor) {
             if (!actor.IsAlive()) {
-                NR_Debug("* actor dead");
+                // NR_Debug("* actor dead");
                 continue;
             }
             if (actor.HasAttitudeTowards(thePlayer)) {
-                NR_Debug("* GetAttitude to player: " + actor.GetAttitude(thePlayer));
+                // NR_Debug("* GetAttitude to player: " + actor.GetAttitude(thePlayer));
             }
-            NR_Debug("* GetAttitudeGroup: " + actor.GetAttitudeGroup());
+            // NR_Debug("* GetAttitudeGroup: " + actor.GetAttitudeGroup());
             
-            NR_Debug("* GetVoicetag: " + actor.GetVoicetag());
-            NR_Debug("* GetDisplayName: " + actor.GetDisplayName());
-            NR_Debug("* IsInNonGameplayCutscene: " + actor.IsInNonGameplayCutscene());
-            NR_Debug("* IsInGameplayScene: " + actor.IsInGameplayScene());
+            // NR_Debug("* GetVoicetag: " + actor.GetVoicetag());
+            // NR_Debug("* GetDisplayName: " + actor.GetDisplayName());
+            // NR_Debug("* IsInNonGameplayCutscene: " + actor.IsInNonGameplayCutscene());
+            // NR_Debug("* IsInGameplayScene: " + actor.IsInGameplayScene());
             if (makeFriendly)
                 actor.SetTemporaryAttitudeGroup( 'friendly_to_player', AGP_Default );
         }
@@ -1912,7 +1935,7 @@ exec function icemorph( ratio : float, blend : float ) {
     if (entities.Size() == 0) {
     	return;
     }
-    NR_Debug("SOundbank loaded = " + theSound.SoundIsBankLoaded("monster_golem_ice.bnk"));
+    // NR_Debug("SOundbank loaded = " + theSound.SoundIsBankLoaded("monster_golem_ice.bnk"));
     if (!theSound.SoundIsBankLoaded("monster_golem_ice.bnk")) {
     	theSound.SoundLoadBank("monster_golem_ice.bnk", false);
     }
@@ -1923,17 +1946,27 @@ exec function icemorph( ratio : float, blend : float ) {
 		entity.SoundEvent("monster_golem_ice_mv_recover");
 		components = entity.GetComponentsByClassName('CMorphedMeshManagerComponent');
 		if (components.Size() == 0) {
-		    NR_Debug("NR_ICE_DEBUG: [ERROR] Not found morph managers for " + entity);
+		    // NR_Debug("NR_ICE_DEBUG: [ERROR] Not found morph managers for " + entity);
 		}
 		for (j = 0; j < components.Size(); j += 1) {
 		    manager = (CMorphedMeshManagerComponent) components[j];
 		    if (manager) {
-		        NR_Debug("NR_ICE_DEBUG: [Info] Current morph ratio: " + manager.GetMorphBlend());
+		        // NR_Debug("NR_ICE_DEBUG: [Info] Current morph ratio: " + manager.GetMorphBlend());
 		        manager.SetMorphBlend( ratio, blend );
-		        NR_Debug("NR_ICE_DEBUG: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blend + " sec");
+		        // NR_Debug("NR_ICE_DEBUG: [OK] Morph component: " + manager + " to <" + ratio + "> in " + blend + " sec");
 		    }
 		}
 	}
+}
+
+exec function testmusic() {
+	if (!theSound.SoundIsBankLoaded("nr_quest.bnk")) {
+		theSound.SoundLoadBank("nr_quest.bnk", false);
+		NR_Notify("Loading bank");
+	} else {
+		NR_Notify("Already loaded bank");
+	}
+	theSound.SoundEvent( "Play_mus_loc_master_ship_background" );
 }
 
 exec function locstr(key: string) {
@@ -2172,9 +2205,9 @@ exec function testgate(optional enable: bool) {
 
 	swit = (W3InteractionSwitch)theGame.GetEntityByTag('q403_main_gate');
 	if (!swit) {
-		NR_Debug("!switch");
+		// NR_Debug("!switch");
 	}
-	NR_Debug("switch = " + swit + ", IsLocked = " + swit.IsLocked() + ", focusModeHighlight = " + swit.focusModeHighlight + ", interactionActiveInState = " + swit.interactionActiveInState);
+	// NR_Debug("switch = " + swit + ", IsLocked = " + swit.IsLocked() + ", focusModeHighlight = " + swit.focusModeHighlight + ", interactionActiveInState = " + swit.interactionActiveInState);
 	if (enable) {
 		// swit.Enable(true);
 		swit.Lock(false);

@@ -95,7 +95,7 @@ class NR_MagicSlash extends NR_MagicAction {
 			} else {
 				dk = 1.f * SkillTotalDamageMultiplier();
 			}
-			damageVal = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+			damageVal = NR_GetDamageGeneric("NR_MagicSlash", thePlayer, target, /*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/);
 			AddMagicDamage(damage, damageVal);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;

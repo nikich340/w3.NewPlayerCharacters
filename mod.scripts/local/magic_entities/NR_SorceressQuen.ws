@@ -5,10 +5,11 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 	editable var playOnOwner 			: Bool;
 	editable var cameraShakeStrength 	: float;
 	protected var magicManager 			: NR_MagicManager;
-	protected var drainStamina, s_counterLightning 	: bool;
+	protected var drainStamina, s_counterLightning, s_counterHealing : bool;
 	public var autoCasted : bool;
 	protected var m_cachedEffectName 	: name;
 	protected var m_cachedHitEffectName : name;
+	protected var m_cachedHealingEffectName : name;
 
 	default playOnOwner = false;
 	default autoCasted = false;
@@ -36,12 +37,14 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		shieldHealth = thePlayer.GetStatMax(BCS_Vitality);
 		shieldHealth *= healthMultiplier / 100.f;
 		s_counterLightning = magicManager.IsActionAbilityUnlocked(ENR_SpecialShield, "AutoLightning");
+		s_counterHealing = magicManager.IsActionAbilityUnlocked(ENR_SpecialShield, "AutoHealing");
 
 		initialShieldHealth = shieldHealth;
-		NR_Debug("NR_SorceressQuen Init: shieldDuration = " + shieldDuration + ", initialShieldHealth = " + initialShieldHealth);
+		NR_Info("NR_SorceressQuen.Init: shieldDuration = " + shieldDuration + ", initialShieldHealth = " + initialShieldHealth);
 
 		m_cachedEffectName = magicManager.SphereFxName();
 		m_cachedHitEffectName = magicManager.SphereHitFxName();
+		m_cachedHealingEffectName = magicManager.SphereHealingFxName();
 
 		if ( !skipCastingAnimation && !magicManager.HasStaminaForAction(ENR_SpecialShield) ) {
 			CleanUp();
@@ -151,7 +154,7 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		else
 			finalName = FxName();
 
-		NR_Debug("LaunchEffect: name = " + finalName + ", playOnOwner = " + playOnOwner + ", enable = " + enable);
+		// NR_Debug("LaunchEffect: name = " + finalName + ", playOnOwner = " + playOnOwner + ", enable = " + enable);
 		if (playOnOwner) {
 			if ( enable )
 				owner.GetActor().PlayEffect(finalName);
@@ -366,7 +369,7 @@ state ShieldActive in NR_SorceressQuen extends Active
 		{
 			LogDMHits("Quen ShieldActive.OnTargetHit: reducing damage from " + damageData.processedDmg.vitalityDamage + " to " + (damageData.processedDmg.vitalityDamage - reducedDamage), action );
 		}
-		NR_Debug("SorceressQuen Shield: shieldHealth = " + parent.shieldHealth + ", playerHealthMax = " + thePlayer.GetStatMax(BCS_Vitality) + ", incomingDamage = " + incomingDamage + ", reducedDamage = " + reducedDamage);
+		NR_Info("SorceressQuen Shield: shieldHealth = " + parent.shieldHealth + ", playerHealthMax = " + thePlayer.GetStatMax(BCS_Vitality) + ", incomingDamage = " + incomingDamage + ", reducedDamage = " + reducedDamage);
 		
 		damageData.SetHitAnimationPlayType( EAHA_ForceNo );		
 		damageData.SetCanPlayHitParticle( false );
@@ -419,6 +422,11 @@ state ShieldActive in NR_SorceressQuen extends Active
 			// !damageData.IsActionRanged()
 			if (parent.s_counterLightning && damageData.attacker != casterActor  && VecDistanceSquared( casterActor.GetWorldPosition(), damageData.attacker.GetWorldPosition() ) <= 25) {
 				attackers.PushBack((CActor)damageData.attacker);
+			}
+
+			if (parent.s_counterHealing) {
+				casterActor.PlayEffect( parent.m_cachedHealingEffectName );
+				casterActor.Heal(reducedDamage * parent.magicManager.GetShieldDamageRestoring() / 100.f);
 			}
 		}
 		

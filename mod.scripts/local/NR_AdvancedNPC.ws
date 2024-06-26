@@ -8,17 +8,21 @@ statemachine class NR_AdvancedNPC extends CNewNPC {
 	protected var commentCombatStartInputNames : array<String>;
 	protected var commentCombatEndInputNames : array<String>;
 	protected var preventDeathEvent : bool;
-	default preventDeathEvent = false;
+    default preventDeathEvent = false;
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
 		super.OnSpawned( spawnData );
-		NR_Debug("NR_AdvancedNPC.OnSpawned");
+		// NR_Debug("NR_AdvancedNPC.OnSpawned");
 		AddTimer('PlayVoicesetTimer', NR_GetRandomGenerator().nextRangeF(commentTimeIntervalMin, commentTimeIntervalMax), false);
+	}
+
+	public function SetPreventDeathEvent( prevent : bool ) {
+		preventDeathEvent = prevent;
 	}
 	
 	event OnDeath( damageAction : W3DamageAction  )	{
-		NR_Debug("NR_AdvancedNPC.OnDeath");
+		// NR_Debug("NR_AdvancedNPC.OnDeath");
 		if (!preventDeathEvent) {
 			super.OnDeath( damageAction );
         }
@@ -29,7 +33,7 @@ statemachine class NR_AdvancedNPC extends CNewNPC {
 		AddTimer('PlayVoicesetTimer', NR_GetRandomGenerator().nextRangeF(commentTimeIntervalMin, commentTimeIntervalMax), false);
 		if ( !IsInCombat() && commentInputNames.Size() > 0 )
 		{
-			NR_Debug("NR_AdvancedNPC.PlayVoicesetTimer: Play");
+			// NR_Debug("NR_AdvancedNPC.PlayVoicesetTimer: Play");
 			PlayComment( commentInputNames[NR_GetRandomGenerator().next(commentInputNames.Size())] );
 		}
 	}
@@ -44,7 +48,7 @@ statemachine class NR_AdvancedNPC extends CNewNPC {
 		} else if (!toggle && commentCombatEndInputNames.Size() > 0 && commentCombatEndChance >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			PlayComment( commentCombatEndInputNames[NR_GetRandomGenerator().next(commentCombatEndInputNames.Size())] );
 		}
-		NR_Debug("NR_AdvancedNPC.(" + this + ").OnCombatModeSet = " + toggle);
+		NR_Info("NR_AdvancedNPC(" + this + ").OnCombatModeSet = " + toggle);
 	}
 
 	protected function PlayComment(inputName : String) {

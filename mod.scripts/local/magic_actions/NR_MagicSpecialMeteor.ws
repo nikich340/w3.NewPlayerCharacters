@@ -74,16 +74,10 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 		meteor.m_markerFxName = MarkerFxName();*/
 
 		dk = (4.f - s_meteorNum * 0.5f) * SkillTotalDamageMultiplier();
-		meteor.projDMG = GetDamage(/*min*/ 2.f*dk, /*max*/ 60.f*dk, /*vitality*/ 30.f, 8.f*dk, /*essence*/ 90.f, 10.f*dk /*randRange*/ /*customTarget*/);
+		meteor.projDMG = NR_GetDamageGeneric("NR_MagicSpecialMeteor", thePlayer, target, /*min*/ 2.f*dk, /*max*/ 60.f*dk, /*vitality*/ 30.f, 8.f*dk, /*essence*/ 90.f, 10.f*dk /*randRange*/);
 		meteor.m_respectCaster = s_respectCaster;
 		meteor.Init(thePlayer);
-		//if (s_aim && target) {
-		//	NR_Debug("Meteor: ShootProjectileAtNode");
-		//	meteor.ShootProjectileAtNode( meteor.projAngle, meteor.projSpeed, target, 500.f, standartCollisions );
-		//} else {
-		//	NR_Debug("Meteor: ShootProjectileAtPosition");
 		meteor.ShootProjectileAtPosition( meteor.projAngle, meteor.projSpeed, pos, 500.f, standartCollisions );
-		//}
 		meteor.DestroyAfter(10.f);
 
 		return true;

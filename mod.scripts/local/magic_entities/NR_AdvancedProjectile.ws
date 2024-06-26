@@ -28,10 +28,14 @@ class NR_AdvancedProjectile extends W3AdvancedProjectile
 	
 	event OnProjectileCollision( pos, normal : Vector, collidingComponent : CComponent, hitCollisionsGroups : array< name >, actorIndex : int, shapeIndex : int )
 	{
+		var i : int;
+
 		if ( !isActive )
 		{
 			return true;
 		}
+
+		// NR_Debug("OnProjectileCollision: collidingComponent = " + collidingComponent);
 		
 		if ( collidingComponent )
 			victim = ( CGameplayEntity )collidingComponent.GetEntity();
@@ -40,12 +44,11 @@ class NR_AdvancedProjectile extends W3AdvancedProjectile
 		
 		super.OnProjectileCollision( pos, normal, collidingComponent, hitCollisionsGroups, actorIndex, shapeIndex );
 		
-		if ( victim && !projectileHitGround && !collidedEntities.Contains( victim ) )
+		if ( victim && !hitCollisionsGroups.Contains( 'Static' ) && !projectileHitGround && !collidedEntities.Contains(victim) )
 		{
 			VictimCollision(victim);
 		}
-		// ? hitCollisionsGroups.Contains( 'Terrain' ) || hitCollisionsGroups.Contains( 'Static' ) || hitCollisionsGroups.Contains( 'Water' )
-		else if ( !victim && !ignore ) 
+		else if ( hitCollisionsGroups.Contains( 'Terrain' ) || hitCollisionsGroups.Contains( 'Water' ) || (collidingComponent && hitCollisionsGroups.Contains( 'Static' )) )
 		{
 			ProjectileHitGround();
 		}
@@ -117,6 +120,7 @@ class NR_AdvancedProjectile extends W3AdvancedProjectile
 		var i 				: int;
 		var actorsAround 	: array<CActor>;
 		
+		// NR_Debug("OnProjectileCollision: ProjectileHitGround");
 		this.PlayEffect( onCollisionFxName );
 		if ( spawnEntityTemplate )
 		{

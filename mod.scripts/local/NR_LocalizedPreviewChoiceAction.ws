@@ -26,7 +26,7 @@ class NR_LocalizedPreviewChoiceAction extends CStorySceneChoiceLineActionScripte
 		var extra_name_key_str : String;
 
 		text = "";
-		if (StrLen(dlc_name_key) > 0 && NR_IsLocStrExists(dlc_name_key)) {
+		if (StrLen(dlc_name_key) > 0 && NR_IsKeyStrExists(dlc_name_key)) {
 			text += "[" + NR_GetLocStringByKeyExt(dlc_name_key) + "]";
 		} else if (StrLen(dlc_name_str) > 0) {
 			text += "[" + dlc_name_str + "]";
@@ -41,7 +41,7 @@ class NR_LocalizedPreviewChoiceAction extends CStorySceneChoiceLineActionScripte
 
 		if ( IsNameValid(extra_name_key) ) {
 			extra_name_key_str = NameToString(extra_name_key);
-			if ( NR_IsLocStrExists(extra_name_key) )
+			if ( NR_IsKeyStrExists(extra_name_key) )
 				text += " " + GetLocStringByKey(extra_name_key_str);
 			else
 				text += " " + extra_name_key_str;
@@ -67,14 +67,14 @@ class NR_LocalizedPreviewChoiceAction extends CStorySceneChoiceLineActionScripte
 	}
 }
 
-function NR_IsLocStrExists(strLocKey : String) : bool
+function NR_IsKeyStrExists(strLocKey : String) : bool
 {
 	return StrLen(GetLocStringByKey(strLocKey)) > 0;
 }
 
 function NR_GetLocStringByKeyExt(strLocKey : String) : String
 {
-	if (NR_IsLocStrExists(strLocKey))
+	if (NR_IsKeyStrExists(strLocKey))
 		return GetLocStringByKey(strLocKey);
 	else
 		return "#" + strLocKey;

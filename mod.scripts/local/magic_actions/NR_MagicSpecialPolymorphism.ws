@@ -120,7 +120,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		*/
 
 		thePlayer.CreateAttachment(transformNPC);
-		NR_Debug("ENR_SpecialPolymorphism: goto state transformed: " + animalType);
+		NR_Info("NR_SpecialPolymorphism: goto transformed state, animalType = " + animalType);
 		if (animalType == 'cat') {
 			thePlayer.GotoState('NR_TransformedCat', false);
 		} else if (animalType == 'crow' || animalType == 'owl') {
@@ -196,7 +196,7 @@ state Active in NR_MagicSpecialPolymorphism {
 				break;
 		}
 
-		NR_Debug("StopAction: " + this);
+		// NR_Debug("StopAction: " + this);
 		parent.StopAction(); // -> Stop/Cursed if wasn't from another source
 	}
 }

@@ -10,7 +10,7 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 		var bubbleTemplate : CEntityTemplate;
 		// Pass to base class
 		super.OnEnterState(prevStateName);
-		NR_Debug("NR_TransformedCat.OnEnterState");
+		NR_Info("NR_TransformedCat.OnEnterState");
 		
 		// JUMP & ATTACK & WATER stuff
 		bubbleTemplate = (CEntityTemplate)LoadResource("nr_breathing_bubble");
@@ -30,12 +30,12 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 
 	event OnAnimEvent_JumpEnd( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
 	{
-		//NR_Debug("OnAnimEvent_JumpEnd: " + GetAnimNameFromEventAnimInfo(animInfo));
+		// NR_Debug("OnAnimEvent_JumpEnd: " + GetAnimNameFromEventAnimInfo(animInfo));
 		jumpEndEvent = true;
 	}
 	event OnAnimEvent_AttackEnd( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
 	{
-		//NR_Debug("OnAnimEvent_AttackEnd");
+		// NR_Debug("OnAnimEvent_AttackEnd");
 		attackEndEvent = true;
 	}
 
@@ -43,8 +43,8 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 		if (MAC.GetSubmergeDepth() + MAC.GetCapsuleHeight() /*0.4f*/ < 0.f) {
 			if (!IN_WATER) {
 				breathingBubble.Activate();
-				NR_Debug("GetCurrentGameState: " + theSound.GetCurrentGameState());
-				NR_Debug("GetDefaultGameState: " + theSound.GetCurrentGameState());
+				// NR_Debug("GetCurrentGameState: " + theSound.GetCurrentGameState());
+				// NR_Debug("GetDefaultGameState: " + theSound.GetCurrentGameState());
 				MAC.SetDiving(true);
 				theSound.EnterGameState( ESGS_Underwater );
 				theSound.SoundEvent("fx_underwater_on");
@@ -53,8 +53,8 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 		} else {
 			if (IN_WATER) {
 				breathingBubble.Deactivate();
-				NR_Debug("GetCurrentGameState: " + theSound.GetCurrentGameState());
-				NR_Debug("GetDefaultGameState: " + theSound.GetCurrentGameState());
+				// NR_Debug("GetCurrentGameState: " + theSound.GetCurrentGameState());
+				// NR_Debug("GetDefaultGameState: " + theSound.GetCurrentGameState());
 				MAC.SetDiving(false);
 				theSound.LeaveGameState( ESGS_Underwater );
 				thePlayer.SoundEvent("g_swim_emerge");
@@ -119,7 +119,7 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 		
 		startTime = theGame.GetEngineTimeAsSeconds();
 
-		NR_Debug("AttackLoop: alternate = " + alternate + ", start at: " + startTime);
+		// NR_Debug("AttackLoop: alternate = " + alternate + ", start at: " + startTime);
 		while (true) {
 			SleepOneFrame();
 			frameTime = theGame.GetEngineTimeAsSeconds();
@@ -169,7 +169,7 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 
 		startTime = theGame.GetEngineTimeAsSeconds();
 		prevFrameTime = theGame.GetEngineTimeAsSeconds();
-		NR_Debug("JumpLoop: IN_JUMP = " + IN_JUMP + ", start at: " + startTime);
+		// NR_Debug("JumpLoop: IN_JUMP = " + IN_JUMP + ", start at: " + startTime);
 
 		while (true) {
 			SleepOneFrame();
@@ -205,7 +205,7 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 						moveZ = MaxF(-5.f, moveZ + moveZ_perSec * (frameTime - prevFrameTime) * 0.25f);
 					else
 						moveZ = MaxF(-20.f, moveZ + moveZ_perSec * (frameTime - prevFrameTime));
-					NR_Debug("JumpLoop: continue falling, posZ = " + pos.Z + ", groundZ = " + outPos.Z + ", moveZ = " + moveZ);
+					// NR_Debug("JumpLoop: continue falling, posZ = " + pos.Z + ", groundZ = " + outPos.Z + ", moveZ = " + moveZ);
 					// A bit of physics: U_max = sqrt(2P / c q S) = sqrt(2*40 / 1*1.29*0.1) = 600 m/s
 					moveVec = VecNormalize2D( transformNPC.GetHeadingVector() );
 					
@@ -216,7 +216,7 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 				} else {
 					// stop falling
 					// @ DAMAGE
-					NR_Debug("JumpLoop: finish fall: dist = " + (maxPos.Z - pos.Z) + ", time = " + (frameTime - startTime) + " s");
+					// NR_Debug("JumpLoop: finish fall: dist = " + (maxPos.Z - pos.Z) + ", time = " + (frameTime - startTime) + " s");
 					MAC.SetAnimatedMovement( false ); // set animated
 
 					ticket = movementAdjustor.CreateNewRequest( 'NR_TRANSFORM_Land_Adjustment' );
@@ -261,7 +261,7 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 
 			frameTime = theGame.GetEngineTimeAsSeconds();
 			if (!transformNPC.IsAlive()) {
-				NR_Debug("transformCat is dead!");
+				// NR_Debug("transformCat is dead!");
 				thePlayer.Kill( 'NR_TransformNPC', true );
 				break;
 			}
@@ -345,9 +345,9 @@ state NR_TransformedCat in NR_ReplacerSorceress extends NR_TransformedBase {
 			angleL = AngleNormalize( angleToReach - npcHeadingAngle );  // if rotate counterclockwise (Left)
 
 			if (numAxises > 1) {
-				NR_Debug("RL = " + RL + ", FB = " + FB + ", sumAngle = " + sumAngle + ", angleToReach = " + angleToReach + ", angleR = " + angleR + ", angleL = " + angleL);
+				// NR_Debug("RL = " + RL + ", FB = " + FB + ", sumAngle = " + sumAngle + ", angleToReach = " + angleToReach + ", angleR = " + angleR + ", angleL = " + angleL);
 			}
-			//NR_Debug("camHeadingAngle = " + theCamera.GetCameraHeading() + ", angleToReach = " + angleToReach + ", npcHeadingAngle = " + npcHeadingAngle + ", angleR = " + angleR + ", angleL = " + angleL);
+			// NR_Debug("camHeadingAngle = " + theCamera.GetCameraHeading() + ", angleToReach = " + angleToReach + ", npcHeadingAngle = " + npcHeadingAngle + ", angleR = " + angleR + ", angleL = " + angleL);
 
 			if (MinF(angleR, angleL) < 30.f) { // if diff is small no need in rotating
 				Editor_MovementRotation = 0.f;

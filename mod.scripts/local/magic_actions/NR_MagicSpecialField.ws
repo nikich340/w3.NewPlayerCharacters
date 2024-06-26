@@ -66,7 +66,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		l_friendlySlowdown = MinF(1.f, dk + (1.f - dk) * 0.7f);
 		l_friendlySlowdown = l_friendlySlowdown - 0.24 / l_friendlySlowdown;
 
-		NR_Debug("NR_MagicSpecialField: dk = " + dk + ", l_hostileSlowdown = " + l_hostileSlowdown + ", l_friendlySlowdown = " + l_friendlySlowdown);
+		// NR_Debug("NR_MagicSpecialField: dk = " + dk + ", l_hostileSlowdown = " + l_hostileSlowdown + ", l_friendlySlowdown = " + l_friendlySlowdown);
 		GotoState('Active');
 
 		return OnPerformed(true);
@@ -192,7 +192,7 @@ state Active in NR_MagicSpecialField {
 				reachPos = thePlayer.GetWorldPosition();
 
 				NR_SmoothMoveToTarget(moveTime, parent.l_fieldMoveSpeed, currentPos, targetPos, reachPos);
-				NR_Debug("Field: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
+				// NR_Debug("Field: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
 				parent.l_fieldEntity.Teleport(currentPos);
 			}
 			lastMoveTime = GetLocalTime();
@@ -275,7 +275,7 @@ state Cursed in NR_MagicSpecialField {
 				reachPos = thePlayer.GetWorldPosition();
 
 				NR_SmoothMoveToTarget(moveTime, parent.l_fieldMoveSpeed, currentPos, targetPos, reachPos);
-				NR_Debug("Field: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
+				// NR_Debug("Field: moveTime = " + moveTime + ", currentPos = " + VecToString(currentPos));
 				parent.l_fieldEntity.Teleport(currentPos);
 			}
 			lastMoveTime = GetLocalTime();

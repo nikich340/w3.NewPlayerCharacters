@@ -24,11 +24,11 @@ class W3QuestCond_HasWeaponDrawn extends CQCActorScriptedCondition
 		var i : int;
 		
 		inv = act.GetInventory();
-		// NR_MOD v
+		// v NR_MOD v
 		if (NR_GetReplacerSorceress()) {
 			return true;
 		}
-		// NR_MOD ^
+		// ^ NR_MOD ^
 		
 		if( IsNameValid( ofSpecificName ) )
 		{

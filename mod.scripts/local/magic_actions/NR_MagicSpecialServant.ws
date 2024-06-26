@@ -39,7 +39,7 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 			servantName = map[sign].getN("entity_" + IntToString(i) + "_" + ENR_MAToName(actionType), 'wild_hunt_hound');
 			depotPath = ServantDepotPath(servantName);
 			template = (CEntityTemplate)LoadResourceAsync( depotPath, true );
-			NR_Debug("Loading servant[" + i + "] = " + template);
+			// NR_Debug("Loading servant[" + i + "] = " + template);
 			servantTemplates.PushBack(template);
 		}
 		su_onelinerColors.PushBack("#B619FF");
@@ -135,11 +135,11 @@ statemachine class NR_MagicSpecialServant extends NR_MagicSpecialAction {
 
 			dummyEntity = (CEntity)theGame.CreateEntity(entityTemplate, pos, rot);
 			if (!dummyEntity) {
-				NR_Debug("golem_fx_entity is invalid.");
+				// NR_Debug("golem_fx_entity is invalid.");
 				continue;
 			}
 			ret = dummyEntity.PlayEffect(m_fxNameMain);
-			NR_Debug("golem_fx_entity: PlayEffect (" + m_fxNameMain + ") = " + ret);
+			// NR_Debug("golem_fx_entity: PlayEffect (" + m_fxNameMain + ") = " + ret);
 			dummyEntity.DestroyAfter(5.f);
 			Sleep(0.1f);
 		}

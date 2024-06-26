@@ -24,7 +24,7 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 	{
 		// Pass to base class
 		super.OnEnterState(prevStateName);
-		NR_Debug("NR_TransformedCrow.OnEnterState: " + transformNPC + ", H = " + transformNPC.GetRadius());
+		NR_Info("NR_TransformedCrow.OnEnterState: " + transformNPC);
 		MAC.SnapToNavigableSpace(false);
 		MAC.SetAnimatedMovement(true);
 		//MAC.SetSwimming(true);
@@ -44,7 +44,7 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 	public function ApplyCrowBehStateIfNew(newStateName : name) {
 		if (crowBehState != newStateName) {
 			if (crowAnimComp.RaiseBehaviorEvent(newStateName)) {
-				NR_Debug("ApplyCrowBehStateIfNew: " + newStateName);
+				// NR_Debug("ApplyCrowBehStateIfNew: " + newStateName);
 				crowBehState = newStateName;
 			}
 		}
@@ -111,7 +111,7 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 		UpdateInputValues();
 
 		if (!transformNPC.IsAlive()) {
-			NR_Debug("transformCrow is dead!");
+			// NR_Debug("transformCrow is dead!");
 			thePlayer.Kill( 'NR_TransformNPC', true );
 			parent.RemoveTimer('CrowLoopTimer');
 			parent.RemoveTimer('UpdateStaticCameraTimer');
@@ -156,26 +156,30 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 			}
 		}
 
-		if (isAttackPressed && attackCooldown < 0.f) {
-			attackTarget = parent.GetTarget();
-			attackTargetBoneIndex = attackTarget.GetBoneIndex('head');
-			if (attackTargetBoneIndex < 0) {
-				attackTargetBoneIndex = attackTarget.GetBoneIndex('k_head_g');
+		if (isAttackPressed) {
+			if (attackCooldown < 0.f) {
+				attackTarget = parent.GetTarget();
+				attackTargetBoneIndex = attackTarget.GetBoneIndex('head');
 				if (attackTargetBoneIndex < 0) {
-					attackTargetBoneIndex = 0;
+					attackTargetBoneIndex = attackTarget.GetBoneIndex('k_head_g');
+					if (attackTargetBoneIndex < 0) {
+						attackTargetBoneIndex = 0;
+					}
 				}
-			}
-			targetPos = attackTarget.GetBoneWorldPositionByIndex(attackTargetBoneIndex);
-			distSq = VecDistanceSquared(crowPosition, targetPos);
+				targetPos = attackTarget.GetBoneWorldPositionByIndex(attackTargetBoneIndex);
+				distSq = VecDistanceSquared(crowPosition, targetPos);
 
-			if (attackTarget) {
-				if (GetAttitudeBetween(thePlayer, attackTarget) == AIA_Friendly) {
-					thePlayer.DisplayHudMessage(GetLocStringByKey("panel_hud_message_cant_attack_this_target"));
-				} else {
-					inAttackAction = true;
-					ApplyCrowBehStateIfNew('GlideForward');
-					transformNPC.SoundEvent("animals_crow_call");
+				if (attackTarget) {
+					if (GetAttitudeBetween(thePlayer, attackTarget) == AIA_Friendly) {
+						thePlayer.DisplayHudMessage(GetLocStringByKey("panel_hud_message_cant_attack_this_target"));
+					} else {
+						inAttackAction = true;
+						ApplyCrowBehStateIfNew('GlideForward');
+						transformNPC.SoundEvent("animals_crow_call");
+					}
 				}
+			} else {
+				theSound.SoundEvent("gui_inventory_overweighted");
 			}
 		}
 
@@ -330,7 +334,7 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 	}
 
 	timer function UpdateStaticCameraTimer( deltaTime : float, id : int ) {
-		NR_Debug("UpdateStaticCameraTimer: old rot = " + NR_EulerToString(cameraRot) + ", target = " + NR_EulerToString(cameraTargetRot));
+		// NR_Debug("UpdateStaticCameraTimer: old rot = " + NR_EulerToString(cameraRot) + ", target = " + NR_EulerToString(cameraTargetRot));
 		UpdateInputValues();
 
 		if (inAttackAction) {
@@ -360,7 +364,7 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 		DampVectorSpring( cameraPos, cameraVelocity, cameraTargetPos, 0.05f, deltaTime );
 		
 		transformedCamera.TeleportWithRotation(cameraPos, cameraRot);
-		NR_Debug("UpdateStaticCameraTimer: new rot = " + NR_EulerToString(cameraRot) + ", target = " + NR_EulerToString(cameraTargetRot));
+		// NR_Debug("UpdateStaticCameraTimer: new rot = " + NR_EulerToString(cameraRot) + ", target = " + NR_EulerToString(cameraTargetRot));
 	}
 
 	event OnLeaveState( nextStateName : name )
@@ -377,7 +381,7 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 	{
 		// --- super.OnGameCameraTick(moveData, dt);
 		parent.playerMoveType = PMT_Idle;
-		NR_Debug("OnGameCameraTick: pivotPositionVelocity = " + VecToString(moveData.pivotPositionVelocity) + ", cameraLocalSpaceOffsetVel = " + VecToString(moveData.cameraLocalSpaceOffsetVel));
+		// NR_Debug("OnGameCameraTick: pivotPositionVelocity = " + VecToString(moveData.pivotPositionVelocity) + ", cameraLocalSpaceOffsetVel = " + VecToString(moveData.cameraLocalSpaceOffsetVel));
 		moveData.pivotDistanceController.minDist = 1.f;
 		moveData.pivotDistanceController.maxDist = 1.5f;
 		moveData.pivotDistanceController.SetDesiredDistance( 1.5f, 1.f );
@@ -390,7 +394,7 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 	event OnGameCameraPostTick( out moveData : SCameraMovementData, dt : float )
 	{
 		parent.playerMoveType = PMT_Idle;
-		NR_Debug("OnGameCameraPostTick: pivotPositionVelocity = " + VecToString(moveData.pivotPositionVelocity) + ", cameraLocalSpaceOffsetVel = " + VecToString(moveData.cameraLocalSpaceOffsetVel));
+		// NR_Debug("OnGameCameraPostTick: pivotPositionVelocity = " + VecToString(moveData.pivotPositionVelocity) + ", cameraLocalSpaceOffsetVel = " + VecToString(moveData.cameraLocalSpaceOffsetVel));
 		return true;
 	}
 	*/

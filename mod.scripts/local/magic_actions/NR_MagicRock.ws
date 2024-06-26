@@ -61,7 +61,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 			spawnRot = VecToRotation( thePlayer.GetWorldPosition() - spawnPos);
 			
 			projectile = (W3AdvancedProjectile)theGame.CreateEntity( entityTemplate, spawnPos + Vector(0,0,0.3f), spawnRot );
-			projectile.projDMG = GetDamage(/*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+			projectile.projDMG = NR_GetDamageGeneric("NR_MagicRock", thePlayer, target, /*min*/ 1.5f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/);
 			projectile.PlayEffect( m_fxNameMain );
 			lStartPositions.PushBack( spawnPos );
 			lProjectiles.PushBack(projectile);
@@ -112,7 +112,7 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		dummyEntity.PlayEffect( m_fxNameExtra ); // 'blast' 'cone'
 		dummyEntity.DestroyAfter(5.f);
 
-		NR_Debug("rock: OnPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
+		// NR_Debug("rock: OnPerform, lProjectiles = " + lProjectiles.Size() + ", state = " + GetCurrentStateName());
 		// shoot projectiles
 		for ( i = lProjectiles.Size() - 1 ; i >= 0 ; i -= 1 ) 
 		{

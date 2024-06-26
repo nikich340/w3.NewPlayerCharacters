@@ -54,7 +54,7 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         var i               : int;
         var world           : CWorld;
 
-        //NR_Debug("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")");
+        // NR_Debug("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")");
         
         if ( overrideActorRadiusForNavigationTests )
             radius = MaxF( 0.01, actorRadiusForNavigationTests );
@@ -79,7 +79,7 @@ class NR_TaskTeleportAction extends TaskTeleportAction
                 
                 // make sure that floor pos found + it's above water + it's in zTolerance range
                 if ( world.PhysicsCorrectZ(whereTo, newZ) && newZ > waterZ && AbsF(newZ - whereTo.Z) < zTolerance ) {
-                    //NR_Debug("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")::OK no navdata");
+                    // NR_Debug("NR_TaskTeleportAction::IsPointSuitableForTeleport(" + VecToString(whereTo) + ")::OK no navdata");
                     newPos = whereTo;
                     newPos.Z = newZ;
                 } else {
@@ -327,4 +327,10 @@ class NR_TaskTeleportAction extends TaskTeleportAction
         }
         return whereTo;
     }
+}
+
+class NR_TaskTeleportActionDef extends TaskTeleportActionDef
+{
+    default instanceClass = 'NR_TaskTeleportAction';
+    default testNavigationBetweenCombatTargetAndNewPosition = false;
 }

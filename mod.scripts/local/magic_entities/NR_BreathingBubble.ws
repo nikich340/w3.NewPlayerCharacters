@@ -12,7 +12,7 @@ statemachine class NR_BreathingBubble extends CGameplayEntity {
 		m_scalePerSec = targetScale / durationSeconds;
 		SetScale(0.f);
 		m_isActive = false;
-		NR_Debug("NR_BreathingBubble: Init, m_scalePerSec = " + m_scalePerSec);
+		// NR_Debug("NR_BreathingBubble: Init, scalePerSec = " + m_scalePerSec);
 	}
 
 	public function IsActive() : Bool {
@@ -50,7 +50,7 @@ state Activating in NR_BreathingBubble {
 		startTime = theGame.GetEngineTimeAsSeconds();
 		prevFrameTime = startTime;
 
-		NR_Debug("NR_BreathingBubble: start ActivatingLoop at " + startTime);
+		// NR_Debug("NR_BreathingBubble: start ActivatingLoop at " + startTime);
 		while (scale < parent.m_targetScale) {
 			SleepOneFrame();
 			frameTime = theGame.GetEngineTimeAsSeconds();
@@ -61,7 +61,7 @@ state Activating in NR_BreathingBubble {
 			parent.SetScale(scale);
 			prevFrameTime = frameTime;
 		}
-		NR_Debug("NR_BreathingBubble: ActivatingLoop: target scale reached in " + (frameTime - startTime));
+		// NR_Debug("NR_BreathingBubble: ActivatingLoop: target scale reached in " + (frameTime - startTime));
 	}
 	event OnLeaveState( nextStateName : name )
 	{
@@ -82,7 +82,7 @@ state Deactivating in NR_BreathingBubble {
 		startTime = theGame.GetEngineTimeAsSeconds();
 		prevFrameTime = startTime;
 
-		NR_Debug("NR_BreathingBubble: start DeactivatingLoop at " + startTime);
+		// NR_Debug("NR_BreathingBubble: start DeactivatingLoop at " + startTime);
 		while (scale > 0.f) {
 			SleepOneFrame();
 			frameTime = theGame.GetEngineTimeAsSeconds();
@@ -93,7 +93,7 @@ state Deactivating in NR_BreathingBubble {
 			parent.SetScale(scale);
 			prevFrameTime = frameTime;
 		}
-		NR_Debug("NR_BreathingBubble: DeactivatingLoop: target scale reached in " + (frameTime - startTime));
+		// NR_Debug("NR_BreathingBubble: DeactivatingLoop: target scale reached in " + (frameTime - startTime));
 	}
 	event OnLeaveState( nextStateName : name )
 	{

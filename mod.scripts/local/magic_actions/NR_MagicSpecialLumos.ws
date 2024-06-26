@@ -34,14 +34,14 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	/* Non-latent version */
 	public function OnPrepareSync() {
 		m_fxNameMain = LumosFxName();
-		NR_Debug("NR_MagicSpecialLumos:OnPrepareSync, m_fxNameMain = " + m_fxNameMain);
+		NR_Info("NR_MagicSpecialLumos:OnPrepareSync, m_fxNameMain = " + m_fxNameMain);
 		inPostState = true; // prevent action erasing
 		isPrepared = true;
 	}
 
 	/* Non-latent version */
 	public function OnSwitchSync(enable : bool, optional fxName : name) : bool {
-		NR_Debug("NR_MagicSpecialLumos:OnSwitchSync, isActive = " + isActive);
+		NR_Info("NR_MagicSpecialLumos:OnSwitchSync, isActive = " + isActive);
 
 		OnPrepareSync();
 		if ( IsNameValid(fxName) )
@@ -60,7 +60,7 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 			}
 		}
 		SetActive(enable);
-		NR_Debug("NR_MagicSpecialLumos:OnSwitchSync = [" + m_fxNameMain + "] " + enable);
+		// NR_Debug("NR_MagicSpecialLumos:OnSwitchSync = [" + m_fxNameMain + "] " + enable);
 
 		return true;
 	}
@@ -140,23 +140,23 @@ state Active in NR_MagicSpecialLumos {
 			Sleep(0.1f);
 
 			if ( !parent.IsActionAbilityEnabled("AutoLighten") ) {
-				NR_Debug("AutoLighten is disabled");
+				// NR_Debug("AutoLighten is disabled");
 				DisableAllLightened();
 				continue;
 			}
 
 			entities.Clear();
 			FindGameplayEntitiesInRange( entities, thePlayer, 20.f, 999 );
-			NR_Debug("AutoLighten: check " + entities.Size());
+			// NR_Debug("AutoLighten: check " + entities.Size());
 			for (i = 0; i < entities.Size(); i += 1) {
 				if (lightenedEntities.Contains(entities[i]))
 					continue;
 				comp = (CGameplayLightComponent)entities[i].GetComponentByClassName('CGameplayLightComponent');
-				NR_Debug("AutoLighten: check entity: " + comp);
+				// NR_Debug("AutoLighten: check entity: " + comp);
 				if (comp && !comp.IsLightOn()/* && !comp.factOnIgnite*/) {
 					comp.SetFadeLight(true);
 					lightenedEntities.PushBack(entities[i]);
-					NR_Debug("AutoLighten: lighten " + entities[i]);
+					// NR_Debug("AutoLighten: lighten " + entities[i]);
 				}
 			}
 		}
@@ -171,7 +171,7 @@ state Active in NR_MagicSpecialLumos {
 			if (comp && comp.IsLightOn()) {
 				comp.SetFadeLight(false);
 			}
-			NR_Debug("AutoLighten: disable " + lightenedEntities[i]);
+			// NR_Debug("AutoLighten: disable " + lightenedEntities[i]);
 			lightenedEntities.PopBack();
 		}
 	}

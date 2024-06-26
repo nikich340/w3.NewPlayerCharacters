@@ -13,7 +13,7 @@ class NR_LocalizedStringStorage extends CEntity {
 				return stringValues[i];
 			}
 		}
-		NR_Debug("NR_LocalizedStringStorage: id NOT found: " + IntToString(id));
+		NR_Error("NR_LocalizedStringStorage: id NOT found: " + IntToString(id));
 		return null;
 	}
 }

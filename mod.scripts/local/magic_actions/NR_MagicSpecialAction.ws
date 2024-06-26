@@ -12,7 +12,7 @@ abstract statemachine class NR_MagicSpecialAction extends NR_MagicAction {
 		// load data from map
 		su_manager = SUOL_getManager();
 		s_curseChance = map[ST_Universal].getI("curse_chance_" + ENR_MAToName(actionType), 15);
-		NR_Debug("GenericSpecial: s_curseChance (" + ENR_MAToName(actionType) + ") = " + s_curseChance);
+		// NR_Debug("GenericSpecial: s_curseChance (" + ENR_MAToName(actionType) + ") = " + s_curseChance);
 		s_lifetime = map[ST_Universal].getF("duration_" + ENR_MAToName(actionType), 10.f);
 		if (actionType == ENR_SpecialLightningFall || actionType == ENR_SpecialMeteorFall)
 			s_lifetime *= SkillDurationMultiplier(true);
@@ -22,14 +22,14 @@ abstract statemachine class NR_MagicSpecialAction extends NR_MagicAction {
 	}
 	/* -> Stop/Curse */
 	latent function StopAction() {
-		NR_Debug(actionType + ".StopAction: isCursed = " + isCursed + ", s_curseChance = " + s_curseChance);
+		NR_Info(actionType + ".StopAction: isCursed = " + isCursed + ", s_curseChance = " + s_curseChance);
 		if ( !isCursed && !IsInSetupScene() && s_curseChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
-			NR_Debug("GenericSpecial: Cursed!");
+			// NR_Debug("GenericSpecial: Cursed!");
 			GetWitcherPlayer().DisplayHudMessage(GetLocStringById(2115940159) + ENR_MAToLocString(actionType));
 			isCursed = true;
 			GotoState('Cursed');
 		} else {
-			NR_Debug("GenericSpecial: Stop!");
+			// NR_Debug("GenericSpecial: Stop!");
 			GotoState('Stop');
 		}
 	}
@@ -69,7 +69,7 @@ state Active in NR_MagicSpecialAction {
 
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug(parent.actionType + "::Active.OnEnterState.");
+		NR_Info(parent.actionType + "::Active.OnEnterState.");
 		startTime = theGame.GetEngineTimeAsSeconds();
 		parent.inPostState = true;
 		ActiveLoop();	
@@ -79,7 +79,7 @@ state Active in NR_MagicSpecialAction {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug(parent.actionType + "::Active: OnLeaveState.");
+		NR_Info(parent.actionType + "::Active: OnLeaveState.");
 	}
 }
 
@@ -118,7 +118,7 @@ state Cursed in NR_MagicSpecialAction {
 	event OnEnterState( prevStateName : name )
 	{
 		startTime = theGame.GetEngineTimeAsSeconds();
-		NR_Debug(parent.actionType + "::Cursed: OnEnterState.");
+		NR_Info(parent.actionType + "::Cursed: OnEnterState.");
 		parent.inPostState = true;
 		CursedLoop();
 	}
@@ -127,14 +127,14 @@ state Cursed in NR_MagicSpecialAction {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug(parent.actionType + "::Cursed: OnLeaveState.");
+		NR_Info(parent.actionType + "::Cursed: OnLeaveState.");
 	}
 }
 
 state Stop in NR_MagicSpecialAction {
 	event OnEnterState( prevStateName : name )
 	{
-		NR_Debug(parent.actionType + "::Stop: OnEnterState.");
+		NR_Info(parent.actionType + "::Stop: OnEnterState.");
 		parent.inPostState = true;
 		StopLoop();
 		parent.inPostState = false;
@@ -144,7 +144,7 @@ state Stop in NR_MagicSpecialAction {
 
 	event OnLeaveState( nextStateName : name )
 	{
-		NR_Debug(parent.actionType + "::Stop: OnLeaveState.");
+		NR_Info(parent.actionType + "::Stop: OnLeaveState.");
 		parent.inPostState = true;
 	}
 }

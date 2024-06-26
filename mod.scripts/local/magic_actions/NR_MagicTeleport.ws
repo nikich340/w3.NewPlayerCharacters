@@ -99,7 +99,7 @@ class NR_MagicTeleport extends NR_MagicAction {
 		var nr_manager : NR_MagicManager = NR_GetMagicManager();
 		var action : NR_MagicCounterPush;
 
-		NR_Debug(actionType + ".PerformAutoPush");
+		NR_Info(actionType + ".PerformAutoPush");
 		action = new NR_MagicCounterPush in nr_manager;
 		action.drainStaminaOnPerform = false;
 		nr_manager.AddActionScripted(action);

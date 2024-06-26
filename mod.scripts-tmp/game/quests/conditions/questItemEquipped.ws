@@ -82,20 +82,20 @@ class W3QuestCond_IsItemEquipped extends CQuestScriptedCondition
 			if ( IsNameValid( itemName ) )
 			{			
 				itemEquipped = player.IsItemEquippedByName( itemName );
-				// NR_MOD v
+				// v NR_MOD v
 				if (NR_GetReplacerSorceress() && !inverted && StrContains(StrLowerUTF(NameToString(itemName)), "sword")) {
 					itemEquipped = true;
 				}
-				// NR_MOD ^
+				// ^ NR_MOD ^
 			}
 			else if ( IsNameValid( categoryName ) )
 			{
 				itemEquipped = player.IsItemEquippedByCategoryName( categoryName );
-				// NR_MOD v
+				// v NR_MOD v
 				if (NR_GetReplacerSorceress() && !inverted && (categoryName == 'steelsword' || categoryName == 'silversword')) {
 					itemEquipped = true;
 				}
-				// NR_MOD ^
+				// ^ NR_MOD ^
 			}
 			
 			if( inverted )

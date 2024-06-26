@@ -8,10 +8,7 @@ enum ENR_ScenePreviewFlags {
 struct NR_ScenePreviewData {
 	editable var m_slots 	: array<int>;
 	editable var m_pathIDs 	: array<int>;
-	// --- editable var m_nameIDs	: array<int>;
-	// --- editable var m_appNames	: array<name>;
 	editable var m_headName	: name;
-	// --- editable var m_coloringIndexes	: array<int>;
 	editable var m_flags 	: int;
 }
 
@@ -48,7 +45,7 @@ class NR_SceneSelector extends CEntity {
 		var i : int;	
 		var slot : ENR_AppearanceSlots;
 		var dbg  : String;
-		NR_Debug("NR_SceneSelector::GetTemplatesToUpdate [m_dataIndex = " + m_dataIndex + ", choiceIndex = " + choiceIndex + ", isFemale = " + isFemale + "]");
+		// NR_Debug("NR_SceneSelector::GetTemplatesToUpdate [m_dataIndex = " + m_dataIndex + ", choiceIndex = " + choiceIndex + ", isFemale = " + isFemale + "]");
 
 
 		itemList.Clear();
@@ -62,7 +59,7 @@ class NR_SceneSelector extends CEntity {
 
 			for (i = 0; i < m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_slots.Size(); i += 1) {
 				slot = m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_slots[i];
-				//dbg += "Add[" + i + "] slot = " + slot + ", path = " + m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_pathIDs[i] + "<br>"; 
+				// dbg += "Add[" + i + "] slot = " + slot + ", path = " + m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_pathIDs[i] + "<br>"; 
 				
 				if (slot == ENR_RSlotMisc || FactsQuerySum("nr_scene_stacking_as_items") > 0)
 					itemList.PushBack(StringByID(m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_pathIDs[i]));
@@ -70,7 +67,7 @@ class NR_SceneSelector extends CEntity {
 					paths[slot] = StringByID(m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_pathIDs[i]);
 			}
 			headName = m_nodesFemale[m_dataIndex].m_onPreviewChoice[choiceIndex].m_headName;
-			//NR_Notify(dbg);
+			// NR_Notify(dbg);
         } else {
         	if (m_dataIndex >= m_nodesMale.Size() || choiceIndex >= m_nodesMale[m_dataIndex].m_onPreviewChoice.Size())
 				return;
@@ -159,12 +156,12 @@ class NR_SceneSelector extends CEntity {
     }
 
     public function ResetPreviewDataIndex() {
-    	NR_Debug("NR_SceneSelector::ResetPreviewDataIndex()");
+    	// NR_Debug("NR_SceneSelector::ResetPreviewDataIndex()");
     	m_dataIndex = -1;
     }
 
     public function SetPreviewDataIndex(newIndex : int, newChoiceOffset : int) {
-    	//NR_Debug("NR_SceneSelector::SetPreviewDataIndex()");
+    	// NR_Debug("NR_SceneSelector::SetPreviewDataIndex()");
     	m_dataIndex = newIndex;
     	m_choiceOffset = newChoiceOffset;
     }

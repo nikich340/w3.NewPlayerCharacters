@@ -474,7 +474,7 @@ dialogscript:
 
   section_choice_player_appearance:
     - CHOICE:
-        - choice: ["2115940103|[BACK]", section_choice_main, exit]
+        - choice: ["2115940103|[BACK]", script_reload_all_appearance, exit]
           emphasize: true
         - choice: ["2115940564|[Clear all slots and items]", script_clear_slotsitems_all]
           emphasize: true
@@ -1404,6 +1404,11 @@ dialogscript:
     - SCRIPT:
         function: NR_ApplyRandomNPCSet_S
     - NEXT: section_trans_choice_npcs_main_to_itself
+
+  script_reload_all_appearance:
+    - SCRIPT:
+        function: NR_ReloadAllAppearanceHeadHair_S
+    - NEXT: section_choice_main
 
   section_choice_slots_main:
     - CHOICE:

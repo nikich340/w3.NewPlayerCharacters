@@ -1,0 +1,9 @@
+quests\minor_quests\no_mans_land\quest_files\mq1003_trail_of_dead\scenes\mq1003_02_cart_owner_freed.w2scene
+quests\minor_quests\prologue_village\quest_files\mq0001_missing_brother\scenes\mq0001_01_talk_brother.w2scene
+quests\part_1\quest_files\q101_agent\scenes\q101_01a_inkeep_int.w2scene
+quests\part_1\quest_files\q101_agent\scenes\q101_06a_geralt_focus_comments.w2scene
+quests\part_1\quest_files\q203_him\scenes\q203_14a_finding_becca.w2scene
+quests\part_1\quest_files\q303_treasure\scenes\q303_04_04_geralt_at_wine_rack.w2scene
+quests\part_3\quest_files\q210_precanaris\scenes\q210_14a_meeting_at_cemetery.w2scene
+quests\prologue\q001_beginning.w2phase
+quests\prologue\quest_files\q001_beggining\scenes\q001_1_b_vesemir_asleep.w2scene

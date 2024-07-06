@@ -599,7 +599,9 @@ dlc/bob/data/characters/models/secondary_npc/sq701_forest_nymph/h_02__sq701_fore
 dlc/bob/data/characters/models/secondary_npc/tailles/h_01_ma__tailles.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_01_ma__tailles.w2ent
 dlc/bob/data/characters/models/secondary_npc/tailles/h_02_ma__tailles.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_02_ma__tailles.w2ent
 dlc/bob/data/characters/models/secondary_npc/tailles/h_03_ma__tailles.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_03_ma__tailles.w2ent
-dlc/dlc15/data/characters/models/secondary_npc/gaetan/h_01_ma__gaetan.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_main/nr_h_01_ma__gaetan.w2ent
+dlc/dlc11/data/characters/models/main_npc/ciri/h_01_wa__ciri_masked_dlc.w2ent|dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri_masked_dlc.w2ent
+dlc/dlcnewreplacers/data/entities/colorings/vanilla_main/nr_h_01_wa__ciri_masked_dlc_coloring_1.w2ent|dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__ciri_masked_dlc_coloring_1.w2ent
+dlc/dlc15/data/characters/models/secondary_npc/gaetan/h_01_ma__gaetan.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_01_ma__gaetan.w2ent
 dlc/dlc17/data/characters/models/main_npc/dandelion/h_01_ma__dandelion_dlc_gaged.w2ent|dlc/dlcnewreplacers/data/entities/heads/vanilla_secondary/nr_h_01_ma__dandelion_dlc_gaged.w2ent
 dlc/dlc2/data/items/bodyparts/geralt_items/heads/h_05_mg__geralt.w2ent|dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_05_mg__geralt.w2ent
 dlc/dlc2/data/items/bodyparts/geralt_items/heads/h_05_mg__geralt_tatoo.w2ent|dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_05_mg__geralt_tatoo.w2ent
@@ -608,6 +610,17 @@ dlc/dlc2/data/items/bodyparts/geralt_items/heads/h_06_mg__geralt_tatoo.w2ent|dlc
 dlc/dlc2/data/items/bodyparts/geralt_items/heads/h_07_mg__geralt.w2ent|dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_07_mg__geralt.w2ent
 dlc/dlc2/data/items/bodyparts/geralt_items/heads/h_07_mg__geralt_tatoo.w2ent|dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_07_mg__geralt_tatoo.w2ent
 dlc/dlccirialternativeoutfit/data/characters/models/main_npc/ciri/h_01_wa__ciri_dlc_cao_masked.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_custom/nr_h_01_wa__ciri_dlc_cao_masked.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_mark.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_mark.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_mark_tattoo.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_mark_tattoo.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_01.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_01.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_02.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_02.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_03.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_03.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_tatoo.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_tatoo.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_mark.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_mark.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_mark_tattoo.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_mark_tattoo.w2ent
+dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_tattoo.w2ent|dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_tattoo.w2ent
 dlc/ep1/data/characters/models/common/man_average/heads/h_01_ma__dlc.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_01_ma__dlc.w2ent
 dlc/ep1/data/characters/models/common/man_average/heads/h_01_ma__dlc_01_01.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_01_ma__dlc_01_01.w2ent
 dlc/ep1/data/characters/models/common/man_average/heads/h_01_ma__hakland_warrior.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_01_ma__hakland_warrior.w2ent
@@ -643,7 +656,7 @@ dlc/ep1/data/characters/models/secondary_npc/abner_de_navarette/h_01_ma__abner_d
 dlc/ep1/data/characters/models/secondary_npc/casimir_bassi/h_01_da__casimir_bassi.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_01_da__casimir_bassi.w2ent
 dlc/ep1/data/characters/models/secondary_npc/casimir_bassi/h_01_da__casimir_bassi_mask.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_01_da__casimir_bassi_mask.w2ent
 dlc/ep1/data/characters/models/secondary_npc/eveline_gallo/h_01_wa__eveline_gallo.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_01_wa__eveline_gallo.w2ent
-dlc/ep1/data/characters/models/secondary_npc/hakland_mage/h_01_ma__hakland_mage/h_01_ma__hakland_mage.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_main/nr_h_01_ma__hakland_mage.w2ent
+dlc/ep1/data/characters/models/secondary_npc/hakland_mage/h_01_ma__hakland_mage/h_01_ma__hakland_mage.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_secondary/nr_h_01_ma__hakland_mage.w2ent
 dlc/ep1/data/characters/models/secondary_npc/horst_borsody/h_01_ma__horst_borsody.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_main/nr_h_01_ma__horst_borsody.w2ent
 dlc/ep1/data/characters/models/secondary_npc/horst_borsody/h_01_ma__horst_borsody_massacred.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_main/nr_h_01_ma__horst_borsody_massacred.w2ent
 dlc/ep1/data/characters/models/secondary_npc/iris's_mother/h_01_wa__iriss_mother.w2ent|dlc/dlcnewreplacers/data/entities/heads/dlc_main/nr_h_01_wa__iriss_mother.w2ent

@@ -1,0 +1,467 @@
+statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
+	public var magicManager 	: NR_MagicManager;
+	public var nr_signOwner 	: W3SignOwnerSorceress;
+	protected       var nr_quenEntity 	: NR_SorceressQuen;
+	protected saved var nr_lumosActive	: bool;
+	protected saved var nr_lumosFxName	: name;
+	protected var nr_targetDist : float;
+
+	default nr_lumosActive 	  = false;
+	default m_replacerType    = ENR_PlayerSorceress;
+	default inventoryTemplate = "nr_replacer_sorceress_inv";
+
+	/* Remove guarded stance - sorceress never use real fistfight */
+	public function SetGuarded(flag : bool)
+	{
+		// NR_Debug("NR_ReplacerSorceress.SetGuarded = " + flag);
+		// super.SetGuarded(flag);
+	}
+
+	public function GetNameID() : int {
+		return 358190; // 0000358190|e29b1c4b|-1.000|Sorceress
+	}
+
+	public function NR_IsSlotDenied(slot : EEquipmentSlots) : bool
+	{
+		if (slot == EES_SilverSword || slot == EES_SteelSword || slot == EES_Potion4)
+			return true;
+
+		return super.NR_IsSlotDenied(slot);
+	}
+
+	event OnSpawned( spawnData : SEntitySpawnData )
+	{
+		var test : SResistanceValue;
+
+		super.OnSpawned( spawnData );
+
+		magicManager = new NR_MagicManager in this;
+		// post-pone to let player manager load
+		AddTimer('NR_LaunchMagicManager', 0.1f);
+
+		AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
+		AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
+		AddAnimEventCallback('RotatePrePerformAction','OnAnimEventMagic');
+		AddAnimEventCallback('PerformMagicAttack',	'OnAnimEventMagic');
+		AddAnimEventCallback('UnblockMiscActions',	'OnAnimEventMagic');
+		AddAnimEventCallback('AllowBlend',			'OnAnimEventBlend');
+		AddAnimEventCallback('PrepareTeleport',		'OnAnimEventMagic');
+		AddAnimEventCallback('PerformTeleport',		'OnAnimEventMagic');
+
+		// no swords
+		BlockAction( EIAB_DrawWeapon, 'NR_ReplacerSorceress' );
+		ExterminateSwordStuff();
+		
+		// no guard poses
+		super.SetGuarded(false);
+		
+		// signOwner is private in W3PlayerWitcher.. add our own!
+		nr_signOwner = new W3SignOwnerSorceress in this;
+		nr_signOwner.Init( this );
+
+		NR_SetTargetDist( 0.0, 0 );
+		softLockDist = nr_targetDist * 1.25;
+		findMoveTargetDistMax = nr_targetDist + 10.f;
+	}
+
+	timer function NR_LaunchMagicManager( delta : float, id : int) {
+		if ( !NR_GetPlayerManager().IsReady() ) {
+			// player manager still not loaded
+			AddTimer('NR_LaunchMagicManager', 0.1f);
+			return;
+		}
+		magicManager.Init();
+		magicManager.GotoState('MagicLoop');
+		// launch lumos fx if was active
+		if (nr_lumosActive) {
+			// NR_Debug("NR_ReplacerSorceress.NR_LaunchMagicManager: launch nr_lumosFxName = " + nr_lumosFxName);
+			magicManager.LumosFX(/*enable*/ true, nr_lumosFxName);
+		}
+
+		NR_RestoreQuen(savedQuenHealth, savedQuenDuration);
+	}
+
+	function SetLumosActive(active : bool, fxName : name) {
+		// NR_Debug("SetLumosActive: " + active);
+		nr_lumosActive = active;
+		nr_lumosFxName = fxName;
+	}
+
+	timer function NR_SetTargetDist( delta : float, id : int ) {
+		nr_targetDist = 15.f;
+		findMoveTargetDistMin = nr_targetDist;
+		// NR_Debug("NR_SetTargetDist = " + nr_targetDist);
+	}
+
+	public function NR_IsInTransformedState() : bool {
+		return false;
+	}
+
+	public function ExterminateSwordStuff() {
+		var i 	: int;
+		var ids : array<SItemUniqueId>;
+
+		NR_Info("NR_ReplacerSorceress.ExterminateSwordStuff");
+		UnequipItemFromSlot(EES_SteelSword);
+		UnequipItemFromSlot(EES_SilverSword);
+		UnequipItemFromSlot(EES_Potion4);
+
+		inv.GetAllItems(ids);
+		for (i = 0; i < ids.Size(); i += 1) {
+			// NR_Debug("NR_ReplacerSorceress.ExterminateSwordStuff[" + i + "] = (" + inv.GetItemCategory(ids[i]) + ") " + NR_stringByItemUID(inv, ids[i]));
+			if (inv.GetItemCategory(ids[i]) == 'steelsword' || inv.GetItemCategory(ids[i]) == 'silversword'
+				|| inv.GetItemCategory(ids[i]) == 'steel_scabbards' || inv.GetItemCategory(ids[i]) == 'silver_scabbards') 
+			{
+				if ( inv.IsItemHeld(ids[i]) )
+					inv.DropItem(ids[i], false);
+				if ( inv.IsItemMounted(ids[i]) )
+					inv.UnmountItem(ids[i]);
+				if ( IsItemEquipped(ids[i]) )
+					UnequipItem(ids[i]);
+			}
+		}
+
+		weaponHolster.UpdateRealWeapon();
+	}
+
+	event OnAnimEventMagic( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
+	{
+		if (animEventType != AET_Tick) {
+			return false;
+		}
+		if ((theGame.IsDialogOrCutscenePlaying() || thePlayer.IsInNonGameplayCutscene()) && !magicManager.IsInSetupScene()) {
+			return false;
+		}
+
+		//magicEvent.animTime = GetLocalAnimTimeFromEventAnimInfo(animInfo);
+		//magicEvent.eventDuration = GetEventDurationFromEventAnimInfo(animInfo);
+		// NR_Debug("NR_ReplacerSorceress.OnAnimEventMagic: eventName = " + animEventName + ", type = " + animEventType + ", animName = " + GetAnimNameFromEventAnimInfo(animInfo));
+		// will be auto-processed async in next frame
+		magicManager.AddActionEvent( animEventName, GetAnimNameFromEventAnimInfo(animInfo) );
+	}
+
+	event OnPreAttackEvent(animEventName : name, animEventType : EAnimationEventType, data : CPreAttackEventData, animInfo : SAnimationEventAnimInfo)
+	{
+		if (animEventType == AET_DurationStart) {
+			// must be processed in sync to change data var
+			magicManager.OnPreAttackEvent(GetAnimNameFromEventAnimInfo(animInfo), data);
+		}
+		super.OnPreAttackEvent(animEventName, animEventType, data, animInfo);
+	}
+
+	event OnBlockingSceneEnded( optional output : CStorySceneOutput)
+	{
+		ExterminateSwordStuff();
+		// NR_Debug("NR_ReplacerSorceress.OnBlockingSceneEnded: action = " + output.action);
+
+		if (output.action == SSOA_EnterCombatSteel || output.action == SSOA_EnterCombatSilver)
+			output.action = SSOA_EnterCombatFists;
+		super.OnBlockingSceneEnded( output );
+	}
+
+	public function NR_RestoreQuen( quenHealth : float, quenDuration : float ) : bool
+	{
+		NR_Info("NR_ReplacerSorceress.NR_RestoreQuen: quenHealth = " + quenHealth + ", quenDuration = " + quenDuration);
+		if (quenHealth > 0.f && quenDuration >= 3.f)
+		{
+			if (!nr_quenEntity) {
+				nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
+				// NR_Debug("NR_RestoreQuen: recreate entity");
+			}
+			
+			nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen), true );
+			
+			nr_quenEntity.SetDataFromRestore(quenHealth, quenDuration);
+			nr_quenEntity.OnStarted();
+			nr_quenEntity.OnThrowing();
+			nr_quenEntity.OnEnded();
+			
+			return true;
+		}
+		
+		return false;
+	}
+
+	/* Break current magic attack, if it's in process */
+	public function ReactToBeingHit(damageAction : W3DamageAction, optional buffNotApplied : bool) : bool {
+		var effectInfos : array< SEffectInfo >;
+		var canIgnoreHit, animPlayed : bool;
+
+		if ( (CBaseGameplayEffect)damageAction.causer || (damageAction.GetEffects( effectInfos ) < 1 && !damageAction.DealsAnyDamage()) )
+        	canIgnoreHit = true;
+
+        // damageAction.GetBuffSourceName() != "petard"
+        animPlayed = super.ReactToBeingHit(damageAction);
+        // NR_Debug("ReactToBeingHit1: buffSourceName = " + damageAction.GetBuffSourceName() + ", attacker = " + damageAction.attacker + ", causer = " + damageAction.causer + ", hitReactionType = " + damageAction.GetHitReactionType() + ", hitAnimationPlayType = " + damageAction.GetHitAnimationPlayType() + ", animPlayed = " + animPlayed);
+
+        if ( !canIgnoreHit && animPlayed ) {
+        	// NR_Debug("ReactToBeingHit: buffSourceName = " + damageAction.GetBuffSourceName() + ", attacker = " + damageAction.attacker + ", causer = " + damageAction.causer + ", hitReactionType = " + damageAction.GetHitReactionType() + ", hitAnimationPlayType = " + damageAction.GetHitAnimationPlayType() + ", animPlayed = " + animPlayed);
+        	magicManager.AddActionEvent('BreakMagicAttack', 'ReactToBeingHit');
+        	//PrintDamageAction("ReactToBeingHit", damageAction);
+        }
+
+        return animPlayed;
+	}
+
+	public function StartCSAnim(buff : CBaseGameplayEffect) : bool
+	{
+		var ret : bool;
+
+		ret = super.StartCSAnim(buff);
+		// NR_Debug("StartCSAnim: buff = " + buff.GetEffectType() + " [" + ret + "]");
+		if (ret)
+			magicManager.AddActionEvent('BreakMagicAttack', 'StartCSAnim');
+		return ret;
+	}
+	
+	/* All sorceress attacks are made from distance - never allow reflected damage! */
+	public function ReactToReflectedAttack( target : CGameplayEntity)
+	{
+		// --- super.ReactToReflectedAttack(target);
+	}
+
+	/* Wrapper: process hand fx change immediately */
+	function SetEquippedSign( signType : ESignType )
+	{
+		// NR_Debug("NR_ReplacerSorceress.SetEquippedSign: " + signType);
+		super.SetEquippedSign(signType);
+		magicManager.UpdateEquippedSign();
+		magicManager.HandFX(true, true);
+	}
+
+	public function GotoCombatStateWithDodge( bufferAction : EBufferActionType )
+	{
+		thePlayer.GotoCombatStateWithAction( IA_None );
+		thePlayer.EvadePressed( bufferAction );
+	}
+
+	public function GotoCombatStateWithAttack( attackName : name )
+	{
+		thePlayer.GotoCombatStateWithAction( IA_None );
+		OnPerformAttack( attackName );
+	}
+
+	/* Function to really cast Quen (when we are sure that attack is not alternate) */
+	public function CastQuen() : bool
+	{
+		// NR_Debug("CastQuen()");
+		/* make standart Quen launching to use vanilla logic */
+		SetBehaviorVariable('NR_isMagicAttack', 1);
+		
+		if ( IsInAir() )
+		{
+			return false;
+		}
+		
+		//AddTemporarySkills();
+
+		// destroy old shield
+		if (nr_quenEntity) {
+			// NR_Debug("Destroy old quen = " + nr_quenEntity);
+			nr_quenEntity.GotoState('Expired');
+			nr_quenEntity.DestroyAfter(5.f);
+		}
+		nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
+		return nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen) );
+	}
+
+	/* Function to manually cast quen */
+	public function CastQuenScripted() : bool
+	{
+		// NR_Debug("CastQuenScripted");
+
+		if (nr_quenEntity) {
+			if (nr_quenEntity.GetCurrentStateName() == 'ShieldActive')
+				return false;
+
+			// NR_Debug("CastQuenScripted: Destroy old quen = " + nr_quenEntity);
+			nr_quenEntity.GotoState('Expired');
+			nr_quenEntity.DestroyAfter(5.f);
+		}
+		nr_quenEntity = (NR_SorceressQuen)theGame.CreateEntity( GetSignTemplate(ST_Quen), GetWorldPosition(), GetWorldRotation() );
+		nr_quenEntity.autoCasted = true;
+		nr_quenEntity.Init( nr_signOwner, GetSignEntity(ST_Quen), /*skipCastingAnimation*/ true );
+		nr_quenEntity.OnStarted();
+		nr_quenEntity.OnThrowing();
+		nr_quenEntity.OnEnded();
+		return true;
+	}
+
+	public function StopQuenScripted(optional onlyIfAutoCasted : bool) {
+		// NR_Debug("NR_StopQuenScripted");
+		if (!nr_quenEntity)
+			return;
+
+		if (onlyIfAutoCasted && !nr_quenEntity.autoCasted)
+			return;
+
+		nr_quenEntity.GotoState('Expired');
+		nr_quenEntity.DestroyAfter(5.f);
+	}
+
+	public function NR_ReattachQuen(onHorse : bool) {
+		// NR_Debug("NR_ReattachQuen");
+		if (!nr_quenEntity)
+			return;
+
+		nr_quenEntity.BreakAttachment();
+		if (onHorse) {
+			nr_quenEntity.CreateAttachment( thePlayer, 'torso3_effect', Vector(0,0,0.3f) );
+			// NR_Debug("NR_ReattachQuen: onHorse");
+		}
+		else {
+			nr_quenEntity.CreateAttachment( thePlayer, 'quen_sphere' );
+			// NR_Debug("NR_ReattachQuen: !onHorse");
+		}
+	}
+
+	/*API*/ public function NR_IsQuenActive() : bool {
+		if (nr_quenEntity && nr_quenEntity.GetCurrentStateName() == 'ShieldActive') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/* Wrapper: call fistfight attack */
+	function CastSign() : bool
+	{
+		if ( IsUsingHorse() ) {
+			return super.CastSign();
+		}
+		// NR_Debug("CastSign()");
+		GotoCombatStateWithAction( IA_None );
+		return OnPerformAttack('attack_magic_special');
+	}
+
+	public function DisplayCannotAttackMessage( actor : CActor ) : bool
+	{
+		var ret : bool;
+
+		ret = super.DisplayCannotAttackMessage(actor);
+		// NR_Debug("DisplayCannotAttackMessage: " + ret + " actor = " + actor);
+		
+		return ret;
+	}
+
+	/* Wrapper: fool stamina checking when "casting signs" */
+	public function HasStaminaToUseSkill(skill : ESkill, optional perSec : bool, optional signHack : bool) : bool
+	{
+		// NR_Debug("sorceress.HasStaminaToUseSkill: skill = " + skill + ", perSec = " + perSec);
+		if (skill >= S_Magic_1 && skill <= S_Magic_5 )
+			return true;
+
+		return super.HasStaminaToUseSkill(skill, perSec, signHack);
+	}
+
+	/* Wrapper: fool skill checking about some skills */
+	public function CanUseSkill(skill : ESkill) : bool
+	{
+		// 			quen bubble,              quen reflect,           quen impulse,         aard circle
+		if (skill == S_Magic_4 || skill == S_Magic_s14 || skill == S_Magic_s13 || skill == S_Magic_s01) 
+			return true;
+
+		return super.CanUseSkill(skill);
+	}
+	
+	public function GetSkillLevel(s : ESkill) : int
+	{
+		// prolong
+		if (s == S_Magic_s18) {
+			return NR_GetMagicManager().GetActionSkillLevel(ENR_SpecialControl) * 3 / 10;
+		}
+
+		if(abilityManager && abilityManager.IsInitialized())
+			return ((W3PlayerAbilityManager)abilityManager).GetSkillLevel(s);
+			
+		return -1;
+	}
+
+	public function GetAxiiLevel() : int
+	{
+		var level : int;
+
+		level = super.GetAxiiLevel() + 1;
+		if (magicManager.GetSkillLevel() >= ENR_SkillMistress)
+			level += 1;
+
+		if (magicManager.IsActionLearned(ENR_SpecialControl))
+			level += 1;
+
+		return Clamp(level, 1, 4);
+	}
+
+	public function NR_RotateTowardsNode( customRotationName : name, target : CNode, rotSpeed : float, optional activeTime : float )
+	{
+		var movementAdjustor	: CMovementAdjustor;
+		var ticket 				: SMovementAdjustmentRequestTicket;
+	
+		movementAdjustor = GetMovingAgentComponent().GetMovementAdjustor();
+		ticket = movementAdjustor.GetRequest( customRotationName );
+		if ( movementAdjustor.IsRequestActive(ticket) )
+			movementAdjustor.Cancel( ticket );
+
+		ticket = movementAdjustor.CreateNewRequest( customRotationName );
+		movementAdjustor.ReplaceRotation( ticket );
+		movementAdjustor.RotateTowards( ticket, target );
+
+		if (rotSpeed > 0.f) {
+			movementAdjustor.MaxRotationAdjustmentSpeed( ticket, rotSpeed );
+			movementAdjustor.AdjustmentDuration( ticket, activeTime );
+		} else {
+			movementAdjustor.Continuous( ticket );
+			movementAdjustor.KeepActiveFor( ticket, activeTime );
+		}
+	}
+
+	public function NR_RotateToHeading( customRotationName : name, targetHeading : float, rotSpeed : float, optional activeTime : float )
+	{
+		var movementAdjustor	: CMovementAdjustor;
+		var ticket 				: SMovementAdjustmentRequestTicket;
+	
+		movementAdjustor = GetMovingAgentComponent().GetMovementAdjustor();
+		ticket = movementAdjustor.GetRequest( customRotationName );
+		if ( movementAdjustor.IsRequestActive(ticket) )
+			movementAdjustor.Cancel( ticket );
+
+		ticket = movementAdjustor.CreateNewRequest( customRotationName );
+		movementAdjustor.ReplaceRotation( ticket );
+		movementAdjustor.RotateTo( ticket, targetHeading );
+		
+		if (rotSpeed > 0.f) {
+			movementAdjustor.MaxRotationAdjustmentSpeed( ticket, rotSpeed );
+			movementAdjustor.AdjustmentDuration( ticket, activeTime );
+		} else {
+			movementAdjustor.Continuous( ticket );
+			movementAdjustor.KeepActiveFor( ticket, activeTime );
+		}
+	}
+
+	public function SetupCombatAction( action : EBufferActionType, stage : EButtonStage )
+	{
+		// NR_Debug("NR_ReplacerWitcher: SetupCombatAction: " + action + ", stage: " + stage);
+		if ( !StrStartsWith(NameToString(GetCurrentStateName()), 'NR_Transformed') ) {
+			super.SetupCombatAction(action, stage);
+		}
+	}
+}
+
+function NR_GetReplacerSorceress() : NR_ReplacerSorceress
+{
+	return (NR_ReplacerSorceress)thePlayer;
+}
+
+function NR_GetMagicManager() : NR_MagicManager
+{
+	var sorceress : NR_ReplacerSorceress;
+	sorceress = NR_GetReplacerSorceress();
+	return sorceress.magicManager;
+}
+
+exec function reset_magic() {
+	var manager : NR_MagicManager = NR_GetMagicManager();
+	if (!manager) {
+		NR_Error("!magicManager");
+	}
+	manager.Init(/*forceReset*/ true);
+}

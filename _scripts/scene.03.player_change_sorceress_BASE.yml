@@ -559,8 +559,6 @@ dialogscript:
           emphasize: true
         - choice: ["2115940103|[BACK]", script_remove_scene_callbacks_back, exit]
           emphasize: true
-        - choice: ["2115940587|Set spell voiceline chance", script_info_spell_voicelines]
-          emphasize: true
         - choice: ["2115940143|Hand effect", script_info_hand]
           emphasize: true
         - choice: ["2115940144|Teleport", script_info_teleport]
@@ -572,6 +570,11 @@ dialogscript:
         - choice: ["2115940152|Special spells", script_info_special]
           emphasize: true
         - choice: ["2115940158|Alt special spells", script_info_special_alt]
+          emphasize: true
+
+        - choice: ["2115940587|Set spell voiceline chance", script_info_spell_voicelines]
+          emphasize: true
+        - choice: ["2115940537|Set color for all actions per sign", section_choice_colors_per_sign]
           emphasize: true
 
         - choice: ["2115940086|Show magic control hints: enabled", script_switch_magic_hints]

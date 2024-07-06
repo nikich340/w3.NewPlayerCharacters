@@ -1,0 +1,275 @@
+{
+  "dlc_id": "dlc_jowitcheress",
+  "dlc_name_key": "dlc_name_jowitcheress",
+  "dlc_name_str": "Female Geralt armor models",
+  "dlc_author_nickname": "Val aka Jo",
+  "dlc_link": "www.nexusmods.com/witcher3/mods/9322",
+  "dlc_appearance_templates": {
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_mark.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_mark_tattoo.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_01.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_02.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_03.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_tatoo.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_mark.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_mark_tattoo.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_tattoo.w2ent": {
+      "slot": "ENR_GSlotHead",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/gloves/bare/jo_g_01_mg__body.w2ent": {
+      "slot": "ENR_RSlotGloves",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/legs/bare/jo_l_01_mg__body.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/legs/bare/jo_l_01_mg__body_underwear.w2ent": {
+      "slot": "ENR_RSlotLegs",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/shoes/bare/jo_s_01_mg__body.w2ent": {
+      "slot": "ENR_RSlotShoes",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/trunk/bare/jo_t_01_mg__body.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "rig": "female",
+      "coloring": {}
+    },
+	"dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/trunk/bare/jo_t_01_mg__body_medalion.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/trunk/bare/jo_t_01_mg__body_towel.w2ent": {
+      "slot": "ENR_RSlotTorso",
+      "rig": "female",
+      "coloring": {}
+    },
+	    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_05b_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_05_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_05_mg__witcher_br.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_06b_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_06_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_06_mg__witcher_br.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_06_mg__witcher_br2.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_06_mg__witcher_inq.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_07b_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_07_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_07_mg__witcher_br.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01a_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01a_mg__witcher_high.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01a_mg__witcher_low.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01a_mg__witcher_mid.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01b_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01_mg__witcher_br.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01_mg__witcher_br02.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01_mg__witcher_inq.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_02b_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_02_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_03a_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_03b_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_03_mg__witcher.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_03_mg__witcher_br.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_03_mg__witcher_inq.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    },
+    "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_03_mg__witcher_m.w2ent": {
+      "slot": "ENR_RSlotHair",
+      "rig": "female",
+      "coloring": {}
+    }
+  },
+  "dlc_male_appearance_sets": {},
+  "dlc_female_appearance_sets": {
+	"geralt_female_shirt": [
+      {
+		"path": "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt_shave_02.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01_mg__witcher_br.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/trunk/witcher_shirt/t_01_mg__shirt_no_knife_jo.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/gloves/bare/jo_g_01_mg__body.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/legs/common_light/l_01a_mg__common_light_lvl1_jo.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/shoes/common_light/s_01_mg__common_light_lvl4_jo.w2ent"
+    ],
+	"geralt_female_naked": [
+      {
+		"path": "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_00_mg__geralt.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/trunk/bare/jo_t_01_mg__body_medalion.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/gloves/bare/jo_g_01_mg__body.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/legs/bare/jo_l_01_mg__body_underwear.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/shoes/bare/jo_s_01_mg__body.w2ent",
+      "dlc/dlcjowitcheress/data/entities/dlc/dlc2/data/items/bodyparts/geralt_items/coif/jo_c_05_mg__witcher.w2ent"
+    ],
+	"geralt_female_naked_towel": [
+      {
+		"path": "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/heads/jo_h_01_mg__geralt_robbery_mark_tattoo.w2ent",
+		"slot": "ENR_GSlotHead"
+	  },
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/trunk/bare/jo_t_01_mg__body_towel.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/gloves/bare/jo_g_01_mg__body.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/legs/bare/jo_l_01_mg__body_underwear.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/shoes/bare/jo_s_01_mg__body.w2ent",
+      "dlc/dlcjowitcheress/data/entities/items/bodyparts/geralt_items/coif/jo_c_01_mg__witcher.w2ent"
+    ]
+  }
+}

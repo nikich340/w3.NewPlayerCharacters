@@ -26,31 +26,30 @@
       "rig": "female"
     }
   },
-  "dlc_male_appearance_sets": {
-  },
+  "dlc_male_appearance_sets": {},
   "dlc_female_appearance_sets": {
-	    "fringilla_1": [
-			{
-				"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__fringilla.w2ent",
-				"slot": "ENR_GSlotHead"
-			},
-			"dlc/dlcbsbah_fringilla/data/entities/c_fringilla__hair.w2ent",
-			"dlc/dlcbsbah_fringilla/data/entities/body_fringilla__01.w2ent",
-			"dlc/dlcbsbah_fringilla/data/entities/g_fringilla__gloves.w2ent",
-			"dlc/dlcbsbah_fringilla/data/entities/i_fringilla__earrings.w2ent",
-			"dlc/dlcbsbah_fringilla/data/entities/i_fringrilla__chain.w2ent",
-			"characters/models/crowd_npc/novigrad_citizen_woman/items/i_09_wa__novigrad_citizen.w2ent"
-		],
-	    "fringilla_2": [
-			{
-				"path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__fringilla.w2ent",
-				"slot": "ENR_GSlotHead"
-			},
-			"dlc/dlcbsbah_fringilla/data/entities/c_fringilla__hair.w2ent",
-			"dlc/dlcbsbah_fringilla/data/entities/body_fringilla__01.w2ent",
-			"dlc/dlcbsbah_fringilla/data/entities/g_fringilla__gloves.w2ent",
-			"dlc/dlcbsbah_fringilla/data/entities/i_fringilla__earrings.w2ent",
-			"characters/models/crowd_npc/novigrad_citizen_woman/items/i_09_wa__novigrad_citizen.w2ent"
-		]
+    "fringilla_1": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__fringilla.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "dlc/dlcbsbah_fringilla/data/entities/c_fringilla__hair.w2ent",
+      "dlc/dlcbsbah_fringilla/data/entities/body_fringilla__01.w2ent",
+      "dlc/dlcbsbah_fringilla/data/entities/g_fringilla__gloves.w2ent",
+      "dlc/dlcbsbah_fringilla/data/entities/i_fringilla__earrings.w2ent",
+      "dlc/dlcbsbah_fringilla/data/entities/i_fringrilla__chain.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_09_wa__novigrad_citizen.w2ent"
+    ],
+    "fringilla_2": [
+      {
+        "path": "dlc/dlcnewreplacers/data/entities/heads/vanilla_main/nr_h_01_wa__fringilla.w2ent",
+        "slot": "ENR_GSlotHead"
+      },
+      "dlc/dlcbsbah_fringilla/data/entities/c_fringilla__hair.w2ent",
+      "dlc/dlcbsbah_fringilla/data/entities/body_fringilla__01.w2ent",
+      "dlc/dlcbsbah_fringilla/data/entities/g_fringilla__gloves.w2ent",
+      "dlc/dlcbsbah_fringilla/data/entities/i_fringilla__earrings.w2ent",
+      "characters/models/crowd_npc/novigrad_citizen_woman/items/i_09_wa__novigrad_citizen.w2ent"
+    ]
   }
 }

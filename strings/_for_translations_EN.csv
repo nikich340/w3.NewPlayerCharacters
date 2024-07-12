@@ -256,7 +256,7 @@
 2115940096|00000000||Snowbell
 2115940097|00000000||Saved as set #
 2115940098|00000000|item_name_nr_chameleon_potion|Chameleon
-2115940099|00000000|item_desc_nr_chameleon_potion|Allows to change appearance. When a sorceress, allows to customize spells as well.<br>Do not equip, just press "Consume".
+2115940099|00000000|item_desc_nr_chameleon_potion|Allows to change appearance. When a sorceress, allows to customize spells as well.<br>Do not equip, just press "Consume". Then leave inventory.
 2115940100|00000000||Not allowed to equip items in slot: 
 2115940101|00000000||Witcheress
 2115940102|00000000||coloring
@@ -356,7 +356,7 @@
 2115940194|00000000||Magic skills progress.
 2115940193|00000000||New skill level!
 ; Novice
-2115940209|00000000||<font size="24">You have basic magic skills:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}: Press "Fast attack" button (the same as for sword) to perform.<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br>  Press "Parry" button (the same as for sword) to perform.<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Press movement buttons (to control direction, optional) + "Roll" (far distance) / "Dodge" (close distance) button to perform.<br>  {1084067}: Press movement buttons (to control direction, optional) + "Consumables Slot 4" button to perform.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}: Select <i>Quen</i> (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform. Hold this button again to dispell.<br><br>The more you use the skill, the more powerful it becomes and more skill abilities are unlocked.<br><i>Follow the quest to find <font color="#66ffcc">a teacher</font> and learn new spells!</i><br></font>
+2115940209|00000000||<font size="22">You have basic magic skills:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}: Press "Fast attack" button (the same as for sword) to perform.<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br>  Press "Parry" button (the same as for sword) to perform.<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Press movement buttons (to control direction, optional) + "Roll" (far distance) / "Dodge" (close distance) button to perform.<br>  {1084067}: Press movement buttons (to control direction, optional) + "Consumables Slot 4" button to perform.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}: Select <i>Quen</i> (default, can be changed in player setup scene) and <i>hold</i> "Cast sign" button to perform. Hold this button again to dispell.<br><br>Your <i>magic level</i> will increase as the <i>player</i> levels up.<br>Also, the more you use the skill, the more powerful it becomes and more skill abilities are unlocked.<br><i>Follow the quest to find <font color="#66ffcc">a teacher</font> and learn new spells!</i><br></font>
 ; Apprentice
 2115940210|00000000||You are ready to learn new magic skills:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font><br><font color="#ffff66"><b>- {2115940152} ({2115940156}, {2115940599})</b></font><br><font color="#ffff66"><b>- {2115940145}</b></font><br><br><i>You must visit Master Ainyerahn to learn them.</i><br>
 ; Apprentice - heavy attacks learned
@@ -486,6 +486,13 @@
 2115940539|00000000||<b>Immersive Wildlife Project (DhuCats) is missed!</b><br>  It means: you will not be able to use various high-quality cat models for Polymorphism spell (<font color="#00FF00">Sorceress</font>).<br>  Please consider installing this part:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/3527</font> ("DhuCats" file)<br><br>
 2115940538|00000000||<b>Female Geralt armor models are missed!</b><br>  It means: you will not be able to "wear" armor sets appearances (<font color="#00FF00">Witcheress/Sorceress</font>).<br>  Please consider installing this part:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/9322</font><br><br>
 2115940537|00000000||Set color for all actions per sign
+2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Floating ship
+2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|A ship surrounded by ice, floating in the air due to a powerful flow of magic.
+2115940533|00000000||Interactions hint - Sorceress
+2115940534|00000000||Use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>Use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
+2115940532|00000000||[CHEAT Magic Options]
+2115940531|00000000||CHEAT: Unlock magic level: 
+2115940530|00000000||CHEAT: Set maximum level to all spells
 ; ----------------------------------
 2115940000|00000000||Player
 2115940001|00000000||Player

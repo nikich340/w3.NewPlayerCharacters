@@ -1,0 +1,590 @@
+;meta[language=en]
+;  id     |key(hex)|key(str)|text
+;
+;  you translate only text ----^ (last column) 
+;
+;  translated into <polish> by <Antkoland>
+;
+2115940050|||Arha'an lumar!
+2115940051|||Cais'te aet disgleir!
+2115940052|||Gveryd me cassel!
+2115940053|||Greame et dwyr!
+2115940054|||Rhobeir'me gelle!
+2115940055|||Greame et dwyr!
+2115940056|||Ess pyr'shena a et cleytte!
+2115940057|||Nevid! Ariva!
+2115940058|||Agored, teirgan.
+2115940059|||Vryff cais'te aem gyhar!
+; do not translate spells and Hen Llinge text --^
+;
+2115940060|||Wyczuwam w sobie potężną moc… Ale muszę znaleźć mistrza, który pomoże mi nauczyć się ją kontrolować.
+2115940061|||Interesujące... Ciekawe, czy w tym miejscu jest jakieś źródło mocy. Muszę to sprawdzić.
+2115940062|||Kryształ z megaskopu! Hmm... Każdy kryształ należący do jednego megaskopu jest idelanie zsynchronizowany z pozostałymi. Spróbuję wyśledzić te magiczne trakcje... może na ich podstawie uda się otworzyć portal.
+2115940063|||Co to za miejsce?
+2115940064|||Ten obelisk emanuje bardzo silną aurą magiczną...
+2115940065|||Tylko nie to!
+2115940066|||*wrzask*
+2115940067|||Argh…
+; *shriek*
+; Кристалл мегаскопа. И магический след явно указывает на исходное местоположение. Попробую создать портал туда.
+2115940068|||Zawdzięczam ci życie. Kim jesteś? I co to za miejsce?
+; female comment
+2115940069|||Chciałabym być czarodziejką…
+; male comment
+2115940081|||Chciałbym być czarodziejem…
+; Who created you?
+2115940070|||Qued se creoest?
+; Go to me!
+2115940071|||Caem a me!
+; Calm down, girl
+2115940072|||Caelm, luned.
+; Purifying the blood from poison
+2115940073|||Aeksin a'bloed vort nimh!
+2115940074|||Hej, słyszysz mnie?
+2115940075|||D'yaebl! Ona wciąż umiera…
+; I breathe life into you
+2115940076|||Me aedit'ef a'vita as te!
+2115940077|||Maith.
+; swears
+2115940078|||An'badraigh aen cuach.
+2115940079|||Gar'ean!
+2115940080|||Ess'tuath esse!
+2115940850|||Cead, luned. Conas esseath aelaedde?
+2115940851|||Wszystko w porządku, dziękuję. Czy znasz wspólną mowę?
+2115940852|||Squaess… Przepraszam, ewidentnie zbyt długo mówiłem do siebie w języku Hen Llinge.
+2115940853|||Gdzie ja jestem? Statek...? Skuty lodem i...?!
+2115940854|||...zawieszony w przestrzeni, prawda. Badałem pochodzenie potężnego skrzyżowania żył energii magicznej, które znajdowało się w lodowcach Morza Północnego.
+2115940855|||Udało ci się je odnaleźć?
+2115940856|||Tak, kiedy próbowałem zmanipulować przepływ magii w kierunku elementu powietrza, nastąpiło rozerwanie przestrzeni i powstał portal teleportacyjny, który przeniósł mnie w to miejsce wraz ze wszystkim, co możesz dostrzec.
+2115940857|||Wszystko wskazuje na fakt, że skrzyżowanie zostało utworzone przez ten kamienny obelisk. Czasami strumień mocy staje się niesforny, przyciągając kreatury, które już poznałaś.
+2115940858|||Wygląda na to, że zaburzyłam przepływ energii…
+2115940859|||Hahaha, dokładnie. Za każdym razem, gdy podejmuję próbę interakcji z kamieniem, ma miejsce podobna sytuacja. Powiedziałbym, że przypomina to działanie zaklęcia Podwójnego Krzyża Alzura.
+2115940860|||Teraz rozumiem, a przynajmniej tak sądzę...
+; greetings to apprentice
+2115940861|||Cead, moja młoda adeptko.
+2115940862|||To zaszczyt gościć przyszłą najpotężniejszą czarodziejkę… na pokładzie tego statku.
+2115940863|||Rozgrzewa mnie serce, kiedy patrzę na moją adeptkę.
+; greetings common
+2115940864|||Witaj adeptko.
+2115940865|||Witaj ponownie!
+; exit
+2115940867|||Do zobaczenia.
+2115940868|||Żegnaj.
+2115940869|||Bywaj.
+; teaching dialogs
+2115940870|||Wprowadź mnie w arkana magii.
+2115940871|||Opowiedz mi coś o sobie.
+2115940872|||Cóż za niespodzianka… Bez wątpienia Aretuza znacznie lepiej zaspokoiłaby Twoją żądzę wiedzy.
+2115940873|||Zostałam wyrzucona z Aretuzy.
+2115940874|||Ciężar ich nieustannych żądań i zasad stał się dla mnie zbyt irytujący.
+2115940875|||Czy to dlatego, że zajmowałaś się zakazanymi dziedzinami magii?
+2115940876|||Tak, przywołałam demona.
+2115940877|||Tak, zaczęłam zgłębiać tajniki nekromacji.
+2115940878|||Nie, w wyniku wypadku podczas zajęć śmierć poniosła jedna z mentorek.
+2115940879|||Nie, ale wolę o tym nie mówić.
+2115940880|||Straciłam nad nim kontrolę i zanim jedna z mentorek zdołała powstrzymać demona, ten zabił kilka adeptek…
+2115940881|||Aby tego dokonać, ukradłam kryształy z megaskopu naszej mentorki…
+2115940882|||Żałujesz tego, co zrobiłaś?
+2115940883|||Tak, bardzo.
+2115940884|||Nie do końca
+2115940885|||Usłyszenie tych słów było dla mnie niezwykle ważne.
+2115940886|||Nie wyniosłaś nic z tej lekcji i obawiam się, że z moich nie nauczysz się wiele więcej.
+2115940887|||Mam nadzieję, że nie będę następny…
+2115940888|||Oczywiście, że nie!
+2115940889|||Jak sobie życzysz.
+2115940890|||Rozumiem Cię wystarczająco dobrze.
+2115940891|||Hmm… Minęło sporo czasu, odkąd ostatni raz przyjmowałem adeptów…
+2115940892|||Proszę! Ja… nie zawiodę cię.
+2115940893|||Cóż, najpierw musisz udowodnić, że jesteś gotowa.
+2115940894|||Zadam Ci kilka pytań.
+2115940895|||Czym jest dla ciebie magia?
+2115940896|||Jacy magowie byli odpowiedzialni za powstanie pierwszych wiedźminów?
+2115940897|||Kto był pierwszą ludzką czarodziejką i arcymistrzynią magii powietrza?
+2115940898|||Jaki rodzaj magii umożliwia doświadczenia niedalekiej przeszłości innej osoby?
+2115940899|||Dlaczego zakazano praktykowania nekromancji?
+2115940900|||Z jakiego elementu wiedźmiński znak Quen czerpie swoją moc?
+2115940901|||Który ze wszystkich żywiołów jest uważany za najbardziej niebezpieczny w kontekście czerpania z niego mocy?
+; master dialogs
+2115940902|||Potrzebujesz dalszego przygotowania. Możesz skorzystać z biblioteki na moim statku.
+2115940903|||Czy w Aretuzie już niczego nie uczą? Udało Ci się odpowiedzieć błędnie na wszystkie moje pytania.
+2115940904|||Bardzo dobrze, jesteś gotowa. Zapoznałeś się już z podstawowymi zaklęciami.
+2115940905|||Możesz nauczyć się nowych zaawansowanych inkantacji lub udoskonalić te, które już znasz.
+2115940906|||Pamiętaj, że każde nowe zaklęcie, które poznasz, musisz prawidłowo rzucić kilka razy, zanim przejdziesz do następnego.
+2115940907|||Zanim przejdziesz dalej, musisz jeszcze poćwiczyć zaklęcie, które poznałaś ostatnim razem.
+2115940908|||Twój poziom magii jest wciąż niewystarczający, aby opanować nowe inkantacje.
+2115940909|||Myślę, że jesteś gotowa, aby nauczyć się nowych zaklęć.
+2115940910|||Musisz zdecydować, którego z nich chcesz się nauczyć.
+2115940911|||Teraz pokażę ci, jak rzucić to zaklęcie, a twoim zadaniem będzie je ćwiczyć i doskonalić.
+2115940912|||Wyjaśnię teraz, jak rzucić to zaklęcie, a twoim zadaniem będzie opanowanie go poprzez praktykę.
+2115940913|||Przekazałem ci wszystko, co wiem. Oznacza to, że obecnie nie jestem w stanie nauczyć cię niczego nowego.
+2115940914|||Mów mi Ainyerahn. Mój ojciec, doświadczony żeglarz, często zabierał mnie na swoje morskie wyprawy. Jednak pewnego pamiętnego dnia burza bezlitośnie rozbiła nasz statek.
+2115940915|||Pośród chaosu, wraku statku i tonących marynarzy, pochłonął mnie oślepiający błysk i obudziłem się w głębi lasów Kaedwen.
+2115940916|||Tego dnia straciłem ojca, ale los dał mi szansę studiowania w akademii magii. Chociaż podczas mojego ostatniego roku w Ban Ard okoliczności zmusiły mnie do odejścia...
+2115940917|||Od tego czasu skupiam się na badaniu magicznych anomalii i skrzyżowań energii. Celowo zdystansowany od dworskich intryg i ignorancji mas.
+2115940918|||Chciałabym nauczyć się nowych zaklęć.
+2115940919|||Czy mógłbyś mi przypomnieć jak rzucić zaklęcie…
+2115940985|||Co do moich sukcesów w nauce...
+; sorceress answers
+; q0
+2115940920|||Energia 6 elementów.
+2115940921|||Jasne błyski i iskry.
+2115940922|||Sztuka kontrolowania chaosu i naginania go do własnych potrzeb..
+2115940923|||Łatwy sposób na zdobycie tego, czego chcesz.
+; q1A
+2115940924|||Geoffrey Monck i Rafard Biały.
+2115940925|||Alzur i Cosimo Malaspina.
+2115940926|||Nina Fioravanti i Aurora Henson.
+2115940927|||Ortolan i Sorel Degerlund.
+; q1B
+2115940928|||Agnes of Glanville.
+2115940929|||Klara Larissa de Winter.
+2115940930|||Tissaia de Vries.
+2115940931|||Lara Dorren aep Shiadhal.
+; q2A
+2115940975|||Goecja.
+2115940976|||Transmutacja.
+2115940977|||Lesbomancja.
+2115940978|||Hydromancja.
+; q2B
+2115940932|||Ponieważ wymaga ogromnej ilości energii.
+2115940933|||Z powodu przesądnego strachu przed zmarłymi.
+2115940934|||Ponieważ zawsze, niezależnie od motywów, prowadzi to do całkowicie negatywnych skutków ubocznych.
+2115940935|||Ponieważ pozwala wydobyć informacje ze zwłok.
+; q3A/B
+2115940936|||Element powietrza.
+2115940937|||Element wody.
+2115940938|||Element ognia.
+2115940939|||Element ziemi.
+; Golem creation
+2115940940|||Ach, witaj, adeptko. Czy mogłabyś mi w czymś pomóc?
+2115940941|||Tak, co się stało?
+2115940942|||Przepraszam, nie ma czasu na szczegółowe wyjaśnienia.
+2115940943|||Przed Twoim przybyciem bywały chwile, kiedy kontemplowałem nad podstępną naturą samotności. Właśnie dlatego sprawiłem sobie kociego towarzysza. Dodatkowo w mojej głowie zrodził się pomysł stworzenia lojalnego golema.
+2115940944|||Jednak każda próba, którą podejmowałem, kończyła się niezadowalającymi rezultatami. Obecnie mam całkowitą pewność, że z Twoją pomocą, uda nam się powołać do życia kamiennego sługusa.
+2115940945|||Czy istnieje jakieś ryzyko lub zagrożenie związane z tą inkantacją, o których powinnam wiedzieć?
+2115940946|||Jeśli nie uznasz zmarnowanego obsydianowego serca lub wrogo nastawionej sterty kamieni za znaczące ryzyko, to nie.
+2115940947|||Oczywiście. To będzie interesujące.
+2115940948|||Przepraszam, nie jestem pewna, czy mogę pomóc.
+2115940949|||Zacznijmy więc. Przywołam teraz orgomną ilość energii w postaci pioruna Alzura, a ty uzupełnisz go elementami ziemi i wody, zachowując przy tym odpowiednią równowagę.
+; Я призываю звёздные молнии жизни! (Ainyerahn)
+2115940950|||Me galwad iersann sigellen aep vita!
+2115940305|||Me galwad iersann sigellen aep vita!
+2115940951|||Spodziewałem się po Tobie więcej, adeptko! Elementy ziemi i wody powinny być połączone z zachowaniem równowagi między nimi. Sabrina Glevissig potrafiła rzucić Klątwę Arcymistrzyni płonąc na stosie, a ty nie jesteś w stnie skupić się w normalnych warunkach!
+2115940952|||Hej… Jak się nazywasz? Jakie jest Twoje powołanie?
+2115940953|||Jestem Celestine. Chronię moich twórców, mistrza i mistrzynię. Wykonuję ich rozkazy.
+2115940954|||Genialnie! Udało nam się! Aspekt wody nadaje mu niezwykły sposób myślenia. Witaj na moim statku, Celestine.
+2115940955|||Dziękuję Mistrzu.
+; Dialogs with Celestine
+2115940956|||W czym mogę pomóc, mistrzyni?
+2115940957|||Witaj.
+2115940958|||Czy jesteś świadomy jak zostałeś stworzony?
+2115940959|||Byłem w ziemi, wodzie, powietrzu. Wszędzie. A teraz jestem tutaj.
+2115940960|||Czy masz jakieś życzenia?
+2115940961|||Spokój. Cisza. Powolność.
+2115940962|||Co zrobisz, jeśli znikniemy?
+2115940963|||Wypełnię Waszą ostatnią wolę. Będę chronić Waszą własność.
+2115940964|||Ile jest osiem dodać cztery?
+2115940965|||Hmm.. Dziesięć dwa.
+2115940966|||Podoba Ci się tutaj?
+2115940967|||Tak. Jest cicho, niebiesko, pięknie.
+2115940968|||Czy odczuwasz emocje?
+2115940969|||Postępuję zgodnie z algorytmem. Wszystko poza nim jest irytujące. Reszta to spokój.
+; Farewell
+2115940970|||Poczekam.
+2115940971|||Będę czekał na rozkazy.
+; Auto-onelines
+2115940972|||Jestem twardy jak skała.
+2115940973|||Jestem piękny jak kryształ.
+2115940974|||Jestem bystry jak woda.
+; Attack-oneliners
+2115940979|||Intruzi!
+2115940980|||Alarm!
+2115940981|||Przechodzę do trybu bojowego!
+2115940982|||Spokój został przywrócony.
+2115940983|||Intruzi zostali wyeliminowani.
+2115940984|||Bezpieczeństwo twórcy jest zachowane.
+; 86 used
+2115940987|||Pewnie, nie ma problemu.
+2115940988|||Jestem gotowy.
+; правый: вода (бирюзовый), земля (коричневый) 
+; / левый: вода (бирюзовый), огонь (оранжевый), земля (коричневый), воздух (голубой)
+; Я вдыхаю в тебя воду и землю! (Sorceress) -> Celestine
+2115940989|||Me aedit'ef a'lagi shed a'ear as te!
+2115940300|||Me aedit'ef a'lagi shed a'ear as te! [Napełniam Cię esencją wody i ziemi!]
+; Я вдыхаю в тебя воду! (Sorceress) -> Лужица
+2115940990|||Me aedit'ef a'lagi as te!
+2115940301|||Me aedit'ef a'lagi as te! [Napełniam Cię esencją wody!]
+; Я вдыхаю в тебя огонь и землю! (Sorceress) -> Огненный голем
+2115940991|||Me aedit'ef a'enye shed a'ear as te!
+2115940302|||Me aedit'ef a'enye shed a'ear as te! [Napełniam Cię esencją ognia i ziemi!]
+; Я вдыхаю в тебя землю! (Sorceress) -> Каменный голем
+2115940992|||Me aedit'ef a'ear as te!
+2115940303|||Me aedit'ef a'ear as te! [Napełniam Cię esencją ziemi!]
+; Я вдыхаю в тебя воздух и землю! (Sorceress) -> Взрыв
+2115940993|||Me aedit'ef a'eire shed a'ear as te!
+2115940304|||Me aedit'ef a'eire shed a'ear as te! [Napełniam Cię esencją powietrza i ziemi!]
+; 2115940305 used
+2115940306|||Jeden z pastuchów widział twój statek na niebie.
+; Ох, должно быть это было после телепортации сюда. Я почти сразу накастовал заклинание невидимости.
+2115940307|||Ach, to było prawdopodobnie po tym, jak teleportowałem się w to miejsce. Od razu nałożyłem na statek iluzję nieba.
+2115940308|||Więc teraz nawet horda łowców czarownic by mnie nie wytropiła. Ale zastanawiam się, jak się tu dostałeś?
+2115940309|||Przez odłamek kryształu z megaskopu znalezionego na ziemi. Udało mi się dostroić do jego magicznej trakcji.
+2115940310|||A niech mnie, rzeczywiście teraz wszystko się układa. Mój megaskop roztrzaskał się podczas telportacji i w przypływie emocji wyrzuciłem jeden z jego kryształów z burtę.
+2115940311|||Szczęśliwego nowego roku, mój nauczycielu.
+2115940312|||Bells are ringing, people singing, New Year's here, Happy Happy New Year!
+; Пусть в окошко постучится, В полночь добрый Новый год, Всем мечтам поможет сбыться, Счастье, радость принесёт!
+; Призываю осколки огня с неба! (Ainyerahn)
+2115940994|||Invocare aedden aep aenye al uide!
+2115940995|||Czy możemy spróbować przywołać golema jeszcze raz?
+2115940996|||Dobrze, ale tym razem proszę o większą dbałość o szczegóły. Mam nadzieję, że nie zapomniałaś, że w Hen Llinge „ear” oznacza Ziemię, a „lagi” – Wodę.
+2115940997|||Potrzebuję portalu, żeby wrócić na ziemię.
+2115940313|||Eys'u failte.
+2115940314|||Beydem.
+2115940315|||Aen eich'te llyvaid.
+;
+2115940085|00000000||wymagany poziom
+2115940086|00000000||Odblokowane
+2115940087|00000000||Zablokowane
+2115940088|00000000|nr_str_appearance_set|Zestaw cech wyglądu
+2115940089|00000000||DLC: Custom (Mods)
+2115940090|00000000||DLC: Główne postaci
+2115940091|00000000||DLC: Drugoplanowe postaci
+2115940092|00000000||Główne postaci
+2115940093|00000000||Drugoplanowe postaci
+2115940094|00000000||[Otwórz teleport do Mistrza Ainyerahn]
+2115940095|00000000||Podstawowe zaklęcia
+2115940096|00000000||Śnieżka
+2115940097|00000000||Zapisany zestaw #
+2115940098|00000000|item_name_nr_chameleon_potion|Kameleon
+2115940099|00000000|item_desc_nr_chameleon_potion|Umożliwia zmianę wyglądu. Jako czarodziejka, pozwala również dostosować zaklęcia.<br>Nie wyposażaj, po prostu naciśnij „Wypij” i wyjdź z menu wyposażenia.
+2115940100|00000000||Niedozwolone wyposażanie przedmiotów w slocie: 
+2115940101|00000000||Wiedźminka
+2115940102|00000000||kolorowanie
+2115940103|00000000||[COFNIJ]
+2115940104|00000000||[Wyczyść Slot]
+2115940105|00000000||Slot
+2115940106|00000000||Ciało
+2115940107|00000000||Głowa
+2115940108|00000000||Włosy/Czapka
+2115940109|00000000||Tułów
+2115940110|00000000||Ramiona
+2115940111|00000000||Rękawice
+2115940112|00000000||Suknia
+2115940113|00000000||Nogi
+2115940114|00000000||Buty
+2115940115|00000000||Różne
+2115940116|00000000||warianty
+2115940117|00000000||Typ postaci
+;
+;
+; Magic stuff : Slash
+2115940118|00000000||Lekkie ataki
+2115940119|00000000||Stosunek ataków cięcia/rzutu
+2115940120|00000000||typ
+2115940121|00000000||kolor
+2115940122|00000000||Cięcie
+2115940123|00000000||Szansa na werbalizację zaklęcia
+; Magic stuff : Colors
+2115940124|00000000||Czarny
+2115940125|00000000||Szary
+2115940126|00000000||Biały
+2115940127|00000000||Żółty
+2115940128|00000000||Pomarańczowy
+2115940129|00000000||Czerwony
+2115940130|00000000||Różowy
+2115940131|00000000||Fioletowy
+2115940132|00000000||Niebieski
+2115940133|00000000||Turkusowy
+2115940134|00000000||Zielony
+2115940135|00000000||Specjalny-1
+2115940136|00000000||Specjalny-2
+2115940137|00000000||Specjalny-3
+2115940138|00000000||LOSOWY
+; Throw
+2115940140|00000000||Rzut
+2115940141|00000000||Porażenie
+2115940142|00000000||Pocisk
+; HAND FX
+2115940143|00000000||Aura dłoni
+; TELEPORT
+2115940144|00000000||Teleport
+2115940145|00000000||Szybka podróż Teleport
+; HEAVY
+2115940146|00000000||Ciężkie ataki
+2115940147|00000000||Stosunek ataków kamieniami/bombami
+2115940148|00000000||Kamienie
+2115940149|00000000||Bomby
+2115940150|00000000||Fala kamieni
+2115940160|00000000||Rozrywający cios kończący
+; PUSH
+2115940151|00000000||Blokująca fala
+; SPECIAL
+2115940152|00000000||Specjalne zaklęcia
+2115940153|00000000||Tornado
+2115940154|00000000||Kontrola
+2115940155|00000000||Meteor
+2115940156|00000000||Tarcza
+2115940157|00000000||Sługus
+2115940161|00000000||Sługus efekt przywołania
+; SPECIAL 2
+2115940158|00000000||Alternatywne specjalne zaklęcia
+2115940159|00000000||Twoje zaklęcie to <font color='#FF0000'>BACKFIRING</font> you: 
+2115940162|00000000||Piorun Alzura
+2115940163|00000000||Pole grawitacyjne
+2115940164|00000000||Ogień Melgara
+2115940165|00000000||Lumos
+2115940166|00000000||Polimorfia
+2115940167|00000000||typ #2
+2115940168|00000000||Bańka wodna
+;
+2115940199|00000000||Mistrz Ainyerahn
+; SKILLS, TUTORIALS
+2115940200|00000000||<font color="#d92626">Nowicjuszka</font>
+2115940201|00000000||<font color="#e68319">Adeptka</font>
+2115940202|00000000||<font color="#e6e219">Czarodziejka na smyczy</font>
+2115940203|00000000||<font color="#50e619">Mistrzyni</font>
+2115940204|00000000||<font color="#8d19e6">Arcymistrzyni</font>
+2115940205|00000000||Odblokowane umiejętności
+;
+2115940206|00000000||Witaj w <font color="#00c785">Custom Player Characters</font> (CPC) Mod!
+2115940207|00000000||<br>Specjalna <font color="#66ccff">Chameleon</font> mikstura została dodana do twojego ekwipunku. Użyj go i wyjdź z ekwipunku, aby uruchomić opcję konfiguracji wyglądu.<br><br><b>Ważna uwaga:</b> dopóki nie zdecydujesz się użyć mikstury, mod ma zerowy wpływ na rozgrywkę.<br><br><i>Powodzenia na Szlaku!</i><br>
+2115940208|00000000||Osiągnąłeś <font color="#66ff99">nowy poziom sztuki magicznej</font>!
+2115940198|00000000||Osiągnąłeś <font color="#66ccff">nowy poziom sztuki magicznej</font>!
+2115940197|00000000||Nowy poziom sztuki magicznej: 
+2115940196|00000000||Nowa umiejętność magiczna:
+2115940195|00000000||To jest przypomnienie.
+2115940194|00000000||Postęp umiejętności magicznych.
+2115940193|00000000||Nowy poziom umiejętności!
+; Novice
+2115940209|00000000||<font size="24">Posiadasz podstawowe umiejętności magiczne:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}: Aby wykonać atak, naciśnij przycisk „Szybki atak” (taki sam jak w przypadku miecza).<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br>  Aby wykonać cios, wciśnij przycisk „Parowanie” (taki sam jak w przypadku miecza).<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Naciśnij przyciski ruchu (aby kontrolować kierunek, opcjonalnie) + przycisk „Przewrót” (na dużą odległość) / „Unik” (na bliską odległość), aby wykonać.<br>  {1084067}: Naciśnij przyciski ruchu (aby sterować kierunkiem, opcjonalnie) + przycisk „Slot 4 w menu szybkiego wyboru”, aby wykonać.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}: Wybierz <i>Quen</i> (domyślnie, można je zmienić w menu konfiguracji gracza) i <i>przytrzymaj</i> Przycisk „Rzuć znak”, aby wykonać. Przytrzymaj ten przycisk ponownie, aby zakończyć działanie zaklęcia.<br><br>Twój magiczny poziom wzrośnie wraz z awansem gracza.<br>Im częściej używasz tej umiejętności, tym staje się ona potężniejsza i tym więcej umiejętności umiejętności zostaje odblokowanych.<br><i>Podążaj za zadaniem, aby znaleźć<font color="#66ffcc">Mistrza</font> i nauczyć się nowych zaklęć!</i><br></font>
+; Apprentice
+2115940210|00000000||Jesteś gotowy, aby nauczyć się nowych magicznych umiejętności:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font><br><font color="#ffff66"><b>- {2115940152} ({2115940156}, {2115940599})</b></font><br><font color="#ffff66"><b>- {2115940145}</b></font><br><br><i>Aby się ich nauczyć, musisz odwiedzić Mistrza Ainyerahna.</i><br>
+; Apprentice - heavy attacks learned
+2115940211|00000000||<font color="#ffff66"><b>- {2115940146} ({2115940148}, {2115940149}, {2115940160})</b></font><br>  Naciśnij przycisk „Ciężki atak” lub „Lekki atak + modyfikator ciężkiego ataku” (tak samo jak w przypadku miecza), aby rzucić zaklęcie.<br>  {2115940148} i {2115940149} na zmianę w stosunku 2:1 (domyślnie, można je zmienić w scenie konfiguracji gracza).<br>  {2115940160} zostanie wykonany z 25% szansą, jeśli ofiara ma mniej niż 25% zdrowia. Wartości te poprawiają się wraz z wyższymi poziomami magii.<br>  <font color="#ff6600">NOTE:</font> Nie możesz użyć {2115940160} na bossach.<br>
+; Apprentice - fast travel teleport learned
+2115940212|00000000||<font color="#ffff66"><b>- {2115940145}</b></font><br>  Otwórz mapę świata i kliknij <i>dowolną</i> ikonę wpisu, aby rzucić zaklęcie.<br>
+; Apprentice - Shield learned
+2115940216|00000000||<font color="#ffff66"><b>- {2115940156}</b></font><br>  Wybierz <i>Quen</i> (domyślnie, można je zmienić w scenie konfiguracji gracza) i <i>naciśnij</i> przycisk „Rzuć znak”, aby rzucić zaklęcie.<br>
+; Experienced
+2115940213|00000000||Jesteś gotowy na naukę nowych umiejętności magicznych:<br><font color="#ffff66"><b>- {2115940152} ({2115940153}, {2115940154})</b></font><br><font color="#ffff66"><b>- {2115940158} ({2115940163})</b></font><br><br><i>Aby się ich nauczyć, musisz odwiedzić Mistrza Ainyerahna.</i><br>
+; Experienced - Tornado learned
+2115940214|00000000||<font color="#ffff66"><b>- {2115940153}</b></font><br>  Wybierz <i>Aard</i> (domyślne, można je zmienić w scenie konfiguracji gracza) i <i>naciśnij</i> przycisk „Rzuć znak”, aby rzucić zaklęcie.<br><br>  <font color="#ff6600">OSTRZEŻENIE:</font> Zaklęcie to zawsze ma niewielką szansę na to, że po jego wygaśnięciu sprowadzi na ciebie odwrotny skutek. Poczujesz (pojawi się etykieta), kiedy to nastąpi.<br>Poćwicz (rzuć wiele razy) zaklęcie, aby zmniejszyć tę szansę.<br>
+; Experienced - Control learned
+2115940215|00000000||<font color="#ffff66"><b>- {2115940154}</b></font><br>  Wybierz <i>Axii</i> (domyślnie, można to zmienić w scenie konfiguracji gracza), wybierz docelowego wroga i <i>naciśnij</i> przycisk „Rzuć znak”, aby rzucić zaklęcie.<br><br>  <font color="#ff6600">OSTRZEŻENIE:</font> Zaklęcie to zawsze ma niewielką szansę na to, że po jego wygaśnięciu sprowadzi na ciebie odwrotny skutek. Poczujesz (pojawi się etykieta), kiedy to nastąpi.<br>Poćwicz (rzuć wiele razy) zaklęcie, aby zmniejszyć tę szansę.<br>
+; Experienced - Gravitation Field learned
+2115940221|00000000||<font color="#ffff66"><b>- {2115940163}</b></font><br>  Wybierz <i>Axii</i> (domyślne, można je zmienić w scenie konfiguracji gracza) i <i>przytrzymaj</i> przycisk „Rzuć znak”, aby rzucić zaklęcie.<br><br>  <font color="#ff6600">OSTRZEŻENIE:</font> Zaklęcie to zawsze ma niewielką szansę na to, że po rzuceniu przyniesie ci odwrotny skutek. Poczujesz (pojawi się etykieta), kiedy to nastąpi.<br>Poćwicz (rzuć wiele razy) zaklęcie, aby zmniejszyć tę szansę.<br>
+; Mistress
+2115940217|00000000||Jesteś gotowy, aby nauczyć się nowych umiejętności magicznych:<br><font color="#ffff66"><b>- {2115940152} ({2115940155}, {2115940157})</b></font><br><font color="#ffff66"><b>- {2115940158} ({2115940162})</b></font><br><br><i>Aby się ich nauczyć, musisz odwiedzić Mistrza Ainyerahna.</i><br>
+; Mistress - Meteor learned
+2115940218|00000000||<font color="#ffff66"><b>- {2115940155}</b></font><br>  Wybierz <i>Igni</i> (domyślne, można je zmienić w scenie konfiguracji gracza) i <i>naciśnij</i> przycisk „Rzuć znak”, aby rzucić zaklęcie.<br><br>  <font color="#ff6600">OSTRZEŻENIE:</font> Zaklęcie to zawsze ma niewielką szansę na to, że po rzuceniu przyniesie ci odwrotny skutek. Poczujesz (pojawi się etykieta), kiedy to nastąpi.<br>Poćwicz (rzuć wiele razy) zaklęcie, aby zmniejszyć tę szansę.<br>
+; Mistress - Servant learned
+2115940219|00000000||<font color="#ffff66"><b>- {2115940157}</b></font><br>  Wybierz <i>Yrden</i> (domyślne, można je zmienić w scenie konfiguracji gracza) i <i>naciśnij</i> przycisk „Rzuć znak”, aby rzucić zaklęcie.<br><br>  <font color="#ff6600">OSTRZEŻENIE:</font> Zaklęcie to zawsze ma niewielką szansę na to, że po jego wygaśnięciu sprowadzi na ciebie odwrotny skutek. Poczujesz (pojawi się etykieta), kiedy to nastąpi.<br>Poćwicz (rzuć wiele razy) zaklęcie, aby zmniejszyć tę szansę.<br>
+; Mistress - Alzur's thunder learned
+2115940220|00000000||<font color="#ffff66"><b>- {2115940162}</b></font><br>  Wybierz <i>Aard</i> (domyślnie, można to zmienić w scenie konfiguracji gracza) i <i>przytrzymaj</i> przycisk „Rzuć znak”, aby rzucić zaklęcie.<br><br>  <font color="#ff6600">OSTRZEŻENIE:</font> Zaklęcie to zawsze ma niewielką szansę na to, że po rzuceniu przyniesie ci odwrotny skutek. Poczujesz (pojawi się etykieta), kiedy to nastąpi.<br>Poćwicz (rzuć wiele razy) zaklęcie, aby zmniejszyć tę szansę.<br>
+; Grand Mistress
+2115940222|00000000||Jesteś gotowy, aby nauczyć się nowych umiejętności magicznych:<br><font color="#ffff66"><b>- {2115940158} ({2115940164}, {2115940166})</b></font><br><br><i>Aby się ich nauczyć, musisz odwiedzić Mistrza Ainyerahna.</i><br>
+; Grand Mistress - Melgar's fire learned
+2115940223|00000000||<font color="#ffff66"><b>- {2115940164}</b></font><br>  Wybierz <i>Igni</i> (domyślne, można je zmienić w scenie konfiguracji gracza) i <i>przytrzymaj</i> przycisk „Rzuć znak”, aby rzucić zaklęcie.<br><br>  <font color="#ff6600">OSTRZEŻENIE:</font> Zaklęcie to zawsze ma niewielką szansę na to, że po rzuceniu przyniesie ci odwrotny skutek. Poczujesz (pojawi się etykieta), kiedy to nastąpi.<br>Poćwicz (rzuć wiele razy) zaklęcie, aby zmniejszyć tę szansę.<br>
+; Grand Mistress - Polymorphism learned
+2115940224|00000000||<font color="#ffff66"><b>- {2115940166}</b></font><br>  Wybierz <i>Yrden</i> (domyślnie, można je zmienić w scenie konfiguracji gracza) i <i>przytrzymaj</i> przycisk „Rzuć znak”, aby rzucić zaklęcie. Przytrzymaj ten przycisk ponownie, aby zakończyć zaklęcie.<br>  <b>NOTE:</b> Aby uzyskać więcej wariantów wyglądu kota, zainstaluj <font color="#8800AA">Immersive Wildlife Project (Dhu Cats)</font><br>  <i><font color="#E4FF00">nexusmods.com/witcher3/mods/3527</font></i>
+2115940225|00000000||Wykonaj
+2115940226|00000000||<i>Dostosowywanie</i> [umożliwia zmianę aspektów wizualnych i innych, zawsze odblokowywane na poziomie umiejętności 1]
+2115940227|00000000||Zdolności specjalne [dodatkowe bonusy do zaklęcia, nie wpływają na koszt wytrzymałości]
+2115940228|00000000||<i>Podwójne cięcie</i> [dodatkowe cięcie daje +50% do obrażeń]
+2115940229|00000000||<i>Automatyczny celowanie</i> [pociski dostosowują trajektorię]
+2115940230|00000000||<i>Odbicie błyskawicy</i> [dodatkowa błyskawica zadająca 50% obrażeń uderza innego przeciwnika]
+2115940231|00000000||<i>Pełna eksplozja</i> [fala kulista rzuca wrogów ze wszystkich stron]
+2115940232|00000000||<i>Auto-kontra pchnięcie</i> [podczas teleportacji na nową pozycję, kontratak jest wykonywany z 40% szansą i +1% szansą na każdym poziomie umiejętności]
+2115940233|00000000||<i>Skalowanie marionetek</i> [zwiększa poziom celu o 3 podczas kontroli]
+2115940234|00000000||<i>Maksymalna liczba marionetek</i> [maksymalna liczba kontrolowanych sług, które mogą istnieć jednocześnie]
+2115940235|00000000||<i>Maksymalna liczba sług</i> [maksymalna liczba przywołanych sług, którzy mogą istnieć jednocześnie]
+2115940236|00000000||<i>Maksymalna liczba tornad</i> [maksymalna liczba utworzonych tornad ogółem, które mogą istnieć w tym samym czasie]
+2115940237|00000000||<i>Podążanie za graczem</i> [zaklęcie/słudzy podążają za graczem]
+2115940238|00000000||<i>Typy sług</i> [które sługi możesz przywołać, odblokowane typy można wybrać w scenie konfiguracji gracza]
+2115940239|00000000||<i>Pogoń za celem</i> [przez cały czas dąży do pierwotnego celu]
+2115940240|00000000||<i>Liczba meteorów</i> [liczba meteorów w jednym rzucie]
+2115940241|00000000||<i>Pochłanianie obrażeń</i> (100% = maksymalne HP gracza)
+2115940242|00000000||Umiejętność nie jest dostępna
+2115940243|00000000||<i>Legenda</i>: <font color="#FF0000">czerwony = zablokowany</font>, <font color="#00FF00">zielony = odblokowany (nauczony)/bonus</font>
+2115940244|00000000||<i>Kontrola obrażeń</i> [zaklęcie zadaje obrażenia tylko wrogim jednostkom, ale gracz nadal odnosi obrażenia, jeśli zaklęcie ODBIJA go ODBROJNIE]
+2115940245|00000000||<i>Płonący</i> [podpala wrogów na 5 sekund z szansą 20% i szansą +1% na każdym poziomie umiejętności]
+2115940246|00000000||<i>Zamrożenie</i> [zamraża wrogów na 5 sekund z szansą 20% i szansą +1% na każdym poziomie umiejętności]
+2115940247|00000000||<i>Liczba błyskawic/meteorów</i> [liczba błyskawic/meteorów w jednym odstępie czasu]
+2115940248|00000000||<i>Odstęp błyskawic/meteorów</i> [czas pomiędzy utworzeniem błyskawic/meteorów]
+2115940249|00000000||<i>Dwóch sług</i> [przywołuje dwóch sług, odblokowane typy można przypisać niezależnie do pierwszego i drugiego sługi w scenie przygotowania gracza]
+2115940250|00000000||<i>Próżnia</i> [zaklęcie wsysa do środka wrogów]
+2115940251|00000000||<i>Auto-tarcza</i> [kiedy rzucasz zaklęcie, tarcza pojawia się z pewną szansą]
+2115940252|00000000||<i>Automatyczne zastosowanie</i> [kiedy wchodzisz do walki, tarcza pojawia się automatycznie, kiedy wychodzisz z walki, znika]
+2115940253|00000000||<font color="#d92626">Zaklęcia nowicjuszki</font>
+2115940254|00000000||<font color="#e68319">Zaklęcia adeptki</font>
+2115940255|00000000||<font color="#e6e219">Zaklęcia czarodziejki na smyczy</font>
+2115940256|00000000||<font color="#50e619">Zaklęcia Mistrzyni</font>
+2115940257|00000000||<font color="#8d19e6">Zaklęcia Arcymistrzyni</font>
+;
+; PLAYER SETUP SCENE
+;
+2115940550|00000000||[WYJŚCIE]
+2115940551|00000000||Zmień typ gracza
+2115940552|00000000||Zmień wygląd gracza
+2115940553|00000000||Zmień wyświetlaną nazwę gracza
+2115940554|00000000||Zmień zaklęcia czarodziejki
+2115940555|00000000||Pokaż informacje pomocy
+2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">typy waniliowe (Geralt, Ciri)</font> pozwalają grać tak, jakby mod nie był zainstalowany.<br> <font color=" #00FF00">WSZYSTKIE niestandardowe typy odtwarzaczy</font> umożliwiają dostosowanie wyglądu i wyświetlanej nazwy. Twój postęp w grze i ekwipunek są zawsze takie same dla każdego typu gracza. Grając dowolnym typem niestandardowym, możesz robić wszystko, co potrafi Geralt (z wyjątkiem używania mieczy jako <font color="#00FF00">Czarodziejka</font>).<br> <font color="#00FF00">Wiedźmin</font > pozwala grać zupełnie jak Geralt.<br> <font color="#00FF00">Wiedźmin</font> pozwala grać zupełnie jak Geralt, z animacjami kobiecych Geraltów i mową kobiecych Geraltów przetwarzaną przez sztuczną inteligencję.<br> < Font color="#00FF00">Czarodziejka</font> umożliwia zabawę z animacjami żeńskiego Geralta, przetworzoną przez sztuczną inteligencję mową kobiecego Geralta oraz nowym magicznym systemem walki. Aby zdobyć pełne moce, wykonaj zadanie po wybraniu <font color="#00FF00">Czarodziejki</font>.<br> <i>UWAGA:</i> <font color="#FF0000">NIE odinstaluj</font czcionka> mod po zapisaniu gry, ponieważ w nim przechowywane są pewne dane związane z modami. Zawsze możesz użyć „Chameleona” i wrócić do <font color="#FFFF00">Geralta (waniliowy)</font>, aby wszystko wyglądało tak, jakby mod nie był zainstalowany.<br> <font color="#FF0000">OSTRZEŻENIE </font>: jeśli zmienisz na <font color="#FFFF00">Ciri (waniliowa)</font>, nie będziesz mógł użyć „Kameleona” i wrócić do tej sceny, ponieważ ekwipunek zostanie zablokowany. Jedynym sposobem na powrót będzie użycie polecenia konsoli „NRToGeralt”, a następnie użycie „Kameleona” w zwykły sposób.<br>
+2115940557|00000000||<b>- {2115940565}</b>: Twoje zestawy wyglądu (możesz zapisać bieżący, wczytać dowolne zapisane wcześniej)<br><br><b>- {2115940566}</b>: predefiniowane zestawy wyglądu od wszystkich NPC , we wszystkich wariantach kolorystycznych.<br><br><b>- {2115940567}</b>: predefiniowane zestawy ze wszystkich zestawów zbroi Geralta, we wszystkich wariantach kolorystycznych. W większości przypadków nie zmieniaj głowy ani włosów gracza.<br> W przypadku <font color="#00FF00">żeńskich typów graczy</font> używane są modele zbroi zaadaptowane przez Val alias Jo, więc upewnij się, że zainstalowałeś jej mod: <font color="#9900CC">Modele zbroi kobiecego Geralta</font>.<br><br><b>- {2115940568}</b>: ręczna zmiana miejsc wyglądu w celu zaawansowanej konfiguracji. Jeden ze sposobów użycia: wyczyść wszystkie miejsca, następnie wybierz głowę, włosy, ciało/tułów, ramiona, ręce, nogi, buty, a następnie wybierz dodatkowe przedmioty.<br><br><b>- Przełącz szablony układania jako przedmioty </b>: w przypadku konfiguracji zaawansowanej, jeśli chcesz zastosować 2 lub więcej szablonów z tego samego gniazda (rzadko wymagane).<br><br><b>- Pokaż nazwy części nadwozia w podglądzie</b>: w przypadku konfiguracji zaawansowanej, pokazuje nazwy bieżących szablonów podglądu.<br>
+2115940558|00000000||Wyświetlana nazwa gracza
+2115940559|00000000||Geralt (vanilla)
+2115940560|00000000||Ciri (vanilla)
+2115940561|00000000||Wiedźmin (konfigurowalny)
+2115940562|00000000||Wiedźminka (konfigurowalna)
+2115940563|00000000||Czarodziejka (konfigurowalna)
+2115940564|00000000||[Wyczyść wszystkie sloty i przedmioty]
+2115940565|00000000||Moje zestawy cech wyglądu
+2115940566|00000000||NPC zestawy cech wyglądu
+2115940567|00000000||Zestawy zbroi Geralta
+2115940568|00000000||Zmień szablony slotów (konstruktor wyglądu)
+2115940569|00000000||Stakuj części ciała jako przedmioty: [wyłączone]
+2115940570|00000000||Stakuj części ciała jako przedmioty: [włączone]
+2115940571|00000000||Pokaż informacje o niestandardowych DLC
+2115940572|00000000||Zapisz bieżący zestaw cech wyglądu
+2115940573|00000000||Załaduj zestaw cech wyglądu
+2115940574|00000000||Usuń zestaw cech wyglądu
+2115940575|00000000||Załaduj zestaw
+2115940576|00000000||Usuń zestaw
+2115940577|00000000||Pokaż nazwy części ciała bieżącego podglądu: [wyłączone]
+2115940578|00000000||Pokaż nazwy części ciała bieżącego podglądu: [włączone]
+2115940579|00000000||[Zastosuj LOSOWE]
+2115940580|00000000||Używaj kobiecej mowy: [Auto (zalecane)]
+2115940581|00000000||Używaj kobiecej mowy: [Zawsze]
+2115940582|00000000||Używaj kobiecej mowy: [Nigdy]
+2115940583|00000000||Autor: <font color="#004488">nikich340 (Nikita Grebenyuk)</font><br>  Użyj <font color="#770044">U (przycisk trybu fotograficznego)</font> => <font color="#070077">szybkie „WSTECZ”</font><br> Użyj <font color="#770044" >W, S/Przyciski strzałek/Kółko myszy</font> => <font color="#070077">przewijana lista wyborów</font>
+;
+; In voice-mod strings
+2115940585|00000000||Załadowany zestaw #
+2115940586|00000000||Usunięty zestaw #
+2115940587|00000000||Zarządzaj szansą na werbalizację zaklęcia
+2115940588|00000000||szansa na werbalizację zaklęcia
+2115940589|00000000||Gameplay teleport
+2115940590|00000000||<b>- {2115940552}</b>: pozwala dostosować wygląd według własnych upodobań.<br> Dostępne tylko dla <font color="#00FF00">niestandardowych typów odtwarzaczy</font>.<br><br><b>- {2115940553</b> : zmienia nazwę używaną dla napisów filmowych i komunikatów dziennika trafień.<br> Możesz wybierać tylko spośród oryginalnych nazw gier (~950).<br> Dostępne tylko dla <font color="#00FF00">niestandardowych typów odtwarzaczy</font >.<br><br><b>- {2115940554}</b>: umożliwia dostosowanie wyglądu zaklęć (kolor, typ) i niektórych innych parametrów.<br> Dostępne tylko dla <font color="#00FF00 ">Czarodziejka</font>.<br><br><b>- Użyj kobiecej mowy:</b> <i>Auto (zalecane)</i> - Specjalnie przetworzona przez AI mowa Geralta, aby brzmiała jak kobieta, używana gdy grasz jako <font color="#FFFF00">Ciri</font>/<font color="#00FF00">Wiedźminka/Czarodziejka</font>. Możesz pobrać i zainstalować inny wariant/język mowy z osobnej strony modów:<br> <font color="#FFFF00">nexusmods.com/witcher3/mods/9147</font><br> <i>Aktualna mowa</ i>: <font color="#00FF00">{2115940999</font><br>
+2115940592|00000000||Zarządzaj umiejętnościami
+2115940593|00000000||Pokaż wskazówki dotyczące kontroli magii
+2115940594|00000000||Przesuń w górę
+2115940595|00000000||Przesuń w dół
+2115940596|00000000||<i>Automatyczne oświetlenie</i> [rozjaśnia wszystkie źródła światła w pewnym zakresie]
+2115940597|00000000||Sowa
+2115940598|00000000||Wygląd
+2115940599|00000000||Zmiana pogody
+2115940549|00000000||<font color="#ffff66"><b>- {2115940599}</b></font><br> Wybierz <i>Aard</i> (domyślne, można je zmienić w scenie konfiguracji gracza) i <i >naciśnij</i> przycisk „Oddaj znak”, aby rzucić zaklęcie.<br>
+2115940548|00000000||<font color="#ffff00"><b>Polimorfizm — OSTRZEŻENIE:</b></font> Ponieważ podróżowanie w postaci zwierzęcia lub ptaka otwiera nowe możliwości podróżowania (często nie zapewniane przez twórców), możliwe jest pominięcie ważnego obszaru aktywacji, interaktywnych drzwi itp., a tym samym złamanie logiki zadania.<br>Użyj tej opcji ostrożnie i spróbuj ręcznie zapisać stan gry. W przypadku dziwnych sytuacji, w których postęp zadania nie postępuje dalej, spróbuj go odtworzyć bez użycia transformacji.<br><font color="#FFAA00"><i>Zostałeś ostrzeżony!</i></ czcionka>
+2115940547|00000000||Przećwicz zaklęcie zmiany pogody 5 razy.
+2115940546|00000000||Usuń przedmiot
+2115940545|00000000||Do przodu
+2115940544|00000000||Karmazynowy
+2115940543|00000000||Limonkowy
+2115940542|00000000||Lazurowy
+2115940541|00000000||<i>Automatyczne leczenie</i> [przywraca zdrowie, gdy tarcza zostanie zaatakowana]
+2115940540|00000000||<b>Brak pakietu kobiecej mowy!</b><br> Oznacza to, że: gdy grasz z włączoną mową żeńską (<font color="#00FF00">Wiedźmin/Czarodziejka</font>), <font color=" #FF2222">Zamiast głosu gracza będzie cisza.<br> Rozważ instalację tej części:<br> <font color="#7F007B">nexusmods.com/witcher3/mods/9147</font <br><br>
+2115940539|00000000||<b>Projekt Immersive Wildlife Project (DhuCats) został pominięty!</b><br> Oznacza to, że nie będziesz mógł używać różnych wysokiej jakości modeli kotów do zaklęcia Polimorfizm (<font color="#00FF00">Czarodziejka</font> ).<br> Rozważ instalację tej części:<br> <font color="#7F007B">nexusmods.com/witcher3/mods/3527</font> (plik „DhuCats”)<br><br>
+2115940538|00000000||<b>Brakuje modeli zbroi kobiecego Geralta!</b><br> Oznacza to, że nie będziesz mógł „nosić” wyglądu zestawów zbroi (<font color="#00FF00">Wiedźminka/Czarodziejka</font>) .<br> Rozważ instalację tej części:<br> <font color="#7F007B">nexusmods.com/witcher3/mods/9322</font><br><br>
+2115940537|00000000||Ustaw kolor dla wszystkich działań na znak
+2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Pływający statek
+2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|Statek otoczony lodem, unoszący się w powietrzu dzięki potężnemu przepływowi magii.
+2115940533|00000000||Interactions hint - Sorceress
+2115940534|00000000||Use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>Use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
+2115940532|00000000||[CHEAT Magic Options]
+2115940531|00000000||CHEAT: Unlock magic level: 
+2115940530|00000000||CHEAT: Set maximum level to all spells
+; ----------------------------------
+2115940000|00000000||Gracz
+2115940001|00000000||Gracz
+2115940002|00000000||Gracz
+2115940003|00000000||Celestine
+2115940004|00000000||MOD questgroup_newreplacers Zadania
+2115940005|00000000||Zostań Arcymistrzynią.
+2115940006|00000000||Przećwicz zaklęcie Piorun Alzura 5 razy.
+2115940007|00000000||Przećwicz zaklęcie Kontroli 7 razy.
+2115940008|00000000||Przećwicz zaklęcie Pole Grawitacyjne 5 razy.
+2115940009|00000000||Poćwicz teleportację szybkiej podróży 3 razy.
+2115940010|00000000||Przećwicz ciężkie ataki 13 razy.
+2115940011|00000000||Przećwicz zaklęcie Ogień Melgara 5 razy.
+2115940012|00000000||Przećwicz zaklęcie Meteor 7 razy.
+2115940013|00000000||Przećwicz zaklęcie Polimorfia 3 razy.
+2115940014|00000000||Przećwicz zaklęcie Sługi 7 razy.
+2115940015|00000000||Przećwicz zaklęcie Tarczy 7 razy.
+2115940016|00000000||Przećwicz zaklęcie Tornado 7 razy.
+2115940017|00000000||Sprawdź tablicę ogłoszeń w Białym Sadzie.
+2115940018|00000000||Pokonaj potwory.
+2115940019|00000000||Przejdź przez teleport.
+2115940020|00000000||Zbadaj obszar.
+2115940021|00000000||Zbadaj magiczny kamień.
+2115940022|00000000||Porozmawiaj z magiem.
+2115940023|00000000||Ainyerahn zgodził się zostać jej nauczycielem, aby pomóc w zrozumieniu zawiłości zarządzania chaosem.<br>
+2115940024|00000000||Tajemniczy mag pustelnik nazywał się Ainyerahn i badał naturę anomallii magicznego kamienia, gdy ten teleportował go i statek w pobliże Białego Sadu.<br>
+2115940025|00000000||Eksplorując okolicę, natrafiła na kryształ z namacalnym magicznym śladem. Trop zaprowadził ją do magicznego statku unoszącego się w powietrzu na lodowej platformie. Źródłem tej anomalii był oczywiście magiczny kamień i dotykając go, czarodziejka wywołała potwory. Walka z nimi mogłaby zakończyć się źle, gdyby nie pojawienie się nieznanego maga.<br>
+2115940026|00000000||Po przeczytaniu ogłoszenia czarodziejka podjęła się ciekawego przyapdku.<br>
+2115940027|00000000||Rozpoczyna się Twoja długa droga zgłębiania sztuk magicznych.<br>
+2115940028|00000000||Zostań Arcymistrzynią.
+2115940029|00000000|item_name_newreplacers_notices_sorceress_training_notice|Uważajcie na drodze Wyzimy
+2115940030|00000000|item_desc_newreplacers_notices_sorceress_training_notice|Uwaga o dziwnych rzeczach na drodze do Wyzimy.
+2115940031|00000000|item_name_newreplacers_notices_sorceress_training_notice_text|Dobrzy ludzie! Uważajcie na drodze do Wyzimy!<br>W zeszłym tygodniu jechałem do mojej córki, coś dudniło, płonęło nade mną, tak że mój koń wpadł w krzaki. A potem na chwilę zauważyłem na niebie kupkę lodu, a potem już jej nie było.<br>Powiesz, że byłem pijany, chociaż tamtego dnia byłem trzeźwy!<br>
+2115940032|00000000|dlc_name_newreplacers|Niestandardowe postacie gracza
+2115940033|00000000|option_dlc_name_newreplacers|MOD: Niestandardowe postacie gracza
+2115940034|00000000|content_name_dlc_newreplacers|MOD: Niestandardowe postacie gracza
+2115940650|00000000||SLOT: Głowa
+2115940651|00000000||SLOT: Włosy
+2115940652|00000000||SLOT: Ciało
+2115940653|00000000||SLOT: Tułów
+2115940654|00000000||SLOT: Ramiona
+2115940655|00000000||SLOT: Rękawice
+2115940656|00000000||SLOT: Suknia
+2115940657|00000000||SLOT: Nogi
+2115940658|00000000||SLOT: Buty
+2115940659|00000000||SLOT: Różne
+2115940660|00000000||[Następny slot: Włosy]
+2115940661|00000000||[Następny slot: Ciało]
+2115940662|00000000||[Następny slot: Tułów]
+2115940663|00000000||[Następny slot: Ramiona]
+2115940664|00000000||[Następny slot: Rękawice]
+2115940665|00000000||[Następny slot: Suknia]
+2115940666|00000000||[Następny slot: Nogi]
+2115940667|00000000||[Następny slot: Buty]
+2115940668|00000000||[Następny slot: Różne]
+2115940669|00000000||[Następny slot: Głowa]
+2115940600|00000000||SLOT: Głowa
+2115940601|00000000||SLOT: Włosy
+2115940602|00000000||SLOT: Ciało
+2115940603|00000000||SLOT: Tułów
+2115940604|00000000||SLOT: Ramiona
+2115940605|00000000||SLOT: Rękawice
+2115940606|00000000||SLOT: Suknia
+2115940607|00000000||SLOT: Nogi
+2115940608|00000000||SLOT: Buty
+2115940609|00000000||SLOT: Różne
+2115940610|00000000||[Następny slot: Włosy]
+2115940611|00000000||[Następny slot: Ciało]
+2115940612|00000000||[Następny slot: Tułów]
+2115940613|00000000||[Następny slot: Ramiona]
+2115940614|00000000||[Następny slot: Rękawice]
+2115940615|00000000||[Następny slot: Suknia]
+2115940616|00000000||[Następny slot: Nogi]
+2115940617|00000000||[Następny slot: Różne]
+2115940618|00000000||[Następny slot: Misc]
+2115940619|00000000||[Następny slot: Głowa]
+2115940350|00000000||[WYJŚCIE] dev
+2115940351|00000000||0:1 (tylko ataki typu rzut)
+2115940352|00000000||1:4
+2115940353|00000000||1:3
+2115940354|00000000||1:2
+2115940355|00000000||1:1
+2115940356|00000000||2:1
+2115940357|00000000||3:1
+2115940358|00000000||4:1
+2115940359|00000000||1:0 (tylko ataki typu cięcie)
+2115940360|00000000||0:1 (tylko ataki typu bomba)
+2115940361|00000000||1:4
+2115940362|00000000||1:3
+2115940363|00000000||1:2
+2115940364|00000000||1:1
+2115940365|00000000||2:1
+2115940366|00000000||3:1
+2115940367|00000000||4:1
+2115940368|00000000||1:0 (tylko ataki typu kamienie)

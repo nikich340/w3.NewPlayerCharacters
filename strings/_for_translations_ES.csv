@@ -1,0 +1,588 @@
+;meta[language=es]
+;  id     |key(hex)|key(str)|text
+;
+;  you translate only text ----^ (last column) 
+;
+2115940050|||Arha'an lumar!
+2115940051|||Cais'te aet disgleir!
+2115940052|||Gveryd me cassel!
+2115940053|||Greame et dwyr!
+2115940054|||Rhobeir'me gelle!
+2115940055|||Greame et dwyr!
+2115940056|||Ess pyr'shena a et cleytte!
+2115940057|||Nevid! Ariva!
+2115940058|||Agored, teirgan.
+2115940059|||Vryff cais'te aem gyhar!
+; do not translate spells and Hen Llinge text --^
+;
+2115940060|||Siento un gran poder dentro de mí… Pero necesito aprender a canalizarlo. Necesito un profesor.
+2115940061|||Interesante, tal vez haya algo de magia en ese lugar. Debería comprobarlo.
+2115940062|||¡El cristal del Megascopio! Y el rastro mágico señala claramente su origen. Intentaré conjurar un portal a ese lugar.
+2115940063|||Vaya, ¿qué lugar es este?
+2115940064|||Un poderoso flujo de magia emana de esta piedra..
+2115940065|||¡Oh, no, eso no!
+2115940066|||*grito*
+2115940067|||Oh…
+; *shriek*
+; Кристалл мегаскопа. И магический след явно указывает на исходное местоположение. Попробую создать портал туда.
+2115940068|||Me salvaste la vida. ¿Quién eres? ¿Y dónde diablos estoy?
+; female comment
+2115940069|||Ojalá fuera hechicera...
+; male comment
+2115940081|||Ojalá fuera hechicera...
+; Who created you?
+2115940070|||Qued se creoest?
+; Go to me!
+2115940071|||Caem a me!
+; Calm down, girl
+2115940072|||Caelm, luned.
+; Purifying the blood from poison
+2115940073|||Aeksin a'bloed vort nimh!
+2115940074|||Hey, can you hear me?
+2115940075|||D'yaebl! She's still dying…
+; I breathe life into you
+2115940076|||Me aedit'ef a'vita as te!
+2115940077|||Maith.
+; swears
+2115940078|||An'badraigh aen cuach.
+2115940079|||Gar'ean!
+2115940080|||Ess'tuath esse!
+2115940850|||Cead, luned. Conas esseath aelaedde?
+2115940851|||Estoy bien gracias. ¿Hablas la lengua común?
+2115940852|||Squaess… Lo siento. Me he acostumbrado a hablar solo en Hen Llinge.
+2115940853|||¿Dónde estoy? Este barco y ambiente helado...
+2115940854|||…están flotando en el aire, cierto. He estado explorando los orígenes de una formidable intersección mágica, que estaba ubicada en el hielo del Mar del Norte.
+2115940855|||¿Estaba?
+2115940856|||Sí, cuando intenté manipular el flujo de magia hacia el elemento aire, rompió el espacio y me llevó a este lugar, junto con todo lo que ahora presencias.
+2115940857|||Parece que la intersección la produce esa piedra. A veces, el flujo se vuelve rebelde y atrae criaturas hostiles.
+2115940858|||Entonces parece que he provocado una oleada en el flujo...
+2115940859|||Jajaja, de hecho. Cada vez que hago contacto con la piedra, ocurre un evento similar. Es una reminiscencia del funcionamiento de la magia de la Doble Cruz de Alzur, diría yo.
+2115940860|||Ahora creo que lo entiendo. Bueno, probablemente, al menos…
+; greetings to apprentice
+2115940861|||Cead, mi joven aprendiz.
+2115940862|||Un placer de presenciar a la hechicera más formidable… a bordo de este barco.
+2115940863|||Me alegra el corazón ver a mi aprendiz.
+; greetings common
+2115940864|||Saludos.
+2115940865|||¡Bienvenida de nuevo!
+; exit
+2115940867|||Hasta luego.
+2115940868|||Nos vemos.
+2115940869|||Adiós.
+; teaching dialogs
+2115940870|||Me gustaría convertirme en tu aprendiz.
+2115940871|||Cuéntame sobre ti.
+2115940872|||Qué inesperado… ¿Por qué? Sin duda, en Aretuza podrías haber adquirido más conocimientos.
+2115940873|||Fui desterrada de ese lugar.
+2115940874|||El peso de sus implacables demandas se volvió demasiado para soportarlo.
+2115940875|||¿Fue porque incursionaste en artes prohibidas?
+2115940876|||Sí, invoqué a un demonio.
+2115940877|||Sí, me atreví a jugar con la nigromancia.
+2115940878|||No, maté a un maestro por accidente.
+2115940879|||No, prefiero no hablar de eso.
+2115940880|||Perdí el control sobre él casi de inmediato, y antes de que el rector pudiera detener al demonio, mató a varios novicios...
+2115940881|||Y para lograr esto, robé cristales mágicos del megascopio de nuestro mentor...
+2115940882|||¿Ahora te arrepientes de lo que has hecho?
+2115940883|||Sí mucho.
+2115940884|||No realmente.
+2115940885|||Fue crucial para mí escuchar esas palabras.
+2115940886|||No lograste captar esa lección, por lo tanto, tampoco aprenderás la mía.
+2115940887|||Espero no ser el próximo...
+2115940888|||Bueno, ¡seguro que no!
+2115940889|||Como desées.
+2115940890|||Te comprendo bastante bien.
+2115940891|||Hmm... Ha pasado bastante tiempo desde la última vez que enseñé a aprendices...
+2115940892|||¡Por favor! … no te fallaré.
+2115940893|||Bueno, primero debes demostrar que estás preparada.
+2115940894|||Te plantearé algunas preguntas.
+2115940895|||¿Qué es la magia?
+2115940896|||¿Qué magos fueron los responsables de la creación de los primeros brujos?
+2115940897|||¿Quién fue la primera hechicera humana y virtuosa de la magia del aire?
+2115940898|||¿Qué tipo de magia otorga la capacidad de percibir el destino actual de los individuos?
+2115940899|||¿Por qué se prohibió la práctica de la nigromancia?
+2115940900|||¿De qué elemento deriva su poder el signo Quen del brujo?
+2115940901|||De todos los elementos mágicos, ¿cuál se considera el más peligroso?
+; master dialogs
+2115940902|||Necesitas más preparación. Puedes hacer uso de la biblioteca de mi nave.
+2115940903|||¿No te enseñan nada en Aretuza? Has conseguido responder mal a todas mis preguntas.
+2115940904|||Muy bien, estás preparada. Y ya te has familiarizado con los hechizos básicos.
+2115940905|||Puedes aprender nuevos hechizos avanzados o mejorar los que ya conoces.
+2115940906|||Recuerda, debes realizar con éxito cada nuevo hechizo varias veces antes de avanzar al siguiente.
+2115940907|||Antes de continuar, aún necesitas practicar el hechizo que estudiamos la última vez.
+2115940908|||Tu nivel de magia aún es insuficiente para ahondar en nuevos hechizos.
+2115940909|||Por cierto, has llegado al punto en el que puedes aprender nuevos hechizos.
+2115940910|||Debes decidir cuál despierta tu interés.
+2115940911|||Ya veo. Te instruiré sobre los pasos para realizar este hechizo, y es tu tarea practicarlo y dominarlo.
+2115940912|||Comprendido. Ahora te explicaré cómo ejecutar este hechizo, y tu responsabilidad será resolverlo practicando.
+2115940913|||Te he enseñado todos los hechizos avanzados. Es decir, actualmente no puedo proporcionar más conocimientos.
+2115940914|||Llámame Ainyerahn. Mi padre, un marinero experimentado, me llevaba a menudo en sus expediciones marítimas. Sin embargo, un fatídico día, una tempestuosa tormenta destrozó sin piedad nuestro barco.
+2115940915|||En medio del caos, los restos del barco y los marineros ahogándose, un destello cegador me consumió y despierto en las profundidades de los bosques de Kaedwen.
+2115940916|||Ese día perdí a mi padre, pero el destino me concedió la oportunidad de estudiar en la estimada academia de magos. Aunque, durante mi último año en Ban Ard, las circunstancias obligaron a mi salida.
+2115940917|||Desde entonces, mi atención se ha centrado en investigar anomalías e intersecciones mágicas. Deliberadamente alejado de los conflictos de las casas nobles y de la ignorancia de las masas.
+2115940918|||Me gustaría aprender nuevos hechizos.
+2115940919|||¿Podrías recordarme cómo emitir...?
+2115940985|||Sobre mis éxitos en la práctica…
+; sorceress answers
+; q0
+2115940920|||Energía de 6 elementos.
+2115940921|||Destellos brillantes y chispas.
+2115940922|||Arte y ciencia de controlar el caos.
+2115940923|||La manera fácil de conseguir lo que quieres.
+; q1A
+2115940924|||Geoffrey Monck y Raffard el Blanco.
+2115940925|||Alzur y Cosimo Malaspina
+2115940926|||Nina Fioravanti y Aurora Henson.
+2115940927|||Ortolan y Sorel Degerlund.
+; q1B
+2115940928|||Agnes de Glanville.
+2115940929|||Klara Larissa de Winter.
+2115940930|||Tissaia de Vries.
+2115940931|||Lara Dorren aep Shiadhal.
+; q2A
+2115940975|||Goetia.
+2115940976|||Transmutación.
+2115940977|||Lesbomancia.
+2115940978|||Hidromancia.
+; q2B
+2115940932|||Porque requiere una gran cantidad de energía.
+2115940933|||Por un miedo supersticioso a los muertos.
+2115940934|||Porque siempre produce efectos secundarios totalmente negativos, independientemente del motivo.
+2115940935|||Porque permite extraer información de un cadáver.
+; q3A/B
+2115940936|||El elemento aire.
+2115940937|||El elemento agua.
+2115940938|||El elemento fuego
+2115940939|||El elemento tierra
+; Golem creation
+2115940940|||Ah, saludos, aprendiz. ¿Podrías ayudarme con algo?
+2115940941|||¿Si que pasó?
+2115940942|||Lo siento, no hay tiempo para esto.
+2115940943|||Antes de tu llegada, hubo momentos en los que me encontré contemplando la naturaleza insidiosa de la soledad. Es por eso que le di la bienvenida a un compañero felino a mi vida, y la idea de crear un gólem leal se me ha pasado por la cabeza en numerosas ocasiones.
+2115940944|||Sin embargo, cada intento que hice resultó en resultados insatisfactorios. Actualmente, tengo la máxima confianza en que, en colaboración contigo, podemos dar vida a una criatura asombrosa.
+2115940945|||¿Hay algún riesgo que debamos tener en cuenta?
+2115940946|||A menos que consideres que un corazón de obsidiana desperdiciado o un montón de piedra rebelde y hostil son riesgos importantes, entonces no.
+2115940947|||Seguro. Esto va a ser interesante.
+2115940948|||Lo siento, no estoy segura de poder ayudar.
+2115940949|||Entonces, comencemos. Convocaré el trueno vivificante y, mientras lo hago, le infundirás los elementos de tierra y agua, manteniendo un equilibrio equitativo.
+; Я призываю звёздные молнии жизни! (Ainyerahn)
+2115940950|||Me galwad iersann sigellen aep vita!
+2115940305|||Me galwad iersann sigellen aep vita!
+2115940951|||¡Lo has arruinado todo! ¡Los elementos tierra y agua deberían haberse mezclado en partes iguales, no torcidos así!
+2115940952|||Oye… ¿Cómo te llamas? ¿Cuál es tu objetivo?
+2115940953|||Soy Celestine. Protejo a mis creadores, amo y señora. Y haz lo que te ordenen.
+2115940954|||¡Brillante! ¡Hemos tenido éxito! El aspecto del agua le da una mentalidad extraordinaria. Bienvenido a mi barco, Celestine.
+2115940955|||Gracias maestro
+; Dialogs with Celestine
+2115940956|||Maestra. Un placer.
+2115940957|||Lindo día
+2115940958|||¿Eres consciente de ti mismo?
+2115940959|||Estaba en la tierra, el agua, el aire. En todos lados. Y ahora estoy aquí.
+2115940960|||¿Tiene algún deseo?
+2115940961|||Calma. Silencio. Lentitud.
+2115940962|||¿Qué harás si desaparecemos?
+2115940963|||Cumplir su última voluntad. Protejer su propiedad.
+2115940964|||¿Cuánto es ocho más cuatro?
+2115940965|||Hmm... Diez dos.
+2115940966|||¿Te gusta este lugar?
+2115940967|||Sí. Es tranquilo, azul, hermoso.
+2115940968|||¿Estás experimentando emociones?
+2115940969|||Sigo el algoritmo. Todo lo que esté fuera de él es una molestia. El resto es tranquilidad.
+; Farewell
+2115940970|||Esperaré.
+2115940971|||Suerte para ti.
+; Auto-onelines
+2115940972|||Soy fuerte como una roca.
+2115940973|||Soy lindo como un cristal.
+2115940974|||Soy listo como el agua.
+; Attack-oneliners
+2115940979|||¡Intrusos!
+2115940980|||¡Alerta Roja!
+2115940981|||¡Entrando en modo combate!
+2115940982|||Se ha restablecido la calma.
+2115940983|||Los intrusos han sido eliminados.
+2115940984|||La seguridad del creador está garantizada.
+; 86 used
+2115940987|||Claro, no hay problema.
+2115940988|||Estoy lista
+; правый: вода (бирюзовый), земля (коричневый) 
+; / левый: вода (бирюзовый), огонь (оранжевый), земля (коричневый), воздух (голубой)
+; Я вдыхаю в тебя воду и землю! (Sorceress) -> Celestine
+2115940989|||Me aedit'ef a'lagi shed a'ear as te!
+2115940300|||Me aedit'ef a'lagi shed a'ear as te! [I breathe Water and Earth into you!]
+; Я вдыхаю в тебя воду! (Sorceress) -> Лужица
+2115940990|||Me aedit'ef a'lagi as te!
+2115940301|||Me aedit'ef a'lagi as te! [I breathe Water into you!]
+; Я вдыхаю в тебя огонь и землю! (Sorceress) -> Огненный голем
+2115940991|||Me aedit'ef a'enye shed a'ear as te!
+2115940302|||Me aedit'ef a'enye shed a'ear as te! [I breathe Fire and Earth into you!]
+; Я вдыхаю в тебя землю! (Sorceress) -> Каменный голем
+2115940992|||Me aedit'ef a'ear as te!
+2115940303|||Me aedit'ef a'ear as te! [I breathe Earth into you!]
+; Я вдыхаю в тебя воздух и землю! (Sorceress) -> Взрыв
+2115940993|||Me aedit'ef a'eire shed a'ear as te!
+2115940304|||Me aedit'ef a'eire shed a'ear as te! [I breathe Air and Earth into you!]
+; 2115940305 used
+2115940306|||Un tipo vio tu nave en el cielo.
+; Ох, должно быть это было после телепортации сюда. Я почти сразу накастовал заклинание невидимости.
+2115940307|||Ah, probablemente fue después de que me teletransporté a este lugar. Rápidamente lancé un hechizo de invisibilidad.
+2115940308|||Así que ahora, ni siquiera una horda de cazadores de brujas podría discernir mi presencia. Pero me pregunto ¿cómo llegaste hasta aquí?
+2115940309|||Por un fragmento de cristal en el suelo. Pude sintonizar su rastro.
+2115940310|||Maldita sea, es cierto. Mi megascopio se hizo añicos y, en un estallido de emoción, arrojé su cristal muy lejos.
+2115940311|||Feliz año nuevo mi profesor
+2115940312|||Suenan campanas, la gente canta, Año Nuevo está aquí, ¡Feliz, Feliz Año Nuevo!
+; Пусть в окошко постучится, В полночь добрый Новый год, Всем мечтам поможет сбыться, Счастье, радость принесёт!
+; Призываю осколки огня с неба! (Ainyerahn)
+2115940994|||Invocare aedden aep aenye al uide!
+2115940995|||¿Podemos intentar crear un golem nuevamente?
+2115940996|||De acuerdo, pero esta vez solicito una mayor atención a los detalles. Confío en que no hayas olvidado que en Hen Llinge, "ear" significa Tierra y "lagi" agua.
+2115940997|||Necesito un portal para volver al suelo.
+2115940313|||Eys'u failte.
+2115940314|||Beydem.
+2115940315|||Aen eich'te llyvaid.
+;
+2115940085|00000000||req. lvl
+2115940086|00000000||Activado
+2115940087|00000000||Desactivado
+2115940088|00000000|nr_str_appearance_set|Conjunto de apariencia
+2115940089|00000000||DLC: Custom (Mods)
+2115940090|00000000||DLC: Personajes principales
+2115940091|00000000||DLC: Personajes secundarios
+2115940092|00000000||Personajes principales
+2115940093|00000000||Personajes secundarios
+2115940094|00000000||[Abrir teletransporte al maestro Ainyerahn]
+2115940095|00000000||Hechizos básicos
+2115940096|00000000||Copito de nieve
+2115940097|00000000||Guardado como conjunto #
+2115940098|00000000|item_name_nr_chameleon_potion|Camaleón
+2115940099|00000000|item_desc_nr_chameleon_potion|Permite cambiar de apariencia. Como hechicera también permite personalizar hechizos.<br>No lo equipes, solo presiona "Consumir".
+2115940100|00000000||No está permitido equipar objetos en el slot:
+2115940101|00000000||Bruja
+2115940102|00000000||colorante
+2115940103|00000000||[VOLVER]
+2115940104|00000000||[Borrar Espacio]
+2115940105|00000000||Espacio
+2115940106|00000000||Cuerpo
+2115940107|00000000||Cabeza
+2115940108|00000000||Cabello/Sombrero
+2115940109|00000000||Torso
+2115940110|00000000||Brazos
+2115940111|00000000||Guantes
+2115940112|00000000||Vestido
+2115940113|00000000||Piernas
+2115940114|00000000||Zapatos
+2115940115|00000000||Varios
+2115940116|00000000||variantes
+2115940117|00000000||Selección de clase
+;
+;
+; Magic stuff : Slash
+2115940118|00000000||Ataques ligeros
+2115940119|00000000||Porcentaje de ataques de corte/lanzamiento
+2115940120|00000000||tipo
+2115940121|00000000||color
+2115940122|00000000||Corte
+2115940123|00000000||Porcentaje de línea de voz
+; Magic stuff : Colors
+2115940124|00000000||Black
+2115940125|00000000||Gris
+2115940126|00000000||Blanco
+2115940127|00000000||Amarillo
+2115940128|00000000||Naranja
+2115940129|00000000||Rojo
+2115940130|00000000||Rosa
+2115940131|00000000||Violeta
+2115940132|00000000||Azul
+2115940133|00000000||Cian
+2115940134|00000000||Verde
+2115940135|00000000||Especial-1
+2115940136|00000000||Especial-2
+2115940137|00000000||Especial-3
+2115940138|00000000||Aleatorio
+; Throw
+2115940140|00000000||Lanzamiento
+2115940141|00000000||Rayo
+2115940142|00000000||Proyectil
+; HAND FX
+2115940143|00000000||Efecto de hechizo en la mano
+; TELEPORT
+2115940144|00000000||Teletransportarse
+2115940145|00000000||Teletransporte de viaje rápido
+; HEAVY
+2115940146|00000000||Ataques pesados
+2115940147|00000000||Porcentaje de rocas/bombas
+2115940148|00000000||Rocas
+2115940149|00000000||Bomba
+2115940150|00000000||Onda de rocas
+2115940160|00000000||Destrozador
+; PUSH
+2115940151|00000000||Onda de bloqueo
+; SPECIAL
+2115940152|00000000||Hechizos Especiales
+2115940153|00000000||Tornado
+2115940154|00000000||Control
+2115940155|00000000||Meteoro
+2115940156|00000000||Escudo
+2115940157|00000000||Sirviente
+2115940161|00000000||Servant spawn fx
+; SPECIAL 2
+2115940158|00000000||Hechizos especiales alternativos
+2115940159|00000000||Tu hechizo te está <font color='#FF0000'>ATACANDO</font>:
+2115940162|00000000||Trueno de Alzur
+2115940163|00000000||Campo Gravitacional
+2115940164|00000000||Fuego de Melgar
+2115940165|00000000||Lumos
+2115940166|00000000||Polimorfismo
+2115940167|00000000||tipo #2
+2115940168|00000000||Burbuja de Agua
+;
+2115940199|00000000||Maestro Ainyerahn
+; SKILLS, TUTORIALS
+2115940200|00000000||<font color="#d92626">Novicia</font>
+2115940201|00000000||<font color="#e68319">Aprendiz</font>
+2115940202|00000000||<font color="#e6e219">Experimentada</font>
+2115940203|00000000||<font color="#50e619">Maestra</font>
+2115940204|00000000||<font color="#8d19e6">Gran Maestra</font>
+2115940205|00000000||Habilidades desbloqueadas
+;
+2115940206|00000000||Bienvenido a<font color="#00c785">Custom Player Characters</font> (CPC) Mod!
+2115940207|00000000||<br>Se agregó una poción <font color="#66ccff">Camaleón</font> especial a tu inventario. Úsala y sal del inventario para iniciar la escena de configuración del jugador.<br><br><b>Nota importante:</b> hasta que decidas usar una poción, el mod no tiene ningún impacto en tu juego.<br><br>< i>¡Buena suerte en el Camino!</i><br>
+2115940208|00000000||Haz alcanzado un <font color="#66ff99">nuevo nivel de mágia</font>!
+2115940198|00000000||Haz aprendido un<font color="#66ccff">nuevo nivel de mágia</font>!
+2115940197|00000000||Nuevo nivel de magia:
+2115940196|00000000||Nueva habilidad mágica:
+2115940195|00000000||Esto es un recordatorio.
+2115940194|00000000||Progreso de las habilidades mágicas.
+2115940193|00000000||¡Nuevo nivel de habilidad!
+; Novice
+2115940209|00000000||Tienes habilidades mágicas básicas:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}:Presione el botón "Ataque rápido" (igual que para la espada) para realizar.<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br> Presione el botón "Parry" (igual que para la espada) para realizar.<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Presione los botones de movimiento (para controlar la dirección, opcional) + botón "Roll" (distancia lejana) / "Esquivar" (distancia cercana) para realizar.<br>  {1084067}:Presione los botones de movimiento (para controlar la dirección, opcional) + el botón "Ranura de consumibles 4" para realizar.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}:Seleccione <i>Quen</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>mantenga presionado</i> el botón "Transmitir señal" para realizar. Mantén presionado este botón nuevamente para disipar.<br><br>Tu nivel de magia aumentará a medida que el jugador suba de nivel.<br>Cuanto más uses la habilidad, más poderosa se vuelve y se desbloquean más habilidades.<br><i>Sigue la misión para encontrar <font color="#66ffcc">¡un profesor</font> y aprende nuevos hechizos!</i><br>
+; Apprentice
+2115940210|00000000||Estas lista para aprender nuevas habilidades mágicas:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font><br><font color="#ffff66"><b>- {2115940152} ({2115940156}, {2115940599})</b></font><br><font color="#ffff66"><b>- {2115940145}</b></font><br><br><i>Debes visitar al maestro Ainyerahn para aprenderlas.</i><br>
+; Apprentice - heavy attacks learned
+2115940211|00000000||<font color="#ffff66"><b>- {2115940146} ({2115940148}, {2115940149}, {2115940160})</b></font><br>  Presiona el botón "Ataque pesado" o "Ataque ligero + modificador de ataque pesado" (lo mismo que para la espada) para realizar.<br>  {2115940148} y {2115940149}se turnan en una proporción de 2:1 (predeterminado, se puede cambiar en la escena de configuración del jugador).<br> {2115940160} se realizará con un 25 % de probabilidad si la víctima tiene menos del 25 % de salud. Estos valores mejoran con niveles de magia superiores.<br> <font color="#ff6600">NOTA:</font> No puedes usar {2115940160} en jefes.<br>
+; Apprentice - fast travel teleport learned
+2115940212|00000000||<font color="#ffff66"><b>- {2115940145}</b></font><br>  Abra el mapa del mundo y haga clic en <i>cualquier</i>icono de publicación para realizar la acción.<br>
+; Apprentice - Shield learned
+2115940216|00000000||<font color="#ffff66"><b>- {2115940156}</b></font><br>  Seleccione <i>Quen</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>presione</i> el botón "Transmitir señal" para realizar.<br>
+; Experienced
+2115940213|00000000||Estás lista para aprender nuevas habilidades mágicas:<br><font color="#ffff66"><b>- {2115940152} ({2115940153}, {2115940154})</b></font><br><font color="#ffff66"><b>- {2115940158} ({2115940163})</b></font><br><br><i>Debes visitar al Maestro Ainyerahn para aprenderlas.</i>< br>
+; Experienced - Tornado learned
+2115940214|00000000||<font color="#ffff66"><b>- {2115940153}</b></font><br>  Selecciona <i>Aard</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>presiona</i> el botón "Emitir señal" para realizar la acción.<br><br> <font color="#ff6600 ">ADVERTENCIA:</font> Este hechizo siempre tiene una pequeña posibilidad de atacarte después de su finalización. Sentirás (aparecerá un aviso) cuando esto suceda.<br>Practica (lanza muchas veces) un hechizo para reducir esta posibilidad.<br>
+; Experienced - Control learned
+2115940215|00000000||<font color="#ffff66"><b>- {2115940154}</b></font><br>  Selecciona <i>Axii</i> (predeterminado, se puede cambiar en la escena de configuración del jugador), selecciona el enemigo objetivo y <i>presiona</i> el botón "Emitir señal" para realizar la acción.<br><br> <color de fuente ="#ff6600">ADVERTENCIA:</font> Este hechizo siempre tiene una pequeña posibilidad de atacarte después de su finalización. Sentirás (aparecerá un aviso) cuando esto suceda.<br>Practica (lanza muchas veces) un hechizo para reducir esta posibilidad.<br>
+; Experienced - Gravitation Field learned
+2115940221|00000000||<font color="#ffff66"><b>- {2115940163}</b></font><br>  Selecciona <i>Axii</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>mantén pulsado</i> el botón "Transmitir señal" para realizar la acción.<br><br> <font color="#ff6600 ">ADVERTENCIA:</font> Este hechizo siempre tiene una pequeña posibilidad de atacarte después de lanzarlo. Sentirás (aparecerá un aviso) cuando esto suceda.<br>Practica (lanza muchas veces) un hechizo para reducir esta posibilidad.<br>
+; Mistress
+2115940217|00000000||Estás lista para aprender nuevas habilidades mágicas:<br><font color="#ffff66"><b>- {2115940152} ({2115940155}, {2115940157})</b></font><br><font color="#ffff66"><b>- {2115940158} ({2115940162})</b></font><br><br><i>Debes visitar al maestro Ainyerahn para aprenderlas.</i><br>
+; Mistress - Meteor learned
+2115940218|00000000||<font color="#ffff66"><b>- {2115940155}</b></font><br> Selecciona <i>Igni</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>presiona</i> el botón "Emitir señal" para realizar la acción.<br><br> <font color="#ff6600 ">ADVERTENCIA:</font> Este hechizo siempre tiene una pequeña posibilidad de atacarte después de lanzarlo. Sentirás (aparecerá un aviso) cuando esto suceda.<br>Practica (lanza muchas veces) un hechizo para reducir esta posibilidad.<br>
+; Mistress - Servant learned
+2115940219|00000000||<font color="#ffff66"><b>- {2115940157}</b></font><br> Selecciona <i>Yrden</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>presiona</i> el botón "Transmitir señal" para realizar la acción.<br><br> <font color="#ff6600 ">ADVERTENCIA:</font> Este hechizo siempre tiene una pequeña posibilidad de atacarte después de lanzarlo. Sentirás (aparecerá un aviso) cuando esto suceda.<br>Practica (lanza muchas veces) un hechizo para reducir esta posibilidad.<br>
+; Mistress - Alzur's thunder learned
+2115940220|00000000||<font color="#ffff66"><b>- {2115940162}</b></font><br>  Selecciona <i>Aard</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>mantén pulsado</i> el botón "Transmitir señal" para realizar la acción.<br><br> <font color="#ff6600 ">ADVERTENCIA:</font> Este hechizo siempre tiene una pequeña posibilidad atacarte después de lanzarlo. Sentirás (aparecerá un aviso) cuando esto suceda.<br>Practica (lanza muchas veces) un hechizo para reducir esta posibilidad.<br>
+; Grand Mistress
+2115940222|00000000||Estás lista para aprender nuevas habilidades mágicas:<br><font color="#ffff66"><b>- {2115940158} ({2115940164}, {2115940166})</b></font><br><br ><i>Debes visitar al Maestro Ainyerahn para aprenderlas.</i><br>
+; Grand Mistress - Melgar's fire learned
+2115940223|00000000||<font color="#ffff66"><b>- {2115940164}</b></font><br>  Selecciona <i>Igni</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>mantén pulsado</i> el botón "Emitir señal" para realizar la acción.<br><br> <font color="#ff6600 ">ADVERTENCIA:</font> Este hechizo siempre tiene una pequeña posibilidad atacarte después de lanzarlo. Sentirás (aparecerá unaviso) cuando esto suceda.<br>Practica (lanza muchas veces) un hechizo para reducir esta posibilidad.<br>
+; Grand Mistress - Polymorphism learned
+2115940224|00000000||<font color="#ffff66"><b>- {2115940166}</b></font><br>  Selecciona <i>Yrden</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>mantén pulsado</i> el botón "Transmitir señal" para realizar. Mantenga presionado este botón nuevamente para disipar.<br> <b>NOTA:</b> Para obtener más variantes de apariencia de gato, instale <font color="#8800AA">Immersive Wildlife Project (Dhu Cats)</font><br> < i><font color="#E4FF00">nexusmods.com/witcher3/mods/3527</font></i>
+2115940225|00000000||Realizar
+2115940226|00000000||<i>Personalización</i> [te permite cambiar aspectos visuales y otros, siempre desbloqueado en el nivel de habilidad 1]
+2115940227|00000000||Habilidades especiales [bonificaciones adicionales para el hechizo, no afectan el costo de resistencia]
+2115940228|00000000||<i>Doble corte</i> [un corte adicional otorga +50% de daño]
+2115940229|00000000||<i>Apuntar automáticamente</i> [los proyectiles ajustan la trayectoria]
+2115940230|00000000||<i>Rebote de relámpago</i> [un rayo adicional con un 50% del daño golpea a otro oponente]
+2115940231|00000000||<i>Super Explosión</i> [ola esférica lanza enemigos por todos lados]
+2115940232|00000000||<i>Empujón de contraataque automático</i> [al teletransportarse a una nueva posición, se realiza un contraempuje con un 40 % de probabilidad y un +1 % de probabilidad en cada nivel de habilidad]
+2115940233|00000000||<i>Mejora de escala de títeres</i> [aumenta el nivel del objetivo en 3 durante el control]
+2115940234|00000000||<i>Marionetas máximas</i> [máximo de entidades controladas en total, que pueden existir al mismo tiempo]
+2115940235|00000000||<i>Srvientes máximos</i> [máximo de sirvientes convocados en total, que pueden existir al mismo tiempo]
+2115940236|00000000||<i>Tornados máximos</i> [máximo de tornados creados en total, que pueden existir al mismo tiempo]
+2115940237|00000000||<i>Siguiendo al jugador</i> [hechizo/sirvientes siguen al jugador]
+2115940238|00000000||<i>Tipos de sirvientes</in> [qué sirvientes puedes invocar, los tipos desbloqueados se pueden seleccionar en la escena de configuración del jugador]
+2115940239|00000000||<i>Persecución de objetivo</i> [persigue un objetivo original durante todo el tiempo]
+2115940240|00000000||<i>Recuento de meteoros</i> [número de meteoros en un lanzamiento]
+2115940241|00000000||<i>Absorción de daño</i> (100% = HP máximo del jugador)
+2115940242|00000000||La habilidad no se aprende.
+2115940243|00000000||<i>Leyenda</i>: <font color="#FF0000">rojo = bloqueado</font>, <font color="#00FF00">verde = desbloqueado (aprendido)/bonus</font>
+2115940244|00000000||<i>Control de daños</i> [el hechizo inflige daño solo a entidades hostiles, pero el jugador aún recibe daño si el hechizo le ESTÁ CONTRAREDANDO]
+2115940245|00000000||<i>Ardor</i> [prende fuego a los enemigos durante 5 segundos con un 20 % de probabilidad y un +1 % de probabilidad en cada nivel de habilidad]
+2115940246|00000000||<i>Congelación</i> [congela a los enemigos durante 5 segundos con un 20 % de probabilidad y un +1 % de probabilidad en cada nivel de habilidad]
+2115940247|00000000||<i>Recuento de relámpagos/meteoritos</i> [número de relámpagos/meteoritos en un intervalo de tiempo]
+2115940248|00000000||<i>Intervalo de relámpagos/meteoritos</in> [tiempo entre la creación de relámpagos/meteoritos]
+2115940249|00000000||<i>Dos sirvientes</i> [invoca a dos sirvientes, los tipos desbloqueados se pueden asignar de forma independiente al primer y segundo sirviente en la escena de configuración del jugador]
+2115940250|00000000||<i>Vacío</i> [el hechizo succiona a los enemigos dentro de él]
+2115940251|00000000||<i>Escudo automático</i> [cuando lanzas el hechizo, el escudo aparece con cierta probabilidad]
+2115940252|00000000||<i>Aplicación automática</i> [cuando entras en combate, el escudo aparece automáticamente, cuando sales del combate, desaparece]
+2115940253|00000000||<font color="#d92626">Hechizos para novicias</font>
+2115940254|00000000||<font color="#e68319">Hechizos para Aprendices</font>
+2115940255|00000000||<font color="#e6e219">Hechizos para Experimentadas</font>
+2115940256|00000000||<font color="#50e619">Hechizos para Maestras</font>
+2115940257|00000000||<font color="#8d19e6">Hechizos para Gran-Maestras</font>
+;
+; PLAYER SETUP SCENE
+;
+2115940550|00000000||[SALIR]
+2115940551|00000000||Cambiar clase 
+2115940552|00000000||Cambiar apariencia
+2115940553|00000000||Cambiar nombre
+2115940554|00000000||Cambiar hechizos
+2115940555|00000000||Mostrar ayuda
+2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">Los tipos básicos (Geralt, Ciri)</font> te permiten jugar como si el mod no estuviera instalado.<br> <font color="#00FF00">TODOS los tipos de jugadores personalizados</font> te permiten personalizar tu apariencia y nombre para mostrar. El progreso y el inventario de tu juego son siempre los mismos para cualquier tipo de jugador. Cuando juegas con cualquier tipo personalizado, puedes hacer todo lo que Geralt puede hacer (excepto el uso de espadas como <font color="#00FF00">Hechicera</font>).<br> <font color="#00FF00">Brujo</font > te permite jugar como Geralt.<br> <font color="#00FF00">Bruja</font> te permite jugar como Geralt, con animaciones femeninas adaptadas y voces procesadas por IA.<br> <font color="#00FF00">Hechicera</font> te permite jugar con animaciones femeninas redireccionadas, voces procesadas por IA y con un nuevo sistema de combate mágico. Para obtener poderes completos, sigue la misión después de seleccionar <font color="#00FF00">Hechicera</font>.<br> <i>NOTA:</i> <font color="#FF0000">NO desinstalar</ font> el mod después de guardar el juego con él, porque algunos datos relacionados con el mod se almacenan en su interior. Siempre puedes usar "Camaleón" y volver a <font color="#FFFF00">Geralt (vainilla)</font> para hacer las cosas como si el mod no estuviera instalado.<br> <font color="#FF0000">ADVERTENCIA </font>: si cambias a <font color="#FFFF00">Ciri (vainilla)</font> no podrás usar "Camaléon" y regresar a esta escena, ya que el inventario estará bloqueado. La única forma de regresar será usar el comando de consola "NRToGeralt" y luego usar "Camaleón" como de costumbre.<br>
+2115940557|00000000||<b>- {2115940565}</b>: tus conjuntos de apariencia (puedes guardar los actuales, cargar los guardados anteriormente)<br><br><b>- {2115940566}</b>: conjuntos de apariencias predefinidos de todos los NPC, en todas las variantes de color.<br><br> <b>- {2115940567}</b>: conjuntos predefinidos de todos los conjuntos de armaduras de Geralt, en todas las variantes de color. No cambies la cabeza ni el cabello del jugador en la mayoría de los casos.<br> Para los <font color="#00FF00">tipos de jugadoras</font> se utilizan modelos de armadura adaptados por Val aka Jo, así que asegúrate de haber instalado su mod: <font color="#9900CC">Female Geralt armor models</font>.<br><br><b>- {2115940568}</b>: cambia las ranuras de apariencia manualmente, para una configuración avanzada. Una de las formas de usarlo: borre todas las ranuras, luego elija cabeza, cabello, cuerpo/torso, brazos, manos, piernas, zapatos, luego elija elementos adicionales.<br><br><b>- Cambie las plantillas de apilamiento como elementos. </b>: para configuración avanzada, si desea aplicar 2 o más plantillas de la misma ranura (rara vez es necesario).<br><br><b>- Mostrar vista previa de los nombres de las partes del cuerpo</b>: para configuración avanzada, muestra los nombres de las plantillas de vista previa actuales.<br>
+2115940558|00000000||Nombre para mostrar del jugador
+2115940559|00000000||Geralt (base)
+2115940560|00000000||Ciri (base)
+2115940561|00000000||Brujo (personalizable)
+2115940562|00000000||Bruja (personalizable)
+2115940563|00000000||Hechicera (personalizable)
+2115940564|00000000||[Limpiar todos los espacios y elementos]
+2115940565|00000000||Conjuntos de mis apariciones
+2115940566|00000000||Conjuntos de apariencia de NPC
+2115940567|00000000||Conjuntos de armaduras de Geralt
+2115940568|00000000||Cambiar plantillas de espacios (constructor de apariencia)
+2115940569|00000000||Apilar partes del cuerpo como elementos: [deshabilitado]
+2115940570|00000000||Apilar partes del cuerpo como elementos: [habilitado]
+2115940571|00000000||Mostrar información de DLC personalizados
+2115940572|00000000||Guardar conjunto de apariencia actual
+2115940573|00000000||Cargar conjunto de apariencia
+2115940574|00000000||Quitar conjunto de apariencia
+2115940575|00000000||Cargar conjunto
+2115940576|00000000||Quitar conjunto
+2115940577|00000000||Mostrar nombres de partes del cuerpo de vista previa actuales: [deshabilitado]
+2115940578|00000000||Mostrar nombres de partes del cuerpo de vista previa actuales: [habilitado]
+2115940579|00000000||[Aplicar ALEATORIO]
+2115940580|00000000||Utilice lenguaje femenino: [Automático (recomendado)]
+2115940581|00000000||Utilice lenguaje femenino: [Siempre]
+2115940582|00000000||Utilice lenguaje femenino: [Nunca]
+2115940583|00000000||Autor: <font color="#004488">nikich340 (Nikita Grebenyuk)</font><br>  Usar <font color="#770044">U (botón Modo Foto)</font> => <font color="#070077">"VOLVER" rápido</font><br>  Utilice <font color="#770044" >W,S/Botones de flecha/Rueda del ratón</font> => <font color="#070077">lista de opciones de desplazamiento</font>
+;
+; In voice-mod strings
+2115940585|00000000||Conjunto cargado #
+2115940586|00000000||Conjunto eliminado #
+2115940587|00000000||Administrar la probabilidad de la línea de voz del hechizo
+2115940588|00000000||Probabilidad de línea de voz
+2115940589|00000000||Teletransporte del juego
+2115940590|00000000||<b>- {2115940552}</b>: te permite personalizar tu apariencia como quieras.<br> Disponible solo para <font color="#00FF00">tipos de reproductor personalizados</font>.<br><br><b>- {2115940553}</b> : cambia el nombre utilizado para los subtítulos cinematográficos y los mensajes de registro de visitas.<br> Puedes elegir solo entre los nombres de juegos originales (~950).<br> Disponible solo para <font color="#00FF00">tipos de jugadores personalizados</font >.<br><br><b>- {2115940554}</b>: te permite personalizar la apariencia de tus hechizos (color, tipo) y algunos otros parámetros.<br> Disponible solo para <font color="#00FF00 ">Hechicera</font>.<br><br><b>- Usa habla femenina:</b> <i>Auto (recomendado)</i> - Habla de Geralt especialmente procesada por IA para que suene como mujer, usada cuando juegas como <font color="#FFFF00">Ciri</font>/<font color="#00FF00">Bruja/Hechicera</font>. Puede descargar e instalar otra variante/idioma de voz desde una página de modificación separada:<br> <font color="#FFFF00">nexusmods.com/witcher3/mods/9147</font><br> <i>Voz actual</ i>: <font color="#00FF00">{2115940999}</font><br>
+2115940592|00000000||Administrar habilidades
+2115940593|00000000||Mostrar sugerencias de control mágico
+2115940594|00000000||Subir
+2115940595|00000000||Bajar
+2115940596|00000000||<i>Iluminación automática</i> [ilumina todas las fuentes de luz en algún rango]
+2115940597|00000000||Búho
+2115940598|00000000||Apariencia
+2115940599|00000000||Cambio de clima
+2115940549|00000000||<font color="#ffff66"><b>- {2115940599}</b></font><br> Selecciona <i>Aard</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i >presiona</i> el botón "Transmitir señal" para realizar la acción.<br>
+2115940548|00000000||<font color="#FFFF00"><b>Polimorfismo - ADVERTENCIA:</b></font> Dado que viajar en forma de animal o pájaro abre nuevas oportunidades (a menudo no proporcionadas por los desarrolladores) para viajar, es posible omitir el área de activación importante, la puerta interactiva, etc. y así romper la lógica de la misión.<br>Ten cuidado al usar esta opción e intenta guardar manualmente. En caso de situaciones extrañas en las que el progreso de la misión no avance, intenta volver a jugarla sin usar la transformación.<br><font color="#FFAA00"><i>¡Estás advertido!</i></font>
+2115940547|00000000||Practica 5 veces Cambio de Clima.
+2115940546|00000000||Eliminar objeto
+2115940545|00000000||Adelante
+2115940544|00000000||Carmesí
+2115940543|00000000||Cal
+2115940542|00000000||Azur
+2115940541|00000000||<i>Auto curación</i> [restaura tu salud cuando el escudo es atacado]
+2115940540|00000000||<b>No se ha encontrado el paquete de voz femenino</b><br>  Significa: cuando juegas con el habla femenina habilitada (<font color="#00FF00">Bruja/Hechicera</font>), <font color="#FF2222">Habrá silencio en lugar de la voz del jugador</font>.<br>  Porfavor considera instalar esta parte:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/9147</font><br><br>
+2115940539|00000000||<b>Immersive Wildlife Project (DhuCats) no se ha encontrado!</b><br>  Significa: no podrás usar varios modelos de gatos de alta calidad para el hechizo Polimorfismo (<font color="#00FF00">Hechicera</font>).<br>  Porfavor considera instalar esta parte:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/3527</font> ("DhuCats" file)<br><br>
+2115940538|00000000||<b>Female Geralt armor models no se han encontrado!!</b><br>  Significa: no podrás "usar" apariencias de conjuntos de armaduras. (<font color="#00FF00">Bruja/Hechicera</font>).<br>  Porfavor considera instalar esta parte:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/9322</font><br><br>
+2115940537|00000000||Establece el color para todas las acciones por signo
+2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Barco flotante
+2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|Un barco rodeado de hielo, flotando en el aire debido a un poderoso flujo de magia.
+2115940533|00000000||Interactions hint - Sorceress
+2115940534|00000000||Use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>Use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
+2115940532|00000000||[CHEAT Magic Options]
+2115940531|00000000||CHEAT: Unlock magic level: 
+2115940530|00000000||CHEAT: Set maximum level to all spells
+; -------------------------------
+2115940000|00000000||Jugador
+2115940001|00000000||Jugador
+2115940002|00000000||Jugador
+2115940003|00000000||Celestín
+2115940004|00000000||MOD questgroup_newreplacers Quests
+2115940005|00000000||Conviértete en Archi-Maestra
+2115940006|00000000||Practica 5 veces el hechizo Trueno de Alzur .
+2115940007|00000000||Practica 7 veces el hechizo de Control.
+2115940008|00000000||Practica 5 veces el hechizo Campo Gravitacional.
+2115940009|00000000||Practica 3 veces la Teletransportaciónn de viaje rapido.
+2115940010|00000000||Practica 13 veces los ataques fuertes.
+2115940011|00000000||Practica 5 veces el hechizo Fuego de Melgar.
+2115940012|00000000||Practica 7 veces el hechizo Meteoro.
+2115940013|00000000||Practica 3 veces el hechizo Polimorfismo.
+2115940014|00000000||Practica 7 veces el hechizo Sirviente.
+2115940015|00000000||Practica 7 veces el hechizo Escudo
+2115940016|00000000||Practica 7 veces el hechizo Tornado
+2115940017|00000000||Consulta el tablón de anuncios del Huerto Blanco.
+2115940018|00000000||Derrota los monstruos.
+2115940019|00000000||Entra al Portal.
+2115940020|00000000||Investiga el área.
+2115940021|00000000||Investiga la piedta mágica.
+2115940022|00000000||Habla con el mago.
+2115940023|00000000||Ainyerahn aceptó convertirse en su maestro para ayudarla a comprender las complejidades de la gestión del caos.<br>
+2115940024|00000000||El misterioso mago ermitaño se llamaba Ainyerahn, quien estaba estudiando la naturaleza de la piedra anómala cuando esta lo teletransportó a él y al barco a las cercanías del Huerto Blanco.<br>
+2115940025|00000000||Mientras exploraba el área, se encontró con un cristal con un rastro mágico tangible. El rastro la llevó a un barco mágico flotando en el aire sobre una plataforma de hielo. La fuente de esta anomalía era obviamente una piedra mágica, y al tocarla, la hechicera había desencadenado a los monstruos. La batalla con ellos podría haber terminado mal, si no fuera por la aparición de un mago desconocido.<br>
+2115940026|00000000||Tras leer el anuncio, la hechicera sospechó de un caso interesante.<br>
+2115940027|00000000||Tu camino mágico comienza<br>
+2115940028|00000000||Conviértete en Archi-Maestra
+2115940029|00000000|item_name_newreplacers_notices_sorceress_training_notice|Tenga cuidado en la carretera de Vyzima.
+2115940030|00000000|item_desc_newreplacers_notices_sorceress_training_notice|Aviso sobre cosas extrañas en el camino a Vyzima.
+2115940031|00000000|item_name_newreplacers_notices_sorceress_training_notice_text|¡Buena gente! ¡Ten cuidado en el camino a Vyzima!<br>La semana pasada, cuando fui a ver a mi hija, se escuchó un ruido sordo y una llama sobre mí, y mi caballo se precipitó hacia los arbustos. Y luego noté un montón de hielo en el cielo por un momento, y luego desapareció.<br>Dirán que estaba borracho, ¡pero estaba sobrio ese día!<br>
+2115940032|00000000|dlc_name_newreplacers|Personajes Personalizados
+2115940033|00000000|option_dlc_name_newreplacers|MOD: Personajes Personalizados
+2115940034|00000000|content_name_dlc_newreplacers|MOD: Personajes Personalizados
+2115940650|00000000||SLOT: Cabeza
+2115940651|00000000||SLOT: Cabello
+2115940652|00000000||SLOT: Cuerpo
+2115940653|00000000||SLOT: Torso
+2115940654|00000000||SLOT: Brazos
+2115940655|00000000||SLOT: Guantes
+2115940656|00000000||SLOT: Vestido
+2115940657|00000000||SLOT: Piernas
+2115940658|00000000||SLOT: Zapatos
+2115940659|00000000||SLOT: Varios
+2115940660|00000000||[Siguiente Slot: Cabello]
+2115940661|00000000||[Siguiente Slot: Cuerpo]
+2115940662|00000000||[Siguiente Slot: Torso]
+2115940663|00000000||[Siguiente Slot: Brazos]
+2115940664|00000000||[Siguiente Slot: Guantes]
+2115940665|00000000||[Siguiente Slot: Vestido]
+2115940666|00000000||[Siguiente Slot: Piernas]
+2115940667|00000000||[Siguiente Stol: Zapatos]
+2115940668|00000000||[Siguiente Slot: Varios]
+2115940669|00000000||[Siguiente Slot: Cabeza]
+2115940600|00000000||SLOT: Cabeza
+2115940601|00000000||SLOT: Cabello
+2115940602|00000000||SLOT: Cuerpo
+2115940603|00000000||SLOT: Torso
+2115940604|00000000||SLOT: Brazos
+2115940605|00000000||SLOT: Guantes
+2115940606|00000000||SLOT: Vestido
+2115940607|00000000||SLOT: Piernas
+2115940608|00000000||SLOT: Zapatos
+2115940609|00000000||SLOT: Varios
+2115940610|00000000||[Siguiente Slot: Cabello]
+2115940611|00000000||[Siguiente Slot: Cuerpo]
+2115940612|00000000||[Siguiente Slot: Torso]
+2115940613|00000000||[Siguiente Slot: Brazos]
+2115940614|00000000||[Siguiente Slot: Guantes]
+2115940615|00000000||[Siguiente Slot: Vestido]
+2115940616|00000000||[Siguiente Slot: Piernas]
+2115940617|00000000||[Siguiente Stol: Zapatos]
+2115940618|00000000||[Siguiente Slot: Varios]
+2115940619|00000000||[Siguiente Slot: Cabeza]
+2115940350|00000000||[SALIR] dev
+2115940351|00000000||0:1 (solo ataques de lanzamiento)
+2115940352|00000000||1:4
+2115940353|00000000||1:3
+2115940354|00000000||1:2
+2115940355|00000000||1:1
+2115940356|00000000||2:1
+2115940357|00000000||3:1
+2115940358|00000000||4:1
+2115940359|00000000||1:0 (solo ataques de corte)
+2115940360|00000000||0:1 (solo ataques de bomba)
+2115940361|00000000||1:4
+2115940362|00000000||1:3
+2115940363|00000000||1:2
+2115940364|00000000||1:1
+2115940365|00000000||2:1
+2115940366|00000000||3:1
+2115940367|00000000||4:1
+2115940368|00000000||1:0 (solo ataques de roca)

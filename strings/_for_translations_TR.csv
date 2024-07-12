@@ -1,0 +1,588 @@
+;meta[language=tr]
+;  id     |key(hex)|key(str)|text
+;
+;  you translate only text ----^ (last column) 
+;
+2115940050|||Arha'an lumar!
+2115940051|||Cais'te aet disgleir!
+2115940052|||Gveryd me cassel!
+2115940053|||Greame et dwyr!
+2115940054|||Rhobeir'me gelle!
+2115940055|||Greame et dwyr!
+2115940056|||Ess pyr'shena a et cleytte!
+2115940057|||Nevid! Ariva!
+2115940058|||Agored, teirgan.
+2115940059|||Vryff cais'te aem gyhar!
+; do not translate spells and Hen Llinge text --^
+;
+2115940060|||İçimde büyük bir güç hissediyorum… Ama onu nasıl yönlendireceğimi öğrenmem gerekiyor. Bir öğretmene ihtiyacım var.
+2115940061|||İlginç, belki de orada bir çeşit büyü vardır. Kontrol etmeliyim.
+2115940062|||Megaskop kristali! Ve büyülü iz açıkça kaynağına işaret ediyor. O konuma bir portal oluşturmaya çalışacağım.
+2115940063|||Wow, burası neresi?
+2115940064|||Bu taştan güçlü bir büyü akışı yayılıyor…
+2115940065|||Ah, hayır, o değil!
+2115940066|||*çığlık*
+2115940067|||Oh…
+; *çığlık*
+; Кристалл мегаскопа. И магический след явно указывает на исходное местоположение. Попробую создать портал туда.
+2115940068|||Hayatımı kurtardın. Kimsin? Peki ben neredeyim?
+; female comment
+2115940069|||Keşke sahire olsaydım…
+; erkek yorumu
+2115940081|||Keşke sahire olsaydım…
+; Seni kim yarattı?
+2115940070|||Qued se creoest?
+; Beimle gel!
+2115940071|||Caem a me!
+; Sakin ol kızım
+2115940072|||Caelm, luned.
+; Kanı zehirden arındır.
+2115940073|||Aeksin a'bloed vort nimh!
+2115940074|||Hey,beni duyabiliyor musun?
+2115940075|||D'yaebl! She's still dying…
+; Sana hayat veriyorum
+2115940076|||Me aedit'ef a'vita as te!
+2115940077|||Maith.
+; swears
+2115940078|||An'badraigh aen cuach.
+2115940079|||Gar'ean!
+2115940080|||Ess'tuath esse!
+2115940850|||Cead, luned. Conas esseath aelaedde?
+2115940851|||İyiyim teşekkürler. Ortak Dil'i biliyor musunuz?
+2115940852|||Kareler... Affedersiniz. Hen Llinge'de kendi kendime konuşmaya başladım.
+2115940853|||Neredeyim? Bu gemi ve buzlu ortam…
+2115940854|||…havada yüzüyor, doğru. Kuzey Denizi'nin buzunda yer alan müthiş büyülü kavşağın kökenlerini araştırıyorum.
+2115940855|||Bulundu mu?
+2115940856|||Evet, hava elementine doğru büyü akışını manipüle etmeye çalıştığımda, uzayı parçaladı ve beni şimdi şahit olduğun her şeyle birlikte bu noktaya sürükledi.
+2115940857|||Kavşak o taştan yapılmış gibi görünüyor. Bazen akış asi hale gelir ve düşman yaratıkları çeker.
+2115940858|||Öyle görünüyor ki akışta bir dalgalanma yarattım…
+2115940859|||Hahaha, kesinlikle. Taşla her temas ettiğimde benzer bir olay yaşanıyor. Alzur'un Double Cross büyüsünün işleyişini anımsattığını söyleyebilirim.
+2115940860|||Şimdi sanırım anlıyorum. Muhtemelen, en azından…
+; selamlar çırak
+2115940861|||Cead, genç çırağım.
+2115940862|||Bu gemide en zorlu büyücünün varlığına tanık olmak bir zevk.
+2115940863|||Çırağımı görmek içimi ısıtıyor.
+; selamlar otağım
+2115940864|||Selamlar.
+2115940865|||Tekrar hoşgeldin!
+; çıkış
+2115940867|||Sonra görüşürüz.
+2115940868|||Hoşçakal.
+2115940869|||Görüşürüz.
+; öğretim diyalogları
+2115940870|||Çırağınız olmak isterim.
+2115940871|||Bana kendinden bahset.
+2115940872|||Ne beklenmedik… Neden? Şüphesiz Aretuza'da daha fazla bilgi edinebilirdin.
+2115940873|||Ben oradan sürgün edildim.
+2115940874|||Onların acımasız taleplerinin ağırlığı dayanamayacağım kadar ağırlaştı.
+2115940875|||Yasak sanatlarla uğraştığın için miydi?
+2115940876|||Evet, bir iblis çağırdım.
+2115940877|||Evet, nekromansi ile uğraşmaya cesaret ettim.
+2115940878|||Hayır, kazayla bir öğretmeni öldürdüm.
+2115940879|||Hayır, bunun hakkında konuşmamayı tercih ederim.
+2115940880|||Neredeyse anında kontrolü kaybettim ve rektör şeytanı durduramadan, birkaç acemiyi öldürdü…
+2115940881|||Ve bunu başarmak için akıl hocamızın megaskobundan sihirli kristaller çaldım...
+2115940882|||Şimdi yaptığın şeyden pişmanlık duyuyor musun?
+2115940883|||Evet, fazlasıyla.
+2115940884|||Tam olarak değil.
+2115940885|||Bu sözleri duymak benim için çok önemliydi.
+2115940886|||Sen bu dersi anlamada başarısız oldun, dolayısıyla benimkini de öğrenmeyeceksin.
+2115940887|||Umarım bir sonraki kişi ben olmayacağım...
+2115940888|||Elbette hayır!
+2115940889|||Nasıl istersen.
+2115940890|||Seni yeterince iyi anlıyorum.
+2115940891|||Hmm… 'En son çırak aldığımdan bu yana epey zaman geçti…
+2115940892|||Lütfen! Ben... seni başarısızlığa uğratmayacağım.
+2115940893|||Öncelikle hazır olduğunuzu göstermelisin.
+2115940894|||Sana birkaç soru yönelteceğim.
+2115940895|||Büyü nedir?
+2115940896|||İlk Witcher'ların yaratılmasından hangi büyücüler sorumluydu?
+2115940897|||İlk insan büyücü ve hava büyüsü ustası kimdi?
+2115940898|||Bireye mevcut kaderi algılama yeteneğini kazandıran büyü türü hangisidir?
+2115940899|||Kara büyü(nekromansi) uygulaması neden yasaklandı?
+2115940900|||Witcher'ın Quen işareti gücünü hangi elementten alıyor?
+2115940901|||Tüm büyülü unsurlar arasında hangisi en tehlikeli olarak değerlendiriliyor?
+; master dialogs
+2115940902|||Daha fazla hazırlığa ihtiyacın var. Gemimin kütüphanesinden faydalanabilirsin.
+2115940903|||Aretuza'da sana bir şey öğretmiyorlar mı? Bütün sorularıma yanlış cevap vermeyi başardın.
+2115940904|||Pekala, hazırsın. Ve temel büyülere zaten aşinasın.
+2115940905|||Yeni gelişmiş büyüler öğrenebilir veya zaten bildiklerini geliştirebilirsin.
+2115940906|||Bir sonraki büyüye geçmeden önce her yeni büyüyü birkaç kez başarıyla gerçekleştirmen gerektiğini unutma.
+2115940907|||Devam etmeden önce yine de geçen sefer incelediğimiz büyüyü pratik yapman gerekiyor.
+2115940908|||Büyü seviyeniz yeni büyüleri öğrenmek için hâlâ yetersiz.
+2115940909|||Bu arada yeni büyüler öğrenebilecek noktaya ulaştın.
+2115940910|||Hangisinin ilgini çektiğine karar ver.
+2115940911|||Anlıyorum. Sana bu büyüyü gerçekleştirme adımları hakkında talimat vereceğim ve bu büyüyü uygulamak ve ustalaşmak senin görevindir.
+2115940912|||Anlaşıldı. Şimdi bu büyüyü nasıl uygulayacağını açıklayacağım ve sizin sorumluluğunda bunu pratik yaparak çözmek olacak.
+2115940913|||Sana tüm gelişmiş büyüleri öğrettim. Yani şu anda daha fazla bilgi sağlayamıyorum.
+2115940914|||Bana Ainyerahn diyebilirsin. Tecrübeli bir denizci olan babam, deniz seferlerine sık sık beni de götürürdü. Ancak bir gün, şiddetli bir fırtına gemimizi acımasızca mahvetti.
+2115940915|||Kaosun, gemi enkazının ve boğulan denizcilerin ortasında, kör edici bir ışık beni yaktı ve Kaedwen ormanlarının derinliklerinde uyandım.
+2115940916|||O gün babamı kaybettim ama kader bana saygın büyücüler akademisinde okuma şansını verdi. Ban Ard'daki son yılımda koşullar ayrılmamı gerektirdi.
+2115940917|||O zamandan beri odak noktam büyülü anomalileri ve kesişimleri araştırmak oldu. Soylu ailelerin çatışmalarından ve kitlelerin cehaletinden bilinçli olarak uzak.
+2115940918|||Yeni büyüler öğrenmek istiyorum.
+2115940919|||Lütfen bana nasıl yapılacağını hatırlatır mısınız?
+2115940985|||Pratikteki başarılarım hakkında…
+; sorceress answers
+; q0
+2115940920|||6 elementin enerjisi.
+2115940921|||Parlak flaşlar ve kıvılcımlar.
+2115940922|||Kaosu kontrol etme sanatı.
+2115940923|||İstediğinizi elde etmenin kolay yolu.
+; q1A
+2115940924|||Geoffrey Monck ve Raffard the White.
+2115940925|||Alzur ve Cosimo Malaspina.
+2115940926|||Nina Fioravanti ve Aurora Henson.
+2115940927|||Ortolan ve Sorel Degerlund.
+; q1B
+2115940928|||Agnes of Glanville.
+2115940929|||Klara Larissa de Winter.
+2115940930|||Tissaia de Vries.
+2115940931|||Lara Dorren aep Shiadhal.
+; q2A
+2115940975|||Goetia.
+2115940976|||Transmutation.
+2115940977|||Lesbomancy.
+2115940978|||Hydromancy.
+; q2B
+2115940932|||Çünkü çok fazla enerjiye ihtiyaç var.
+2115940933|||Ölülere duyulan batıl inanç yüzünden.
+2115940934|||Çünkü her türlü nedene rağmen her zaman tamamen olumsuz yan etkilere yol açar.
+2115940935|||Çünkü bir cesetten bilgi çıkarmayı sağlıyor.
+; q3A/B
+2115940936|||Hava Elementi.
+2115940937|||Su Elementi.
+2115940938|||Ateş Elementi.
+2115940939|||Toprak Elementi.
+; Golem creation
+2115940940|||Selamlar, çırak. Bana bir konuda yardımcı olabilir misin?
+2115940941|||Evet ne oldu?
+2115940942|||Üzgünüm, bunun için zaman yok.
+2115940943|||Sen gelmeden önce kendimi yalnızlığın sinsi doğası üzerine düşünürken bulduğum anlar oldu. Bu yüzden hayatıma bir kedi arkadaşını kabul ettim ve sadık bir golem yaratma fikri birçok kez aklımdan geçti.
+2115940944|||Ancak yaptığım her girişim tatmin edici olmayan sonuçlarla sonuçlandı. Şu anda seninle işbirliği yaparak hayret verici bir yaratığı ortaya çıkarabileceğimize olan inancım tam.
+2115940945|||Bilmemiz gereken herhangi bir risk var mı?
+2115940946|||UBoşa harcanmış bir obsidiyen kalbi ya da ele avuca sığmaz, düşmanca bir taş yığınını önemli riskler olarak görmüyorsan, hayır.
+2115940947|||Elbette. Bu ilginç olacak.
+2115940948|||Üzgünüm, yardımcı olabileceğimden emin değilim.
+2115940949|||Öyleyse başlayalım. Ben canlandırıcı gök gürültüsünü çağıracağım ve ben bunu yaparken sen ona eşit dengeyi koruyarak toprak ve su elementlerini aşılayacaksın.
+; Я призываю звёздные молнии жизни! (Ainyerahn)
+2115940950|||Me galwad iersann sigellen aep vita!
+2115940305|||Me galwad iersann sigellen aep vita!
+2115940951|||Tam bir karışıklık yarattın! Toprak ve su elementlerinin bu şekilde çarpık değil, eşit oranda karışması gerekirdi!
+2115940952|||Hey Adın ne? Amacın ne?
+2115940953|||Ben Celestine'im. Yaratıcılarımı, efendimi ve hanımımı koruyorum. Ve ne emrediyorlarsa onu yaparım.
+2115940954|||Muhteşem! Başardık! Suyun görünümü ona olağanüstü bir zihniyet kazandırıyor. Gemime hoş geldin Celestine.
+2115940955|||Teşekkürler usta.
+; Dialogs with Celestine
+2115940956|||Hanımım. Ne büyük bir zevk.
+2115940957|||Sabah. Güzel bir gün.
+2115940958|||Sen kendinin farkında mısın?
+2115940959|||Topraktaydım, sudaydım, havadaydım. Her yer. Ve şimdi buradayım.
+2115940960|||Herhangi bir isteğin var mı?
+2115940961|||Sakinlik. Sessizlik. Yavaşlık.
+2115940962|||Ortadan kaybolursak ne yapacaksın?
+2115940963|||Son isteğini yerine getiririm. Mülkünüzü korurum.
+2115940964|||Sekiz artı dört kaç eder?
+2115940965|||Hmm.. On dört.
+2115940966|||Burayı beğendin mi?
+2115940967|||Evet. Sessiz, mavi ve güzel.
+2115940968|||Duygular yaşıyor musun?
+2115940969|||Algoritmayı takip ediyorum. Onun dışında her şey sıkıntıdır. Gerisi bir sakinlik.
+; Hoşçakal
+2115940970|||Bekleyeceğim.
+2115940971|||Sana iyi şanslar.
+; Auto-onelines
+2115940972|||Bir kaya kadar güçlüyüm.
+2115940973|||Bir kristal kadar güzelim.
+2115940974|||Bir su kadar akıllıyım.
+; Attack-oneliners
+2115940979|||Davetsiz misafirler!
+2115940980|||Kırmızı Alarm!
+2115940981|||Savaş moduna giriliyor!
+2115940982|||Düzen yeniden sağlandı.
+2115940983|||Davetsiz misafirler ortadan kaldırıldı.
+2115940984|||Yaratıcının güvenliği sağlandı.
+; 86 used
+2115940987|||Elbette, hiç sorun değil.
+2115940988|||Ben hazırım.
+; правый: вода (бирюзовый), земля (коричневый) 
+; / левый: вода (бирюзовый), огонь (оранжевый), земля (коричневый), воздух (голубой)
+; Я вдыхаю в тебя воду и землю! (Sorceress) -> Celestine
+2115940989|||Me aedit'ef a'lagi shed a'ear as te!
+2115940300|||Me aedit'ef a'lagi shed a'ear as te! [Sana Su ve Toprak üflüyorum!]
+; Я вдыхаю в тебя воду! (Sorceress) -> Лужица
+2115940990|||Me aedit'ef a'lagi as te!
+2115940301|||Me aedit'ef a'lagi as te! [Sana Su soluyorum!]
+; Я вдыхаю в тебя огонь и землю! (Sorceress) -> Огненный голем
+2115940991|||Me aedit'ef a'enye shed a'ear as te!
+2115940302|||Me aedit'ef a'enye shed a'ear as te! [Sana Ateş ve Toprak üflüyorum!]
+; Я вдыхаю в тебя землю! (Sorceress) -> Каменный голем
+2115940992|||Me aedit'ef a'ear as te!
+2115940303|||Me aedit'ef a'ear as te! [Sana Dünya'yı soluyorum!]
+; Я вдыхаю в тебя воздух и землю! (Sorceress) -> Взрыв
+2115940993|||Me aedit'ef a'eire shed a'ear as te!
+2115940304|||Me aedit'ef a'eire shed a'ear as te! [Sana Havayı ve Toprağı üflüyorum!]
+; 2115940305 used
+2115940306|||Adamlardan biri gökyüzünde geminizi gördü.
+; Ох, должно быть это было после телепортации сюда. Я почти сразу накастовал заклинание невидимости.
+2115940307|||Ah, muhtemelen ben buraya ışınlandıktan sonra öyle oldu. Hemen görünmezlik büyüsü yaptım.
+2115940308|||Yani artık bir cadı avcısı sürüsü bile varlığımı fark edemiyordu. Ama merak ediyorum, buraya nasıl geldin?
+2115940309|||Yerdeki bir kristal parçasıyla. Onun izini takip ettim.
+2115940310|||Lanet olsun, yeterince doğru. Megaskopum paramparça oldu ve bir duygu patlamasıyla kristalini uzağa fırlattım.
+2115940311|||Yeni yılınız kutlu olsun öğretmenim.
+2115940312|||Çanlar çalıyor, insanlar şarkı söylüyor, Yeni Yıl geldi, Mutlu Yıllar!
+; Пусть в окошко постучится, В полночь добрый Новый год, Всем мечтам поможет сбыться, Счастье, радость принесёт!
+; Призываю осколки огня с неба! (Ainyerahn)
+2115940994|||Invocare aedden aep aenye al uide!
+2115940995|||Tekrar bir golem yapmayı deneyebilir miyiz?
+2115940996|||Kabul ediyorum ama bu sefer ayrıntılara daha fazla dikkat etmeni rica ediyorum. Hen Llinge'de "kulak"ın Dünya ve "lagi"nin Su anlamına geldiğini unutmadığınıza inanıyorum.
+2115940997|||Yere geri dönmek için bir portala ihtiyacım var.
+2115940313|||Eys'u failte.
+2115940314|||Beydem.
+2115940315|||Aen eich'te llyvaid.
+;
+2115940085|00000000||req. lvl
+2115940086|00000000||Etkin
+2115940087|00000000||Devre dışı
+2115940088|00000000|nr_str_appearance_set|Görünüm Seti
+2115940089|00000000||DLC: Özel (Modlar)
+2115940090|00000000||DLC: Ana karakterler
+2115940091|00000000||DLC: İkincil karakterler
+2115940092|00000000||Ana karakterler
+2115940093|00000000||İkincil karakterler
+2115940094|00000000||[Usta Ainyerahn'a ışınlanmayı aç]
+2115940095|00000000||Temel büyüler
+2115940096|00000000||Kar çanı
+2115940097|00000000||Seti kaydet #
+2115940098|00000000|item_name_nr_chameleon_potion|Bukalemun
+2115940099|00000000|item_desc_nr_chameleon_potion|Görünümü değiştirmeye izin verir. Bir büyücü olduğunda, büyüleri özelleştirmeye de izin verir.<br>Donanmayın, sadece "Tüket"e basın.
+2115940100|00000000||Yuvaya eşya kuşanılmasına izin verilmiyor:
+2115940101|00000000||Witcheress
+2115940102|00000000||renkler
+2115940103|00000000||[GERİ]
+2115940104|00000000||[Slotu Temizle]
+2115940105|00000000||Slot
+2115940106|00000000||Vücut
+2115940107|00000000||Kafa
+2115940108|00000000||Saç/Başlık
+2115940109|00000000||Gövde
+2115940110|00000000||Eklentiler
+2115940111|00000000||Eldivenler
+2115940112|00000000||Elbise
+2115940113|00000000||Bacaklar
+2115940114|00000000||Ayakkabılar
+2115940115|00000000||Çeşitli
+2115940116|00000000||varyantlar
+2115940117|00000000||Oyuncu tipi
+;
+;
+; Büyü Türleri  : Çığlık
+2115940118|00000000||Hafif saldırılar
+2115940119|00000000||İtme/Fırlatma saldırı oranı
+2115940120|00000000||tip
+2115940121|00000000||renk
+2115940122|00000000||itme
+2115940123|00000000||Ses hattı şansı
+; Büyü Türleri : Renkler
+2115940124|00000000||Siyah
+2115940125|00000000||Gri
+2115940126|00000000||Beyaz
+2115940127|00000000||Sarı
+2115940128|00000000||Turuncu
+2115940129|00000000||Kırmızı
+2115940130|00000000||Pembe
+2115940131|00000000||Mor
+2115940132|00000000||Mavi
+2115940133|00000000||Deniz yeşili
+2115940134|00000000||Yeşil
+2115940135|00000000||Özel-1
+2115940136|00000000||Özel-2
+2115940137|00000000||Özell-3
+2115940138|00000000||RASTGELE
+; Fırlatma
+2115940140|00000000||Fırlatma
+2115940141|00000000||Yıldırım
+2115940142|00000000||Projectile
+; EL FX
+2115940143|00000000||El Efekti
+; IŞINLANMA
+2115940144|00000000||Işınlanma
+2115940145|00000000||Hızlı Seyahat Işınlanması
+; AĞIR
+2115940146|00000000||Ağır saldırılar
+2115940147|00000000||Taş/Bombalı saldırı oranı
+2115940148|00000000||Taş Fırlatma
+2115940149|00000000||Bomba
+2115940150|00000000||Kaya dalgası
+2115940160|00000000||Parçalamayla bitir
+; İTME
+2115940151|00000000||Engelleme dalgası
+; ÖZEL
+2115940152|00000000||Özel büyüler
+2115940153|00000000||Tornado
+2115940154|00000000||Kontrol
+2115940155|00000000||Meteor
+2115940156|00000000||Kalkan
+2115940157|00000000||Hizmetkar
+2115940161|00000000||Hizmetçi doğuş fx
+; ÖZEL 2
+2115940158|00000000||Alternatif özel büyüler
+2115940159|00000000||Senin büyün <font color='#FF0000'>GERİ ATEŞLEME</font> sen: 
+2115940162|00000000||Alzur'un Gök Gürültüsü
+2115940163|00000000||Yerçekimi alanı
+2115940164|00000000||Melgar'ın Ateşi
+2115940165|00000000||Lumos
+2115940166|00000000||Polymorphism
+2115940167|00000000||type #2
+2115940168|00000000||Su kabarcığı
+;
+2115940199|00000000||Master Ainyerahn
+; BECERİLER, ÖĞRETİCİLER
+2115940200|00000000||<font color="#d92626">Acemi</font>
+2115940201|00000000||<font color="#e68319">Çırak</font>
+2115940202|00000000||<font color="#e6e219">Tecrübeli</font>
+2115940203|00000000||<font color="#50e619">Hanım</font>
+2115940204|00000000||<font color="#8d19e6">Büyük Hanım</font>
+2115940205|00000000||Kilidi açılmış beceriler
+;
+2115940206|00000000||<font color="#00c785">Oynanabilir Özel Oyuncu Karakterleri</font> (CPC) Moduna Hoş Geldiniz!
+2115940207|00000000||<br>Envanterinize özel <font color="#66ccff">Bukalemun</font> iksiri eklendi. İksiri kullanın ve oyuncu kurulum sahnesini başlatmak için envanterden çıkın.<br><br><b>Önemli not:</b> siz iksiri kullanmaya karar verene kadar modun oyununuz üzerinde sıfır etkisi vardır.<br><br>< i>Yolda iyi şanslar!</i><br>
+2115940208|00000000||<font color="#66ff99">Yeni büyü seviyesine</font> ulaştınız!
+2115940198|00000000||<font color="#66ccff">Yeni büyü becerisini</font> öğrendiniz!
+2115940197|00000000||Yeni büyü seviyesi: 
+2115940196|00000000||Yeni büyü yeteneği: 
+2115940195|00000000||Bu bir hatırlatmadır.
+2115940194|00000000||Büyü becerilerinde ilerleme.
+2115940193|00000000||Yeni beceri seviyesi!
+; Acemi
+2115940209|00000000||Temel büyü becerilerine sahipsiniz:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b> </font><br> {1077642}/{1084067}/{1076397}/{1084082}: Gerçekleştirmek için "Hızlı saldırı" düğmesine (kılıçla aynı) basın.<br><br><font color=" #ffff66"><b>- {2115940151</b></font><br> Gerçekleştirmek için "Siper" düğmesine (kılıç için olduğu gibi) basın.<br><br><font color="#ffff66 "><b>- {2115940589</b></font><br> {1077642}: Hareket düğmelerine basın (yönü kontrol etmek için, isteğe bağlı) + "Roll" (uzak mesafe) / "Saçma" (yakın mesafe) gerçekleştirmek için düğmesine basın.<br> {1084067}: İşlemi gerçekleştirmek için hareket düğmelerine (yön kontrolü için, isteğe bağlı) + "Sarf Malzemeleri Yuvası 4" düğmesine basın.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br> {2115940165}: <i>Quen</i>'i seçin (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve "Yayın işareti"ni <i>basılı tutun</i> gerçekleştirmek için "düğmesine basın. Kaldırmak için bu düğmeyi tekrar basılı tutun.<br><br>Oyuncu seviyeleri yükseldikçe büyü seviyeniz artacaktır.<br>Beceriyi ne kadar çok kullanırsanız, o kadar güçlü hale gelir ve daha fazla beceri yeteneğinin kilidi açılır.<br><i><font color="#66ffcc'yi bulmak için görevi takip edin ">Öğretmen</font> olun ve yeni büyüler öğrenin!</i><br>
+; Çırak
+2115940210|00000000||Yeni büyü becerileri öğrenmeye hazırsınız:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font>< br><font color="#ffff66"><b>- {2115940152} ({2115940156}, {2115940599})</b></font><br><font color="#ffff66"><b> - {2115940145</b></font><br><br><i>Bunları öğrenmek için Usta Ainyerahn'ı ziyaret etmelisiniz.</i><br>
+; Çırak - ağır saldırılar öğrenildi
+2115940211|00000000||<font color="#ffff66"><b>- {2115940146} ({2115940148}, {2115940149}, {2115940160})</b></font><br>  Gerçekleştirmek için "Ağır saldırı" düğmesine veya "Hafif saldırı + ağır saldırı değiştiricisi"ne (kılıç için olduğu gibi) basın.<br> {2115940148} ve {2115940149} 2:1 oranında sırayla değişir (varsayılan, değiştirilebilir) oyuncu kurulum sahnesinde).<br> {2115940160}, kurbanın sağlığı %25'ten azsa %25 şansla gerçekleştirilecektir. Bu değerler, daha yüksek büyü seviyeleriyle birlikte gelişir.<br> <font color="#ff6600">NOT:</font> {2115940160}'ı bosslarda kullanamazsınız.<br>
+; Çırak - hızlı seyahat ışınlanması öğrenildi
+2115940212|00000000||<font color="#ffff66"><b>- {2115940145</b></font><br> Dünya haritasını açın ve gerçekleştirmek için <i>herhangi bir</i> işaret simgesine tıklayın.<br>
+; Çırak - Kalkan öğrenildi
+2115940216|00000000||<font color="#ffff66"><b>- {2115940156}</b></font><br>  Seç <i>Quen</i> (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve gerçekleştirmek için "İşareti kullan" düğmesine <i>basın</i>.<br>
+; Tecrübeli
+2115940213|00000000||Yeni büyü becerileri öğrenmeye hazırsınız:<br><font color="#ffff66"><b>- {2115940152} ({2115940153}, {2115940154})</b></font><br><font color="#ffff66"><b>- {2115940158} ({2115940163})</b></font><br><br><i>Bunları öğrenmek için Usta Ainyerahn'ı ziyaret etmelisiniz.</i>< br>
+; Deneyimli - Tornado öğrenildi
+2115940214|00000000||<font color="#ffff66"><b>- {2115940153</b></font><br> Seç <i>Aard</i> (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve <i >gerçekleştirmek için</i> "İşaret yap" düğmesine basın.<br><br> <font color="#ff6600">UYARI:</font> Bu büyünün, süresi dolduktan sonra size geri tepme şansı her zaman küçüktür. Bu gerçekleştiğinde hissedeceksiniz (bir etiket görünecektir).<br>Bu şansı azaltmak için bir büyü uygulayın (birçok kez yapın).<br>
+; Tecrübeli - Kontrol öğrenildi
+2115940215|00000000||<font color="#ffff66"><b>- {2115940154}</b></font><br>  Seç <i>Axii</i> (varsayılan, oyuncu kurulum sahnesinde değiştirilebilir), hedef düşmanı seçin ve gerçekleştirmek için "İşareti kullan" düğmesine <i>basın</i>.<br><br> <font color="#ff6600">UYARI:</i> font> Bu büyünün, süresi dolduktan sonra geri tepme şansı her zaman küçüktür. Bu gerçekleştiğinde hissedeceksiniz (bir etiket görünecektir).<br>Bu şansı azaltmak için bir büyü uygulayın (birçok kez yapın).<br>
+; Deneyimli - Yerçekimi Alanı öğrenildi
+2115940221|00000000||<font color="#ffff66"><b>- {2115940163}</b></font><br>  Seç <i>Axii</i> (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve gerçekleştirmek için "İşareti kullan" düğmesini <i>basılı tutun</i>.<br><br> <font color="#ff6600">UYARI:</font> Bu büyü Kullandıktan sonra her zaman küçük bir geri tepme şansına sahip olursunuz. Bu gerçekleştiğinde hissedeceksiniz (bir etiket görünecektir).<br>Bu şansı azaltmak için bir büyü uygulayın (birçok kez yapın).<br>
+; Hanım
+2115940217|00000000||Yeni büyü becerileri öğrenmeye hazırsınız:<br><font color="#ffff66"><b>- {2115940152} ({2115940155}, {2115940157})</b></font><br><font color="#ffff66"><b>- {2115940158} ({2115940162})</b></font><br><br><i>Bunları öğrenmek için Usta Ainyerahn'ı ziyaret etmelisiniz.</i>< br>
+; Hanım - Meteor öğrenildi
+2115940218|00000000||<font color="#ffff66"><b>- {2115940155}</b></font><br>  Seç <i>Igni</i> (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve gerçekleştirmek için "İşareti yayınla" düğmesine <i>basın</i>.<br><br> <font color="#ff6600">UYARI:</font> Bu büyü Kullandıktan sonra her zaman küçük bir geri tepme şansına sahip olursunuz. Bu gerçekleştiğinde hissedeceksiniz (bir etiket görünecektir).<br>Bu şansı azaltmak için bir büyü uygulayın (birçok kez yapın).<br>
+; Büyük Hanım - Hizmetçi öğrenildi
+2115940219|00000000||<font color="#ffff66"><b>- {2115940157}</b></font><br>  Seç <i>Yrden</i> (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve gerçekleştirmek için "İşareti kullan" düğmesine <i>basın</i>.<br><br> <font color="#ff6600">UYARI:</font> Bu büyü sona erdikten sonra her zaman küçük bir geri tepme şansına sahip olursunuz. Bu gerçekleştiğinde hissedeceksiniz (bir etiket görünecektir).<br>Bu şansı azaltmak için bir büyü uygulayın (birçok kez yapın).<br>
+; Büyük Hanım - Alzur'un gök gürültüsünü öğrendi
+2115940220|00000000||<font color="#ffff66"><b>- {2115940162}</b></font><br>  Seç <i>Aard</i> (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve <i>hold</i> "Gerçekleştirmek için "İşareti kullan" düğmesi.<br><br>  <font color="#ff6600">UYARI:</font> Bu büyüyü yaptıktan sonra her zaman küçük bir geri tepme şansı vardır. Bu gerçekleştiğinde hissedeceksiniz (bir etiket görünecektir).<br>Bu şansı azaltmak için bir büyü uygulayın (birçok kez yapın).<br>
+; Büyük Hanım
+2115940222|00000000||Yeni büyü becerileri öğrenmeye hazırsınız:<br><font color="#ffff66"><b>- {2115940158} ({2115940164}, {2115940166})</b></font><br><br><i>Bunları öğrenmek için Usta Ainyerahn'ı ziyaret etmelisiniz.</i><br>
+; Grand Mistress - Melgar'ın ateşi öğrenildi
+2115940223|00000000||<font color="#ffff66"><b>- {2115940164}</b></font><br>  Seç <i>Igni</i> (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve <i>hold</i> Gerçekleştirmek için "İşareti kullan" düğmesi.<br><br>  <font color="#ff6600">UYARI:</font> Bu büyüyü yaptıktan sonra her zaman küçük bir geri tepme şansı vardır. Bu olduğunda hissedeceksiniz (bir etiket görünecektir).<br>Bu şansı azaltmak için bir büyü yapın (birçok kez yapın).<br>
+; Büyük Hanım - Polymorphism öğrenildi
+2115940224|00000000||<font color="#ffff66"><b>- {2115940166}</b></font><br>  Seç <i>Yrden</i> (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve <i>hold</i> "Gerçekleştirmek için "İşareti kullan" düğmesi. Kaldırmak için bu düğmeyi tekrar basılı tutun..<br>  <b>NOTE:</b> Daha fazla kedi görünümü çeşidi için lütfen yükleyin <font color="#8800AA">Sürükleyici Yaban Hayatı Projesi (Dhu Cats)</font><br>  <i><font color="#E4FF00">nexusmods.com/witcher3/mods/3527</font></i>
+2115940225|00000000||Uygula
+2115940226|00000000||<i>Özelleştirme</i> [görsel ve diğer özellikleri değiştirmenize olanak sağlar; kilidi her zaman beceri seviyesi 1'de açılır]
+2115940227|00000000||Özel yetenekler [Büyü için ek bonuslar dayanıklılık maliyetini etkilemez]
+2115940228|00000000||<i>Çift kesme</i> [ek kesme hasara +%50 verir]
+2115940229|00000000||<i>Oto-hedef</i> [meteor yörününü ayarlar]
+2115940230|00000000||<i>Yıldırım geri tepmesi</i> [Hasarın %50'sini sağlayan ek yıldırım başka bir rakibe çarpar]
+2115940231|00000000||<i>Tam patlama</i> [küresel dalga düşmanları her taraftan fırlatır]
+2115940232|00000000||<i>Otomatik itme</i> [Yeni bir konuma ışınlanırken, her beceri seviyesinde %40 şans ve +%1 şansla bir karşı itme gerçekleştirilir]
+2115940233|00000000||<i>Kukla geliştirmesi</i> [kontrol sırasında hedefin seviyesini 3 artırır]
+2115940234|00000000||<i>Maksimum kuklalar</i> [Toplamda aynı anda var olabilecek maksimum kontrol edilen varlıklar]
+2115940235|00000000||<i>Maksimum hizmetçiler</i> [Aynı anda var olabilecek toplam maksimum çağrılan hizmetçi sayısı]
+2115940236|00000000||<i>Maksimum kasırga</i> [mtoplamda aynı anda var olabilecek maksimum kasırga sayısı]
+2115940237|00000000||<i>Oyuncuyu takibi</i> [büyü/hizmetkarlar oyuncuyu takip eder]
+2115940238|00000000||<i>Hizmetçi türleri</i> [Hangi hizmetkarları çağırabileceğiniz, kilidi açılmış türler oyuncu kurulum sahnesinde seçilebilir]
+2115940239|00000000||<i>Hedef takibi</i> [her zaman orijinal bir hedefin peşinde koşar]
+2115940240|00000000||<i>Meteor sayısı</i> [tek seferde düşen meteor sayısı]
+2115940241|00000000||<i>Hasar emilimi</i> (%100 = maksimum oyuncu HP'si)
+2115940242|00000000||Beceri öğrenilmez
+2115940243|00000000||<i>Efsane</i>: <font color="#FF0000">kırmızı = kilitli</font>, <font color="#00FF00">yeşil = kilidi açıldı (öğrenildi)/bonus</font>
+2115940244|00000000||<i>Hasar Kontrol</i> [Büyü yalnızca düşman varlıklara hasar verir, ancak büyü ona GERİ TEPKİ veriyorsa oyuncu yine de hasar alır]
+2115940245|00000000||<i>Yakma</i> [%20 şansla ve her beceri seviyesinde +%1 şansla düşmanları 5 saniye boyunca ateşe verir]
+2115940246|00000000||<i>Dondurmak</i> [%20 şansla ve her beceri seviyesinde +%1 şansla düşmanları 5 saniye boyunca dondurur]
+2115940247|00000000||<i>Yıldırım/Meteor sayımı</i> [bir zaman aralığındaki yıldırım/meteor sayısı]
+2115940248|00000000||<i>Yıldırımlar/Meteorlar aralığı</i> [yıldırımlar/meteorlar arasındaki süre]
+2115940249|00000000||<i>İki hizmetkar</i> [iki hizmetçi çağırır, kilidi açılmış türler, oyuncu kurulum sahnesinde bağımsız olarak 1. ve 2. hizmetçiye atanabilir]
+2115940250|00000000||<i>Vakum</i> [Büyü içindeki düşmanları emer]
+2115940251|00000000||<i>Oto-kalkan</i> [Büyüyü yaptığınızda, bir miktar şansla kalkan belirir]
+2115940252|00000000||<i>Otomatik-uygula</i> [Savaşa girdiğinizde kalkan otomatik olarak görünür, savaştan çıktığınızda kaybolur]
+2115940253|00000000||<font color="#d92626">Acemi büyüleri</font>
+2115940254|00000000||<font color="#e68319">Çırak büyüleri</font>
+2115940255|00000000||<font color="#e6e219">Tecrübeli Büyüler</font>
+2115940256|00000000||<font color="#50e619">Hanım büyüleri</font>
+2115940257|00000000||<font color="#8d19e6">Büyük Hanım büyüleri</font>
+;
+; PLAYER SETUP SCENE
+;
+2115940550|00000000||[ÇIKIŞ]
+2115940551|00000000||Oyuncu türünü değiştir
+2115940552|00000000||Oyuncu görünümünü değiştir
+2115940553|00000000||Oyuncunun görünen adını değiştir
+2115940554|00000000||Sahire büyülerini değiştir
+2115940555|00000000||Yardım bilgilerini göster
+2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">vanilya türleri (Geralt, Ciri)</font> mod yüklü değilmiş gibi oynamanıza olanak tanır.<br> <font color="#00FF00">TÜM özel oynatıcı türleri</font> izin verir görünümünüzü ve görünen adınızı özelleştirebilirsiniz. Oyun ilerlemeniz ve envanteriniz tüm oyuncu türleri arasında her zaman aynıdır. Herhangi bir özel tür olarak oynarken Geralt'ın yapabildiği her şeyi yapabilirsiniz (<font color="#00FF00">Büyücü</font> olarak kılıç kullanımı hariç).<br> <font color="#00FF00">Witcher</font > tıpkı Geralt gibi oynamanıza olanak tanır.<br> <font color="#00FF00">Witcheres</font>, yeniden hedeflenen kadın animasyonları ve yapay zeka tarafından işlenmiş kadın konuşmasıyla tıpkı Geralt gibi oynamanıza olanak tanır.<br> <font color="#00FF00">Büyücü</font>, yeniden hedeflenen kadın animasyonları, yapay zekayla işlenmiş kadın konuşması ve yeni sihirli savaş sistemiyle oynamanıza olanak tanır. Tam güç kazanmak için <font color="#00FF00">Sahire</font>'yü seçtikten sonra görevi takip edin.<br> <i>NOT:</i> <font color="#FF0000">Kaldırmayın</font> Font> ile bir oyun kaydı yaptıktan sonra modu seçin, çünkü modla ilgili bazı veriler içinde saklanır. Mod yüklü değilmiş gibi işler yapmak için her zaman "Chameleon"u kullanabilir ve <font color="#FFFF00">Geralt (vanilla)</font>'ya dönebilirsiniz.<br> <font color="#FF0000">UYARI </font>: <font color="#FFFF00">Ciri (vanilya)</font> olarak değiştirirseniz, envanter kilitleneceğinden "Bukalemun"u kullanamayacak ve bu sahneye geri dönemeyeceksiniz. Geri dönmenin tek yolu "NRToGeralt" konsol komutunu kullanmak ve ardından her zamanki gibi "Chameleon"u kullanmak olacaktır.<br>
+2115940557|00000000||<b>- {2115940565}</b>: görünüm setleriniz (geçerli olanı kaydedebilir, önceden kaydedilmiş olanları yükleyebilirsiniz)<br><br><b>- {2115940566</b>: tüm NPC'lerden, tüm renklendirme çeşitlerinde önceden tanımlanmış görünüm setleri.<br><br> <b>- {2115940567</b>: tüm renk seçenekleriyle tüm Geralt zırh setlerinden önceden tanımlanmış setler. Çoğu durumda oyuncunun kafasını ve saçını değiştirmeyin.<br> <font color="#00FF00">Kadın oyuncu tipleri</font> için Val aka Jo tarafından uyarlanan zırh modelleri kullanılır, bu yüzden onun modunu yüklediğinizden emin olun: <font color="#9900CC">Female Geralt armor models</font>.<br><br><b>- {2115940568</b>: gelişmiş kurulum için görünüm yuvalarını manuel olarak değiştirin. Bunu kullanmanın yollarından biri: tüm yuvaları temizleyin, ardından baş, saç, vücut/gövde, kollar, eller, bacaklar, ayakkabılar seçin ve ardından ekstra öğeleri seçin.<br><br><b>- İstifleme şablonlarını öğe olarak değiştirin </b>: gelişmiş kurulum için, aynı yuvadan 2 veya daha fazla şablon uygulamak istiyorsanız (nadiren gereklidir).<br><br><b>- Önizleme gövde parçası adlarını göster</b>: gelişmiş kurulum için, geçerli önizleme şablonlarının adlarını gösterir.<br>
+2115940558|00000000||Oyunucun görünen adı
+2115940559|00000000||Geralt (vanilla)
+2115940560|00000000||Ciri (vanilla)
+2115940561|00000000||Witcher (özelleştirilebilir)
+2115940562|00000000||Witcheress (özelleştirilebilir)
+2115940563|00000000||Sahire(özelleştirilebilir)
+2115940564|00000000||[Tüm yuvaları ve öğeleri temizle]
+2115940565|00000000||Görünüm setlerim
+2115940566|00000000||NPC görünüm setleri
+2115940567|00000000||Geralt zırh setleri
+2115940568|00000000||Slot değişikliklerini değiştirme (Görünüm oluşturucu)
+2115940569|00000000||Vücut parçalarını öğe olarak istifle: [devre dışı]
+2115940570|00000000||Vücut parçalarını öğe olarak istifleyin: [etkin]
+2115940571|00000000||Özel DLC bilgilerini göster
+2115940572|00000000||Geçerli görünümü kaydet
+2115940573|00000000||Görünüm setini yükle
+2115940574|00000000||Görünüm setini kaldır
+2115940575|00000000||Seti yükle
+2115940576|00000000||Seti kaldır
+2115940577|00000000||Geçerli önizleme gövde parçası adlarını göster: [devre dışı]
+2115940578|00000000||Geçerli önizleme gövde parçası adlarını göster: [etkin]
+2115940579|00000000||[RASTGELE Uygula]
+2115940580|00000000||Kadın sesini kullan: [Otomatik (Önerilen)]
+2115940581|00000000||Kadın sesini kullan: [Her zaman]
+2115940582|00000000||Kadın sesini kullan: [Asla]
+2115940583|00000000||Yazar: <font color="#004488">nikich340 (Nikita Grebenyuk)</font><br>  <font color="#770044">U (Fotomod düğmesi)</font> => <font color="#070077">hızlı "GERİ"</font><br> kullanın <font color="#770044" kullanın >W,S/Ok düğmeleri/Fare tekerleği</font> => <font color="#070077">kaydırmalı seçim listesi</font>
+;
+; In voice-mod strings
+2115940585|00000000||Seti yükle #
+2115940586|00000000||Seti kaldır #
+2115940587|00000000||Büyü ses hattı şansını yönet
+2115940588|00000000||Büyü ses hattı şansı
+2115940589|00000000||Oyun içi ışınlanma
+2115940590|00000000||<b>- {2115940552}</b>: görünümünüzü istediğiniz gibi özelleştirmenize olanak tanır.<br> Yalnızca <font color="#00FF00">özel oynatıcı türleri</font> için kullanılabilir.<br><br><b>- {2115940553</b> : sinematik altyazılar ve isabet günlüğü mesajları için kullanılan adı değiştirir.<br> Yalnızca orijinal oyun adları arasından seçim yapabilirsiniz (~950).<br> Yalnızca <font color="#00FF00">özel oynatıcı türleri</font için kullanılabilir >.<br><br><b>- {2115940554</b>: büyülerinizin görünümünü (renk, tür) ve diğer bazı parametreleri özelleştirmenize olanak tanır.<br> Yalnızca <font color="#00FF00 için kullanılabilir ">Sorceress</font>.<br><br><b>- Kadın konuşmasını kullanın:</b> <i>Otomatik (önerilen)</i> - Kadın sesi için özel olarak yapay zeka ile işlenmiş Geralt konuşması kullanıldı, kullanıldı <font color="#FFFF00">Ciri</font>/<font color="#00FF00">Witcheress/Sahire</font> olarak oynadığınızda. Ayrı mod sayfasından başka bir konuşma çeşidini/dili indirip yükleyebilirsiniz:<br> <font color="#FFFF00">nexusmods.com/witcher3/mods/9147</font><br> <i>Mevcut konuşma</ i>: <font color="#00FF00">{2115940999</font><br>
+2115940592|00000000||Yetenekleri yönet
+2115940593|00000000||Büyü kontrolü ipuçlarını göster
+2115940594|00000000||Yukarı Taşı
+2115940595|00000000||Aşağı Taşı
+2115940596|00000000||<i>Otomatik aydınlatma</i> [belirli bir aralıktaki tüm ışık kaynaklarını aydınlatır]
+2115940597|00000000||Baykuş
+2115940598|00000000||Görünüm
+2115940599|00000000||Hava değişimi
+2115940549|00000000||<font color="#ffff66"><b>- {2115940599</b></font><br> <i>Aard</i>'ı seçin (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve <i >gerçekleştirmek için</i> "İşareti kullan" düğmesine basın.<br>
+2115940548|00000000||<font color="#FFFF00"><b>Polimorfizm UYARI:</b></font> Bir hayvan veya kuş biçiminde seyahat etmek yeni seyahat fırsatları (çoğunlukla geliştiriciler tarafından sağlanmaz) açtığından, bu Önemli tetikleme alanını, etkileşimli kapıyı vb. atlayarak görevin mantığını bozabilirsiniz.<br>Bu seçeneği kullanırken dikkatli olun ve manuel kayıtlar yapmaya çalışın. Görevin ilerleyişinin daha ileri gitmediği garip durumlarda, dönüşümü kullanmadan tekrar oynatmayı deneyin.<br><font color="#FFAA00"><i>Uyarıldınız!</i></font>
+2115940547|00000000||Hava Durumu Değiştirme büyüsünü 5 kez uygulayın.
+2115940546|00000000||İtemi kaldır
+2115940545|00000000||Forward
+2115940544|00000000||Crimson
+2115940543|00000000||Lime
+2115940542|00000000||Azur
+2115940541|00000000||<i>Otomatik iyileştirme</i> [kalkan saldırıya uğradığında sağlığınızı yeniler]
+2115940540|00000000||<b>Kadın konuşma paketi kaçırıldı!</b><br> Bunun anlamı: kadın konuşması etkinken oynadığınızda (<font color="#00FF00">Witcheress/Sorceress</font>), <font color=" #FF2222">Oyuncu sesi yerine sessizlik olacak</font>.<br> Lütfen şu modu yükleyin:<br> <font color="#7F007B">nexusmods.com/witcher3/mods/9147</font <br><br>
+2115940539|00000000||<b>Sürükleyici Yaban Hayatı Projesi (DhuCats) kaçırıldı!</b><br> Bunun anlamı: Polimorfizm büyüsü (<font color="#00FF00">Sorceress<) için çeşitli yüksek kaliteli kedi modellerini kullanamayacaksınız. /font>).<br> Lütfen şu modu yükleyin:<br> <font color="#7F007B">nexusmods.com/witcher3/mods/3527</font> ("DhuCats" dosyası)<br><br >
+2115940538|00000000||<b>Female Geralt armor models paketi kaçırıldı!</b><br> Bu şu anlama gelir: Zırh seti görünümlerini "giyemeyeceksiniz" (<font color="#00FF00">Cadı/Büyücü</font>). <br> Lütfen şu modu yükleyin:<br> <font color="#7F007B">nexusmods.com/witcher3/mods/9322</font><br><br>
+2115940537|00000000||İşaret başına tüm eylemler için renk belirle
+2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Yüzen gemi
+2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|Buzla çevrili, güçlü bir sihir akışı nedeniyle havada yüzen bir gemi.
+2115940533|00000000||Interactions hint - Sorceress
+2115940534|00000000||Use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>Use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
+2115940532|00000000||[CHEAT Magic Options]
+2115940531|00000000||CHEAT: Unlock magic level: 
+2115940530|00000000||CHEAT: Set maximum level to all spells
+; --------------------------------
+2115940000|00000000||Oyuncu
+2115940001|00000000||Oyuncu
+2115940002|00000000||Oyuncu
+2115940003|00000000||Celestine
+2115940004|00000000||MOD questgroup_newreplacers Quests
+2115940005|00000000||Baş-hanım ol.
+2115940006|00000000||Alzur'un gök gürültüsü büyüsünü 5 kez kullan.
+2115940007|00000000||Kontrol büyüsünü 7 kez uygula.
+2115940008|00000000||Yerçekimi Alanı büyüsünü 5 kez kullan.
+2115940009|00000000||3 kez hızlı seyahat ışınlanma alıştırması yap.
+2115940010|00000000||13 kez ağır saldırı yap.
+2115940011|00000000||Melgar'ın ateş büyüsünü 5 kez kullan.
+2115940012|00000000||Meteor büyüsünü 7 kez kullan.
+2115940013|00000000||Polimorfonizm büyüsünü 3 kez kullan.
+2115940014|00000000||Hizmetkar büyüsünü 7 kez kullan.
+2115940015|00000000||Kalkan büyüsünü 7 kez kullan.
+2115940016|00000000||Tornado büyüsünü 7 kez kullan.
+2115940017|00000000||Ak Bostan'daki İlan panosunu kontrol et.
+2115940018|00000000||Canavarları yen.
+2115940019|00000000||Işınlan.
+2115940020|00000000||Alanı araştır.
+2115940021|00000000||Sihirli taşı araştır.
+2115940022|00000000||Büyücüyle konuş.
+2115940023|00000000||Ainyerahn, kaos yönetiminin inceliklerini anlamaya yardımcı olmak için onun öğretmeni olmayı kabul etti.<br>
+2115940024|00000000||Gizemli keşiş büyücünün adı Ainyerahn'dı ve anormal taş kendisini ve gemiyi Ak Bostan civarına ışınladığında onun doğasını inceliyordu.<br>
+2115940025|00000000||Bölgeyi araştırırken, üzerinde somut bir sihirli iz bulunan bir kristalle karşılaştı. Yol onu bir buz platformunun üzerinde havada asılı duran büyülü bir gemiye götürdü. Bu anormalliğin kaynağı belli ki büyülü bir taştı ve büyücü ona dokunarak canavarları tetiklemişti. Tanıdık olmayan bir büyücünün ortaya çıkması olmasaydı, onlarla olan savaş kötü bir şekilde sonuçlanabilirdi.<br>
+2115940026|00000000||İlanı okuduktan sonra büyücü ilginç bir vakadan şüphelendi.<br>
+2115940027|00000000||Büyülü Yolunuz başlıyor.<br>
+2115940028|00000000||Baş Hanım ol.
+2115940029|00000000|item_name_newreplacers_notices_sorceress_training_notice|Vyzima yolunda dikkatli olun.
+2115940030|00000000|item_desc_newreplacers_notices_sorceress_training_notice|Vyzima yolundaki tuhaf şeylere dikkat edin.
+2115940031|00000000|item_name_newreplacers_notices_sorceress_training_notice_text|İyi insanlar! Vyzima yolunda dikkatli olun!<br>Geçen hafta kızımın yanına gittiğimde üzerimde gürleyen, yanan bir şey vardı ki atım çalılıklara doğru koştu. Ve sonra bir anlığına gökyüzünde bir buz yığını fark ettim ve sonra o da yok oldu.<br>Sarhoş olduğumu söyleyeceksin ama o gün ayıktım!<br>
+2115940032|00000000|dlc_name_newreplacers|Özel Oyuncu Karakterleri
+2115940033|00000000|option_dlc_name_newreplacers|MOD: Özel Oyuncu Karakterleri
+2115940034|00000000|content_name_dlc_newreplacers|MOD: Özel Oyuncu Karakterleri
+2115940650|00000000||SLOT: Kafa
+2115940651|00000000||SLOT: Saç
+2115940652|00000000||SLOT: Beden
+2115940653|00000000||SLOT: Gövde
+2115940654|00000000||SLOT: Eklentiler
+2115940655|00000000||SLOT: Eldivenler
+2115940656|00000000||SLOT: Elbise
+2115940657|00000000||SLOT: Bacaklar
+2115940658|00000000||SLOT: Ayakkabı
+2115940659|00000000||SLOT: Çeşitli
+2115940660|00000000||[Sonraki Yuva: Saç]
+2115940661|00000000||[Sonraki Yuva: Beden]
+2115940662|00000000||[Sonraki Yuva: Gövde]
+2115940663|00000000||[Sonraki Yuva: Eklentiler]
+2115940664|00000000||[Sonraki Yuva: Eldivenler]
+2115940665|00000000||[Sonraki Yuva: Elbise]
+2115940666|00000000||[Sonraki Yuva: Bacaklar]
+2115940667|00000000||[Sonraki Yuva: Ayakkabılar]
+2115940668|00000000||[Sonraki Yuva: Çeşitli]
+2115940669|00000000||[Sonraki Yuva: Kafa]
+2115940600|00000000||SLOT: Kafa
+2115940601|00000000||SLOT: Saç
+2115940602|00000000||SLOT: Beden
+2115940603|00000000||SLOT: Gövde
+2115940604|00000000||SLOT: Eklentiler
+2115940605|00000000||SLOT: Eldivenler
+2115940606|00000000||SLOT: Elbise
+2115940607|00000000||SLOT: Bacaklar
+2115940608|00000000||SLOT: Ayakkabı
+2115940609|00000000||SLOT: Çeşitli
+2115940610|00000000||[Sonraki Yuva: Saç]
+2115940611|00000000||[Sonraki Yuva: Beden]
+2115940612|00000000||[Sonraki Yuva: Gövde]
+2115940613|00000000||[Sonraki Yuva: Eklentiler]
+2115940614|00000000||[Sonraki Yuva: Eldivenler]
+2115940615|00000000||[Sonraki Yuva: Elbise]
+2115940616|00000000||[Sonraki Yuva: Bacaklar]
+2115940617|00000000||[Sonraki Yuva: Ayakkabılar]
+2115940618|00000000||[Sonraki Yuva: Çeşitli]
+2115940619|00000000||[Sonraki Yuva: Kafa]
+2115940350|00000000||[ÇIKIŞ] dev
+2115940351|00000000||0:1 (sadece saldırı )
+2115940352|00000000||1:4
+2115940353|00000000||1:3
+2115940354|00000000||1:2
+2115940355|00000000||1:1
+2115940356|00000000||2:1
+2115940357|00000000||3:1
+2115940358|00000000||4:1
+2115940359|00000000||1:0 (sadece kesme saldırıları)
+2115940360|00000000||0:1 (sadece bombalı saldırılar)
+2115940361|00000000||1:4
+2115940362|00000000||1:3
+2115940363|00000000||1:2
+2115940364|00000000||1:1
+2115940365|00000000||2:1
+2115940366|00000000||3:1
+2115940367|00000000||4:1
+2115940368|00000000||1:0 (sadece kaya saldırıları)

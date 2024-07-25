@@ -46,3 +46,30 @@ function OnEquipItem( item : SItemUniqueId, slot : int, quantity : int )
 	}
 	wrappedMethod(item, slot, quantity);
 }
+
+
+// --- W3QuestCond_HasWeaponDrawn ---
+@wrapMethod(W3QuestCond_HasWeaponDrawn)
+function Evaluate(act : CActor ) : bool
+{
+	if ( NR_GetReplacerSorceress() ) {
+		return true;
+	}
+	return wrappedMethod(act);
+}
+
+
+// --- W3QuestCond_IsItemEquipped ---
+@wrapMethod(W3QuestCond_IsItemEquipped)
+function EvaluateImpl()
+{
+	wrappedMethod();
+	if ( NR_GetReplacerSorceress() && !inverted ) {
+		if ( IsNameValid(itemName) && (StrContains(StrLowerUTF(NameToString(itemName)), "sword")  || itemName == 'Plank') ) {
+			isFulfilled = true;
+		}
+		if ( IsNameValid(categoryName) && (categoryName == 'steelsword' || categoryName == 'silversword') ) {
+			isFulfilled = true;
+		}
+	}
+}

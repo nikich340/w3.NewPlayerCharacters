@@ -49,13 +49,15 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 
 		if (enable) {
 			if (!IsActive()) {
+				// cache playing effect name
+				m_fxNameExtra = m_fxNameMain;
 				NR_GetReplacerSorceress().PlayEffect( m_fxNameMain );
 				GotoState('Active');
 			}
 		}
 		if (!enable) {
 			if (IsActive()) {
-				NR_GetReplacerSorceress().StopEffect( m_fxNameMain );
+				NR_GetReplacerSorceress().StopEffect( m_fxNameExtra );
 				GotoState('Stop');
 			}
 		}
@@ -66,7 +68,11 @@ class NR_MagicSpecialLumos extends NR_MagicSpecialAction {
 	}
 
 	latent function OnPerform() : bool {
-		if (IsInSetupScene() && !IsActive()) {
+		if (IsInSetupScene()) {
+			if (IsActive()) {
+				// disable gameplay lumos if active
+				OnSwitchSync(false);
+			}
 			OnSwitchSync(true);
 			Sleep(2.5f);
 			OnSwitchSync(false);

@@ -62,19 +62,37 @@ storyscene function NR_SetPlayerDisplayName_S(player: CStoryScenePlayer, nameID 
 	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
-storyscene function NR_SwitchIncludeAsItem_S(player: CStoryScenePlayer, slot_index : int) {
+storyscene function NR_SwitchIncludeAsItem_S(player: CStoryScenePlayer) {
 	if (FactsQuerySum("nr_scene_stacking_as_items") < 1) {
-		FactsSet("nr_scene_stacking_as_items", 1);
+		FactsAdd("nr_scene_stacking_as_items", 1);
 	} else {
-		FactsSet("nr_scene_stacking_as_items", 0);
+		FactsRemove("nr_scene_stacking_as_items");
 	}
 }
 
-storyscene function NR_SwitchPreviewNames_S(player: CStoryScenePlayer, slot_index : int) {
-	if (FactsQuerySum("nr_scene_show_preview_names") < 1) {
-		FactsSet("nr_scene_show_preview_names", 1);
+storyscene function NR_SwitchAppearanceMode_S(player: CStoryScenePlayer) {
+	if ( NR_GetPlayerManager().IsRealEquipmentModeEnabled() ) {
+		NR_GetPlayerManager().SetIsRealEquipmentModeEnabled(false);
 	} else {
-		FactsSet("nr_scene_show_preview_names", 0);
+		NR_GetPlayerManager().SetIsRealEquipmentModeEnabled(true);
+	}
+	NR_GetPlayerManager().ShowAppearanceInfo();
+}
+
+latent storyscene function NR_ChoosePlayerScale_S(player: CStoryScenePlayer) {
+	var playerManager 	: NR_PlayerManager = NR_GetPlayerManager();
+	var newValue : int;
+
+	newValue = NR_SelectIntegerValue(/*title*/ 2115940524, /*min*/ 50, /*max*/ 200, /*current*/ playerManager.GetCurrentPlayerScale());
+	playerManager.SetCurrentPlayerScale( newValue );
+	NR_GetPlayerManager().ShowAppearanceInfo();
+}
+
+storyscene function NR_SwitchPreviewNames_S(player: CStoryScenePlayer) {
+	if (FactsQuerySum("nr_scene_show_preview_names") < 1) {
+		FactsAdd("nr_scene_show_preview_names", 1);
+	} else {
+		FactsRemove("nr_scene_show_preview_names");
 	}
 	NR_GetPlayerManager().ShowAppearanceInfo();
 }
@@ -208,6 +226,8 @@ storyscene function NR_SetColorPerSignActions_S(player: CStoryScenePlayer, signN
 	}
 
 	magicManager.SetColorPerSignActions(sign, (ENR_MagicColor)colorValue);
+	magicManager.HandFX(/*enable*/ false, /*onlyIfActive*/ true);
+	magicManager.HandFX(/*enable*/ true);
 
 	NR_Notify(GetLocStringById(signStrId) + " -> " + NR_ColorFormattedText(GetLocStringById(colorStrId), colorValue));
 	// magicManager.UpdateMagicInfo();
@@ -284,6 +304,38 @@ storyscene function NR_SwitchMagicControlHints_S(player: CStoryScenePlayer) {
 	}
 }
 
+latent storyscene function NR_CHEAT_UnlockNextSkillLevel_S(player: CStoryScenePlayer) {
+	NR_GetMagicManager().UpgradeSkillLevel();
+}
+
+storyscene function NR_CHEAT_SetMaxActionLevels_S(player: CStoryScenePlayer) {
+	NR_GetMagicManager().SetActionSkillLevel(ENR_HandFx, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Teleport, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_CounterPush, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialLumos, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialWeatherChange, 1);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_LightAbstract, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Slash, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_ThrowAbstract, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Lightning, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_ProjectileWithPrepare, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_BombExplosion, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_Rock, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_RipApart, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_HeavyAbstract, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_FastTravelTeleport, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialShield, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialTornado, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialControl, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialMeteor, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialServant, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialLightningFall, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialField, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialMeteorFall, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_SpecialPolymorphism, 10);
+	NR_GetMagicManager().SetActionSkillLevel(ENR_WaterTrap, 10);
+}
+
 latent storyscene function NR_CreatePortal_S(player: CStoryScenePlayer, waypointTag : name, worldName : String, optional activeTime : float) {
 	NR_CreatePortal( waypointTag, worldName, activeTime );
 }
@@ -292,41 +344,13 @@ latent storyscene function NR_ReloadAllAppearanceHeadHair_S(player: CStorySceneP
 	NR_GetPlayerManager().ReloadAllAppearanceHeadHair();
 }
 
-latent storyscene function NR_ChooseMagicParamPercent_S(player: CStoryScenePlayer, signName : name, varName : String)
+latent storyscene function NR_ChooseMagicParamPercent_S(player: CStoryScenePlayer, signName : name, titleId : int, varName : String, minValue : int, maxValue : int)
 {
 	var magicManager 	: NR_MagicManager = NR_GetMagicManager();
-	var popupData 		: NR_MagicSliderData;
-	var hud 			: CR4ScriptedHud;
-	var dialogueModule 	: CR4HudModuleDialog;
-	var value 			: int;
+	var newValue : int;
 
-	hud = (CR4ScriptedHud)theGame.GetHud();
-	if ( hud )
-	{
-		dialogueModule = (CR4HudModuleDialog)hud.GetHudModule("DialogModule");
-		dialogueModule.OnDialogPreviousSentenceSet("");
-		dialogueModule.OnDialogSentenceSet("");
-		popupData = new NR_MagicSliderData in magicManager;
-		
-		popupData.ScreenPosX = 0.62;
-		popupData.ScreenPosY = 0.65;
-		popupData.SetMessageTitle( GetLocStringById(2115940587));
-		// popupData.dialogueRef = dialogueModule;
-		popupData.BlurBackground = false;  
-		
-		popupData.minValue = 0;
-		popupData.maxValue = 100;
-		popupData.currentValue = magicManager.GetParamInt(signName, varName);
-		popupData.signName = signName;
-		popupData.varName = varName;
-
-		theGame.RequestMenu('PopupMenu', popupData);
-		while ( !popupData.IsCompleted() ) {
-			SleepOneFrame();
-		}
-		theGame.CloseMenu('PopupMenu');
-	}
-
+	newValue = NR_SelectIntegerValue(/*title*/ titleId, /*min*/ minValue, /*max*/ maxValue, /*current*/ magicManager.GetParamInt(signName, varName));
+	magicManager.SetParamInt(signName, varName, newValue);
 	// NR_Debug("NR_ChooseMagicParamPercent_S: [" + signName + "] (" + varName + ")");
 	magicManager.UpdateMagicInfo();
 }

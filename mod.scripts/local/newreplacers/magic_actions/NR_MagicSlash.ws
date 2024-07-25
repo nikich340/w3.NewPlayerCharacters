@@ -99,6 +99,8 @@ class NR_MagicSlash extends NR_MagicAction {
 			AddMagicDamage(damage, damageVal);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
+			// specters
+			DebuffTarget(target);
 		} else if (destroyableTarget) {
 			hitEntity.PlayEffect(m_fxNameHit);
 			if (hitEntity2) {

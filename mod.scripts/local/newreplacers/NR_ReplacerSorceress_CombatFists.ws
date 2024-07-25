@@ -103,7 +103,6 @@ state CombatFists in NR_ReplacerSorceress extends Combat
 	}
 
 	event OnInterruptAttack() {
-		// NR_Debug("OnInterruptAttack!");
 		return virtual_parent.OnInterruptAttack();
 	}
 

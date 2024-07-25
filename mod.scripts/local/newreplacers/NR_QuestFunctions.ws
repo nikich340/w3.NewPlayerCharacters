@@ -254,6 +254,7 @@ latent quest function NR_SwitchPlayerAfterScene_Q() {
     // kick from magic ship if player is not a sorceress
     if (newPlayerType != ENR_PlayerSorceress && FactsQuerySum("nr_on_master_ship") > 0) {
         thePlayer.Teleport(Vector(-108.719444, -208.481003, 15.512835));
+        FactsAdd("nr_kicked_from_ship", 1);
     }
 }
 
@@ -321,7 +322,7 @@ latent quest function NR_UseCrossStoneBossSpider_Q() {
     npc.AddTag('fairytale_witch');  // hack for CBehTreeTaskCSEffect.CanSwimOrFly to avoid killing
     npc.AddTag('nr_cross_stone_entity');
     npc.AddTag('nr_cross_stone_boss_spider');
-    npc.SetLevel( Max(1, thePlayer.GetLevel() - 10) );
+    npc.SetLevel( Max(2, thePlayer.GetLevel() - 10) );
     npc.SetAnimationSpeedMultiplier( 1.1f );    
     npc.SetImmortalityMode( AIM_Immortal, AIC_Fistfight );
     npc.SetImmortalityMode( AIM_Immortal, AIC_IsAttackableByPlayer );
@@ -463,7 +464,7 @@ latent quest function NR_UseCrossStone_Q() {
         if (GetAttitudeBetween(thePlayer, npc) != AIA_Hostile)
             npc.SetTemporaryAttitudeGroup( 'monsters', AGP_Default );
 
-        entityLevel = Max(1, thePlayer.GetLevel() - levelReduct + NR_GetRandomGenerator().next(skillsLearned));
+        entityLevel = Max(2, thePlayer.GetLevel() - levelReduct + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
         // NR_Debug("NR_UseCrossStone_Q: Spawn npc tier1[" + i + "] = (" + idx + ")(" + pidx + ") <" + npc.GetAttitudeGroup() + "> = " + npc);
         Sleep(0.2f);
@@ -481,7 +482,7 @@ latent quest function NR_UseCrossStone_Q() {
         if (GetAttitudeBetween(thePlayer, npc) != AIA_Hostile)
             npc.SetTemporaryAttitudeGroup( 'monsters', AGP_Default );
 
-        entityLevel = Max(1, thePlayer.GetLevel() - levelReduct - 2 + NR_GetRandomGenerator().next(skillsLearned));
+        entityLevel = Max(2, thePlayer.GetLevel() - levelReduct - 2 + NR_GetRandomGenerator().next(skillsLearned));
         npc.SetLevel(entityLevel);
         // NR_Debug("NR_UseCrossStone_Q: Spawn npc tier2[" + i + "] = (" + idx + ")(" + pidx + ") <" + npc.GetAttitudeGroup() + "> = " + npc);
         Sleep(0.2f);
@@ -548,8 +549,10 @@ quest function NR_RestorePlayerPosition() {
     var playerManager : NR_PlayerManager;
 
     playerManager = NR_GetPlayerManager();
-    if ( VecDistanceSquared(playerManager.m_worldPosition, thePlayer.GetWorldPosition()) > 1.f )
+    if ( !FactsDoesExist("nr_kicked_from_ship") && VecDistanceSquared(playerManager.m_worldPosition, thePlayer.GetWorldPosition()) > 1.f ) {
         thePlayer.TeleportWithRotation(playerManager.m_worldPosition, playerManager.m_worldRotation);
+    }
+    FactsRemove("nr_kicked_from_ship");
 }
 
 // radish-compatibility
@@ -906,7 +909,7 @@ latent quest function NR_SpawnHostileEntity_Q(path : String, relativeLevel : int
         return;
     }
     npc = (CNewNPC)theGame.CreateEntity(template, Vector(x,y,z), EulerAngles(0.f, yaw, 0.f));
-    npc.SetLevel(Max(1, thePlayer.GetLevel() + relativeLevel));
+    npc.SetLevel(Max(2, thePlayer.GetLevel() + relativeLevel));
     npc.AddTag('NR_SpawnHostileEntity_Q');
     npc.AddTag('fairytale_witch');
 }
@@ -960,9 +963,19 @@ latent function NR_ChangePlayerQuestWrapper( designatedTemplate: EQuestReplacerE
     thePlayer.abilityManager.RestoreStat(BCS_Vitality);
 }
 
+quest function NR_CreateNoSaveLock(reason : String) {
+    var lock : int;
+    NR_Info("NR_CreateNoSaveLock: " + reason);
+    theGame.CreateNoSaveLock( reason, lock, /*unique*/ true, /*allowCheckpoints**/ false );
+}
+
+quest function NR_ReleaseNoSaveLock(reason : String) {
+	NR_Info("NR_ReleaseNoSaveLock: " + reason);
+    theGame.ReleaseNoSaveLockByName( reason );
+}
+
 // this must be used ONLY in two cases: before savegame loading, on NewGame+ started (called from prologue w2phase)
 quest function NR_ErasePlayerManager_Q(reason : String) {
-    NR_Info("NR_ErasePlayerManager_Q: reason = " + reason);
     NR_ErasePlayerManager(theGame, reason);
 }
 

@@ -1232,6 +1232,13 @@ class CR4MapMenu extends CR4MenuBase
 		}
 		
 		// v NR_MOD v
+		if ( pinTag == 'newreplacers_snow_arena_center_ft' && NR_GetPlayerManager().GetCurrentPlayerType() != ENR_PlayerSorceress ) {
+			// Leave the magic to mages :D
+			theSound.SoundEvent("gui_global_denied");
+			showNotification( GetLocStringById(549147) );
+			return false;
+		}
+
 		if ( NR_GetMagicManager() && NR_GetMagicManager().IsActionLearned(ENR_FastTravelTeleport) && NR_GetMagicManager().CreateFastTravelTeleport(pinTag, areaId, m_currentArea) ) {
 			// teleport will be created - close map
 			theGame.Unpause("menus");

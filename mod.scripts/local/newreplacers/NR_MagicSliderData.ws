@@ -1,7 +1,6 @@
 class NR_MagicSliderData extends DialogueSliderData
 {
-	public var signName : name;
-	public var varName : String;
+	public var result : int;
 	protected var isCompleted : bool;
 
 	public /* override */ function GetGFxData(parentFlashValueStorage : CScriptedFlashValueStorage) : CScriptedFlashObject
@@ -21,14 +20,15 @@ class NR_MagicSliderData extends DialogueSliderData
 	{
 		if (KeyCode == "enter-gamepad_A")
 		{
-			// invalid value
+			/*
 			if ( currentValue > 100 )
 			{
 				theGame.GetGuiManager().ShowNotification( GetLocStringById(1223566) );
 				return;
 			}
+			*/
 			
-			NR_GetMagicManager().SetParamInt(signName, varName, currentValue);
+			result = currentValue;
 			isCompleted = true;
 			// ClosePopup();
 		}

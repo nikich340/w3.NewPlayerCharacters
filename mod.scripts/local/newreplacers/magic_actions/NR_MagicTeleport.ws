@@ -3,18 +3,25 @@ class NR_MagicTeleport extends NR_MagicAction {
 	protected var teleportCamera 	: CStaticCamera;
 	protected var teleportPos 	: Vector;
 	protected var oldCameraPos 	: Vector;
+	protected var l_breakEventReceived 	: bool;
+	protected var l_performEventReceived : bool;
 	
 	default performsToLevelup = 150; // action-specific
 	default actionType = ENR_Teleport;
 
-	latent function SetTeleportPos(pos : Vector) {
+	function SetTeleportPos(pos : Vector) {
 		teleportPos = pos;
 	}
 
+	// 0.74 of 2.5 s
 	latent function OnPrepare() : bool {
-		var shiftVec  : Vector;
+		var super_ret : bool;
 
-		super.OnPrepare();
+		super_ret = super.OnPrepare();
+		if (!super_ret) {
+			return OnPrepared(false);
+		}
+
 		m_fxNameMain = TeleportOutFxName();
 		m_fxNameExtra = TeleportInFxName();
 		thePlayer.PlayEffect( m_fxNameMain );
@@ -26,46 +33,16 @@ class NR_MagicTeleport extends NR_MagicAction {
 			return OnPrepared(true);
 		}
 
-		// to make ignore hits
-		thePlayer.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
-		thePlayer.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
-		thePlayer.EnableCollisions( false );
-		thePlayer.EnableCharacterCollisions( false );
-		thePlayer.SetGameplayVisibility( false );
-		
-		pos = thePlayer.GetWorldPosition();
-		rot = thePlayer.GetWorldRotation();
-		oldCameraPos = theCamera.GetCameraPosition();
-		shiftVec = teleportPos - thePlayer.GetWorldPosition();
-		entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_static_camera");
-		// YEAH, that simple!
-		teleportCamera = (CStaticCamera)theGame.CreateEntity( entityTemplate, theCamera.GetCameraPosition() + shiftVec, theCamera.GetCameraRotation() );
-		if ( !teleportCamera ) {
-			NR_Error("Prepare: No valid teleport camera.");
-			return OnPrepared(false);
-		}
-		//parent.aTeleportCamera.activationDuration = 0.5f; // in w2ent already
-		//parent.aTeleportCamera.deactivationDuration = 0.5f; // in w2ent already
-		Sleep(0.1f);
-		teleportCamera.RunAndWait(0.15f);
-		thePlayer.SetVisibility( false );
-
-		// camera auto-rotates to player heading, so set it to camera rotation to make it smooth theCamera
-		thePlayer.TeleportWithRotation( teleportPos, VecToRotation(theCamera.GetCameraForwardOnHorizontalPlane()) );
-
+		GotoState('Teleporting');
 		return OnPrepared(true);
 	}
 
+	// 1.04 of 2.5 s
 	latent function OnPerform() : bool {
 		var super_ret : bool;
 		super_ret = super.OnPerform();
 		if (!super_ret) {
 			return OnPerformed(false);
-		}
-
-		thePlayer.PlayEffect( m_fxNameExtra );
-		if (thePlayer.IsInCombat() && IsActionAbilityEnabled("AutoCounterPush") && SkillLevel() * 2 + 10 >= NR_GetRandomGenerator().nextRange(1, 100)) {
-			PerformAutoPush();
 		}
 
 		if (IsInSetupScene()) {
@@ -75,57 +52,25 @@ class NR_MagicTeleport extends NR_MagicAction {
 			return OnPerformed(true);
 		}
 
-		if ( !teleportCamera ) {
-			NR_Error(actionType + ".OnPerform: !teleportCamera");
-			return OnPerformed(false);
-		}
-		Sleep(0.2f);  // wait for effect a bit
-		thePlayer.SetVisibility( true );
-
-		Sleep(0.1f);
-		teleportCamera.Stop();
-		teleportCamera.DestroyAfter(5.f);
-		// ready for new hits
-		thePlayer.SetImmortalityMode( AIM_None, AIC_Combat );
-		thePlayer.SetImmortalityMode( AIM_None, AIC_Default );
-		thePlayer.EnableCollisions( true );
-		thePlayer.EnableCharacterCollisions( true );
-		thePlayer.SetGameplayVisibility( true );
-
+		l_performEventReceived = true;
 		return OnPerformed(true);
-	}
-
-	latent function PerformAutoPush() {
-		var nr_manager : NR_MagicManager = NR_GetMagicManager();
-		var action : NR_MagicCounterPush;
-
-		NR_Info(actionType + ".PerformAutoPush");
-		action = new NR_MagicCounterPush in nr_manager;
-		action.drainStaminaOnPerform = false;
-		nr_manager.AddActionScripted(action);
-		action.OnInit();
-		action.OnPrepare();
-		action.OnPerform();
 	}
 
 	latent function BreakAction() {
 		// do not break if player is already invulnerable
-		if (isPrepared) {
-			// forcely finish action
-			if (!isPerformed)
-				OnPerform();
+		if (GetCurrentStateName() == 'Teleporting') {
+			l_breakEventReceived = true;
 			return;
 		}
 
 		super.BreakAction();
 		if (teleportCamera) {
-			thePlayer.Teleport(pos);
-			teleportCamera.Teleport(oldCameraPos);
-			teleportCamera.activationDuration = 0.1f;
-			teleportCamera.deactivationDuration = 0.1f;
-			teleportCamera.RunAndWait(0.1f);
+			// stop at current position
 			teleportCamera.Stop();
 			teleportCamera.DestroyAfter(5.f);
+
+			thePlayer.Teleport( teleportCamera.GetCameraPosition() );
+			thePlayer.PlayEffect( m_fxNameExtra );
 		}
 		thePlayer.SetGameplayVisibility(true);
 		thePlayer.SetVisibility(true);
@@ -354,4 +299,119 @@ class NR_MagicTeleport extends NR_MagicAction {
 				}
 		}
 	}
+}
+
+state Teleporting in NR_MagicTeleport {
+	protected var startTime : float;
+
+	event OnEnterState( prevStateName : name )
+	{		
+		parent.inPostState = true;
+		TeleportingRun();
+	}
+
+	event OnLeaveState( nextStateName : name )
+	{
+		parent.inPostState = false;
+	}
+
+	function GetLocalTime() : float {
+		return theGame.GetEngineTimeAsSeconds() - startTime;
+	}
+
+	entry function TeleportingRun()
+	{
+		var shiftVec  : Vector;
+		var timeWait  : float;
+
+		startTime = theGame.GetEngineTimeAsSeconds();
+		timeWait = 0.5f * thePlayer.GetAnimationTimeMultiplier();
+		NR_Info("TeleportingRun: timeWait = " + timeWait);
+		// to make ignore hits
+		thePlayer.SetImmortalityMode( AIM_Invulnerable, AIC_Combat );
+		thePlayer.SetImmortalityMode( AIM_Invulnerable, AIC_Default );
+		thePlayer.EnableCollisions( false );
+		thePlayer.EnableCharacterCollisions( false );
+		thePlayer.SetGameplayVisibility( false );
+		
+		parent.pos = thePlayer.GetWorldPosition();
+		parent.rot = thePlayer.GetWorldRotation();
+		parent.oldCameraPos = theCamera.GetCameraPosition();
+		shiftVec = parent.teleportPos - thePlayer.GetWorldPosition();
+		parent.entityTemplate = (CEntityTemplate)LoadResourceAsync("nr_static_camera");
+		// YEAH, that simple!
+		parent.teleportCamera = (CStaticCamera)theGame.CreateEntity( parent.entityTemplate, theCamera.GetCameraPosition() + shiftVec, theCamera.GetCameraRotation() );
+		if ( !parent.teleportCamera ) {
+			NR_Error("TeleportingRun: No valid teleport camera.");
+		}
+		parent.teleportCamera.activationDuration = 0.4f; // in w2ent already
+		parent.teleportCamera.deactivationDuration = 0.4f; // in w2ent already
+		Sleep(0.1f);
+		parent.teleportCamera.Run();
+		Sleep(0.1f);
+		thePlayer.SetVisibility( false );
+
+		// camera auto-rotates to player heading, so set it to camera rotation to make it smooth theCamera
+		thePlayer.TeleportWithRotation( parent.teleportPos, VecToRotation(theCamera.GetCameraForwardOnHorizontalPlane()) );
+		
+		while (true) {
+			SleepOneFrame();
+			if (parent.l_breakEventReceived) {
+				NR_Info("TeleportingRun: l_breakEventReceived = " + parent.l_breakEventReceived);
+				// stop at current position
+				parent.teleportCamera.Stop();
+				parent.teleportCamera.DestroyAfter(5.f);
+
+				// use old position
+				thePlayer.Teleport( parent.pos );
+				thePlayer.PlayEffect( parent.m_fxNameExtra );
+				Sleep(0.05f);
+				thePlayer.SetVisibility( true );
+				break;
+			}
+
+			if (GetLocalTime() > timeWait || parent.l_performEventReceived) {
+				NR_Info("TeleportingRun: l_performEventReceived = " + parent.l_performEventReceived + ", GetLocalTime = " + GetLocalTime());
+				thePlayer.PlayEffect( parent.m_fxNameExtra );
+				if (thePlayer.IsInCombat() && parent.IsActionAbilityEnabled("AutoCounterPush") && parent.SkillLevel() * 2 + 10 >= NR_GetRandomGenerator().nextRange(1, 100)) {
+					PerformAutoPush();
+				}
+
+				// NR_Info("TeleportingRun: l_performEventReceived: before, camera running = " + parent.teleportCamera.IsRunning());
+				Sleep(0.1f);  // wait for effect a bit
+				thePlayer.SetVisibility( true );
+
+				// NR_Info("TeleportingRun: l_performEventReceived: inter, camera running = " + parent.teleportCamera.IsRunning());
+				Sleep(0.05f);
+				// NR_Info("TeleportingRun: l_performEventReceived: after, camera running = " + parent.teleportCamera.IsRunning());
+				parent.teleportCamera.Stop();
+				parent.teleportCamera.DestroyAfter(5.f);
+				break;
+			}
+		}
+		// ready for new hits
+		thePlayer.SetImmortalityMode( AIM_None, AIC_Combat );
+		thePlayer.SetImmortalityMode( AIM_None, AIC_Default );
+		thePlayer.EnableCollisions( true );
+		thePlayer.EnableCharacterCollisions( true );
+		thePlayer.SetGameplayVisibility( true );
+
+		GotoState('Finished');
+	}
+
+	latent function PerformAutoPush() {
+		var nr_manager : NR_MagicManager = NR_GetMagicManager();
+		var action : NR_MagicCounterPush;
+
+		NR_Info("TeleportingRun.PerformAutoPush");
+		action = new NR_MagicCounterPush in nr_manager;
+		action.drainStaminaOnPerform = false;
+		nr_manager.AddActionScripted(action);
+		action.OnInit();
+		action.OnPrepare();
+		action.OnPerform();
+	}
+}
+
+state Finished in NR_MagicTeleport {
 }

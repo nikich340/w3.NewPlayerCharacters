@@ -3,6 +3,7 @@ statemachine class NR_MagicSpecialWeatherChange extends NR_MagicSpecialAction {
 	var weatherIndex : int;
 	default actionType = ENR_SpecialWeatherChange;
 	default actionSubtype = ENR_SpecialAbstract;
+	default maxLevelup 		  = 1; // action-specific
 
 	latent function OnInit() : bool {
 		sceneInputs.PushBack(18);
@@ -18,6 +19,9 @@ statemachine class NR_MagicSpecialWeatherChange extends NR_MagicSpecialAction {
 		var currentWeather : name;
 
 		super.OnPrepare();
+
+		// fix - no actions on cursing
+		s_curseChance = 0;
 		theSound.SoundLoadBank("fx_other.bnk", true);
 		weathers.PushBack('WT_Clear');
 		weathers.PushBack('WT_Light_Clouds');

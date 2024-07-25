@@ -37,8 +37,8 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		shieldDuration *= (100.f + durationBonus) / 100.f;
 		shieldHealth = thePlayer.GetStatMax(BCS_Vitality);
 		shieldHealth *= healthMultiplier / 100.f;
-		s_counterLightning = magicManager.IsActionAbilityUnlocked(ENR_SpecialShield, "AutoLightning");
-		s_counterHealing = magicManager.IsActionAbilityUnlocked(ENR_SpecialShield, "AutoHealing");
+		s_counterLightning = magicManager.IsActionAbilityEnabled(ENR_SpecialShield, "AutoLightning");
+		s_counterHealing = magicManager.IsActionAbilityEnabled(ENR_SpecialShield, "AutoHealing");
 		m_lastCounterEffectTime = -1.f;
 
 		initialShieldHealth = shieldHealth;

@@ -315,6 +315,11 @@ exec function nr_female(enable: bool) {
 	}
 }
 
+exec function nr_re(enabled : bool) {
+	NR_GetPlayerManager().SetIsRealEquipmentModeEnabled(enabled);
+	NR_Notify("SetIsRealEquipmentModeEnabled = " + enabled);
+}
+
 exec function nrCross() {
 	var entityTemplate : CEntityTemplate;
 	var entity : CEntity;
@@ -387,6 +392,33 @@ exec function nrMoveTo3(pointNum : int) {
 	npc.ActionCancelAll();
 	// NR_Debug("IsReadyForNewAction 2 = " + npc.IsReadyForNewAction());
 	NR_Notify("nrMoveTo3 = " + npc.ActionMoveCustomAsync(targeter));
+}
+
+exec function nrJoWand(add : bool) {
+	var ids : array<SItemUniqueId>;
+
+	if (add) {
+		ids = thePlayer.inv.AddAnItem('jo_magic_wand', 1);
+		NR_Notify("Id = " + NR_stringByItemUID(thePlayer.inv, ids[0]) + ", mount = " + thePlayer.inv.MountItem(ids[0], /*toHand*/ false, /*force*/ true));
+	} else {
+		thePlayer.inv.RemoveItemByName('jo_magic_wand', -1);
+	}
+}
+
+exec function nrJoTest1() {
+	thePlayer.inv.AddAnItem('Knight Geralt Armor 1', 1);
+}
+
+exec function nrJoTest2() {
+	thePlayer.inv.AddAnItem('Knight Geralt Armor 2', 1);
+	thePlayer.inv.AddAnItem('q702_vampire_gloves', 1);
+	thePlayer.inv.AddAnItem('q704_vampire_gloves', 1);
+	thePlayer.inv.AddAnItem('Knight Geralt Gloves 1', 1);
+	thePlayer.inv.AddAnItem('Knight Geralt Gloves 2', 1);
+	thePlayer.inv.AddAnItem('Knight Geralt Boots 1', 1);
+	thePlayer.inv.AddAnItem('Knight Geralt Boots 2', 1);
+	thePlayer.inv.AddAnItem('Knight Geralt Pants 1', 1);
+	thePlayer.inv.AddAnItem('Knight Geralt Pants 2', 1);
 }
 
 exec function nrBehCrow() {
@@ -636,6 +668,16 @@ exec function scene1m() {
 		NR_Error("NULL scene!");
 
 	theGame.GetStorySceneSystem().PlayScene(scene, "Input");
+}
+
+// nrscene(quests\part_1\quest_files\q305_blanka\scenes\q305_08_the_play.w2scene, Act3_abe_pri)
+exec function nrtext(id : int) {
+	NR_Notify( GetLocStringById(id) );
+}
+
+// nrscene(quests\part_1\quest_files\q305_blanka\scenes\q305_08_the_play.w2scene, Act3_abe_pri)
+exec function nrline(id : int) {
+	thePlayer.PlayLine(id, true);
 }
 
 // nrscene(quests\part_1\quest_files\q305_blanka\scenes\q305_08_the_play.w2scene, Act3_abe_pri)
@@ -2242,4 +2284,12 @@ exec function nrworld(worldName : String) {
 
 	csv = LoadCSV("dlc/dlcnewreplacers/data/scenes/scenes_inputs_vanilla.csv");
 
+}
+
+exec function CPC_IsSorceress_v1() {
+    NR_Notify( thePlayer.HasTag('nr_replacer_sorceress') );
+}
+exec function CPC_IsSorceress_v2() {
+    // ENR_PlayerType(ENR_PlayerSorceress)
+    NR_Notify( FactsQuerySum("nr_player_type") == 5 );
 }

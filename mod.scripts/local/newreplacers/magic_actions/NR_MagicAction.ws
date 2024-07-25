@@ -215,14 +215,15 @@ abstract statemachine class NR_MagicAction {
 	// invert = false: [1.0, ..]
 	// invert = true: [.., 1.0]
 	function SkillTotalDamageMultiplier(optional invert : bool) : float {
-		var difficultyBonus : float;
+		var difficultyBonus, totalBonuses : float;
 
 		// [1 - easy, 2 - medium, 3 - hard, 4 - hardcore]
 		difficultyBonus = (2.5f - (float)(int)theGame.GetDifficultyMode()) * 7.f;
+		totalBonuses = difficultyBonus + NR_GetMagicManager().GetGeneralDamageBonus() + NR_GetMagicManager().GetActionDamageBonus(actionType);
 		if (!invert)
-			return (100.f + difficultyBonus + NR_GetMagicManager().GetGeneralDamageBonus() + NR_GetMagicManager().GetActionDamageBonus(actionType)) / 100.f;
+			return (100.f + totalBonuses) * map[ST_Universal].getI("damage_manual_" + ENR_MAToName(actionType), 100) / 10000.f;
 		else
-			return (100.f - difficultyBonus - NR_GetMagicManager().GetGeneralDamageBonus() - NR_GetMagicManager().GetActionDamageBonus(actionType)) / 100.f;
+			return (100.f - totalBonuses) * map[ST_Universal].getI("damage_manual_" + ENR_MAToName(actionType), 100) / 10000.f;
 	}
 
 	// - x% to stamina cost
@@ -253,7 +254,7 @@ abstract statemachine class NR_MagicAction {
 		}
 		// calculate real target rot,pos
 		rot = thePlayer.GetWorldRotation();
-		if (target) {
+		if (target && GetAttitudeBetween(thePlayer, target) == AIA_Hostile) {
 			// NR_Debug(actionType + ".NR_CalculateTarget: target = " + target);
 			pos = target.GetWorldPosition();
 			// must be really good for all enemies
@@ -275,27 +276,35 @@ abstract statemachine class NR_MagicAction {
 					pos.Z += 0.7f;
 				}
 			} else {
-				// NR_Debug(actionType + ".NR_CalculateTarget: no target.");
-				//pos = thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 5.f;
-				if (isOnHorse)
-					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 15.f;
-				else
-					pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 7.5f;
+				// return to non-hostile target
+				if (target) {
+					pos = target.GetWorldPosition();
+					// must be really good for all enemies
+					if (targetCorrectZ)
+						pos.Z += ((CMovingPhysicalAgentComponent)target.GetMovingAgentComponent()).GetCapsuleHeight() * 0.5f;
+				} else {
+					// NR_Debug(actionType + ".NR_CalculateTarget: no target.");
+					//pos = thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 5.f;
+					if (isOnHorse)
+						pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 15.f;
+					else
+						pos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 7.5f;
 
-				// correct a bit with physics raycast
-				if (theGame.GetWorld().PhysicsCorrectZ(pos, Z)) {
-					pos.Z = Z;
-				}
-				pos.Z += staticOffsetZ;
+					// correct a bit with physics raycast
+					if (theGame.GetWorld().PhysicsCorrectZ(pos, Z)) {
+						pos.Z = Z;
+					}
+					pos.Z += staticOffsetZ;
 
-				// check where physics obstacle if needed
-				//if (makeStaticTrace && theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 1.f + Vector(0,0,1.5f), pos, newPos, normalCollision, standartCollisions)) {
-				startPos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.f + Vector(0,0,1.5f);
-				if (isOnHorse)
-					startPos += thePlayer.GetHeadingVector() * 3.f + Vector(0,0,1.f);
+					// check where physics obstacle if needed
+					//if (makeStaticTrace && theGame.GetWorld().StaticTrace(thePlayer.GetWorldPosition() + theCamera.GetCameraForwardOnHorizontalPlane() * 1.f + Vector(0,0,1.5f), pos, newPos, normalCollision, standartCollisions)) {
+					startPos = thePlayer.GetWorldPosition() + thePlayer.GetHeadingVector() * 1.f + Vector(0,0,1.5f);
+					if (isOnHorse)
+						startPos += thePlayer.GetHeadingVector() * 3.f + Vector(0,0,1.f);
 
-				if (makeStaticTrace && theGame.GetWorld().StaticTrace(startPos, pos, newPos, normalCollision, standartCollisions)) {
-					pos = newPos;
+					if (makeStaticTrace && theGame.GetWorld().StaticTrace(startPos, pos, newPos, normalCollision, standartCollisions)) {
+						pos = newPos;
+					}
 				}
 			}
 		}
@@ -469,6 +478,12 @@ abstract statemachine class NR_MagicAction {
 		}
 		
 		return pos;
+	}
+
+	public function DebuffTarget(target : CActor) {
+		if (target.HasAbility('ShadowForm')) {
+			target.BlockAbility('ShadowForm', true, /*cooldown*/ 3.f * SkillDurationMultiplier());
+		}
 	}
 
 	function AddMagicDamage(damageAction : W3DamageAction, damageTotalVal : float) {

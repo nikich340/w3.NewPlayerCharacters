@@ -110,6 +110,10 @@ state Active in NR_MagicBombEntity {
 				damage.AddEffectInfo(parent.m_effectType, parent.m_effectDuration);
 				theGame.damageMgr.ProcessAction( damage );
 				delete damage;
+				// specters
+				if (victim.HasAbility('ShadowForm')) {
+					victim.BlockAbility('ShadowForm', 5.f);
+				}
 			} else {
 				dEnt = (W3DestroyableClue)entitiesInRange[i];
 				if (dEnt && dEnt.destroyable && !dEnt.destroyed) {

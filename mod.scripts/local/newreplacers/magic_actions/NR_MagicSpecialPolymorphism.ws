@@ -32,7 +32,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
 				appearanceName = map[sign].getN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_20');
 			else
-				appearanceName = map[sign].getN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_01');
+				appearanceName = map[sign].getN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_04');
 
 			if ( appearanceName == 'random' ) {
 				if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
@@ -40,10 +40,15 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 					appNames.Remove('cat_vanilla_01');
 					appNames.Remove('cat_vanilla_02');
 					appNames.Remove('cat_vanilla_03');
+					appNames.Remove('cat_vanilla_04');
 				} else {
 					appNames.PushBack('cat_vanilla_01');
 					appNames.PushBack('cat_vanilla_02');
 					appNames.PushBack('cat_vanilla_03');
+					appNames.PushBack('cat_vanilla_04');
+					appNames.PushBack('fox_red');
+					appNames.PushBack('fox_silverish');
+					appNames.PushBack('fox_black');
 				}
 				appearanceName = appNames[ NR_GetRandomGenerator().next(appNames.Size()) ];
 			}
@@ -57,6 +62,7 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 			NR_Error("NR_MagicSpecialPolymorphism: Unknown animalType = " + animalType);
 			return OnPrepared(false);
 		}
+		NR_Info("NR_MagicSpecialPolymorphism: animalType = " + animalType + ", appearanceName = " + appearanceName);
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( resourceName );
 		
 		return OnPrepared(true);
@@ -99,9 +105,8 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 
 			NR_GetMagicManager().HandFX(false);
 			thePlayer.SetVisibility(false);
-			Sleep(2.f);
+			Sleep(2.5f);
 			transformNPC.PlayEffect('disappear');
-			Sleep(0.5f);
 			thePlayer.PlayEffect(m_fxNameMain);
 			thePlayer.SetVisibility(true);
 			NR_GetMagicManager().HandFX(true, false);
@@ -189,19 +194,18 @@ state Active in NR_MagicSpecialPolymorphism {
 
 	entry function ActiveLoop() {
 		sorceress = NR_GetReplacerSorceress();
-
 		Sleep(0.5f);
 
 		// show base tutorial
-		if (FactsQuerySum("nr_magic_polymorphism_tutorial") < 1) {
+		if (FactsQuerySum("nr_quest_track_PolymorphismWarning") < 1) {
 			NR_ShowTutorial("PolymorphismWarning", true);
-			FactsAdd("nr_magic_polymorphism_tutorial", 1);
 		}
 
 		while (true) {
 			SleepOneFrame();
-			if ( theInput.GetActionValue( 'CastSignHold' ) > 0.f )
+			if ( theInput.GetActionValue( 'CastSignHold' ) > 0.f ) {
 				break;
+			}
 		}
 
 		// NR_Debug("StopAction: " + this);
@@ -211,7 +215,6 @@ state Active in NR_MagicSpecialPolymorphism {
 
 state Stop in NR_MagicSpecialPolymorphism {
 	entry function StopLoop() {
-
 		if ( !parent.forceStopRequired ) {
 			parent.transformNPC.PlayEffect('disappear');
 			Sleep(0.5f);

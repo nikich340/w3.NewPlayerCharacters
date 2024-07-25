@@ -911,7 +911,7 @@ class CR4InventoryMenu extends CR4MenuBase
 			templateFilename             = "GeraltForUI";
 			// v v NR_MOD v
 			if ( NR_GetWitcherReplacer() ) {
-				templateFilename = NR_GetWitcherReplacer().inventoryTemplate;
+				templateFilename = NR_GetWitcherReplacer().NR_GetInventoryTemplate();
 			}
 			// ^ ^ NR_MOD ^
 			appearance                   = '';

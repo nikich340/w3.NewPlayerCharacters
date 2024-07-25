@@ -1921,7 +1921,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 
 		if ( actionType == ENR_CounterPush ) {
 			// moved from OnPerformGuard
-			OnInterruptAttack();
+			if (parent.GetBIsCombatActionAllowed())
+				OnInterruptAttack();
+			
 			parent.FindMoveTarget();
 			parent.SetCanPlayHitAnim( true );
 			parent.SetBIsCombatActionAllowed( true );
@@ -2032,7 +2034,6 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		}
 
 		// NR_Debug("TryPeformLongMagicAttack: OnInterruptAttack");
-		comboPlayer.StopAttack();
 		OnInterruptAttack();
 		parent.RaiseForceEvent( 'AnimEndAUX' );
 		// virtual_parent.OnPlayerActionEnd();
@@ -2182,7 +2183,9 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 	
 	event OnInterruptAttack()
 	{
+		comboPlayer.StopAttack();
 		parent.RaiseEvent( 'AttackInterrupt' );
+		return virtual_parent.OnInterruptAttack();
 	}	
 
 

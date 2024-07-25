@@ -51,10 +51,16 @@ class NR_MeteorProjectile extends W3FireballProjectile
 		actor = (CActor)victim;
 		if (actor) {
 			actor.SignalGameplayEvent('IgniHitReceived');
+			// specters
+			if ( actor.HasAbility('ShadowForm')) {
+				actor.BlockAbility('ShadowForm', 5.f);
+			}
 		} else {
 			dEnt = (W3DestroyableClue)dEnt;
 			if (dEnt && dEnt.destroyable && !dEnt.destroyed) {
 				dEnt.ProcessDestruction();
+			} else {
+				victim.OnIgniHit(NULL);
 			}
 		}
 		collidedEntities.PushBack(victim);

@@ -147,7 +147,6 @@ statemachine class NR_MagicManager extends IScriptable {
 			"",
 			Vector(0.22, 0.95)
 		);
-		ApplyMagicUpdates();
 
 		if (!wasLoaded || forceReset) {
 			// show control hints by default
@@ -187,6 +186,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			SetDefaults_Special();
 			SetDefaults_SpecialAlt();
 			SetDefaults_VoicelineChances();
+			SetDefaults_DamageManual();
 			// NR_Debug("MagicManager: Init default spell params");
 		} else {
 			// NR_Debug("MagicManager: Load spell params");
@@ -211,17 +211,6 @@ statemachine class NR_MagicManager extends IScriptable {
 		mCooldowns.Resize( EnumGetMax('ENR_MagicAction') + 1 );
 		for (i = 0; i < mCooldowns.Size(); i += 1) {
 			mCooldowns[i] = -1.f;
-		}
-	}
-
-	public function ApplyMagicUpdates() {
-		var oldVersion : int;
-		var actualVersion : int = 1;
-
-		oldVersion = NR_GetPlayerManager().GetMagicVersion();
-		if (oldVersion < actualVersion) {
-			NR_Info("NR_MagicManager.ApplyMagicUpdates: old version = " + oldVersion + ", actualVersion = " + actualVersion);
-			NR_GetPlayerManager().SetMagicVersion(actualVersion);
 		}
 	}
 
@@ -503,6 +492,11 @@ statemachine class NR_MagicManager extends IScriptable {
 		mSuolManager.updateOneliner( mSuolOnelinerCorner );
 	}
 
+	public function GetMap(signName : name) : NR_Map {
+		var signInt : int = (int)SignNameToEnum(signName);
+		return sMap[signInt];
+	}
+
 	/* Function for scene setup - should not be called during combat! */
 	public function GetParamInt(signName : name, varName : String) : int {
 		var signInt : int = (int)SignNameToEnum(signName);
@@ -614,8 +608,12 @@ statemachine class NR_MagicManager extends IScriptable {
 		}
 	}
 
-	public function SelfColoredPerc(perc : int) : String {
+	public function SelfColoredPercRB(perc : int) : String {
 		return "<font color=\"#" + NR_PercToHex(perc) + "00" + NR_PercToHex(perc) + "\">" + IntToString(perc) + "%</font>";
+	}
+
+	public function SelfColoredPercRG(perc : int, maxVal : int) : String {
+		return "<font color=\"#" + NR_PercToHex(100 * perc / maxVal) + NR_PercToHex(100 * perc / maxVal) + "00" + "\">" + IntToString(perc) + "%</font>";
 	}
 
 	public function ShowMagicInfo(sectionName : name) {
@@ -804,13 +802,13 @@ statemachine class NR_MagicManager extends IScriptable {
                     text += "{2115940165}:{ }" + ColorFormattedValue(NR_ColorLocId(color), color);
                 } else if (typeId == ENR_SpecialPolymorphism) {
                 	text += "{2115940166}:{ }";
-                	appName = sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_vanilla_01');
+                	appName = sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_vanilla_04');
                 	if (styleName == 'cat') {
                 		if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
 							appName = sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_20');
 							text += NR_ColorFormattedText(appName, color);
                 		} else {
-							appName = sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_vanilla_01');
+							appName = sMap[s].getN("cat_app_" + ENR_MAToName((ENR_MagicAction)typeId), 'cat_vanilla_04');
 							text += NR_ColorFormattedText(appName, color);
 							text += BR + NR_StrRed("   {1223720}: ", true) + NR_StrGreen("Immersive Wildlife Project (Dhu Cats)", true) + BR + "nexusmods.com/witcher3/mods/3527";
 						}
@@ -822,26 +820,37 @@ statemachine class NR_MagicManager extends IScriptable {
             }
 		} else if (sectionName == 'spell_voicelines') {
 			text += "<font color='#004e01'>[{2115940588}]</font><br>";
-			text += "{2115940145}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_FastTravelTeleport)) ) + BR;
-			text += "{2115940151}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_CounterPush)) ) + BR;
-			text += "{2115940122}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_Slash)) ) + BR;
-			text += "{2115940141}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_Lightning)) ) + BR;
-			text += "{2115940142}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_ProjectileWithPrepare)) ) + BR;
-			text += "{2115940148}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_Rock)) ) + BR;
-			text += "{2115940149}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_BombExplosion)) ) + BR;
-			text += "{2115940160}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_RipApart)) ) + BR;
-			text += "{2115940153}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialTornado)) ) + BR;
-			text += "{2115940154}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialControl)) ) + BR;
-			text += "{2115940155}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteor)) ) + BR;
-			text += "{2115940156}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialShield)) ) + BR;
-			text += "{2115940599}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialWeatherChange)) ) + BR;
-			text += "{2115940157}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialServant)) ) + BR;
-			text += "{2115940162}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLightningFall)) ) + BR;
-			text += "{2115940163}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialField)) ) + BR;
-			text += "{2115940164}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteorFall)) ) + BR;
-			text += "{2115940165}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLumos)) ) + BR;
-			text += "{2115940166}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialPolymorphism)) ) + BR;
-			text += "{2115940168}: " + SelfColoredPerc( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_WaterTrap)) ) + BR;
+			text += "{2115940145}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_FastTravelTeleport)) ) + BR;
+			text += "{2115940151}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_CounterPush)) ) + BR;
+			text += "{2115940122}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_Slash)) ) + BR;
+			text += "{2115940141}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_Lightning)) ) + BR;
+			text += "{2115940142}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_ProjectileWithPrepare)) ) + BR;
+			text += "{2115940148}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_Rock)) ) + BR;
+			text += "{2115940149}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_BombExplosion)) ) + BR;
+			text += "{2115940160}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_RipApart)) ) + BR;
+			text += "{2115940153}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialTornado)) ) + BR;
+			text += "{2115940154}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialControl)) ) + BR;
+			text += "{2115940155}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteor)) ) + BR;
+			text += "{2115940156}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialShield)) ) + BR;
+			text += "{2115940599}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialWeatherChange)) ) + BR;
+			text += "{2115940157}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialServant)) ) + BR;
+			text += "{2115940162}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLightningFall)) ) + BR;
+			text += "{2115940163}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialField)) ) + BR;
+			text += "{2115940164}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialMeteorFall)) ) + BR;
+			text += "{2115940165}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLumos)) ) + BR;
+			text += "{2115940166}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_SpecialPolymorphism)) ) + BR;
+			text += "{2115940168}: " + SelfColoredPercRB( sMap[ST_Universal].getI("voiceline_chance_" + ENR_MAToName(ENR_WaterTrap)) ) + BR;
+		} else if (sectionName == 'spell_damage') {
+			text += "<font color='#004e01'>[{2115940525}]</font><br>";
+			text += "{2115940122}: " + SelfColoredPercRG( sMap[ST_Universal].getI("damage_manual_" + ENR_MAToName(ENR_Slash), 100), 400) + BR;
+			text += "{2115940141}: " + SelfColoredPercRG( sMap[ST_Universal].getI("damage_manual_" + ENR_MAToName(ENR_Lightning), 100), 400) + BR;
+			text += "{2115940142}: " + SelfColoredPercRG( sMap[ST_Universal].getI("damage_manual_" + ENR_MAToName(ENR_ProjectileWithPrepare), 100), 400) + BR;
+			text += "{2115940148}: " + SelfColoredPercRG( sMap[ST_Universal].getI("damage_manual_" + ENR_MAToName(ENR_Rock), 100), 400) + BR;
+			text += "{2115940149}: " + SelfColoredPercRG( sMap[ST_Universal].getI("damage_manual_" + ENR_MAToName(ENR_BombExplosion), 100), 400) + BR;
+			text += "{2115940153}: " + SelfColoredPercRG( sMap[ST_Universal].getI("damage_manual_" + ENR_MAToName(ENR_SpecialTornado), 100), 400) + BR;
+			text += "{2115940155}: " + SelfColoredPercRG( sMap[ST_Universal].getI("damage_manual_" + ENR_MAToName(ENR_SpecialMeteor), 100), 400) + BR;
+			text += "{2115940162}: " + SelfColoredPercRG( sMap[ST_Universal].getI("damage_manual_" + ENR_MAToName(ENR_SpecialLightningFall), 100), 400) + BR;
+			text += "{2115940164}: " + SelfColoredPercRG( sMap[ST_Universal].getI("damage_manual_" + ENR_MAToName(ENR_SpecialMeteorFall), 100), 400) + BR;
 		} else {
 			text += "<font color='#004e01'>Unknown type: " + sectionName + "</font><br>";
 		}
@@ -1122,7 +1131,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			sMap[i].setN("style_" + ENR_MAToName(ENR_SpecialMeteorFall), 'triss');
 
 			// LUMOS
-			sMap[i].setI("color_" + ENR_MAToName(ENR_SpecialLumos), ENR_ColorWhite);
+			sMap[i].setI("color_" + ENR_MAToName(ENR_SpecialLumos), ENR_ColorOrange);
 
 			// TRANSFORM
 			sMap[i].setI("color_" + ENR_MAToName(ENR_SpecialPolymorphism), ENR_ColorViolet);
@@ -1130,7 +1139,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
 				sMap[i].setN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_20');
 			else
-				sMap[i].setN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_01');
+				sMap[i].setN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_04');
 		}
 	}
 
@@ -1155,6 +1164,18 @@ statemachine class NR_MagicManager extends IScriptable {
 		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialLumos), 30);
 		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_SpecialPolymorphism), 30);
 		sMap[ST_Universal].setI("voiceline_chance_" + ENR_MAToName(ENR_WaterTrap), 30);
+	}
+
+	function SetDefaults_DamageManual() {
+		sMap[ST_Universal].setI("damage_manual_" + ENR_MAToName(ENR_Slash), 100);
+		sMap[ST_Universal].setI("damage_manual_" + ENR_MAToName(ENR_Lightning), 100);
+		sMap[ST_Universal].setI("damage_manual_" + ENR_MAToName(ENR_ProjectileWithPrepare), 100);
+		sMap[ST_Universal].setI("damage_manual_" + ENR_MAToName(ENR_Rock), 100);
+		sMap[ST_Universal].setI("damage_manual_" + ENR_MAToName(ENR_BombExplosion), 100);
+		sMap[ST_Universal].setI("damage_manual_" + ENR_MAToName(ENR_SpecialTornado), 100);
+		sMap[ST_Universal].setI("damage_manual_" + ENR_MAToName(ENR_SpecialMeteor), 100);
+		sMap[ST_Universal].setI("damage_manual_" + ENR_MAToName(ENR_SpecialLightningFall), 100);
+		sMap[ST_Universal].setI("damage_manual_" + ENR_MAToName(ENR_SpecialMeteorFall), 100);
 	}
 
 	function SetColorPerSignActions(sign : ESignType, color : ENR_MagicColor) {
@@ -1332,9 +1353,10 @@ statemachine class NR_MagicManager extends IScriptable {
 	// SetSceneSign first if needed
 	public function SetActionType(type : ENR_MagicAction) {
 		// TOREMOVE: break old action for a case
-		// aEventsStack.PushBack(SNR_MagicEvent('BreakMagicAttack', 'dummy_anim', 0.f));
+		//if (mAction && !mAction.isPerformed) {
+		//	aEventsStack.PushBack(SNR_MagicEvent('BreakMagicAttack', 'SetActionType'));
+		//}
 
-		// NR_Debug("SetActionType = " + type);
 		switch (type) {
 			case ENR_ThrowAbstract:
 				aActionType = (ENR_MagicAction)sMap[eqSign].getI("type_" + ENR_MAToName(ENR_ThrowAbstract), (int)ENR_Lightning);
@@ -1349,6 +1371,7 @@ statemachine class NR_MagicManager extends IScriptable {
 				aActionType = type;
 				break; 
 		}
+		NR_Info("NR_MagicManager.SetActionType: " + aActionType);
 	}
 
 	// manually update eqSign without changing real equipped sign
@@ -1402,6 +1425,10 @@ statemachine class NR_MagicManager extends IScriptable {
 			return false;
 		}
 
+		if (thePlayer.GetCurrentStateName() != 'Exploration') {
+			return false;
+		}
+		
 		aTargetPinTag = pinTag;
 		aTargetAreaId = areaId;
 		aCurrentAreaId = currentAreaId;
@@ -1562,13 +1589,13 @@ statemachine class NR_MagicManager extends IScriptable {
 		return (ENR_MagicSkillLevel)FactsQuerySum("nr_magic_skill_level");
 	}
 
-	public function UpgradeSkillLevel()
+	public latent function UpgradeSkillLevel()
 	{
 		var nextLevel : int;
 
 		nextLevel = GetSkillLevel() + 1;
-		if (nextLevel > GetPossibleSkillLevel()) {
-			NR_Error("UpgradeSkillLevel: Can't upgrade to level: " + nextLevel);
+		if (nextLevel > ENR_SkillArchMistress) {
+			NR_Error("UpgradeSkillLevel: Can't upgrade upper than ENR_SkillArchMistress");
 			return;
 		}
 
@@ -1589,6 +1616,7 @@ statemachine class NR_MagicManager extends IScriptable {
 			// Melgar's fire, Polymorphism
 			FactsAdd("nr_magic_skill_points", 2);
 		}
+		NR_ShowTutorial( "SorceressLevel" + IntToString(nextLevel), /*fullscreen*/ true );
 	}
 
 	public function GetPossibleSkillLevel() : ENR_MagicSkillLevel
@@ -1891,7 +1919,7 @@ statemachine class NR_MagicManager extends IScriptable {
 		var info, locked, unlocked, tmp, l_tmp, r_tmp : String;
 		var specialAbilities : array<String>;
 		var specialAbilityIds : array<int>;
-		var i : int;
+		var i, maxSkillLevel : int;
 
 		unlocked = StrLower(GetLocStringById(1066069));
 		locked = StrLower(GetLocStringById(1066070));
@@ -1904,7 +1932,11 @@ statemachine class NR_MagicManager extends IScriptable {
 		if (!detailed) {
 			info += "- ";
 		}
-		info += ENR_MAToLocString(type) + "</b>:</font> <i>" + StrLower(GetLocStringById(539939)) + "</i>: " + IntToString(GetActionSkillLevel(type)) + " / 10<br>";
+		if (type == ENR_SpecialLumos || type == ENR_SpecialWeatherChange)
+			maxSkillLevel = 1;
+		else
+			maxSkillLevel = 10;
+		info += ENR_MAToLocString(type) + "</b>:</font> <i>" + StrLower(GetLocStringById(539939)) + "</i>: " + IntToString(GetActionSkillLevel(type)) + " / " + IntToString(maxSkillLevel) + "<br>";
 		// performs
 		info += "  <i>" + GetLocStringById(2115940225) + "</i>: " + IntToString(GetActionPerformedCount(type));
 		//damage
@@ -2102,14 +2134,14 @@ statemachine class NR_MagicManager extends IScriptable {
 	}
 
 	public function GetMaxHealthPercForFinisher() : float {
-		return 0.15f + GetActionSkillLevel(ENR_RipApart) * 0.01f; // [0.0 - 1.0]
+		return 0.25f + GetActionSkillLevel(ENR_RipApart) * 0.01f; // [0.0 - 1.0]
 	}
 
 	// [0 .. chance] -> finisher available
 	public function GetChancePercForFinisher(entity : CEntity) : int {
 		var chance : int;
 		
-		chance = 15 + GetActionSkillLevel(ENR_RipApart);
+		chance = 25 + GetActionSkillLevel(ENR_RipApart);
 
 		if (entity) {
 			// checked before - no chance
@@ -2646,7 +2678,7 @@ state MagicLoop in NR_MagicManager {
 	event OnLeaveState( nextStateName : name )
 	{
 	}
-	
+
 	/* Creates instance of new magic action, when 'InitAction' event from anim received */
 	latent function InitMagicAction(animName : String) {
 		var type : ENR_MagicAction;
@@ -2761,6 +2793,7 @@ state MagicLoop in NR_MagicManager {
 			parent.mAction.OnPrepare();
 		} else {
 			NR_Error("MM: PrepareMagicAction: NULL parent.mAction!");
+			return;
 		}
 	}
 
@@ -2773,6 +2806,7 @@ state MagicLoop in NR_MagicManager {
 			parent.mAction.OnRotatePrePerform();
 		} else {
 			NR_Error("MM: RotatePrePerformMagicAction: NULL parent.mAction!");
+			return;
 		}
 	}
 
@@ -2788,6 +2822,7 @@ state MagicLoop in NR_MagicManager {
 			parent.mAction.OnPerform();
 		} else {
 			NR_Error("MM: PerformMagicAction: NULL parent.mAction!");
+			return;
 		}
 
 		// check if any of "cursed" finished
@@ -2817,10 +2852,14 @@ state MagicLoop in NR_MagicManager {
 		// check if new action is special and stop old ones if limit is exceed
 		maxActionCnt = parent.GetActionMaxApplies(parent.mAction.actionType);
 		while (sameActions.Size() + 1 > maxActionCnt) {
-			// NR_Debug("MM: PerformMagicAction: Stopping special duplicate action: maxActionCnt = " + maxActionCnt + ", sameActions.Size() = " + sameActions.Size());
+			NR_Info("MagicManager.PerformMagicAction: Stopping special duplicate action: maxActionCnt = " + maxActionCnt + ", sameActions.Size = " + sameActions.Size());
 			// from front - older actions
 			sameActions[0].StopAction();
 			sameActions.Erase( 0 );
+		}
+
+		if ( parent.mAction.isPerformed && !parent.mAction.inPostState ) {
+			parent.mAction = NULL;
 		}
 	}
 	
@@ -2834,7 +2873,7 @@ state MagicLoop in NR_MagicManager {
 	}
 
 	latent function BreakMagicAction() {
-		if (parent.mAction) {
+		if (parent.mAction && parent.mAction.actionType != ENR_CounterPush) {
 			parent.mAction.BreakAction();
 			// NR_Debug("MM: BreakMagicAction: " + parent.mAction);
 		}
@@ -2852,7 +2891,7 @@ state MagicLoop in NR_MagicManager {
 		pos = thePlayer.GetWorldPosition() - thePlayer.GetHeadingVector() * 0.1f;
 		pos.Z += parent.sMap[parent.ST_Universal].getF("used_ftt_z");
 		rot = thePlayer.GetWorldRotation();
-		rot.Yaw -= 150.f;
+		rot.Yaw -= 180.f;
 		entity = theGame.CreateEntity(template, pos, rot);
 		entity.PlayEffect('teleport_fx');
 		thePlayer.ActionPlaySlotAnimation('PLAYER_SLOT', 'add_walk_three_steps_forward_casual', 0.25f, 0.5f);
@@ -3093,7 +3132,7 @@ latent function NR_GetSafeTeleportPoint(out pos : Vector, upMaxZ : float, downMa
 		if ( !world.NavigationComputeZ(pos, pos.Z - downMaxZ, pos.Z + upMaxZ, newZ) ) {
 			newPos.Z = newZ;
 			// 3. try StaticTrace down
-			if ( !world.StaticTrace(pos + Vector(0,0,upMaxZ), pos - Vector(0,0,downMaxZ), newPos, normal, NR_GetStandartCollisionNames()) ) {
+			if ( !world.StaticTrace(pos + Vector(0,0,upMaxZ), pos - Vector(0,0,downMaxZ), newPos, normal, NR_GetStandartCollisionNames(true)) ) {
 				// all failed
 				return false;
 			}
@@ -3168,9 +3207,7 @@ latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, teleportVec :
 	pos = actorPos + teleportVec * step * 1.f;  // to avoid bumping trace into player body
 	pos.Z += h;
 	world = theGame.GetWorld();
-	collisionNames = NR_GetStandartCollisionNames();
-	collisionNames.Remove('Character');
-	collisionNames.Remove('CommunityCollidables');
+	collisionNames = NR_GetStandartCollisionNames(true);
 	traceBumped = false;
 	stepsLimit = CeilF(teleportLength / step);
 	// NR_Debug("NR_GetTeleportMaxArchievablePoint: step = " + step + ", h = " + h);
@@ -3235,12 +3272,14 @@ latent function NR_GetTeleportMaxArchievablePoint( actor : CActor, teleportVec :
 	return pos;
 }
 
-function NR_GetStandartCollisionNames() : array<name> {
+function NR_GetStandartCollisionNames(optional removeCharacterCollisions : bool) : array<name> {
 	var standartCollisions : array<name>;
 
 	standartCollisions.PushBack('Debris');
-	standartCollisions.PushBack('Character');
-	standartCollisions.PushBack('CommunityCollidables');
+	if (!removeCharacterCollisions) {
+		standartCollisions.PushBack('Character');
+		standartCollisions.PushBack('CommunityCollidables');
+	}
 	standartCollisions.PushBack('Terrain');
 	standartCollisions.PushBack('Static');
 	standartCollisions.PushBack('Projectile');		

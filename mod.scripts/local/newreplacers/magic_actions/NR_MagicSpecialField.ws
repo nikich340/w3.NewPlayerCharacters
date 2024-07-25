@@ -8,6 +8,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 	var l_victims : array<CActor>;
 	var l_victimSlowdownIds : array<int>;
 	var l_fieldMoveSpeed : float;
+	var l_fakeYrdenEntity : W3YrdenEntity;
 
 	default actionType = ENR_SpecialField;
 	default actionSubtype = ENR_SpecialAbstractAlt;
@@ -26,6 +27,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		super.OnPrepare();
 
 		entityTemplate = (CEntityTemplate)LoadResourceAsync( "nr_field_fx" );
+		l_fakeYrdenEntity = new W3YrdenEntity in this;
 
 		return OnPrepared(true);
 	}
@@ -87,12 +89,14 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 	latent function AddVictim(victim : CActor, optional allHostile : bool) {
 		var slowdownCauserId : int;
 
+		NR_Info("NR_MagicSpecialField.AddVictim: " + victim);
 		victim.AddTag('NR_MagicSpecialField');
 		victim.PlayEffect('yrden_slowdown');  // yrden_shock ?
 		// stops specters from shadow form
 		victim.OnYrdenHit( thePlayer );
-		victim.SignalGameplayEventParamObject('EntersYrden', this );
-		victim.SetBehaviorVariable( 'isInYrden', 1 );
+		// victim.SetBehaviorVariable( 'isInYrden', 1 );
+		victim.SignalGameplayEventParamObject( 'EntersYrden', l_fakeYrdenEntity );
+		victim.BlockAbility('Flying', true);
 
 		if (victim == thePlayer || GetAttitudeBetween(victim, thePlayer) != AIA_Hostile) {
 			if (!allHostile)
@@ -111,6 +115,7 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 	function RemoveVictim(victim : CActor) {
 		var index : int;
 
+		NR_Info("NR_MagicSpecialField.RemoveVictim: " + victim);
 		index = l_victims.FindFirst(victim);
 		if (index < 0) {
 			NR_Error("Field: RemoveVictim: not found " + victim);
@@ -121,8 +126,9 @@ class NR_MagicSpecialField extends NR_MagicSpecialAction {
 		victim.ResetAnimationSpeedMultiplier(l_victimSlowdownIds[index]);
 		victim.StopEffect('yrden_slowdown');  // yrden_shock ?
 		// specters to shadow form
-		victim.SignalGameplayEventParamObject( 'LeavesYrden', this );
-		victim.SetBehaviorVariable( 'isInYrden', 0 );
+		// victim.SetBehaviorVariable( 'isInYrden', 0 );
+		victim.SignalGameplayEventParamObject( 'LeavesYrden', l_fakeYrdenEntity );
+		victim.BlockAbility('Flying', false);
 
 		l_victimSlowdownIds.Erase(index);
 		l_victims.Erase(index);
@@ -260,11 +266,12 @@ state Cursed in NR_MagicSpecialField {
 		currentPos = parent.l_fieldEntity.GetWorldPosition();
 		reachPos = currentPos;
 		targetPos = currentPos;
+		parent.s_lifetime *= 0.5f;
 
 		parent.su_oneliner.visible = true;
 		UpdateOnelinerTime();
 
-		while (GetLocalTime() < parent.s_lifetime * 0.5f) {
+		while (GetLocalTime() < parent.s_lifetime) {
 			SleepOneFrame();
 			/* move field */
 			moveTime = GetLocalTime() - lastMoveTime;

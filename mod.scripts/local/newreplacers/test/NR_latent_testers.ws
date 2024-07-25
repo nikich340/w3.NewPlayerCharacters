@@ -104,3 +104,51 @@ exec function nr_scenetesterstop() {
 	if (tester)
 		tester.Stop();
 }
+
+class NR_LatentTesterLines extends INR_LatentTester {
+	var lineIds : array<int>;
+
+	public function Init() {
+		lineIds.PushBack(1163321); // vanilla Geralt
+		lineIds.PushBack(2100000055); // vanilla
+		lineIds.PushBack(2115940060); // CPC
+		lineIds.PushBack(2100020349); // Boat Races
+		lineIds.PushBack(2100020002); // Ciri Sole Memento
+		lineIds.PushBack(2100020372); // Expansion Zero
+		lineIds.PushBack(2100020018); // Little Sisters
+		lineIds.PushBack(2100020089); // ANTR
+		lineIds.PushBack(2100020124); // hubtest
+		lineIds.PushBack(2100020129); // Small Tribute to Essi
+		lineIds.PushBack(2100020231); // Strange Things
+	}
+
+	public function Work() {
+		GotoState('Active');
+	}
+}
+
+state Active in NR_LatentTesterLines {
+	event OnEnterState( prevStateName : name ) {
+		Run();
+	}
+
+	entry function Run() {
+		var i : int;
+
+		for (i = 0; i < parent.lineIds.Size(); i += 1) {
+			NR_Notify("Play line [" + (i + 1) + "/" + parent.lineIds.Size() + "] " + parent.lineIds[i]);
+			thePlayer.PlayLine(parent.lineIds[i], true);
+			thePlayer.WaitForEndOfSpeach();
+		}
+	}
+}
+
+exec function nr_linetest() {
+	var tester : NR_LatentTesterLines;
+	var manager : NR_PlayerManager = NR_GetPlayerManager();
+
+	tester = new NR_LatentTesterLines in manager;
+	tester.Init();
+	tester.Work();
+	manager.m_debugObject = tester;
+}

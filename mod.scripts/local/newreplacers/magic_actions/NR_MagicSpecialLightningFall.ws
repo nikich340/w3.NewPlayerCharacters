@@ -150,6 +150,8 @@ statemachine class NR_MagicSpecialLightningFall extends NR_MagicSpecialAction {
 			damage.AddEffectInfo(EET_Stagger, 3.f);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
+			// specters
+			DebuffTarget(target);
 		} else {
 			component = dummyEntity.GetComponent('CEffectDummyComponent0');
 			if (component) {

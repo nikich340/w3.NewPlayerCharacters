@@ -1,6 +1,5 @@
 statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
 	default m_replacerType      = ENR_PlayerWitcheress;
-	default inventoryTemplate 	= "nr_replacer_witcheress_inv";
 
 	event OnSpawned( spawnData : SEntitySpawnData )
 	{
@@ -12,6 +11,10 @@ statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
 	
 	public function GetNameID() : int {
 		return 2115940101; // 2115940101|00000000||Witcheress
+	}
+
+	public function NR_GetInventoryTemplate() : String {
+		return "nr_replacer_witcheress_inv";
 	}
 	
 	/* from Ciri replacer class - fix sliding to target */

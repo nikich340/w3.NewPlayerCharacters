@@ -8,7 +8,6 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 	default nr_lumosActive 	  = false;
 	default m_replacerType    = ENR_PlayerSorceress;
-	default inventoryTemplate = "nr_replacer_sorceress_inv";
 
 	/* Remove guarded stance - sorceress never use real fistfight */
 	public function SetGuarded(flag : bool)
@@ -19,6 +18,10 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 	public function GetNameID() : int {
 		return 358190; // 0000358190|e29b1c4b|-1.000|Sorceress
+	}
+
+	public function NR_GetInventoryTemplate() : String {
+		return "nr_replacer_sorceress_inv";
 	}
 
 	public function NR_IsSlotDenied(slot : EEquipmentSlots) : bool
@@ -37,7 +40,7 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 
 		magicManager = new NR_MagicManager in this;
 		// post-pone to let player manager load
-		AddTimer('NR_LaunchMagicManager', 0.1f);
+		AddTimer('NR_LaunchMagicManager', 0.25f);
 
 		AddAnimEventCallback('InitAction',			'OnAnimEventMagic');
 		AddAnimEventCallback('Prepare',				'OnAnimEventMagic');
@@ -122,6 +125,12 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		}
 
 		weaponHolster.UpdateRealWeapon();
+	}
+
+	event OnInterruptAttack()
+	{
+		NR_Info("NR_ReplacerSorceress.OnInterruptAttack");
+		magicManager.AddActionEvent('BreakMagicAttack', 'OnInterruptAttack');
 	}
 
 	event OnAnimEventMagic( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
@@ -329,6 +338,12 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		if ( IsUsingHorse() ) {
 			return super.CastSign();
 		}
+
+		/* modifier key - switch to default sign, except quen */
+		if ( theInput.IsActionPressed( 'Use' ) && GetEquippedSign() != ST_Quen ) {
+			return super.CastSign();
+		}
+
 		// NR_Debug("CastSign()");
 		GotoCombatStateWithAction( IA_None );
 		return OnPerformAttack('attack_magic_special');

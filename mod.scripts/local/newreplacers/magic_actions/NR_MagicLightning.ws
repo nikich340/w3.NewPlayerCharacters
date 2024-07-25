@@ -72,6 +72,8 @@ class NR_MagicLightning extends NR_MagicAction {
 			damage.AddEffectInfo(EET_Stagger, 2.f);
 			theGame.damageMgr.ProcessAction( damage );
 			delete damage;
+			// specters
+			DebuffTarget(target);
 
 			if (s_rebound) {
 				Sleep(0.1f);
@@ -134,10 +136,14 @@ class NR_MagicLightning extends NR_MagicAction {
 		damage = new W3DamageAction in this;
 		damage.Initialize( thePlayer, newTarget, dummyEntity, thePlayer.GetName(), EHRT_Light, CPS_SpellPower, false, false, false, true );
 		dk = 1.f * SkillTotalDamageMultiplier();
-		damageVal = NR_GetDamageGeneric("NR_MagicLightning", thePlayer, target, /*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+		damageVal = NR_GetDamageGeneric("NR_MagicLightning", thePlayer, newTarget, /*min*/ 1.f*dk, /*max*/ 60.f*dk, /*vitality*/ 25.f*dk, 8.f*dk, /*essence*/ 90.f*dk, 12.f*dk /*randRange*/ /*customTarget*/);
+		AddMagicDamage(damage, damageVal);
 		damage.AddEffectInfo(EET_Stagger, 1.f);
 		theGame.damageMgr.ProcessAction( damage );
 		delete damage;
+		// specters
+		DebuffTarget(newTarget);
+		
 		lightningEntity.DestroyAfter(5.f);
 		dummyEntity2.DestroyAfter(5.f);
 	}

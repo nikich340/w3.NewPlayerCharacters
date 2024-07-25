@@ -142,7 +142,7 @@ statemachine class NR_MagicManager extends IScriptable {
 
 		NR_GetPlayerManager().GetMagicDataMaps(sMap, wasLoaded);
 		NR_Info("NR_MagicManager.Init: forceReset = " + forceReset + ", wasLoaded = " + wasLoaded);
-		mSuolManager = SUOL_getManager();
+		mSuolManager = thePlayer.getSharedutilsOnelinersManager();
 		mSuolOnelinerCorner = SU_onelinerScreen(
 			"",
 			Vector(0.22, 0.95)

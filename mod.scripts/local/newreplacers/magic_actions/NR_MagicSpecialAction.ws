@@ -10,7 +10,7 @@ abstract statemachine class NR_MagicSpecialAction extends NR_MagicAction {
 		var ret : bool;
 		ret = super.OnPrepare();
 		// load data from map
-		su_manager = SUOL_getManager();
+		su_manager = thePlayer.getSharedutilsOnelinersManager();
 		s_curseChance = map[ST_Universal].getI("curse_chance_" + ENR_MAToName(actionType), 15);
 		// NR_Debug("GenericSpecial: s_curseChance (" + ENR_MAToName(actionType) + ") = " + s_curseChance);
 		s_lifetime = map[ST_Universal].getF("duration_" + ENR_MAToName(actionType), 10.f);

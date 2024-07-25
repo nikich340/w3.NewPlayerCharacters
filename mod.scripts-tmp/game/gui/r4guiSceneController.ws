@@ -199,6 +199,11 @@ class CR4GuiSceneController
 	{
 		var templateResource : CEntityTemplate;
 
+		// v NR_MOD
+		if ( NR_GetWitcherReplacer() ) {
+			entityTemplateAlias = NR_GetWitcherReplacer().NR_GetInventoryTemplate();
+		}
+		// ^ NR_MOD
 		if ( _isEntitySpawning )
 		{
 			_entityTemplateAlias = entityTemplateAlias;

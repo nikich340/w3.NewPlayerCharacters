@@ -180,7 +180,11 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 					} else {
 						inAttackAction = true;
 						ApplyCrowBehStateIfNew('GlideForward');
-						transformNPC.SoundEvent("animals_crow_call");
+						if (parent.magicManager.GetPolymorphismAnimalType() == 'crow') {
+							transformNPC.SoundEvent("animals_crow_call");
+						} else {
+							transformNPC.SoundEvent("animals_owl_call_quest");
+						}
 					}
 				}
 			} else {
@@ -330,6 +334,8 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 		} else {
 			inputX = theInput.GetActionValue( 'GI_AxisRightX' );
 			inputY = theInput.GetActionValue( 'GI_AxisRightY' );
+			inputX *= 20.0;
+			inputY *= 20.0;
 		}
 		isAttackPressed = theInput.IsActionPressed( 'AttackWithAlternateLight' );
 		isRunPressed = theInput.IsActionPressed( 'Sprint' );

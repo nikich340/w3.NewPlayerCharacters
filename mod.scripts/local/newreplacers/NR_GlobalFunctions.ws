@@ -737,10 +737,19 @@ function NR_GetDamageGeneric(source : String, caster : CActor, damageTarget : CA
 		randMax = 1.2;
 	}
 
+	if (minPerc < 0.5f) {
+		minPerc = 0.5f;
+	}
+
 	if (caster && damageTarget) {
 		levelDiff = caster.GetLevel() - damageTarget.GetLevel();
-		maxDamage = damageTarget.GetMaxHealth() * maxPerc / 100.f + levelDiff * 1.f;
-		minDamage = MaxF(damageTarget.GetMaxHealth() * 0.5f / 100.f, damageTarget.GetMaxHealth() * minPerc / 100.f + levelDiff * 0.1f);
+		maxDamage = damageTarget.GetMaxHealth() * maxPerc / 100.f;
+		minDamage = damageTarget.GetMaxHealth() * minPerc / 100.f;
+
+		if (levelDiff > 0) {
+			maxDamage += levelDiff * 1.f;
+			minDamage += levelDiff * 0.1f;
+		}
 	} else {
 		levelDiff = 0;
 		maxDamage = 1000.f;
@@ -763,8 +772,7 @@ function NR_GetDamageGeneric(source : String, caster : CActor, damageTarget : CA
 		// anti-cheat for specters: they reduce all damage to 10%
 		damage *= 10.f;
 	}
-	// NR_Debug("NR_GetDamageGeneric: [" + source + "], target = " + damageTarget + " lvl diff = " + levelDiff + ", max health = " + damageTarget.GetMaxHealth());
-	// NR_Debug("NR_GetDamageGeneric: [" + source + "], minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
+	// NR_Notify("NR_GetDamageGeneric: [" + source + "], target = " + damageTarget + " lvl diff = " + levelDiff + ", max health = " + damageTarget.GetMaxHealth() + ", minDamage = " + minDamage + ", maxDamage = " + maxDamage + ", final damage = " + damage);
 	
 	return damage;
 }

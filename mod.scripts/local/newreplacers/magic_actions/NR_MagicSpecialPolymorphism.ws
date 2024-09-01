@@ -4,12 +4,19 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 	var idleActionId 	: int;
 	var appearanceName 	: name;
 	var forceStopRequired : bool;
+	var restoredFromSave : bool;
 	
 	default isDamaging 	= false;
 	default performsToLevelup = 10; // action-specific
 	default actionType = ENR_SpecialPolymorphism;
 	default actionSubtype = ENR_SpecialAbstractAlt;
 	
+	public function RestoreFromSave() {
+		restoredFromSave = true;
+		animalType = map[ST_Universal].getN("nr_polymorphysm_type", 'cat');
+		appearanceName = map[ST_Universal].getN("nr_polymorphysm_appearance", 'cat_vanilla_04');
+	}
+
 	latent function OnInit() : bool {
 		sceneInputs.PushBack(11);
 		sceneInputs.PushBack(12);
@@ -24,40 +31,48 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		super.OnPrepare();
 
 		m_fxNameMain = TransformFxName();
-		animalType = map[sign].getN("style_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat');
+
+		if (!restoredFromSave)
+			animalType = map[sign].getN("style_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat');
+
 		if (animalType == 'cat') {
 			resourceName = "nr_transform_cat";
 
-			// Dhu's cats: https://www.nexusmods.com/witcher3/mods/3527
-			if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
-				appearanceName = map[sign].getN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_20');
-			else
-				appearanceName = map[sign].getN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_04');
+			if (!restoredFromSave) {
+				if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') )
+					appearanceName = map[sign].getN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_20');
+				else
+					appearanceName = map[sign].getN("cat_app_" + ENR_MAToName(ENR_SpecialPolymorphism), 'cat_vanilla_04');
 
-			if ( appearanceName == 'random' ) {
-				if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
-					GetAppearanceNames( entityTemplate, appNames );
-					appNames.Remove('cat_vanilla_01');
-					appNames.Remove('cat_vanilla_02');
-					appNames.Remove('cat_vanilla_03');
-					appNames.Remove('cat_vanilla_04');
-				} else {
-					appNames.PushBack('cat_vanilla_01');
-					appNames.PushBack('cat_vanilla_02');
-					appNames.PushBack('cat_vanilla_03');
-					appNames.PushBack('cat_vanilla_04');
-					appNames.PushBack('fox_red');
-					appNames.PushBack('fox_silverish');
-					appNames.PushBack('fox_black');
+				if ( appearanceName == 'random' ) {
+					if ( theGame.GetDLCManager().IsDLCAvailable('dlc_fanimals') ) {
+						GetAppearanceNames( entityTemplate, appNames );
+						appNames.Remove('cat_vanilla_01');
+						appNames.Remove('cat_vanilla_02');
+						appNames.Remove('cat_vanilla_03');
+						appNames.Remove('cat_vanilla_04');
+					} else {
+						appNames.PushBack('cat_vanilla_01');
+						appNames.PushBack('cat_vanilla_02');
+						appNames.PushBack('cat_vanilla_03');
+						appNames.PushBack('cat_vanilla_04');
+						appNames.PushBack('fox_red');
+						appNames.PushBack('fox_silverish');
+						appNames.PushBack('fox_black');
+					}
+					appearanceName = appNames[ NR_GetRandomGenerator().next(appNames.Size()) ];
 				}
-				appearanceName = appNames[ NR_GetRandomGenerator().next(appNames.Size()) ];
 			}
 		} else if (animalType == 'crow') {
 			resourceName = "nr_transform_crow";
-			appearanceName = 'crow_01';
+
+			if (!restoredFromSave)
+				appearanceName = 'crow_01';
 		} else if (animalType == 'owl') {
 			resourceName = "nr_transform_owl";
-			appearanceName = 'owl_01';
+
+			if (!restoredFromSave)
+				appearanceName = 'owl_01';
 		} else {
 			NR_Error("NR_MagicSpecialPolymorphism: Unknown animalType = " + animalType);
 			return OnPrepared(false);
@@ -77,7 +92,9 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		}
 
 		thePlayer.PlayEffect(m_fxNameMain);
-		Sleep(0.3f);
+		if (!restoredFromSave)
+			Sleep(0.3f);
+
 		pos = thePlayer.GetWorldPosition();
 		if (animalType == 'crow' || animalType == 'owl') {
 			pos.Z += 2.f;
@@ -133,6 +150,9 @@ statemachine class NR_MagicSpecialPolymorphism extends NR_MagicSpecialAction {
 		} else if (animalType == 'crow' || animalType == 'owl') {
 			thePlayer.GotoState('NR_TransformedCrow', false);
 		}
+		map[ST_Universal].setI("nr_polymorphysm_active", 1);
+		map[ST_Universal].setN("nr_polymorphysm_type", animalType);
+		map[ST_Universal].setN("nr_polymorphysm_appearance", appearanceName);
 
 		this.GotoState('Active');
 		return OnPerformed(true);
@@ -194,7 +214,9 @@ state Active in NR_MagicSpecialPolymorphism {
 
 	entry function ActiveLoop() {
 		sorceress = NR_GetReplacerSorceress();
-		Sleep(0.5f);
+
+		if (!parent.restoredFromSave)
+			Sleep(0.5f);
 
 		// show base tutorial
 		if (FactsQuerySum("nr_quest_track_PolymorphismWarning") < 1) {
@@ -220,6 +242,7 @@ state Stop in NR_MagicSpecialPolymorphism {
 			Sleep(0.5f);
 		}
 		
+		parent.map[parent.ST_Universal].removeKey("nr_polymorphysm_active");
 		parent.transformNPC.SetVisibility(false);
 		thePlayer.BreakAttachment();
 

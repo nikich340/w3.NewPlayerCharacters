@@ -10,9 +10,8 @@ abstract statemachine class NR_MagicSpecialAction extends NR_MagicAction {
 		var ret : bool;
 		ret = super.OnPrepare();
 		// load data from map
-		su_manager = thePlayer.getSharedutilsOnelinersManager();
-		s_curseChance = map[ST_Universal].getI("curse_chance_" + ENR_MAToName(actionType), 15);
-		// NR_Debug("GenericSpecial: s_curseChance (" + ENR_MAToName(actionType) + ") = " + s_curseChance);
+		su_manager = SUOL_getManager();
+		s_curseChance = map[ST_Universal].getI("curse_chance_" + ENR_MAToName(actionType), 0);
 		s_lifetime = map[ST_Universal].getF("duration_" + ENR_MAToName(actionType), 10.f);
 		if (actionType == ENR_SpecialLightningFall || actionType == ENR_SpecialMeteorFall)
 			s_lifetime *= SkillDurationMultiplier(true);
@@ -21,7 +20,7 @@ abstract statemachine class NR_MagicSpecialAction extends NR_MagicAction {
 		return ret;
 	}
 	/* -> Stop/Curse */
-	latent function StopAction() {
+	function StopAction() {
 		NR_Info(actionType + ".StopAction: isCursed = " + isCursed + ", s_curseChance = " + s_curseChance);
 		if ( !isCursed && !IsInSetupScene() && s_curseChance >= NR_GetRandomGenerator().nextRange(1, 100) ) {
 			// NR_Debug("GenericSpecial: Cursed!");
@@ -32,6 +31,12 @@ abstract statemachine class NR_MagicSpecialAction extends NR_MagicAction {
 			// NR_Debug("GenericSpecial: Stop!");
 			GotoState('Stop');
 		}
+	}
+
+	function StopActionNoCurse() {
+		NR_Info(actionType + ".StopActionNoCurse");
+		s_curseChance = 0;
+		GotoState('Stop');
 	}
 }
 

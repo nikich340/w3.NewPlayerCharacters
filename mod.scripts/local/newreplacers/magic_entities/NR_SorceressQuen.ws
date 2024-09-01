@@ -48,13 +48,15 @@ statemachine class NR_SorceressQuen extends W3QuenEntity
 		m_cachedHitEffectName = magicManager.SphereHitFxName();
 		m_cachedHealingEffectName = magicManager.SphereHealingFxName();
 
-		if ( !skipCastingAnimation && !magicManager.HasStaminaForAction(ENR_SpecialShield) ) {
+		if (autoCasted)
+			skipCastingAnimation = true;
+		
+		drainStamina = !skipCastingAnimation;
+		if ( drainStamina && !magicManager.HasStaminaForAction(ENR_SpecialShield) ) {
 			CleanUp();
 			Destroy();
 			return false;
 		}
-		drainStamina = !skipCastingAnimation;
-
 		
 		if ( skipCastingAnimation || owner.InitCastSign( this ) )
 		{
@@ -428,7 +430,8 @@ state ShieldActive in NR_SorceressQuen extends Active
 					parent.m_lastCounterEffectTime = theGame.GetEngineTimeAsSeconds();
 				}
 				if (parent.s_counterHealing) {
-					casterActor.PlayEffect( parent.m_cachedHealingEffectName );
+					// too noisy
+					// casterActor.PlayEffect( parent.m_cachedHealingEffectName );
 					casterActor.Heal(reducedDamage * parent.magicManager.GetShieldDamageRestoring() / 100.f);
 					parent.m_lastCounterEffectTime = theGame.GetEngineTimeAsSeconds();
 				}

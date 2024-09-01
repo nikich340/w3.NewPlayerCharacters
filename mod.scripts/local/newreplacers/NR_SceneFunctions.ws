@@ -44,12 +44,17 @@ storyscene function NR_ShowAppearanceInfo_S(player: CStoryScenePlayer) {
 
 storyscene function NR_SetupMasterApprenticeQuestions_S(player: CStoryScenePlayer) {
 	var generator : NR_RandomGenerator;
+	var rand1, rand2, rand3 : int;
 
 	// to make it more variative
     generator = NR_GetRandomGenerator();
-    FactsSet("nr_master_apprentice_q1", generator.nextRange(1, 100));
-    FactsSet("nr_master_apprentice_q2", generator.nextRange(1, 100));
-    FactsSet("nr_master_apprentice_q3", generator.nextRange(1, 100));
+    rand1 = generator.nextRange(1, 100);
+    rand2 = generator.nextRange(1, 100);
+    rand3 = generator.nextRange(1, 100);
+    FactsSet("nr_master_apprentice_q1", rand1);
+    FactsSet("nr_master_apprentice_q2", rand2);
+    FactsSet("nr_master_apprentice_q3", rand3);
+    // NR_Notify("NR_SetupMasterApprenticeQuestions_S: " + rand1 + ", " + rand2 + ", " + rand3);
 }
 
 latent storyscene function NR_ShowCustomDLCInfo_S(player: CStoryScenePlayer) {
@@ -71,11 +76,12 @@ storyscene function NR_SwitchIncludeAsItem_S(player: CStoryScenePlayer) {
 }
 
 storyscene function NR_SwitchAppearanceMode_S(player: CStoryScenePlayer) {
-	if ( NR_GetPlayerManager().IsRealEquipmentModeEnabled() ) {
-		NR_GetPlayerManager().SetIsRealEquipmentModeEnabled(false);
-	} else {
-		NR_GetPlayerManager().SetIsRealEquipmentModeEnabled(true);
-	}
+	NR_GetPlayerManager().SetIsRealEquipmentModeEnabled( !NR_GetPlayerManager().IsRealEquipmentModeEnabled() );
+	NR_GetPlayerManager().ShowAppearanceInfo();
+}
+
+storyscene function NR_SwitchNeckTransitionVisibility_S(player: CStoryScenePlayer) {
+	NR_GetPlayerManager().SetNeckTransitionVisible( !NR_GetPlayerManager().IsNeckTransitionVisible() );
 	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 

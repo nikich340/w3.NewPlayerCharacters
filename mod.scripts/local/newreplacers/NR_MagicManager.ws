@@ -110,7 +110,7 @@ statemachine class NR_MagicManager extends IScriptable {
 	protected var cursedActions : array<NR_MagicAction>;
 	protected var willeyVictim 	: CActor;
 	protected var eqSign 		: ESignType;
-	protected var m_entitiesRipCheck : array<CEntity>;
+	protected var m_entitiesRipCheck : array<CActor>;
 	protected var aEventsStack 	: array<SNR_MagicEvent>;
 	protected var mAction 		: NR_MagicAction;
 	protected var mLastShieldColor : ENR_MagicColor;
@@ -142,7 +142,7 @@ statemachine class NR_MagicManager extends IScriptable {
 
 		NR_GetPlayerManager().GetMagicDataMaps(sMap, wasLoaded);
 		NR_Info("NR_MagicManager.Init: forceReset = " + forceReset + ", wasLoaded = " + wasLoaded);
-		mSuolManager = thePlayer.getSharedutilsOnelinersManager();
+		mSuolManager = SUOL_getManager();
 		mSuolOnelinerCorner = SU_onelinerScreen(
 			"",
 			Vector(0.22, 0.95)
@@ -166,10 +166,6 @@ statemachine class NR_MagicManager extends IScriptable {
 			FactsAdd("nr_magic_skill_ENR_Lightning", 1);
 			FactsAdd("nr_magic_skill_ENR_ProjectileWithPrepare", 1);
 			FactsAdd("nr_magic_skill_ENR_WaterTrap", 1);
-			
-			SetDefaults_StaminaCost();
-			SetDefaults_CurseChance();
-			SetDefaults_Duration();
 
 			SetDefaults_CounterPush();
 			SetDefaults_LightAbstract();
@@ -191,6 +187,9 @@ statemachine class NR_MagicManager extends IScriptable {
 		} else {
 			// NR_Debug("MagicManager: Load spell params");
 		}
+		SetDefaults_StaminaCost();
+		SetDefaults_CurseChance();
+		SetDefaults_Duration();
 
 		if (FactsQuerySum("nr_magic_hide_control_hints") > 0)
 			ShowMagicControlHints(false);
@@ -214,17 +213,6 @@ statemachine class NR_MagicManager extends IScriptable {
 		}
 	}
 
-	/*function IsRadialMenuOpened() : bool
-	{
-		var radialMenuModule : CR4HudModuleRadialMenu;
-		radialMenuModule =  (CR4HudModuleRadialMenu)GetHudModule( "RadialMenuModule" );
-		
-		if(radialMenuModule)
-			return radialMenuModule.IsRadialMenuOpened();
-			
-		return false;
-	}*/
-
 	protected function LaunchPassiveActionsForSkillLevel(skillLevel : ENR_MagicSkillLevel) {
 		var action : NR_MagicPassiveAction;
 
@@ -244,6 +232,37 @@ statemachine class NR_MagicManager extends IScriptable {
 				break;
 			default:
 				break;
+		}
+	}
+
+	public function ForceStopAllActions() {
+		var i : int;
+		var action : NR_MagicAction;
+
+		if (mLumosAction) {
+			mLumosAction.BreakActionSync();
+		}
+
+		for (i = 0; i < passiveActions.Size(); i += 1) {
+			passiveActions[i].StopAction();
+		}
+
+		for (i = 0; i < cachedActions.Size(); i += 1) {
+			action = cachedActions[i];
+			if (action.actionType == ENR_Rock) {
+				((NR_MagicRock)action).BreakActionAsync();
+			} else if ( (NR_MagicSpecialAction)action ) {
+				((NR_MagicSpecialAction)action).StopActionNoCurse();
+			}
+		}
+
+		for (i = 0; i < cursedActions.Size(); i += 1) {
+			action = cursedActions[i];
+			if (action.actionType == ENR_Rock) {
+				((NR_MagicRock)action).BreakActionAsync();
+			} else if ( (NR_MagicSpecialAction)action ) {
+				((NR_MagicSpecialAction)action).StopActionNoCurse();
+			}
 		}
 	}
 
@@ -953,7 +972,7 @@ statemachine class NR_MagicManager extends IScriptable {
 
 	function SetDefaults_Duration() {
 		// duration_<AttackType> in sec
-		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialServant), 40.f);
+		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialServant), 120.f);
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialTornado), 15.f);
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialControl), 40.f);
 		sMap[ST_Universal].setF("duration_" + ENR_MAToName(ENR_SpecialShield), 100.f);
@@ -2138,17 +2157,19 @@ statemachine class NR_MagicManager extends IScriptable {
 	}
 
 	// [0 .. chance] -> finisher available
-	public function GetChancePercForFinisher(entity : CEntity) : int {
+	public function GetChancePercForFinisher(target : CActor) : int {
 		var chance : int;
 		
-		chance = 25 + GetActionSkillLevel(ENR_RipApart);
+		if ( target.GetHealthPercents() > GetMaxHealthPercForFinisher() )
+			return -1;
 
-		if (entity) {
+		chance = 25 + GetActionSkillLevel(ENR_RipApart);
+		if (target) {
 			// checked before - no chance
-			if (m_entitiesRipCheck.Contains(entity)) {
+			if (m_entitiesRipCheck.Contains(target)) {
 				chance = -1;
 			} else {
-				m_entitiesRipCheck.PushBack(entity);
+				m_entitiesRipCheck.PushBack(target);
 			}
 		}
 		return chance;
@@ -2901,10 +2922,22 @@ state MagicLoop in NR_MagicManager {
 		entity.StopAllEffectsAfter(2.f);
 		entity.DestroyAfter(5.f);
 	}
+
+	latent function PerformPolymorphismImmediately() {
+		parent.SetActionType(ENR_SpecialPolymorphism);
+		InitMagicAction('');
+		((NR_MagicSpecialPolymorphism)parent.mAction).RestoreFromSave();
+		PrepareMagicAction();
+		PerformMagicAction();
+	}
 	
 	entry function MainLoop() {
 		if (parent.sMap[parent.ST_Universal].hasKey("used_ftt_entity"))
 			PerformExitFromFTT();
+
+		if (parent.sMap[parent.ST_Universal].hasKey("nr_polymorphysm_active")) {
+			PerformPolymorphismImmediately();
+		}
 
 		while (true) {
 			SleepOneFrame();

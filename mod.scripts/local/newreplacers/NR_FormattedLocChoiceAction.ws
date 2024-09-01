@@ -156,3 +156,56 @@ class NR_SwitchableAbilityMagicChoiceAction extends NR_FormattedLocChoiceAction
 		return DialogAction_NONE;
 	}
 }
+
+class NR_SwitchableOnPlayerTypeChoiceAction extends NR_FormattedLocChoiceAction {
+	editable var checkFact : bool;
+	editable var checkFactInverted : bool;
+	editable var factPrefix : String; // factPrefix + NR_GetPlayerManager().GetCurrentPlayerType()
+	
+	editable var enabledStringId : int; // "enabled" 2115940086, "visible" 2115940521
+	editable var disabledStringId : int; // "disabled" 2115940087, "invisible" 2115940520
+	editable var allowedForVanilla : bool;
+
+	function CanUseAction() : bool {
+		if (!allowedForVanilla && !NR_GetPlayerManager().IsReplacerActive())
+			return false;
+
+		return true;
+	}
+
+	function GetActionText() : string			
+	{
+		var text : String;
+
+		text = super.GetActionText();
+		if ( !CanUseAction() ) {
+			// [locked]
+			text += "[" + GetLocStringById(1066070) + "]";
+		} else {
+			if ( checkFact ) {
+				if ( FactsDoesExist(factPrefix + NR_GetPlayerManager().GetCurrentPlayerType()) ) {
+					// enabled
+					text += NR_GetLocStringByIdExt(enabledStringId);
+				} else {
+					// disabled
+					text += NR_GetLocStringByIdExt(disabledStringId);
+				}
+			} else if ( checkFactInverted ) {
+				if ( FactsDoesExist(factPrefix + NR_GetPlayerManager().GetCurrentPlayerType()) ) {
+					// disabled
+					text += NR_GetLocStringByIdExt(disabledStringId);
+				} else {
+					// enabled
+					text += NR_GetLocStringByIdExt(enabledStringId);
+				}
+			}
+		}
+		return text;
+	}
+	
+	function GetActionIcon() : EDialogActionIcon 	
+	{ 
+		return DialogAction_NONE;
+	}
+}
+

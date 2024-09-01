@@ -86,6 +86,7 @@ statemachine class NR_MagicSpecialMeteorFall extends NR_MagicSpecialAction {
 			pos += VecRingRand(0.f, minRange);
 		else
 			pos += VecRingRand(minRange, maxRange);
+
 		pos = SnapToGround(pos);
 		// NR_Debug("NR_MagicSpecialMeteorFall: Distance pos = " + VecDistance(thePlayer.GetWorldPosition(), pos) + ", dist2D = " + VecDistance2D(thePlayer.GetWorldPosition(), pos));
 		pos.Z += 40.f;

@@ -6,6 +6,7 @@ state NR_TransformedBase in NR_ReplacerSorceress extends Base {
 
 	var i, j 			: int;
 	var blockedActions 	: array<EInputActionBlock>;
+	var forceStopRequired : bool;
 
 	event OnEnterState( prevStateName : name )
 	{
@@ -127,6 +128,7 @@ state NR_TransformedBase in NR_ReplacerSorceress extends Base {
 
 	event OnBlockingSceneStarted( scene: CStoryScene )
 	{
+		forceStopRequired = true;
 		parent.magicManager.ForceStopPolymorphism("OnBlockingSceneStarted: " + scene);
 		virtual_parent.OnBlockingSceneStarted( scene );
 	}

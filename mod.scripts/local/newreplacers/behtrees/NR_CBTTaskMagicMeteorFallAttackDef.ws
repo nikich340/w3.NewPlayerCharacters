@@ -110,11 +110,11 @@ class NR_CBTTaskMagicMeteorFallAttack extends CBTTaskAttack
 		}
 		pos.Z -= 40.f;
 
-		meteor.projDMG = NR_GetDamageGeneric( "NR_CBTTaskMagicMeteorFallAttack", /*caster*/ GetNPC(), /*target*/ enemies[index], /*min*/ 20.f, /*max*/ 50.f, /*vitality*/ 30.f, 25.f, /*essence*/ 80.f, 40.f);
+		meteor.projDMG = NR_GetDamageGeneric( "NR_CBTTaskMagicMeteorFallAttack", /*caster*/ GetNPC(), /*target*/ enemies[index], /*min*/ 60.f, /*max*/ 90.f, /*vitality*/ 30.f, 25.f, /*essence*/ 90.f, 40.f);
 		meteor.explosionRadius = 2.5f;
 		meteor.m_shakeStrength = 0.5f;
 		meteor.m_respectCaster = true;
-		meteor.m_damageName = 'FrostDamage';
+		meteor.m_damageName = 'ElementalDamage';
 		meteor.Init( caster );
 		meteor.ShootProjectileAtPosition( meteor.projAngle, meteor.projSpeed, pos, 500.f, m_collisionGroups );
 		meteor.DestroyAfter(10.f);

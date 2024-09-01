@@ -24,6 +24,7 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 
 		s_respectCaster = IsActionAbilityEnabled("DamageControl");
 		s_meteorNum = SkillMaxApplies();
+		NR_Debug("s_meteorNum = " + s_meteorNum);
 
 		return OnPrepared(true);
 	}
@@ -40,23 +41,20 @@ statemachine class NR_MagicSpecialMeteor extends NR_MagicSpecialAction {
 		NR_CalculateTarget(	/*tryFindDestroyable*/ false, /*makeStaticTrace*/ true, 
 							/*targetOffsetZ*/ 0.f, /*staticOffsetZ*/ 0.f );
 		
-		ret = ShootMeteor();
-
 		for (i = 0; i < s_meteorNum; i += 1) {
-			ret = ShootMeteor();
-			Sleep(0.05f);
+			ret = ShootMeteor(0.5f);
+			Sleep(0.6f);
 		}
 
 		StopAction();
 		return OnPerformed(ret);
 	}
 
-	latent function ShootMeteor() : bool {
+	latent function ShootMeteor(maxRandomOffset : float) : bool {
 		var dk : float;
 		var spawnPos : Vector;
 
-		spawnPos = pos + VecRingRand(0.f, 1.f);
-
+		spawnPos = pos + VecRingRand(0.f, maxRandomOffset);
 		if (IsInSetupScene()) {
 			spawnPos = MidPosInScene(/*far*/ false);
 		}
@@ -242,7 +240,7 @@ state Cursed in NR_MagicSpecialMeteor {
 		parent.pos = thePlayer.GetWorldPosition();
 		parent.s_respectCaster = false;
 
-		parent.ShootMeteor();
+		parent.ShootMeteor(0.5f);
 		parent.StopAction();
 	}
 }

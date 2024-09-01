@@ -459,6 +459,13 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 			super.SetupCombatAction(action, stage);
 		}
 	}
+
+	public function OnDestroying() {
+		if (magicManager) {
+			magicManager.ForceStopAllActions();
+			magicManager.HandFX(false, true);
+		}
+	}
 }
 
 function NR_GetReplacerSorceress() : NR_ReplacerSorceress

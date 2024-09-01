@@ -33,18 +33,18 @@ class NR_AardProjectile extends W3AardProjectile {
 		params.sourceName = 'NR_AardProjectile';
 		//params.effectValue.valueAdditive = 50.f + 20.f * npc.GetLevel();
 		params.effectValue.valueBase = 1000.f;
-		params.effectValue.valueMultiplicative = 1.25f;
+		params.effectValue.valueMultiplicative = 1.1f;
 		params.effectValue.valueAdditive = 1000.f;
 		params.customPowerStatValue.valueBase = 1000.f;
-		params.customPowerStatValue.valueMultiplicative = 1.25f;
+		params.customPowerStatValue.valueMultiplicative = 1.1f;
 		params.customPowerStatValue.valueAdditive = 1000.f;
-		params.duration = 4.5f + 0.4f * (int)NR_GetMagicManager().GetSkillLevel() + 0.2f * NR_GetMagicManager().GetActionSkillLevel(ENR_CounterPush);
+		params.duration = 2.f + 0.2f * (int)NR_GetMagicManager().GetSkillLevel() + 0.1f * NR_GetMagicManager().GetActionSkillLevel(ENR_CounterPush);
 
 		effectTypes.PushBack(EET_HeavyKnockdown);
 		effectTypes.PushBack(EET_Knockdown);
+		effectTypes.PushBack(EET_KnockdownTypeApplicator);
 		effectTypes.PushBack(EET_LongStagger);
 		effectTypes.PushBack(EET_Stagger);
-		effectTypes.PushBack(EET_KnockdownTypeApplicator);
 
 		for (i = 0; i < effectTypes.Size(); i += 1) {
 			params.effectType = effectTypes[i];
@@ -52,17 +52,18 @@ class NR_AardProjectile extends W3AardProjectile {
 			// npc.RemoveBuff(effectTypes[i]);
 			buffResult = npc.AddEffectCustom(params);
 			if (buffResult != EI_Deny) {
+				NR_Info("NR_AardProjectile.ProcessCollisionOnEntity: buffPassed = " + effectTypes[i] + ", npc = " + npc);
 				// success
 				// NR_Debug("ProcessCollisionOnEntity: " + buffResult + " (" + effectTypes[i] + "), npc = " + npc);
 				break;
 			}
+			params.duration += 0.3f;
 		}
-		NR_Info("NR_AardProjectile.ProcessCollisionOnEntity: buffResult = " + buffResult + ", npc = " + npc);
 
 		if (useFreeze || useBurn) {
 			params2.creator = thePlayer;
 			params2.sourceName = 'NR_AardProjectile';
-			params2.duration = 6.f + 0.5f * (int)NR_GetMagicManager().GetSkillLevel() + 0.25f * NR_GetMagicManager().GetActionSkillLevel(ENR_CounterPush);
+			params2.duration = 3.f + 0.3f * (int)NR_GetMagicManager().GetSkillLevel() + 0.15f * NR_GetMagicManager().GetActionSkillLevel(ENR_CounterPush);
 			if (useFreeze) {
 				params2.effectType = EET_Frozen;
 			} else {

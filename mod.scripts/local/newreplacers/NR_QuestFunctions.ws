@@ -369,7 +369,7 @@ latent quest function NR_UseCrossStone_Q() {
     templatesTier2.PushBack("quests/part_3/quest_files/q502_avallach/characters/q502_arachas.w2ent");
     templatesTier2.PushBack("dlc/dlcnewreplacers/data/entities/nr_q502_dao_fixed.w2ent");
     templatesTier2.PushBack("dlc/dlcnewreplacers/data/entities/nr_elemental_dao_lvl3__ice_fixed.w2ent");
-    templatesTier2.PushBack("dlc/dlcnewreplacers/data/entities/nr_mq4006_ifryt_fixed.w2ent");
+    templatesTier2.PushBack("dlc/dlcnewreplacers/data/entities/nr_mq4006_ifryt_fixed_fireaura.w2ent");
     templatesTier2.PushBack("dlc/dlcnewreplacers/data/entities/nr_q210_lab_golem_fixed.w2ent");
     // --- templatesTier2.PushBack("dlc/dlcnewreplacers/data/entities/nr_th701_golem_fixed.w2ent");
 

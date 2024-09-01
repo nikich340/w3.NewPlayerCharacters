@@ -48,10 +48,16 @@ statemachine class NR_AdvancedNPC extends CNewNPC {
 		} else if (!toggle && commentCombatEndInputNames.Size() > 0 && commentCombatEndChance >= NR_GetRandomGenerator().nextRange(1, 100)) {
 			PlayComment( commentCombatEndInputNames[NR_GetRandomGenerator().next(commentCombatEndInputNames.Size())] );
 		}
-		NR_Info("NR_AdvancedNPC(" + this + ").OnCombatModeSet = " + toggle);
+		NR_Info("NR_AdvancedNPC(" + this + ").OnCombatModeSet = " + toggle + ", startChance = " + commentCombatStartChance + ", endChance = " + commentCombatEndChance);
 	}
 
 	protected function PlayComment(inputName : String) {
+		if (!commentScene) {
+			NR_Error("NR_AdvancedNPC(" + this + ").PlayComment: NULL commentScene!");
+			return;
+		}
+
 		theGame.GetStorySceneSystem().PlayScene( commentScene, inputName );
+		NR_Info("NR_AdvancedNPC(" + this + ").PlayComment [" + inputName + "]");
 	}
 }

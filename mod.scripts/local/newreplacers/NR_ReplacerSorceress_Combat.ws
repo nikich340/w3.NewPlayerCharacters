@@ -2123,8 +2123,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		if ( parent.IsInState('CombatFists') ) {
 			/* CHECK IF FINISHER POSSIBLE */
 			if ( parent.slideTarget && attackTarget && CanPerformFinisherOnAliveTarget(attackTarget)
-			&& attackTarget.GetHealthPercents() <= parent.magicManager.GetMaxHealthPercForFinisher()
-				&& parent.magicManager.GetChancePercForFinisher(attackTarget) >= NR_GetRandomGenerator().nextRange(1, 100) )
+			&& parent.magicManager.GetChancePercForFinisher(attackTarget) >= NR_GetRandomGenerator().nextRange(1, 100) )
 			{
 					TryPeformMagicAttack( 'AttackFinisher', ENR_RipApart );
 			} else if ( playerAttackType == theGame.params.ATTACK_NAME_LIGHT )

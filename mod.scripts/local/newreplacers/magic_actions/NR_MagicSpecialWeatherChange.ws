@@ -4,6 +4,7 @@ statemachine class NR_MagicSpecialWeatherChange extends NR_MagicSpecialAction {
 	default actionType = ENR_SpecialWeatherChange;
 	default actionSubtype = ENR_SpecialAbstract;
 	default maxLevelup 		  = 1; // action-specific
+	default drainStaminaOnPerform = false; // action-specific
 
 	latent function OnInit() : bool {
 		sceneInputs.PushBack(18);

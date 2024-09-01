@@ -25,14 +25,14 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
         NR_ShowTutorial( "FirstTime", /*fullscreen*/ true );
         // set fact to avoid showing changelog on fresh installation
         FactsAdd("nr_quest_track_Update_v1_2_2", 1);
-        FactsAdd("nr_quest_track_Update_v2_0", 1);
-        FactsAdd("nr_quest_track_Update_v2_0_1", 1);
         FactsAdd("nr_quest_track_Update_v2_0_2", 1);
+        FactsAdd("nr_quest_track_Update_v2_3", 1);
+        FactsAdd("nr_quest_track_Update_v2_3_1", 1);
         return true;
     }
 
     // HACK: if player has no Chameleon for some reason
-    if ( !thePlayer.inv.HasItem('nr_chameleon_potion') ) {
+    if ( !thePlayer.IsCiri() && !thePlayer.inv.HasItem('nr_chameleon_potion') ) {
         thePlayer.inv.AddAnItem('nr_chameleon_potion', 1);
         NR_Notify("Chameleon potion was added back to inventory. Don't lose it anymore :)");
         return true;
@@ -46,27 +46,25 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
         return true;
     }
 
-    // changelog - v2.0
-    if ( FactsQuerySum("nr_quest_track_Update_v2_0") < 1 ) {
-        NR_ShowTutorial( "Update_v2_0", /*fullscreen*/ true );
-        if ( NR_GetMagicManager() )
-            NR_GetMagicManager().SetDefaults_DamageManual();
-        return true;
-    }
-
-    // changelog - v2.0.1
-    if ( FactsQuerySum("nr_quest_track_Update_v2_0_1") < 1 ) {
-        NR_ShowTutorial( "Update_v2_0_1", /*fullscreen*/ true );
-        NR_GetPlayerManager().SetPlayerScaleForType(ENR_PlayerWitcheress, 100);
-        NR_GetPlayerManager().SetPlayerScaleForType(ENR_PlayerSorceress, 100);
-        return true;
-    }
-
     // changelog - v2.0.2
     if ( FactsQuerySum("nr_quest_track_Update_v2_0_2") < 1 ) {
         NR_ShowTutorial( "Update_v2_0_2", /*fullscreen*/ true );
         NR_GetPlayerManager().SetPlayerScaleForType(ENR_PlayerWitcheress, 100);
         NR_GetPlayerManager().SetPlayerScaleForType(ENR_PlayerSorceress, 100);
+        if ( NR_GetMagicManager() )
+            NR_GetMagicManager().SetDefaults_DamageManual();
+        return true;
+    }
+
+    // changelog - v2.3
+    if ( FactsQuerySum("nr_quest_track_Update_v2_3") < 1 ) {
+        NR_ShowTutorial( "Update_v2_3", /*fullscreen*/ true );
+        return true;
+    }
+
+    // changelog - v2.3.1
+    if ( FactsQuerySum("nr_quest_track_Update_v2_3_1") < 1 ) {
+        NR_ShowTutorial( "Update_v2_3_1", /*fullscreen*/ true );
         return true;
     }
     
@@ -192,28 +190,45 @@ latent function NR_ShowTutorial(type : String, fullscreen : bool, optional remin
             popupData.messageText += "- support: Content Expansion - Time of the Sword and Axe (female speech)<br>";
             popupData.messageText += "- support: Multi Companion Mod (female speech)<br>";
             popupData.messageText += "- other fixes and improvements<br>";
-        } else if (type == "Update_v2_0") {
-            popupData.messageText += "<font color=\"#ffff00\">v2.0 changes:</font><br>";
+        } else if (type == "Update_v2_0_2") {
+            popupData.messageText += "<font color=\"#ffff00\">v2.0.2 changes:</font><br>";
             popupData.messageText += "- fix: magic attacks now deals more damage to wraiths and block shadow form for a while.<br>";
             popupData.messageText += "- fix: some heads (Djikstra, Baron) broke cutscenes.<br>";
             popupData.messageText += "- fix (attemp #2): gameplay teleport made player invisible sometimes.<br>";
+            popupData.messageText += "- fix: Gravitational Field is now available on Experienced level (as intended).<br>";
+            popupData.messageText += "- fix: Alzur's Thunder and Melgar's fire now works as expected<br>";
             popupData.messageText += "- improvement: new real-equipment mode: shows equipped armor on player (only for Witcher type, female types - WIP).<br>";
             popupData.messageText += "- improvement: new fox appearances for cat Polymorphism.<br>";
             popupData.messageText += "- improvement: Sorceress now can cast witcher signs, except Quen.<br>  (default Cast button [Q] while holding \"Use\" button [E]).<br>";
             popupData.messageText += "- improvement: new damage settings in spell setup.<br>";
-            popupData.messageText += "- improvement: new player scale setting in appearance setup<br>  (104% for female types by default - fixes low head position in scenes).<br>";
+            popupData.messageText += "- improvement: new player scale setting in appearance setup<br>";
             popupData.messageText += "- support: Chinese text translation by GeraltOfZhongduCounty<br>";
             popupData.messageText += "- support: Thai (replaces Turkish) text translation by maakinaocch (optional file)<br>";
             popupData.messageText += "- support: Czech text translation by Lamecode0<br>";
             popupData.messageText += "- support: Defiant Inquisitor Armor Set<br>";
-        } else if (type == "Update_v2_0_1") {
-            popupData.messageText += "<font color=\"#ffff00\">v2.0.1 changes:</font><br>";
-            popupData.messageText += "- hotfix: master mage was invisible.<br>";
-            popupData.messageText += "- revert: 104% scale for female types by default - fixes low head position in scenes.<br>  (appeared to cause anim placement bugs in cutscenes)<br>";
-        } else if (type == "Update_v2_0_2") {
-            popupData.messageText += "<font color=\"#ffff00\">v2.0.1 changes:</font><br>";
-            popupData.messageText += "- fix: Gravitational Field is now available on Experienced level (as intended).<br>";
-            popupData.messageText += "- fix: Alzur's Thunder and Melgar's fire now works as expected<br>";
+        } else if (type == "Update_v2_3") {
+            popupData.messageText += "<font color=\"#ffff00\">v2.3 changes:</font><br>";
+            popupData.messageText += "- fixed: Was not possible to beat peasants with a plank in Vlodimir quest<br>";
+            popupData.messageText += "- fixed: Wrong animations in some scenes with Vlodimir<br>";
+            popupData.messageText += "- fixed: Meteor spell on max spell level now creates 2 meteors<br>";
+            popupData.messageText += "- fixed: Ifryt servant hit player<br>";
+            popupData.messageText += "- improvement: female player using only adapted anims from Geralt in scenes now (no more pose changes)<br>";
+            popupData.messageText += "- improvement: ALL misc items now available for both male and female player<br>";
+            popupData.messageText += "- improvement: longer Servants' life<br>";
+            popupData.messageText += "- improvement: polymorphism form now stores in gamesave<br>";
+            popupData.messageText += "- improvement: switched some script changes to annotations form<br>";
+            popupData.messageText += "- improvement: reduced cheaty Pushing Wave knockdown duration<br>";
+            popupData.messageText += "- improvement: <font color=\"#00ff00\">updated speech for Sorceress quest</font> from real actors - fully replaces AI speech<br>";
+            popupData.messageText += "  Credits: <font color=\"#9999ff\">English - Solaine Angel 57, Russian - SieeleLushen</font><br>";
+            popupData.messageText += "- support: added Bruxa and Alp female appearances<br>";
+            popupData.messageText += "- support: neck transition visibility option<br>";
+            popupData.messageText += "- other small fixes<br>";
+            popupData.messageText += "- ALSO: <font color=\"#00ff00\">new female speeches for Geralt</font> [check it's mod page]<br>";
+            popupData.messageText += "  <font color=\"#9999ff\">English - Winter Scarlett, Russian - SieeleLushen</font><br>";
+        } else if (type == "Update_v2_3_1") {
+            popupData.messageText += "<font color=\"#ffff00\">v2.3.1 changes:</font><br>";
+            popupData.messageText += "- fixed: sometimes missed armor parts when switching back to Geralt<br>";
+            popupData.messageText += "- improvement: new dialog reactions on gwent outcomes for Master<br>";
         }
     }
     else if (type == "SorceressInteractionHints2") {
@@ -336,13 +351,6 @@ latent storyscene function NR_ShowMagicSkillStats_S(player: CStoryScenePlayer, f
         NR_GetMagicManager().HideMagicInfo();
     }
     NR_ShowMagicSkillStats(fullscreen, showNovice, showApprentice, showExperienced, showMistress, showArchMistress);
-    /*
-    Sleep(0.3f);
-    while (theGame.GetGuiManager().IsModalPopupShown()) {
-        SleepOneFrame();
-    }
-    */
-    // NR_Debug("NR_ShowMagicSkillStats_S end");
 }
 
 latent function NR_ShowMagicSkillStats(fullscreen : bool, showNovice : bool, showApprentice : bool, showExperienced : bool, showMistress : bool, showArchMistress : bool) {

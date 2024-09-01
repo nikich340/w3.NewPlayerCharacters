@@ -153,6 +153,13 @@ statemachine class NR_MagicRock extends NR_MagicAction {
 		GotoState('Break');
 	}
 
+	function BreakActionAsync() {
+		if (isPerformed)
+			return;
+		
+		GotoState('Break');
+	}
+
 	latent function RockEntityName() : String
 	{
 		var typeName : name = map[sign].getN("style_" + ENR_MAToName(actionType));
@@ -268,11 +275,14 @@ state Loop in NR_MagicRock {
 		var currentTime 					: float;
 		var spawnPos 						: Vector;
 		var spawnRot 						: EulerAngles;
+		var timeWait  						: float;
+
+		timeWait = 1.5f * thePlayer.GetAnimationTimeMultiplier();
 
 		while (!parent.isBroken && !parent.isPerformed) {
 			SleepOneFrame();
 			currentTime = EngineTimeToFloat(theGame.GetEngineTime());
-			if (currentTime - parent.lStartTime > 1.5f) {
+			if (currentTime - parent.lStartTime > timeWait) {
 				NR_Error("LoopMove: Perform should have been received? Delay = " + (currentTime - parent.lStartTime));
 				parent.GotoState('Break');
 				return;

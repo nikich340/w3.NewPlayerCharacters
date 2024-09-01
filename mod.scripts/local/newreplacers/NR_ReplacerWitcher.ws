@@ -32,7 +32,6 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	public function UnequipItemFromSlot(slot : EEquipmentSlots, optional reequipped : bool) : bool
 	{
 		var item : SItemUniqueId;
-		var nrPlayerManager : NR_PlayerManager = NR_GetPlayerManager();
 
 		if ( !GetItemEquippedOnSlot(slot, item) )
 			return false;
@@ -40,12 +39,13 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		// NR_Debug("UnequipItemFromSlot: slot = " + slot + ", reequipped = " + reequipped);
 		/* IsInNonGameplayCutscene() - don't unequip armor for scenes (bath, barber etc) */
 		if ( IsInNonGameplayCutscene() ) {
+			NR_GetPlayerManager().UnmountEquipment();
 			// NR_Debug("UnequipItemFromSlot: slot = " + slot + ", ignoring (in scene).");
 			return false;
 		}
 
 		if ( super.UnequipItemFromSlot(slot, reequipped) ) {
-			nrPlayerManager.RemoveSavedItem( item );
+			NR_GetPlayerManager().RemoveSavedItem( item );
 			return true;
 		} else {
 			return false;
@@ -70,6 +70,10 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		}
 		ret = super.EquipItemInGivenSlot(item, slot, ignoreMounting, toHand);
 		NR_GetPlayerManager().UpdateSavedItem(item);
+
+		if ( IsInNonGameplayCutscene() ) {
+			NR_GetPlayerManager().UnmountEquipment();
+		}
 
 		return ret;
 	}

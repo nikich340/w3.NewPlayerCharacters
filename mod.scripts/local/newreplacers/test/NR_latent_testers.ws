@@ -112,6 +112,7 @@ class NR_LatentTesterLines extends INR_LatentTester {
 		lineIds.PushBack(1163321); // vanilla Geralt
 		lineIds.PushBack(2100000055); // vanilla
 		lineIds.PushBack(2115940060); // CPC
+		lineIds.PushBack(2115940731); // CPC - battlecries
 		lineIds.PushBack(2100020349); // Boat Races
 		lineIds.PushBack(2100020002); // Ciri Sole Memento
 		lineIds.PushBack(2100020372); // Expansion Zero

@@ -69,6 +69,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 
 	protected saved var m_typeChangeLocks : array<String>;
 	protected		var m_inventoryItemsToHide : array<SItemUniqueId>;
+	protected		var m_inventoryItemsToShow : array<SItemUniqueId>;
 
 	protected saved var m_geraltSavedItems  : array<name>;
 	protected saved var m_geraltDataSaved : Bool;
@@ -90,7 +91,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 	public 		var m_worldPosition : Vector;
 	public 		var m_worldRotation : EulerAngles;
 	protected 	var m_modVersion : int;
-	default  		m_modVersion = 3;
+	default  		m_modVersion = 231;  // v2.3.1
 
 	// for testing
 	public var m_debugObject : IScriptable;
@@ -222,12 +223,31 @@ statemachine class NR_PlayerManager extends IScriptable {
 		m_magicVersion = newVersion;
 	}
 
+	public function IsNeckTransitionVisible() : bool {
+		return !FactsDoesExist("nr_neck_hidden_" + GetCurrentPlayerType());
+	}
+
+	public function SetNeckTransitionVisible(visible : bool) {
+		if (!IsReplacerActive())
+			return;
+
+		if (!visible) {
+			FactsAdd("nr_neck_hidden_" + GetCurrentPlayerType(), 1);
+		} else {
+			FactsRemove("nr_neck_hidden_" + GetCurrentPlayerType());
+		}
+		UpdateNeckTransitionVisibility();
+	}
+
 	// only for Witcher for now
 	public function IsRealEquipmentModeEnabled() : bool {
 		return (GetCurrentPlayerType() == ENR_PlayerWitcher && FactsQuerySum("nr_real_equipment_mode") > 0);
 	}
 
 	public function SetIsRealEquipmentModeEnabled(enabled : bool) {
+		if (!IsReplacerActive())
+			return;
+
 		if (!enabled) {
 			FactsRemove("nr_real_equipment_mode");
 			if (GetCurrentPlayerType() == ENR_PlayerWitcher) {
@@ -833,6 +853,8 @@ statemachine class NR_PlayerManager extends IScriptable {
 		var 				i : int;
 		var currentPlayerType : ENR_PlayerType;
 
+		m_inventoryItemsToHide.Clear();
+		m_inventoryItemsToShow.Clear();
 		currentPlayerType = GetCurrentPlayerType();
 		// NR_Debug("NR_PlayerManager.OnPlayerSpawned: current player = " + currentPlayerType + ", saved player = " + m_savedPlayerType);
 
@@ -1076,28 +1098,26 @@ statemachine class NR_PlayerManager extends IScriptable {
 		var inv  : CInventoryComponent;
 		var i : int;
 		var id : SItemUniqueId;
-		var entity : CEntity;
 		inv = thePlayer.GetInventory();
 
+		m_inventoryItemsToHide.Clear();
 		for ( i = ENR_GSlotArmor; i <= ENR_GSlotBoots; i += 1 ) {
-			// NR_Debug("NR_PlayerManager.RestoreEquipment[" + (ENR_AppearanceSlots)i + "] = " + m_geraltSavedItems[i]);
+			NR_Info("NR_PlayerManager.RestoreEquipment[" + (ENR_AppearanceSlots)i + "] = " + m_geraltSavedItems[i]);
 			id = inv.GetItemId( m_geraltSavedItems[i] );
 			if ( inv.IsIdValid( id ) ) {
-				// NR_Debug("NR_PlayerManager.RestoreEquipment: mount saved item");
+				NR_Debug("NR_PlayerManager.RestoreEquipment: mount saved item");
 				// unmount first to make mounting really work
 				// inv.UnmountItem( id );
-				// inv.MountItem( id );
-				entity = inv.GetItemEntityUnsafe( id );
-				entity.SetHideInGame( false );				
+				inv.MountItem( id );
+				m_inventoryItemsToShow.PushBack(id);
 			} else {
 				id = inv.GetItemId( GetDefaultItemByCategory(NR_CategoryByENRSlot((ENR_AppearanceSlots) i)) );
-				// NR_Debug("NR_PlayerManager.RestoreEquipment: mount default item");
+				NR_Debug("NR_PlayerManager.RestoreEquipment: mount default item");
 				if ( inv.IsIdValid( id ) ) {
 					// unmount first to make mounting really work
 					// inv.UnmountItem( id );
-					// inv.MountItem( id );
-					entity = inv.GetItemEntityUnsafe( id );
-					entity.SetHideInGame( false );
+					inv.MountItem( id );
+					m_inventoryItemsToShow.PushBack(id);
 				}
 			}
 		}
@@ -1116,9 +1136,9 @@ statemachine class NR_PlayerManager extends IScriptable {
 			if (!IsRealEquipmentModeEnabled() && (category == 'armor' || category == 'gloves' || category == 'pants' || category == 'boots'))
 				items.Erase(i);
 		}
-		for (i = enhancements.Size() - 1; i >= 0; i -= 1) {
-			// NR_Debug("SetEntityItems: enhancements[" + i + "] = " + enhancements[i].enhancedItem + ", " + enhancements[i].enhancement);
-		}
+		//for (i = enhancements.Size() - 1; i >= 0; i -= 1) {
+		//	NR_Debug("SetEntityItems: enhancements[" + i + "] = " + enhancements[i].enhancedItem + ", " + enhancements[i].enhancement);
+		//}
 	}
 
 	// Returns default item names for geralt (part of RemoveSavedItem) //
@@ -1143,7 +1163,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 		inv = thePlayer.GetInventory();
 
 		category = inv.GetItemCategory(id);
-		if (!IsRealEquipmentModeEnabled())
+		if (!IsRealEquipmentModeEnabled() && m_inventoryItemsToHide.Contains(id))
 			m_inventoryItemsToHide.Remove(id);
 		// NR_Debug("NR_PlayerManager.RemoveSavedItem : " + category);
 		m_geraltSavedItems[ NR_ENRSlotByCategory(category) ] = GetDefaultItemByCategory(category);
@@ -1178,6 +1198,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 		var equippedOnSlot : EEquipmentSlots;
 		var appearanceSlot : ENR_AppearanceSlots;
 
+		m_inventoryItemsToShow.Clear();
 		inv = thePlayer.GetInventory();
 		inv.GetAllItems(ids);
 		NR_Info("NR_PlayerManager.UnmountEquipment (Geralt items)");
@@ -1370,6 +1391,13 @@ statemachine class NR_PlayerManager extends IScriptable {
 		}
 	}
 
+	public function UpdateNeckTransitionVisibility() {
+		var mesh : CMeshComponent;
+
+		mesh = (CMeshComponent)thePlayer.GetComponent( "h_mg__neck_transition" );
+		mesh.SetVisible( IsNeckTransitionVisible() );
+	}
+
 	// Includes all saved appearance templates (on player reload) //
 	/* API */ public function LoadAppearanceTemplates() {
 		var slot : int;
@@ -1391,6 +1419,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 			m_appearanceItemIsLoaded.PushBack(true);
 			FactsAdd("nr_appearance_item_" + IntToString(i), 1);
 		}
+		UpdateNeckTransitionVisibility();
 	}
 
 	// Excludes all saved appearance templates (on player reload) //
@@ -1473,7 +1502,11 @@ statemachine class NR_PlayerManager extends IScriptable {
 		var witcher : NR_ReplacerWitcher = NR_GetWitcherReplacer();
 
 		NR_Info("NR_PlayerManager.NR_FixReplacer");
-		UnmountEquipment();
+		if ( IsRealEquipmentModeEnabled() ) {
+			RestoreEquipment();
+		} else {
+			UnmountEquipment();
+		}
 		RemoveHair();  // saves and remove geralt hair
 		UpdateHead(m_headNames[GetCurrentPlayerType()]);  // saves and replace geralt head
 		LoadAppearanceTemplates();  // load saved replacer templates
@@ -1503,33 +1536,58 @@ state Idle in NR_PlayerManager {
 	entry function RunIdle() {
 		var entity : CEntity;
 		var i : int;
-		var readyIds : array<SItemUniqueId>;
+		var readyIdsHide, readyIdsShow : array<SItemUniqueId>;
 
 		while (true) {
 			SleepOneFrame();
 
+			// CHECK HIDE
 			for (i = parent.m_inventoryItemsToHide.Size() - 1; i >= 0; i -= 1) {
 				if ( !thePlayer.inv.IsIdValid(parent.m_inventoryItemsToHide[i]) ) {
-					// NR_Debug("NR_PlayerManager.Idle: id[" + i + "] is invalid");
+					NR_Debug("NR_PlayerManager.Idle: hide id[" + i + "] is invalid");
 					parent.m_inventoryItemsToHide.Erase(i);
 					continue;
 				}
 
 				entity = thePlayer.inv.GetItemEntityUnsafe( parent.m_inventoryItemsToHide[i] );
 				if (entity) {
-					readyIds.PushBack(parent.m_inventoryItemsToHide[i]);
+					NR_Debug("NR_PlayerManager.Idle: adding ready to hide entity: " + entity);
+					readyIdsHide.PushBack(parent.m_inventoryItemsToHide[i]);
 					parent.m_inventoryItemsToHide.Erase(i);
+				}
+			}
+
+			// CHECK SHOW
+			for (i = parent.m_inventoryItemsToShow.Size() - 1; i >= 0; i -= 1) {
+				if ( !thePlayer.inv.IsIdValid(parent.m_inventoryItemsToShow[i]) ) {
+					NR_Debug("NR_PlayerManager.Idle: show id[" + i + "] is invalid");
+					parent.m_inventoryItemsToShow.Erase(i);
+					continue;
+				}
+
+				entity = thePlayer.inv.GetItemEntityUnsafe( parent.m_inventoryItemsToShow[i] );
+				if (entity) {
+					NR_Debug("NR_PlayerManager.Idle: adding ready to show entity: " + entity);
+					readyIdsShow.PushBack(parent.m_inventoryItemsToShow[i]);
+					parent.m_inventoryItemsToShow.Erase(i);
 				}
 			}
 
 			// let the entity and components to update
 			Sleep(0.1f);
-			for (i = 0; i < readyIds.Size(); i += 1) {
-				entity = thePlayer.inv.GetItemEntityUnsafe( readyIds[i] );
+			for (i = 0; i < readyIdsHide.Size(); i += 1) {
+				entity = thePlayer.inv.GetItemEntityUnsafe( readyIdsHide[i] );
 				entity.SetHideInGame(true);
-				// NR_Debug("NR_PlayerManager.Idle: hide item[" + i + "] = " + thePlayer.inv.GetItemName(readyIds[i]) + "(" + entity + ")");
+				NR_Debug("NR_PlayerManager.Idle: hide item[" + i + "] = " + thePlayer.inv.GetItemName(readyIdsHide[i]) + "(" + entity + ")");
 			}
-			readyIds.Clear();
+			readyIdsHide.Clear();
+
+			for (i = 0; i < readyIdsShow.Size(); i += 1) {
+				entity = thePlayer.inv.GetItemEntityUnsafe( readyIdsShow[i] );
+				entity.SetHideInGame(false);
+				NR_Debug("NR_PlayerManager.Idle: show item[" + i + "] = " + thePlayer.inv.GetItemName(readyIdsShow[i]) + "(" + entity + ")");
+			}
+			readyIdsShow.Clear();
 		}
 	}
 
@@ -1603,7 +1661,7 @@ state PlayerChange in NR_PlayerManager {
 }
 
 // async version: returns control as fast as possible (thePlayer may be not ready!)
-/* API */ function NR_ChangePlayer(newPlayerType : ENR_PlayerType, optional nakedCiriTemplate : bool) {
+function NR_ChangePlayer(newPlayerType : ENR_PlayerType, optional nakedCiriTemplate : bool) {
 	var manager    : NR_PlayerManager;
 
 	NR_Info("NR_ChangePlayer: newPlayerType = " + newPlayerType);
@@ -1611,6 +1669,10 @@ state PlayerChange in NR_PlayerManager {
 	
 	if (manager.GetCurrentPlayerType() == newPlayerType)
 		return;
+
+	if ( NR_GetReplacerSorceress() ) {
+		NR_GetReplacerSorceress().OnDestroying();
+	}
 
 	manager.SetPlayerChangeRequested( true );
 	switch (newPlayerType) {

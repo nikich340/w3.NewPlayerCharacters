@@ -31,4 +31,14 @@ state Run in NR_MagicPassiveUnderwaterBreathing {
 			}
 		}
 	}
+
+	event OnLeaveState( nextStateName : name )
+	{
+		if ( l_breathingBubble.IsActive() )
+			l_breathingBubble.Deactivate();
+		thePlayer.RemoveBuffImmunity(EET_Drowning, 'NR_MagicPassiveUnderwaterBreathing');
+		thePlayer.RemoveBuffImmunity(EET_AirDrainDive, 'NR_MagicPassiveUnderwaterBreathing');
+
+		super.OnLeaveState( nextStateName );
+	}
 }

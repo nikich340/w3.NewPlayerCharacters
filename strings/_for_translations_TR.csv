@@ -354,7 +354,7 @@
 2115940194|00000000||Büyü becerilerinde ilerleme.
 2115940193|00000000||Yeni beceri seviyesi!
 ; Acemi
-2115940209|00000000||Temel büyü becerilerine sahipsiniz:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b> </font><br> {1077642}/{1084067}/{1076397}/{1084082}: Gerçekleştirmek için "Hızlı saldırı" düğmesine (kılıçla aynı) basın.<br><br><font color=" #ffff66"><b>- {2115940151</b></font><br> Gerçekleştirmek için "Siper" düğmesine (kılıç için olduğu gibi) basın.<br><br><font color="#ffff66 "><b>- {2115940589</b></font><br> {1077642}: Hareket düğmelerine basın (yönü kontrol etmek için, isteğe bağlı) + "Roll" (uzak mesafe) / "Saçma" (yakın mesafe) gerçekleştirmek için düğmesine basın.<br> {1084067}: İşlemi gerçekleştirmek için hareket düğmelerine (yön kontrolü için, isteğe bağlı) + "Sarf Malzemeleri Yuvası 4" düğmesine basın.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br> {2115940165}: <i>Quen</i>'i seçin (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve "Yayın işareti"ni <i>basılı tutun</i> gerçekleştirmek için "düğmesine basın. Kaldırmak için bu düğmeyi tekrar basılı tutun.<br><br>Oyuncu seviyeleri yükseldikçe büyü seviyeniz artacaktır.<br>Beceriyi ne kadar çok kullanırsanız, o kadar güçlü hale gelir ve daha fazla beceri yeteneğinin kilidi açılır.<br><i><font color="#66ffcc'yi bulmak için görevi takip edin ">Öğretmen</font> olun ve yeni büyüler öğrenin!</i><br>
+2115940209|00000000||<font size="22">Temel büyü becerilerine sahipsiniz:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b> </font><br> {1077642}/{1084067}/{1076397}/{1084082}: Gerçekleştirmek için "Hızlı saldırı" düğmesine (kılıçla aynı) basın.<br><br><font color=" #ffff66"><b>- {2115940151</b></font><br> Gerçekleştirmek için "Siper" düğmesine (kılıç için olduğu gibi) basın.<br><br><font color="#ffff66 "><b>- {2115940589</b></font><br> {1077642}: Hareket düğmelerine basın (yönü kontrol etmek için, isteğe bağlı) + "Roll" (uzak mesafe) / "Saçma" (yakın mesafe) gerçekleştirmek için düğmesine basın.<br> {1084067}: İşlemi gerçekleştirmek için hareket düğmelerine (yön kontrolü için, isteğe bağlı) + "Sarf Malzemeleri Yuvası 4" düğmesine basın.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br> {2115940165}: <i>Quen</i>'i seçin (varsayılan, oynatıcı kurulum sahnesinde değiştirilebilir) ve "Yayın işareti"ni <i>basılı tutun</i> gerçekleştirmek için "düğmesine basın. Kaldırmak için bu düğmeyi tekrar basılı tutun.<br><br>Oyuncu seviyeleri yükseldikçe büyü seviyeniz artacaktır.<br>Beceriyi ne kadar çok kullanırsanız, o kadar güçlü hale gelir ve daha fazla beceri yeteneğinin kilidi açılır.<br><i><font color="#66ffcc'yi bulmak için görevi takip edin ">Öğretmen</font> olun ve yeni büyüler öğrenin!</i><br></font>
 ; Çırak
 2115940210|00000000||Yeni büyü becerileri öğrenmeye hazırsınız:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font>< br><font color="#ffff66"><b>- {2115940152} ({2115940156}, {2115940599})</b></font><br><font color="#ffff66"><b> - {2115940145</b></font><br><br><i>Bunları öğrenmek için Usta Ainyerahn'ı ziyaret etmelisiniz.</i><br>
 ; Çırak - ağır saldırılar öğrenildi
@@ -428,7 +428,7 @@
 2115940554|00000000||Sahire büyülerini değiştir
 2115940555|00000000||Yardım bilgilerini göster
 2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">vanilya türleri (Geralt, Ciri)</font> mod yüklü değilmiş gibi oynamanıza olanak tanır.<br> <font color="#00FF00">TÜM özel oynatıcı türleri</font> izin verir görünümünüzü ve görünen adınızı özelleştirebilirsiniz. Oyun ilerlemeniz ve envanteriniz tüm oyuncu türleri arasında her zaman aynıdır. Herhangi bir özel tür olarak oynarken Geralt'ın yapabildiği her şeyi yapabilirsiniz (<font color="#00FF00">Büyücü</font> olarak kılıç kullanımı hariç).<br> <font color="#00FF00">Witcher</font > tıpkı Geralt gibi oynamanıza olanak tanır.<br> <font color="#00FF00">Witcheres</font>, yeniden hedeflenen kadın animasyonları ve yapay zeka tarafından işlenmiş kadın konuşmasıyla tıpkı Geralt gibi oynamanıza olanak tanır.<br> <font color="#00FF00">Büyücü</font>, yeniden hedeflenen kadın animasyonları, yapay zekayla işlenmiş kadın konuşması ve yeni sihirli savaş sistemiyle oynamanıza olanak tanır. Tam güç kazanmak için <font color="#00FF00">Sahire</font>'yü seçtikten sonra görevi takip edin.<br> <i>NOT:</i> <font color="#FF0000">Kaldırmayın</font> Font> ile bir oyun kaydı yaptıktan sonra modu seçin, çünkü modla ilgili bazı veriler içinde saklanır. Mod yüklü değilmiş gibi işler yapmak için her zaman "Chameleon"u kullanabilir ve <font color="#FFFF00">Geralt (vanilla)</font>'ya dönebilirsiniz.<br> <font color="#FF0000">UYARI </font>: <font color="#FFFF00">Ciri (vanilya)</font> olarak değiştirirseniz, envanter kilitleneceğinden "Bukalemun"u kullanamayacak ve bu sahneye geri dönemeyeceksiniz. Geri dönmenin tek yolu "NRToGeralt" konsol komutunu kullanmak ve ardından her zamanki gibi "Chameleon"u kullanmak olacaktır.<br>
-2115940557|00000000||<b>- {2115940565}</b>: görünüm setleriniz (geçerli olanı kaydedebilir, önceden kaydedilmiş olanları yükleyebilirsiniz)<br><br><b>- {2115940566</b>: tüm NPC'lerden, tüm renklendirme çeşitlerinde önceden tanımlanmış görünüm setleri.<br><br> <b>- {2115940567</b>: tüm renk seçenekleriyle tüm Geralt zırh setlerinden önceden tanımlanmış setler. Çoğu durumda oyuncunun kafasını ve saçını değiştirmeyin.<br> <font color="#00FF00">Kadın oyuncu tipleri</font> için Val aka Jo tarafından uyarlanan zırh modelleri kullanılır, bu yüzden onun modunu yüklediğinizden emin olun: <font color="#9900CC">Female Geralt armor models</font>.<br><br><b>- {2115940568</b>: gelişmiş kurulum için görünüm yuvalarını manuel olarak değiştirin. Bunu kullanmanın yollarından biri: tüm yuvaları temizleyin, ardından baş, saç, vücut/gövde, kollar, eller, bacaklar, ayakkabılar seçin ve ardından ekstra öğeleri seçin.<br><br><b>- İstifleme şablonlarını öğe olarak değiştirin </b>: gelişmiş kurulum için, aynı yuvadan 2 veya daha fazla şablon uygulamak istiyorsanız (nadiren gereklidir).<br><br><b>- Önizleme gövde parçası adlarını göster</b>: gelişmiş kurulum için, geçerli önizleme şablonlarının adlarını gösterir.<br>
+2115940557|00000000||<font size="22"><b>- Appearance mode</b>: Full custom (default) - hides equipped armor and shows selected appearance, Real equipment - shows equipped armor, so only head, hair and misc items can be customized.<br><i>NOTE:</i> only for male (Witcher), female (Witcheress/Sorceress) - WIP.<br><br><b>- {2115940565}</b>: görünüm setleriniz (geçerli olanı kaydedebilir, önceden kaydedilmiş olanları yükleyebilirsiniz)<br><br><b>- {2115940566</b>: tüm NPC'lerden, tüm renklendirme çeşitlerinde önceden tanımlanmış görünüm setleri.<br><br> <b>- {2115940567</b>: tüm renk seçenekleriyle tüm Geralt zırh setlerinden önceden tanımlanmış setler. Çoğu durumda oyuncunun kafasını ve saçını değiştirmeyin.<br> <font color="#00FF00">Kadın oyuncu tipleri</font> için Val aka Jo tarafından uyarlanan zırh modelleri kullanılır, bu yüzden onun modunu yüklediğinizden emin olun: <font color="#9900CC">Female Geralt armor models</font>.<br><br><b>- {2115940568</b>: gelişmiş kurulum için görünüm yuvalarını manuel olarak değiştirin. Bunu kullanmanın yollarından biri: tüm yuvaları temizleyin, ardından baş, saç, vücut/gövde, kollar, eller, bacaklar, ayakkabılar seçin ve ardından ekstra öğeleri seçin.<br><br><b>- İstifleme şablonlarını öğe olarak değiştirin </b>: gelişmiş kurulum için, aynı yuvadan 2 veya daha fazla şablon uygulamak istiyorsanız (nadiren gereklidir).<br><br><b>- Önizleme gövde parçası adlarını göster</b>: gelişmiş kurulum için, geçerli önizleme şablonlarının adlarını gösterir.<br></font>
 2115940558|00000000||Oyunucun görünen adı
 2115940559|00000000||Geralt (vanilla)
 2115940560|00000000||Ciri (vanilla)
@@ -487,10 +487,7 @@
 2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Yüzen gemi
 2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|Buzla çevrili, güçlü bir sihir akışı nedeniyle havada yüzen bir gemi.
 2115940533|00000000||Interactions hint - Sorceress
-2115940534|00000000||Use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>Use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
-2115940532|00000000||[CHEAT Magic Options]
-2115940531|00000000||CHEAT: Unlock magic level: 
-2115940530|00000000||CHEAT: Set maximum level to all spells
+2115940534|00000000||  Cast standart witcher signs (except Quen): <i>Hold</i> "Use" button [E] and <i>Press</i> "Cast Sign" button [Q].<br>  You can use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>  You can use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
 ; --------------------------------
 2115940000|00000000||Oyuncu
 2115940001|00000000||Oyuncu
@@ -586,3 +583,23 @@
 2115940366|00000000||3:1
 2115940367|00000000||4:1
 2115940368|00000000||1:0 (sadece kaya saldırıları)
+; ---------------------
+2115940532|00000000||[CHEAT Magic Options]
+2115940531|00000000||CHEAT: Unlock magic level: 
+2115940530|00000000||CHEAT: Set maximum level to all spells
+2115940529|00000000||Appearance mode: [Real equipment]
+2115940528|00000000||Appearance mode: [Full custom]
+2115940527|00000000||<font color="#AAAA22">Real-equipment mode enabled.</font> Only head, hair and misc items can be changed.
+2115940526|00000000||Manage spell damage (100 = 100%, default)
+2115940525|00000000||Spell damage
+2115940524|00000000||Manage player scale (100 = 100%)
+2115940523|00000000||Player scale
+2115940522|00000000||Neck transition
+2115940521|00000000||Visible
+2115940520|00000000||Invisible
+2115940316|00000000||Care for a round of gwent?
+2115940317|00000000||What's inside the chest by your bed?
+2115940318|00000000||Uh… Something personal. Please don't try to open it.
+2115940319|||As you can see, there's more to learn from me than just magic…
+2115940320|||Well done! As a mark of gratitude, you shall receive my best cards.
+2115940321|||Taking pleasure in besting the elder?

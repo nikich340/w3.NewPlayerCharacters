@@ -1,3 +1,5 @@
 
 *.zip
 *.scene-timeline
+/additional.dlc.post-cook/data/cutscenes
+/additional.dlc.pre-cook/data/cutscenes

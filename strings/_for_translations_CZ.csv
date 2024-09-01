@@ -1,0 +1,607 @@
+;meta[language=cz]
+;  id     |key(hex)|key(str)|text
+;
+;  you translate only text ----^ (last column) 
+;
+;  translated into <CZECH> by <Lamecode0>
+;
+2115940050|||Arha'an lumar!
+2115940051|||Cais'te aet disgleir!
+2115940052|||Gveryd me cassel!
+2115940053|||Greame et dwyr!
+2115940054|||Rhobeir'me gelle!
+2115940055|||Greame et dwyr!
+2115940056|||Ess pyr'shena a et cleytte!
+2115940057|||Nevid! Ariva!
+2115940058|||Agored, teirgan.
+2115940059|||Vryff cais'te aem gyhar!
+; do not translate spells and Hen Llinge text --^
+;
+2115940060|||Cítím ve svém nitru nezměrnou sílu… jen se musím naučit jak ji použít. Potřebuji učitele.
+2115940061|||Zajímavé, možná je na tom místě opravdu nějaká magie. Musím se přesvědčit.
+2115940062|||Krystal megaskopu! A ta magická stezka bez pochyby poukazuje na zdroj. Zkusím na to místo vyčarovat portál.
+2115940063|||Neuvěřitelné, co je tohle za místo?
+2115940064|||Silný proud magické energie vyzařuje z tohoto kamene…
+2115940065|||Ne, ne, tohle ne!
+2115940066|||*vřískot*
+2115940067|||Ah…
+; *shriek*
+; Кристалл мегаскопа. И магический след явно указывает на исходное местоположение. Попробую создать портал туда.
+2115940068|||Zachránil si mi život. Kým jsi? A kde to u plamene jsem?
+; female comment
+2115940069|||Kéž bych byla čarodějka…
+; male comment
+2115940081|||Kéž bych byl čaroděj…
+; Who created you?
+2115940070|||Qued se creoest?
+; Go to me!
+2115940071|||Caem a me!
+; Calm down, girl
+2115940072|||Caelm, luned.
+; Purifying the blood from poison
+2115940073|||Aeksin a'bloed vort nimh!
+2115940074|||Hej, slyšíš mě?
+2115940075|||D'yaebl! She's still dying…
+; I breathe life into you
+2115940076|||Me aedit'ef a'vita as te!
+2115940077|||Maith.
+; swears
+2115940078|||An'badraigh aen cuach.
+2115940079|||Gar'ean!
+2115940080|||Ess'tuath esse!
+2115940850|||Cead, luned. Conas esseath aelaedde?
+2115940851|||Jsem v pořádku, díky. Mluvíš jazykem lidu?
+2115940852|||Squaess… Omluv mě. Mluvím sám se sebou v Hen Llinge.
+2115940853|||Kde to jsem? Tahle loď a ledové prostřetí…
+2115940854|||…letí vzduchem, jen co je pravda. Zkoumal jsem původ impozantní magické křižovatky, která se nacházela v ledu Severního moře.
+2115940855|||Nacházela se?
+2115940856|||Ano, když jsem se pokusil manipulovat s proudem magie směrem k elementu vzduchu, narušilo to prostor a odneslo mě pryč na toto místo, spolu se vším, co teď vidíte.
+2115940857|||Zdá se, že křižovatka je vytvořena tímto kamenem. Občas se tok stává svévolně nepoddajným a přitahuje nepřátelská stvoření.
+2115940858|||Vypadá to, že jsem probudil proud ještě více…
+2115940859|||Haha, vskutku. Pokaždé, když se toho kamene dotknu, stane se něco podobného. Připomíná to magii Alzurova dvojitého kříže, řekl bych.
+2115940860|||Myslím, že už to chápu. Tedy, alespoň myslím…
+; greetings to apprentice
+2115940861|||Cead, mladý učni.
+2115940862|||Jaké potěšení být v přítomnosti tak impozantního čaroděje… na této lodi.
+2115940863|||Zahřívá mě to u srdce, zastavit pohledem na svém učni.
+; greetings common
+2115940864|||Zdravím.
+2115940865|||Vítejte zpět!
+; exit
+2115940867|||Naviděnou.
+2115940868|||Sbohem.
+2115940869|||Tak zatím.
+; teaching dialogs
+2115940870|||Chtěl bych se stát vaším učedníkem.
+2115940871|||Řekni mi něco o sobě.
+2115940872|||Nečekané… Proč? Bez pochyb jste mohli nabít více vědomostí v Aretuze.
+2115940873|||Z toho místa mě vykázali.
+2115940874|||Váha jejich neúprosných požadavků se pro mě stala příliš velkou, než aby to šlo zvládnout.
+2115940875|||Bylo to proto, že jste strkali prsty do zakázané magie?
+2115940876|||Ano, přivolání démona.
+2115940877|||Tak nějak, stačilo si trochu pohrávat s nekromancií.
+2115940878|||No, spíš tak trochu "náhodou" přišel v mé přítomnosti jeden z učitelů o život.
+2115940879|||Ne, a nechci o tom mluvit.
+2115940880|||Prakticky ihned jsem nad ním ztratila kontrolu a rektor při pokusu démona zastavit nehodou zabil několik nováčků…
+2115940881|||A aby toho šlo dosáhnout, bylo třeba si vypůjčit krystal z mentorova megaskopu…
+2115940882|||A lituješ teď svých činů?
+2115940883|||Ano, každým dnem.
+2115940884|||Ani ne.
+2115940885|||Bylo pro mě velmi důležité slyšet tato slova.
+2115940886|||Nepochopila jsi onu lekci, a proto se nenaučíš ani mou.
+2115940887|||Doufám, že nemám být další…
+2115940888|||Určitě ne!
+2115940889|||Jak si přeješ.
+2115940890|||Chápu tě až až.
+2115940891|||Hmm… Už je to nějakou zimu co jsem naposledy vzal nějakého učně…
+2115940892|||Prosím! Já… nezklamu vás.
+2115940893|||Dobře, nejdřív ale musíš demonstrovat svou připravenost.
+2115940894|||Položím ti pár otázek.
+2115940895|||Co je to Magie?
+2115940896|||Kteří mágové byli zodpovědní za vytvoření prvních zaklínačů?
+2115940897|||Kdo byl první lidskou čarodějkou a virtuózkou vzdušné magie?
+2115940898|||Jaký druh magie propůjčuje schopnost vnímat osudy jednotlivců?
+2115940899|||Proč bylo praktikování nekromancie zakázáno?
+2115940900|||Z jakého prvku pochází zaklínačské znamení Quen?
+2115940901|||Ze všech kouzelných elementů, který je považovaný za nejnebezpečnější?
+; master dialogs
+2115940902|||Máš se ještě hodně co učit. Dovoluji ti použít lodní knihovnu.
+2115940903|||To vás v Aretuze nenaučili absolutně nic? Nějakým způsobem se ti podařilo odpovědět na všechny otázky špatně.
+2115940904|||Dobře tedy, vidím, že jsi připravený. A zdá se že už zvládáš pár základních kouzel.
+2115940905|||Můžeš se naučit nová pokročilá kouzla nebo zlepšit ty co už znáš.
+2115940906|||Pamatuj, musíte několikrát úspěšně zvládnout každé nové kouzlo, než přistoupíte k dalšímu.
+2115940907|||Než budeme pokračovat, musíte si ještě procvičit kouzlo, které jsme se učili posledně.
+2115940908|||Na nová kouzla není vaše kouzelnická úroveň dostatečná.
+2115940909|||Mimochodem, cítím že jste v bodě, kdy jste schopni naučit se nová kouzla.
+2115940910|||Nyní se musíte rozhodnout, které vás zajímá nejvíce.
+2115940911|||Dobře. Tím pádem vám dám instrukce k nacvičení kouzla a vaším úkolem bude ho cvičit a ovládnout.
+2115940912|||Chápu. Nyní vám vysvětlím jak toto kouzlo vykonat a vaší zodpovědností bude snažit se ho vypilovat.
+2115940913|||Už jsem tě naučil všechny pokročilá kouzla. To znamená, že už ti nemohu poskytnout další vědomosti.
+2115940914|||Říkej mi Ainyerahn. Můj otec, ostřílený námořník, mě často bral s sebou na námořní výpravy. Žel bohu, jednohoho bouřlivého dne, nezkrotná síla přírody zapřičinila ztroskotání naší lodě.
+2115940915|||Uprostřed chaosu, trosek lodi a tonoucích se námořníků mě pohltil oslepující záblesk a já se probudil v hlubinách kaedwenských lesů.
+2115940916|||Toho dne jsem ztratil otce, ale osud mi dal šanci studovat na vážené akademii mágů. Ačkoli během mého posledního roku v Ban Ard okolnosti donutily můj odchod.
+2115940917|||Od té doby se soustředím na výzkum magických anomálií a křižovatek. Účelově vzdálený od konfliktů šlechtických rodů a ignorance mas.
+2115940918|||Rád bych se naučila nová kouzla.
+2115940919|||Připomenete mi prosím, jak se čaruje?
+2115940985|||Ohledně mého pokroku…
+; sorceress answers
+; q0
+2115940920|||Energie 6 elementů.
+2115940921|||Zářivé záblesky a jiskry.
+2115940922|||Umění a věda ovládnutí chaosu.
+2115940923|||Snadný způsob jak dosáhnout toho, čeho jedinec chce.
+; q1A
+2115940924|||Geoffrey Monck a Raffard Bílý.
+2115940925|||Alzur a Cosimo Malaspina.
+2115940926|||Nina Fioravanti a Aurora Henson.
+2115940927|||Ortolan a Sorel Degerlund.
+; q1B
+2115940928|||Agnes z Glanvillu.
+2115940929|||Klara Larissa de Winter.
+2115940930|||Tissaia de Vries.
+2115940931|||Lara Dorren aep Shiadhal.
+; q2A
+2115940975|||Goetia.
+2115940976|||Transmutace.
+2115940977|||Lesbomancie.
+2115940978|||Hydromancie.
+; q2B
+2115940932|||Protože to vyžaduje obrovskou energii.
+2115940933|||Kvůli pověrčivému strachu z mrtvých.
+2115940934|||Protože to vždy vede ke zcela negativním vedlejším účinkům, bez ohledu na motivy.
+2115940935|||Protože umožňuje získat informace z mrtvoly.
+; q3A/B
+2115940936|||Element vzduchu.
+2115940937|||Element vody.
+2115940938|||Element ohně.
+2115940939|||Element země.
+; Golem creation
+2115940940|||Vítej, učedníku. Myslíš, že byste mi mohli s něčím pomoci?
+2115940941|||Jistě, co se děje?
+2115940942|||Omlouvám se, teď nemám čas.
+2115940943|||Před tvým příjezdem byly chvíle, kdy jsem se přistihl, že přemýšlím o zákeřné povaze osamělosti. Proto jsem do svého života přivítal kočičího společníka a myšlenka na vytvoření věrného golema mě napadla při mnoha příležitostech.
+2115940944|||Každý můj pokus však vedl k neuspokojivým výsledkům. V současné době pevně věřím, že ve spolupráci s vámi dokážeme přivést na svět úžasné stvoření.
+2115940945|||Existují nějaká rizika, o kterých bychom si měli být vědomi?
+2115940946|||Pokud nepovažujete plýtvání obsidiánským srdcem nebo zákeřnou, nepřátelskou hromadu kamene za významná rizika, pak ne.
+2115940947|||Jasně. Tohle bude ještě zajímavé.
+2115940948|||Promiňte, nevím, zda dokážu pomoci.
+2115940949|||Tak jdeme na to. Vytvořím oživující blesk, ty ho přitom budeš plnit elementem země a vody, udržujíc rovnoměrný poměr každého.
+; Я призываю звёздные молнии жизни! (Ainyerahn)
+2115940950|||Me galwad iersann sigellen aep vita!
+2115940305|||Me galwad iersann sigellen aep vita!
+2115940951|||Co je to za nepořádek!? Element země a vody mají být v rovném poměru, ne takto od oka!
+2115940952|||Ahoj… Jak se jmenuješ? Co zamýšlíš?
+2115940953|||Jsem Celestine. Chráním své stvořitele, pána a paní. Udělám vše, co mi přikážou.
+2115940954|||Výborně! Dokázali jsme to! Aspekt vody mu dává mimořádné myšlení. Vítej na mé lodi, Celestine.
+2115940955|||Děkuji, můj pane.
+; Dialogs with Celestine
+2115940956|||Má paní. Jaké potěšení.
+2115940957|||Dobré ráno. Je to ale krásný den.
+2115940958|||Uvědomuješ si sám sebe a své bytí?
+2115940959|||Byl jsem v zemi, vodě, vzduchu. Všude. A teď jsem tady.
+2115940960|||Máš nějaká přání?
+2115940961|||Klid. Ticho. Stálost.
+2115940962|||Co budeš dělat, když zmizíme?
+2115940963|||Naplním vaše poslední přání. Budu chránit váš majetek.
+2115940964|||Kolik je osm a čtyři?
+2115940965|||Hmm.. Deset dva.
+2115940966|||Líbí se ti tu?
+2115940967|||Ano. Je tu klídek, modro, nádherně.
+2115940968|||Cítíš emoce?
+2115940969|||Postupuji dle svého programu. Všechno mimo něj je nepříjemnost. A zbytek je jen klid.
+; Farewell
+2115940970|||Vyčkám na vás.
+2115940971|||Štěstí na vašich cestách.
+; Auto-onelines
+2115940972|||Jsem silnější než kámen.
+2115940973|||Jsem krásnější než krystal.
+2115940974|||Jsem chytější než voda.
+; Attack-oneliners
+2115940979|||Vetřelci!
+2115940980|||Červený kód!
+2115940981|||Přepínám do útočného módu!
+2115940982|||Program odpočinku byl obnoven.
+2115940983|||Vetřelci jsou již minulostí.
+2115940984|||Bezpečí stvořitele bylo zajištěno.
+; 86 used
+2115940987|||Jasně, bez problému.
+2115940988|||Jsem připravena.
+; правый: вода (бирюзовый), земля (коричневый) 
+; / левый: вода (бирюзовый), огонь (оранжевый), земля (коричневый), воздух (голубой)
+; Я вдыхаю в тебя воду и землю! (Sorceress) -> Celestine
+2115940989|||Me aedit'ef a'lagi shed a'ear as te!
+2115940300|||Me aedit'ef a'lagi shed a'ear as te! [Vdechnu do tebe vodu a zemi!]
+; Я вдыхаю в тебя воду! (Sorceress) -> Лужица
+2115940990|||Me aedit'ef a'lagi as te!
+2115940301|||Me aedit'ef a'lagi as te! [Vdechnu do tebe vodu!]
+; Я вдыхаю в тебя огонь и землю! (Sorceress) -> Огненный голем
+2115940991|||Me aedit'ef a'enye shed a'ear as te!
+2115940302|||Me aedit'ef a'enye shed a'ear as te! [Vdechnu do tebe oheň a zemi!]
+; Я вдыхаю в тебя землю! (Sorceress) -> Каменный голем
+2115940992|||Me aedit'ef a'ear as te!
+2115940303|||Me aedit'ef a'ear as te! [Vdechnu do tebe zemi!]
+; Я вдыхаю в тебя воздух и землю! (Sorceress) -> Взрыв
+2115940993|||Me aedit'ef a'eire shed a'ear as te!
+2115940304|||Me aedit'ef a'eire shed a'ear as te! [Vdechnu do tebe zemi a vzduch!]
+; 2115940305 used
+2115940306|||Jeden chlápek viděl tvou loď v oblacích.
+; Ох, должно быть это было после телепортации сюда. Я почти сразу накастовал заклинание невидимости.
+2115940307|||Ach, to bude tím, že jsem se sem teleportoval. A taky jsem použil zneviditelňující kouzlo.
+2115940308|||Takže teď by ani horda lovců čarodějnic nedokázala rozeznat mou přítomnost. Ale zajímalo by mě, jak ses sem dostal?
+2115940309|||Úlomkem krystalu na zemi. Dokázal jsem se naladit na jeho stopu.
+2115940310|||Dal jsem tomu na frak. Můj megaskop se rozpadl, a pod náporem silných emocí, zahodil jsem krystal co nejdál to šlo.
+2115940311|||Šťastný nový rok, můj učiteli.
+2115940312|||Zvony zvoní, lidé zpívají, nový rok tady, šťastný nový rok!
+; Пусть в окошко постучится, В полночь добрый Новый год, Всем мечтам поможет сбыться, Счастье, радость принесёт!
+; Призываю осколки огня с неба! (Ainyerahn)
+2115940994|||Invocare aedden aep aenye al uide!
+2115940995|||Pokusíme se vytvořit dalšího golema?
+2115940996|||Souhlasím, ale tentokrát žádám o přísnější pozornost k detailům. Doufám, že jste nezapomněli, že v Hen Llinge "ear" znamená zemi a "lagi" znamená vodu.
+2115940997|||Potřebuji portál zpět na zem.
+2115940313|||Eys'u failte.
+2115940314|||Beydem.
+2115940315|||Aen eich'te llyvaid.
+;
+2115940085|00000000||Min. úroveň
+2115940086|00000000||Povoleno
+2115940087|00000000||Zakázáno
+2115940088|00000000|nr_str_appearance_set|Oblek učně
+2115940089|00000000||DLC: Vlastní (Módy)
+2115940090|00000000||DLC: Hlavní postavy
+2115940091|00000000||DLC: Vedlejší postavy
+2115940092|00000000||Hlavní postavy
+2115940093|00000000||Vedlejší postavy
+2115940094|00000000||[Otevřít portál k mistru Ainyerahn]
+2115940095|00000000||Základní kouzla
+2115940096|00000000||Snežný zvon
+2115940097|00000000||Uloženo jako set #
+2115940098|00000000|item_name_nr_chameleon_potion|Chameleon
+2115940099|00000000|item_desc_nr_chameleon_potion|Umožnuje měnit vzhled. V případě čarodějky lze také upravovat kouzla.<br>Neoblékejte do slotu! Zkonzumujte a opusťte inventář.
+2115940100|00000000||V tomto slotu není povoleno obléknout předmět: 
+2115940101|00000000||Záklínačka
+2115940102|00000000||zbarvení
+2115940103|00000000||[ZPĚT]
+2115940104|00000000||[Vyčistit slot]
+2115940105|00000000||Slot
+2115940106|00000000||Tělo
+2115940107|00000000||Hlava
+2115940108|00000000||Vlasy/Pokrývka
+2115940109|00000000||Torzo
+2115940110|00000000||Ruce
+2115940111|00000000||Rukavice
+2115940112|00000000||Oblek
+2115940113|00000000||Nohy
+2115940114|00000000||Boty
+2115940115|00000000||Ostatní
+2115940116|00000000||varianty
+2115940117|00000000||Typ hráče
+;
+;
+; Magic stuff : Slash
+2115940118|00000000||Lehký útok
+2115940119|00000000||Sečný/Vzdálený poměr útoku
+2115940120|00000000||typ
+2115940121|00000000||barva
+2115940122|00000000||Sečné
+2115940123|00000000||Šance na mluvu
+; Magic stuff : Colors
+2115940124|00000000||Černá
+2115940125|00000000||Šedá
+2115940126|00000000||Bílá
+2115940127|00000000||Žlutá
+2115940128|00000000||Oranžová
+2115940129|00000000||Červená
+2115940130|00000000||Růžová
+2115940131|00000000||Fialová
+2115940132|00000000||Modrá
+2115940133|00000000||Řasová
+2115940134|00000000||Zelená
+2115940135|00000000||Speciální-1
+2115940136|00000000||Speciální-2
+2115940137|00000000||Speciální-3
+2115940138|00000000||NÁHODNÁ
+; Throw
+2115940140|00000000||Hodit
+2115940141|00000000||Blesk
+2115940142|00000000||Projektil
+; HAND FX
+2115940143|00000000||Efekt na ruce
+; TELEPORT
+2115940144|00000000||Teleport
+2115940145|00000000||Rychlé cestování teleportem
+; HEAVY
+2115940146|00000000||Silný útok
+2115940147|00000000||Kamenný/petardový poměr útoku
+2115940148|00000000||Kameny
+2115940149|00000000||petarda
+2115940150|00000000||Vlna kamenů
+2115940160|00000000||Zakončení roztrháním
+; PUSH
+2115940151|00000000||Obranná vlna
+; SPECIAL
+2115940152|00000000||Speciální kouzla
+2115940153|00000000||Tornádo
+2115940154|00000000||Ovládnutí
+2115940155|00000000||Meteor
+2115940156|00000000||Štít
+2115940157|00000000||Služebník
+2115940161|00000000||Služebník - efekt objevení
+; SPECIAL 2
+2115940158|00000000||Alternativní speciální kouzla
+2115940159|00000000||Tvé kouzlo <font color='#FF0000'>SE OBRÁTILO</font> proti tobě: 
+2115940162|00000000||Alzurova bouře
+2115940163|00000000||Gravitační pole
+2115940164|00000000||Melgarův oheň
+2115940165|00000000||Lumos
+2115940166|00000000||Polymorfismus
+2115940167|00000000||typ #2
+2115940168|00000000||Vodní bublina
+;
+2115940199|00000000||Mistr Ainyerahn
+; SKILLS, TUTORIALS
+2115940200|00000000||<font color="#d92626">Nováček</font>
+2115940201|00000000||<font color="#e68319">Učedník</font>
+2115940202|00000000||<font color="#e6e219">Pokročilý</font>
+2115940203|00000000||<font color="#50e619">Mistr</font>
+2115940204|00000000||<font color="#8d19e6">Velmistr</font>
+2115940205|00000000||Odemknuté dovednosti
+;
+2115940206|00000000||Vítej v módu <font color="#00c785">Custom Player Characters</font> (CPC)!
+2115940207|00000000||<br>Speciální lektvar <font color="#66ccff">Chameleon</font> byl přidán do tvého inventáře. Zkonzumuj ho a opusť inventář abys začal sekvenci nastavení hráće.<br><br><b>Důležité:</b> dokud nepoužiješ lektvar, mód nemá na tvou hru žádný vliv.<br><br><i>Hodně štěstí na tvé cestě!</i><br>
+2115940208|00000000||Dosáhl si <font color="#66ff99">nové kouzelnické úrovně</font>!
+2115940198|00000000||Naučil ses <font color="#66ccff">novou kouzelnickou dovednost</font>!
+2115940197|00000000||Nová kouzelnická úroveň: 
+2115940196|00000000||Nová kouzelnická dovednost: 
+2115940195|00000000||Toto je připomínka.
+2115940194|00000000||Postup magických dovedností.
+2115940193|00000000||Nová úroveň dovednosti!
+; Novice
+2115940209|00000000||<font size="22">Máš základní kouzelnické dovednosti:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}: Stistkni "rychlý útok" (stejný jako mečem) abys je vykonal.<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br>  Stistkni "Odrazit útok" (Stejně jako mečem) abys ho vykonal.<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Tlačítky pohybu (na ovládání směru, nepovinné) + "úskok" (daleký) / "Vyhnout se" (blízký) abys ho vykonal.<br>  {1084067}: Tlačítky pohybu (na ovládání směru, nepovinné) + "Konzumovat slot 4" abys ho vykonal.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}: Vyber <i>Quen</i> (výchozí, lze změnit při sekvenci nastavení hráće) a <i>podrž</i> "Seslat znamení" abys to vykonal. Podrž toto tlačítko znovu, abys kouzlo odvolal.<br><br>Tvá <i>kouzelnická úroveň</i> poroste když poroste tvá <i>úroveň hráče</i>.<br>Čím více budeš kouzlo používat, tím silnější bude a více dovedností bude ke kouzlu odemčeno.<br><i>Pokračuj v úkolu abys našel <font color="#66ffcc">učitele</font> a naučil se nová kouzla!</i><br></font>
+; Apprentice
+2115940210|00000000||Jsi připraven naučit se nové kouzelné dovednosti:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font><br><font color="#ffff66"><b>- {2115940152} ({2115940156}, {2115940599})</b></font><br><font color="#ffff66"><b>- {2115940145}</b></font><br><br><i>Musíš navštívit mistra Ainyerahn aby ses je naučil.</i><br>
+; Apprentice - heavy attacks learned
+2115940211|00000000||<font color="#ffff66"><b>- {2115940146} ({2115940148}, {2115940149}, {2115940160})</b></font><br>  Stiskni "silný útok" nebo "lehký útok + modifikátor silného útoku" (stejně jako pro meč) abys ho vykonal.<br>  {2115940148} a {2115940149} se střídají v poměru 2:1 (výchozí, lze změnit při sekvenci nastavení hráće).<br>  {2115940160} bude vykonáván s šancí 25% pokud má nepřítel méně než 25% zdraví. Tyto hodnoty se zlepšují s růstem tvé magické úrovně.<br>  <font color="#ff6600">Poznámka:</font> {2115940160} Nelze použít na bosse.<br>
+; Apprentice - fast travel teleport learned
+2115940212|00000000||<font color="#ffff66"><b>- {2115940145}</b></font><br>  Otevři mapu a klikni na <i>jakýkoliv</i>rozcestník, abys to vykonal.<br>
+; Apprentice - Shield learned
+2115940216|00000000||<font color="#ffff66"><b>- {2115940156}</b></font><br>  Vyber <i>Quen</i> (výchozí, lze změnit při sekvenci nastavení hráče) a <i>stiskni</i> "seslat kouzlo" abys ho vykonal.<br>
+; Experienced
+2115940213|00000000||Jsi připraven naučit se nové magické dovednosti:<br><font color="#ffff66"><b>- {2115940152} ({2115940153}, {2115940154})</b></font><br><font color="#ffff66"><b>- {2115940158} ({2115940163})</b></font><br><br><i>Musíš navštívit mistra Ainyerahn, aby ses je naučil.</i><br>
+; Experienced - Tornado learned
+2115940214|00000000||<font color="#ffff66"><b>- {2115940153}</b></font><br>  Vyber <i>Aard</i> (výchozí, lze změnit při sekvenci nastavení hráče) a <i>stiskni</i> "seslat kouzlo" abys ho vykonal.<br><br>  <font color="#ff6600">Varování:</font> Toto kouzlo má vždy malou šanci ti ublížit po jeho expiraci. Ucítíš (ukáže se várování) když se to stane.<br>Trénuj kouzlo a sniž šanci, že se to stane.<br>
+; Experienced - Control learned
+2115940215|00000000||<font color="#ffff66"><b>- {2115940154}</b></font><br>  Vyber <i>Axii</i> (výchozí, lze změnit při sekvenci nastavení hráče), vyber jakéhokoliv nepřítele a <i>stiskni</i> "seslat kouzlo" abys ho vykonal.<br><br>  <font color="#ff6600">Varování:</font> Toto kouzlo má vždy malou šanci ti ublížit po jeho expiraci. Ucítíš (ukáže se várování) když se to stane.<br>Trénuj kouzlo a sniž šanci, že se to stane.<br>
+; Experienced - Gravitation Field learned
+2115940221|00000000||<font color="#ffff66"><b>- {2115940163}</b></font><br>  Vyber <i>Axii</i> (výchozí, lze změnit při sekvenci nastavení hráče) a <i>drž</i> "seslat kouzlo" abys ho vykonal.<br><br>  <font color="#ff6600">Varování:</font> Toto kouzlo má vždy malou šanci ti ublížit po jeho expiraci. Ucítíš (ukáže se várování) když se to stane.<br>Trénuj kouzlo a sniž šanci, že se to stane.<br>
+; Mistress
+2115940217|00000000||Jsi připraven naučit se nové kouzelnické dovednosti:<br><font color="#ffff66"><b>- {2115940152} ({2115940155}, {2115940157})</b></font><br><font color="#ffff66"><b>- {2115940158} ({2115940162})</b></font><br><br><i>Musíš navštívit mistra Ainyerahn, aby ses je naučil.</i><br>
+; Mistress - Meteor learned
+2115940218|00000000||<font color="#ffff66"><b>- {2115940155}</b></font><br>  Vyber <i>Igni</i> (výchozí, lze změnit při sekvenci nastavení hráče) a <i>stiskni</i> "seslat kouzlo" abys ho vykonal.<br><br>  <font color="#ff6600">Varování:</font> Toto kouzlo má vždy malou šanci ti ublížit po jeho expiraci. Ucítíš (ukáže se várování) když se to stane.<br>Trénuj kouzlo a sniž šanci, že se to stane.<br>
+; Mistress - Servant learned
+2115940219|00000000||<font color="#ffff66"><b>- {2115940157}</b></font><br>  Vyber <i>Yrden</i> (výchozí, lze změnit při sekvenci nastavení hráče) a <i>stiskni</i> "seslat kouzlo" abys ho vykonal.<br><br>  <font color="#ff6600">Varování:</font> Toto kouzlo má vždy malou šanci ti ublížit po jeho expiraci. Ucítíš (ukáže se várování) když se to stane.<br>Trénuj kouzlo a sniž šanci, že se to stane.<br>
+; Mistress - Alzur's thunder learned
+2115940220|00000000||<font color="#ffff66"><b>- {2115940162}</b></font><br>  Vyber <i>Aard</i> (výchozí, lze změnit při sekvenci nastavení hráče) a <i>drž</i> "seslat kouzlo" abys ho vykonal.<br><br>  <font color="#ff6600">Varování:</font> Toto kouzlo má vždy malou šanci ti ublížit po jeho expiraci. Ucítíš (ukáže se várování) když se to stane.<br>Trénuj kouzlo a sniž šanci, že se to stane.<br>
+; Grand Mistress
+2115940222|00000000||You are ready to learn new magic skills:<br><font color="#ffff66"><b>- {2115940158} ({2115940164}, {2115940166})</b></font><br><br><i>You must visit Master Ainyerahn to learn them.</i><br>
+; Grand Mistress - Melgar's fire learned
+2115940223|00000000||<font color="#ffff66"><b>- {2115940164}</b></font><br>  Vyber <i>Igni</i> (výchozí, lze změnit při sekvenci nastavení hráče) a <i>drž</i> "seslat kouzlo" abys ho vykonal.<br><br>  <font color="#ff6600">Varování:</font> Toto kouzlo má vždy malou šanci ti ublížit po jeho expiraci. Ucítíš (ukáže se várování) když se to stane.<br>Trénuj kouzlo a sniž šanci, že se to stane.<br>
+; Grand Mistress - Polymorphism learned
+2115940224|00000000||<font color="#ffff66"><b>- {2115940166}</b></font><br>  Vyber <i>Yrden</i> (výchozí, lze změnit při sekvenci nastavení hráče) a <i>drž</i> "seslat kouzlo" abys ho vykonal. Znovu podrž abys kouzlo zrušil.<br>  <b>Poznámka:</b> Pro další vzhledy kočky nainstaluj <font color="#8800AA">Immersive Wildlife Project (Dhu Cats)</font><br>  <i><font color="#E4FF00">nexusmods.com/witcher3/mods/3527</font></i>
+2115940225|00000000||Sesílá
+2115940226|00000000||<i>Kustomizace</i> [Dovolí ti měnit vzhled a další věci, vždy dostupné]
+2115940227|00000000||Speciální dovednosti [dodatečné úpravy kouzel, nemění výdrž požadovanou k seslání]
+2115940228|00000000||<i>Dvojtý zásek</i> [druhý zásek dává +50% k útoku]
+2115940229|00000000||<i>Automatické zaměřování</i> [projektily samy upravují trajektorii]
+2115940230|00000000||<i>Odražení blesku</i> [dodatečný blesk sešle 50% útoku na dalšího oponenta]
+2115940231|00000000||<i>Velký ráz</i> [Sférická vlna odhodí nepřátelé po všech stranách]
+2115940232|00000000||<i>Automaticky odrazit</i> [když se teleportuješ, automatické odražení se provede s 40% šancí, a +1% šance za každou úroveň dovednosti]
+2115940233|00000000||<i>Umocnění loutek</i> [úroveň cíle se zvýší o 3 při tom co cíl ovládáš]
+2115940234|00000000||<i>Maximálnó počet loutek</i> [Maximální počet entit, které můžeš mít v jednu chvíli pod svou kontrolou]
+2115940235|00000000||<i>Maximálně služebníků</i> [Maximální počet služebníků, které můžeš mít v jednu chvíli pod svou kontrolou]
+2115940236|00000000||<i>Maximálně tornád</i> [maximální počet tornád, které mohou existovat v jednu chvíli]
+2115940237|00000000||<i>Následuje hráče</i> [kouzla/služebníci následují hráče]
+2115940238|00000000||<i>Tyby služebníků</i> [jaké služebníky umíš přivolat, odemčené typy lze nastavit v sekvenci nastavení hráče]
+2115940239|00000000||<i>Následovat cíl</i> [po celou dobu bude sledovat svůj cíl]
+2115940240|00000000||<i>Počet meteoritů</i> [počet meteoritů v jednom seslání kouzla]
+2115940241|00000000||<i>Absorbce poškození</i> (100% = maximální zdraví hráče)
+2115940242|00000000||Toto kouzlo nebylo odemčeno
+2115940243|00000000||<i>Legenda</i>: <font color="#FF0000">červená = zamčený</font>, <font color="#00FF00">zelený = odemčený (naučený)/bonusový</font>
+2115940244|00000000||<i>Kontrola poškození</i> [kouzlo bude škodit jen nepřátelům, ale hráč dostane poškození pokud se kouzlo vzbouří]
+2115940245|00000000||<i>Popálení</i> [na 5 sekund zapálí nepřítele s 20% šancí, a +1% šance za každou úroveň dovednosti]
+2115940246|00000000||<i>Freezing</i> [na 5 sekund zmrazí nepřítele s 20% šancí,  a +1% šance za každou úroveň dovednosti]
+2115940247|00000000||<i>Blesky/Meteory počet</i> [počet meteoritů a blesků v jednom okamžiku]
+2115940248|00000000||<i>Blesky/Meteory interval</i> [čas mezi tvorbou jednotlivých blesků a meteorů]
+2115940249|00000000||<i>Dva služebníci</i> [přivolá dva služebníky, odemčené typy lze přiřadit nezávisle na první a druhý slot služebníka v sekvenci nastavení hráče]
+2115940250|00000000||<i>Vákuum</i> [kouzlo vcucne nepřátele]
+2115940251|00000000||<i>Automatický štít</i> [když sešleš kouzlo, je šance že se objeví štít]
+2115940252|00000000||<i>Automaticky aplikovat</i> [Když se dostaneš doboje, štít se sám objeví. Když boj skončí, štít sám zmizí.]
+2115940253|00000000||<font color="#d92626">Kouzla nováčků</font>
+2115940254|00000000||<font color="#e68319">Kouzla učňů</font>
+2115940255|00000000||<font color="#e6e219">Pokročilá kouzla</font>
+2115940256|00000000||<font color="#50e619">Mistrovská kouzla</font>
+2115940257|00000000||<font color="#8d19e6">Velmistrovská kouzla</font>
+;
+; PLAYER SETUP SCENE
+;
+2115940550|00000000||[ODEJÍT]
+2115940551|00000000||Změnit typ hráče
+2115940552|00000000||Změnit vzhled hráče
+2115940553|00000000||Změnit jméno hráče
+2115940554|00000000||Změnit čarodějnická kouzla
+2115940555|00000000||Zobrazit nápovědu
+2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">vanilla typy (Geralt, Ciri)</font> tě nechá hrát, jako by mód nebyl.<br>  <font color="#00FF00">VŠECHNY vlastní typy hráče</font> ti dovolí změnit vzhled a jméno hráče. Při změně typu hráče ti zůstane všechen pokrok a inventář. Ať hraješ jako jakýkoliv typ hráče, můžeš dělat vše, co může dělat Geralt (kromě použití mečů jako <font color="#00FF00">čarodějka</font>).<br>  <font color="#00FF00">Zaklínač</font> ti zpřístupní herní zážitek přesně jako za Geralta.<br>  <font color="#00FF00">Zaklínačka</font> je taky jako za Geralta, akorát s holčičí animací a AI-vytvořenou ženskou mluvou.<br>  <font color="#00FF00">Čarodějka</font> ti dovolí hrát jako za Geralta s ženskými animacemi, AI-vytvořeným ženským hlasem a s novým čarodějnickým systémem. Abys odemkl maximální potenciál své síly, postupuj úkolem <font color="#00FF00">Čarodějky</font>.<br>  <i>Poznámka:</i> <font color="#FF0000">nesmíš odinstalovat</font> mód potom, co už hru uložíš, protože se do souboru uloží data módu. Vždy můžeš použít lektvar "Chameleon" a vrátit se do podoby <font color="#FFFF00">Geralta (vanilla)</font> aby bylo vše jako dřív, když si mód neměl.<br>  <font color="#FF0000">VAROVÁNÍ</font>: pokud se přeměníš do <font color="#FFFF00">Ciri (vanilla)</font> nebudeš již moci použít "Chameleon" a vrátit se do tohoto menu, protože se inventář zamkne. Jediný způsob jak to zvrátit je konzolový příkaz "NRToGeralt", a poté lze použít "Chameleon" jako normálně.<br>
+2115940557|00000000||<font size="22"><b>- Mód vzhledu</b>: Plné úpravy (výchozí) - skryje oblečené brnění a ukazuje vybraný vzhled hráče, Opravdové brnění - ukazuje oblečené brnění, takže jen hlava, vlasy a pár vybraných věcí lze upravit.<br>Poznámka: pouze pro mužské postavy (zaklínač) v tuto chvíli, ženy (Zaklínačky/Čarodějky) - Pracuje se na tom.<br><br><b>- {2115940565}</b>: tvé sety vzhledů (můžeš uložit současný nebo načíst jakýkoliv dříve uložený)<br><br><b>- {2115940566}</b>: přednastavené sety vzhledů všech NPC, ve všech variantách barev.<br><br><b>- {2115940567}</b>: předdefinované sety ze všech Geraltových setů, ve všech barevných variantách. Ve většině případů nemění nic na hlavě ani vlasy.<br>  Pro <font color="#00FF00">ženské typy postav</font> jsou využity modely od Val aka Jo, takže se ujistěte že máte její mód: <font color="#9900CC">Female Geralt armor models</font>.<br><br><b>- {2115940568}</b>: manuálně změnit sety vzhledů, pro pokročilé nastavení. Jden ze způsobů jak to využít: vyčisti všechny sloty, pak si vyber hlavu, vlasy, tělo/torzo, ruce, rukavice, kalhoty, boty a poté ostatní předměty.<br><br><b>- Přepnout šablony jako předměty</b>: pro pokročilé nastavení, pokud chceš aplikovat 2 nebo více šablon ze stajného slotu (vzácně vyžadováno).<br><br><b>- Ukázat název poslední části těla</b>: pro pokročilé nastavení, ukáže jména současných náhledů šablon.<br></font>
+2115940558|00000000||Jméno hráče
+2115940559|00000000||Geralt (vanilla)
+2115940560|00000000||Ciri (vanilla)
+2115940561|00000000||Zaklínač (upravitelné)
+2115940562|00000000||Zaklínačka (upravitelné)
+2115940563|00000000||Čarodějka (upravitelné)
+2115940564|00000000||[Vyčistit všechny sloty a předměty]
+2115940565|00000000||Mé sety vzhledů
+2115940566|00000000||Sety vzhledů NPC
+2115940567|00000000||Geraltovo sety brnění
+2115940568|00000000||Změnit slot šablony (vytváření vzhledů)
+2115940569|00000000||Kumulovat části těla jako předměty: [vypnuto]
+2115940570|00000000||Kumulovat části těla jako předměty: [zapnuto]
+2115940571|00000000||Zobrazit informace vlastního módu
+2115940572|00000000||Uložit současný set vzhledu
+2115940573|00000000||Načíst set vzhledu
+2115940574|00000000||Smazat set vzhledu
+2115940575|00000000||Načíst set
+2115940576|00000000||Smazat set
+2115940577|00000000||Zobrazit názvy částí těla v současném náhledu: [vypnuto]
+2115940578|00000000||Zobrazit názvy částí těla v současném náhledu:[zapnuto]
+2115940579|00000000||[Aplikovat náhodné]
+2115940580|00000000||Použít ženský hlas: [Automaticky (Recommended)]
+2115940581|00000000||Použít ženský hlas: [Vždy]
+2115940582|00000000||Použít ženský hlas: [Nikdy]
+2115940583|00000000||Autor: <font color="#004488">nikich340 (Nikita Grebenyuk)</font><br>  Stiskni <font color="#770044">U (fotografický mód)</font> => <font color="#070077">rychlý "NÁVRAT"</font><br>  Stiskni <font color="#770044">W, S / šipky / kolečko myši</font> => <font color="#070077">skrolování v seznamu výběru</font>
+;
+; In voice-mod strings
+2115940585|00000000||Načtený set #
+2115940586|00000000||Smazán set #
+2115940587|00000000||Spravovat šanci na hlášky kouzel
+2115940588|00000000||Šance na hlášky kouzel
+2115940589|00000000||Herní teleportace
+2115940590|00000000||<b>- {2115940552}</b>: dovolí ti změnit vzhled dle libosti.<br>  Dostupné pouze pro<font color="#00FF00">vlastní typy hráče</font>.<br><br><b>- {2115940553}</b>: Změní ti jméno ve scénách a v logu útoku.<br>  Lze vybírat jen ze jmen které ve hře již existují (~950).<br>  Dostupné pouze pro <font color="#00FF00">vlastní typy hráče</font>.<br><br><b>- {2115940554}</b>: dovolí ti upravit vzhled kouzel (barva, typ) a nějaké další parametry.<br> Dostupné pouze pro <font color="#00FF00">Čarodějku</font>.<br><br><b>- Použít ženský hlas:</b> <i>Automaticky (doporučené)</i> - Speciální AI-vytvořený hlas Geraltovo hlášek které zní jako pravá žena, používá se když hraješ <font color="#FFFF00">Ciri</font>/<font color="#00FF00">Zaklínačku/Čarodějku</font>. Můžeš si stáhnout další variantu hlasu/jazyka ze stránky jiného módu:<br>  <font color="#FFFF00">nexusmods.com/witcher3/mods/9147</font><br>  <i>Současný hlas</i>: <font color="#00FF00">{2115940999}</font><br>
+2115940592|00000000||Spravovat dovednosti
+2115940593|00000000||Ukázat nápovědu k ovládání magických schopností
+2115940594|00000000||Pohnout se nahoru
+2115940595|00000000||Pohnout se dolů
+2115940596|00000000||<i>Automatické rozsvícení</i> [zapálí všechny zdroje světla v určité vzdálenosti]
+2115940597|00000000||Sova
+2115940598|00000000||Vzhled
+2115940599|00000000||Změna počasí
+2115940549|00000000||<font color="#ffff66"><b>- {2115940599}</b></font><br>  Vyber <i>Aard</i> (výchozí, lze změnit při sekvenci nastavení hráče) a <i>stistkni</i> "seslat kouzlo" abys ho vykonal.<br>
+2115940548|00000000||<font color="#ffff00"><b>Polymorfismus - Varování:</b></font> Jelikož cestování ve formě zvířete nebo ptáka otevírá nové možnosti (často neposkytované vývojáři) pro cestování, je možné přeskočit důležitou spouštěcí oblast, interaktivní dveře atd., a tím narušit logiku úkolu.<br>Buďte opatrní při používání této možnosti a snažte se dělat manuální ukládání. V případě podivných situací, kdy postup úkolu dále nepokračuje, zkuste jej přehrát bez použití transformace.<br><font color="#FFAA00"><i>Byli jste varováni!</i></font>
+2115940547|00000000||Procvič kouzlo změny počasí pětkrát.
+2115940546|00000000||Odstranit předmět
+2115940545|00000000||Kupředu
+2115940544|00000000||Rudý
+2115940543|00000000||Limetkový
+2115940542|00000000||Azrový
+2115940541|00000000||<i>Automatické léčení</i> [obnoví ti zdraví když je zaútočeno na štít]
+2115940540|00000000||<b>Balíček ženského hlasu chybí!</b><br>  To znamená: když budeš hrát za ženu s ženským hlasem povoleným(<font color="#00FF00">Zaklínačka/Čarodějka</font>), <font color="#FF2222">nebude slyšet žádný hlas</font>.<br>  Prosím, zvaž instalaci této části:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/9147</font><br><br>
+2115940539|00000000||<b>Immersive Wildlife Project (DhuCats) chybí!</b><br>  To znamená: nebudete moci používat různé vysoce kvalitní modely koček pro kouzlo Polymorphie (<font color="#00FF00">Čarodějnice</font>).<br> Prosím, zvažte instalaci této části:<br> <font color="#7F007B">nexusmods.com/witcher3/mods/3527</font> (soubor "DhuCats")<br><br>
+2115940538|00000000||<b>Chybí modely zbroje pro ženského Geralta!</b><br>  To znamená, že nebudete moci "nosit" vzhledy zbrojních setů (<font color="#00FF00">Čarodějka/Čarodějnice</font>).<br>  Prosím, zvažte instalaci této části:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/9322</font><br><br>
+2115940537|00000000||Nastavit barvu pro každou akci v tomto znamení
+2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Létající loď
+2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|Loď obalena v ledu, létá si ve vzduchu díky silné magii.
+2115940533|00000000||Nápověda interakcí - Čarodějka
+2115940534|00000000||  Použij {2115940151} namísto <font color="#87CEFA">Aard</font> když je potřeba.<br>Použij {2115940118} ({2115940122}/{2115940141}) namísto <font color="#FF7F50">Igni</font> když je to potřeba.
+; ----------------------------------
+2115940000|00000000||Hráč
+2115940001|00000000||Hráč
+2115940002|00000000||Hráč
+2115940003|00000000||Celestine
+2115940004|00000000||MÓD questgroup_newreplacers Úkol
+2115940005|00000000||Staň se Velemistryní.
+2115940006|00000000||Procvič Alzurova bouře celkem pětkrát.
+2115940007|00000000||Procvič kouzlo kontroly celkem sedmkrát.
+2115940008|00000000||Procvič gravitační pole celkem pětkrát.
+2115940009|00000000||Procvič rychlé cestování teleportací celkem třikrát.
+2115940010|00000000||Procvič silný úrok 13x.
+2115940011|00000000||Procvič Melgarův oheň celkem pětkrát.
+2115940012|00000000||Procvič Meteor celkem sedmkrát.
+2115940013|00000000||Procvič Polymorfismus celkem třikrát.
+2115940014|00000000||Procvič přivolání služebníka celkem sedmkrát.
+2115940015|00000000||Procvič kouzlo štít celkem sedmkrát.
+2115940016|00000000||Procvič tornádo celkem sedmkrát.
+2115940017|00000000||Podívej se na nástěnku v  noticeboard v Bělosadu.
+2115940018|00000000||Pokoř příšery.
+2115940019|00000000||Vkroč do portálu.
+2115940020|00000000||Prohledej okolí.
+2115940021|00000000||Prozkoumej magický kámen.
+2115940022|00000000||Promluv si s kouzelníkem.
+2115940023|00000000||Ainyerahn souhlasil, že se stane jejím učitelem. Pomůže jí pochopit složitosti ovládnutí chaosu.<br>
+2115940024|00000000||Tajemný poustevnický mág se jmenoval Ainyerahn, který studoval povahu anomálního kamene, když ho kámen teleportoval spolu s lodí do blízkosti Bělosadu.<br>
+2115940025|00000000||Když prozkoumávala oblast, narazila na krystal s hmatatelnou magickou stopou. Stopa ji vedla k magické lodi vznášející se ve vzduchu na ledové plošině. Zdroj této anomálie byl zjevně magický kámen, a když se ho čarodějka dotkla, spustila příchod monster. Bitva s nimi mohla dopadnout špatně, kdyby se neobjevil neznámý kouzelník.<br>
+2115940026|00000000||Po přečtení inzerátu čarodějka tušila zajímavý případ.<br>
+2115940027|00000000||Vaše magická cesta začíná.<br>
+2115940028|00000000||Stáváš se Velemistryní
+2115940029|00000000|item_name_newreplacers_notices_sorceress_training_notice|Buď opatrný na cestě do Vyzimy.
+2115940030|00000000|item_desc_newreplacers_notices_sorceress_training_notice|Upozornění na podivné věci ve Vyzimě.
+2115940031|00000000|item_name_newreplacers_notices_sorceress_training_notice_text|Dobří lidé! Dávejte si pozor na cestě do Vyzimy!<br>Minulý týden jsem jel za svou dcerou, když nade mnou začalo burácet a zářit něco, co vyděsilo mého koně natolik, že se vrhl do křoví. A pak jsem na okamžik zahlédl hromadu ledu na obloze, a pak to zmizelo.<br>Řeknete, že jsem byl opilý, ale ten den jsem byl střízlivý!<br>
+2115940032|00000000|dlc_name_newreplacers|Vlastní postavy hráče
+2115940033|00000000|option_dlc_name_newreplacers|MOD: Vlastní postavy hráče
+2115940034|00000000|content_name_dlc_newreplacers|MOD: Vlastní postavy hráče
+2115940650|00000000||SLOT: Hlava
+2115940651|00000000||SLOT: Vlasy
+2115940652|00000000||SLOT: Tělo
+2115940653|00000000||SLOT: Hrudník
+2115940654|00000000||SLOT: Ruce
+2115940655|00000000||SLOT: Rukavice
+2115940656|00000000||SLOT: Šaty
+2115940657|00000000||SLOT: Nohy
+2115940658|00000000||SLOT: Boty
+2115940659|00000000||SLOT: Různé
+2115940660|00000000||[Další Slot: Vlasy]
+2115940661|00000000||[Další Slot: Tělo]
+2115940662|00000000||[Další Slot: Hrudník]
+2115940663|00000000||[Další Slot: Ruce]
+2115940664|00000000||[Další Slot: Rukavice]
+2115940665|00000000||[Další Slot: Šaty]
+2115940666|00000000||[Další Slot: Nohy]
+2115940667|00000000||[Další Slot: Boty]
+2115940668|00000000||[Další Slot: Různé]
+2115940669|00000000||[Další Slot: Hlava]
+2115940600|00000000||SLOT: Hlava
+2115940601|00000000||SLOT: Vlasy
+2115940602|00000000||SLOT: Tělo
+2115940603|00000000||SLOT: Hrudník
+2115940604|00000000||SLOT: Ruce
+2115940605|00000000||SLOT: Rukavice
+2115940606|00000000||SLOT: Šaty
+2115940607|00000000||SLOT: Nohy
+2115940608|00000000||SLOT: Boty
+2115940609|00000000||SLOT: Různé
+2115940610|00000000||[Další Slot: Vlasy]
+2115940611|00000000||[Další Slot: Tělo]
+2115940612|00000000||[Další Slot: Hrudník]
+2115940613|00000000||[Další Slot: Ruce]
+2115940614|00000000||[Další Slot: Rukavice]
+2115940615|00000000||[Další Slot: Šaty]
+2115940616|00000000||[Další Slot: Nohy]
+2115940617|00000000||[Další Slot: Boty]
+2115940618|00000000||[Další Slot: Různé]
+2115940619|00000000||[Další Slot: Hlava]
+2115940350|00000000||[OPUSTIT] developer
+2115940351|00000000||0:1 (pouze vrhací útoky)
+2115940352|00000000||1:4
+2115940353|00000000||1:3
+2115940354|00000000||1:2
+2115940355|00000000||1:1
+2115940356|00000000||2:1
+2115940357|00000000||3:1
+2115940358|00000000||4:1
+2115940359|00000000||1:0 (pouze sečné útoky)
+2115940360|00000000||0:1 (pouze útoky petardou)
+2115940361|00000000||1:4
+2115940362|00000000||1:3
+2115940363|00000000||1:2
+2115940364|00000000||1:1
+2115940365|00000000||2:1
+2115940366|00000000||3:1
+2115940367|00000000||4:1
+2115940368|00000000||1:0 (pouze útoky kamenem)
+; ----------------------
+2115940532|00000000||[CHEAT Magické Možnosti]
+2115940531|00000000||CHEAT: Odemknout kouzelnické úrovně: 
+2115940530|00000000||CHEAT: Nastavit maximální úroveň všech kouzelných dovedností
+2115940529|00000000||Mód vzhledu: [opravdová zbroj]
+2115940528|00000000||Mód vzhledu: [plně upravitelné]
+2115940527|00000000||Mód opravdové zboje byl aktivován. Jen hlava, vlasy a pár jiných předmětů lze změnit.
+2115940526|00000000||Manage spell damage (100 = 100%, default)
+2115940525|00000000||Spell damage
+2115940524|00000000||Manage player scale (100 = 100%)
+2115940523|00000000||Player scale
+2115940522|00000000||Neck transition
+2115940521|00000000||Visible
+2115940520|00000000||Invisible
+2115940316|00000000||Care for a round of gwent?
+2115940317|00000000||What's inside the chest by your bed?
+2115940318|00000000||Uh… Something personal. Please don't try to open it.
+2115940319|||As you can see, there's more to learn from me than just magic…
+2115940320|||Well done! As a mark of gratitude, you shall receive my best cards.
+2115940321|||Taking pleasure in besting the elder?

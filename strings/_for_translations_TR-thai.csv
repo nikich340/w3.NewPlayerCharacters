@@ -430,7 +430,7 @@
 2115940554|00000000||เปลี่ยนคาถาแม่มด
 2115940555|00000000||แสดงข้อมูลความช่วยเหลือ
 2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">ประเภทวานิลลา (Geralt, Ciri)</font> ให้คุณเล่นราวกับว่าไม่ได้ติดตั้ง mod <br> <font color="#00FF00">ประเภทผู้เล่นที่กำหนดเองทั้งหมด</font> ช่วยให้คุณสามารถปรับแต่งรูปลักษณ์และชื่อที่แสดงของคุณได้ ความคืบหน้าของเกมและสินค้าคงคลังของคุณจะเหมือนกันเสมอสำหรับผู้เล่นทุกประเภท เมื่อเล่นเป็นประเภทที่กำหนดเอง คุณสามารถทำทุกอย่างที่ Geralt ทำได้ (ยกเว้นดาบที่ใช้เป็น <font color="#00FF00">Sorceress</font>)<br> <font color="#00FF00">Witcher</font > ให้คุณเล่นได้เหมือนกับ Geralt<br> <font color="#00FF00">Witcheress</font> ให้คุณเล่นได้เหมือนกับ Geralt โดยมีแอนิเมชัน Geralt เพศหญิงและคำพูด Geralt เพศหญิงที่ประมวลผลโดย AI<br> < font color="#00FF00">แม่มด</font> ให้คุณเล่นกับแอนิเมชั่น Geralt ของผู้หญิง, คำพูดของ Geralt ของผู้หญิงที่ประมวลผลโดย AI และด้วยระบบการต่อสู้เวทย์มนตร์ใหม่ หากต้องการได้รับพลังเต็มที่ ให้ปฏิบัติตามภารกิจหลังจากเลือก <font color="#00FF00">Sorceress</font><br> <i>หมายเหตุ:</i> <font color="#FF0000">อย่าถอนการติดตั้ง</font> แบบอักษร> ม็อดหลังจากที่คุณสร้างเกมบันทึกด้วย เนื่องจากข้อมูลที่เกี่ยวข้องกับม็อดบางส่วนถูกเก็บไว้ภายใน คุณสามารถใช้ "Chameleon" และกลับไปที่ <font color="#FFFF00">Geralt (vanilla)</font> เพื่อทำสิ่งต่าง ๆ ราวกับว่าไม่ได้ติดตั้ง mod ไว้<br> <font color="#FF0000">คำเตือน </font>: หากคุณเปลี่ยนเป็น <font color="#FFFF00">Ciri (vanilla)</font> คุณจะไม่สามารถใช้ "Chameleon" และกลับมาที่ฉากนี้ได้ เนื่องจากสินค้าคงคลังจะถูกล็อค วิธีเดียวที่จะกลับมาคือใช้คำสั่งคอนโซล "NRToGeralt" จากนั้นใช้ "Chameleon" ตามปกติ<br>
-2115940557|00000000||<b>- {2115940565}</b>: ชุดรูปลักษณ์ของคุณ (คุณสามารถบันทึกชุดปัจจุบัน โหลดชุดที่บันทึกไว้ก่อนหน้านี้)<br><br><b>- {2115940566}</b>: กำหนดไว้ล่วงหน้า ชุดรูปลักษณ์จาก NPC ทั้งหมด ในรูปแบบสีทั้งหมด<br><br><b>- {2115940567}</b>: ชุดที่กำหนดไว้ล่วงหน้าจากชุดเกราะ Geralt ทั้งหมด ในรูปแบบสีทั้งหมด ในกรณีส่วนใหญ่ ห้ามเปลี่ยนศีรษะและผมของผู้เล่น<br> สำหรับ <font color="#00FF00">ประเภทผู้เล่นหญิง</font> จะใช้โมเดลชุดเกราะที่ดัดแปลงโดย Val aka Jo ดังนั้นตรวจสอบให้แน่ใจว่าคุณได้ติดตั้ง mod ของเธอแล้ว: <font color="#9900CC">โมเดลเกราะ Geralt หญิง</font>.<br><br><b>- {2115940568}</b>: เปลี่ยนช่องลักษณะที่ปรากฏด้วยตนเองสำหรับการตั้งค่าขั้นสูง วิธีใช้วิธีหนึ่ง: เคลียร์ช่องทั้งหมด จากนั้นเลือกหัว ผม ร่างกาย/ลำตัว แขน มือ ขา รองเท้า จากนั้นเลือกรายการพิเศษ<br><br><b>- สลับเทมเพลตการซ้อนเป็นรายการ </b>: สำหรับการตั้งค่าขั้นสูง หากคุณต้องการใช้เทมเพลต 2 รายการขึ้นไปจากช่องเดียวกัน (ไม่ค่อยจำเป็น)<br><br><b>- แสดงชื่อส่วนของร่างกายตัวอย่าง</b>: สำหรับการตั้งค่าขั้นสูง แสดงชื่อของเทมเพลตตัวอย่างปัจจุบัน<br>
+2115940557|00000000||<font size="22"><b>- Appearance mode</b>: Full custom (default) - hides equipped armor and shows selected appearance, Real equipment - shows equipped armor, so only head, hair and misc items can be customized.<br><i>NOTE:</i> only for male (Witcher), female (Witcheress/Sorceress) - WIP.<br><br><b>- {2115940565}</b>: ชุดรูปลักษณ์ของคุณ (คุณสามารถบันทึกชุดปัจจุบัน โหลดชุดที่บันทึกไว้ก่อนหน้านี้)<br><br><b>- {2115940566}</b>: กำหนดไว้ล่วงหน้า ชุดรูปลักษณ์จาก NPC ทั้งหมด ในรูปแบบสีทั้งหมด<br><br><b>- {2115940567}</b>: ชุดที่กำหนดไว้ล่วงหน้าจากชุดเกราะ Geralt ทั้งหมด ในรูปแบบสีทั้งหมด ในกรณีส่วนใหญ่ ห้ามเปลี่ยนศีรษะและผมของผู้เล่น<br> สำหรับ <font color="#00FF00">ประเภทผู้เล่นหญิง</font> จะใช้โมเดลชุดเกราะที่ดัดแปลงโดย Val aka Jo ดังนั้นตรวจสอบให้แน่ใจว่าคุณได้ติดตั้ง mod ของเธอแล้ว: <font color="#9900CC">โมเดลเกราะ Geralt หญิง</font>.<br><br><b>- {2115940568}</b>: เปลี่ยนช่องลักษณะที่ปรากฏด้วยตนเองสำหรับการตั้งค่าขั้นสูง วิธีใช้วิธีหนึ่ง: เคลียร์ช่องทั้งหมด จากนั้นเลือกหัว ผม ร่างกาย/ลำตัว แขน มือ ขา รองเท้า จากนั้นเลือกรายการพิเศษ<br><br><b>- สลับเทมเพลตการซ้อนเป็นรายการ </b>: สำหรับการตั้งค่าขั้นสูง หากคุณต้องการใช้เทมเพลต 2 รายการขึ้นไปจากช่องเดียวกัน (ไม่ค่อยจำเป็น)<br><br><b>- แสดงชื่อส่วนของร่างกายตัวอย่าง</b>: สำหรับการตั้งค่าขั้นสูง แสดงชื่อของเทมเพลตตัวอย่างปัจจุบัน<br></font>
 2115940558|00000000||ชื่อที่แสดงของผู้เล่น
 2115940559|00000000||เกอรัลต์ (วานิลลา)
 2115940560|00000000||ชิริ (วานิลลา)
@@ -489,10 +489,7 @@
 2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Floating ship
 2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|A ship surrounded by ice, floating in the air due to a powerful flow of magic.
 2115940533|00000000||Interactions hint - Sorceress
-2115940534|00000000||Use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>Use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
-2115940532|00000000||[CHEAT Magic Options]
-2115940531|00000000||CHEAT: Unlock magic level: 
-2115940530|00000000||CHEAT: Set maximum level to all spells
+2115940534|00000000||  Cast standart witcher signs (except Quen): <i>Hold</i> "Use" button [E] and <i>Press</i> "Cast Sign" button [Q].<br>  You can use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>  You can use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
 ; ----------------------------------
 2115940000|00000000||ผู้เล่น
 2115940001|00000000||ผู้เล่น
@@ -588,3 +585,23 @@
 2115940366|00000000||3:1
 2115940367|00000000||4:1
 2115940368|00000000||1:0 (only rocks attacks)
+; ---------------------
+2115940532|00000000||[CHEAT Magic Options]
+2115940531|00000000||CHEAT: Unlock magic level: 
+2115940530|00000000||CHEAT: Set maximum level to all spells
+2115940529|00000000||Appearance mode: [Real equipment]
+2115940528|00000000||Appearance mode: [Full custom]
+2115940527|00000000||<font color="#AAAA22">Real-equipment mode enabled.</font> Only head, hair and misc items can be changed.
+2115940526|00000000||Manage spell damage (100 = 100%, default)
+2115940525|00000000||Spell damage
+2115940524|00000000||Manage player scale (100 = 100%)
+2115940523|00000000||Player scale
+2115940522|00000000||Neck transition
+2115940521|00000000||Visible
+2115940520|00000000||Invisible
+2115940316|00000000||Care for a round of gwent?
+2115940317|00000000||What's inside the chest by your bed?
+2115940318|00000000||Uh… Something personal. Please don't try to open it.
+2115940319|||As you can see, there's more to learn from me than just magic…
+2115940320|||Well done! As a mark of gratitude, you shall receive my best cards.
+2115940321|||Taking pleasure in besting the elder?

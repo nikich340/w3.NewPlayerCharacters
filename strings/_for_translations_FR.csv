@@ -236,7 +236,7 @@
 ; Призываю осколки огня с неба! (Ainyerahn)
 2115940994|||Invocare aedden aep aenye al uide!
 2115940995|||Pouvons-nous réessayer de créer un golem?
-2115940996|||D'accord, mais je demande une plus grande attention aux détails cette fois. J'espère que vous n'avez pas oublié que dans le Hen Llinge, « oreille » signifie Terre et « lagi » pour Eau.
+2115940996|||D'accord, mais je demande une plus grande attention aux détails cette fois. J'espère que vous n'avez pas oublié que dans le Hen Llinge, «oreille» signifie Terre et «lagi» pour Eau.
 2115940997|||J'ai besoin d'un portail pour revenir au sol.
 2115940313|||Eys'u failte.
 2115940314|||Beydem.
@@ -356,7 +356,7 @@
 2115940194|00000000||Progression des compétences magiques.
 2115940193|00000000||Nouveau niveau de compétences.
 ; Novice
-2115940209|00000000||<font size="24">Vous avez des compétences magiques de base:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}: Appuyez sur le bouton "Attaque rapide" (le même que pour l'épée) pour effectuer.<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br>  Appuyez sur le bouton "PARER" (le même que pour l'épée) pour effectuer.<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Appuyez sur les boutons de mouvement (pour contrôler la direction, en option) + le bouton « Rouler » (distance lointaine) / « Esquiver » (distance proche) pour effectuer.<br>  {1084067}: Appuyez sur les boutons de mouvement (pour contrôler la direction, en option) + le bouton « Consommables Slot 4 » pour effectuer.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}: Selectionner <i>Quen</i> (par default, peut être changer dans le menu de configuration du personnage) et <i>hold</i> "Cast sign" bouton pour effectuer. Maintenez à nouveau ce bouton pour stopper.<br><br>Plus vous utilisez la compétence, plus elle devient puissante et plus de capacités sont débloquées..<br><i>Suivez la quête pour trouver <font color="#66ffcc">un professeur</font> et apprendre de nouvelles compétences!</i><br></font>
+2115940209|00000000||<font size="22">Vous avez des compétences magiques de base:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}: Appuyez sur le bouton "Attaque rapide" (le même que pour l'épée) pour effectuer.<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br>  Appuyez sur le bouton "PARER" (le même que pour l'épée) pour effectuer.<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Appuyez sur les boutons de mouvement (pour contrôler la direction, en option) + le bouton « Rouler » (distance lointaine) / « Esquiver » (distance proche) pour effectuer.<br>  {1084067}: Appuyez sur les boutons de mouvement (pour contrôler la direction, en option) + le bouton « Consommables Slot 4 » pour effectuer.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}: Selectionner <i>Quen</i> (par default, peut être changer dans le menu de configuration du personnage) et <i>hold</i> "Cast sign" bouton pour effectuer. Maintenez à nouveau ce bouton pour stopper.<br><br>Plus vous utilisez la compétence, plus elle devient puissante et plus de capacités sont débloquées..<br><i>Suivez la quête pour trouver <font color="#66ffcc">un professeur</font> et apprendre de nouvelles compétences!</i><br></font>
 ; Apprenti
 2115940210|00000000||Vous êtes prêts à apprendre de nouvelles compétences de magie:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font><br><font color="#ffff66"><b>- {2115940152} ({2115940156}, {2115940599})</b></font><br><font color="#ffff66"><b>- {2115940145}</b></font><br><br><i>Vous devez rendre visite à Maître Ainyerahn pour en apprendre.</i><br>
 ; Apprenti - Attaques lourdes apprises
@@ -392,9 +392,9 @@
 2115940227|00000000||Capacités spéciales [bonus supplémentaires pour le type, n'affectent pas le coût d'endurance]
 2115940228|00000000||<i>Double slash</i> [slash supplémentaire donne +50% aux dégâts]
 2115940229|00000000||<i>Visée-Auto</i> [les projectiles ajustent la trajectoire]
-2115940230|00000000||<i>Rebond foudroyant</i> [un éclair supplémentaire avec 50 % des dégâts frappe un autre adversaire]
+2115940230|00000000||<i>Rebond foudroyant</i> [un éclair supplémentaire avec 50% des dégâts frappe un autre adversaire]
 2115940231|00000000||<i>Full blast</i> [une vague sphérique projette les ennemis de tous côtés]
-2115940232|00000000||<i>Contre-poussée automatique</i> [lors de la téléportation vers une nouvelle position, une contre-poussée est effectuée avec 40 % de chances et +1 % de chances à chaque niveau de compétence]
+2115940232|00000000||<i>Contre-poussée automatique</i> [lors de la téléportation vers une nouvelle position, une contre-poussée est effectuée avec 40% de chances et +1% de chances à chaque niveau de compétence]
 2115940233|00000000||<i>Mise à l'échelle des marionnettes</i> [augmente le niveau de la cible de 3 lors du Contrôle]
 2115940234|00000000||<i>Max marionnettes</i> [maximum d'entités contrôlées au total, qui peuvent exister en même temps]
 2115940235|00000000||<i>Max Serviteurs</i> [maximum de Serviteurs convoqués au total, pouvant exister en même temps]
@@ -403,12 +403,12 @@
 2115940238|00000000||<i>types de serviteur</i> [quels Serviteurs vous pouvez invoquer, les types déverrouillés peuvent être sélectionnés dans la scène de configuration du joueur]
 2115940239|00000000||<i>Poursuite de la cible</i> [poursuit une cible originale à tout moment]
 2115940240|00000000||<i>Nombre de météore</i> [nombre de météores en un seul lancer]
-2115940241|00000000||<i>Absorption des dégâts</i> (100 % = PV maximum du joueur)
+2115940241|00000000||<i>Absorption des dégâts</i> (100%=PV maximum du joueur)
 2115940242|00000000||La compétence n'est pas apprise
 2115940243|00000000||<i>Legende</i>: <font color="#FF0000">red = verouillé</font>, <font color="#00FF00">vert = débloqué (apprises)/bonus</font>
 2115940244|00000000||<i>Dégâts Contrôle</i> [ La marionnette fera des dégâts uniquement aux entités hostiles, mais le joueur prendra des dégâts si le sort SE RETOURNE contre lui]
-2115940245|00000000||<i>Brûler</i> [met le feu aux ennemis pendant 5 secondes avec 20 % de chances et +1 % de chances à chaque niveau de compétence]
-2115940246|00000000||<i>Geler</i> [gèle les ennemis pendant 5 secondes avec 20 % de chances et +1 % de chances à chaque niveau de compétence]
+2115940245|00000000||<i>Brûler</i> [met le feu aux ennemis pendant 5 secondes avec 20% de chances et +1% de chances à chaque niveau de compétence]
+2115940246|00000000||<i>Geler</i> [gèle les ennemis pendant 5 secondes avec 20% de chances et +1% de chances à chaque niveau de compétence]
 2115940247|00000000||<i>Nombre d'éclairs/météores</i> [nombre d'éclairs/météores à un intervalle de temps]
 2115940248|00000000||<i>Intervalle éclairs/météores</i> [temps entre la création d'éclairs/météores]
 2115940249|00000000||<i>Deux Serviteurs</i> [invoque deux Serviteurs, les types débloqués peuvent être attribués indépendamment au 1er et au 2ème Serviteur dans la scène de configuration du joueur]
@@ -430,7 +430,7 @@
 2115940554|00000000||Changer les sorts de sorcière
 2115940555|00000000||Aide
 2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">vanilla types (Geralt, Ciri)</font> Jouer comme si le mod n'était pas installé.<br>  <font color="#00FF00">TOUT les types de personnages custom</font> vous laisses personnalisé votre apparence et votre nom d'affichage. Votre progression de jeu et votre inventaire reste le même entre n'importe quel type de personnage. Quand vous jouez n'importe quel type de personnage vous pouvez faire tout ce que Geralt peut faire (sauf utiliser les épées en tant que <font color="#00FF00">Sorcière</font>).<br>  <font color="#00FF00">Witcher</font> vous permet de jouer comme Geralt.<br>  <font color="#00FF00">Witcheress</font> vous permet de jouer comme Geralt,avec les animations de femme et des voix féminines en IA.<br>  <font color="#00FF00">Sorcière</font> vous permet de jouer avec les animations de femmes, les voix féminines en IA et un tout nouveau système de combat avec de la magie. Pour gagner plus de pouvoirs, suivez la quête après avoir sélectionner <font color="#00FF00">Sorcière</font>.<br>  <i>NOTE:</i> <font color="#FF0000">ne PAS désinstaller</font> le mod après avoir sauvegarder une partie, parce que des données du mod seront sauvegardés à l'intérieur. Vous pouvez toujours utilisé "Chameleon" et retourner en tant que <font color="#FFFF00">Geralt (vanilla)</font> pour faire comme si le mod n'était pas installé.<br>  <font color="#FF0000">ATTENTION</font>: si vous jouez en tant que <font color="#FFFF00">Ciri (vanilla)</font> vous ne pourrez pas utiliser "Chameleon" et retourner à ce menu, puisque l'inventaire sera indisponible. le seul moyen sera d'utiliser la commande "NRToGeralt" dans la console, et ensuite utiliser "Chameleon".<br>
-2115940557|00000000||<b>- {2115940565}</b>: votre set d'apparence (vous pouvez sauvegarder le look actuel, ou charger un look précédemment sauvegarder)<br><br><b>- {2115940566}</b>: sets de look prédéfini pour tout les NPC, dans toutes les variantes de couleurs.<br><br><b>- {2115940567}</b>: sets prédéfini pour toutes les armures de Geralt, dans toutes les variantes de couleurs. Ne pas changer la tête ou les cheveux du personnage.<br>  Pour les <font color="#00FF00">types de personnages féminin</font> sont utilisés des modèles d'armures adapté par Val aka Jo, installer son mod: <font color="#9900CC">Female Geralt armor models</font>.<br><br><b>- {2115940568}</b>: changer le slot d'apparence manuellement. Une façon de l'utiliser: nettoyez tout les slots, et choisir Tête, Cheveux, Corps/Torse, Bras, Mains, Jambes, Chaussures, et ensuite choisir des accessoires supplémentaire.<br><br><b>- Switch stacking modèles as items</b>: for advanced setup, if you want to apply 2 or more modèles from the same slot (rarely required).<br><br><b>- Show preview Corpspart names</b>: for advanced setup, shows names of current preview modèles.<br>
+2115940557|00000000||<font size="22"><b>- Mode d’apparence</b>: Customisable (default) - cache l’armure equipée et montre l’apparence, equipement réel - montre l’armure équipée, seul la tête, cheveux et divers sont customisables.<br>NOTE: Seulement pour les hommes (Witcher) pour le moment, femmes (Witcheress/Sorcière) - WIP.<br><br><b>- {2115940565}</b>: votre set d'apparence (vous pouvez sauvegarder le look actuel, ou charger un look précédemment sauvegarder)<br><br><b>- {2115940566}</b>: sets de look prédéfini pour tout les NPC, dans toutes les variantes de couleurs.<br><br><b>- {2115940567}</b>: sets prédéfini pour toutes les armures de Geralt, dans toutes les variantes de couleurs. Ne pas changer la tête ou les cheveux du personnage.<br>  Pour les <font color="#00FF00">types de personnages féminin</font> sont utilisés des modèles d'armures adapté par Val aka Jo, installer son mod: <font color="#9900CC">Female Geralt armor models</font>.<br><br><b>- {2115940568}</b>: changer le slot d'apparence manuellement. Une façon de l'utiliser: nettoyez tout les slots, et choisir Tête, Cheveux, Corps/Torse, Bras, Mains, Jambes, Chaussures, et ensuite choisir des accessoires supplémentaire.<br><br><b>- Switch stacking modèles as items</b>: for advanced setup, if you want to apply 2 or more modèles from the same slot (rarely required).<br><br><b>- Show preview Corpspart names</b>: for advanced setup, shows names of current preview modèles.<br></font>
 2115940558|00000000||Nom du personnage
 2115940559|00000000||Geralt (vanilla)
 2115940560|00000000||Ciri (vanilla)
@@ -482,17 +482,15 @@
 2115940543|00000000||Citron
 2115940542|00000000||Azure
 2115940541|00000000||<i>Guérison automatique</i> [restaure votre santé quand le bouclier est attaqué]
-2115940540|00000000||<b>Le pack de voix féminine est manquant!</b><br>  Cela signifie : lorsque vous jouez avec la parole féminine activée (<font color="#00FF00">Witcheress/Sorcière</font>), <font color="#FF2222">il y aura du silence au lieu de la voix du joueur</font>.<br>  Veuillez envisager d'installer ce mod:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/9147</font><br><br>
-2115940539|00000000||<b>Immersive Wildlife Project (DhuCats) est manquant!</b><br>  Cela signifie : vous ne pourrez pas utiliser différents modèles de chats HD pour le sort Polymorphisme. (<font color="#00FF00">Sorcière</font>).<br>  Veuillez envisager d'installer ce mod:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/3527</font> ("DhuCats" file)<br><br>
-2115940538|00000000||<b>Female Geralt armor models est manquant!</b><br>  Cela signifie : vous ne pourrez pas "porter" les apparences des ensembles d'armures. (<font color="#00FF00">Witcheress/Sorcière</font>).<br>  Veuillez envisager d'installer ce mod:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/9322</font><br><br>
+2115940540|00000000||<b>Le pack de voix féminine est manquant!</b><br>  Cela signifie: lorsque vous jouez avec la parole féminine activée (<font color="#00FF00">Witcheress/Sorcière</font>), <font color="#FF2222">il y aura du silence au lieu de la voix du joueur</font>.<br>  Veuillez envisager d'installer ce mod:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/9147</font><br><br>
+2115940539|00000000||<b>Immersive Wildlife Project (DhuCats) est manquant!</b><br>  Cela signifie: vous ne pourrez pas utiliser différents modèles de chats HD pour le sort Polymorphisme. (<font color="#00FF00">Sorcière</font>).<br>  Veuillez envisager d'installer ce mod:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/3527</font> ("DhuCats" file)<br><br>
+2115940538|00000000||<b>Female Geralt armor models est manquant!</b><br>  Cela signifie: vous ne pourrez pas "porter" les apparences des ensembles d'armures. (<font color="#00FF00">Witcheress/Sorcière</font>).<br>  Veuillez envisager d'installer ce mod:<br>  <font color="#7F007B">nexusmods.com/witcher3/mods/9322</font><br><br>
 2115940537|00000000||Définir la couleur pour toutes les actions par signe
 2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Navire flottant
 2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|Un navire entouré de glace, flottant dans les airs grâce à un puissant flux de magie.
 2115940533|00000000||Indice d'interactions - Sorcière
-2115940534|00000000||Utiliser {2115940151} au lieu de <font color="#87CEFA">Aard</font> quand cela est nécessaire.<br>Utiliser {2115940118}({2115940122}/{2115940141}) au lieu de <font color="#FF7F50">Igni</font> quand cela est nécessaire.
-2115940532|00000000||[CHEAT Magie Options]
-2115940531|00000000||CHEAT: Débloquer niveau de magie: 
-2115940531|00000000||CHEAT: Fixer le niveau maximum à tous les sorts
+; 2115940534|00000000||Utiliser {2115940151} au lieu de <font color="#87CEFA">Aard</font> quand cela est nécessaire.<br>Utiliser {2115940118}({2115940122}/{2115940141}) au lieu de <font color="#FF7F50">Igni</font> quand cela est nécessaire.
+2115940534|00000000||  Cast standart witcher signs (except Quen): <i>Hold</i> "Use" button [E] and <i>Press</i> "Cast Sign" button [Q].<br>  You can use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>  You can use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
 ; ----------------------------------
 2115940000|00000000||Joueur	
 2115940001|00000000||Joueur
@@ -525,7 +523,7 @@
 2115940028|00000000||Devenez une sorcière suprême
 2115940029|00000000|item_name_newreplacers_notices_sorceress_training_notice|Soyez prudent sur la route de Vyzima
 2115940030|00000000|item_desc_newreplacers_notices_sorceress_training_notice|Des choses étranges sur la route de Vyzima.
-2115940031|00000000|item_name_newreplacers_notices_sorceress_training_notice_text|Oyé oyé! Soyez prudent sur la route de Vyzima !<br>La semaine dernière je me rendais chez ma fille, il y avait une chose qui grondait et flamboyait au-dessus de moi, et mon cheval s'est précipité dans les buissons. J'ai remarqué un tas de glace dans le ciel pendant un moment, puis il a disparu.<br>Vous direz que j'étais ivre, pourtant j'étais sobre ce jour-là !<br>
+2115940031|00000000|item_name_newreplacers_notices_sorceress_training_notice_text|Oyé oyé! Soyez prudent sur la route de Vyzima!<br>La semaine dernière je me rendais chez ma fille, il y avait une chose qui grondait et flamboyait au-dessus de moi, et mon cheval s'est précipité dans les buissons. J'ai remarqué un tas de glace dans le ciel pendant un moment, puis il a disparu.<br>Vous direz que j'étais ivre, pourtant j'étais sobre ce jour-là !<br>
 2115940032|00000000|dlc_name_newreplacers|Custom Player Characters
 2115940033|00000000|option_dlc_name_newreplacers|MOD: Custom Player Characters
 2115940034|00000000|content_name_dlc_newreplacers|MOD: Custom Player Characters
@@ -588,3 +586,23 @@
 2115940366|00000000||3:1
 2115940367|00000000||4:1
 2115940368|00000000||1:0 (seulement attaques de roche)
+; -------------------------------
+2115940532|00000000||[CHEAT Magie Options]
+2115940531|00000000||CHEAT: Débloquer niveau de magie: 
+2115940530|00000000||CHEAT: Fixer le niveau maximum à tous les sorts
+2115940529|00000000||Mode d’apparence: [Equipement réel]
+2115940528|00000000||Mode d’apparence: [Customisable]
+2115940527|00000000||Equipement réel mode activé. Seul la tête, cheveux et divers peuvent être changer.
+2115940526|00000000||Manage spell damage (100 = 100%, default)
+2115940525|00000000||Spell damage
+2115940524|00000000||Manage player scale (100 = 100%)
+2115940523|00000000||Player scale
+2115940522|00000000||Neck transition
+2115940521|00000000||Visible
+2115940520|00000000||Invisible
+2115940316|00000000||Care for a round of gwent?
+2115940317|00000000||What's inside the chest by your bed?
+2115940318|00000000||Uh… Something personal. Please don't try to open it.
+2115940319|00000000||As you can see, there's more to learn from me than just magic…
+2115940320|00000000||Well done! As a mark of gratitude, you shall receive my best cards.
+2115940321|00000000||Taking pleasure in besting the elder?

@@ -354,7 +354,7 @@
 2115940194|00000000||Progreso de las habilidades mágicas.
 2115940193|00000000||¡Nuevo nivel de habilidad!
 ; Novice
-2115940209|00000000||Tienes habilidades mágicas básicas:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}:Presione el botón "Ataque rápido" (igual que para la espada) para realizar.<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br> Presione el botón "Parry" (igual que para la espada) para realizar.<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Presione los botones de movimiento (para controlar la dirección, opcional) + botón "Roll" (distancia lejana) / "Esquivar" (distancia cercana) para realizar.<br>  {1084067}:Presione los botones de movimiento (para controlar la dirección, opcional) + el botón "Ranura de consumibles 4" para realizar.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}:Seleccione <i>Quen</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>mantenga presionado</i> el botón "Transmitir señal" para realizar. Mantén presionado este botón nuevamente para disipar.<br><br>Tu nivel de magia aumentará a medida que el jugador suba de nivel.<br>Cuanto más uses la habilidad, más poderosa se vuelve y se desbloquean más habilidades.<br><i>Sigue la misión para encontrar <font color="#66ffcc">¡un profesor</font> y aprende nuevos hechizos!</i><br>
+2115940209|00000000||<font size="22">Tienes habilidades mágicas básicas:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}:Presione el botón "Ataque rápido" (igual que para la espada) para realizar.<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br> Presione el botón "Parry" (igual que para la espada) para realizar.<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Presione los botones de movimiento (para controlar la dirección, opcional) + botón "Roll" (distancia lejana) / "Esquivar" (distancia cercana) para realizar.<br>  {1084067}:Presione los botones de movimiento (para controlar la dirección, opcional) + el botón "Ranura de consumibles 4" para realizar.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}:Seleccione <i>Quen</i> (predeterminado, se puede cambiar en la escena de configuración del reproductor) y <i>mantenga presionado</i> el botón "Transmitir señal" para realizar. Mantén presionado este botón nuevamente para disipar.<br><br>Tu nivel de magia aumentará a medida que el jugador suba de nivel.<br>Cuanto más uses la habilidad, más poderosa se vuelve y se desbloquean más habilidades.<br><i>Sigue la misión para encontrar <font color="#66ffcc">¡un profesor</font> y aprende nuevos hechizos!</i><br></font>
 ; Apprentice
 2115940210|00000000||Estas lista para aprender nuevas habilidades mágicas:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font><br><font color="#ffff66"><b>- {2115940152} ({2115940156}, {2115940599})</b></font><br><font color="#ffff66"><b>- {2115940145}</b></font><br><br><i>Debes visitar al maestro Ainyerahn para aprenderlas.</i><br>
 ; Apprentice - heavy attacks learned
@@ -428,7 +428,7 @@
 2115940554|00000000||Cambiar hechizos
 2115940555|00000000||Mostrar ayuda
 2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">Los tipos básicos (Geralt, Ciri)</font> te permiten jugar como si el mod no estuviera instalado.<br> <font color="#00FF00">TODOS los tipos de jugadores personalizados</font> te permiten personalizar tu apariencia y nombre para mostrar. El progreso y el inventario de tu juego son siempre los mismos para cualquier tipo de jugador. Cuando juegas con cualquier tipo personalizado, puedes hacer todo lo que Geralt puede hacer (excepto el uso de espadas como <font color="#00FF00">Hechicera</font>).<br> <font color="#00FF00">Brujo</font > te permite jugar como Geralt.<br> <font color="#00FF00">Bruja</font> te permite jugar como Geralt, con animaciones femeninas adaptadas y voces procesadas por IA.<br> <font color="#00FF00">Hechicera</font> te permite jugar con animaciones femeninas redireccionadas, voces procesadas por IA y con un nuevo sistema de combate mágico. Para obtener poderes completos, sigue la misión después de seleccionar <font color="#00FF00">Hechicera</font>.<br> <i>NOTA:</i> <font color="#FF0000">NO desinstalar</ font> el mod después de guardar el juego con él, porque algunos datos relacionados con el mod se almacenan en su interior. Siempre puedes usar "Camaleón" y volver a <font color="#FFFF00">Geralt (vainilla)</font> para hacer las cosas como si el mod no estuviera instalado.<br> <font color="#FF0000">ADVERTENCIA </font>: si cambias a <font color="#FFFF00">Ciri (vainilla)</font> no podrás usar "Camaléon" y regresar a esta escena, ya que el inventario estará bloqueado. La única forma de regresar será usar el comando de consola "NRToGeralt" y luego usar "Camaleón" como de costumbre.<br>
-2115940557|00000000||<b>- {2115940565}</b>: tus conjuntos de apariencia (puedes guardar los actuales, cargar los guardados anteriormente)<br><br><b>- {2115940566}</b>: conjuntos de apariencias predefinidos de todos los NPC, en todas las variantes de color.<br><br> <b>- {2115940567}</b>: conjuntos predefinidos de todos los conjuntos de armaduras de Geralt, en todas las variantes de color. No cambies la cabeza ni el cabello del jugador en la mayoría de los casos.<br> Para los <font color="#00FF00">tipos de jugadoras</font> se utilizan modelos de armadura adaptados por Val aka Jo, así que asegúrate de haber instalado su mod: <font color="#9900CC">Female Geralt armor models</font>.<br><br><b>- {2115940568}</b>: cambia las ranuras de apariencia manualmente, para una configuración avanzada. Una de las formas de usarlo: borre todas las ranuras, luego elija cabeza, cabello, cuerpo/torso, brazos, manos, piernas, zapatos, luego elija elementos adicionales.<br><br><b>- Cambie las plantillas de apilamiento como elementos. </b>: para configuración avanzada, si desea aplicar 2 o más plantillas de la misma ranura (rara vez es necesario).<br><br><b>- Mostrar vista previa de los nombres de las partes del cuerpo</b>: para configuración avanzada, muestra los nombres de las plantillas de vista previa actuales.<br>
+2115940557|00000000||<font size="22"><b>- Appearance mode</b>: Full custom (default) - hides equipped armor and shows selected appearance, Real equipment - shows equipped armor, so only head, hair and misc items can be customized.<br><i>NOTE:</i> only for male (Witcher), female (Witcheress/Sorceress) - WIP.<br><br><b>- {2115940565}</b>: tus conjuntos de apariencia (puedes guardar los actuales, cargar los guardados anteriormente)<br><br><b>- {2115940566}</b>: conjuntos de apariencias predefinidos de todos los NPC, en todas las variantes de color.<br><br> <b>- {2115940567}</b>: conjuntos predefinidos de todos los conjuntos de armaduras de Geralt, en todas las variantes de color. No cambies la cabeza ni el cabello del jugador en la mayoría de los casos.<br> Para los <font color="#00FF00">tipos de jugadoras</font> se utilizan modelos de armadura adaptados por Val aka Jo, así que asegúrate de haber instalado su mod: <font color="#9900CC">Female Geralt armor models</font>.<br><br><b>- {2115940568}</b>: cambia las ranuras de apariencia manualmente, para una configuración avanzada. Una de las formas de usarlo: borre todas las ranuras, luego elija cabeza, cabello, cuerpo/torso, brazos, manos, piernas, zapatos, luego elija elementos adicionales.<br><br><b>- Cambie las plantillas de apilamiento como elementos. </b>: para configuración avanzada, si desea aplicar 2 o más plantillas de la misma ranura (rara vez es necesario).<br><br><b>- Mostrar vista previa de los nombres de las partes del cuerpo</b>: para configuración avanzada, muestra los nombres de las plantillas de vista previa actuales.<br></font>
 2115940558|00000000||Nombre para mostrar del jugador
 2115940559|00000000||Geralt (base)
 2115940560|00000000||Ciri (base)
@@ -487,10 +487,7 @@
 2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Barco flotante
 2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|Un barco rodeado de hielo, flotando en el aire debido a un poderoso flujo de magia.
 2115940533|00000000||Interactions hint - Sorceress
-2115940534|00000000||Use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>Use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
-2115940532|00000000||[CHEAT Magic Options]
-2115940531|00000000||CHEAT: Unlock magic level: 
-2115940530|00000000||CHEAT: Set maximum level to all spells
+2115940534|00000000||  Cast standart witcher signs (except Quen): <i>Hold</i> "Use" button [E] and <i>Press</i> "Cast Sign" button [Q].<br>  You can use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>  You can use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
 ; -------------------------------
 2115940000|00000000||Jugador
 2115940001|00000000||Jugador
@@ -586,3 +583,23 @@
 2115940366|00000000||3:1
 2115940367|00000000||4:1
 2115940368|00000000||1:0 (solo ataques de roca)
+; -------------
+2115940532|00000000||[CHEAT Magic Options]
+2115940531|00000000||CHEAT: Unlock magic level: 
+2115940530|00000000||CHEAT: Set maximum level to all spells
+2115940529|00000000||Appearance mode: [Real equipment]
+2115940528|00000000||Appearance mode: [Full custom]
+2115940527|00000000||<font color="#AAAA22">Real-equipment mode enabled.</font> Only head, hair and misc items can be changed.
+2115940526|00000000||Manage spell damage (100 = 100%, default)
+2115940525|00000000||Spell damage
+2115940524|00000000||Manage player scale (100 = 100%)
+2115940523|00000000||Player scale
+2115940522|00000000||Neck transition
+2115940521|00000000||Visible
+2115940520|00000000||Invisible
+2115940316|00000000||Care for a round of gwent?
+2115940317|00000000||What's inside the chest by your bed?
+2115940318|00000000||Uh… Something personal. Please don't try to open it.
+2115940319|||As you can see, there's more to learn from me than just magic…
+2115940320|||Well done! As a mark of gratitude, you shall receive my best cards.
+2115940321|||Taking pleasure in besting the elder?

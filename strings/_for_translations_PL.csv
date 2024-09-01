@@ -356,7 +356,7 @@
 2115940194|00000000||Postęp umiejętności magicznych.
 2115940193|00000000||Nowy poziom umiejętności!
 ; Novice
-2115940209|00000000||<font size="24">Posiadasz podstawowe umiejętności magiczne:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}: Aby wykonać atak, naciśnij przycisk „Szybki atak” (taki sam jak w przypadku miecza).<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br>  Aby wykonać cios, wciśnij przycisk „Parowanie” (taki sam jak w przypadku miecza).<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Naciśnij przyciski ruchu (aby kontrolować kierunek, opcjonalnie) + przycisk „Przewrót” (na dużą odległość) / „Unik” (na bliską odległość), aby wykonać.<br>  {1084067}: Naciśnij przyciski ruchu (aby sterować kierunkiem, opcjonalnie) + przycisk „Slot 4 w menu szybkiego wyboru”, aby wykonać.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}: Wybierz <i>Quen</i> (domyślnie, można je zmienić w menu konfiguracji gracza) i <i>przytrzymaj</i> Przycisk „Rzuć znak”, aby wykonać. Przytrzymaj ten przycisk ponownie, aby zakończyć działanie zaklęcia.<br><br>Twój magiczny poziom wzrośnie wraz z awansem gracza.<br>Im częściej używasz tej umiejętności, tym staje się ona potężniejsza i tym więcej umiejętności umiejętności zostaje odblokowanych.<br><i>Podążaj za zadaniem, aby znaleźć<font color="#66ffcc">Mistrza</font> i nauczyć się nowych zaklęć!</i><br></font>
+2115940209|00000000||<font size="22">Posiadasz podstawowe umiejętności magiczne:<br><font color="#ffff66"><b>- {2115940118} ({2115940122}, {2115940140}: {2115940141}/{2115940142}, {2115940168})</b></font><br>  {1077642}/{1084067}/{1076397}/{1084082}: Aby wykonać atak, naciśnij przycisk „Szybki atak” (taki sam jak w przypadku miecza).<br><br><font color="#ffff66"><b>- {2115940151}</b></font><br>  Aby wykonać cios, wciśnij przycisk „Parowanie” (taki sam jak w przypadku miecza).<br><br><font color="#ffff66"><b>- {2115940589}</b></font><br>  {1077642}: Naciśnij przyciski ruchu (aby kontrolować kierunek, opcjonalnie) + przycisk „Przewrót” (na dużą odległość) / „Unik” (na bliską odległość), aby wykonać.<br>  {1084067}: Naciśnij przyciski ruchu (aby sterować kierunkiem, opcjonalnie) + przycisk „Slot 4 w menu szybkiego wyboru”, aby wykonać.<br><br><font color="#ffff66"><b>- {2115940158}</b></font><br>  {2115940165}: Wybierz <i>Quen</i> (domyślnie, można je zmienić w menu konfiguracji gracza) i <i>przytrzymaj</i> Przycisk „Rzuć znak”, aby wykonać. Przytrzymaj ten przycisk ponownie, aby zakończyć działanie zaklęcia.<br><br>Twój magiczny poziom wzrośnie wraz z awansem gracza.<br>Im częściej używasz tej umiejętności, tym staje się ona potężniejsza i tym więcej umiejętności umiejętności zostaje odblokowanych.<br><i>Podążaj za zadaniem, aby znaleźć<font color="#66ffcc">Mistrza</font> i nauczyć się nowych zaklęć!</i><br></font>
 ; Apprentice
 2115940210|00000000||Jesteś gotowy, aby nauczyć się nowych magicznych umiejętności:<br><font color="#ffff66"><b>- {2115940146} ({2115940150}, {2115940149}, {2115940160})</b></font><br><font color="#ffff66"><b>- {2115940152} ({2115940156}, {2115940599})</b></font><br><font color="#ffff66"><b>- {2115940145}</b></font><br><br><i>Aby się ich nauczyć, musisz odwiedzić Mistrza Ainyerahna.</i><br>
 ; Apprentice - heavy attacks learned
@@ -430,7 +430,7 @@
 2115940554|00000000||Zmień zaklęcia czarodziejki
 2115940555|00000000||Pokaż informacje pomocy
 2115940556|00000000||<b>- {2115940551}</b>: <font color="#FFFF00">typy waniliowe (Geralt, Ciri)</font> pozwalają grać tak, jakby mod nie był zainstalowany.<br> <font color=" #00FF00">WSZYSTKIE niestandardowe typy odtwarzaczy</font> umożliwiają dostosowanie wyglądu i wyświetlanej nazwy. Twój postęp w grze i ekwipunek są zawsze takie same dla każdego typu gracza. Grając dowolnym typem niestandardowym, możesz robić wszystko, co potrafi Geralt (z wyjątkiem używania mieczy jako <font color="#00FF00">Czarodziejka</font>).<br> <font color="#00FF00">Wiedźmin</font > pozwala grać zupełnie jak Geralt.<br> <font color="#00FF00">Wiedźmin</font> pozwala grać zupełnie jak Geralt, z animacjami kobiecych Geraltów i mową kobiecych Geraltów przetwarzaną przez sztuczną inteligencję.<br> < Font color="#00FF00">Czarodziejka</font> umożliwia zabawę z animacjami żeńskiego Geralta, przetworzoną przez sztuczną inteligencję mową kobiecego Geralta oraz nowym magicznym systemem walki. Aby zdobyć pełne moce, wykonaj zadanie po wybraniu <font color="#00FF00">Czarodziejki</font>.<br> <i>UWAGA:</i> <font color="#FF0000">NIE odinstaluj</font czcionka> mod po zapisaniu gry, ponieważ w nim przechowywane są pewne dane związane z modami. Zawsze możesz użyć „Chameleona” i wrócić do <font color="#FFFF00">Geralta (waniliowy)</font>, aby wszystko wyglądało tak, jakby mod nie był zainstalowany.<br> <font color="#FF0000">OSTRZEŻENIE </font>: jeśli zmienisz na <font color="#FFFF00">Ciri (waniliowa)</font>, nie będziesz mógł użyć „Kameleona” i wrócić do tej sceny, ponieważ ekwipunek zostanie zablokowany. Jedynym sposobem na powrót będzie użycie polecenia konsoli „NRToGeralt”, a następnie użycie „Kameleona” w zwykły sposób.<br>
-2115940557|00000000||<b>- {2115940565}</b>: Twoje zestawy wyglądu (możesz zapisać bieżący, wczytać dowolne zapisane wcześniej)<br><br><b>- {2115940566}</b>: predefiniowane zestawy wyglądu od wszystkich NPC , we wszystkich wariantach kolorystycznych.<br><br><b>- {2115940567}</b>: predefiniowane zestawy ze wszystkich zestawów zbroi Geralta, we wszystkich wariantach kolorystycznych. W większości przypadków nie zmieniaj głowy ani włosów gracza.<br> W przypadku <font color="#00FF00">żeńskich typów graczy</font> używane są modele zbroi zaadaptowane przez Val alias Jo, więc upewnij się, że zainstalowałeś jej mod: <font color="#9900CC">Modele zbroi kobiecego Geralta</font>.<br><br><b>- {2115940568}</b>: ręczna zmiana miejsc wyglądu w celu zaawansowanej konfiguracji. Jeden ze sposobów użycia: wyczyść wszystkie miejsca, następnie wybierz głowę, włosy, ciało/tułów, ramiona, ręce, nogi, buty, a następnie wybierz dodatkowe przedmioty.<br><br><b>- Przełącz szablony układania jako przedmioty </b>: w przypadku konfiguracji zaawansowanej, jeśli chcesz zastosować 2 lub więcej szablonów z tego samego gniazda (rzadko wymagane).<br><br><b>- Pokaż nazwy części nadwozia w podglądzie</b>: w przypadku konfiguracji zaawansowanej, pokazuje nazwy bieżących szablonów podglądu.<br>
+2115940557|00000000||<font size="22"><b>- Appearance mode</b>: Full custom (default) - hides equipped armor and shows selected appearance, Real equipment - shows equipped armor, so only head, hair and misc items can be customized.<br><i>NOTE:</i> only for male (Witcher), female (Witcheress/Sorceress) - WIP.<br><br><b>- {2115940565}</b>: Twoje zestawy wyglądu (możesz zapisać bieżący, wczytać dowolne zapisane wcześniej)<br><br><b>- {2115940566}</b>: predefiniowane zestawy wyglądu od wszystkich NPC , we wszystkich wariantach kolorystycznych.<br><br><b>- {2115940567}</b>: predefiniowane zestawy ze wszystkich zestawów zbroi Geralta, we wszystkich wariantach kolorystycznych. W większości przypadków nie zmieniaj głowy ani włosów gracza.<br> W przypadku <font color="#00FF00">żeńskich typów graczy</font> używane są modele zbroi zaadaptowane przez Val alias Jo, więc upewnij się, że zainstalowałeś jej mod: <font color="#9900CC">Modele zbroi kobiecego Geralta</font>.<br><br><b>- {2115940568}</b>: ręczna zmiana miejsc wyglądu w celu zaawansowanej konfiguracji. Jeden ze sposobów użycia: wyczyść wszystkie miejsca, następnie wybierz głowę, włosy, ciało/tułów, ramiona, ręce, nogi, buty, a następnie wybierz dodatkowe przedmioty.<br><br><b>- Przełącz szablony układania jako przedmioty </b>: w przypadku konfiguracji zaawansowanej, jeśli chcesz zastosować 2 lub więcej szablonów z tego samego gniazda (rzadko wymagane).<br><br><b>- Pokaż nazwy części nadwozia w podglądzie</b>: w przypadku konfiguracji zaawansowanej, pokazuje nazwy bieżących szablonów podglądu.<br></font>
 2115940558|00000000||Wyświetlana nazwa gracza
 2115940559|00000000||Geralt (vanilla)
 2115940560|00000000||Ciri (vanilla)
@@ -489,10 +489,7 @@
 2115940536|00000000|map_location_newreplacers_snow_arena_center_ft|Pływający statek
 2115940535|00000000|map_description_newreplacers_snow_arena_center_ft|Statek otoczony lodem, unoszący się w powietrzu dzięki potężnemu przepływowi magii.
 2115940533|00000000||Interactions hint - Sorceress
-2115940534|00000000||Use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>Use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
-2115940532|00000000||[CHEAT Magic Options]
-2115940531|00000000||CHEAT: Unlock magic level: 
-2115940530|00000000||CHEAT: Set maximum level to all spells
+2115940534|00000000||Cast standart witcher signs (except Quen): <i>Hold</i> "Use" button [E] and <i>Press</i> "Cast Sign" button [Q].<br>  You can use {2115940151} instead of <font color="#87CEFA">Aard</font> when required.<br>  You can use {2115940118} ({2115940122}/{2115940141}) instead of <font color="#FF7F50">Igni</font> when required.
 ; ----------------------------------
 2115940000|00000000||Gracz
 2115940001|00000000||Gracz
@@ -588,3 +585,23 @@
 2115940366|00000000||3:1
 2115940367|00000000||4:1
 2115940368|00000000||1:0 (tylko ataki typu kamienie)
+; ---------------------
+2115940532|00000000||[CHEAT Magic Options]
+2115940531|00000000||CHEAT: Unlock magic level: 
+2115940530|00000000||CHEAT: Set maximum level to all spells
+2115940529|00000000||Appearance mode: [Real equipment]
+2115940528|00000000||Appearance mode: [Full custom]
+2115940527|00000000||<font color="#AAAA22">Real-equipment mode enabled.</font> Only head, hair and misc items can be changed.
+2115940526|00000000||Manage spell damage (100 = 100%, default)
+2115940525|00000000||Spell damage
+2115940524|00000000||Manage player scale (100 = 100%)
+2115940523|00000000||Player scale
+2115940522|00000000||Neck transition
+2115940521|00000000||Visible
+2115940520|00000000||Invisible
+2115940316|00000000||Care for a round of gwent?
+2115940317|00000000||What's inside the chest by your bed?
+2115940318|00000000||Uh… Something personal. Please don't try to open it.
+2115940319|||As you can see, there's more to learn from me than just magic…
+2115940320|||Well done! As a mark of gratitude, you shall receive my best cards.
+2115940321|||Taking pleasure in besting the elder?

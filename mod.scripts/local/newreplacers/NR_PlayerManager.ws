@@ -94,7 +94,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 	public 		var m_worldPosition : Vector;
 	public 		var m_worldRotation : EulerAngles;
 	protected 	var m_modVersion : int;
-	default  		m_modVersion = 301;  // v3.0.1
+	default  		m_modVersion = 302;  // v3.0.2
 
 	// for testing
 	public var m_debugObject : IScriptable;
@@ -562,8 +562,6 @@ statemachine class NR_PlayerManager extends IScriptable {
 		}
 		return false;
 	}
-
-
 
 	// scene (preview) stuff functions //
 	public function OnDialogOptionSelected(index : int) {
@@ -1183,7 +1181,7 @@ statemachine class NR_PlayerManager extends IScriptable {
 		
 		if ( IsPlayerTypeChangeLocked() ) {
 			str += NR_GetLocStringByIdExt(1066070);
-			str += "[" + IntToString(m_typeChangeLocks.Size()) + "]: " + m_typeChangeLocks[0];
+			str += " [" + IntToString(m_typeChangeLocks.Size()) + "]: " + m_typeChangeLocks[0];
 			for (i = 1; i < m_typeChangeLocks.Size(); i += 1) {
 				str += ", " + m_typeChangeLocks[i];
 			}

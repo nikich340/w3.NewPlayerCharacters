@@ -53,6 +53,11 @@ quest function NR_InitPlayerManager_Q() {
     return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerSorceress);
 }
 
+// true if player type is custom (Witcher/Witcheress/Sorceress)
+/* API */ quest function NR_IsPlayerCustom_Q() : bool {
+    return NR_GetPlayerManager().IsReplacerActive();
+}
+
 // true if NR mod version is >= minVersion (checking compability)
 /* API */ quest function NR_IsModVersionEqualOrHigher_Q(minVersion : int) : bool {
     return (NR_GetPlayerManager().GetModVersion() >= minVersion);

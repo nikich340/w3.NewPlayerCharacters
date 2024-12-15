@@ -37,19 +37,29 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 			return false;
 		
 		// NR_Debug("UnequipItemFromSlot: slot = " + slot + ", reequipped = " + reequipped);
-		/* IsInNonGameplayCutscene() - don't unequip armor for scenes (bath, barber etc) */
-		if ( IsInNonGameplayCutscene() ) {
+		/* IsInNonGameplayCutscene() - don't unequip armor for scenes (bath, barber etc) 
+		if (  IsInNonGameplayCutscene() ) {
 			NR_GetPlayerManager().UnmountEquipment();
 			// NR_Debug("UnequipItemFromSlot: slot = " + slot + ", ignoring (in scene).");
 			return false;
 		}
+		*/
 
 		if ( super.UnequipItemFromSlot(slot, reequipped) ) {
 			NR_GetPlayerManager().RemoveSavedItem( item );
+			if (  IsInNonGameplayCutscene() ) {
+				NR_GetPlayerManager().UnmountEquipment();
+			}
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	public function EquipItem(item : SItemUniqueId, optional slot : EEquipmentSlots, optional toHand : bool) : bool
+	{
+		NR_Debug("ReplacerWitcher: EquipItem: [" + NR_stringByItemUID(inv, item) + "] slot = " + slot + " , toHand = " + toHand);
+		return super.EquipItem(item, slot, toHand);
 	}
 
 	// EquipItem -> here
@@ -57,7 +67,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 	{
 		var ret : Bool;
 
-		// NR_Debug("EquipItemInGivenSlot: [" + NR_stringByItemUID(inv, item) + "] slot = " + slot + " ignoreMounting = " + ignoreMounting + ", toHand = " + toHand);
+		NR_Debug("ReplacerWitcher: EquipItemInGivenSlot: [" + NR_stringByItemUID(inv, item) + "] slot = " + slot + " ignoreMounting = " + ignoreMounting + ", toHand = " + toHand);
 		/*
 		if (slot == EES_Armor || slot == EES_Boots || slot == EES_Gloves || slot == EES_Pants) {
 			// NO! it breaks stats - use hiding components way
@@ -70,10 +80,7 @@ statemachine class NR_ReplacerWitcher extends W3PlayerWitcher {
 		}
 		ret = super.EquipItemInGivenSlot(item, slot, ignoreMounting, toHand);
 		NR_GetPlayerManager().UpdateSavedItem(item);
-
-		if ( IsInNonGameplayCutscene() ) {
-			NR_GetPlayerManager().UnmountEquipment();
-		}
+		NR_GetPlayerManager().UnmountEquipment();
 
 		return ret;
 	}

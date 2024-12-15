@@ -26,6 +26,17 @@ function StartNewGame()
 }
 
 
+// --- CPlayerInput ---
+@wrapMethod(CPlayerInput)
+function PushInventoryScreen()
+{
+	if ( !theInput.IsActionPressed('NRUse') )
+	{
+		wrappedMethod();
+	}
+}
+
+
 // --- CR4InventoryMenu ---
 @wrapMethod(CR4InventoryMenu)
 function OnClosingMenu()

@@ -111,7 +111,7 @@ exec function sspawn(id : int, optional friendly : Bool, optional notAdjust : Bo
 		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_elemental_dao_lvl3__ice_fixed.w2ent", true);
 	}
 	else if (id == 34) {
-		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_mq4006_ifryt_fixed.w2ent", true);
+		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_mq4006_ifryt_fixed_fireaura.w2ent", true);
 	}
 	else if (id == 35) {
 		template = (CEntityTemplate)LoadResource("dlc/dlcnewreplacers/data/entities/nr_q210_lab_golem_fixed.w2ent", true);
@@ -681,6 +681,7 @@ exec function nrline(id : int) {
 }
 
 // nrscene(quests\part_1\quest_files\q305_blanka\scenes\q305_08_the_play.w2scene, Act3_abe_pri)
+// nrscene(quests/part_1/quest_files/q103_daughter/scenes/q103_11b_baron_about_botch.w2scene, won)
 exec function nrscene(path : string, optional input : String) {
 	var scene      : CStoryScene;
 	scene = (CStoryScene)LoadResource(path, true);

@@ -79,6 +79,25 @@ function NR_EnterScenePreviewState(stateName : name)
     }
 }
 
+function NR_IsSceneInPreviewState() : bool
+{
+    var hud : CR4ScriptedHud;
+    var dialogModule : CR4HudModuleDialog;
+	var stateName : name;
+    
+    hud = (CR4ScriptedHud)theGame.GetHud();
+    
+    if (hud)
+    {
+        dialogModule = hud.GetDialogModule();
+        stateName = dialogModule.GetCurrentStateName();
+		if ( stateName == 'NR_ScenePreviewAppearance_DialogState' || stateName == 'NR_ScenePreviewSpells_DialogState' ) {
+			return true;
+		}
+    }
+	return false;
+}
+
 function NR_ExitScenePreviewState()
 {
     var hud : CR4ScriptedHud;

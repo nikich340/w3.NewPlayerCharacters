@@ -158,7 +158,6 @@ class NR_SwitchableAbilityMagicChoiceAction extends NR_FormattedLocChoiceAction
 }
 
 class NR_SwitchableOnPlayerTypeChoiceAction extends NR_FormattedLocChoiceAction {
-	editable var checkFact : bool;
 	editable var checkFactInverted : bool;
 	editable var factPrefix : String; // factPrefix + NR_GetPlayerManager().GetCurrentPlayerType()
 	
@@ -182,7 +181,7 @@ class NR_SwitchableOnPlayerTypeChoiceAction extends NR_FormattedLocChoiceAction 
 			// [locked]
 			text += "[" + GetLocStringById(1066070) + "]";
 		} else {
-			if ( checkFact ) {
+			if ( !checkFactInverted ) {
 				if ( FactsDoesExist(factPrefix + NR_GetPlayerManager().GetCurrentPlayerType()) ) {
 					// enabled
 					text += NR_GetLocStringByIdExt(enabledStringId);
@@ -190,7 +189,7 @@ class NR_SwitchableOnPlayerTypeChoiceAction extends NR_FormattedLocChoiceAction 
 					// disabled
 					text += NR_GetLocStringByIdExt(disabledStringId);
 				}
-			} else if ( checkFactInverted ) {
+			} else {
 				if ( FactsDoesExist(factPrefix + NR_GetPlayerManager().GetCurrentPlayerType()) ) {
 					// disabled
 					text += NR_GetLocStringByIdExt(disabledStringId);

@@ -84,7 +84,9 @@ class NR_AdvancedProjectile extends W3AdvancedProjectile
 		
 		action = new W3DamageAction in this;
 		action.Initialize( ( CGameplayEntity)caster, victim, this, caster.GetName(), EHRT_Light, CPS_SpellPower, false, true, false, false );
-		action.AddDamage( m_damageName, projDMG );
+		action.AddDamage( m_damageName, projDMG * 0.5f );
+		action.AddDamage( theGame.params.DAMAGE_NAME_SLASHING, projDMG * 0.25f );
+		action.AddDamage( theGame.params.DAMAGE_NAME_SILVER, projDMG * 0.25f );
 		
 		if ( projEfect != EET_Undefined )
 		{

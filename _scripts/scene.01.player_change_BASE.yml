@@ -478,14 +478,33 @@ dialogscript:
           emphasize: true
         - choice: ["2115940564|[Clear all slots and items]", script_clear_slotsitems_all]
           emphasize: true
-        - choice: ["2115940565|Saved appearance sets", section_choice_saved_sets]
+        - choice: ["2115940565|My appearance sets", section_branch_saved_sets1]
           emphasize: true
+        - choice: ["2115940528|Appearance mode: [Full custom]", script_switch_appearance_mode]
+          emphasize: true
+          condition: ["nr_real_equipment_mode", "<", 1]
+        - choice: ["2115940529|Appearance mode: [Real equipment]", script_switch_appearance_mode]
+          emphasize: true
+          condition: ["nr_real_equipment_mode", ">=", 1]
         - choice: ["2115940566|NPC appearance sets", section_trans_choice_npcs_main_to_itself]
           emphasize: true
         - choice: ["2115940567|Geralt armor sets", script_geralt_armor_sets]
           emphasize: true
         - choice: ["2115940568|Change slot templates (Appearance constuctor)", section_choice_slots_main]
           emphasize: true
+        - choice: ["2115940524|Manage player scale", script_set_player_scale]
+          emphasize: true
+        - choice: ["0001107617|.", script_switch_neck_transition]
+          emphasize: true
+          scriptAction:
+            .class: "NR_SwitchableOnPlayerTypeChoiceAction"
+            str: "{2115940522}: "
+            checkFactInverted: true
+            factPrefix: "nr_neck_hidden_"
+            enabledStringId: 2115940521  # visible
+            disabledStringId: 2115940520  # visible
+            allowedForVanilla: false
+
         - choice: ["2115940569|Switch stacking templates as items: [disabled]", script_switch_stacking]
           emphasize: true
           condition: ["nr_scene_stacking_as_items", "<", 1]
@@ -502,6 +521,13 @@ dialogscript:
           emphasize: true
         - choice: ["2115940555|Show help", script_show_appearance_help_info]
           emphasize: true
+          
+  section_branch_saved_sets1:
+    #- PAUSE: 0.0
+    - NEXT:
+        condition: [ "nr_quest_track_SexSetHelp2", ">=", 1 ]
+        on_true: section_choice_saved_sets
+        on_false: script_show_sex_set_help_info
 
   section_choice_saved_sets:
     - CHOICE:
@@ -515,6 +541,18 @@ dialogscript:
         - choice: ["2115940574|Remove appearance set", section_choice_saved_sets_remove]
           emphasize: true
           condition: ["nr_appearance_sets_female", ">=", 1]
+        - choice: ["0001107617|.", script_saved_sets_sex_switch]
+          emphasize: true
+          scriptAction:
+            .class: "NR_SwitchableOnPlayerTypeChoiceAction"
+            str: "{2115940322}: "
+            checkFactInverted: false
+            factPrefix: "nr_use_sex_set_"
+            enabledStringId: 2115940086  # enabled
+            disabledStringId: 2115940087  # disabled
+            allowedForVanilla: false
+        - choice: ["2115940324|Save current appearance as naked set", script_saved_sets_sex_update]
+          emphasize: true
 
   section_trans_choice_saved_sets_to_itself:
     - PAUSE: 0.0
@@ -523,6 +561,16 @@ dialogscript:
   script_user_sets_save:
     - SCRIPT:
         function: NR_UserSetsSave_S
+    - NEXT: section_trans_choice_saved_sets_to_itself
+    
+  script_saved_sets_sex_switch:
+    - SCRIPT:
+        function: NR_SexSetSwitch_S
+    - NEXT: section_trans_choice_saved_sets_to_itself
+    
+  script_saved_sets_sex_update:
+    - SCRIPT:
+        function: NR_SexSetUpdate_S
     - NEXT: section_trans_choice_saved_sets_to_itself
 
   section_choice_saved_sets_load:
@@ -1343,6 +1391,13 @@ dialogscript:
         parameter:
           - type: "AppearanceHelp"
     - NEXT: script_show_appearance_help_info2
+    
+  script_show_sex_set_help_info:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SexSetHelp2"
+    - NEXT: section_choice_saved_sets
 
   script_show_appearance_help_info2:
     - SCRIPT:
@@ -1377,6 +1432,20 @@ dialogscript:
 
   script_show_scene_help_info3:
     - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "SexSetHelp"
+    - NEXT: script_show_scene_help_info4
+
+  script_show_scene_help_info4:
+    - SCRIPT:
+        function: NR_ShowTutorial_S
+        parameter:
+          - type: "HotkeysHelp"
+    - NEXT: script_show_scene_help_info5
+
+  script_show_scene_help_info5:
+    - SCRIPT:
         function: NR_ShowAppearanceInfo_S
     - NEXT: section_trans_main_to_itself
 
@@ -1384,6 +1453,21 @@ dialogscript:
     - SCRIPT:
         function: NR_SwitchFemaleSpeech_S
     - NEXT: section_trans_main_to_itself
+
+  script_switch_appearance_mode:
+    - SCRIPT:
+        function: NR_SwitchAppearanceMode_S
+    - NEXT: section_trans_choice_player_appearance_to_itself
+
+  script_switch_neck_transition:
+    - SCRIPT:
+        function: NR_SwitchNeckTransitionVisibility_S
+    - NEXT: section_trans_choice_player_appearance_to_itself
+
+  script_set_player_scale:
+    - SCRIPT:
+        function: NR_ChoosePlayerScale_S
+    - NEXT: section_trans_choice_player_appearance_to_itself
 
   script_switch_stacking:
     - SCRIPT:

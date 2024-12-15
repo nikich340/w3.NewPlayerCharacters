@@ -54,8 +54,8 @@ quest function NR_InitPlayerManager_Q() {
 }
 
 // true if NR mod version is >= minVersion (checking compability)
-/* API */ quest function NR_IsModVersionEqualHigher_Q(minVersion : int) : bool {
-    return (NR_GetPlayerManager().GetCurrentPlayerType() == ENR_PlayerSorceress);
+/* API */ quest function NR_IsModVersionEqualOrHigher_Q(minVersion : int) : bool {
+    return (NR_GetPlayerManager().GetModVersion() >= minVersion);
 }
 
 // true if any stuff has locked player type change (in setup scene only, you still can change type with NR_ChangePlayerLatent_Q)
@@ -80,7 +80,7 @@ quest function NR_InitPlayerManager_Q() {
 }
 
 // saves current appearance set
-/* API */ quest function NR_SaveAppearanceSet_Q(headName : name) {
+/* API */ quest function NR_SaveAppearanceSet_Q() {
     NR_GetPlayerManager().SaveAppearanceSet();
 }
 

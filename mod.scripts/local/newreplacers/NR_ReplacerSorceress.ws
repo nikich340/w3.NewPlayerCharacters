@@ -21,7 +21,10 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	}
 
 	public function NR_GetInventoryTemplate() : String {
-		return "nr_replacer_sorceress_inv";
+		if (NR_GetPlayerManager().IsRealEquipmentModeEnabled())
+			return "nr_replacer_sorceress_armormode_inv";
+		else
+			return "nr_replacer_sorceress_inv";
 	}
 
 	public function NR_IsSlotDenied(slot : EEquipmentSlots) : bool
@@ -107,7 +110,6 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 		NR_Info("NR_ReplacerSorceress.ExterminateSwordStuff");
 		UnequipItemFromSlot(EES_SteelSword);
 		UnequipItemFromSlot(EES_SilverSword);
-		UnequipItemFromSlot(EES_Potion4);
 
 		inv.GetAllItems(ids);
 		for (i = 0; i < ids.Size(); i += 1) {
@@ -461,9 +463,9 @@ statemachine class NR_ReplacerSorceress extends NR_ReplacerWitcheress {
 	}
 
 	public function OnDestroying() {
+		NR_Info("NR_ReplacerSorceress: OnDestroying");
 		if (magicManager) {
-			magicManager.ForceStopAllActions();
-			magicManager.HandFX(false, true);
+			magicManager.OnDestroying();
 		}
 	}
 }

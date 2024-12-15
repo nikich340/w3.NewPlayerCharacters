@@ -2,7 +2,7 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 	protected var transformedCamera : CStaticCamera;
 	protected var RL, FB, inputX, inputY : float;
 	protected var sweepTestBumped, inAttackAction : bool;
-	protected var isRunPressed, isJumpPressed, isAttackPressed, isUsePressed, isPotion4Pressed : bool;
+	protected var isRunPressed, isJumpPressed, isAttackPressed, isUsePressed : bool;
 	protected var frameTime, attackCooldown, attackMaxCooldown : float;
 	protected var forwardSpeed, forwardTargetSpeed, forwardMaxSpeed, forwardAccelerateInSec : float;
 	protected var heightSpeed, heightTargetSpeed, heightMaxSpeed, heightAccelerateInSec : float;
@@ -246,7 +246,7 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 			heightTargetSpeed = 0.f;
 		}
 
-		if (sweepTestBumped /*|| isPotion4Pressed*/) {
+		if (sweepTestBumped) {
 			forwardTargetSpeed *= 0.5f;
 			rollTargetAngle *= 0.6f;
 			yawAngleChange *= 0.6f;
@@ -341,7 +341,6 @@ state NR_TransformedCrow in NR_ReplacerSorceress extends NR_TransformedBase {
 		isRunPressed = theInput.IsActionPressed( 'Sprint' );
 		isJumpPressed = theInput.IsActionPressed( 'Jump' );
 		isUsePressed = theInput.IsActionPressed( 'Use' );
-		// isPotion4Pressed = theInput.IsActionPressed( 'DrinkPotion4' );
 	}
 
 	timer function UpdateStaticCameraTimer( deltaTime : float, id : int ) {

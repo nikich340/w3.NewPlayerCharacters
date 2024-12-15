@@ -38,6 +38,10 @@ storyscene function NR_UserSetsRemove_S(player: CStoryScenePlayer, setIndex : in
 	NR_GetPlayerManager().ShowAppearanceInfo();
 }
 
+storyscene function NR_SexSetUpdate_S(player: CStoryScenePlayer) {
+	NR_GetPlayerManager().UpdateSexSet();
+}
+
 storyscene function NR_ShowAppearanceInfo_S(player: CStoryScenePlayer) {
 	NR_GetPlayerManager().ShowAppearanceInfo();
 }
@@ -83,6 +87,10 @@ storyscene function NR_SwitchAppearanceMode_S(player: CStoryScenePlayer) {
 storyscene function NR_SwitchNeckTransitionVisibility_S(player: CStoryScenePlayer) {
 	NR_GetPlayerManager().SetNeckTransitionVisible( !NR_GetPlayerManager().IsNeckTransitionVisible() );
 	NR_GetPlayerManager().ShowAppearanceInfo();
+}
+
+storyscene function NR_SexSetSwitch_S(player: CStoryScenePlayer) {
+	NR_GetPlayerManager().SetIsSexSetEnabled( !NR_GetPlayerManager().IsSexSetEnabled() );
 }
 
 latent storyscene function NR_ChoosePlayerScale_S(player: CStoryScenePlayer) {

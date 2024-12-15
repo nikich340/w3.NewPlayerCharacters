@@ -1910,7 +1910,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		}
 
 		if ( !parent.magicManager.IsActionLearned(actionType) ) {
-			thePlayer.DisplayHudMessage( NR_StrRed(GetLocStringById(2115940242) + ": ") + ENR_MAToLocString(actionType) );
+			NR_Notify( NR_StrRed(GetLocStringById(2115940242) + ": ") + ENR_MAToLocString(actionType), 2.f );
 			return;
 		}
 
@@ -1968,7 +1968,7 @@ state Combat in NR_ReplacerSorceress extends ExtendedMovable
 		ResetTimeToEndCombat();
 		// parent.magicManager.CorrectAspectAction( actionType, aspectName );
 		if ( !parent.magicManager.IsActionLearned(actionType) ) {
-			thePlayer.DisplayHudMessage( NR_StrRed(GetLocStringById(2115940242) + ": " + ENR_MAToLocString(actionType)) );
+			NR_Notify( NR_StrRed(GetLocStringById(2115940242) + ": " + ENR_MAToLocString(actionType)), 2.f );
 			return false;
 		}
 

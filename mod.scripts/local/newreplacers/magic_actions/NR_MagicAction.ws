@@ -487,9 +487,9 @@ abstract statemachine class NR_MagicAction {
 	}
 
 	function AddMagicDamage(damageAction : W3DamageAction, damageTotalVal : float) {
-		damageAction.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageTotalVal * 0.5f );
-		damageAction.AddDamage( theGame.params.DAMAGE_NAME_SLASHING, damageTotalVal * 0.25f );
-		damageAction.AddDamage( theGame.params.DAMAGE_NAME_SILVER, damageTotalVal * 0.25f );
+		damageAction.AddDamage( theGame.params.DAMAGE_NAME_ELEMENTAL, damageTotalVal * 0.3f );
+		damageAction.AddDamage( theGame.params.DAMAGE_NAME_SLASHING, damageTotalVal * 0.35f );
+		damageAction.AddDamage( theGame.params.DAMAGE_NAME_SILVER, damageTotalVal * 0.35f );
 	}
 
 	// [playerLevel - 2step, playerLevel - step, playerLevel, playerLevel + step, playerLevel + 2step]

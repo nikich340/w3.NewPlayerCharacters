@@ -14,7 +14,10 @@ statemachine class NR_ReplacerWitcheress extends NR_ReplacerWitcher {
 	}
 
 	public function NR_GetInventoryTemplate() : String {
-		return "nr_replacer_witcheress_inv";
+		if (NR_GetPlayerManager().IsRealEquipmentModeEnabled())
+			return "nr_replacer_witcheress_armormode_inv";
+		else
+			return "nr_replacer_witcheress_inv";
 	}
 	
 	/* from Ciri replacer class - fix sliding to target */

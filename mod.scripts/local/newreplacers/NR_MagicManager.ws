@@ -211,6 +211,8 @@ statemachine class NR_MagicManager extends IScriptable {
 		for (i = 0; i < mCooldowns.Size(); i += 1) {
 			mCooldowns[i] = -1.f;
 		}
+
+		RegisterListeners();
 	}
 
 	protected function LaunchPassiveActionsForSkillLevel(skillLevel : ENR_MagicSkillLevel) {
@@ -264,6 +266,19 @@ statemachine class NR_MagicManager extends IScriptable {
 				((NR_MagicSpecialAction)action).StopActionNoCurse();
 			}
 		}
+	}
+
+	public function RegisterListeners() {
+		theInput.RegisterListener(this, 'OnPerformExplorationTeleport', 'NRDodge');
+	}
+
+	public function UnregisterListeners() {
+		theInput.UnregisterListener(this, 'NRDodge');
+	}
+
+	event OnPerformExplorationTeleport(action : SInputAction) {
+		if ( IsPressed(action) )
+			NR_GetReplacerSorceress().GotoCombatStateWithDodge(EBAT_Roll);
 	}
 
 	public function PreviewAction(actionType : ENR_MagicAction, optional horse : bool, optional underwater : bool) : ENR_MagicAction {
@@ -1774,6 +1789,19 @@ statemachine class NR_MagicManager extends IScriptable {
 	public function IsActionLearning( type : ENR_MagicAction ) : bool {
 		return FactsQuerySum("nr_magic_learning_" + ENR_MAToName(type)) >= 1;
 	}
+	
+	public function IsSorceressTrainingCompleted() : bool {
+		if ( GetSkillLevel() == ENR_SkillArchMistress &&
+			 IsActionLearned(ENR_FastTravelTeleport) && IsActionLearned(ENR_SpecialShield) &&
+			 IsActionLearned(ENR_SpecialTornado) && IsActionLearned(ENR_SpecialControl) &&
+			 IsActionLearned(ENR_SpecialLightningFall) && IsActionLearned(ENR_SpecialField) &&
+			 IsActionLearned(ENR_SpecialMeteorFall) && IsActionLearned(ENR_SpecialPolymorphism) &&
+			 IsActionLearned(ENR_SpecialMeteor) && IsActionLearned(ENR_SpecialServant) &&
+			 IsActionLearned(ENR_HeavyAbstract) && IsActionLearned(ENR_SpecialWeatherChange) ) {
+			return true;
+		}
+		return false;
+	}
 
 	public function IsActionCustomizationUnlocked( type : ENR_MagicAction ) : bool {
 		//return FactsQuerySum("nr_skill_customization_" + ENR_MAToName(type)) >= 1;
@@ -2688,6 +2716,13 @@ statemachine class NR_MagicManager extends IScriptable {
 				return 'healing_red';
 		}
 	}
+
+	public function OnDestroying() {
+		NR_Info("NR_MagicManager: OnDestroying");
+		ForceStopAllActions();
+		HandFX(false, true);
+		UnregisterListeners();
+	}
 }
 
 state MagicLoop in NR_MagicManager {
@@ -2990,10 +3025,10 @@ state MagicLoop in NR_MagicManager {
 
 		stateName = thePlayer.GetCurrentStateName();
 		switch (stateName) {
-			case 'Exploration':
-				if ( theInput.IsActionJustPressed( 'DrinkPotion4' ) )
-					PerformExplorationTeleport();
-				break;
+			//case 'Exploration':
+			//	if ( theInput.IsActionJustPressed( 'NRDodge' ) )
+			//		PerformExplorationTeleport();
+			//	break;
 			// works badly
 			//case 'Combat':
 			//case 'JumpClimb':
@@ -3029,19 +3064,6 @@ state MagicLoop in NR_MagicManager {
 			}
 		}
 		return true;
-	}
-
-	latent function PerformExplorationTeleport() {
-		//var hold : bool;
-
-		//hold = CheckIsActionHeld('DrinkPotion4');
-		//if ( hold ) {
-		//	// NR_Debug("PerformExplorationTeleport: EBAT_Roll");
-		NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Roll );
-		//} else {
-		//	// NR_Debug("PerformExplorationTeleport: EBAT_Dodge");
-		//	NR_GetReplacerSorceress().GotoCombatStateWithDodge( EBAT_Dodge );
-		//}
 	}
 
 	latent function PerformCastInMove() {
@@ -3123,8 +3145,6 @@ state MagicLoop in NR_MagicManager {
 				thePlayer.ActionPlaySlotAnimationAsync( 'VEHICLE_SLOT', 'horse_magic_attack_idle_right_underhand', 0.3, 0.5 );
 		}
 	}
-	// horse: thePlayer.GetUsedHorseComponent().GetUserCombatManager()
-	//                   W3HorseComponent         
 }
 
 // !! QuenImpulse()

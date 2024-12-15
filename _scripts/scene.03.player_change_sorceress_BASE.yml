@@ -574,6 +574,8 @@ dialogscript:
 
         - choice: ["2115940587|Set spell voiceline chance", script_info_spell_voicelines]
           emphasize: true
+        - choice: ["2115940526|Mange spell damage", script_info_spell_damage]
+          emphasize: true
         - choice: ["2115940537|Set color for all actions per sign", section_choice_colors_per_sign]
           emphasize: true
 
@@ -592,7 +594,62 @@ dialogscript:
         - choice: ["2115940985|About my successes in practice…", script_show_spell_stats1]
           emphasize: true
           condition: ["nr_master_apprentice", ">=", 1]
+        - choice: ["2115940532|[CHEAT Magic Options]", section_comment_cheat_spells]
+          emphasize: true
+          condition: ["nr_master_apprentice", ">=", 1]
+  
+  section_comment_cheat_spells:
+    - sorceress: "2100016305|Hey, that's cheating!"
+    - NEXT: script_info_main2
+  
+  script_info_main2:
+    - SCRIPT:
+        function: NR_ShowMagicInfo_S
+        parameter:
+          - sectionName: CNAME_main
+    - NEXT: section_choice_cheat_spells
+  
+  section_choice_cheat_spells:
+    - CHOICE:
+        - choice: ["2115940103|[BACK]", script_info_main, exit]
+          emphasize: true
+        - choice: ["2115940201|CHEAT: Unlock magic level: Apprentice", script_cheat_unlock_magic_level]
+          emphasize: true
+          condition: ["nr_magic_skill_level", "=", 1]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: "{2115940531}"
+        - choice: ["2115940202|CHEAT: Unlock magic level: Experienced", script_cheat_unlock_magic_level]
+          emphasize: true
+          condition: ["nr_magic_skill_level", "=", 2]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: "{2115940531}"
+        - choice: ["2115940203|CHEAT: Unlock magic level: Mistress", script_cheat_unlock_magic_level]
+          emphasize: true
+          condition: ["nr_magic_skill_level", "=", 3]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: "{2115940531}"
+        - choice: ["2115940204|CHEAT: Unlock magic level: Grand Mistress", script_cheat_unlock_magic_level]
+          emphasize: true
+          condition: ["nr_magic_skill_level", "=", 4]
+          scriptAction:
+            .class: NR_FormattedLocChoiceAction
+            str: "{2115940531}"
+        - choice: ["2115940530|CHEAT: Set maximum level to all spells", script_cheat_set_max_levels]
+          emphasize: true
 
+  script_cheat_unlock_magic_level:
+    - SCRIPT:
+        function: NR_CHEAT_UnlockNextSkillLevel_S
+    - NEXT: section_comment_cheat_spells
+
+  script_cheat_set_max_levels:
+    - SCRIPT:
+        function: NR_CHEAT_SetMaxActionLevels_S
+    - NEXT: section_comment_cheat_spells
+  
   script_show_spell_stats1:
     - SCRIPT:
         function: NR_ShowMagicSkillStats_S

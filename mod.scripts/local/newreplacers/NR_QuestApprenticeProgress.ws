@@ -1,7 +1,7 @@
 latent quest function NR_TrackPlayerProgress_Q() : bool {
     var playerManager : NR_PlayerManager;
     var magicManager : NR_MagicManager;
-    var nextLevel : int;
+    var nextLevel, i : int;
     
     // in scene or not in game
     if ( !NR_IsPlayerFree() ) {
@@ -26,8 +26,8 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
         // set fact to avoid showing changelog on fresh installation
         FactsAdd("nr_quest_track_Update_v1_2_2", 1);
         FactsAdd("nr_quest_track_Update_v2_0_2", 1);
-        FactsAdd("nr_quest_track_Update_v2_3", 1);
         FactsAdd("nr_quest_track_Update_v2_3_1", 1);
+        FactsAdd("nr_quest_track_Update_v3_0", 1);
         return true;
     }
 
@@ -38,35 +38,36 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
         return true;
     }
 
-    // changelog - v1.2.2
+    // script fixes - v1.2.2
     if ( FactsQuerySum("nr_quest_track_Update_v1_2_2") < 1 ) {
-        NR_ShowTutorial( "Update_v1_2_2", /*fullscreen*/ true );
         if (FactsQuerySum("nr_master_apprentice") > 0)
             theGame.GetCommonMapManager().SetEntityMapPinDiscoveredScript(true, 'newreplacers_snow_arena_center_ft', true);
-        return true;
     }
 
-    // changelog - v2.0.2
+    // script fixes - v2.0.2
     if ( FactsQuerySum("nr_quest_track_Update_v2_0_2") < 1 ) {
-        NR_ShowTutorial( "Update_v2_0_2", /*fullscreen*/ true );
         NR_GetPlayerManager().SetPlayerScaleForType(ENR_PlayerWitcheress, 100);
         NR_GetPlayerManager().SetPlayerScaleForType(ENR_PlayerSorceress, 100);
         if ( NR_GetMagicManager() )
             NR_GetMagicManager().SetDefaults_DamageManual();
-        return true;
     }
 
-    // changelog - v2.3
-    if ( FactsQuerySum("nr_quest_track_Update_v2_3") < 1 ) {
-        NR_ShowTutorial( "Update_v2_3", /*fullscreen*/ true );
+    // changelog - v3.0
+    if ( FactsQuerySum("nr_quest_track_Update_v3_0") < 1 ) {
+		playerManager.InitSexSets();
+        NR_ShowTutorial( "Update_v3_0", /*fullscreen*/ true );
         return true;
     }
-
-    // changelog - v2.3.1
-    if ( FactsQuerySum("nr_quest_track_Update_v2_3_1") < 1 ) {
-        NR_ShowTutorial( "Update_v2_3_1", /*fullscreen*/ true );
+	
+	if ( FactsQuerySum("nr_quest_track_HotkeysHelp") < 1 ) {
+		NR_ShowTutorial( "HotkeysHelp", /*fullscreen*/ true );
         return true;
-    }
+	}
+	
+	if ( FactsQuerySum("nr_quest_track_SexSetHelp") < 1 ) {
+		NR_ShowTutorial( "SexSetHelp", /*fullscreen*/ true );
+        return true;
+	}
     
     // check Female speech installation
     // check DhuCats installation
@@ -104,6 +105,10 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
     if ( FactsQuerySum("nr_master_apprentice") < 1 ) {
         return false;
     }
+	
+	if ( FactsQuerySum("nr_reserved_update") < 1 ) {
+		FactsAdd("nr_reserved_update", 1);
+	}
 
     nextLevel = magicManager.GetSkillLevel() + 1;
     if ( magicManager.GetSkillLevel() < magicManager.GetPossibleSkillLevel() ) {
@@ -111,6 +116,11 @@ latent quest function NR_TrackPlayerProgress_Q() : bool {
         // show tutorial inside func ^
         return true;
     }
+	
+	if ( FactsQuerySum("nr_sorceress_training_completed") < 1 && magicManager.IsSorceressTrainingCompleted() ) {
+		FactsAdd("nr_sorceress_training_completed", 1);
+	}
+	// nr_sorceress_training_completed + nr_golem_crafting_success -> quest completed
 
     return false;
 }
@@ -173,67 +183,33 @@ latent function NR_ShowTutorial(type : String, fullscreen : bool, optional remin
     } else if (StrStartsWith(type, "Update")) {
         theSound.SoundEvent("gui_enchanting_socket_add");
         popupData.messageTitle = GetLocStringById(1084047);
-        if (type == "Update_v1_2_2") {
-            popupData.messageText += "<font color=\"#ffff00\">v1.2.2 changes:</font><br>";
-            popupData.messageText += "- fix: some wraiths did not react on Gravitational Field<br>";
-            popupData.messageText += "- fix: Lumos could not be disabled after switching to another color<br>";
-            popupData.messageText += "- fix: it was possible to open fast travel portal outside of exploration<br>";
-            popupData.messageText += "- fix: gameplay teleport made player invisible sometimes<br>";
-            popupData.messageText += "- fix: custom character from old save appeared in new game<br>";
-            popupData.messageText += "- fix: Reinald and Ofieri mage NPC sets (male characters)<br>";
-            popupData.messageText += "- improvement: default color for Lumos set to orange<br>";
-            popupData.messageText += "- improvement: added fast travel icon on the map to Master Ainyerahn<br>";
-            popupData.messageText += "- improvement: added fast-cheat learning spells in spells setup menu<br>";
-            popupData.messageText += "- support: Polish text translation by Antkoland<br>";
-            popupData.messageText += "- support: French text translation by Kniouky<br>";
-            popupData.messageText += "- support: Boat Races Quest (female speech)<br>";
-            popupData.messageText += "- support: Content Expansion - Time of the Sword and Axe (female speech)<br>";
-            popupData.messageText += "- support: Multi Companion Mod (female speech)<br>";
-            popupData.messageText += "- other fixes and improvements<br>";
-        } else if (type == "Update_v2_0_2") {
-            popupData.messageText += "<font color=\"#ffff00\">v2.0.2 changes:</font><br>";
-            popupData.messageText += "- fix: magic attacks now deals more damage to wraiths and block shadow form for a while.<br>";
-            popupData.messageText += "- fix: some heads (Djikstra, Baron) broke cutscenes.<br>";
-            popupData.messageText += "- fix (attemp #2): gameplay teleport made player invisible sometimes.<br>";
-            popupData.messageText += "- fix: Gravitational Field is now available on Experienced level (as intended).<br>";
-            popupData.messageText += "- fix: Alzur's Thunder and Melgar's fire now works as expected<br>";
-            popupData.messageText += "- improvement: new real-equipment mode: shows equipped armor on player (only for Witcher type, female types - WIP).<br>";
-            popupData.messageText += "- improvement: new fox appearances for cat Polymorphism.<br>";
-            popupData.messageText += "- improvement: Sorceress now can cast witcher signs, except Quen.<br>  (default Cast button [Q] while holding \"Use\" button [E]).<br>";
-            popupData.messageText += "- improvement: new damage settings in spell setup.<br>";
-            popupData.messageText += "- improvement: new player scale setting in appearance setup<br>";
-            popupData.messageText += "- support: Chinese text translation by GeraltOfZhongduCounty<br>";
-            popupData.messageText += "- support: Thai (replaces Turkish) text translation by maakinaocch (optional file)<br>";
-            popupData.messageText += "- support: Czech text translation by Lamecode0<br>";
-            popupData.messageText += "- support: Defiant Inquisitor Armor Set<br>";
-        } else if (type == "Update_v2_3") {
-            popupData.messageText += "<font color=\"#ffff00\">v2.3 changes:</font><br>";
-            popupData.messageText += "- fixed: Was not possible to beat peasants with a plank in Vlodimir quest<br>";
-            popupData.messageText += "- fixed: Wrong animations in some scenes with Vlodimir<br>";
-            popupData.messageText += "- fixed: Meteor spell on max spell level now creates 2 meteors<br>";
-            popupData.messageText += "- fixed: Ifryt servant hit player<br>";
-            popupData.messageText += "- improvement: female player using only adapted anims from Geralt in scenes now (no more pose changes)<br>";
-            popupData.messageText += "- improvement: ALL misc items now available for both male and female player<br>";
-            popupData.messageText += "- improvement: longer Servants' life<br>";
-            popupData.messageText += "- improvement: polymorphism form now stores in gamesave<br>";
-            popupData.messageText += "- improvement: switched some script changes to annotations form<br>";
-            popupData.messageText += "- improvement: reduced cheaty Pushing Wave knockdown duration<br>";
-            popupData.messageText += "- improvement: <font color=\"#00ff00\">updated speech for Sorceress quest</font> from real actors - fully replaces AI speech<br>";
-            popupData.messageText += "  Credits: <font color=\"#9999ff\">English - Solaine Angel 57, Russian - SieeleLushen</font><br>";
-            popupData.messageText += "- support: added Bruxa and Alp female appearances<br>";
-            popupData.messageText += "- support: neck transition visibility option<br>";
-            popupData.messageText += "- other small fixes<br>";
-            popupData.messageText += "- ALSO: <font color=\"#00ff00\">new female speeches for Geralt</font> [check it's mod page]<br>";
-            popupData.messageText += "  <font color=\"#9999ff\">English - Winter Scarlett, Russian - SieeleLushen</font><br>";
-        } else if (type == "Update_v2_3_1") {
-            popupData.messageText += "<font color=\"#ffff00\">v2.3.1 changes:</font><br>";
-            popupData.messageText += "- fixed: sometimes missed armor parts when switching back to Geralt<br>";
-            popupData.messageText += "- improvement: new dialog reactions on gwent outcomes for Master<br>";
+        if (type == "Update_v3_0") {
+            popupData.messageText += "<font color=\"#ffff00\">v3.0 changes:</font><br>";
+            popupData.messageText += "- fixed: correct weatness for all heads<br>";
+            popupData.messageText += "- fixed: missed (T-pose) anims during \"In the Eternal Fire's Shadow\" quest<br>";
+            popupData.messageText += "- improvement: better magic damage to ifryt enemies<br>";
+            popupData.messageText += "- improvement: shorter notify if spell not learned<br>";
+            popupData.messageText += "- improvement: switch player type with HOTKEY<br>";
+            popupData.messageText += "- improvement: switch player equipment mode with HOTKEY<br>";
+            popupData.messageText += "- improvement: switch player appearance with HOTKEYS<br>";
+            popupData.messageText += "- improvement: perform exploration teleport with HOTKEY (no more Potion 4 slot locked)<br>";
+            popupData.messageText += "- <font color=\"#00ff00\">new AI female voices</font> for Geralt (check nexusmods page)<br>";
+            popupData.messageText += "- <font color=\"#00ff00\">big improvement</font>: \"Real equipment\" appearance mode for female types (requires Geralt\'s Armors for Female Character)<br>";
+            popupData.messageText += "- <font color=\"#00ff00\">big improvement</font>: new \"naked set\" feature (only for Full custom mode)<br>";
+            popupData.messageText += "- <font color=\"#FFAA00\">please MAKE SURE</font> you have added new lines to input.settings file, to let new hotkeys work (check update instructions on nexusmods)<br>";
         }
     }
     else if (type == "SorceressInteractionHints2") {
         popupData.messageTitle = GetLocStringById(2115940533);
         popupData.messageText = NR_FormatLocString( GetLocStringById(2115940534) );
+    }
+    else if (type == "HotkeysHelp") {
+        popupData.messageTitle = GetLocStringById(397231);
+        popupData.messageText = NR_FormatLocString( GetLocStringById(2115940323) );
+    }
+    else if (type == "SexSetHelp" || type == "SexSetHelp2") {
+        popupData.messageTitle = GetLocStringById(397231);
+        popupData.messageText = NR_FormatLocString( GetLocStringById(2115940325) );
     }
     else if (type == "AppearanceHelp") {
         popupData.messageTitle = GetLocStringById(397231);
